@@ -28,7 +28,7 @@ namespace nt2
     BOOST_SIMD_CONSTANT_REGISTER( Pio2_3, double
                                 , 0, 0x2e85a300
                                 , 0x3BA3198A2E000000ll
-                                );
+                                )
   }
   /*!
     Constant used in modular computation involving \f$\pi\f$

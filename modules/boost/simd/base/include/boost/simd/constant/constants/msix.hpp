@@ -28,7 +28,7 @@ namespace boost { namespace simd
    **/
     BOOST_SIMD_CONSTANT_REGISTER( Msix, double, -6
                                 , 0xc0c00000UL, 0xc018000000000000ULL
-                                );
+                                )
   }
   /*!
     Generates value -6

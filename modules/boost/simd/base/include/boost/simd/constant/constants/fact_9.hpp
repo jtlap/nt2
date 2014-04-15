@@ -34,7 +34,7 @@ namespace boost { namespace simd
    **/
     BOOST_SIMD_CONSTANT_REGISTER( Fact_9,double
                                 , 362880, 0x48b13000,0x4116260000000000ll
-                                );
+                                )
   }
   /*!
     Generates 9! that is 362880,

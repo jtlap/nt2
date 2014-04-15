@@ -28,7 +28,7 @@ namespace boost { namespace simd
    **/
     BOOST_SIMD_CONSTANT_REGISTER( Pi, double, 3
                                 , 0x40490FDB, 0x400921FB54442D18ULL
-                                );
+                                )
   }
   /*!
     Generates value \f$\pi\f$ that is the half length of a circle of radius one

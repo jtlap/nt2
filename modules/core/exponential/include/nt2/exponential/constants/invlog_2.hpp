@@ -27,7 +27,7 @@ namespace nt2
     BOOST_SIMD_CONSTANT_REGISTER( Invlog_2, double
                                 , 1, 0x3fb8aa3b
                                 , 0x3ff71547652b82feLL
-                                );
+                                )
   }
   /*!
     Generates constant 1/log(2).

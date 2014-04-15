@@ -27,7 +27,7 @@ namespace nt2
     BOOST_SIMD_CONSTANT_REGISTER( Pio_180, double
                                 , 0, 0x3c8efa35
                                 , 0x3f91df46a2529d3all
-                                );
+                                )
   }
   /*!
     Constant \f$\frac\pi{180}\f$.

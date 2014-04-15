@@ -28,7 +28,7 @@ namespace boost { namespace simd
    **/
     BOOST_SIMD_CONSTANT_REGISTER( Meight, double, -8
                                 , 0xc1000000UL,0xc020000000000000ULL
-                                );
+                                )
   }
   /*!
     Generates value -8

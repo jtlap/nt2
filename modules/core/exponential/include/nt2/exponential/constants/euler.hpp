@@ -27,7 +27,7 @@ namespace nt2
     BOOST_SIMD_CONSTANT_REGISTER( Euler, double
                                 , 0, 0x3f13c468
                                 , 0x3fe2788cfc6fb619ll
-                                );
+                                )
   }
   /*!
     GeneratesEuler constant.

@@ -27,7 +27,7 @@ namespace nt2
     BOOST_SIMD_CONSTANT_REGISTER( Expnibig, double
                                 , 0, 0x4b800000         // 2^24
                                 , 0x4380000000000000ll  // 2^57
-                                );
+                                )
   }
   /*!
     Generates a constant used in expni.

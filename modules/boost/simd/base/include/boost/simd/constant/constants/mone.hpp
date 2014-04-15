@@ -28,7 +28,7 @@ namespace boost { namespace simd
    **/
     BOOST_SIMD_CONSTANT_REGISTER( Mone, double, -1
                                 , 0xbf800000UL, 0xbff0000000000000ULL
-                                );
+                                )
   }
   /*!
     Generates value -1

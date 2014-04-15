@@ -28,7 +28,7 @@ namespace boost { namespace simd
    **/
     BOOST_SIMD_CONSTANT_REGISTER( Twotom10, double, 0
                                 , 0x3A800000, 0x3F50000000000000ULL
-                                );
+                                )
   }
   /*!
     Generates 2 to the power -10 (\f$2^{-10}\f$)

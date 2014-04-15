@@ -28,7 +28,7 @@ namespace boost { namespace simd
    **/
     BOOST_SIMD_CONSTANT_REGISTER( Splitfactor, double, 0
                                 , 0x46000000, 0x41A0000000000000ULL
-                                );
+                                )
   }
   /*!
     Generates a constant used to split a floating number in two parts,

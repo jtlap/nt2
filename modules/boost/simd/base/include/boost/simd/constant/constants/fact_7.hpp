@@ -34,7 +34,7 @@ namespace boost { namespace simd
    **/
     BOOST_SIMD_CONSTANT_REGISTER( Fact_7,double
                                 , 5040, 0x459d8000, 0x40b3b00000000000ll
-                                );
+                                )
   }
   /*!
     Generates 7! that is 5040

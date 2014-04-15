@@ -28,7 +28,7 @@ namespace boost { namespace simd
    **/
     BOOST_SIMD_CONSTANT_REGISTER(Oneosqrteps,double,0
                                 , 0x453504f3UL
-                                , 0x4190000000000000ULL);
+                                , 0x4190000000000000ULL)
   }
   /*!
     Generates \f$1/\sqrt\epsilon\f$

@@ -27,7 +27,7 @@ namespace nt2
     BOOST_SIMD_CONSTANT_REGISTER( Powlowlim, double
                                 , 0, 0xc5160000UL //-2400
                                 , 0xc0d0c7c000000000ULL //-17183
-                                );
+                                )
   }
  /*!
     Generates constant powlowlim

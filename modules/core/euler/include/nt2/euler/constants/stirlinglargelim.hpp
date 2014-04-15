@@ -19,7 +19,7 @@ namespace nt2
     BOOST_SIMD_CONSTANT_REGISTER( Stirlinglargelim, double
                                 , 0, 0x420c28f3ll         // 35.0399895f
                                 , 0x4065800000000000ULL    // 172.0
-                                );
+                                )
   }
 
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(tag::Stirlinglargelim, Stirlinglargelim);

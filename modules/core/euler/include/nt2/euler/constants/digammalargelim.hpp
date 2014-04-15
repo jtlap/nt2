@@ -19,7 +19,7 @@ namespace nt2
     BOOST_SIMD_CONSTANT_REGISTER( Digammalargelim, double
                                 , 0, 0x41200000LL //10
                                 , 0x4034000000000000ULL //20
-                                );
+                                )
   }
 
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(tag::Digammalargelim, Digammalargelim);

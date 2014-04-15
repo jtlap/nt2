@@ -27,7 +27,7 @@ namespace nt2
     BOOST_SIMD_CONSTANT_REGISTER( Log_2, double
                                 , 0, 0x3f317218UL
                                 , 0x3fe62e42fefa39efULL
-                                );
+                                )
   }
  /*!
     Generates constant Log_2. (\f$\log(2)\f$)

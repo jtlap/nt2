@@ -19,7 +19,7 @@ namespace nt2
     BOOST_SIMD_CONSTANT_REGISTER( Stirlingsplitlim, double
                                 , 0, 0x41d628f6         // 26.77f
                                 , 0x4061e083ba3443d4ll  // 143.01608
-                                );
+                                )
   }
 
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(tag::Stirlingsplitlim, Stirlingsplitlim);

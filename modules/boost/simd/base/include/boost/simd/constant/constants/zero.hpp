@@ -26,7 +26,7 @@ namespace boost { namespace simd
      @par Models:
         Hierarchy
    **/
-    BOOST_SIMD_CONSTANT_REGISTER( Zero, double , 0, 0, 0 );
+    BOOST_SIMD_CONSTANT_REGISTER( Zero, double , 0, 0, 0 )
   }
   /*!
     Generates value 0

@@ -27,7 +27,7 @@ namespace nt2
     BOOST_SIMD_CONSTANT_REGISTER( Minlog2, double
                                 , 0, 0xc2fe0000UL
                                 , 0xc08ff00000000000ULL
-                                );
+                                )
   }
   /*!
     Generates constant Minlog2 used in logarithm/exponential computations

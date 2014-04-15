@@ -28,7 +28,7 @@ namespace boost { namespace simd
    **/
     BOOST_SIMD_CONSTANT_REGISTER( Maxflint , double, 1
                                 , 0x4b800000, 0x4340000000000000ll
-                                );
+                                )
   }
   /*!
     Generates the least integer value which is exactly

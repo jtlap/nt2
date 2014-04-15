@@ -27,7 +27,7 @@ namespace nt2
     BOOST_SIMD_CONSTANT_REGISTER( Maxlog10, double
                                 , 0, 0x4218ec59UL
                                 , 0x40734413509f79feULL
-                                );
+                                )
   }
   /*!
     Generates constant Maxlog10 used in logarithm/exponential computations

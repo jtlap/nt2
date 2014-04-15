@@ -28,7 +28,7 @@ namespace boost { namespace simd
    **/
     BOOST_SIMD_CONSTANT_REGISTER( Mhalf, double, 0
                                 , 0xBF000000, 0xBFE0000000000000ULL
-                                );
+                                )
   }
   /*!
     Generates value -\f$\frac12\f$

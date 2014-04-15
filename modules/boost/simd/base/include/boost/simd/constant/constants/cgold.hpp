@@ -26,7 +26,7 @@ namespace boost { namespace simd
      @par Models:
         Hierarchy
    **/
-    BOOST_SIMD_CONSTANT_REGISTER(Cgold,double,0,0x3EC3910D,0x3FD8722191A02D61ULL);
+    BOOST_SIMD_CONSTANT_REGISTER(Cgold,double,0,0x3EC3910D,0x3FD8722191A02D61ULL)
   }
   /*!
     Generates the conjugate golden ration that is\f$\bar\phi = \frac{1-\sqrt5}{2}\f$

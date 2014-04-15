@@ -27,7 +27,7 @@ namespace nt2
     BOOST_SIMD_CONSTANT_REGISTER( Deginrad, double
                                 , 0, 0x3c8efa35
                                 , 0x3f91df46a2529d39ll
-                                );
+                                )
   }
   /*!
     Constant radian in Degree multiplier, \f$\frac{180}\pi\f$.

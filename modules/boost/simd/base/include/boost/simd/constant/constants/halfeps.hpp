@@ -28,7 +28,7 @@ namespace boost { namespace simd
    **/
     BOOST_SIMD_CONSTANT_REGISTER( Halfeps, double, 1
                                 , 0x33800000, 0x3CA0000000000000ULL
-                                );
+                                )
   }
   /*!
     Generates the  machine epsilon.

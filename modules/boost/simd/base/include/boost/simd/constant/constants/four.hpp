@@ -28,7 +28,7 @@ namespace boost { namespace simd
    **/
     BOOST_SIMD_CONSTANT_REGISTER( Four,double
                                 , 4,0x40800000UL,0x4010000000000000ULL
-                                );
+                                )
   }
   /*!
      Generates value 4 in the chosen type

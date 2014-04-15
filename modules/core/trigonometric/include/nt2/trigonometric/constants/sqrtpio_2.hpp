@@ -27,7 +27,7 @@ namespace nt2
     BOOST_SIMD_CONSTANT_REGISTER( Sqrtpio_2, double
                                 , 0, 0x3f62dfc5
                                 , 0x3fec5bf891b4ef6bll
-                                );
+                                )
   }
   /*!
     Constant Sqrtpio_2 : \f$\frac{\sqrt2}{\pi}\f$.

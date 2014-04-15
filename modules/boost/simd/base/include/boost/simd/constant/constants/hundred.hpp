@@ -28,7 +28,7 @@ namespace boost { namespace simd
    **/
     BOOST_SIMD_CONSTANT_REGISTER( Hundred,double
                                 , 100, 0x42c80000, 0x4059000000000000ll
-                                );
+                                )
   }
   /*!
     Generates the value 100 in the chosen type

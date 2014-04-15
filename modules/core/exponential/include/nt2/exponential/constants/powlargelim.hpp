@@ -27,7 +27,7 @@ namespace nt2
     BOOST_SIMD_CONSTANT_REGISTER( Powlargelim, double
                                 , 0, 0x45000000UL //2048
                                 , 0x40cfff8000000000ULL //16383
-                                );
+                                )
   }
  /*!
     Generates constant powlargelim

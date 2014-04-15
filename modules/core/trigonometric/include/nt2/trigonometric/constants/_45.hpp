@@ -27,7 +27,7 @@ namespace nt2
     BOOST_SIMD_CONSTANT_REGISTER( _45, double
                                 , 45, 0x42340000
                                 , 0x4046800000000000ll
-                                );
+                                )
   }
   /*!
     Constant 45.

@@ -28,7 +28,7 @@ namespace boost { namespace simd
    **/
     BOOST_SIMD_CONSTANT_REGISTER( Oneo_10, double, 0
                                 , 0x3dcccccd, 0x3fb999999999999all
-                                );
+                                )
   }
   /*!
     Generates value 1/10

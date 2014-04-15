@@ -28,7 +28,7 @@ namespace boost { namespace simd
    **/
     BOOST_SIMD_CONSTANT_REGISTER( Sqrtsmallestposval , double, 1
                                 , 0x20000000, 0x2000000000000000ll
-                                );
+                                )
   }
   /*!
     Generates the square root of the least non zero positive

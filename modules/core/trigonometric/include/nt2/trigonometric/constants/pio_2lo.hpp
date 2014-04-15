@@ -27,7 +27,7 @@ namespace nt2
     BOOST_SIMD_CONSTANT_REGISTER( Pio_2lo, double
                                 , 0, 0xb33bbd2eUL
                                 , 0x3c91a62633145c07ULL
-                                );
+                                )
   }
   /*!
     This constant is such that, for pairs of types (T, Tup)

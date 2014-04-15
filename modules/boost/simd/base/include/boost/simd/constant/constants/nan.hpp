@@ -29,7 +29,7 @@ namespace boost { namespace simd
    **/
     BOOST_SIMD_CONSTANT_REGISTER( Nan, double, 0
                                 , 0xFFFFFFFF, 0xFFFFFFFFFFFFFFFFULL
-                                );
+                                )
   }
   /*!
     Generates IEEE Nan (not a number) for floating point types.

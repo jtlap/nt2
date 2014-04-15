@@ -28,7 +28,7 @@ namespace boost { namespace simd
    **/
     BOOST_SIMD_CONSTANT_REGISTER( Smallestposval , double, 1
                                 , 0x00800000, 0x0010000000000000ULL
-                                );
+                                )
 
   }
   /*!

@@ -27,7 +27,7 @@ namespace nt2
     BOOST_SIMD_CONSTANT_REGISTER( Radindeg, double
                                 , 57, 0x42652ee1
                                 , 0x404ca5dc1a63c1f8ll
-                                );
+                                )
   }
   /*!
     Constant Radindeg : Degree in Radian multiplier, \f$\frac{180}\pi\f$.

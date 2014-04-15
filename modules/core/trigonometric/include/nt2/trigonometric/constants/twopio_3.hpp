@@ -27,7 +27,7 @@ namespace nt2
     BOOST_SIMD_CONSTANT_REGISTER( Twopio_3, double
                                 , 0, 0x40060a92LL
                                 , 0x4000c152382d7366ULL
-                                );
+                                )
   }
   /*!
     Constant \f$2\frac\pi{3}\f$.

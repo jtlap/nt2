@@ -73,7 +73,7 @@ namespace boost { namespace simd { namespace ext
                                , (generic_< unspecified_<A0> >)
                                  (target_< generic_< unspecified_<A1> > >)
                                , dispatch::identity
-                               );
+                               )
 
 } } }
 #endif

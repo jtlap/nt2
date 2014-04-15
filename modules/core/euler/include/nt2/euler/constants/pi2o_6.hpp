@@ -34,7 +34,7 @@ namespace nt2
     BOOST_SIMD_CONSTANT_REGISTER( Pi2o_6, double
                                 , 2, 0x3fd28d33LL
                                 , 0x3ffa51a6625307d3ULL
-                                );
+                                )
   }
   /*!
     Generates \f$ \pi^2/6\f$

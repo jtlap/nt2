@@ -28,7 +28,7 @@ namespace boost { namespace simd
    **/
     BOOST_SIMD_CONSTANT_REGISTER( Moneo_6, double, 0, 0xBE2AAAAB
                                 , 0xBFC5555555555555LL
-                                );
+                                )
   }
   /*!
     Generates value 1/6

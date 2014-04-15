@@ -27,7 +27,7 @@ namespace nt2
     BOOST_SIMD_CONSTANT_REGISTER( Exp_1, double
                                 , 2, 0x402df854
                                 , 0x4005bf0a8b145769LL
-                                );
+                                )
   }
   /*!
     Generates constant e.

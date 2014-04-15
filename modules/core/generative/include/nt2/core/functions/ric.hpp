@@ -30,7 +30,7 @@ namespace nt2
       Define a hierarchizable Tag representing the ric function in generic
       contexts.
     **/
-    BOOST_SIMD_CONSTANT_REGISTER( ric_, double , 0, 0, 0 );
+    BOOST_SIMD_CONSTANT_REGISTER( ric_, double , 0, 0, 0 )
   }
 
   #define M0(z,n,t)                                   \

@@ -27,7 +27,7 @@ namespace nt2
     BOOST_SIMD_CONSTANT_REGISTER( Inv2pi, double
                                   , 0, 0x3e22f983
                                   , 0x3fc45f306dc9c883ll
-                                  );
+                                  )
   }
   /*!
     Constant \f$\frac1\pi\f$.

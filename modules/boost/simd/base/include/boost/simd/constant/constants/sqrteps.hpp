@@ -28,7 +28,7 @@ namespace boost { namespace simd
    **/
     BOOST_SIMD_CONSTANT_REGISTER( Sqrteps, double, 1
                                 , 0x39B504F3, 0x3E50000000000000ULL
-                                );
+                                )
   }
   /*!
     Generate square root of constant Eps

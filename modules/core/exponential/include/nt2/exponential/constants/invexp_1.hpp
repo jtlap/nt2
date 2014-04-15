@@ -26,7 +26,7 @@ namespace nt2
     BOOST_SIMD_CONSTANT_REGISTER( Invexp_1, double
                                 , 0, 0x3ebc5ab2
                                 , 0x3fd78b56362cef38ll
-                                );
+                                )
   }
   /*!
     Generates constant 1/e.

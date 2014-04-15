@@ -28,7 +28,7 @@ namespace boost { namespace simd
    **/
     BOOST_SIMD_CONSTANT_REGISTER( Thirdrooteps, double, 1
                                 , 0x3BA14518, 0x3ED965FEA53D6E42ULL
-                                );
+                                )
   }
   /*!
     Generates the cubic root of Eps

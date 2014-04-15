@@ -27,7 +27,7 @@ namespace nt2
     BOOST_SIMD_CONSTANT_REGISTER( Log10_2lo, double
                                 , 0, 0x39826a14UL  //2.4874569E-4f
                                 , 0x3ed3509f79fef312ULL // 0.000004605038981195214
-                                );
+                                )
   }
  /*!
     Generates constant log10_2lo.This constant is coupled with Log10_2hi and is

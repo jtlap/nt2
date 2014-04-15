@@ -28,7 +28,7 @@ namespace boost { namespace simd
    **/
     BOOST_SIMD_CONSTANT_REGISTER( Mzero, double, 0
                                 , 0x80000000, 0x8000000000000000ULL
-                                );
+                                )
   }
   /*!
     Generates value -0

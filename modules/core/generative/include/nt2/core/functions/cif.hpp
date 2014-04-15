@@ -34,7 +34,7 @@ namespace nt2
     **/
     BOOST_SIMD_CONSTANT_REGISTER( cif_, double
                                 , 1, 0x3f800000UL, 0x3ff0000000000000ULL
-                                );
+                                )
   }
 
   #if defined(DOXYGEN_ONLY)

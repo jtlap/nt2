@@ -27,7 +27,7 @@ namespace nt2
      BOOST_SIMD_CONSTANT_REGISTER( Expx2c1, double
                                 , 0, 0x42000000
                                 , 0x4060000000000000ll
-                                );
+                                )
   }
   /*!
     Generates a costant used in expx2.

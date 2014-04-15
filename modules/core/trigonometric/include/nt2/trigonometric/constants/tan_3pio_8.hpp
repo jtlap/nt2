@@ -27,7 +27,7 @@ namespace nt2
     BOOST_SIMD_CONSTANT_REGISTER( Tan_3pio_8, double
                                 , 0, 0x401a827aUL
                                 , 0x4003504f333f9de6ULL
-                                );
+                                )
   }
   /*!
     Constant \f$\tan3\frac\pi{8} = \sqrt2 + 1\f$.

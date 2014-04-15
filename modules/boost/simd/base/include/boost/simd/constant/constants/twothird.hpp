@@ -29,7 +29,7 @@ namespace boost { namespace simd
     BOOST_SIMD_CONSTANT_REGISTER( Twothird, double, 0
                                 , 0x3f2aaaabUL
                                 , 0x3fe5555555555555ULL
-                                );
+                                )
   }
   /*!
     Generates value 2/3

@@ -27,7 +27,7 @@ namespace nt2
     BOOST_SIMD_CONSTANT_REGISTER( Pix_4, double
                                 , 12, 0x41490fdb
                                 , 0x402921fb54442d18ll
-                                );
+                                )
   }
   /*!
     Constant \f$4\pi\f$.

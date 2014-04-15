@@ -28,7 +28,7 @@ namespace boost { namespace simd
    **/
     BOOST_SIMD_CONSTANT_REGISTER( Fact_4,double
                                 , 24, 0x41c00000, 0x4038000000000000ll
-                                );
+                                )
   }
   /*!
     Generates 4! that is 24

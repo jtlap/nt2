@@ -27,7 +27,7 @@ namespace nt2
     BOOST_SIMD_CONSTANT_REGISTER( Mlog2two2nmb, double
                                 , 0, 0xc1b80000UL
                                 , 0xc04a800000000000ULL
-                                );
+                                )
   }
  /*!
     Generates constant Mlog2two2nmb.

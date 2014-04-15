@@ -28,7 +28,7 @@ namespace boost { namespace simd
    **/
     BOOST_SIMD_CONSTANT_REGISTER( Logeps, double, 1
                                 , 0xc17f1402UL, 0xc04205966f2b4f19ULL
-                                );
+                                )
   }
   /*!
     Generates the  logarithm of the machine epsilon.

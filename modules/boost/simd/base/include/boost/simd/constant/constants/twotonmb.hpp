@@ -28,7 +28,7 @@ namespace boost { namespace simd
    **/
     BOOST_SIMD_CONSTANT_REGISTER( Twotonmb, double, 0
                                 , 0x4B000000, 0x4330000000000000ULL
-                                );
+                                )
   }
   /*!
     Generates two to the number of mantissa bits.

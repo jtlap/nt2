@@ -27,7 +27,7 @@ namespace nt2
     BOOST_SIMD_CONSTANT_REGISTER( Medium_pi, double
                                 , 201, 0x43490fdb       //2^6/pi
                                 , 0x412921fb54442d18ll  //2^{18}/pi
-                                );
+                                )
   }
   /*!
     Constant used in trigonometric reductions

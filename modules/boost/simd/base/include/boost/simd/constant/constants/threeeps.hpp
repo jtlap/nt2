@@ -28,7 +28,7 @@ namespace boost { namespace simd
    **/
     BOOST_SIMD_CONSTANT_REGISTER( Threeeps, double, 3
                                 , 0x34C00000, 0x3CC8000000000000ULL
-                                );
+                                )
   }
   /*!
     Generate a value equal to 3 times Eps of the chosen type

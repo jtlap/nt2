@@ -28,7 +28,7 @@ namespace boost { namespace simd
    **/
     BOOST_SIMD_CONSTANT_REGISTER( Fifteen,double
                                 , 15,0x41700000,0x402e000000000000ll
-                                );
+                                )
   }
   /*!
     Generates value 15 in the chosen type

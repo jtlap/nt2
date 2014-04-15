@@ -32,7 +32,7 @@ namespace nt2
       @par Models:
       Hierarchy
     **/
-    BOOST_SIMD_CONSTANT_REGISTER( cic_, double , 0, 0, 0 );
+    BOOST_SIMD_CONSTANT_REGISTER( cic_, double , 0, 0, 0 )
   }
 
   #define M0(z,n,t)                                                            \

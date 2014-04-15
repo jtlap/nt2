@@ -28,7 +28,7 @@ namespace boost { namespace simd
    **/
     BOOST_SIMD_CONSTANT_REGISTER( Mantissamask,double
                                 , 0,0x807FFFFFUL,0x800FFFFFFFFFFFFFULL
-                                );
+                                )
   }
   /*!
     Generates a mask used to compute the mantissa of a floating point value

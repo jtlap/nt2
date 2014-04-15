@@ -28,7 +28,7 @@ namespace boost { namespace simd
    **/
     BOOST_SIMD_CONSTANT_REGISTER( Gold,double,1
                                 , 0x3FCF1BBD,0x3FF9E3779B97F4A8ULL
-                                );
+                                )
   }
   /*!
     Generates the golden ratio that is \f$\phi = \frac{1+\sqrt5}{2}\f$

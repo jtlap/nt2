@@ -28,7 +28,7 @@ namespace boost { namespace simd
    **/
     BOOST_SIMD_CONSTANT_REGISTER( Five,double
                                 , 5,0x40a00000UL,0x4014000000000000ULL
-                                );
+                                )
   }
   /*!
      Generates value 5 in the chosen type

@@ -28,7 +28,7 @@ namespace nt2
     BOOST_SIMD_CONSTANT_REGISTER( Threepio_4, double
                                 , 2, 0x4016cbe4
                                 , 0x4002d97c7f3321d2ll
-                                );
+                                )
   }
   /*!
     Constant threepio_4 : \f$3\pi/4\f$.

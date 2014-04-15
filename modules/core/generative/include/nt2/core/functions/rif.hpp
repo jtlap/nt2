@@ -32,7 +32,7 @@ namespace nt2
     **/
     BOOST_SIMD_CONSTANT_REGISTER( rif_, double
                                 , 1, 0x3f800000UL, 0x3ff0000000000000ULL
-                                );
+                                )
   }
 
   #define M0(z,n,t)                                   \

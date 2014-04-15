@@ -28,7 +28,7 @@ namespace boost { namespace simd
    **/
     BOOST_SIMD_CONSTANT_REGISTER( Log10_pi, double, 3
                                   , 0x3efe8a6e, 0x3fdfd14db31ba3bbll
-                                  );
+                                  )
   }
   /*!
     Generates base ten logarithm of pi used in pispace (\f$\log(\pi)\f$)

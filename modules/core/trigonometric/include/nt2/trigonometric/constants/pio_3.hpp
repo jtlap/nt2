@@ -27,7 +27,7 @@ namespace nt2
     BOOST_SIMD_CONSTANT_REGISTER( Pio_3, double
                                 , 0, 0x3f860a92LL
                                 , 0x3ff0c152382d7366ULL
-                                );
+                                )
   }
   /*!
     Constant \f$\frac\pi{3}\f$.

@@ -27,7 +27,7 @@ namespace nt2
     BOOST_SIMD_CONSTANT_REGISTER( Oneo_90, double
                                 , 0, 0x3c360b61         //1/90
                                 , 0x3f86c16c16c16c17ll  //1/90
-                                );
+                                )
   }
   /*!
     Constant 1/90

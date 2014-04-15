@@ -28,7 +28,7 @@ namespace boost { namespace simd
    **/
     BOOST_SIMD_CONSTANT_REGISTER( Mfive, double, -5
                                 , 0xc0a00000UL,0xc014000000000000ULL
-                                );
+                                )
   }
   /*!
     Generates value -5

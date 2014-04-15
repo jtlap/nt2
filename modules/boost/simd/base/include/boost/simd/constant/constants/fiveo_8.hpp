@@ -29,7 +29,7 @@ namespace boost { namespace simd
     BOOST_SIMD_CONSTANT_REGISTER( Fiveo_8, double, 0
                                 , 0x3f200000UL
                                 , 0x3fe4000000000000ULL
-                                );
+                                )
   }
   /*!
     Generates value 5/8 = 0.625

@@ -33,7 +33,7 @@ namespace boost { namespace simd
    **/
     BOOST_SIMD_CONSTANT_REGISTER( Twoto31, double, (1 << 31)
                                 , 0x4f000000, 0x41e0000000000000LL
-                                );
+                                )
   }
   /*!
     Generates 2 to the power 31 (\f$2^{31}\f$)

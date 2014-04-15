@@ -26,7 +26,7 @@ namespace boost { namespace simd
      @par Models:
         Hierarchy
    **/
-    BOOST_SIMD_CONSTANT_REGISTER(Half,double,0,0x3F000000,0x3FE0000000000000ULL);
+    BOOST_SIMD_CONSTANT_REGISTER(Half,double,0,0x3F000000,0x3FE0000000000000ULL)
   }
   /*!
     Generates value \f$\frac12\f$
