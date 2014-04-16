@@ -12,7 +12,6 @@
 #include <nt2/sdk/bench/timing.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 
-typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
 
 //////////////////////////////////////////////////////////////////////////////
 // simd runtime benchmark for functor<divfloor_> from boost.simd.arithmetic

@@ -11,7 +11,6 @@
 #include <nt2/sdk/bench/benchmark.hpp>
 #include <nt2/sdk/bench/timing.hpp>
 #include <cmath>
-typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
 
 using nt2::tag::digamma_;
 

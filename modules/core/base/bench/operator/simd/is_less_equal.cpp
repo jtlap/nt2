@@ -19,7 +19,6 @@
 #include <nt2/include/constants/valmin.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <cmath>
-typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
 
 //////////////////////////////////////////////////////////////////////////////
 // simd runtime benchmark for functor<is_less_equal_> from operator

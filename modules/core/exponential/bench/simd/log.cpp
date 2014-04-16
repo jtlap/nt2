@@ -14,7 +14,6 @@
 #include <boost/simd/sdk/simd/meta/vector_of.hpp>
 
 
-typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
 
 using nt2::tag::log_;
 

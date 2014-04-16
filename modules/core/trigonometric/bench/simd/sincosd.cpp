@@ -13,7 +13,6 @@
 #include <nt2/sdk/bench/timing.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 
-typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
 using nt2::tag::sincosd_;
 
 #define RS(T,V1,V2) (T, (V1) ,(V2))

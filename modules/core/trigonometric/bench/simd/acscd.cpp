@@ -15,7 +15,6 @@
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/ten.hpp>
 
-typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
 using nt2::tag::acscd_;
 
 #define RS(T,V1,V2) (T, (V1) ,(V2))

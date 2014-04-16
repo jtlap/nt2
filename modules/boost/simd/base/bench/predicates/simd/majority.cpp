@@ -14,7 +14,6 @@
 using boost::simd::tag::majority_;
 
 #define RS(T,V1,V2) (T, (V1) ,(V2))
-typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
 
 namespace bench1 {
   typedef boost::simd::int16_t T;

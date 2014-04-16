@@ -21,7 +21,6 @@
 
 
 
-typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
 
 //////////////////////////////////////////////////////////////////////////////
 // simd runtime benchmark for functor<am_> from elliptic

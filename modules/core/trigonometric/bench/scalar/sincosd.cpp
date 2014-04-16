@@ -11,7 +11,6 @@
 #include <nt2/sdk/bench/benchmark.hpp>
 #include <nt2/sdk/bench/timing.hpp>
 
-typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
 using nt2::tag::sincosd_;
 
 #define RS(T,V1,V2) (T, (V1) ,(V2))

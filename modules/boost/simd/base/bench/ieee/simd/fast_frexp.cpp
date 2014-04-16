@@ -11,7 +11,6 @@
 #include <nt2/sdk/bench/benchmark.hpp>
 #include <nt2/sdk/bench/timing.hpp>
 
-typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
 
 //////////////////////////////////////////////////////////////////////////////
 // simd runtime benchmark for functor<fast_frexp_> from boost.simd.ieee

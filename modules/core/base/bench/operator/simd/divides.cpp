@@ -20,7 +20,6 @@
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <cmath>
-typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
 
 //////////////////////////////////////////////////////////////////////////////
 // simd runtime benchmark for functor<divides_> from operator

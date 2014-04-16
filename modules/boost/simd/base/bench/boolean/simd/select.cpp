@@ -20,7 +20,6 @@
 #include <boost/simd/include/constants/nan.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <cmath>
-typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
 
 //////////////////////////////////////////////////////////////////////////////
 // simd runtime benchmark for functor<select_> from boost.simd.bitwise

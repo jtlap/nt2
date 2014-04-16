@@ -30,8 +30,7 @@
 NT2_TEST_CASE_TPL ( abs_cplx__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::native;
-  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef std::complex<T>                              cT;
+    typedef std::complex<T>                              cT;
   typedef typename nt2::meta::as_dry<T>::type          dT;
 
   NT2_TEST_EQUAL(nt2::real(nt2::One<cT>()), nt2::One<T>());
