@@ -7,24 +7,23 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_PREDICATES_FUNCTIONS_SCALAR_ARECATCOMPATIBLE_HPP_INCLUDED
-#define NT2_PREDICATES_FUNCTIONS_SCALAR_ARECATCOMPATIBLE_HPP_INCLUDED
+#ifndef NT2_CORE_FUNCTIONS_SCALAR_HEIGHT_HPP_INCLUDED
+#define NT2_CORE_FUNCTIONS_SCALAR_HEIGHT_HPP_INCLUDED
 
-#include <nt2/predicates/functions/arecatcompatible.hpp>
+#include <nt2/core/functions/height.hpp>
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::arecatcompatible_, tag::cpu_
-                            , (A0)(A1)(A2)
-                            , (scalar_<unspecified_<A0> >)
-                              (scalar_<unspecified_<A1> >)
-                              (scalar_<integer_<A2> >)
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::height_, tag::cpu_
+                            , (A0)
+                            , (scalar_< unspecified_<A0> >)
                             )
   {
-    typedef bool result_type;
-    BOOST_FORCEINLINE result_type operator()(const A0&, const A1&, A2) const
+    typedef std::size_t result_type;
+
+    BOOST_FORCEINLINE result_type operator()(const A0& a0) const
     {
-      return true;
+      return 1u;
     }
   };
 } }

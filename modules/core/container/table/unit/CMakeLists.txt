@@ -12,14 +12,37 @@ include(nt2.pch)
 nt2_pch(nt2/table.hpp)
 
 SET( SOURCES
-  table_settings.cpp
-  resize.cpp
-  constructor.cpp
-  table_returning.cpp
-  multind.cpp
+  as_size.cpp
   composite_table.cpp
+  constructor.cpp
+  disp.cpp
+  erase.cpp
+  find.cpp
+  findi.cpp
+  findj.cpp
+  first_last_index.cpp
+  firstnonsingleton.cpp
+  firstoflength.cpp
+  globalfind.cpp
+  length.cpp
+  linesstride.cpp
+  multind.cpp
+  nblines.cpp
+  ndims.cpp
   push_back.cpp
-# List of scalar test files for toolbox core.settings
+  relative_index.cpp
+  relative_size.cpp
+  resize.cpp
+  size.cpp
+  subscript.cpp
+  sx.cpp
+  sxfun.cpp
+  table_returning.cpp
+  table_settings.cpp
+  tie.cpp
+  transform.cpp
+  width.cpp
+# List of scalar test files for toolbox core.container.table
    )
 
 nt2_module_add_tests(core.container.table.unit ${SOURCES})

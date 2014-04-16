@@ -9,26 +9,13 @@
 
 SET( SOURCES
   as_index.cpp
-  as_size.cpp
   as_subscript.cpp
-  disp.cpp
-  find.cpp
-  findi.cpp
-  findj.cpp
-  globalfind.cpp
-  first_last_index.cpp
   firstnonsingleton.cpp
   firstoflength.cpp
   length.cpp
   linesstride.cpp
   nblines.cpp
   ndims.cpp
-  relative_index.cpp
-  relative_size.cpp
-  size.cpp
-  sx.cpp
-  sxfun.cpp
-  tie.cpp
   width.cpp
 # List of test files for toolbox core.utility
    )

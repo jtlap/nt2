@@ -7,8 +7,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_CORE_FUNCTIONS_COMMON_GLOBALFIND_HPP_INCLUDED
-#define NT2_CORE_FUNCTIONS_COMMON_GLOBALFIND_HPP_INCLUDED
+#ifndef NT2_CORE_FUNCTIONS_EXPR_GLOBALFIND_HPP_INCLUDED
+#define NT2_CORE_FUNCTIONS_EXPR_GLOBALFIND_HPP_INCLUDED
 
 #include <nt2/core/functions/globalfind.hpp>
 #include <nt2/include/functions/run.hpp>

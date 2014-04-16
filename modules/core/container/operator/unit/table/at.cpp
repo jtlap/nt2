@@ -6,15 +6,9 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2::at"
-
-#include <nt2/table.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 
-////////////////////////////////////////////////////////////////////////////////
-// Test at behavior
-////////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE_TPL(at, NT2_TYPES)
 {
   using nt2::_;

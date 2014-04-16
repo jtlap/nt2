@@ -6,20 +6,28 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#include <nt2/include/functions/firstnonsingleton.hpp>
+#include <nt2/table.hpp>
+#include <nt2/include/functions/length.hpp>
+#include <nt2/include/functions/of_size.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 
-////////////////////////////////////////////////////////////////////////////////
-// firstnonsingleton of arithmetic types
-////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE( fundamental_firstnonsingleton )
+NT2_TEST_CASE( table_length )
 {
-  using nt2::firstnonsingleton;
+  using nt2::length;
+  using nt2::of_size;
+  using nt2::table;
 
-  NT2_TEST_EQUAL( firstnonsingleton('4'), 1U  );
-  NT2_TEST_EQUAL( firstnonsingleton(4)  , 1U  );
-  NT2_TEST_EQUAL( firstnonsingleton(4.) , 1U  );
-  NT2_TEST_EQUAL( firstnonsingleton(4.f), 1U  );
+  table<float> t0;
+  table<float> t1( of_size(2) );
+  table<float> t2( of_size(4,2) );
+  table<float> t3( of_size(4,6,2) );
+  table<float> t4( of_size(4,6,8,2) );
+
+  NT2_TEST_EQUAL( length(t0), 1U  );
+  NT2_TEST_EQUAL( length(t1), 2U  );
+  NT2_TEST_EQUAL( length(t2), 4U  );
+  NT2_TEST_EQUAL( length(t3), 6U  );
+  NT2_TEST_EQUAL( length(t4), 8U  );
 }

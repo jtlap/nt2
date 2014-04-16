@@ -8,10 +8,7 @@
 ################################################################################
 
 SET( SOURCES
-  cast.cpp
-  subscript.cpp
-  erase.cpp
   )
 
-nt2_module_add_tests(core.base.operator.table.unit ${SOURCES})
+#nt2_module_add_tests(core.base.operator.table.unit ${SOURCES})
 

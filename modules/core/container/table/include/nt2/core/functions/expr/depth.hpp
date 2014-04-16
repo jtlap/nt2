@@ -7,22 +7,26 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#include <nt2/include/functions/width.hpp>
-#include <nt2/include/functions/height.hpp>
-#include <nt2/include/functions/depth.hpp>
+#ifndef NT2_CORE_FUNCTIONS_EXPR_DEPTH_HPP_INCLUDED
+#define NT2_CORE_FUNCTIONS_EXPR_DEPTH_HPP_INCLUDED
 
-#include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/core/functions/depth.hpp>
+#include <nt2/include/functions/size.hpp>
 
-NT2_TEST_CASE_TPL( fundamental, NT2_TYPES )
+namespace nt2 { namespace ext
 {
-  using nt2::width;
-  using nt2::height;
-  using nt2::depth;
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::depth_, tag::cpu_
+                            , (A0)
+                            , (unspecified_<A0>)
+                            )
+  {
+    typedef std::size_t result_type;
 
-  T s;
+    BOOST_FORCEINLINE result_type operator()(const A0& a0) const
+    {
+      return nt2::size(a0, 3);
+    }
+  };
+} }
 
-  NT2_TEST_EQUAL( height(s) , 1u);
-  NT2_TEST_EQUAL( width(s)  , 1u);
-  NT2_TEST_EQUAL( depth(s)  , 1u);
-}
+#endif
