@@ -6,7 +6,7 @@
 ###                 See accompanying file LICENSE.txt or copy at
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ##############################################################################
-nt2_module_use_modules(test.benchmark core.utility core.random)
+nt2_module_use_modules(test.benchmark core.utility core.base)
 
 ADD_SUBDIRECTORY(factorization)
 
