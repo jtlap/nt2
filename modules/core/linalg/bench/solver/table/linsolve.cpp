@@ -15,7 +15,7 @@
 #include <nt2/include/functions/tie.hpp>
 #include <nt2/include/functions/zeros.hpp>
 #include <nt2/include/functions/transpose.hpp>
-#include <nt2/include/functions/ls.hpp>
+#include <nt2/include/functions/gels.hpp>
 #include "../../flops/solve.hpp"
 #include "../../flops/lu.hpp"
 #include "../../flops/qr.hpp"
@@ -52,7 +52,7 @@ template<typename T> struct linsolve_nt2
   {
     // result = b;
     //  ac = a;
-    nt2::ls(boost::proto::value(a),boost::proto::value(b) );
+    nt2::gels(boost::proto::value(a),boost::proto::value(b) );
     // result = mcsne(a,b);
     // result = nt2::mtimes(a,b);
     // result = nt2::linsolve(a,b);
