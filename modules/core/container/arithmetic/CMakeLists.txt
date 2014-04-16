@@ -7,14 +7,20 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ##############################################################################
 
-SET( SOURCES
-  center.cpp
-  linear_interp.cpp
-  remquo.cpp
-  two_add.cpp
-  two_prod.cpp
-  two_split.cpp
-# List of simd test files for toolbox arithmetic
-   )
+cmake_minimum_required(VERSION 2.6)
 
-nt2_module_add_tests(core.base.arithmetic.table.unit ${SOURCES})
+if(NOT DEFINED NT2_SOURCE_ROOT AND DEFINED ENV{NT2_SOURCE_ROOT})
+  set(NT2_SOURCE_ROOT $ENV{NT2_SOURCE_ROOT})
+endif()
+if(NOT DEFINED NT2_ROOT AND DEFINED ENV{NT2_ROOT})
+  set(NT2_ROOT $ENV{NT2_ROOT})
+endif()
+if(DEFINED NT2_SOURCE_ROOT)
+  list(APPEND CMAKE_MODULE_PATH ${NT2_SOURCE_ROOT}/cmake)
+endif()
+if(DEFINED NT2_ROOT)
+  list(APPEND CMAKE_MODULE_PATH ${NT2_ROOT}/cmake)
+endif()
+
+include(NT2Module)
+nt2_module_main(core.container.arithmetic)

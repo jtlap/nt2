@@ -7,10 +7,10 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_CORE_FUNCTIONS_EXPR_CENTER_HPP_INCLUDED
-#define NT2_CORE_FUNCTIONS_EXPR_CENTER_HPP_INCLUDED
+#ifndef NT2_ARITHMETIC_FUNCTIONS_EXPR_CENTER_HPP_INCLUDED
+#define NT2_ARITHMETIC_FUNCTIONS_EXPR_CENTER_HPP_INCLUDED
 
-#include <nt2/core/functions/center.hpp>
+#include <nt2/arithmetic/functions/center.hpp>
 #include <nt2/core/container/dsl.hpp>
 #include <nt2/include/functions/mean.hpp>
 #include <nt2/include/functions/wmean.hpp>

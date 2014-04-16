@@ -6,10 +6,10 @@
 ###                 See accompanying file LICENSE.txt or copy at
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ##############################################################################
-
 nt2_module_use_modules(test.unit)
 
-ADD_SUBDIRECTORY(predicates)
+include(nt2.pch)
+nt2_pch(nt2/table.hpp)
 
 SET( SOURCES
   table_settings.cpp
