@@ -20,6 +20,10 @@
 #include <boost/mpl/equal_to.hpp>
 #include <boost/mpl/sizeof.hpp>
 
+#if defined(__INTEL_COMPILER)
+#include <boost/simd/include/functions/simd/bitwise_cast.hpp>
+#endif
+
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::extract_
@@ -52,8 +56,12 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::scalar_of<A0>::type result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 a1) const
     {
-      typedef typename A0::type::value_type stype;
-      return result_type(reinterpret_cast<typename meta::may_alias<stype const>::type*>(&a0.data_)[a1]);
+      #if defined(__INTEL_COMPILER)
+        return result_type(extract(bitwise_cast<typename A0::type>(a0), a1));
+      #else
+        typedef typename A0::type::value_type stype;
+        return result_type(reinterpret_cast<typename meta::may_alias<stype const>::type*>(&a0.data_)[a1]);
+      #endif
     }
   };
 
