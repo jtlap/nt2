@@ -41,6 +41,7 @@ namespace nt2
 
   /// INTERNAL ONLY
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::trsolve_, trsolve, 7)
+
 }
 
 
