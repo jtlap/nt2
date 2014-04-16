@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_EXPONENTIAL_FUNCTIONS_SCALAR_POW_HPP_INCLUDED
 #define NT2_EXPONENTIAL_FUNCTIONS_SCALAR_POW_HPP_INCLUDED
+
 #include <nt2/exponential/functions/pow.hpp>
 #include <nt2/include/constants/inf.hpp>
 #include <nt2/include/constants/nan.hpp>
@@ -27,8 +28,6 @@
 #include <nt2/include/functions/scalar/shr.hpp>
 #include <nt2/include/functions/scalar/signnz.hpp>
 #include <nt2/include/functions/scalar/sqr.hpp>
-#include <nt2/sdk/meta/as_integer.hpp>
-
 #include <boost/simd/sdk/config.hpp>
 
 #ifndef BOOST_SIMD_NO_INVALIDS
@@ -47,7 +46,6 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL_REPEAT(2)
     {
-      typedef typename meta::as_integer<A0>::type  iA0;
       bool ltza0 = is_ltz(a0);
       if( (ltza0 && !is_flint(a1)) ) return Nan<A0>();
       #ifndef BOOST_SIMD_NO_INVALIDS
