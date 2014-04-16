@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#include <nt2/include/functions/msv.hpp>
-#include <nt2/include/functions/sv.hpp>
+#include <nt2/include/functions/gemsv.hpp>
+#include <nt2/include/functions/gesv.hpp>
 #include <nt2/include/functions/eye.hpp>
 #include <nt2/include/functions/zeros.hpp>
 #include <nt2/include/functions/ones.hpp>
@@ -44,11 +44,11 @@ t_t x(b);
 t_t x1(b);
 t_i piv;
 
-nt2_la_int p= nt2::sv( boost::proto::value(a1),boost::proto::value(piv)
+nt2_la_int p= nt2::gesv( boost::proto::value(a1),boost::proto::value(piv)
                      , boost::proto::value(x1) );
 
 
-nt2_la_int iter= nt2::msv( boost::proto::value(a),boost::proto::value(b)
+nt2_la_int iter= nt2::gemsv( boost::proto::value(a),boost::proto::value(b)
                          , boost::proto::value(x) );
 
 
@@ -79,11 +79,11 @@ t_t x(b);
 t_t x1(b);
 t_i piv;
 
-nt2_la_int p= nt2::sv( boost::proto::value(a1),boost::proto::value(piv)
+nt2_la_int p= nt2::gesv( boost::proto::value(a1),boost::proto::value(piv)
                      , boost::proto::value(x1) );
 
 
-nt2_la_int iter= nt2::msv( boost::proto::value(a),boost::proto::value(b)
+nt2_la_int iter= nt2::gemsv( boost::proto::value(a),boost::proto::value(b)
                          , boost::proto::value(x) );
 
 

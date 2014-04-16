@@ -12,7 +12,7 @@
 #include <nt2/sdk/magma/magma.hpp>
 #include <nt2/include/functions/rand.hpp>
 #include <nt2/include/functions/zeros.hpp>
-#include <nt2/include/functions/qp3.hpp>
+#include <nt2/include/functions/geqp3.hpp>
 #include <nt2/linalg/details/utility/workspace.hpp>
 #include <nt2/linalg/details/utility/options.hpp>
 #include <nt2/linalg/details/utility/f77_wrapper.hpp>

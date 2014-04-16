@@ -6,12 +6,12 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_LINALG_FUNCTIONS_MAGMA_LS_HPP_INCLUDED
-#define NT2_LINALG_FUNCTIONS_MAGMA_LS_HPP_INCLUDED
+#ifndef NT2_LINALG_FUNCTIONS_MAGMA_GELS_HPP_INCLUDED
+#define NT2_LINALG_FUNCTIONS_MAGMA_GELS_HPP_INCLUDED
 
 #if defined(NT2_USE_MAGMA)
 
-#include <nt2/linalg/functions/ls.hpp>
+#include <nt2/linalg/functions/gels.hpp>
 #include <nt2/linalg/details/magma_buffer.hpp>
 #include <nt2/sdk/magma/magma.hpp>
 #include <nt2/dsl/functions/terminal.hpp>
@@ -30,7 +30,7 @@
 namespace nt2 { namespace ext
 {
   /// INTERNAL ONLY - Compute the workspace
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::ls_, nt2::tag::magma_<site>
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::gels_, nt2::tag::magma_<site>
                             , (A0)(S0)(A1)(S1)(site)
                             , ((container_< nt2::tag::table_, double_<A0>, S0 >))
                               ((container_< nt2::tag::table_, double_<A1>, S1 >))
@@ -53,13 +53,13 @@ namespace nt2 { namespace ext
       magma_dgels_gpu('N',m,n,nhrs,0,ldda,0,ldb,w.main(),lwork_query,&that);
 
       w.prepare_main();
-      nt2::ls(a0,a1,w);
+      nt2::gels(a0,a1,w);
       return that;
   }
 };
 
   /// INTERNAL ONLY - Workspace is ready
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::ls_, nt2::tag::magma_<site>
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::gels_, nt2::tag::magma_<site>
                             , (A0)(S0)(A1)(S1)(A2)(site)
                             , ((container_< nt2::tag::table_, double_<A0>, S0 >))
                               ((container_< nt2::tag::table_, double_<A1>, S1 >))
@@ -92,7 +92,7 @@ namespace nt2 { namespace ext
 
 
   /// INTERNAL ONLY - Compute the workspace
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::ls_, nt2::tag::magma_<site>
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::gels_, nt2::tag::magma_<site>
                             , (A0)(S0)(A1)(S1)(site)
                             , ((container_< nt2::tag::table_, single_<A0>, S0 >))
                               ((container_< nt2::tag::table_, single_<A1>, S1 >))
@@ -116,13 +116,13 @@ namespace nt2 { namespace ext
         magma_sgels_gpu('N',m,n,nhrs,0,lda,0,ldb,w.main(),lwork_query,&that);
 
         w.prepare_main();
-        nt2::ls(a0,a1,w);
+        nt2::gels(a0,a1,w);
         return that;
       }
   };
 
   /// INTERNAL ONLY - Workspace is ready
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::ls_, nt2::tag::magma_<site>
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::gels_, nt2::tag::magma_<site>
                             , (A0)(S0)(A1)(S1)(A2)(site)
                             , ((container_< nt2::tag::table_, single_<A0>, S0 >))
                              ((container_< nt2::tag::table_, single_<A1>, S1 >))

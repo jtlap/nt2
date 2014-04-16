@@ -6,8 +6,7 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#include <nt2/include/functions/sv.hpp>
-#include <nt2/include/functions/trf.hpp>
+#include <nt2/include/functions/gesv.hpp>
 #include <nt2/include/functions/eye.hpp>
 #include <nt2/include/functions/zeros.hpp>
 #include <nt2/include/functions/ones.hpp>
@@ -35,7 +34,7 @@ t_t b = nt2::rand(2000,1,nt2::meta::as_<T>() );
 t_i ipiv;
 
 nt2_la_int p = 5;
-p = nt2::sv( boost::proto::value(a),boost::proto::value(ipiv)
+p = nt2::gesv( boost::proto::value(a),boost::proto::value(ipiv)
            , boost::proto::value(b) );
 
 NT2_TEST_EQUAL(p,0);
@@ -54,7 +53,7 @@ t_t b = nt2::rand(2000,1,nt2::meta::as_<T>() );
 t_i ipiv;
 
 nt2_la_int p = 5;
-p = nt2::sv( boost::proto::value(a),boost::proto::value(ipiv)
+p = nt2::gesv( boost::proto::value(a),boost::proto::value(ipiv)
            , boost::proto::value(b) );
 
 NT2_TEST_EQUAL(p,0);

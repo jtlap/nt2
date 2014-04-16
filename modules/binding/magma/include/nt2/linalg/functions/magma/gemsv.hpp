@@ -6,12 +6,12 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_LINALG_FUNCTIONS_MAGMA_MSV_HPP_INCLUDED
-#define NT2_LINALG_FUNCTIONS_MAGMA_MSV_HPP_INCLUDED
+#ifndef NT2_LINALG_FUNCTIONS_MAGMA_GEMSV_HPP_INCLUDED
+#define NT2_LINALG_FUNCTIONS_MAGMA_GEMSV_HPP_INCLUDED
 
 #if defined(NT2_USE_MAGMA)
 
-#include <nt2/linalg/functions/msv.hpp>
+#include <nt2/linalg/functions/gemsv.hpp>
 #include <nt2/linalg/details/magma_buffer.hpp>
 #include <nt2/sdk/magma/magma.hpp>
 
@@ -31,7 +31,7 @@
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::msv_, nt2::tag::magma_<site>
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::gemsv_, nt2::tag::magma_<site>
                             , (A0)(S0)(A1)(S1)(A2)(S2)(site)
                             , ((container_<nt2::tag::table_,  double_<A0>, S0 >)) //A
                               ((container_<nt2::tag::table_,  double_<A1>, S1 >)) //B
@@ -77,7 +77,7 @@ namespace nt2 { namespace ext
   };
 
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::msv_, nt2::tag::magma_<site>
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::gemsv_, nt2::tag::magma_<site>
                             , (A0)(S0)(A1)(S1)(A2)(S2)(site)
                             , ((container_< nt2::tag::table_, complex_<double_<A0> >, S0 >)) // A
                               ((container_< nt2::tag::table_, complex_<double_<A1> >, S1 >)) // B

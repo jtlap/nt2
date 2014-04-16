@@ -6,12 +6,12 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_LINALG_FUNCTIONS_MAGMA_QP3_HPP_INCLUDED
-#define NT2_LINALG_FUNCTIONS_MAGMA_QP3_HPP_INCLUDED
+#ifndef NT2_LINALG_FUNCTIONS_MAGMA_GEQP3_HPP_INCLUDED
+#define NT2_LINALG_FUNCTIONS_MAGMA_GEQP3_HPP_INCLUDED
 
 #if defined(NT2_USE_MAGMA)
 
-#include <nt2/linalg/functions/qp3.hpp>
+#include <nt2/linalg/functions/geqp3.hpp>
 #include <nt2/include/functions/xerbla.hpp>
 #include <nt2/sdk/magma/magma.hpp>
 
@@ -32,7 +32,7 @@
 namespace nt2 { namespace ext
 {
   /// INTERNAL ONLY - Compute the workspace
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::qp3_, nt2::tag::magma_<site>
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::geqp3_, nt2::tag::magma_<site>
                             , (A0)(S0)(A1)(S1)(A2)(S2)(site)
                             , ((container_<nt2::tag::table_,  double_<A0>, S0 >))
                               ((container_<nt2::tag::table_,  integer_<A1>, S1 >))
@@ -55,14 +55,14 @@ namespace nt2 { namespace ext
                             );
 
           w.prepare_main();
-          nt2::qp3(a0,a1,a2,w);
+          nt2::geqp3(a0,a1,a2,w);
 
         return that;
      }
   };
 
   /// INTERNAL ONLY - Workspace is ready
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::qp3_, nt2::tag::magma_<site>
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::geqp3_, nt2::tag::magma_<site>
                             , (A0)(S0)(A1)(S1)(A2)(S2)(A3)(site)
                             , ((container_<nt2::tag::table_,  double_<A0>, S0 >))
                               ((container_<nt2::tag::table_,  integer_<A1>, S1 >))
@@ -90,7 +90,7 @@ namespace nt2 { namespace ext
   };
 
   /// INTERNAL ONLY - Compute the workspace
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::qp3_, nt2::tag::magma_<site>
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::geqp3_, nt2::tag::magma_<site>
                             , (A0)(S0)(A1)(S1)(A2)(S2)(site)
                             , ((container_<nt2::tag::table_,  single_<A0>, S0 >))
                               ((container_<nt2::tag::table_,  integer_<A1>, S1 >))
@@ -112,14 +112,14 @@ namespace nt2 { namespace ext
                             , lwork_query, &that
                             );
           w.prepare_main();
-          nt2::qp3(a0,a1,a2,w);
+          nt2::geqp3(a0,a1,a2,w);
 
         return that;
      }
   };
 
   /// INTERNAL ONLY - Workspace is ready
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::qp3_, nt2::tag::magma_<site>
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::geqp3_, nt2::tag::magma_<site>
                             , (A0)(S0)(A1)(S1)(A2)(S2)(A3)(site)
                             , ((container_<nt2::tag::table_,  single_<A0>, S0 >))
                               ((container_<nt2::tag::table_,  integer_<A1>, S1 >))
@@ -149,7 +149,7 @@ namespace nt2 { namespace ext
 //------------------------------------------Complex----------------------------------------//
 
   /// INTERNAL ONLY - Compute the workspace
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::qp3_, nt2::tag::magma_<site>
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::geqp3_, nt2::tag::magma_<site>
                             , (A0)(S0)(A1)(S1)(A2)(S2)(site)
                             , ((container_< nt2::tag::table_, complex_<double_<A0> >, S0 >))
                               ((container_< nt2::tag::table_, integer_<A1>, S1 >))
@@ -172,14 +172,14 @@ namespace nt2 { namespace ext
                             );
 
           w.prepare_main();
-          nt2::qp3(a0,a1,a2,w);
+          nt2::geqp3(a0,a1,a2,w);
 
         return that;
      }
   };
 
   /// INTERNAL ONLY - Workspace is ready
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::qp3_, nt2::tag::magma_<site>
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::geqp3_, nt2::tag::magma_<site>
                             , (A0)(S0)(A1)(S1)(A2)(S2)(A3)(site)
                             , ((container_< nt2::tag::table_, complex_<double_<A0> >, S0 >))
                               ((container_< nt2::tag::table_, integer_<A1>, S1 >))
@@ -208,7 +208,7 @@ namespace nt2 { namespace ext
   };
 
   /// INTERNAL ONLY - Compute the workspace
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::qp3_, nt2::tag::magma_<site>
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::geqp3_, nt2::tag::magma_<site>
                             , (A0)(S0)(A1)(S1)(A2)(S2)(site)
                             , ((container_< nt2::tag::table_, complex_<single_<A0> >, S0 >))
                               ((container_< nt2::tag::table_, integer_<A1>, S1 >))
@@ -231,14 +231,14 @@ namespace nt2 { namespace ext
                             );
 
           w.prepare_main();
-          nt2::qp3(a0,a1,a2,w);
+          nt2::geqp3(a0,a1,a2,w);
 
         return that;
      }
   };
 
   /// INTERNAL ONLY - Workspace is ready
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::qp3_, nt2::tag::magma_<site>
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::geqp3_, nt2::tag::magma_<site>
                             , (A0)(S0)(A1)(S1)(A2)(S2)(A3)(site)
                             , ((container_< nt2::tag::table_, complex_<single_<A0> >, S0 >))
                               ((container_< nt2::tag::table_, integer_<A1>, S1 >))

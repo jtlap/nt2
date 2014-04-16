@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#include <nt2/include/functions/svx.hpp>
-#include <nt2/include/functions/trf.hpp>
+#include <nt2/include/functions/gesvx.hpp>
+#include <nt2/include/functions/getrf.hpp>
 #include <nt2/include/functions/eye.hpp>
 #include <nt2/include/functions/zeros.hpp>
 #include <nt2/include/functions/ones.hpp>
@@ -16,7 +16,7 @@
 #include <nt2/include/functions/mtimes.hpp>
 #include <nt2/include/functions/cons.hpp>
 #include <nt2/include/functions/rand.hpp>
-#include <nt2/include/functions/sv.hpp>
+#include <nt2/include/functions/gesv.hpp>
 
 #include <nt2/table.hpp>
 
@@ -40,7 +40,7 @@ t_t s = nt2::cons<T>(nt2::of_size(3,1),-1,0,3);
 t_t x = b;
 
 nt2_la_int p = 5;
-p = nt2::svx( boost::proto::value(a),boost::proto::value(b)
+p = nt2::gesvx( boost::proto::value(a),boost::proto::value(b)
             , boost::proto::value(x), rcond );
 
 NT2_TEST_EQUAL(p,0);
@@ -70,11 +70,11 @@ t_t x(b);
 t_t x1(b);
 t_i piv = nt2::zeros(4000,1, nt2::meta::as_<nt2_la_int>());
 
-nt2_la_int p= nt2::sv( boost::proto::value(a1),boost::proto::value(piv)
+nt2_la_int p= nt2::gesv( boost::proto::value(a1),boost::proto::value(piv)
                      , boost::proto::value(x1) );
 
 
-nt2_la_int iter= nt2::svx( boost::proto::value(a),boost::proto::value(b)
+nt2_la_int iter= nt2::gesvx( boost::proto::value(a),boost::proto::value(b)
                          , boost::proto::value(x), rcond );
 
 
@@ -105,7 +105,7 @@ t_t s = nt2::cons<cT>(nt2::of_size(3,1),cT(-1,0),cT(0,0),cT(3,0));
 t_t x(nt2::of_size(3,1));
 
 nt2_la_int p = 5;
-p = nt2::svx( boost::proto::value(a),boost::proto::value(b)
+p = nt2::gesvx( boost::proto::value(a),boost::proto::value(b)
             , boost::proto::value(x), rcond );
 
 NT2_TEST_EQUAL(p,0);

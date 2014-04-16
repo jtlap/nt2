@@ -8,17 +8,17 @@
 ##############################################################################
 
 SET ( SOURCES
-      trf.cpp
-      sv.cpp
-      svx.cpp
-      qrf.cpp
-      qp3.cpp
-      msv.cpp
+      getrf.cpp
+      gesv.cpp
+      gesvx.cpp
+      geqrf.cpp
+      geqp3.cpp
+      gemsv.cpp
       posv.cpp
       gesvd.cpp
       potrf.cpp
       sne.cpp
-      ls.cpp
+      gels.cpp
    )
 
 nt2_module_add_tests(binding.linalg.magma.unit ${SOURCES})

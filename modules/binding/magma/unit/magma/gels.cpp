@@ -6,11 +6,11 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#include <nt2/include/functions/ls.hpp>
-#include <nt2/include/functions/lsy.hpp>
+#include <nt2/include/functions/gels.hpp>
+#include <nt2/include/functions/gelsy.hpp>
 #include <nt2/linalg/details/utility/llspgen.hpp>
 #include <nt2/include/functions/tie.hpp>
-#include <nt2/include/functions/sv.hpp>
+#include <nt2/include/functions/gesv.hpp>
 #include <nt2/include/functions/eye.hpp>
 #include <nt2/include/functions/zeros.hpp>
 #include <nt2/include/functions/ones.hpp>
@@ -45,9 +45,9 @@ nt2::tie(a,x,r,b) = nt2::llspgen(m,n,q,nr, nt2::meta::as_<T>());
 t_t a1(a);
 t_t b1(b);
 
-nt2_la_int p = nt2::ls(boost::proto::value(a),boost::proto::value(b));
+nt2_la_int p = nt2::gels(boost::proto::value(a),boost::proto::value(b));
 
-nt2_la_int p1 = nt2::lsy(boost::proto::value(a1),boost::proto::value(jpvt)
+nt2_la_int p1 = nt2::gelsy(boost::proto::value(a1),boost::proto::value(jpvt)
                        ,boost::proto::value(b1));
 
 NT2_TEST_ULP_EQUAL(b, b1, T(100000000) );

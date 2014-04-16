@@ -6,12 +6,12 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_LINALG_FUNCTIONS_MAGMA_SVX_HPP_INCLUDED
-#define NT2_LINALG_FUNCTIONS_MAGMA_SVX_HPP_INCLUDED
+#ifndef NT2_LINALG_FUNCTIONS_MAGMA_GESVX_HPP_INCLUDED
+#define NT2_LINALG_FUNCTIONS_MAGMA_GESVX_HPP_INCLUDED
 
 #if defined(NT2_USE_MAGMA)
 
-#include <nt2/linalg/functions/svx.hpp>
+#include <nt2/linalg/functions/gesvx.hpp>
 #include <nt2/linalg/details/magma_buffer.hpp>
 #include <nt2/linalg/functions/magma/dgerfs.hpp>
 #include <nt2/sdk/magma/magma.hpp>
@@ -31,7 +31,7 @@
 namespace nt2 { namespace ext
 {
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::svx_,  nt2::tag::magma_<site>
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::gesvx_,  nt2::tag::magma_<site>
                             , (A0)(S0)(A1)(S1)(A2)(S2)(A3)(site)
                             , ((container_< nt2::tag::table_,  double_<A0>, S0 >))  //A
                               ((container_< nt2::tag::table_,  double_<A1>, S1 >))  // B
@@ -83,7 +83,7 @@ namespace nt2 { namespace ext
   };
 
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::svx_,  nt2::tag::magma_<site>
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::gesvx_,  nt2::tag::magma_<site>
                             , (A0)(S0)(A1)(S1)(A2)(S2)(A3)(site)
                             , ((container_< nt2::tag::table_,  single_<A0>, S0 >))  //A
                               ((container_< nt2::tag::table_,  single_<A1>, S1 >))  // B
@@ -132,7 +132,7 @@ namespace nt2 { namespace ext
   };
 
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::svx_,  nt2::tag::magma_<site>
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::gesvx_,  nt2::tag::magma_<site>
                             , (A0)(S0)(A1)(S1)(A2)(S2)(A3)(site)
                             , ((container_< nt2::tag::table_,  complex_<double_<A0> >, S0 >))  //A
                               ((container_< nt2::tag::table_,  complex_<double_<A1> >, S1 >))  // B
@@ -186,7 +186,7 @@ namespace nt2 { namespace ext
   };
 
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::svx_,  nt2::tag::magma_<site>
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::gesvx_,  nt2::tag::magma_<site>
                             , (A0)(S0)(A1)(S1)(A2)(S2)(A3)(site)
                             , ((container_< nt2::tag::table_,  complex_<single_<A0> >, S0 >))  //A
                               ((container_< nt2::tag::table_,  complex_<single_<A1> >, S1 >))  // B

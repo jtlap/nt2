@@ -6,7 +6,7 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#include <nt2/include/functions/qp3.hpp>
+#include <nt2/include/functions/geqp3.hpp>
 #include <nt2/include/functions/fliplr.hpp>
 #include <nt2/include/functions/eye.hpp>
 #include <nt2/include/functions/zeros.hpp>
@@ -36,7 +36,7 @@ NT2_TEST_CASE_TPL(qp3, NT2_REAL_TYPES )
   t_i jpvt = nt2::zeros(6000,1, nt2::meta::as_<nt2_la_int>());
 
   nt2_la_int p = 5;
-  p = nt2::qp3( boost::proto::value(in),boost::proto::value(jpvt)
+  p = nt2::geqp3( boost::proto::value(in),boost::proto::value(jpvt)
               , boost::proto::value(tau) );
 
   NT2_TEST_EQUAL(p, 0);
@@ -57,7 +57,7 @@ NT2_TEST_CASE_TPL(qp3c, NT2_REAL_TYPES )
   t_i jpvt = nt2::zeros(6000,1, nt2::meta::as_<nt2_la_int>());
 
   nt2_la_int p = 5;
-  p = nt2::qp3( boost::proto::value(in),boost::proto::value(jpvt)
+  p = nt2::geqp3( boost::proto::value(in),boost::proto::value(jpvt)
               , boost::proto::value(tau) );
 
   NT2_TEST_EQUAL(p, 0);
