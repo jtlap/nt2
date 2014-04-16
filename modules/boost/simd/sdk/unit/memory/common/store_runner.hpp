@@ -70,7 +70,9 @@ inline void masked_aligned_store_runner(bool offset = false)
 
   Mask  mask;
 
-  srand(time(NULL));
+  time_t seed = time(NULL);
+  std::cout<<" Seed for random number generator "<<seed<<'\n';
+  srand(seed);
 
   for(size_t i=0;i<cd;++i)
     insert(l_type(rand()%2), mask, i);
@@ -218,7 +220,9 @@ inline void mask_store_runner(bool offset = false)
 
   Mask  mask;
 
-  srand(time(NULL));
+  time_t seed = time(NULL);
+  std::cout<<" Seed for random number generator "<<seed<<'\n';
+  srand(seed);
 
   for(size_t i=0;i<cd;++i)
     insert(l_type(rand()%2), mask, i);
