@@ -25,6 +25,7 @@
 #include <nt2/include/functions/fms.hpp>
 #include <nt2/include/functions/frexp.hpp>
 #include <nt2/include/functions/if_else.hpp>
+#include <nt2/include/functions/is_eqz.hpp>
 #include <nt2/include/functions/ldexp.hpp>
 #include <nt2/include/functions/pow2.hpp>
 #include <nt2/include/functions/pow_absi.hpp>
@@ -57,6 +58,7 @@ namespace nt2 { namespace ext
       typedef typename meta::as_integer<A0>::type  iA0;
       A0 x =  nt2::abs(a0);
       if (x == One<A0>()) return x;
+      if (is_eqz(x)) return is_eqz(a1);
       #ifndef BOOST_SIMD_NO_INFINITIES
       if(x == a1 && a1 == Inf<A0>())  return Inf<A0>();
       if(x == Inf<A0>() && a1 == Minf<A0>()) return Zero<A0>();

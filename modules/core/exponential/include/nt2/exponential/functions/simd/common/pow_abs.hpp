@@ -25,6 +25,7 @@
 #include <nt2/include/functions/simd/frexp.hpp>
 #include <nt2/include/functions/simd/if_else.hpp>
 #include <nt2/include/functions/simd/if_else_zero.hpp>
+#include <nt2/include/functions/simd/if_one_else_zero.hpp>
 #include <nt2/include/functions/simd/if_zero_else.hpp>
 #include <nt2/include/functions/simd/is_eqz.hpp>
 #include <nt2/include/functions/simd/is_greater.hpp>
@@ -79,7 +80,6 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL_REPEAT(2)
     {
       typedef typename meta::as_logical<A0>::type bA0;
-      bA0 allz = l_and(is_eqz(a0), is_eqz(a1));
       typedef typename meta::as_integer<A0>::type iA0;
       iA0 e;
       A0 ax = nt2::abs(a0);
@@ -128,8 +128,7 @@ namespace nt2 { namespace ext
       z = if_zero_else(zer_ret, z);
       z = if_else(inf_ret, Inf<A0>(), z);
       z = if_else(eq(ax, One<A0>()), ax, z);
-
-      return if_else(allz, One<result_type>(), z);
+      return if_else(is_eqz(a0), if_one_else_zero(is_eqz(a1)), z);
 
     }
   private :

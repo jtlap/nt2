@@ -53,6 +53,7 @@ NT2_TEST_CASE_TPL ( pow,  NT2_SIMD_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(pow(nt2::Zero<vT>(), nt2::Zero<vT>()), nt2::One<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(pow(nt2::splat<vT>(-1),nt2::splat<vT>(5)), nt2::Mone<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(pow(nt2::splat<vT>(-1),nt2::splat<vT>(6)), nt2::One<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(pow(nt2::Zero<vT>(), nt2::One<vT>()), nt2::Zero<r_t>(), 0);
 }
 
 NT2_TEST_CASE_TPL ( pow_1,  NT2_SIMD_REAL_TYPES)
