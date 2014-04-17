@@ -25,7 +25,7 @@ namespace nt2
       Hierarchy
     **/
     BOOST_SIMD_CONSTANT_REGISTER( Powlargelim, double
-                                , 0, 0x45000000UL //2048
+                                , 0, 0x44ffe000 //2047
                                 , 0x40cfff8000000000ULL //16383
                                 )
   }

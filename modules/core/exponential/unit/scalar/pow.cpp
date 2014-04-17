@@ -50,6 +50,8 @@ NT2_TEST_CASE_TPL ( pow,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(pow(nt2::One<T>(), nt2::One<T>()), nt2::One<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(pow(nt2::Zero<T>(), nt2::Zero<T>()), nt2::One<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(pow(T(-1),T(5)), T(-1), 0);
+  NT2_TEST_ULP_EQUAL(pow(nt2::Zero<T>(), nt2::One<T>()), nt2::Zero<r_t>(), 0);
+
 }
 NT2_TEST_CASE_TPL ( pow_1,  NT2_SIMD_REAL_TYPES)
 {
