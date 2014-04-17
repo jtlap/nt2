@@ -35,6 +35,7 @@ namespace nt2
 
   **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::trsolve_, trsolve, 3)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::trsolve_, trsolve, 4)
 
   /// @overload
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::trsolve_, trsolve, 2)
