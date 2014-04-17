@@ -29,7 +29,7 @@ namespace nt2 { namespace memory
   {
     /// INTERNAL ONLY Precomputed semantic type
     typedef Kind                                                 kind_type;
-
+    typedef S                                                    settings_type;
     typedef typename boost::remove_const<T>::type                value_type;
     typedef std::size_t                                          size_type;
     typedef typename meta::option<S, tag::of_size_, Kind>::type        extent_type;

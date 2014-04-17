@@ -166,7 +166,7 @@ namespace nt2 { namespace ext
   {
     typedef typename meta::option<typename A0::settings_type,nt2::tag::shape_>::type shape;
     typedef typename A0::value_type T;
-    BOOST_DISPATCH_RETURNS(2, (A0 const& a0, A1 const& a1, A2 const& a2),
+    BOOST_DISPATCH_RETURNS(3, (A0 const& a0, A1 const& a1, A2 const& a2),
       trsolve(a0, a1, One<T>(), tag::blas_normal_(), a2 , tag::side(), tag::diag() )
     )
   };
@@ -179,7 +179,7 @@ namespace nt2 { namespace ext
                             )
   {
     typedef typename A0::value_type T;
-    BOOST_DISPATCH_RETURNS(2, (A0 const& a0, A1 const& a1, A2 const& a2),
+    BOOST_DISPATCH_RETURNS(3, (A0 const& a0, A1 const& a1, A2 const& a2),
       trsolve(boost::proto::child_c<0>(a0), a1, One<T>(), tag::blas_transpose_(), a2 , tag::side(), tag::diag() )
     )
   };
@@ -192,7 +192,7 @@ namespace nt2 { namespace ext
                             )
   {
     typedef typename A0::value_type T;
-    BOOST_DISPATCH_RETURNS(2, (A0 const& a0, A1 const& a1, A2 const& a2),
+    BOOST_DISPATCH_RETURNS(3, (A0 const& a0, A1 const& a1, A2 const& a2),
       trsolve(boost::proto::child_c<0>(a0), a1, One<T>(), tag::blas_ctranspose_(), a2 , tag::side(), tag::diag() )
     )
   };
@@ -210,7 +210,7 @@ namespace nt2 { namespace ext
   {
     BOOST_DISPATCH_RETURNS(7, (A0 const& a0, A1 const& a1, A2 const& a2, A3 const& a3, A4 const& a4,A5 const& a5,A6 const& a6),
                                  (boost::proto:: make_expr<nt2::tag::trsolve_, container::domain>
-                                    (a0, a1, a2, a3, a4, a5, a6)
+                                    (boost::cref(a0), boost::cref(a1), boost::cref(a2), boost::cref(a3), boost::cref(a4), boost::cref(a5), boost::cref(a6))
                                  )
     )
   };
@@ -223,9 +223,10 @@ namespace nt2 { namespace ext
                             )
   {
     typedef A0& result_type;
-    typedef typename A0::value_type T;
+    typedef typename A1::proto_child1::proto_child0::value_type T;
     typedef typename meta::option<typename  A1::proto_child1::proto_child0::settings_type,nt2::tag::shape_>::type shape;
-    typedef nt2::memory::container<tag::table_, T, nt2::_2D> desired_semantic;
+    typedef nt2::memory::container<tag::table_, T, nt2::settings(nt2::_2D)> desired_semantic;
+    typedef nt2::memory::container<tag::table_, T, nt2::settings(nt2::_2D,shape)> desired_semantic1;
 
     result_type operator()(A0& a0, A1& a1) const
     {
@@ -238,41 +239,41 @@ namespace nt2 { namespace ext
       nt2_la_int n   = boost::fusion::at_c<1>( (boost::proto::child_c<0>(a1)).extent() );
       nt2_la_int ldb = boost::fusion::at_c<0>( (boost::proto::child_c<1>(a1)).extent() );
 
-      typename container::as_terminal<desired_semantic, A0&>::type result =
-                    container::as_terminal<desired_semantic, A0&>::init(a0);
-      typename container::as_terminal<desired_semantic, typename boost::proto::result_of::child_c<A1&, 1>
+      typename container::as_terminal<desired_semantic1, A0&>::type result =
+                    container::as_terminal<desired_semantic1, A0&>::init(a0);
+      typename container::as_terminal<desired_semantic1, typename boost::proto::result_of::child_c<A1&, 1>
                                     ::type>::type child1 = boost::proto::child_c<1>(a1);
       typename container::as_terminal<desired_semantic, typename boost::proto::result_of::child_c<A1&, 0>
                                     ::type>::type child0 = boost::proto::child_c<0>(a1);
 
-      typedef typename container::as_terminal<desired_semantic>::type dummy_type;
+      typedef typename container::as_terminal<desired_semantic1>::type dummy_type;
       typedef typename container::as_view_impl<dummy_type>::type view_type;
 
       dummy_type dummy;
       view_type result_view;
-      bool swap = details::raw(nt2::value(a0)) == details::raw(nt2::value(child1));
-
-      // std::cout << "a0 : " << details::raw(nt2::value(a0)) << std::endl;
-      // std::cout << "result : " << details::raw(nt2::value(result)) << std::endl;
-      // std::cout << "c1 : " << details::raw(nt2::value(child1)) << std::endl;
-      // std::cout << "pc1 : " << details::raw(nt2::value(boost::proto::child_c<1>(a1))) << std::endl;
+      bool swap = (  (void*)&result != (void*)&a0 )
+               || (  (void*)&(boost::proto::child_c<1>(a1)) != (void*)&child1 );
 
        if (swap)
       {
         std::cout << "E1" << std::endl;
-        dummy = boost::proto::child_c<1>(a1) ;
+        dummy = child1 ;
         result_view.reset(dummy);
-        swap = true;
       }
-      else if(  container::alias(result, child0) || container::alias(result, child1) )
+      else if( !container::alias(result, child1) )
       {
         // no overlapping of input and output data so set output with
         // input data for destructive lapack call
-        result = boost::proto::child_c<1>(a1) ;
+        result = child1 ;
         result_view.reset(result);
         std::cout << "E2" << std::endl;
       }
-      else {result_view.reset(result); std::cout << "E3" << std::endl;}
+      else
+      {
+        // input and output are the same
+        result_view.reset(result);
+        std::cout << "E3" << std::endl;
+      }
 
       nt2::trsm(side, uplo, trans, diag, boost::proto::value(boost::proto::child_c<0>(a1))
                                        , boost::proto::value(result_view) );
