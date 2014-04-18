@@ -28,9 +28,9 @@ namespace nt2 { namespace tag
     };
   }
   /*!
-    Computes saturated factorial in the A0 type
+    Computes saturated factorial in the input type
 
-    be aware that the result is never exact if a0>12
+    be aware that the result is never exact if n>12
     and that the result is saturated in the input type!
 
     @par Semantic:

@@ -41,7 +41,7 @@ namespace nt2 { namespace tag
     @see @funcref{is_prime}, @funcref{factor}
     @param a0
 
-    @return an expression which eventually will evaluate to the result
+    @return a table containing the result
   **/
   NT2_FUNCTION_IMPLEMENTATION(tag::primes_,primes, 1)
 }

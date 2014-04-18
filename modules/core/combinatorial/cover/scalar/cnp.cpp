@@ -6,87 +6,40 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 combinatorial toolbox - cnp/scalar Mode"
-
-//////////////////////////////////////////////////////////////////////////////
-// cover test behavior of combinatorial components in scalar mode
-//////////////////////////////////////////////////////////////////////////////
-/// created by jt the 30/11/2010
-///
 #include <nt2/combinatorial/include/functions/cnp.hpp>
-#include <nt2/include/functions/max.hpp>
-#include <boost/type_traits/is_same.hpp>
-#include <nt2/sdk/functor/meta/call.hpp>
-#include <nt2/sdk/meta/as_integer.hpp>
-#include <nt2/sdk/meta/as_floating.hpp>
-#include <nt2/sdk/meta/as_signed.hpp>
-#include <nt2/sdk/meta/upgrade.hpp>
-#include <nt2/sdk/meta/downgrade.hpp>
-#include <nt2/sdk/meta/scalar_of.hpp>
-#include <boost/dispatch/meta/as_floating.hpp>
-#include <boost/type_traits/common_type.hpp>
-#include <nt2/sdk/unit/tests.hpp>
+#include <boost/simd/sdk/simd/io.hpp>
+#include <vector>
+#include <nt2/include/functions/gammaln.hpp>
+#include <nt2/include/functions/exp.hpp>
+#include <nt2/include/functions/round.hpp>
+
+#include <nt2/sdk/unit/args.hpp>
+#include <nt2/sdk/unit/tests/cover.hpp>
 #include <nt2/sdk/unit/module.hpp>
 
-#include <nt2/constant/constant.hpp>
-
-
-NT2_TEST_CASE_TPL ( cnp_real__2_0,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL(cnp,  NT2_REAL_TYPES)
 {
+  using nt2::unit::args;
+  const std::size_t NR = args("samples", NT2_NB_RANDOM_TEST);
+  const double ulpd = args("ulpd", 0);
 
-  using nt2::cnp;
-  using nt2::tag::cnp_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<cnp_(T,T)>::type r_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename boost::common_type<T>::type wished_r_t;
+  const T min = args("min", T(0));
+  const T max = args("max", T(10));
+  std::cout << "Argument samples a0 chosen in range: [" << min << ",  " << max << "]" << std::endl;
+  std::cout << "Argument samples a1 chosen in range: [ a0,  a0+" << max << "]" << std::endl;
+  NT2_CREATE_BUF(a0,T, NR, min, max);
+  NT2_CREATE_BUF(a1,T, NR, min, max);
 
+  std::vector<T> ref(NR);
+  for(std::size_t i=0; i!=NR; ++i)
+  {
+    a0[i] = nt2::round(a0[i]);
+    a1[i] = nt2::round(a1[i]);
+    a0[i] += a1[i];
+    ref[i] = nt2::round(nt2::exp(nt2::gammaln(a0[i]+1)-nt2::gammaln(a1[i]+1)
+                                 -nt2::gammaln(a0[i]-a1[i]+1)));
+  }
 
-  // return type conformity test
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl;
-  double ulpd;
-  ulpd=0.0;
+  NT2_COVER_ULP_EQUAL(nt2::tag::cnp_, ((T, a0))((T, a1)), ref, ulpd);
 
-} // end of test for floating_
-
-NT2_TEST_CASE_TPL ( cnp_unsigned_int__2_0,  NT2_UNSIGNED_TYPES)
-{
-
-  using nt2::cnp;
-  using nt2::tag::cnp_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<cnp_(T,T)>::type r_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename boost::common_type<T>::type wished_r_t;
-
-
-  // return type conformity test
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl;
-  double ulpd;
-  ulpd=0.0;
-
-} // end of test for unsigned_int_
-
-NT2_TEST_CASE_TPL ( cnp_signed_int__2_0,  NT2_INTEGRAL_SIGNED_TYPES)
-{
-
-  using nt2::cnp;
-  using nt2::tag::cnp_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<cnp_(T,T)>::type r_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename boost::common_type<T>::type wished_r_t;
-
-
-  // return type conformity test
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl;
-  double ulpd;
-  ulpd=0.0;
-
-} // end of test for signed_int_
+}
