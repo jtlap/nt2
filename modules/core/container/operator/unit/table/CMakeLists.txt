@@ -7,7 +7,8 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ##############################################################################
 
-nt2_module_use_modules( test.unit )
+set(SOURCES
+    cast.cpp
+   )
 
-ADD_SUBDIRECTORY(scalar)
-ADD_SUBDIRECTORY(simd)
+nt2_module_add_tests(core.container.operator.unit ${SOURCES})

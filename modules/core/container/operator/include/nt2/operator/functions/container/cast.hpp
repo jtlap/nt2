@@ -6,10 +6,10 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_CORE_FUNCTIONS_EXPR_CAST_HPP_INCLUDED
-#define NT2_CORE_FUNCTIONS_EXPR_CAST_HPP_INCLUDED
+#ifndef NT2_OPERATOR_FUNCTIONS_CONTAINER_CAST_HPP_INCLUDED
+#define NT2_OPERATOR_FUNCTIONS_CONTAINER_CAST_HPP_INCLUDED
 
-#include <nt2/core/functions/cast.hpp>
+#include <nt2/operator/functions/cast.hpp>
 #include <nt2/include/functions/toint.hpp>
 #include <nt2/include/functions/touint.hpp>
 #include <nt2/include/functions/tofloat.hpp>
@@ -25,20 +25,6 @@
 
 namespace nt2 { namespace ext
 {
-  // scalar impl general
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::cast_, tag::cpu_
-                            , (A0)(To)
-                            , (scalar_< unspecified_<A0> >)
-                              (target_< scalar_< unspecified_<To> > >)
-                            )
-  {
-    typedef typename To::type result_type;
-    result_type operator()(A0 const& a0, To const&) const
-    {
-      return result_type(a0);
-    }
-  };
-
   // complexify if necessary
   template<class Expr, class From, class To, class Enable = void>
   struct cast_complexify

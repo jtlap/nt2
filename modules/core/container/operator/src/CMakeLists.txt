@@ -7,8 +7,5 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-SET( SOURCES
-  )
-
-#nt2_module_add_tests(core.base.operator.table.unit ${SOURCES})
-
+include(NT2Module)
+nt2_module_source_setup(core.container.operator)
