@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_TOOLBOX_LINALG_FUNCTIONS_LAPACK_GEQP3_HPP_INCLUDED
-#define NT2_TOOLBOX_LINALG_FUNCTIONS_LAPACK_GEQP3_HPP_INCLUDED
+#ifndef NT2_LINALG_FUNCTIONS_LAPACK_GENERAL_GEQP3_HPP_INCLUDED
+#define NT2_LINALG_FUNCTIONS_LAPACK_GENERAL_GEQP3_HPP_INCLUDED
 
 #include <nt2/linalg/functions/geqp3.hpp>
 #include <nt2/linalg/details/utility/f77_wrapper.hpp>

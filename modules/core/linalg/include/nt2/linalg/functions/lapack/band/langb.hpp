@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_LINALG_FUNCTIONS_LAPACK_LANGB_HPP_INCLUDED
-#define NT2_LINALG_FUNCTIONS_LAPACK_LANGB_HPP_INCLUDED
+#ifndef NT2_LINALG_FUNCTIONS_LAPACK_BAND_LANGB_HPP_INCLUDED
+#define NT2_LINALG_FUNCTIONS_LAPACK_BAND_LANGB_HPP_INCLUDED
 
 #include <nt2/linalg/functions/langb.hpp>
 #include <nt2/sdk/memory/container.hpp>

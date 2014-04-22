@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_TOOLBOX_LINALG_FUNCTIONS_LAPACK_GBCON_HPP_INCLUDED
-#define NT2_TOOLBOX_LINALG_FUNCTIONS_LAPACK_GBCON_HPP_INCLUDED
+#ifndef NT2_LINALG_FUNCTIONS_LAPACK_BAND_GBCON_HPP_INCLUDED
+#define NT2_LINALG_FUNCTIONS_LAPACK_BAND_GBCON_HPP_INCLUDED
 
 #include <nt2/linalg/functions/gbcon.hpp>
 #include <nt2/sdk/memory/container.hpp>

@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_TOOLBOX_LINALG_FUNCTIONS_XERBLA_LAPACK_HPP_INCLUDED
-#define NT2_TOOLBOX_LINALG_FUNCTIONS_XERBLA_LAPACK_HPP_INCLUDED
+#ifndef NT2_LINALG_FUNCTIONS_LAPACK_FUNCTIONS_XERBLA_HPP_INCLUDED
+#define NT2_LINALG_FUNCTIONS_LAPACK_FUNCTIONS_XERBLA_HPP_INCLUDED
 
 #include <boost/assert.hpp>
 #include <boost/dispatch/meta/ignore_unused.hpp>
