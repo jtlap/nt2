@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_EXPONENTIAL_CONSTANTS_LOG2_E_HPP_INCLUDED
-#define NT2_EXPONENTIAL_CONSTANTS_LOG2_E_HPP_INCLUDED
+#ifndef NT2_EXPONENTIAL_CONSTANTS_LOG2EM1_HPP_INCLUDED
+#define NT2_EXPONENTIAL_CONSTANTS_LOG2EM1_HPP_INCLUDED
 
 #include <boost/simd/constant/hierarchy.hpp>
 #include <boost/simd/constant/register.hpp>
