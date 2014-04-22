@@ -56,11 +56,11 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::scalar_of<A0>::type result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 a1) const
     {
-      #if defined(__INTEL_COMPILER)
-        return result_type(extract(bitwise_cast<typename A0::type>(a0), a1));
-      #else
+      #if defined(__GNUC__)
         typedef typename A0::type::value_type stype;
         return result_type(reinterpret_cast<typename meta::may_alias<stype const>::type*>(&a0.data_)[a1]);
+      #else
+        return result_type(extract(bitwise_cast<typename A0::type>(a0), a1));
       #endif
     }
   };
