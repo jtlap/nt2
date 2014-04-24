@@ -11,8 +11,8 @@
 
 /*!
   @file
-  @brief Defines and implements lapack dsgesv function that computes the solution
-  of real system of linear equations a*x = b with mixed precision.
+  @brief Defines and implements lapack trsm function that solve a triangular
+  system
 **/
 
 #include <nt2/include/functor.hpp>
@@ -21,7 +21,7 @@ namespace nt2
 {
   namespace tag
   {
-    /// @brief Defines gesvx function tag
+    /// @brief Defines trsm function tag
     struct trsm_ : boost::dispatch::tag::formal_
     {
       /// INTERNAL ONLY
@@ -44,6 +44,11 @@ namespace nt2
                                   , 6
                                   );
 
+  NT2_FUNCTION_IMPLEMENTATION_TPL (tag::trsm_, trsm
+                                  , (A0 const&)(A1 const&)(A2 const&) (A3 const&)
+                                    (A4 const&) (A5&) (A6 const&)
+                                  , 7
+                                  );
 
 
 }

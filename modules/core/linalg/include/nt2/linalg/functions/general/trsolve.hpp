@@ -22,11 +22,67 @@
 #include <nt2/core/container/dsl/assign_swap.hpp>
 #include <nt2/sdk/memory/forward/container.hpp>
 #include <nt2/sdk/memory/category.hpp>
+#include <nt2/sdk/meta/as_real.hpp>
 #include <boost/proto/traits.hpp>
 #include <boost/assert.hpp>
 
-#include <iostream>
-#include <nt2/table.hpp>
+namespace nt2 { namespace meta
+{
+  template<class Value>
+  struct is_container_shared
+       : boost::mpl::false_
+  {
+  };
+
+  template<typename Kind, typename T, typename S, bool Own>
+  struct is_container_shared< memory::container_shared_ref<Kind, T, S, Own> >
+       : boost::mpl::true_
+  {
+  };
+
+  template<class In, long Arity = boost::remove_reference<In>::type::proto_arity_c>
+  struct is_terminal_shared
+       : boost::mpl::false_
+  {
+  };
+
+  template<class In>
+  struct is_terminal_shared<In, 0>
+       : is_container_shared<typename boost::remove_reference<In>::type::proto_child0>
+  {
+  };
+}
+
+namespace container
+{
+  template<class Semantic, class In, class Out, class Enable = void>
+  struct as_terminal_inout
+  {
+    typedef as_terminal<Semantic, Out> impl;
+    typedef typename impl::type type;
+
+    static type init(In in, Out out)
+    {
+      type result = impl::init(out);
+      result = in;
+      return result;
+    }
+  };
+
+  template<class Semantic, class In, class Out>
+  struct as_terminal_inout< Semantic, In, Out
+                          , typename boost::enable_if< meta::is_terminal_shared<In> >::type
+                        >
+  {
+    typedef In type;
+
+    static type init(In in, Out)
+    {
+      return in;
+    }
+  };
+} }
+
 namespace nt2 { namespace tag
 {
   struct side
@@ -239,46 +295,22 @@ namespace nt2 { namespace ext
       nt2_la_int n   = boost::fusion::at_c<1>( (boost::proto::child_c<0>(a1)).extent() );
       nt2_la_int ldb = boost::fusion::at_c<0>( (boost::proto::child_c<1>(a1)).extent() );
 
-      typename container::as_terminal<desired_semantic1, A0&>::type result =
-                    container::as_terminal<desired_semantic1, A0&>::init(a0);
-      typename container::as_terminal<desired_semantic1, typename boost::proto::result_of::child_c<A1&, 1>
-                                    ::type>::type child1 = boost::proto::child_c<1>(a1);
+      typedef container::
+              as_terminal_inout< desired_semantic1
+                               , typename boost::proto::result_of::child_c<A1&, 1>::type
+                               , A0&
+                               > result_selector;
+
+      typename result_selector::type result = result_selector::init(boost::proto::child_c<1>(a1), a0);
+
       typename container::as_terminal<desired_semantic, typename boost::proto::result_of::child_c<A1&, 0>
                                     ::type>::type child0 = boost::proto::child_c<0>(a1);
 
-      typedef typename container::as_terminal<desired_semantic1>::type dummy_type;
-      typedef typename container::as_view_impl<dummy_type>::type view_type;
+      nt2::trsm(side, uplo, trans, diag, boost::proto::value(child0)
+                                       , boost::proto::value(result) , alpha );
 
-      dummy_type dummy;
-      view_type result_view;
-      bool swap = (  (void*)&result != (void*)&a0 )
-               || (  (void*)&(boost::proto::child_c<1>(a1)) != (void*)&child1 );
-
-       if (swap)
-      {
-        std::cout << "E1" << std::endl;
-        dummy = child1 ;
-        result_view.reset(dummy);
-      }
-      else if( !container::alias(result, child1) )
-      {
-        // no overlapping of input and output data so set output with
-        // input data for destructive lapack call
-        result = child1 ;
-        result_view.reset(result);
-        std::cout << "E2" << std::endl;
-      }
-      else
-      {
-        // input and output are the same
-        result_view.reset(result);
-        std::cout << "E3" << std::endl;
-      }
-
-      nt2::trsm(side, uplo, trans, diag, boost::proto::value(boost::proto::child_c<0>(a1))
-                                       , boost::proto::value(result_view) );
-
-      if (swap) container::assign_swap(a0, dummy);
+      // if (&a0 != &result) container::assign_swap(a0, result );
+      if (&a0 != &result) a0 = result;
 
       return a0;
     }

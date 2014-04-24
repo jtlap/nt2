@@ -25,7 +25,7 @@ extern "C"
 
   void NT2_F77NAME(strsm)(const char *side, const char *uplo, const char *transa,
                       const char *diag, const nt2_la_int* m, const nt2_la_int* n,
-                      float *alpha, const float *A, const nt2_la_int* lda,
+                      const float *alpha, const float *A, const nt2_la_int* lda,
                        float *B, const nt2_la_int* ldb);
 
   void NT2_F77NAME(strmm)(const char *side, const char *uplo, const char *transa,
