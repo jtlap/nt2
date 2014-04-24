@@ -27,6 +27,13 @@ NT2_TEST_CASE_TPL( masked_aligned_load,  BOOST_SIMD_SIMD_TYPES)
   masked_aligned_load_runner< logical<T>, logical<T>, logical<T> >();
 }
 
+NT2_TEST_CASE_TPL( masked_aligned_load_zero,  BOOST_SIMD_SIMD_TYPES)
+{
+  using boost::simd::logical;
+  masked_aligned_load_runner< T, T, logical<T> >(false,true);
+  masked_aligned_load_runner< logical<T>, logical<T>, logical<T> >(false,true);
+}
+
 NT2_TEST_CASE_TPL( aligned_load,  BOOST_SIMD_SIMD_TYPES)
 {
   using boost::simd::logical;
@@ -111,8 +118,8 @@ NT2_TEST_CASE( aligned_load_sequence )
 
   typedef boost::dispatch::meta
                 ::call<aligned_load_( vector<short*,float*,char*>
-                                    , int
                                     , boost::dispatch::meta::as_<foo>
+                                    , int
                                     )
                       >::type                     riT;
 

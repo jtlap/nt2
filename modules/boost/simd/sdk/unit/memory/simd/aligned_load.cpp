@@ -58,7 +58,7 @@ struct nt2_test_run_aligned_load
 template<class T, class U>
 struct nt2_test_run_mask_aligned_load
 {
-  static void call(bool offset = false)
+  static void call(bool offset = false, bool zero = false)
   {
     std::cout << "With U = " << nt2::type_id<U>() << std::endl;
     using boost::simd::logical;
@@ -67,8 +67,8 @@ struct nt2_test_run_mask_aligned_load
 
     typedef BOOST_SIMD_DEFAULT_EXTENSION ext_t;
 
-    masked_aligned_load_runner< U          , native<T,ext_t>    , native<logical<T>, ext_t>  >(offset);
-    masked_aligned_load_runner< logical<U> , native<logical<T>,ext_t>  , native<logical<T>, ext_t> >(offset);
+    masked_aligned_load_runner< U          , native<T,ext_t>    , native<logical<T>, ext_t>  >(offset, zero);
+    masked_aligned_load_runner< logical<U> , native<logical<T>,ext_t>  , native<logical<T>, ext_t> >(offset, zero);
   }
 };
 
@@ -80,6 +80,17 @@ NT2_TEST_CASE_TPL( aligned_load,  BOOST_SIMD_SIMD_TYPES)
 NT2_TEST_CASE_TPL( mask_aligned_load,  BOOST_SIMD_SIMD_TYPES)
 {
   BOOST_PP_SEQ_FOR_EACH(NT2_TEST_ALIGNED_LOAD, mask_aligned_load, BOOST_SIMD_TYPES)
+}
+
+template<class T, class U>
+struct nt2_test_run_mask_aligned_load_zero
+{
+  static void call() { nt2_test_run_mask_aligned_load<T,U>::call(true,true); }
+};
+
+NT2_TEST_CASE_TPL( mask_aligned_load_zero,  BOOST_SIMD_SIMD_TYPES)
+{
+  BOOST_PP_SEQ_FOR_EACH(NT2_TEST_ALIGNED_LOAD, mask_aligned_load_zero, BOOST_SIMD_TYPES)
 }
 
 template<class T, class U>
@@ -237,3 +248,4 @@ NT2_TEST_CASE( load_sequence )
   NT2_TEST_EQUAL(boost::fusion::at_c<1>(v) , fref);
   NT2_TEST_EQUAL(boost::fusion::at_c<2>(v) , cref);
 }
+

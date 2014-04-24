@@ -11,7 +11,6 @@
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/sdk/simd/pack.hpp>
-#include <boost/simd/sdk/simd/io.hpp>
 #include <boost/simd/sdk/meta/as_arithmetic.hpp>
 #include <boost/simd/include/functions/splat.hpp>
 #include <boost/simd/include/functions/simd/if_else.hpp>
@@ -23,14 +22,8 @@
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/tests/type_expr.hpp>
 
-#include <boost/preprocessor/seq/for_each.hpp>
-#include <boost/preprocessor/seq/transform.hpp>
 #include <boost/preprocessor/cat.hpp>
 
-#include <boost/dispatch/functor/meta/call.hpp>
-#include <boost/simd/preprocessor/stack_buffer.hpp>
-
-#include <boost/fusion/include/at_c.hpp>
 #include <boost/fusion/include/make_vector.hpp>
 
 #include "../common/load_runner.hpp"
@@ -75,6 +68,23 @@ struct nt2_test_run_mask_load
   }
 };
 
+template<class T, class U>
+struct nt2_test_run_mask_load_zero
+{
+  static void call(bool offset = false)
+  {
+    std::cout << "With U = " << nt2::type_id<U>() << std::endl;
+    using boost::simd::logical;
+    using boost::simd::native;
+    using boost::simd::pack;
+
+    typedef BOOST_SIMD_DEFAULT_EXTENSION ext_t;
+    typedef native<logical<T>, ext_t > vlT;
+    masked_load_runner< U          , native<T,ext_t>           , vlT>(offset,true);
+    masked_load_runner< logical<U> , native<logical<T>,ext_t>   ,vlT>(offset,true);
+  }
+};
+
 NT2_TEST_CASE_TPL( load,  BOOST_SIMD_SIMD_TYPES)
 {
   BOOST_PP_SEQ_FOR_EACH(NT2_TEST_LOAD, load, BOOST_SIMD_TYPES)
@@ -83,6 +93,11 @@ NT2_TEST_CASE_TPL( load,  BOOST_SIMD_SIMD_TYPES)
 NT2_TEST_CASE_TPL( mask_load,  BOOST_SIMD_SIMD_TYPES)
 {
   BOOST_PP_SEQ_FOR_EACH(NT2_TEST_LOAD, mask_load, BOOST_SIMD_TYPES)
+}
+
+NT2_TEST_CASE_TPL( mask_load_zero,  BOOST_SIMD_SIMD_TYPES)
+{
+  BOOST_PP_SEQ_FOR_EACH(NT2_TEST_LOAD, mask_load_zero, BOOST_SIMD_TYPES)
 }
 
 template<class T, class U>

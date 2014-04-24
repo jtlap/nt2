@@ -42,19 +42,19 @@ namespace boost { namespace simd { namespace ext
                                     , tag::cpu_
                                     , (A0)(A1)(A2)(X)
                                     , (iterator_< scalar_< fundamental_<A0> > >)
-                                      ((simd_< integer_<A1>, X >))
-                                      ((target_ < ast_< A2
+                                      ((target_ < ast_< A1
                                                       , boost::simd::domain
                                                       >
                                                 >
                                       ))
+                                      ((simd_< integer_<A2>, X >))
                                     )
   {
-    typedef typename A2::type result_type;
+    typedef typename A1::type result_type;
 
-    BOOST_FORCEINLINE result_type operator()(A0 a0, A1 const& a1, A2 const&) const
+    BOOST_FORCEINLINE result_type operator()(A0 a0, A1 const&, A2 const& a2) const
     {
-      return boost::simd::load<typename result_type::data_type>(a0,a1);
+      return boost::simd::load<typename result_type::data_type>(a0,a2);
     }
   };
 
@@ -63,19 +63,19 @@ namespace boost { namespace simd { namespace ext
                                     , tag::cpu_
                                     , (A0)(A1)(A2)
                                     , (iterator_< scalar_< fundamental_<A0> > >)
-                                      (scalar_< integer_<A1> >)
-                                      ((target_ < ast_< A2
+                                      ((target_ < ast_< A1
                                                       , boost::simd::domain
                                                       >
                                                 >
                                       ))
+                                      (scalar_< integer_<A2> >)
                                     )
   {
-    typedef typename A2::type result_type;
+    typedef typename A1::type result_type;
 
-    BOOST_FORCEINLINE result_type operator()(A0 a0, A1 const& a1, A2 const&) const
+    BOOST_FORCEINLINE result_type operator()(A0 a0, A1 const&, A2 const& a2) const
     {
-      return boost::simd::load<typename result_type::data_type>(a0,a1);
+      return boost::simd::load<typename result_type::data_type>(a0,a2);
     }
   };
 } } }

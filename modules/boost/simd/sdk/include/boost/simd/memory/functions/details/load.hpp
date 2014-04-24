@@ -27,22 +27,22 @@ namespace boost { namespace simd { namespace details
   template<typename Tag, typename A0, typename A1, typename A2>
   struct loader<Tag(A0,A1,A2)>
   {
-    loader(A0 const& a0_, A1 const& a1_, A2& a2_) : a0(a0_), a1(a1_), a2(a2_) {}
+    loader(A0 const& a0_, A1& a1_, A2 const& a2_) : a0(a0_), a1(a1_), a2(a2_) {}
 
     template<int I> BOOST_FORCEINLINE void operator()() const
     {
-      typedef typename fusion::result_of::value_at_c<A2,I>::type type_t;
+      typedef typename fusion::result_of::value_at_c<A1,I>::type type_t;
       typename dispatch:: make_functor<Tag,A0>::type callee;
 
-      fusion::at_c<I>(a2) = callee( fusion::at_c<I>(a0)
-                                  , a1
+      fusion::at_c<I>(a1) = callee( fusion::at_c<I>(a0)
                                   , dispatch::meta::as_<type_t>()
+                                  , a2
                                   );
     }
 
     A0 const& a0;
-    A1 const& a1;
-    A2 &      a2;
+    A1 &      a1;
+    A2 const& a2;
 
     private:
     loader& operator=(loader const&);

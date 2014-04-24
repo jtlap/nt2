@@ -25,14 +25,17 @@ namespace boost { namespace simd { namespace ext
                                     , tag::cpu_
                                     , (A0)(A1)(A2)
                                     , (iterator_< unspecified_<A0> >)
-                                      (scalar_< integer_<A1> >)
-                                      (target_< unspecified_<A2> >)
+                                      (target_< unspecified_<A1> >)
+                                      (scalar_< integer_<A2> >)
                                     )
   {
-    typedef typename A2::type result_type;
+    typedef typename A1::type result_type;
 
     BOOST_FORCEINLINE result_type
-    operator()(A0 a0, A1 a1, A2 const&) const { return *(a0+a1); }
+    operator()(A0 a0, A1 const&, A2 a2) const
+    {
+      return load<result_type>(a0+a2);
+    }
   };
 
   /// INTERNAL ONLY - masked scalar load offset
@@ -40,18 +43,37 @@ namespace boost { namespace simd { namespace ext
                                     , tag::cpu_
                                     , (A0)(A1)(A2)(A3)(A4)
                                     , (iterator_< unspecified_<A0> >)
-                                      (scalar_< integer_<A1> >)
-                                      (target_< unspecified_<A2> >)
-                                      (unspecified_<A3>)
-                                      (scalar_< fundamental_<A4> >)
+                                      (target_< unspecified_<A1> >)
+                                      (scalar_< integer_<A2> >)
+                                      (scalar_< fundamental_<A3> >)
+                                      (unspecified_<A4>)
                                     )
   {
-    typedef typename A2::type result_type;
+    typedef typename A1::type result_type;
 
     BOOST_FORCEINLINE result_type
-    operator()(A0 a0, A1 a1, A2 const&, A3 const& a3, A4 const& a4) const
+    operator()(A0 a0, A1 const&, A2 a2, A3 const& a3, A4 const& a4 ) const
     {
-      return (a4 ? *(a0+a1) : a3);
+      return load<result_type>(a0+a2,a3,a4);
+    }
+  };
+
+  /// INTERNAL ONLY - masked scalar load offset, zero
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::load_
+                                    , tag::cpu_
+                                    , (A0)(A1)(A2)(A3)
+                                    , (iterator_< unspecified_<A0> >)
+                                      (target_< unspecified_<A1> >)
+                                      (scalar_< integer_<A2> >)
+                                      (scalar_< bool_<A3> >)
+                                    )
+  {
+    typedef typename A1::type result_type;
+
+    BOOST_FORCEINLINE result_type
+    operator()(A0 a0, A1 const&, A2 a2, A3 const& a3 ) const
+    {
+      return load<result_type>(a0+a2,a3,0);
     }
   };
 
@@ -69,22 +91,40 @@ namespace boost { namespace simd { namespace ext
     operator()(A0 a0, A1 const&) const { return *a0; }
   };
 
+  /// INTERNAL ONLY - masked scalar load, zero
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::load_
+                                    , tag::cpu_
+                                    , (A0)(A1)(A2)
+                                    , (iterator_< unspecified_<A0> >)
+                                      (target_< unspecified_<A1> >)
+                                      (scalar_< fundamental_<A2> >)
+                                    )
+  {
+    typedef typename A1::type result_type;
+
+    BOOST_FORCEINLINE result_type
+    operator()(A0 a0, A1 const&, A2 const& a2 ) const
+    {
+      return load<result_type>(a0,a2,result_type(0));
+    }
+  };
+
   /// INTERNAL ONLY - masked scalar load
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::load_
                                     , tag::cpu_
                                     , (A0)(A1)(A2)(A3)
                                     , (iterator_< unspecified_<A0> >)
                                       (target_< unspecified_<A1> >)
-                                      (unspecified_<A2>)
-                                      (scalar_< fundamental_<A3> >)
+                                      (scalar_< fundamental_<A2> >)
+                                      (scalar_< unspecified_<A3> >)
                                     )
   {
     typedef typename A1::type result_type;
 
     BOOST_FORCEINLINE result_type
-    operator()(A0 a0, A1 const&, A2 const& a2, A3 const& a3) const
+    operator()(A0 a0, A1 const&, A2 const& a2, A3 const& a3 ) const
     {
-      return (a3 ? *a0 : a2);
+      return (a2 ? *a0 : a3);
     }
   };
 
@@ -93,20 +133,20 @@ namespace boost { namespace simd { namespace ext
                                     , tag::cpu_
                                     , (A0)(A1)(A2)
                                     , (fusion_sequence_<A0>)
-                                      (generic_< integer_<A1> >)
-                                      ((target_< fusion_sequence_<A2> >))
+                                      ((target_< fusion_sequence_<A1> >))
+                                      (generic_< integer_<A2> >)
                                     )
   {
-    typedef typename A2::type result_type;
+    typedef typename A1::type result_type;
 
     BOOST_FORCEINLINE result_type
-    operator()(A0 const& a0, A1 const& a1, A2 const&) const
+    operator()(A0 const& a0, A1 const&, A2 const& a2) const
     {
       result_type that;
       meta::iterate < fusion::result_of::size<A0>::type::value>
                     ( details::loader < boost::simd::
-                                        tag::load_(A0, A1, result_type)
-                                      >(a0, a1, that)
+                                        tag::load_(A0, result_type, A2)
+                                      >(a0, that, a2)
                     );
       return that;
     }
@@ -141,17 +181,17 @@ namespace boost { namespace simd { namespace ext
                                       , (A0)(A1)(A2)
                                       , (mpl::not_< simd::meta::is_native<typename A2::type> >)
                                       , (iterator_< fusion_sequence_<A0> >)
-                                        (scalar_< integer_<A1> >)
-                                        (target_< fusion_sequence_<A2> >)
+                                        (target_< fusion_sequence_<A1> >)
+                                        (scalar_< integer_<A2> >)
                                       )
   {
-    typedef typename A2::type result_type;
-    inline result_type operator()(const A0& a0, const A1& a1, const A2&) const
+    typedef typename A1::type result_type;
+    inline result_type operator()(const A0& a0, const A1&, const A2& a2) const
     {
       result_type that;
 
       static const int N = fusion::result_of::size<result_type>::type::value;
-      meta::iterate<N>( details::inserter<A0,result_type,A1>(a0,that,a1) );
+      meta::iterate<N>( details::inserter<A0,result_type,A2>(a0,that,a2) );
 
       return that;
     }

@@ -41,7 +41,7 @@
 #define NT2_TEST_LOAD(r, data, elem) BOOST_PP_CAT(nt2_test_run_, data)<T, elem>::call();
 #define NT2_TEST_APPLY(r, data, elem) data<elem>
 
-template<class T, class U, std::size_t N, bool masked=false>
+template<class T, class U, std::size_t N, bool masked=false, bool zero=false>
 struct nt2_test_run_load_gather
 {
   static void call()
@@ -68,14 +68,15 @@ struct nt2_test_run_load_gather
                           ::vector_of<iT,cardinal_of<vT>::value>::type viT;
     typedef typename
             boost::dispatch::
-            meta::call<load_(U*,viT,boost::dispatch::meta::as_<vT>)>::type r_t;
+            meta::call<load_(U*,boost::dispatch::meta::as_<vT>,viT)>::type r_t;
 
     typedef typename boost::simd::meta::as_logical<r_t>::type vlT;
 
     typedef typename boost::simd::meta::scalar_of<vlT>::type s_type;
 
-
-    srand(time(NULL));
+    time_t seed = time(NULL);
+    std::cout<<" Seed for random number generator "<<seed<<'\n';
+    srand(seed);
 
     NT2_TEST( (boost::is_same<vT,r_t>::value) );
 
@@ -88,14 +89,16 @@ struct nt2_test_run_load_gather
       index[i] = rand() % (cardinal_of<vT>::value*3);
 
     vlT mask;
-    r_t old=splat<r_t>(-42);
+    r_t old= zero ? splat<r_t>(0) : splat<r_t>(-42);
 
     if (masked)
       for(size_t i=0;i<cardinal_of<vlT>::value;++i)
         insert(s_type(rand()%2), mask, i);
+
     r_t v;
-    if (masked) v = boost::simd::load<vT>(&data[0], index, old ,mask);
-    else        v = boost::simd::load<vT>(&data[0], index);
+
+    if (zero) v = masked ? boost::simd::load<vT>(&data[0], index, mask) : boost::simd::load<vT>(&data[0], index);
+    else      v = masked ? boost::simd::load<vT>(&data[0], index, mask, old) : boost::simd::load<vT>(&data[0], index);
 
     for(size_t j=0;j<cardinal_of<vT>::value;++j)
     {
@@ -106,6 +109,11 @@ struct nt2_test_run_load_gather
 };
 
 template<class T, class U>
+struct nt2_test_run_load_mask_zero_gather32 : nt2_test_run_load_gather<T,U,4,true,true>
+{};
+
+
+template<class T, class U>
 struct nt2_test_run_load_mask_gather32 : nt2_test_run_load_gather<T,U,4,true>
 {};
 
@@ -114,14 +122,23 @@ struct nt2_test_run_load_gather32 : nt2_test_run_load_gather<T,U,4>
 {};
 
 template<class T, class U>
+struct nt2_test_run_load_mask_zero_gather64 : nt2_test_run_load_gather<T,U,8,true,true>
+{};
+
+template<class T, class U>
 struct nt2_test_run_load_mask_gather64 : nt2_test_run_load_gather<T,U,8,true>
 {};
 
 template<class T, class U>
-struct nt2_test_run_load_gather64 : nt2_test_run_load_gather<T,U,8>
+struct nt2_test_run_load_gather64 : nt2_test_run_load_gather<T,U,8,false,false>
 {};
 
-NT2_TEST_CASE_TPL( load_mask_gather_mask_32, BOOST_SIMD_SIMD_TYPES)
+NT2_TEST_CASE_TPL( load_mask_zero_gather32, BOOST_SIMD_SIMD_TYPES)
+{
+  BOOST_PP_SEQ_FOR_EACH(NT2_TEST_LOAD, load_mask_zero_gather32, BOOST_SIMD_TYPES)
+}
+
+NT2_TEST_CASE_TPL( load_mask_gather_32, BOOST_SIMD_SIMD_TYPES)
 {
   BOOST_PP_SEQ_FOR_EACH(NT2_TEST_LOAD, load_mask_gather32, BOOST_SIMD_TYPES)
 }
@@ -155,6 +172,11 @@ NT2_TEST_CASE_TPL( load_gather64, BOOST_SIMD_SIMD_TYPES)
 NT2_TEST_CASE_TPL( load_mask_gather64, BOOST_SIMD_SIMD_TYPES)
 {
   BOOST_PP_SEQ_FOR_EACH(NT2_TEST_LOAD, load_gather64, BOOST_SIMD_SIMD_TYPES)
+}
+
+NT2_TEST_CASE_TPL( load_mask_zero_gather64, BOOST_SIMD_SIMD_TYPES)
+{
+  BOOST_PP_SEQ_FOR_EACH(NT2_TEST_LOAD, load_mask_zero_gather64, BOOST_SIMD_TYPES)
 }
 
 NT2_TEST_CASE_TPL ( load_gather64_logical

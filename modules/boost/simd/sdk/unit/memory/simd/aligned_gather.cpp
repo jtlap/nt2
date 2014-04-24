@@ -37,58 +37,8 @@
 
 #define NT2_TEST_ALIGNED_LOAD(r, data, elem) BOOST_PP_CAT(nt2_test_run_, data)<T, elem>::call();
 
-template<class T, class U>
+template<class T, class U, bool masked=false, bool zero=false>
 struct nt2_test_run_aligned_load_gather
-{
-  static void call()
-  {
-    std::cout << "With U = " << nt2::type_id<U>() << std::endl;
-    using boost::simd::aligned_load;
-    using boost::simd::tag::aligned_load_;
-    using boost::simd::native;
-    using boost::simd::meta::cardinal_of;
-
-    typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-    typedef native<T,ext_t>                        vT;
-    typedef typename boost::dispatch::meta::as_integer<vT>::type viT;
-
-    typedef typename
-            boost::dispatch::
-            meta::call<aligned_load_(U*,viT,boost::dispatch::meta::as_<vT>)>::type rT;
-
-    NT2_TEST_TYPE_IS( rT, vT );
-
-    BOOST_SIMD_ALIGNED_STACK_BUFFER( data,  U, cardinal_of<vT>::value*3 );
-
-    for(size_t i=0;i<cardinal_of<vT>::value*3;++i) data[i] = U(1+i);
-
-    viT index;
-    rT ref;
-
-    // Spread out the gather values
-    index[0] = cardinal_of<vT>::value*3 -1;
-    index[cardinal_of<viT>::value-1] = 0;
-
-    for(size_t i=1;i<cardinal_of<viT>::value-1;++i)
-    {
-      index[i] = T(i*(cardinal_of<vT>::value*3)/(cardinal_of<vT>::value-1));
-    }
-
-    for(size_t i=0;i<cardinal_of<vT>::value;++i) ref[i] = data[index[i]];
-
-    rT v = boost::simd::aligned_load<vT>(&data[0], index);
-
-    NT2_TEST_EQUAL(v , ref);
-  }
-};
-
-NT2_TEST_CASE_TPL( load_gather, BOOST_SIMD_SIMD_TYPES)
-{
-  BOOST_PP_SEQ_FOR_EACH(NT2_TEST_ALIGNED_LOAD, aligned_load_gather, BOOST_SIMD_TYPES)
-}
-
-template<class T, class U>
-struct nt2_test_run_mask_aligned_load_gather
 {
   static void call()
   {
@@ -107,7 +57,7 @@ struct nt2_test_run_mask_aligned_load_gather
     typedef typename boost::simd::meta::scalar_of<vlT>::type l_type;
     typedef typename
             boost::dispatch::
-            meta::call<aligned_load_(U*,viT,boost::dispatch::meta::as_<vT>)>::type rT;
+            meta::call<aligned_load_(U*,boost::dispatch::meta::as_<vT>,viT)>::type rT;
     typedef typename boost::simd::meta::scalar_of<rT>::type t_type;
 
     NT2_TEST_TYPE_IS( rT, vT );
@@ -118,9 +68,11 @@ struct nt2_test_run_mask_aligned_load_gather
 
     viT index;
     rT ref;
-    rT old =splat<rT>(65);
+    rT old = zero ? splat<rT>(0) : splat<rT>(65);
 
-    srand(time(NULL));
+    time_t seed = time(NULL);
+    std::cout<<" Seed for random number generator "<<seed<<'\n';
+    srand(seed);
 
     vlT mask;
     for(size_t i=0;i<cardinal_of<viT>::value;++i)
@@ -133,16 +85,39 @@ struct nt2_test_run_mask_aligned_load_gather
     {
       index[i] = T(i*(cardinal_of<vT>::value*3)/(cardinal_of<vT>::value-1));
     }
+    if (masked)
+        for(size_t i=0;i<cardinal_of<vT>::value;++i) ref[i] = if_else(mask[i],t_type(data[index[i]]),old[i]);
+    else
+        for(size_t i=0;i<cardinal_of<vT>::value;++i) ref[i] = t_type(data[index[i]]);
 
-    for(size_t i=0;i<cardinal_of<vT>::value;++i) ref[i] = if_else(mask[i],t_type(data[index[i]]),old[i]);
+    rT v;
 
-    rT v = boost::simd::aligned_load<vT>(&data[0], index, old, mask);
+    if (zero) v = masked ? boost::simd::aligned_load<vT>(&data[0], index, mask) : boost::simd::aligned_load<vT>(&data[0], index);
+    else      v = masked ? boost::simd::aligned_load<vT>(&data[0], index, mask, old) : boost::simd::aligned_load<vT>(&data[0], index);
 
     NT2_TEST_EQUAL(v , ref);
   }
 };
 
+template<class T, class U>
+struct nt2_test_run_mask_aligned_load_gather : nt2_test_run_aligned_load_gather<T,U,true,false>
+{};
+
+template<class T, class U>
+struct nt2_test_run_mask_zero_aligned_load_gather : nt2_test_run_aligned_load_gather<T,U,true,true>
+{};
+
+NT2_TEST_CASE_TPL( mask_load_zero_gather, BOOST_SIMD_SIMD_TYPES)
+{
+  BOOST_PP_SEQ_FOR_EACH(NT2_TEST_ALIGNED_LOAD, mask_zero_aligned_load_gather, BOOST_SIMD_TYPES)
+}
+
 NT2_TEST_CASE_TPL( mask_load_gather, BOOST_SIMD_SIMD_TYPES)
 {
   BOOST_PP_SEQ_FOR_EACH(NT2_TEST_ALIGNED_LOAD, mask_aligned_load_gather, BOOST_SIMD_TYPES)
+}
+
+NT2_TEST_CASE_TPL( load_gather, BOOST_SIMD_SIMD_TYPES)
+{
+  BOOST_PP_SEQ_FOR_EACH(NT2_TEST_ALIGNED_LOAD, aligned_load_gather, BOOST_SIMD_TYPES)
 }

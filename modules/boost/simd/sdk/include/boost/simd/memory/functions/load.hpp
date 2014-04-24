@@ -49,8 +49,8 @@ namespace boost { namespace simd
     @param ptr    Memory location to load data from.
     @param offset Optional memory offset.
     @param mask   Optional logical mask. Only loads values for which the mask is true.
-    @param old    Optional (Required for masked variant) Returns the corresponding
-                  entry from old if the mask is set to false.
+    @param old    Optional. Returns the corresponding
+                  entry from old if the mask is set to false. Default is zero.
     @return A value of type @c Type loaded from target memory block
   **/
   template<typename Type,typename Pointer,typename Offset>
@@ -60,10 +60,10 @@ namespace boost { namespace simd
     typename  boost::dispatch::meta
             ::dispatch_call<tag::load_
                                   ( Pointer const&
-                                  , Offset const&
                                   , boost::dispatch::meta::as_<Type> const
+                                  , Offset const&
                                   )>::type          callee;
-    return callee(ptr,offset,boost::dispatch::meta::as_<Type>());
+    return callee(ptr,boost::dispatch::meta::as_<Type>(),offset);
   }
 
   /// @overload
@@ -79,33 +79,34 @@ namespace boost { namespace simd
   }
 
   /// @overload for mask load
-  template<typename Type,typename Pointer,typename Old,typename Mask>
+  template<typename Type,typename Pointer,typename Mask,typename Old>
   BOOST_FORCEINLINE Type
-  load(Pointer const& ptr, Old const& old, Mask const& mask)
+  load(Pointer const& ptr, Mask const& mask, Old const& old)
   {
     typename  boost::dispatch::meta
             ::dispatch_call<tag::load_
                                   ( Pointer const&
                                   , boost::dispatch::meta::as_<Type> const
-                                  , Old const&
                                   , Mask const&
+                                  , Old const&
                                   )>::type          callee;
-    return callee(ptr,boost::dispatch::meta::as_<Type>(),old,mask);
+    return callee(ptr,boost::dispatch::meta::as_<Type>(),mask,old);
   }
+
   /// @overload for mask gather
-  template<typename Type,typename Pointer,typename Offset,typename Old,typename Mask>
+  template<typename Type,typename Pointer,typename Offset,typename Mask,typename Old>
   BOOST_FORCEINLINE Type
-  load(Pointer const& ptr, Offset const& offset, Old const& old, Mask const& mask)
+  load(Pointer const& ptr, Offset const& offset, Mask const& mask, Old const& old)
   {
     typename  boost::dispatch::meta
             ::dispatch_call<tag::load_
                                   ( Pointer const&
-                                  , Offset const&
                                   , boost::dispatch::meta::as_<Type> const
-                                  , Old const&
+                                  , Offset const&
                                   , Mask const&
+                                  , Old const&
                                   )>::type          callee;
-    return callee(ptr,offset,boost::dispatch::meta::as_<Type>(),old,mask);
+    return callee(ptr,boost::dispatch::meta::as_<Type>(),offset,mask,old);
   }
 } }
 

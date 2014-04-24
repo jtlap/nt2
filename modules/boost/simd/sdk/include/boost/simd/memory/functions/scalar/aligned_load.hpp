@@ -17,23 +17,22 @@
 #include <boost/simd/sdk/functor/hierarchy.hpp>
 #include <boost/dispatch/attributes.hpp>
 #include <boost/dispatch/meta/mpl.hpp>
-
 namespace boost { namespace simd { namespace ext
 {
   /// INTERNAL ONLY - Regular scalar load with offset
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::aligned_load_ , tag::cpu_
                                     , (A0)(A1)(A2)
                                     , (iterator_< unspecified_<A0> >)
-                                      (scalar_< integer_<A1> >)
-                                      (target_< unspecified_<A2> >)
+                                      (target_< unspecified_<A1> >)
+                                      (scalar_< integer_<A2> >)
                                     )
   {
-    typedef typename A2::type result_type;
+    typedef typename A1::type result_type;
 
     BOOST_FORCEINLINE result_type
-    operator()(A0 a0, A1 a1, A2 const&) const
+    operator()(A0 a0, A1 const&, A2 const& a2) const
     {
-      return *(a0+a1);
+      return *(a0+a2);
     }
   };
 
@@ -42,18 +41,38 @@ namespace boost { namespace simd { namespace ext
                                     , tag::cpu_
                                     , (A0)(A1)(A2)(A3)(A4)
                                     , (iterator_< unspecified_<A0> >)
-                                      (scalar_< integer_<A1> >)
-                                      (target_< unspecified_<A2> >)
-                                      (unspecified_<A3>)
-                                      (scalar_< fundamental_<A4> >)
+                                      (target_< unspecified_<A1> >)
+                                      (scalar_< integer_<A2> >)
+                                      (scalar_< fundamental_<A3> >)
+                                      (unspecified_<A4>)
                                     )
   {
-    typedef typename A2::type result_type;
+    typedef typename A1::type result_type;
 
     BOOST_FORCEINLINE result_type
-    operator()(A0 a0, A1 a1, A2 const&, A3 const& a3, A4 const& a4) const
+    operator()(A0 a0, A1 const&, A2 const& a2, A3 const& a3, A4 const& a4) const
     {
-      return (a4 ? *(a0+a1) : a3);
+      return (a3 ? *(a0+a2) : a4);
+    }
+  };
+
+
+  /// INTERNAL ONLY - masked scalar load with offset, zero
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::aligned_load_
+                                    , tag::cpu_
+                                    , (A0)(A1)(A2)(A3)
+                                    , (iterator_< unspecified_<A0> >)
+                                      (target_< unspecified_<A1> >)
+                                      (scalar_< integer_<A2> >)
+                                      (scalar_< fundamental_<A3> >)
+                                    )
+  {
+    typedef typename A1::type result_type;
+
+    BOOST_FORCEINLINE result_type
+    operator()(A0 a0, A1 const&, A2 const& a2, A3 const& a3) const
+    {
+      return aligned_load<result_type>(a0,a2,a3,result_type(0));
     }
   };
 
@@ -79,8 +98,8 @@ namespace boost { namespace simd { namespace ext
                                     , (A0)(A1)(A2)(A3)
                                     , (iterator_< unspecified_<A0> >)
                                       (target_< unspecified_<A1> >)
-                                      (unspecified_<A2>)
-                                      (scalar_< fundamental_<A3> >)
+                                      (scalar_< fundamental_<A2> >)
+                                      (scalar_< unspecified_<A3> >)
                                     )
   {
     typedef typename A1::type result_type;
@@ -88,7 +107,25 @@ namespace boost { namespace simd { namespace ext
     BOOST_FORCEINLINE result_type
     operator()(A0 a0, A1 const&, A2 const& a2, A3 const& a3) const
     {
-      return (a3 ? *a0 : a2);
+      return (a2 ? *a0 : a3);
+    }
+  };
+
+  /// INTERNAL ONLY - masked regular scalar load without offset, zero
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::aligned_load_
+                                    , tag::cpu_
+                                    , (A0)(A1)(A2)
+                                    , (iterator_< unspecified_<A0> >)
+                                      (target_< unspecified_<A1> >)
+                                      (scalar_< fundamental_<A2> >)
+                                    )
+  {
+    typedef typename A1::type result_type;
+
+    BOOST_FORCEINLINE result_type
+    operator()(A0 a0, A1 const&, A2 const& a2) const
+    {
+      return aligned_load<result_type>(a0,a2,result_type(0));
     }
   };
 
@@ -96,17 +133,17 @@ namespace boost { namespace simd { namespace ext
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::aligned_load_ , tag::cpu_
                                     , (A0)(A1)(A2)(A3)
                                     , (iterator_< unspecified_<A0> >)
-                                      (scalar_< integer_<A1> >)
-                                      (target_< scalar_< unspecified_<A2> > >)
+                                      (target_< scalar_< unspecified_<A1> > >)
+                                      (scalar_< integer_<A2> >)
                                       (mpl_integral_< scalar_< integer_<A3> > >)
                                     )
   {
-    typedef typename A2::type result_type;
+    typedef typename A1::type result_type;
 
     BOOST_FORCEINLINE result_type
-    operator()(A0 a0, A1 a1, A2 const&, A3 const&) const
+    operator()(A0 a0, A1 const&, A2 const& a2, A3 const&) const
     {
-      return *(a0+a1);
+      return *(a0+a2);
     }
   };
 
@@ -114,19 +151,38 @@ namespace boost { namespace simd { namespace ext
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::aligned_load_ , tag::cpu_
                                     , (A0)(A1)(A2)(A3)(A4)(A5)
                                     , (iterator_< unspecified_<A0> >)
-                                      (scalar_< integer_<A1> >)
-                                      (target_< scalar_< unspecified_<A2> > >)
+                                      (target_< scalar_< unspecified_<A1> > >)
+                                      (scalar_< integer_<A2> >)
                                       (mpl_integral_< scalar_< integer_<A3> > >)
-                                      (unspecified_<A4>)
-                                      (scalar_< fundamental_<A5> >)
+                                      (scalar_< fundamental_<A4> >)
+                                      (scalar_< unspecified_<A5> >)
                                     )
   {
-    typedef typename A2::type result_type;
+    typedef typename A1::type result_type;
 
     BOOST_FORCEINLINE result_type
-    operator()(A0 a0, A1 a1, A2 const&, A3 const&, A4 const& a4, A5 const& a5) const
+    operator()(A0 a0, A1 const&, A2 const& a2, A3 const&, A4 const& a4, A5 const& a5) const
     {
-      return a4 ? *(a0+a1) : a5;
+      return a4 ? *(a0+a2) : a5;
+    }
+  };
+
+  /// INTERNAL ONLY - masked scalar load with misalignment and offset, masked
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::aligned_load_ , tag::cpu_
+                                    , (A0)(A1)(A2)(A3)(A4)
+                                    , (iterator_< unspecified_<A0> >)
+                                      (target_< scalar_< unspecified_<A1> > >)
+                                      (scalar_< integer_<A2> >)
+                                      (mpl_integral_< scalar_< integer_<A3> > >)
+                                      (scalar_< fundamental_<A4> >)
+                                    )
+  {
+    typedef typename A1::type result_type;
+
+    BOOST_FORCEINLINE result_type
+    operator()(A0 a0, A1 const&, A2 const& a2, A3 const&, A4 const& a4) const
+    {
+      return aligned_load<result_type,A3::value>(a0,a2,a4,result_type(0));
     }
   };
 
@@ -155,8 +211,8 @@ namespace boost { namespace simd { namespace ext
                                     , (iterator_< unspecified_<A0> >)
                                       (target_< unspecified_<A2> >)
                                       (mpl_integral_< scalar_< integer_<A3> > >)
-                                      (unspecified_<A4>)
-                                      (scalar_< fundamental_<A5> >)
+                                      (scalar_< fundamental_<A4> >)
+                                      (scalar_< unspecified_<A5> >)
                                     )
   {
     typedef typename A2::type result_type;
@@ -164,7 +220,26 @@ namespace boost { namespace simd { namespace ext
     BOOST_FORCEINLINE result_type
     operator()(A0 a0, A2 const&, A3 const&, A4 const& a4, A5 const& a5) const
     {
-      return a5 ? *a0 : a4;
+      return a4 ? *a0 : a5;
+    }
+  };
+
+    /// INTERNAL ONLY - masked scalar load with misalignment and without offset
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::aligned_load_
+                                    , tag::cpu_
+                                    , (A0)(A2)(A3)(A4)
+                                    , (iterator_< unspecified_<A0> >)
+                                      (target_< unspecified_<A2> >)
+                                      (mpl_integral_< scalar_< integer_<A3> > >)
+                                      (scalar_< fundamental_<A4> >)
+                                    )
+  {
+    typedef typename A2::type result_type;
+
+    BOOST_FORCEINLINE result_type
+    operator()(A0 a0, A2 const&, A3 const&, A4 const& a4) const
+    {
+      return aligned_load<result_type, A3::value>(a0,a4,result_type(0));
     }
   };
 
@@ -172,14 +247,14 @@ namespace boost { namespace simd { namespace ext
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::aligned_load_, tag::cpu_
                                     , (A0)(A1)(A2)
                                     , (fusion_sequence_<A0>)
-                                      (generic_< integer_<A1> >)
-                                      ((target_< fusion_sequence_<A2> >))
+                                      ((target_< fusion_sequence_<A1> >))
+                                      (generic_< integer_<A2> >)
                                     )
   {
     BOOST_DISPATCH_RETURNS_ARGS ( 3
                                 , (A0 const& a0, A1 const& a1, A2 const& a2)
-                                , (A0 const& a0, A1 a1, A2 const& )
-                                , boost::simd::load<typename A2::type>(a0,a1)
+                                , (A0 const& a0, A1 const&, A2 a2 )
+                                , boost::simd::load<typename A1::type>(a0,a2)
                                 );
   };
 

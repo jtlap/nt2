@@ -23,27 +23,48 @@
 #include <boost/dispatch/attributes.hpp>
 #include <boost/mpl/equal_to.hpp>
 #include <iterator>
+#include <boost/simd/include/functions/simd/splat.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
-  /// INTERNAL ONLY - Regular SIMD mask load with offset
+  /// INTERNAL ONLY - Regular SIMD mask load with offset, zero
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::aligned_load_, tag::cpu_
-                                    , (A0)(A1)(A2)(A3)(A4)(X)
+                                    , (A0)(A1)(A2)(A3)(X)
                                     , (iterator_<unspecified_<A0> >)
-                                      (scalar_< integer_<A1> >)
-                                      ((target_< simd_<unspecified_<A2>,X> >))
-                                      ((simd_< unspecified_<A3>, X>))
-                                      ((simd_< logical_<A4>
+                                      ((target_< simd_<unspecified_<A1>,X> >))
+                                      (scalar_< integer_<A2> >)
+                                      ((simd_< logical_<A3>
                                              , X
                                              >
                                       ))
                                     )
   {
-    typedef typename A2::type result_type;
+    typedef typename A1::type result_type;
 
-    BOOST_FORCEINLINE result_type operator()(A0 a0,A1 a1,const A2&, const A3& a3, const A4& a4) const
+    BOOST_FORCEINLINE result_type operator()(A0 a0,A1 const&,const A2& a2, const A3& a3) const
     {
-      return aligned_load<result_type>(a0+a1,a3,a4);
+      return aligned_load<result_type>(a0+a2,a3,splat<result_type>(0));
+    }
+  };
+
+  /// INTERNAL ONLY - Regular SIMD mask load with offset
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::aligned_load_, tag::cpu_
+                                    , (A0)(A1)(A2)(A3)(A4)(X)
+                                    , (iterator_<unspecified_<A0> >)
+                                      ((target_< simd_<unspecified_<A1>,X> >))
+                                      (scalar_< integer_<A2> >)
+                                      ((simd_< logical_<A3>
+                                             , X
+                                             >
+                                      ))
+                                      ((simd_< unspecified_<A4>, X>))
+                                    )
+  {
+    typedef typename A1::type result_type;
+
+    BOOST_FORCEINLINE result_type operator()(A0 a0,A1 const&,const A2& a2, const A3& a3, const A4& a4) const
+    {
+      return aligned_load<result_type>(a0+a2,a3,a4);
     }
   };
 
@@ -51,15 +72,37 @@ namespace boost { namespace simd { namespace ext
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::aligned_load_, tag::cpu_
                                     , (A0)(A1)(A2)(X)
                                     , (iterator_<unspecified_<A0> >)
-                                      (scalar_< integer_<A1> >)
-                                      ((target_< simd_<unspecified_<A2>,X> >))
+                                      ((target_< simd_<unspecified_<A1>,X> >))
+                                      (scalar_< integer_<A2> >)
                                     )
   {
-    typedef typename A2::type result_type;
+    typedef typename A1::type result_type;
 
-    BOOST_FORCEINLINE result_type operator()(A0 a0,A1 a1,const A2&) const
+    BOOST_FORCEINLINE result_type operator()(A0 a0,A1 const& ,const A2& a2) const
     {
-      return aligned_load<result_type>(a0+a1);
+      return aligned_load<result_type>(a0+a2);
+    }
+  };
+
+  /// INTERNAL ONLY - Misaligned mask load with offset, zero
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::aligned_load_, tag::cpu_
+                                    , (A0)(A1)(A2)(A3)(A4)(X)
+                                    , (iterator_<scalar_< unspecified_<A0> > >)
+                                      ((target_<simd_< unspecified_<A1>, X> >))
+                                      (scalar_<integer_<A2> >)
+                                      (mpl_integral_<scalar_< integer_<A3> > >)
+                                      ((simd_< logical_<A4>
+                                             , X
+                                             >
+                                      ))
+                                    )
+  {
+    typedef typename A1::type result_type;
+
+    BOOST_FORCEINLINE result_type
+    operator()(A0 a0, A1 const&, const A2& a2, const A3&, const A4& a4) const
+    {
+      return boost::simd::aligned_load<result_type,A3::value>( a0+a2, a4, splat<result_type>(0) );
     }
   };
 
@@ -67,22 +110,22 @@ namespace boost { namespace simd { namespace ext
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::aligned_load_, tag::cpu_
                                     , (A0)(A1)(A2)(A3)(A4)(A5)(X)
                                     , (iterator_<scalar_< unspecified_<A0> > >)
-                                      (scalar_<integer_<A1> >)
-                                      ((target_<simd_< unspecified_<A2>, X> >))
+                                      ((target_<simd_< unspecified_<A1>, X> >))
+                                      (scalar_<integer_<A2> >)
                                       (mpl_integral_<scalar_< integer_<A3> > >)
-                                      ((simd_< unspecified_<A4>, X>))
-                                      ((simd_< logical_<A5>
+                                      ((simd_< logical_<A4>
                                              , X
                                              >
                                       ))
+                                      ((simd_< unspecified_<A5>, X>))
                                     )
   {
-    typedef typename A2::type result_type;
+    typedef typename A1::type result_type;
 
     BOOST_FORCEINLINE result_type
-    operator()(A0 a0, A1 a1, const A2&, const A3&, const A4& a4, const A5& a5) const
+    operator()(A0 a0, A1 const&, const A2& a2, const A3&, const A4& a4, const A5& a5) const
     {
-      return boost::simd::aligned_load<result_type,A3::value>( a0+a1, a4, a5 );
+      return boost::simd::aligned_load<result_type,A3::value>( a0+a2, a4, a5 );
     }
   };
 
@@ -90,17 +133,38 @@ namespace boost { namespace simd { namespace ext
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::aligned_load_, tag::cpu_
                                     , (A0)(A1)(A2)(A3)(X)
                                     , (iterator_<scalar_< unspecified_<A0> > >)
-                                      (scalar_<integer_<A1> >)
-                                      ((target_<simd_< unspecified_<A2>, X> >))
+                                      ((target_<simd_< unspecified_<A1>, X> >))
+                                      (scalar_<integer_<A2> >)
                                       (mpl_integral_<scalar_< integer_<A3> > >)
+                                    )
+  {
+    typedef typename A1::type result_type;
+
+    BOOST_FORCEINLINE result_type
+    operator()(A0 a0, A1 const&, const A2& a2, const A3&) const
+    {
+      return boost::simd::aligned_load<result_type,A3::value>( a0+a2 );
+    }
+  };
+
+ /// INTERNAL ONLY - Regular SIMD mask load without offset, mask
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::aligned_load_
+                                    , tag::cpu_
+                                    , (A0)(A2)(A3)(X)
+                                    , (iterator_< scalar_<arithmetic_<A0> > >)
+                                      ((target_< simd_<arithmetic_<A2>,X> >))
+                                      ((simd_< logical_<A3>
+                                             , X
+                                             >
+                                      ))
                                     )
   {
     typedef typename A2::type result_type;
 
-    BOOST_FORCEINLINE result_type
-    operator()(A0 a0, A1 a1, const A2&, const A3&) const
+    BOOST_FORCEINLINE result_type operator()(A0 a0,const A2&, const A3& a3) const
     {
-      return boost::simd::aligned_load<result_type,A3::value>( a0+a1 );
+      BOOST_SIMD_DETAILS_CHECK_PTR_CVT(a0, result_type, typename std::iterator_traits<A0>::value_type);
+      return load<result_type>(a0, a3, splat<result_type>(0) );
     }
   };
 
@@ -110,11 +174,11 @@ namespace boost { namespace simd { namespace ext
                                     , (A0)(A2)(A3)(A4)(X)
                                     , (iterator_< scalar_<arithmetic_<A0> > >)
                                       ((target_< simd_<arithmetic_<A2>,X> >))
-                                      ((simd_< unspecified_<A3>, X>))
-                                      ((simd_< logical_<A4>
+                                      ((simd_< logical_<A3>
                                              , X
                                              >
                                       ))
+                                      ((simd_< unspecified_<A4>, X>))
                                     )
   {
     typedef typename A2::type result_type;
@@ -125,7 +189,6 @@ namespace boost { namespace simd { namespace ext
       return load<result_type>(a0, a3, a4);
     }
   };
-
 
   /// INTERNAL ONLY - Regular SIMD load without offset
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::aligned_load_
@@ -144,6 +207,29 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
+/// INTERNAL ONLY - SIMD mask load with misalignment without offset, zero
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::aligned_load_
+                                    , tag::cpu_
+                                    , (A0)(A2)(A3)(A4)(X)
+                                    , (iterator_< scalar_< arithmetic_<A0> > >)
+                                      ((target_<simd_< arithmetic_<A2>, X > >))
+                                      (mpl_integral_< scalar_< integer_<A3> > >)
+                                      ((simd_< logical_<A4>
+                                             , X
+                                             >
+                                      ))
+                                    )
+  {
+    typedef typename A2::type result_type;
+
+    BOOST_FORCEINLINE
+    result_type operator()(A0 a0, const A2&, const A3&, const A4& a4) const
+    {
+      BOOST_SIMD_DETAILS_CHECK_PTR_CVT(a0-A3::value, result_type, typename std::iterator_traits<A0>::value_type);
+      return load<result_type>(a0, a4, splat<result_type>(0));
+    }
+  };
+
   /// INTERNAL ONLY - SIMD mask load with misalignment without offset
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::aligned_load_
                                     , tag::cpu_
@@ -151,11 +237,11 @@ namespace boost { namespace simd { namespace ext
                                     , (iterator_< scalar_< arithmetic_<A0> > >)
                                       ((target_<simd_< arithmetic_<A2>, X > >))
                                       (mpl_integral_< scalar_< integer_<A3> > >)
-                                      ((simd_< unspecified_<A4>, X>))
-                                      ((simd_< logical_<A5>
+                                      ((simd_< logical_<A4>
                                              , X
                                              >
                                       ))
+                                      ((simd_< unspecified_<A5>, X>))
                                     )
   {
     typedef typename A2::type result_type;
@@ -187,33 +273,62 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  /// INTERNAL ONLY - SIMD mask load with gather - gather means SIMD offset
+  /// INTERNAL ONLY - SIMD mask load with gather - gather means SIMD offset, zero
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF ( boost::simd::tag::aligned_load_, tag::cpu_
-                                       , (A0)(A1)(A2)(A3)(A4)(X)(Y)
+                                       , (A0)(A1)(A2)(A3)(X)(Y)
                                        , ( mpl::equal_to
                                          < boost::simd::meta
-                                                ::cardinal_of<A1>
+                                                ::cardinal_of<typename A1::type>
                                          , boost::simd::meta
-                                                ::cardinal_of<typename A2::type>
+                                                ::cardinal_of<A2>
                                          >
                                          )
                                        , (iterator_< unspecified_<A0> >)
-                                         ((simd_< fundamental_<A1>, X >))
-                                         ((target_<simd_<unspecified_<A2>,Y> >))
-                                         ((simd_< unspecified_<A3>, X>))
-                                         ((simd_< logical_<A4>
+                                         ((target_<simd_<unspecified_<A1>,Y> >))
+                                         ((simd_< integer_<A2>, X >))
+                                         ((simd_< logical_<A3>
                                                 , X
                                                 >
                                          ))
                                        )
   {
-    typedef typename A2::type result_type;
+    typedef typename A1::type result_type;
 
     BOOST_FORCEINLINE result_type
-    operator()(A0 a0, const A1& a1, const A2&, const A3& a3, const A4& a4) const
+    operator()(A0 a0, const A1&, const A2& a2, const A3& a3) const
     {
       BOOST_SIMD_DETAILS_CHECK_PTR_CVT(a0, result_type, typename std::iterator_traits<A0>::value_type);
-      return load<result_type>(a0, a1, a3, a4);
+      return load<result_type>(a0, a2, a3, splat<result_type>(0));
+    }
+  };
+
+  /// INTERNAL ONLY - SIMD mask load with gather - gather means SIMD offset
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF ( boost::simd::tag::aligned_load_, tag::cpu_
+                                       , (A0)(A1)(A2)(A3)(A4)(X)(Y)
+                                       , ( mpl::equal_to
+                                         < boost::simd::meta
+                                                ::cardinal_of<typename A1::type>
+                                         , boost::simd::meta
+                                                ::cardinal_of<A2>
+                                         >
+                                         )
+                                       , (iterator_< unspecified_<A0> >)
+                                         ((target_<simd_<unspecified_<A1>,Y> >))
+                                         ((simd_< fundamental_<A2>, X >))
+                                         ((simd_< logical_<A3>
+                                                , X
+                                                >
+                                         ))
+                                         ((simd_< unspecified_<A4>, X>))
+                                       )
+  {
+    typedef typename A1::type result_type;
+
+    BOOST_FORCEINLINE result_type
+    operator()(A0 a0, const A1&, const A2& a2, const A3& a3, const A4& a4) const
+    {
+      BOOST_SIMD_DETAILS_CHECK_PTR_CVT(a0, result_type, typename std::iterator_traits<A0>::value_type);
+      return load<result_type>(a0, a2, a3, a4);
     }
   };
 
@@ -222,23 +337,43 @@ namespace boost { namespace simd { namespace ext
                                        , (A0)(A1)(A2)(X)(Y)
                                        , ( mpl::equal_to
                                          < boost::simd::meta
-                                                ::cardinal_of<A1>
+                                                ::cardinal_of<typename A1::type>
                                          , boost::simd::meta
-                                                ::cardinal_of<typename A2::type>
+                                                ::cardinal_of<A2>
                                          >
                                          )
                                        , (iterator_< unspecified_<A0> >)
-                                         ((simd_< fundamental_<A1>, X >))
-                                         ((target_<simd_<unspecified_<A2>,Y> >))
+                                         ((target_<simd_<unspecified_<A1>,Y> >))
+                                         ((simd_< fundamental_<A2>, X >))
                                        )
+  {
+    typedef typename A1::type result_type;
+
+    BOOST_FORCEINLINE result_type
+    operator()(A0 a0, const A1&, const A2& a2) const
+    {
+      BOOST_SIMD_DETAILS_CHECK_PTR_CVT(a0, result_type, typename std::iterator_traits<A0>::value_type);
+      return load<result_type>(a0, a2);
+    }
+  };
+
+ // INTERNAL ONLY - SIMD mask load for deinterlacing or logical, mask
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::aligned_load_
+                                    , tag::cpu_
+                                    , (A0)(A2)(A3)(X)
+                                    , (iterator_<unspecified_<A0> >)
+                                      ((target_< simd_<unspecified_<A2>,X> >))
+                                      ((simd_< logical_<A3>
+                                             , X
+                                             >
+                                      ))
+                                    )
   {
     typedef typename A2::type result_type;
 
-    BOOST_FORCEINLINE result_type
-    operator()(A0 a0, const A1& a1, const A2&) const
+    BOOST_FORCEINLINE result_type operator()(A0 a0,const A2&, const A3& a3) const
     {
-      BOOST_SIMD_DETAILS_CHECK_PTR_CVT(a0, result_type, typename std::iterator_traits<A0>::value_type);
-      return load<result_type>(a0, a1);
+      return load<result_type>(a0, a3, splat<result_type>(0));
     }
   };
 
@@ -248,11 +383,11 @@ namespace boost { namespace simd { namespace ext
                                     , (A0)(A2)(A3)(A4)(X)
                                     , (iterator_<unspecified_<A0> >)
                                       ((target_< simd_<unspecified_<A2>,X> >))
-                                      ((simd_< unspecified_<A3>, X>))
-                                      ((simd_< logical_<A4>
+                                      ((simd_< logical_<A3>
                                              , X
                                              >
                                       ))
+                                      ((simd_< unspecified_<A4>, X>))
                                     )
   {
     typedef typename A2::type result_type;
@@ -279,6 +414,28 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
+ /// INTERNAL ONLY - SIMD mask load with misalignment without offset, zero
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::aligned_load_
+                                    , tag::cpu_
+                                    , (A0)(A2)(A3)(A4)(X)
+                                    , (iterator_<unspecified_<A0> >)
+                                      ((target_<simd_< unspecified_<A2>, X > >))
+                                      (mpl_integral_< scalar_< integer_<A3> > >)
+                                      ((simd_< logical_<A4>
+                                             , X
+                                             >
+                                      ))
+                                    )
+  {
+    typedef typename A2::type result_type;
+
+    BOOST_FORCEINLINE
+    result_type operator()(A0 a0, const A2&, const A3&, const A4& a4) const
+    {
+      return load<result_type>(a0, a4, splat<result_type>(0));
+    }
+  };
+
   /// INTERNAL ONLY - SIMD mask load with misalignment without offset
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::aligned_load_
                                     , tag::cpu_
@@ -286,11 +443,11 @@ namespace boost { namespace simd { namespace ext
                                     , (iterator_<unspecified_<A0> >)
                                       ((target_<simd_< unspecified_<A2>, X > >))
                                       (mpl_integral_< scalar_< integer_<A3> > >)
-                                      ((simd_< unspecified_<A4>, X>))
-                                      ((simd_< logical_<A5>
+                                      ((simd_< logical_<A4>
                                              , X
                                              >
                                       ))
+                                      ((simd_< unspecified_<A5>, X>))
                                     )
   {
     typedef typename A2::type result_type;
@@ -324,20 +481,20 @@ namespace boost { namespace simd { namespace ext
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::aligned_load_, tag::cpu_
                                     , (A0)(A1)(A2)(X)
                                     , (fusion_sequence_<A0>)
-                                      (generic_< integer_<A1> >)
-                                      ((target_<simd_<fusion_sequence_<A2>,X> >))
+                                      ((target_<simd_<fusion_sequence_<A1>,X> >))
+                                      (generic_< integer_<A2> >)
                                     )
   {
-    typedef typename A2::type result_type;
+    typedef typename A1::type result_type;
 
     BOOST_FORCEINLINE
-    result_type operator()(A0 a0, const A1& a1, const A2&) const
+    result_type operator()(A0 a0, const A1&, const A2& a2) const
     {
       result_type that;
       meta::iterate < fusion::result_of::size<A0>::type::value>
                     ( details::loader < boost::simd::
-                                        tag::aligned_load_(A0, A1, result_type)
-                                      >(a0, a1, that)
+                                        tag::aligned_load_(A0, result_type, A2)
+                                      >(a0, that, a2)
                     );
       return that;
     }
