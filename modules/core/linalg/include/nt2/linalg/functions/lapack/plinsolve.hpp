@@ -10,8 +10,14 @@
 #define NT2_LINALG_FUNCTIONS_LAPACK_PLINSOLVE_HPP_INCLUDED
 
 #include <nt2/linalg/functions/plinsolve.hpp>
+<<<<<<< HEAD
 #include <nt2/include/functions/gesvx.hpp>
 #include <nt2/include/functions/sysvx.hpp>
+=======
+#include <nt2/include/functions/svx.hpp>
+#include <nt2/include/functions/clinsolve.hpp>
+#include <nt2/include/functions/ysvx.hpp>
+>>>>>>> Modified linsolve :
 #include <nt2/include/functions/posvx.hpp>
 #include <nt2/include/functions/of_size.hpp>
 #include <nt2/include/functions/resize.hpp>
@@ -21,6 +27,7 @@
 #include <nt2/sdk/meta/settings_of.hpp>
 #include <nt2/sdk/meta/as_real.hpp>
 
+#include <nt2/include/functions/tie.hpp>
 #include <nt2/core/container/table/table.hpp>
 
 #include <boost/dispatch/meta/ignore_unused.hpp>
@@ -31,10 +38,13 @@ namespace nt2 { namespace ext
   // LINSOLVE
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::plinsolve_, tag::cpu_
-                            , (A0)(A1)(A2)
+                            , (A0)(A1)(A2)(N2)
                             , ((ast_<A0, nt2::container::domain>))  // A
                               ((ast_<A1, nt2::container::domain>))  // B
-                              ((ast_<A2, nt2::container::domain>))  // X
+                              ((node_<A2, nt2::tag::tie_             // X-R
+                                    , N2, nt2::container::domain
+                                     >
+                              ))
                             )
   {
     typedef void  result_type;
@@ -44,66 +54,119 @@ namespace nt2 { namespace ext
     typedef nt2::container::table<ctype_t>  entry_type;
     typedef nt2::container::table<ctype_t,shape>  matrix_type;
 
-    BOOST_FORCEINLINE result_type operator()( A0 const& a0, A1 const& a1, A2&  a2 ) const
+    BOOST_FORCEINLINE result_type operator()( A0 const& a0, A1 const& a1, A2 const&  a2 ) const
     {
-      shape_analysis(a0,a1,a2,shape());
+      eval(a0,a1,a2,N2(),shape());
     }
 
     //==========================================================================
     /// INTERNAL ONLY - Shape analysis
 
+    /// INTERNAL ONLY - X = LINSOLVE(A,B) -- Rectangular shape
     BOOST_FORCEINLINE
-    void shape_analysis ( A0 const& a0, A1 const& a1 , A2& a2
-                        , nt2::rectangular_ const&
-                        ) const
-    {
-      eval(a0, a1, a2);
-    }
-
-    /// INTERNAL ONLY - Positive definite shape
-    BOOST_FORCEINLINE
-    void shape_analysis ( A0 const& a0, A1 const& a1 , A2& a2
-                        , nt2::positive_definite_ const&
-                        ) const
+    void eval ( A0 const& a0, A1 const& a1 , A2 const& a2 ,boost::mpl::long_<1> const
+              , nt2::rectangular_ const&) const
     {
       type_t rcond;
-      a2.resize(nt2::of_size(a0.leading_size(),1));
-      nt2_la_int iter = nt2::posvx( boost::proto::value(a0), boost::proto::value(a1)
-                                  , boost::proto::value(a2), rcond);
-      boost::dispatch::ignore_unused(iter);
+      boost::proto::child_c<0>(a2).resize(nt2::of_size(a0.leading_size(),1));
+      nt2::svx( boost::proto::value(concrete(a0)), boost::proto::value(concrete(a1))
+              , boost::proto::value(boost::proto::child_c<0>(a2)), rcond );
     }
-    /// INTERNAL ONLY - Symmetric shape
+
+    //==========================================================================
+    /// INTERNAL ONLY - [X,R] = LINSOLVE(A,B) -- Rectangular shape
     BOOST_FORCEINLINE
-    void shape_analysis ( A0 const& a0, A1 const& a1 , A2& a2
-                        , nt2::symmetric_ const&
-                        ) const
+    void eval ( A0 const& a0, A1 const& a1 , A2 const& a2 ,boost::mpl::long_<2> const
+              , nt2::rectangular_ const&) const
+    {
+      type_t rcond;
+      boost::proto::child_c<0>(a2).resize(nt2::of_size(a0.leading_size(),1));
+      nt2::svx( boost::proto::value(concrete(a0)), boost::proto::value(concrete(a1))
+              , boost::proto::value(boost::proto::child_c<0>(a2))
+              , rcond );
+      boost::proto::child_c<1>(a2) = rcond;
+    }
+
+    //==========================================================================
+    /// INTERNAL ONLY - X = LINSOLVE(A,B) -- symmetric shape
+    BOOST_FORCEINLINE
+    void eval ( A0 const& a0, A1 const& a1 , A2 const& a2 ,boost::mpl::long_<1> const
+              , nt2::symmetric_ const&) const
     {
       type_t rcond;
       nt2::container::table<nt2_la_int> piv(nt2::of_size(a0.leading_size(),1));
-      a2.resize(nt2::of_size(a0.leading_size(),1));
-      nt2_la_int iter = nt2::sysvx( boost::proto::value(a0),boost::proto::value(piv)
-                                 , boost::proto::value(a1),boost::proto::value(a2)
+      boost::proto::child_c<0>(a2).resize(nt2::of_size(a0.leading_size(),1));
+      nt2_la_int iter = nt2::ysvx( boost::proto::value(a0),boost::proto::value(piv)
+                                 , boost::proto::value(a1)
+                                 , boost::proto::value(boost::proto::child_c<0>(a2))
                                  , rcond);
       boost::dispatch::ignore_unused(iter);
     }
 
-    /// INTERNAL ONLY - No info on this shape
-    template<typename sh>
+    //==========================================================================
+    /// INTERNAL ONLY - [X,R] = LINSOLVE(A,B) -- symmetric shape
     BOOST_FORCEINLINE
-    void shape_analysis ( A0 const& a0, A1 const& a1, A2& a2, sh const&) const
+    void eval ( A0 const& a0, A1 const& a1 , A2 const& a2 ,boost::mpl::long_<2> const
+              , nt2::symmetric_ const&) const
     {
-      eval(a0,a1,a2);
+      type_t rcond;
+      nt2::container::table<nt2_la_int> piv(nt2::of_size(a0.leading_size(),1));
+<<<<<<< HEAD
+      a2.resize(nt2::of_size(a0.leading_size(),1));
+      nt2_la_int iter = nt2::sysvx( boost::proto::value(a0),boost::proto::value(piv)
+                                 , boost::proto::value(a1),boost::proto::value(a2)
+=======
+      boost::proto::child_c<0>(a2).resize(nt2::of_size(a0.leading_size(),1));
+      nt2_la_int iter = nt2::ysvx( boost::proto::value(a0),boost::proto::value(piv)
+                                 , boost::proto::value(a1)
+                                 , boost::proto::value(boost::proto::child_c<0>(a2))
+>>>>>>> Modified linsolve :
+                                 , rcond);
+      boost::dispatch::ignore_unused(iter);
+      boost::proto::child_c<1>(a2) = rcond;
     }
 
     //==========================================================================
-    /// INTERNAL ONLY - Solve with no shape info - Todo : Analyse shape
+    /// INTERNAL ONLY - X = LINSOLVE(A,B) -- positive definite shape
     BOOST_FORCEINLINE
-    void eval ( A0 const& a0, A1 const& a1 , A2& a2) const
+    void eval ( A0 const& a0, A1 const& a1 , A2 const& a2 ,boost::mpl::long_<1> const
+              , nt2::positive_definite_ const&) const
     {
       type_t rcond;
+      boost::proto::child_c<0>(a2).resize(nt2::of_size(a0.leading_size(),1));
+      nt2_la_int iter = nt2::posvx( boost::proto::value(a0), boost::proto::value(a1)
+                                  , boost::proto::value(boost::proto::child_c<0>(a2))
+                                  , rcond);
+      boost::dispatch::ignore_unused(iter);
+    }
+
+    //==========================================================================
+    /// INTERNAL ONLY - [X,R] = LINSOLVE(A,B) -- positive definite shape
+    BOOST_FORCEINLINE
+    void eval ( A0 const& a0, A1 const& a1 , A2 const& a2 ,boost::mpl::long_<2> const
+              , nt2::positive_definite_ const&) const
+    {
+      type_t rcond;
+<<<<<<< HEAD
       a2.resize(nt2::of_size(a0.leading_size(),1));
       nt2::gesvx( boost::proto::value(concrete(a0)), boost::proto::value(concrete(a1))
               , boost::proto::value(a2), rcond );
+=======
+      boost::proto::child_c<0>(a2).resize(nt2::of_size(a0.leading_size(),1));
+      nt2_la_int iter = nt2::posvx( boost::proto::value(a0), boost::proto::value(a1)
+                                  , boost::proto::value(boost::proto::child_c<0>(a2))
+                                  , rcond);
+      boost::dispatch::ignore_unused(iter);
+      boost::proto::child_c<1>(a2) = rcond;
+    }
+
+    /// INTERNAL ONLY - No info on this shape
+    template<typename N,typename sh>
+    BOOST_FORCEINLINE
+    void eval ( A0 const& a0, A1 const& a1, A2 const& a2, N const&, sh const&) const
+    {
+      nt2::clinsolve(a0,a1,a2);
+>>>>>>> Modified linsolve :
     }
 
   };

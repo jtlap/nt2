@@ -105,8 +105,6 @@ namespace nt2 { namespace ext
         nt2::memory::container<tag::table_, nt2_la_int, nt2::_2D> ipiv(nt2::of_size(n,1));
         nt2::memory::container<tag::table_, nt2_la_int, nt2::_2D> iwork(nt2::of_size(n,1));
 
-        a2 = a1;
-
         NT2_F77NAME(dposvx)( &fact       , &uplo
                            , &n          , &nhrs
                            , a0.raw()    , &n
@@ -153,8 +151,6 @@ namespace nt2 { namespace ext
 
         nt2::memory::container<tag::table_, nt2_la_int, nt2::_2D> ipiv(nt2::of_size(n,1));
         nt2::memory::container<tag::table_, nt2_la_int, nt2::_2D> iwork(nt2::of_size(n,1));
-
-        a2 = a1;
 
         NT2_F77NAME(sposvx)( &fact       , &uplo
                            , &n          , &nhrs
@@ -205,8 +201,6 @@ namespace nt2 { namespace ext
         nt2::memory::container<tag::table_, nt2_la_int, nt2::_2D> ipiv(nt2::of_size(n,1));
         nt2::memory::container<tag::table_, T, nt2::_2D> rwork(nt2::of_size(n,1));
 
-        a2 = a1;
-
         NT2_F77NAME(zposvx)( &fact       , &uplo
                            , &n          , &nhrs
                            , a0.raw()    , &n
@@ -255,8 +249,6 @@ namespace nt2 { namespace ext
 
         nt2::memory::container<tag::table_, nt2_la_int, nt2::_2D> ipiv(nt2::of_size(n,1));
         nt2::memory::container<tag::table_, T, nt2::_2D> rwork(nt2::of_size(n,1));
-
-        a2 = a1;
 
         NT2_F77NAME(cposvx)( &fact       , &uplo
                            , &n          , &nhrs
