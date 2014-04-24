@@ -11,8 +11,14 @@
 
 #include <nt2/linalg/functions/mlinsolve.hpp>
 #include <nt2/linalg/functions/clinsolve.hpp>
+<<<<<<< HEAD
 #include <nt2/include/functions/gemsv.hpp>
 #include <nt2/include/functions/pomsv.hpp>
+=======
+#include <nt2/include/functions/msv.hpp>
+#include <nt2/include/functions/mcsne.hpp>
+#include <nt2/include/functions/mposv.hpp>
+>>>>>>> Modified linsolve :
 #include <nt2/linalg/options.hpp>
 #include <nt2/sdk/meta/concrete.hpp>
 #include <nt2/sdk/meta/settings_of.hpp>
@@ -45,25 +51,36 @@ namespace nt2 { namespace ext
 
     BOOST_FORCEINLINE result_type operator()( A0 const& a0, A1 const& a1, A2& a2 ) const
     {
-      shape_analysis(a0,a1,a2,shape());
+      const type_t x = type_t(0);
+      eval(a0,a1,a2,x,shape());
     }
-
     //==========================================================================
     /// INTERNAL ONLY - Shape analysis
 
+    /// INTERNAL ONLY - Rectangular shape
     BOOST_FORCEINLINE
-    void shape_analysis ( A0 const& a0, A1 const& a1 , A2& a2
-                        , nt2::rectangular_ const&
-                        ) const
+    void eval ( A0 const& a0, A1 const& a1 , A2& a2, double const, nt2::rectangular_ const&) const
     {
-      eval(a0, a1, a2);
+      nt2_la_int m   = boost::fusion::at_c<0>( a0.extent() );
+      nt2_la_int n   = boost::fusion::at_c<1>( a0.extent() );
+
+      if (m>n)
+      {
+        a2 = nt2::mcsne(a0,a1);
+      }
+      else
+      {
+      entry_type entry(a0);
+      nt2_la_int iter = nt2::msv(boost::proto::value(entry)
+                       ,boost::proto::value(a1),boost::proto::value(a2) );
+      boost::dispatch::ignore_unused(iter);
+      }
+
     }
 
-
+    /// INTERNAL ONLY - Rectangular shape
     BOOST_FORCEINLINE
-    void shape_analysis ( A0 const& a0, A1 const& a1, A2& a2
-                        , nt2::positive_definite_ const&
-                        ) const
+    void eval ( A0 const& a0, A1 const& a1 , A2& a2, double const, nt2::positive_definite_ const&) const
     {
       entry_type var(a2);
       matrix_type entry(a0);
@@ -73,6 +90,7 @@ namespace nt2 { namespace ext
       a2 = var;
     }
 
+<<<<<<< HEAD
     template<typename sh>
     BOOST_FORCEINLINE
     void shape_analysis ( A0 const& a0, A1 const& a1, A2& a2
@@ -103,9 +121,15 @@ namespace nt2 { namespace ext
 
     /// INTERNAL ONLY -
     void eval ( A0 const& a0, A1 const& a1 , A2& a2, float const) const
+=======
+    /// INTERNAL ONLY - Default case
+    template<typename T, typename sh> BOOST_FORCEINLINE
+    void eval ( A0 const& a0, A1 const& a1 , A2& a2, T const, sh const&) const
+>>>>>>> Modified linsolve :
     {
       nt2::clinsolve(a0,a1,nt2::tie(a2));
     }
+
   };
 
 

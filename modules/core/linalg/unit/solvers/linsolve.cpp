@@ -18,7 +18,12 @@
 #include <nt2/include/functions/pocon.hpp>
 #include <nt2/include/functions/lange.hpp>
 #include <nt2/include/functions/lansy.hpp>
+<<<<<<< HEAD
 #include <nt2/include/functions/gecon.hpp>
+=======
+#include <nt2/include/functions/svx.hpp>
+#include <nt2/include/functions/con.hpp>
+>>>>>>> Modified linsolve :
 #include <nt2/include/functions/eye.hpp>
 #include <nt2/include/functions/tie.hpp>
 #include <nt2/include/functions/zeros.hpp>
@@ -102,12 +107,18 @@ NT2_TEST_ULP_EQUAL( x , x1 , T(10));
 // [X,R] = linsolve(A,B)
 nt2::tie(x,rcond) = nt2::linsolve(a,b);
 
+<<<<<<< HEAD
 t_t lu = nt2::lu(a);
 anorm = nt2::lange(boost::proto::value(a), norm);
 std::cout<< "anorm" << anorm << std::endl;
 rcond1 = nt2::gecon( boost::proto::value(lu),norm,anorm);
+=======
+nt2_la_int p = nt2::svx(boost::proto::value(a),boost::proto::value(b)
+                        ,boost::proto::value(x),rcond1);
+>>>>>>> Modified linsolve :
 
 NT2_TEST_ULP_EQUAL(rcond, rcond1, T(10) );
+NT2_TEST_EQUAL(T(p), T(0) );
 
 }
 
@@ -133,7 +144,7 @@ char norm = '1';
 
 // X = linsolve(A,B)
 x = nt2::linsolve(a+a,b,precise_);
-nt2::plinsolve(a+a,b,x1 );
+nt2::plinsolve(a+a,b,nt2::tie(x1) );
 
 NT2_TEST_ULP_EQUAL( x , x1 , T(10));
 
@@ -177,19 +188,25 @@ char norm = '1';
 
 // X = linsolve(A,B)
 x = nt2::linsolve(a+a,b,precise_);
-nt2::plinsolve(a+a,b,x1 );
+nt2::plinsolve(a+a,b, nt2::tie(x1) );
 
 NT2_TEST_ULP_EQUAL( x , x1 , T(10));
 
- // // [X,R] = linsolve(A,B)
+// [X,R] = linsolve(A,B)
 
 nt2::tie(x,rcond) = nt2::linsolve(a,b);
 
+<<<<<<< HEAD
 t_t lu = nt2::lu(a);
 anorm = nt2::lange( boost::proto::value(a), norm);
 rcond1 = nt2::gecon( boost::proto::value(lu),norm,anorm);
+=======
+nt2_la_int p = nt2::svx(boost::proto::value(a),boost::proto::value(b)
+                        ,boost::proto::value(x),rcond1);
+>>>>>>> Modified linsolve :
 
 NT2_TEST_ULP_EQUAL(rcond, rcond1, T(10) );
+NT2_TEST_EQUAL(T(0), T(p) );
 
 }
 
@@ -266,11 +283,17 @@ NT2_TEST_ULP_EQUAL( x , x1 , T(10));
 
 nt2::tie(x,rcond) = nt2::linsolve(a,b);
 
+<<<<<<< HEAD
 t_t lu = nt2::lu(a);
 anorm = nt2::lange( boost::proto::value(a), norm);
 rcond1 = nt2::gecon( boost::proto::value(lu),norm,anorm);
+=======
+nt2_la_int p = nt2::svx(boost::proto::value(a),boost::proto::value(b)
+                        ,boost::proto::value(x),rcond1);
+>>>>>>> Modified linsolve :
 
 NT2_TEST_ULP_EQUAL(rcond, rcond1, T(10) );
+NT2_TEST_EQUAL(T(0), T(p) );
 }
 
 // // SYMMETRIC
@@ -372,7 +395,7 @@ char norm = '1';
 
 // X = linsolve(A,B)
 x = nt2::linsolve(a,b,precise_);
-nt2::plinsolve(a,b,x1);
+nt2::plinsolve(a,b,nt2::tie(x1));
 
 NT2_TEST_ULP_EQUAL( x , x1 , T(10));
 
@@ -414,7 +437,7 @@ char norm = '1';
 
 // X = linsolve(A,B)
 x = nt2::linsolve(a,b,precise_);
-nt2::plinsolve(a,b,x1);
+nt2::plinsolve(a,b,nt2::tie(x1) );
 
 NT2_TEST_ULP_EQUAL( x , x1 , T(10));
 
@@ -616,7 +639,7 @@ char norm = '1';
 
 // X = linsolve(A,B)
 x = nt2::linsolve(a+a,b,precise_);
-nt2::plinsolve(a+a,b,x1 );
+nt2::plinsolve(a+a,b, nt2::tie(x1) );
 
 NT2_TEST_ULP_EQUAL( x , x1 , T(10));
 
@@ -657,7 +680,7 @@ char norm = '1';
 
 // X = linsolve(A,B)
 x = nt2::linsolve(a+a,b,precise_);
-nt2::plinsolve(a+a,b,x1 );
+nt2::plinsolve(a+a,b, nt2::tie(x1) );
 
 NT2_TEST_ULP_EQUAL( x , x1 , T(10));
 
@@ -819,5 +842,31 @@ nt2::tie(x,rcond) = nt2::linsolve(a,b);
 
 NT2_TEST_ULP_EQUAL(x, x1, T(10) );
 
+}
 
+
+NT2_TEST_CASE_TPL(linsolve_trsm, NT2_REAL_TYPES )
+{
+  using nt2::_;
+
+typedef nt2::table<T>         t_t;
+typedef nt2::table<nt2_la_int>         t_i;
+
+t_t a = nt2::cons<T>(nt2::of_size(3,3),2,1,1,1,1,1,1,1,2);
+t_t b = nt2::cons<T>(nt2::of_size(3,1),1,2,5);
+t_t x = nt2::cons<T>(nt2::of_size(3,1),-1,0,3);
+
+t_t y(b),p;
+
+nt2::table<T,nt2::upper_triangular_> u;
+nt2::table<T,nt2::lower_triangular_> l;
+
+nt2::tie(l,u,p) = nt2::lu(a);
+
+y = nt2::mtimes(p,b);
+
+y = nt2::linsolve(l,y);
+y = nt2::linsolve(u,y);
+
+NT2_TEST_EQUAL( y, x);
 }
