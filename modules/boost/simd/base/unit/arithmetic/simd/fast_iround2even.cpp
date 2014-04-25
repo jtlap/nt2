@@ -23,7 +23,7 @@
 #include <boost/simd/include/constants/nan.hpp>
 #include <boost/simd/include/constants/three.hpp>
 #include <boost/simd/include/constants/two.hpp>
-#include <boost/simd/operator/include/functions/make.hpp>
+#include <boost/simd/include/functions/make.hpp>
 NT2_TEST_CASE_TPL ( fast_iround2even_real, BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::fast_iround2even;
