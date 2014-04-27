@@ -20,11 +20,11 @@ namespace c1
 {
   typedef float             sT;
   typedef std::complex<sT>  T;
-  typedef boost::simd::meta::vector_of<T, BOOST_SIMD_BYTES/sizeof(sT)>::type vT;
+  typedef boost::simd::meta::vector_of<T, BOOST_SIMD_BYTES/sizeof(sT)>::type vcT;
 
   NT2_TIMING( plus_
-            , ((vT,T(-100,-100),T(100,100)))
-              ((vT,T(-100,-100),T(100,100)))
+            , ((vcT,T(-100,-100),T(100,100)))
+              ((vcT,T(-100,-100),T(100,100)))
             )
 }
 
@@ -32,10 +32,10 @@ namespace n2
 {
   typedef double            sT;
   typedef std::complex<sT>  T;
-  typedef boost::simd::meta::vector_of<T, BOOST_SIMD_BYTES/sizeof(sT)>::type vT;
+  typedef boost::simd::meta::vector_of<T, BOOST_SIMD_BYTES/sizeof(sT)>::type vcT;
 
   NT2_TIMING( plus_
-            , ((vT,T(-100,-100),T(100,100)))
-              ((vT,T(-100,-100),T(100,100)))
+            , ((vcT,T(-100,-100),T(100,100)))
+              ((vcT,T(-100,-100),T(100,100)))
             )
 }
