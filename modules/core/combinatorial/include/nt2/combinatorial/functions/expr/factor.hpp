@@ -21,6 +21,7 @@
 #include <nt2/include/functions/sort.hpp>
 #include <nt2/include/functions/zeros.hpp>
 #include <nt2/include/constants/maxflint.hpp>
+#include <nt2/include/constants/four.hpp>
 #include <nt2/core/container/table/table.hpp>
 #include <nt2/sdk/meta/is_signed.hpp>
 
