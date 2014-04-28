@@ -62,35 +62,29 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_FORCEINLINE result_type operator()(A0 a0, A1 const&, A2 const& a2, A3 const& a3 ) const
     {
-      result_type that;
-      for(std::size_t i=0; i!=meta::cardinal_of<result_type>::value; ++i)
-        if (a2[i])
-          that[i] = static_cast<stype>(a0[i]);
-        else
-          that[i] = static_cast<stype>(a3[i]);
-      return that;
+      return if_else(a2,load<result_type>(a0),a3);
     }
   };
 
-      /// INTERNAL ONLY - SIMD load via Scalar emulation without offset
-      BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::load_
-                                        , tag::cpu_
-                                        , (A0)(A2)(X)
-                                        , (iterator_<unspecified_<A0> >)
-                                          ((target_<simd_< unspecified_<A2>, X> >))
-                                        )
-      {
-        typedef typename A2::type result_type;
-        typedef typename meta::scalar_of<result_type>::type stype;
+  /// INTERNAL ONLY - SIMD load via Scalar emulation without offset
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::load_
+                                    , tag::cpu_
+                                    , (A0)(A2)(X)
+                                    , (iterator_<unspecified_<A0> >)
+                                      ((target_<simd_< unspecified_<A2>, X> >))
+                                    )
+  {
+    typedef typename A2::type result_type;
+    typedef typename meta::scalar_of<result_type>::type stype;
 
-        BOOST_FORCEINLINE result_type operator()(A0 a0, A2 const&) const
-        {
-          result_type that;
-          for(std::size_t i=0; i!=meta::cardinal_of<result_type>::value; ++i)
-            that[i] = static_cast<stype>(a0[i]);
-          return that;
-        }
-      };
+    BOOST_FORCEINLINE result_type operator()(A0 a0, A2 const&) const
+    {
+      result_type that;
+      for(std::size_t i=0; i!=meta::cardinal_of<result_type>::value; ++i)
+        that[i] = static_cast<stype>(a0[i]);
+      return that;
+    }
+  };
 
   /// INTERNAL ONLY - SIMD mask load via Scalar emulation with scalar offset, zero
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::load_
