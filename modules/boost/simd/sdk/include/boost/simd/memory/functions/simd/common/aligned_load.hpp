@@ -43,7 +43,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_FORCEINLINE result_type operator()(A0 a0,A1 const&,const A2& a2, const A3& a3) const
     {
-      return aligned_load<result_type>(a0+a2,a3,splat<result_type>(0));
+      return aligned_load<result_type>(a0+a2,a3);
     }
   };
 
@@ -102,7 +102,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_FORCEINLINE result_type
     operator()(A0 a0, A1 const&, const A2& a2, const A3&, const A4& a4) const
     {
-      return boost::simd::aligned_load<result_type,A3::value>( a0+a2, a4, splat<result_type>(0) );
+      return boost::simd::aligned_load<result_type,A3::value>( a0+a2, a4);
     }
   };
 
