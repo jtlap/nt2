@@ -29,13 +29,14 @@ namespace nt2 { namespace ext
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0,A0 & a1,A0 & a2) const
     {
-      typename meta::as_real<A0>::type c, s, ch, sh;
+      typedef typename meta::as_real<A0>::type rtype;
+      rtype c, s, ch, sh;
 
       sincos(nt2::imag(a0), s, c);
       sinhcosh(nt2::real(a0), sh, ch);
 
-      a1 = rtype(sh*c, ch*s);
-      a2 = rtype(c*ch, s*sh);
+      a1 = A0(sh*c, ch*s);
+      a2 = A0(c*ch, s*sh);
     }
   };
 

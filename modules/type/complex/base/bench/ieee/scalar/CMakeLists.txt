@@ -8,6 +8,14 @@
 ##############################################################################
 
 SET( SOURCES
+  frac.cpp
+  ldexp.cpp
+  maxmag.cpp
+  maxnummag.cpp
+  minmag.cpp
+  minnummag.cpp
+  sign.cpp
+  ulpdist.cpp
 # List of scalar test files for toolbox ieee
    )
 
