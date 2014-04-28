@@ -30,6 +30,15 @@ namespace nt2 { namespace tag
   /*!
     Natural logarithm of the absolute value of the Gamma function
 
+    Note that the accuracy is not uniformly good for negative entries
+    The algorithm used is currently an adapted vesion of the cephes one.
+    For better accuracy in the negative entry case one can use the extern
+    boost_math gammaln functor but at a loss of speed.
+    However,  as stated in boost math:
+      "While the relative errors near the positive roots of lgamma are very low,
+       the  function has an infinite number of irrational roots for negative arguments:
+       very close to these negative roots only a low absolute error can be guaranteed."
+
     @par Semantic:
 
     For every parameter of floating type T0

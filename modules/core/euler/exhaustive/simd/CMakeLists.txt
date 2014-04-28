@@ -17,6 +17,7 @@ SET(SOURCES
     spence.cpp
     stirling.cpp
     gamma.cpp
+    gammaln.cpp
    )
 
 nt2_module_add_tests(core.euler.simd.exhaustive ${SOURCES})

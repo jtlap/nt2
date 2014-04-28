@@ -30,6 +30,11 @@ namespace nt2 { namespace tag
   /*!
     Computes digamma function,  i.e. the logarithmic derivative of the \f$\Gamma\f$ function
 
+    Note that the accuracy is not uniformly good for negative entries
+    The algorithm used is currently an adapted vesion of the cephes one.
+    For better accuracy in the negative entry case one can use the extern boost_math digamma
+    functor, but at a loss of speed.
+
     @par Semantic:
 
     For every parameter of floating type T0
