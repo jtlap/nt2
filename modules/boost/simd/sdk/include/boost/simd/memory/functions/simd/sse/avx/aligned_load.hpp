@@ -48,35 +48,6 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  /// INTERNAL ONLY - Regular SIMD mask load for double without offset
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::aligned_load_
-                                    , boost::simd::tag::avx_
-                                    , (A0)(A2)(A3)(A4)
-                                    , (iterator_< scalar_< double_<A0> > >)
-                                      ((target_ < simd_ < double_<A2>
-                                                        , boost::simd::tag::avx_
-                                                        >
-                                                >
-                                      ))
-                                      ((simd_< logical_<A3>
-                                             , boost::simd::tag::avx_
-                                             >
-                                      ))
-                                      ((simd_<double_<A4>
-                                             , boost::simd::tag::avx_
-                                             >
-                                      ))
-                                    )
-  {
-    typedef typename A2::type result_type;
-
-    BOOST_FORCEINLINE result_type operator()(A0 a0, const A2&, const A3& a3, const A4& a4) const
-    {
-      BOOST_SIMD_DETAILS_CHECK_PTR(a0, sizeof(result_type));
-      return _mm256_blendv_pd(a4,_mm256_load_pd(a0),a3);
-    }
-  };
-
   /// INTERNAL ONLY - Regular SIMD load for double without offset
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::aligned_load_
                                     , boost::simd::tag::avx_
@@ -120,34 +91,6 @@ namespace boost { namespace simd { namespace ext
     {
       BOOST_SIMD_DETAILS_CHECK_PTR(a0, sizeof(result_type));
       return _mm256_maskload_ps(a0,_mm256_castps_si256(a3));
-    }
-  };
-
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::aligned_load_
-                                    , boost::simd::tag::avx_
-                                    , (A0)(A2)(A3)(A4)
-                                    , (iterator_< scalar_< single_<A0> > >)
-                                      ((target_ < simd_ < single_<A2>
-                                                        , boost::simd::tag::avx_
-                                                        >
-                                                >
-                                      ))
-                                      ((simd_< logical_<A3>
-                                             , boost::simd::tag::avx_
-                                             >
-                                      ))
-                                      ((simd_<single_<A4>
-                                             , boost::simd::tag::avx_
-                                             >
-                                      ))
-                                    )
-  {
-    typedef typename A2::type result_type;
-
-    BOOST_FORCEINLINE result_type operator()(A0 a0, const A2&, const A3& a3, const A4& a4) const
-    {
-      BOOST_SIMD_DETAILS_CHECK_PTR(a0, sizeof(result_type));
-      return _mm256_blendv_ps(a4,_mm256_load_ps(a0),a3);
     }
   };
 
