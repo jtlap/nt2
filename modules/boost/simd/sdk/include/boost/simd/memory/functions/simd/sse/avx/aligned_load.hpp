@@ -23,6 +23,31 @@
 
 namespace boost { namespace simd { namespace ext
 {
+  /// INTERNAL ONLY - Regular SIMD mask load for double without offset, zero case
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::aligned_load_
+                                    , boost::simd::tag::avx_
+                                    , (A0)(A2)(A3)
+                                    , (iterator_< scalar_< double_<A0> > >)
+                                      ((target_ < simd_ < double_<A2>
+                                                        , boost::simd::tag::avx_
+                                                        >
+                                                >
+                                      ))
+                                      ((simd_< logical_<A3>
+                                             , boost::simd::tag::avx_
+                                             >
+                                      ))
+                                    )
+  {
+    typedef typename A2::type result_type;
+
+    BOOST_FORCEINLINE result_type operator()(A0 a0, const A2&, const A3& a3) const
+    {
+      BOOST_SIMD_DETAILS_CHECK_PTR(a0, sizeof(result_type));
+      return _mm256_maskload_pd(a0,_mm256_castpd_si256(a3));
+    }
+  };
+
   /// INTERNAL ONLY - Regular SIMD mask load for double without offset
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::aligned_load_
                                     , boost::simd::tag::avx_
@@ -33,11 +58,11 @@ namespace boost { namespace simd { namespace ext
                                                         >
                                                 >
                                       ))
-                                      ((simd_<double_<A3>
+                                      ((simd_< logical_<A3>
                                              , boost::simd::tag::avx_
                                              >
                                       ))
-                                      ((simd_< logical_<A4>
+                                      ((simd_<double_<A4>
                                              , boost::simd::tag::avx_
                                              >
                                       ))
@@ -48,7 +73,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_FORCEINLINE result_type operator()(A0 a0, const A2&, const A3& a3, const A4& a4) const
     {
       BOOST_SIMD_DETAILS_CHECK_PTR(a0, sizeof(result_type));
-      return _mm256_blendv_pd(a3,_mm256_load_pd(a0),a4);
+      return _mm256_blendv_pd(a4,_mm256_load_pd(a0),a3);
     }
   };
 
@@ -73,7 +98,31 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  /// INTERNAL ONLY - Regular SIMD mask load for single without offset
+  /// INTERNAL ONLY - Regular SIMD mask load for double without offset, zero case
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::aligned_load_
+                                    , boost::simd::tag::avx_
+                                    , (A0)(A2)(A3)
+                                    , (iterator_< scalar_< single_<A0> > >)
+                                      ((target_ < simd_ < single_<A2>
+                                                        , boost::simd::tag::avx_
+                                                        >
+                                                >
+                                      ))
+                                      ((simd_< logical_<A3>
+                                             , boost::simd::tag::avx_
+                                             >
+                                      ))
+                                    )
+  {
+    typedef typename A2::type result_type;
+
+    BOOST_FORCEINLINE result_type operator()(A0 a0, const A2&, const A3& a3) const
+    {
+      BOOST_SIMD_DETAILS_CHECK_PTR(a0, sizeof(result_type));
+      return _mm256_maskload_ps(a0,_mm256_castps_si256(a3));
+    }
+  };
+
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::aligned_load_
                                     , boost::simd::tag::avx_
                                     , (A0)(A2)(A3)(A4)
@@ -83,11 +132,11 @@ namespace boost { namespace simd { namespace ext
                                                         >
                                                 >
                                       ))
-                                      ((simd_<single_<A3>
+                                      ((simd_< logical_<A3>
                                              , boost::simd::tag::avx_
                                              >
                                       ))
-                                      ((simd_< logical_<A4>
+                                      ((simd_<single_<A4>
                                              , boost::simd::tag::avx_
                                              >
                                       ))
@@ -98,7 +147,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_FORCEINLINE result_type operator()(A0 a0, const A2&, const A3& a3, const A4& a4) const
     {
       BOOST_SIMD_DETAILS_CHECK_PTR(a0, sizeof(result_type));
-      return _mm256_blendv_ps(a3,_mm256_load_ps(a0),a4);
+      return _mm256_blendv_ps(a4,_mm256_load_ps(a0),a3);
     }
   };
 
@@ -166,11 +215,11 @@ namespace boost { namespace simd { namespace ext
                                                   >
                                         ))
                                         (mpl_integral_< scalar_< integer_<A3> > >)
-                                        ((simd_<arithmetic_<A4>
+                                        ((simd_< logical_<A4>
                                                , boost::simd::tag::avx_
                                                >
                                         ))
-                                        ((simd_< logical_<A5>
+                                        ((simd_<arithmetic_<A5>
                                                , boost::simd::tag::avx_
                                                >
                                         ))
