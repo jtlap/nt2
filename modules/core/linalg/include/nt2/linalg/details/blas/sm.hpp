@@ -16,9 +16,9 @@
 
 namespace nt2 { namespace details
 {
-#define NT2_SM(T, PX)                                                           \
+#define NT2_SM(T, PREFIX)                                                       \
 inline void trsm( const char *side, const char *uplo, const char *transa        \
-                , const long int *m, const long int *n                          \
+                , const char * diag, const long int *m, const long int *n       \
                 , const T *al, const T *a, const long int *lda                  \
                 , T *b, const long int *ldb                                     \
                 )                                                               \
