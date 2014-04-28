@@ -85,7 +85,11 @@ NT2_TEST_CASE_TPL( mask_aligned_load,  BOOST_SIMD_SIMD_TYPES)
 template<class T, class U>
 struct nt2_test_run_mask_aligned_load_zero
 {
-  static void call() { nt2_test_run_mask_aligned_load<T,U>::call(true,true); }
+  static void call()
+  {
+    nt2_test_run_mask_aligned_load<T,U>::call(true,true);
+    nt2_test_run_mask_aligned_load<T,U>::call(false,true);
+  }
 };
 
 NT2_TEST_CASE_TPL( mask_aligned_load_zero,  BOOST_SIMD_SIMD_TYPES)
@@ -248,4 +252,3 @@ NT2_TEST_CASE( load_sequence )
   NT2_TEST_EQUAL(boost::fusion::at_c<1>(v) , fref);
   NT2_TEST_EQUAL(boost::fusion::at_c<2>(v) , cref);
 }
-
