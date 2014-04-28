@@ -10,20 +10,20 @@
 #define NT2_COMBINATORIAL_FUNCTIONS_SCALAR_IS_PRIME_HPP_INCLUDED
 
 #include <nt2/combinatorial/functions/is_prime.hpp>
-#include <nt2/include/functions/scalar/bitwise_cast.hpp>
-#include <nt2/include/functions/globalall.hpp>
-#include <nt2/include/functions/primes.hpp>
-#include <nt2/include/functions/scalar/saturate.hpp>
-#include <nt2/include/functions/scalar/rem.hpp>
-#include <nt2/include/functions/scalar/sqrt.hpp>
-#include <nt2/include/functions/scalar/oneplus.hpp>
-#include <nt2/include/functions/scalar/is_flint.hpp>
-#include <nt2/include/functions/scalar/is_less.hpp>
-#include <nt2/include/functions/scalar/sqrt.hpp>
-#include <nt2/include/constants/valmax.hpp>
-#include <nt2/include/constants/false.hpp>
-#include <nt2/sdk/meta/as_logical.hpp>
 #include <nt2/core/container/table/table.hpp>
+#include <nt2/include/constants/false.hpp>
+#include <nt2/include/constants/valmax.hpp>
+#include <nt2/include/functions/globalall.hpp>
+#include <nt2/include/functions/is_flint.hpp>
+#include <nt2/include/functions/is_less.hpp>
+#include <nt2/include/functions/oneplus.hpp>
+#include <nt2/include/functions/primes.hpp>
+#include <nt2/include/functions/rem.hpp>
+#include <nt2/include/functions/saturate.hpp>
+#include <nt2/include/functions/sqrt.hpp>
+#include <nt2/sdk/meta/as_logical.hpp>
+
+#include <boost/assert.hpp>
 
 namespace nt2 { namespace ext
 {

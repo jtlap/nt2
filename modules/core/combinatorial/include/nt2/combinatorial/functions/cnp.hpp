@@ -45,7 +45,7 @@ namespace nt2 { namespace tag
     is similar to:
 
     @code
-    auto r = exp(gammaln(n)-gammaln(p)-gammaln(n-p+1));
+    auto r = exp(gammaln(n+1)-gammaln(p+1)-gammaln(n-p+1));
     @endcode
 
     @see @funcref{exp}, @funcref{gammaln}, @funcref{anp}

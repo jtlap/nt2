@@ -10,18 +10,16 @@
 #define NT2_COMBINATORIAL_FUNCTIONS_SCALAR_GCD_HPP_INCLUDED
 
 #include <nt2/combinatorial/functions/gcd.hpp>
+#include <nt2/include/constants/nan.hpp>
 #include <nt2/include/functions/scalar/is_flint.hpp>
 #include <nt2/include/functions/scalar/rem.hpp>
-#include <nt2/include/constants/nan.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::gcd_, tag::cpu_
                             , (A0)
-                            , (scalar_< integer_<A0> >)(scalar_< integer_<A0> >)
+                            , (scalar_< integer_<A0> >)
+                              (scalar_< integer_<A0> >)
                             )
   {
     typedef A0 result_type;
@@ -37,17 +35,11 @@ namespace nt2 { namespace ext
       return a;
     }
   };
-} }
 
-
-/////////////////////////////////////////////////////////////////////////////
-//Implementation when type A0 is floating_
-/////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace ext
-{
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::gcd_, tag::cpu_
                             , (A0)
-                            , (scalar_< floating_<A0> >)(scalar_< floating_<A0> >)
+                            , (scalar_< floating_<A0> >)
+                              (scalar_< floating_<A0> >)
                             )
   {
     typedef A0 result_type;
@@ -66,6 +58,5 @@ namespace nt2 { namespace ext
     }
   };
 } }
-
 
 #endif

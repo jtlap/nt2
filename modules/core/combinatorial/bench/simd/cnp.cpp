@@ -6,26 +6,13 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_BENCH_MODULE "nt2 combinatorial toolbox - cnp/simd Mode"
-
-//////////////////////////////////////////////////////////////////////////////
-// timing Test behavior of combinatorial components in simd mode
-//////////////////////////////////////////////////////////////////////////////
-#include <nt2/combinatorial/include/functions/cnp.hpp>
-#include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/sdk/bench/benchmark.hpp>
 #include <nt2/sdk/bench/timing.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <cmath>
 
-//////////////////////////////////////////////////////////////////////////////
-// simd runtime benchmark for functor<cnp_> from combinatorial
-//////////////////////////////////////////////////////////////////////////////
 using nt2::tag::cnp_;
 
-//////////////////////////////////////////////////////////////////////////////
-// range macro
-//////////////////////////////////////////////////////////////////////////////
 #define RS(T,V1,V2) (T, (V1) ,(V2))
 
 namespace n1 {

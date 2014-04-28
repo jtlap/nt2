@@ -10,12 +10,12 @@
 #define NT2_COMBINATORIAL_FUNCTIONS_SIMD_COMMON_LCM_HPP_INCLUDED
 
 #include <nt2/combinatorial/functions/lcm.hpp>
-#include <nt2/include/functions/simd/gcd.hpp>
-#include <nt2/include/functions/simd/multiplies.hpp>
-#include <nt2/include/functions/simd/divides.hpp>
 #include <nt2/include/functions/simd/abs.hpp>
-#include <nt2/include/functions/simd/selinc.hpp>
+#include <nt2/include/functions/simd/divides.hpp>
+#include <nt2/include/functions/simd/gcd.hpp>
 #include <nt2/include/functions/simd/is_eqz.hpp>
+#include <nt2/include/functions/simd/multiplies.hpp>
+#include <nt2/include/functions/simd/selinc.hpp>
 
 namespace nt2 { namespace ext
 {

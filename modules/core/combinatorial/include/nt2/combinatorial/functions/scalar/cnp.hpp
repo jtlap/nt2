@@ -9,24 +9,24 @@
 #ifndef NT2_COMBINATORIAL_FUNCTIONS_SCALAR_CNP_HPP_INCLUDED
 #define NT2_COMBINATORIAL_FUNCTIONS_SCALAR_CNP_HPP_INCLUDED
 #include <nt2/combinatorial/functions/cnp.hpp>
-#include <nt2/include/constants/real.hpp>
-#include <nt2/include/constants/digits.hpp>
-#include <nt2/include/functions/scalar/round2even.hpp>
-#include <nt2/include/functions/scalar/oneplus.hpp>
-#include <nt2/include/functions/scalar/gammaln.hpp>
-#include <nt2/include/functions/scalar/is_ngez.hpp>
-#include <nt2/include/functions/scalar/is_inf.hpp>
-#include <nt2/include/functions/scalar/is_equal.hpp>
+#include <nt2/include/constants/nan.hpp>
+#include <nt2/include/constants/one.hpp>
+#include <nt2/include/constants/zero.hpp>
 #include <nt2/include/functions/scalar/exp.hpp>
+#include <nt2/include/functions/scalar/gammaln.hpp>
+#include <nt2/include/functions/scalar/is_equal.hpp>
+#include <nt2/include/functions/scalar/is_inf.hpp>
+#include <nt2/include/functions/scalar/is_ngez.hpp>
+#include <nt2/include/functions/scalar/oneplus.hpp>
+#include <nt2/include/functions/scalar/round2even.hpp>
+#include <nt2/sdk/meta/as_floating.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::cnp_, tag::cpu_
                             , (A0)
-                            , (scalar_< arithmetic_<A0> >)(scalar_< arithmetic_<A0> >)
+                            , (scalar_< arithmetic_<A0> >)
+                              (scalar_< arithmetic_<A0> >)
                             )
   {
     typedef A0 result_type;
@@ -40,10 +40,10 @@ namespace nt2 { namespace ext
       if (is_equal(a0, a1)) return (rtype)One<type>();
       const type n = type(oneplus(round2even(a0)));
       const type p = type(oneplus(round2even(a1)));
-      return (rtype)round2even(nt2::exp(gammaln(n)-gammaln(p)-gammaln(oneplus(n-p))));
+      return (rtype)round2even(nt2::exp(gammaln(n)-gammaln(p)
+                                        -gammaln(oneplus(n-p))));
     }
   };
 } }
-
 
 #endif

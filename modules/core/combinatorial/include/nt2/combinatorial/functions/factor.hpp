@@ -28,7 +28,7 @@ namespace nt2 { namespace tag
     };
   }
   /*!
-    returns the expression table of prime numbers
+    returns the  table of prime numbers in non decreasing order
     the product of which is equal to the input
 
     @par Semantic:
@@ -41,7 +41,7 @@ namespace nt2 { namespace tag
 
     @param a0
 
-    @return an expression which eventually will evaluate to the result
+    @return a table containing the result
   **/
   NT2_FUNCTION_IMPLEMENTATION(tag::factor_,factor, 1)
 }

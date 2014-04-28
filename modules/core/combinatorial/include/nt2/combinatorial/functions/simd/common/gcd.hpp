@@ -10,15 +10,14 @@
 #define NT2_COMBINATORIAL_FUNCTIONS_SIMD_COMMON_GCD_HPP_INCLUDED
 
 #include <nt2/combinatorial/functions/gcd.hpp>
-#include <nt2/include/functions/simd/is_nez.hpp>
-#include <nt2/include/functions/simd/if_else.hpp>
-#include <nt2/include/functions/simd/is_flint.hpp>
-#include <nt2/include/functions/simd/rem.hpp>
 #include <nt2/include/functions/simd/any.hpp>
-#include <nt2/include/functions/simd/logical_and.hpp>
-#include <nt2/include/functions/simd/if_else_zero.hpp>
-#include <nt2/include/functions/simd/if_zero_else.hpp>
+#include <nt2/include/functions/simd/if_else.hpp>
 #include <nt2/include/functions/simd/if_else_allbits.hpp>
+#include <nt2/include/functions/simd/if_else_zero.hpp>
+#include <nt2/include/functions/simd/is_flint.hpp>
+#include <nt2/include/functions/simd/is_nez.hpp>
+#include <nt2/include/functions/simd/logical_and.hpp>
+#include <nt2/include/functions/simd/rem.hpp>
 #include <nt2/sdk/meta/as_logical.hpp>
 
 namespace nt2 { namespace ext

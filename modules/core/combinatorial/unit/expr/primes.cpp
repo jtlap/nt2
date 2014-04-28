@@ -6,13 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 combinatorial toolbox - primes/scalar Mode"
-
-//////////////////////////////////////////////////////////////////////////////
-// unit test behavior of combinatorial components in scalar mode
-//////////////////////////////////////////////////////////////////////////////
-/// created  by jt the 07/03/2011
-///
 #include <nt2/combinatorial/include/functions/primes.hpp>
 #include <nt2/include/functions/min.hpp>
 #include <nt2/include/functions/saturate.hpp>
@@ -35,7 +28,7 @@
 #include <nt2/include/functions/tic.hpp>
 #include <nt2/include/functions/toc.hpp>
 
-NT2_TEST_CASE_TPL ( primes_integer__1_0,  (int32_t))//NT2_INTEGRAL_TYPES)
+NT2_TEST_CASE_TPL ( primes_integer__1_0,  NT2_TYPES)
 {
 
   using nt2::primes;
@@ -45,13 +38,8 @@ NT2_TEST_CASE_TPL ( primes_integer__1_0,  (int32_t))//NT2_INTEGRAL_TYPES)
   nt2::table<T> myp = primes(T(15));
   // specific values tests
   NT2_DISPLAY(myp);
- for(size_t i=1; i <= 6; ++i)
- {
-   NT2_TEST_EQUAL(p[i-1], myp(i));
- }
-
- nt2::table<T> myp1 = primes(T(100000));
- NT2_DISPLAY(primes(T(100)));
- nt2::table<T> myp9 = primes(T(9));
- NT2_DISPLAY(myp9);
+  for(size_t i=1; i <= 6; ++i)
+  {
+    NT2_TEST_EQUAL(p[i-1], myp(i));
+  }
 }

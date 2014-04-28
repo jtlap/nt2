@@ -6,38 +6,18 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 combinatorial toolbox - factor/scalar Mode"
-
-//////////////////////////////////////////////////////////////////////////////
-// unit test behavior of combinatorial components in scalar mode
-//////////////////////////////////////////////////////////////////////////////
-/// created  by jt the 07/03/2011
-///
 #include <nt2/combinatorial/include/functions/factor.hpp>
-#include <nt2/include/functions/min.hpp>
-#include <nt2/include/functions/saturate.hpp>
-#include <nt2/include/functions/rem.hpp>
-#include <nt2/include/functions/find.hpp>
-#include <nt2/include/functions/cast.hpp>
-
-#include <boost/type_traits/is_same.hpp>
-#include <nt2/sdk/functor/meta/call.hpp>
-#include <nt2/sdk/meta/as_integer.hpp>
-#include <nt2/sdk/meta/as_floating.hpp>
-#include <nt2/sdk/meta/as_signed.hpp>
-#include <nt2/sdk/meta/upgrade.hpp>
-#include <nt2/sdk/meta/downgrade.hpp>
-#include <nt2/sdk/meta/scalar_of.hpp>
-#include <boost/dispatch/meta/as_floating.hpp>
-#include <boost/type_traits/common_type.hpp>
-#include <nt2/sdk/unit/tests.hpp>
+#include <nt2/include/functions/cons.hpp>
+#include <nt2/include/functions/two.hpp>
+#include <nt2/include/constants/nbmantissabits.hpp>
+#include <nt2/include/constants/maxflint.hpp>
+#include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/sdk/unit/tests/exceptions.hpp>
+#include <nt2/sdk/unit/tests/type_expr.hpp>
 #include <nt2/sdk/unit/module.hpp>
-
-#include <nt2/constant/constant.hpp>
 #include <nt2/table.hpp>
-#include <nt2/include/functions/tic.hpp>
-#include <nt2/include/functions/toc.hpp>
-#include <nt2/sdk/meta/type_id.hpp>
+#include <boost/simd/sdk/config.hpp>
+
 
 NT2_TEST_CASE_TPL ( factor_integer__1_0, NT2_INTEGRAL_TYPES)
 {
@@ -73,4 +53,13 @@ NT2_TEST_CASE_TPL ( factor_integer__2_0, (int8_t))
 
  NT2_TEST_ASSERT(factor(T(15*3*2*2)));
 
+}
+
+NT2_TEST_CASE_TPL ( factor_real, NT2_REAL_TYPES)
+{
+  using nt2::factor;
+  using nt2::tag::factor_;
+  nt2::table<T> myp = nt2::cons(T(2), T(2), T(3), T(3), T(5));
+  NT2_TEST_EQUAL(factor(T(15*3*2*2)), myp);
+  NT2_TEST_EQUAL(factor(nt2::Maxflint<T>()), nt2::two(1, nt2::Nbmantissabits<T>()+1, boost::dispatch::meta::as_<T>()));
 }

@@ -12,6 +12,7 @@ SET( SOURCES
   gcd.cpp
   cnp.cpp
   anp.cpp
+  fibonacci.cpp
 # List of scalar test files for toolbox combinatorial
    )
 

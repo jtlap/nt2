@@ -10,78 +10,58 @@
 #define NT2_COMBINATORIAL_FUNCTIONS_SIMD_COMMON_CNP_HPP_INCLUDED
 
 #include <nt2/combinatorial/functions/cnp.hpp>
-#include <nt2/include/functions/simd/bitwise_cast.hpp>
+#include <nt2/include/constants/nan.hpp>
+#include <nt2/include/constants/zero.hpp>
+#include <nt2/include/functions/simd/anp.hpp>
+#include <nt2/include/functions/simd/exp.hpp>
+#include <nt2/include/functions/simd/gammaln.hpp>
+#include <nt2/include/functions/simd/if_allbits_else.hpp>
+#include <nt2/include/functions/simd/if_zero_else.hpp>
+#include <nt2/include/functions/simd/is_less.hpp>
+#include <nt2/include/functions/simd/is_ngez.hpp>
+#include <nt2/include/functions/simd/logical_or.hpp>
+#include <nt2/include/functions/simd/minus.hpp>
+#include <nt2/include/functions/simd/oneplus.hpp>
+#include <nt2/include/functions/simd/round2even.hpp>
 #include <nt2/include/functions/simd/tofloat.hpp>
-#include <nt2/include/functions/simd/toint.hpp>
-#include <nt2/include/functions/simd/split.hpp>
-#include <nt2/include/functions/simd/group.hpp>
-#include <nt2/sdk/meta/upgrade.hpp>
+#include <nt2/include/functions/simd/toints.hpp>
+#include <nt2/sdk/meta/as_floating.hpp>
 
 namespace nt2 { namespace ext
 {
-//   NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::cnp_, tag::cpu_,
-//                       (A0)(X),
-//                       ((simd_<arithmetic_<A0>,X>))
-//                       ((simd_<arithmetic_<A0>,X>))
-//                      )
-//   {
-//     typedef A0 result_type;
-//     NT2_FUNCTOR_CALL_REPEAT(2)
-//     {
-//       return boost::simd::bitwise_cast<A0>(toint(cnp(tofloat(a0),tofloat(a1))));
-//     }
-//   };
-
   NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::cnp_, tag::cpu_,
                       (A0)(X),
-                      ((simd_<type16_<A0>,X>))
-                      ((simd_<type16_<A0>,X>))
+                      ((simd_<floating_<A0>,X>))
+                      ((simd_<floating_<A0>,X>))
                      )
   {
     typedef A0 result_type;
     NT2_FUNCTOR_CALL_REPEAT(2)
     {
-      typedef typename meta::upgrade<A0> ::type utype;
-      utype a00, a01, a10, a11;
-      nt2::split(a0, a00, a01);
-      nt2::split(a1, a10, a11);
-      return nt2::group(cnp(a00,a10),cnp(a01,a11));
+      const A0 n = oneplus(round2even(a0));
+      const A0 p = oneplus(round2even(a1));
+      return if_nan_else(l_or(is_ngez(a0), is_ngez(a1)),
+                   if_zero_else(lt(a0,a1),
+                      round2even(nt2::exp(gammaln(n)-gammaln(p)
+                                          -gammaln(oneplus(n-p)))
+                                )
+                           )
+                        );
     }
   };
 
-//   NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::cnp_, tag::cpu_,
-//                       (A0)(X),
-//                       ((simd_<type8_<A0>,X>))
-//                       ((simd_<type8_<A0>,X>))
-//                      )
-//   {
-//     typedef A0 result_type;
-//     NT2_FUNCTOR_CALL_REPEAT(2)
-//     {
-//       typedef typename meta::upgrade<A0> ::type utype;
-//       utype a00, a01, a10, a11;
-//       nt2::split(a0, a00, a01);
-//       nt2::split(a1, a10, a11);
-//       return nt2::group(cnp(a00,a10),cnp(a01,a11));
-//     }
-//   };
+  NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::cnp_, tag::cpu_,
+                      (A0)(X),
+                      ((simd_<arithmetic_<A0>,X>))
+                      ((simd_<arithmetic_<A0>,X>))
+                     )
+  {
+    typedef A0 result_type;
+    NT2_FUNCTOR_CALL_REPEAT(2)
+    {
+      return toints(cnp(tofloat(a0), tofloat(a1)));
+    }
+  };
 
-//   /////////////////////////////////////////////////////////////////////////////
-// // Implementation when type A0 is floating_
-// /////////////////////////////////////////////////////////////////////////////
-
-
-//   NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::cnp_, tag::cpu_,
-//                       (A0)(X),
-//                       ((simd_<floating_<A0>,X>))
-//                       ((simd_<floating_<A0>,X>))
-//                      )
-//   {
-//     typedef A0 result_type;
-//     NT2_FUNCTOR_CALL_REPEAT(2)
-//     {
-//       return map(functor<tag::cnp_>(), a0, a1);
-//     }
-//   };
 } }
 #endif

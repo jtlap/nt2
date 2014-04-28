@@ -32,12 +32,12 @@ namespace nt2 { namespace tag
     };
   }
   /*!
-    returns the values selected by a2 of a fibonacci sequence starting by a0 and a1
-    the values are computed by the Binet formula.
+    returns the values selected by n of a fibonacci sequence starting by a and b
+    the values are computed by the Binet formula and rounded if a and b are flint.
 
     @par Semantic:
 
-    For every table expressions
+    For every floating expressions a and b and integer expression n
 
     @code
     auto r = fibonacci(a, b, n);

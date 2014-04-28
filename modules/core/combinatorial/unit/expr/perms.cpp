@@ -6,8 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 combinatorial toolbox - perms"
-
 #include <nt2/combinatorial/include/functions/perms.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/module.hpp>
