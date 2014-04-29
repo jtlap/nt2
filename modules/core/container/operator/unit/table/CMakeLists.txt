@@ -9,6 +9,7 @@
 
 set(SOURCES
     cast.cpp
+    at.cpp
    )
 
 nt2_module_add_tests(core.container.operator.unit ${SOURCES})
