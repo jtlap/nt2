@@ -20,6 +20,52 @@
 
 namespace boost { namespace simd { namespace ext
 {
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::aligned_store_
+                                    , boost::simd::tag::avx_
+                                    , (A0)(A1)(A2)
+                                    , ((simd_ < double_<A0>
+                                              , boost::simd::tag::sse_
+                                              >
+                                      ))
+                                      (iterator_< scalar_< double_<A1> > >)
+                                      ((simd_< logical_<A2>
+                                             , boost::simd::tag::sse_
+                                             >
+                                      ))
+                                    )
+  {
+    typedef void result_type;
+
+    BOOST_FORCEINLINE result_type operator()(__m128d a0, A1 a1, const A2& a2) const
+    {
+      BOOST_SIMD_DETAILS_CHECK_PTR(a1, sizeof(__m128d));
+      _mm_maskstore_pd(a1,_mm_castpd_si128(a2),a0);
+    }
+  };
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::aligned_store_
+                                    , boost::simd::tag::avx_
+                                    , (A0)(A1)(A2)
+                                    , ((simd_ < double_<A0>
+                                              , boost::simd::tag::sse_
+                                              >
+                                      ))
+                                      (iterator_< scalar_< double_<A1> > >)
+                                      ((simd_< logical_<A2>
+                                             , boost::simd::tag::sse_
+                                             >
+                                      ))
+                                    )
+  {
+    typedef void result_type;
+
+    BOOST_FORCEINLINE result_type operator()(__m128 a0, A1 a1, const A2& a2) const
+    {
+      BOOST_SIMD_DETAILS_CHECK_PTR(a1, sizeof(__m128));
+      _mm_maskstore_ps(a1,_mm_castps_si128(a2),a0);
+    }
+  };
+
   /// INTERNAL ONLY - masked AVX double SIMD store without offset
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::aligned_store_
                                     , boost::simd::tag::avx_
@@ -30,7 +76,7 @@ namespace boost { namespace simd { namespace ext
                                       ))
                                       (iterator_< scalar_< double_<A1> > >)
                                       ((simd_< logical_<A2>
-                                             , boost::simd::tag::mic_
+                                             , boost::simd::tag::avx_
                                              >
                                       ))
                                     )
@@ -40,7 +86,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_FORCEINLINE result_type operator()(__m256d a0, A1 a1, const A2& a2) const
     {
       BOOST_SIMD_DETAILS_CHECK_PTR(a1, sizeof(__m256d));
-      _mm256_maskstore_pd(a1,a2,a0);
+      _mm256_maskstore_pd(a1,_mm256_castpd_si256(a2),a0);
     }
   };
 
@@ -74,17 +120,17 @@ namespace boost { namespace simd { namespace ext
                                       ))
                                       (iterator_< scalar_< single_<A1> > >)
                                       ((simd_< logical_<A2>
-                                             , boost::simd::tag::mic_
+                                             , boost::simd::tag::avx_
                                              >
                                       ))
                                     )
   {
     typedef void result_type;
 
-    BOOST_FORCEINLINE result_type operator()(__m256d a0, A1 a1, const A2& a2) const
+    BOOST_FORCEINLINE result_type operator()(__m256 a0, A1 a1, const A2& a2) const
     {
-      BOOST_SIMD_DETAILS_CHECK_PTR(a1, sizeof(__m256d));
-      _mm256_maskstore_ps(a1,a2,a0);
+      BOOST_SIMD_DETAILS_CHECK_PTR(a1, sizeof(__m256));
+      _mm256_maskstore_ps(a1,_mm256_castps_si256(a2),a0);
     }
   };
 
