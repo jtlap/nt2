@@ -48,8 +48,6 @@ namespace nt2 { namespace ext
     {
       typedef typename meta::as_integer<A0>::type iA0;
       if ((a0 > Maxgammaln<A0>()) || nt2::is_eqz(a0) ) return nt2::Inf<A0>();
-      A0 nx, tx;
-      iA0 i;
       A0 x = a0;
       A0 q = nt2::abs(x);
       if( x < 0.0f )
@@ -65,7 +63,7 @@ namespace nt2 { namespace ext
           p += nt2::One<A0>();
           z = p-q;
         }
-       z = q*nt2::sinpi(z);
+        z = q*nt2::sinpi(z);
         if( nt2::is_eqz(z) ) return nt2::Inf<A0>();
         return -log(Invpi<A0>()*nt2::abs(z))-w;
       }
