@@ -214,7 +214,7 @@ namespace nt2 { namespace ext
         bA0 txgt250= gt(tx,_250);
 
         // x >= 1.5
-        while (any(logical_and(xge150, txgt250)))
+        while (nt2::any(logical_and(xge150, txgt250)))
         {
           nx = seldec(txgt250, nx);
           tx = if_else(txgt250, x + nx, tx);
@@ -228,7 +228,7 @@ namespace nt2 { namespace ext
         // x >= 1.25 && x < 1.5
         bA0 xge125 = ge(x, _125);
         bA0 xge125t = l_andnot(xge125, xge150);
-        if (any(xge125))
+        if (nt2::any(xge125))
         {
           r0x =  if_else(xge125t, dec(x)    , r0x);
           r0z =  if_else(xge125t, z*x       , r0z);
@@ -237,7 +237,7 @@ namespace nt2 { namespace ext
         // x >= 0.75&& x < 1.5
         bA0 xge075  = ge(x, _075);
         bA0 xge075t = l_andnot(xge075, xge125);
-        if (any(xge075t))
+        if (nt2::any(xge075t))
         {
           kernelC =  xge075t;
           r0x =  if_else(xge075t, dec(x)    , r0x);
@@ -247,7 +247,7 @@ namespace nt2 { namespace ext
         }
         // tx < 1.5 && x < 0.75
         bA0 txlt150 = l_andnot(lt(tx,_150), xge075);
-        if (any(txlt150))
+        if (nt2::any(txlt150))
         {
           bA0 orig = txlt150;
           while( nt2::any(txlt150) )
