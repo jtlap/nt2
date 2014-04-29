@@ -28,7 +28,6 @@
 #include <nt2/include/functions/scalar/fma.hpp>
 #include <nt2/include/functions/scalar/inc.hpp>
 #include <nt2/include/functions/scalar/is_eqz.hpp>
-#include <nt2/include/functions/scalar/is_even.hpp>
 #include <nt2/include/functions/scalar/log.hpp>
 #include <nt2/include/functions/scalar/rec.hpp>
 #include <nt2/include/functions/scalar/sin.hpp>
@@ -55,7 +54,6 @@ namespace nt2 { namespace ext
         if(q > Maxgammaln<A0>()) return Nan<A0>();
         A0 w = gammaln(q);
         A0 p =  nt2::floor(q);
-        bool iseven =  nt2::is_even((int32_t)p);
         if (p == q) return nt2::Inf<A0>();
         A0 z = q - p;
         if( z > nt2::Half<A0>() )
@@ -141,7 +139,6 @@ namespace nt2 { namespace ext
         if(q > Maxgammaln<A0>()) return Nan<A0>();
         A0 w = gammaln(q);
         A0 p =  nt2::floor(q);
-        bool iseven =  nt2::is_even((int32_t)p);
         if (p == q) return nt2::Inf<A0>();
         A0 z = q - p;
         if( z > nt2::Half<A0>() )
