@@ -50,8 +50,8 @@ namespace boost { namespace simd { namespace ext
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::aligned_load_
                                     , boost::simd::tag::avx_
                                     , (A0)(A2)(A3)
-                                    , (iterator_< scalar_< double_<A0> > >)
-                                      ((target_ < simd_ < double_<A2>
+                                    , (iterator_< scalar_< single_<A0> > >)
+                                      ((target_ < simd_ < single_<A2>
                                                         , boost::simd::tag::sse_
                                                         >
                                                 >
