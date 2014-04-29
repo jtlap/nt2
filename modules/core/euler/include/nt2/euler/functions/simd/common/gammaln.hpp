@@ -8,57 +8,59 @@
 //==============================================================================
 #ifndef NT2_EULER_FUNCTIONS_SIMD_COMMON_GAMMALN_HPP_INCLUDED
 #define NT2_EULER_FUNCTIONS_SIMD_COMMON_GAMMALN_HPP_INCLUDED
+
 #include <nt2/euler/functions/gammaln.hpp>
-#include <nt2/sdk/meta/adapted_traits.hpp>
-#include <nt2/include/constants/half.hpp>
-#include <nt2/include/constants/mone.hpp>
-#include <nt2/include/constants/nan.hpp>
-#include <nt2/include/constants/one.hpp>
-#include <nt2/include/constants/pi.hpp>
-#include <nt2/include/constants/invpi.hpp>
-#include <nt2/include/constants/logsqrt2pi.hpp>
-#include <nt2/include/constants/logpi.hpp>
-#include <nt2/include/constants/maxgammaln.hpp>
 #include <nt2/euler/functions/details/gammaln_kernel.hpp>
-#include <nt2/include/constants/half.hpp>
-#include <nt2/include/constants/mone.hpp>
-#include <nt2/include/constants/nan.hpp>
-#include <nt2/include/constants/one.hpp>
-#include <nt2/include/constants/pi.hpp>
-#include <nt2/include/constants/three.hpp>
-#include <nt2/include/constants/two.hpp>
-#include <nt2/include/constants/zero.hpp>
 #include <nt2/include/functions/simd/abs.hpp>
 #include <nt2/include/functions/simd/any.hpp>
+#include <nt2/include/functions/simd/dec.hpp>
 #include <nt2/include/functions/simd/divides.hpp>
 #include <nt2/include/functions/simd/floor.hpp>
+#include <nt2/include/functions/simd/fma.hpp>
 #include <nt2/include/functions/simd/if_allbits_else.hpp>
 #include <nt2/include/functions/simd/if_else.hpp>
-#include <nt2/include/functions/simd/if_zero_else.hpp>
 #include <nt2/include/functions/simd/inbtrue.hpp>
-#include <nt2/include/functions/simd/is_even.hpp>
+#include <nt2/include/functions/simd/is_equal.hpp>
 #include <nt2/include/functions/simd/is_flint.hpp>
+#include <nt2/include/functions/simd/is_greater.hpp>
 #include <nt2/include/functions/simd/is_greater_equal.hpp>
 #include <nt2/include/functions/simd/is_less.hpp>
 #include <nt2/include/functions/simd/is_lez.hpp>
 #include <nt2/include/functions/simd/is_ltz.hpp>
+#include <nt2/include/functions/simd/log.hpp>
 #include <nt2/include/functions/simd/logical_and.hpp>
-#include <nt2/include/functions/simd/logical_andnot.hpp>
 #include <nt2/include/functions/simd/minus.hpp>
 #include <nt2/include/functions/simd/multiplies.hpp>
-#include <nt2/include/functions/simd/negif.hpp>
+#include <nt2/include/functions/simd/plus.hpp>
+#include <nt2/include/functions/simd/rec.hpp>
 #include <nt2/include/functions/simd/seladd.hpp>
-#include <nt2/include/functions/simd/selsub.hpp>
 #include <nt2/include/functions/simd/seldec.hpp>
 #include <nt2/include/functions/simd/selinc.hpp>
+#include <nt2/include/functions/simd/selsub.hpp>
 #include <nt2/include/functions/simd/sinpi.hpp>
 #include <nt2/include/functions/simd/splat.hpp>
-#include <nt2/include/functions/simd/stirling.hpp>
+#include <nt2/include/functions/simd/sqr.hpp>
 #include <nt2/include/functions/simd/unary_minus.hpp>
+#include <nt2/include/constants/false.hpp>
+#include <nt2/include/constants/half.hpp>
+#include <nt2/include/constants/inf.hpp>
+#include <nt2/include/constants/invpi.hpp>
+#include <nt2/include/constants/minf.hpp>
+#include <nt2/include/constants/mone.hpp>
+#include <nt2/include/constants/nan.hpp>
+#include <nt2/include/constants/one.hpp>
+#include <nt2/include/constants/three.hpp>
+#include <nt2/include/constants/two.hpp>
+#include <nt2/include/constants/zero.hpp>
 #include <nt2/sdk/meta/as_logical.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
+#include <nt2/sdk/meta/scalar_of.hpp>
 
 #include <boost/simd/sdk/config.hpp>
+
+#ifndef BOOST_SIMD_NO_INFINITES
+#include <nt2/include/functions/simd/logical_or.hpp>
+#endif
 
 namespace nt2 { namespace ext
 {
@@ -274,6 +276,5 @@ namespace nt2 { namespace ext
     }
   };
 } }
-
 
 #endif
