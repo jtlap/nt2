@@ -65,7 +65,7 @@ namespace boost { namespace simd { namespace ext
                                     , (iterator_< unspecified_<A0> >)
                                       (target_< unspecified_<A1> >)
                                       (scalar_< integer_<A2> >)
-                                      (scalar_< bool_<A3> >)
+                                      (scalar_< fundamental_<A3> >)
                                     )
   {
     typedef typename A1::type result_type;
@@ -73,7 +73,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_FORCEINLINE result_type
     operator()(A0 a0, A1 const&, A2 a2, A3 const& a3 ) const
     {
-      return load<result_type>(a0+a2,a3,0);
+      return load<result_type>(a0+a2,a3,result_type(0));
     }
   };
 
