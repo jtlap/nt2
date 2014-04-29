@@ -29,6 +29,7 @@
 #include <nt2/include/functions/simd/is_ltz.hpp>
 #include <nt2/include/functions/simd/log.hpp>
 #include <nt2/include/functions/simd/logical_and.hpp>
+#include <nt2/include/functions/simd/logical_andnot.hpp>
 #include <nt2/include/functions/simd/minus.hpp>
 #include <nt2/include/functions/simd/multiplies.hpp>
 #include <nt2/include/functions/simd/plus.hpp>
