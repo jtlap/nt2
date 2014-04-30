@@ -44,18 +44,6 @@
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::gammainc_, tag::cpu_
-                            , (A0)(A1)(X)
-                            , ((simd_<arithmetic_<A0>,X>))
-                              ((simd_<arithmetic_<A1>,X>))
-                            )
-  {
-    typedef typename meta::as_floating<A0, A1>::type result_type;
-    NT2_FUNCTOR_CALL(2)
-    {
-      return gammainc(tofloat(a0), tofloat(a1));
-    }
-  };
 
   NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::gammainc_, tag::cpu_,
                              (A0)(A1)(X),

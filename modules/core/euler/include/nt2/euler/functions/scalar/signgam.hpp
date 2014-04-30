@@ -19,17 +19,17 @@
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/two.hpp>
 #include <nt2/include/constants/nan.hpp>
-#include <boost/dispatch/meta/as_floating.hpp>
+
 #include <boost/simd/sdk/config.hpp>
 
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::signgam_, tag::cpu_
                             , (A0)
-                            , (scalar_< fundamental_<A0> >)
+                            , (scalar_< floating_<A0> >)
                             )
   {
-    typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
+    typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
       typedef result_type type;
