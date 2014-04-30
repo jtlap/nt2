@@ -17,28 +17,29 @@ else()
   set ( NT2_CORE.LINALG_DEPENDENCIES_EXTRA
         boost.dispatch
         boost.simd.base
-        boost.simd.reduction
         boost.simd.sdk
-        boost.simd.swar
+        core.base
         core.combinatorial
         core.container.placeholders
         core.container.table
         core.exponential
         core.extractive
         core.generative
+        core.hyperbolic
         core.random
         core.reduction
         core.restructuring
         core.sdk
+        core.swar
         core.trigonometric
-        core.base
+        sdk.config
         sdk.error
         sdk.functor
         sdk.meta
         type.complex.exponential
-        type.complex.base
         type.complex.sdk
       )
+
 endif()
 
 foreach(library ${NT2_LAPACK_LIBRARIES})

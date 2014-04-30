@@ -9,7 +9,9 @@
 
 SET ( NT2_CORE.CONTAINER.PLACEHOLDERS_DEPENDENCIES_EXTRA
       boost.dispatch
-      core.generative
       core.base
+      core.container.table
+      core.generative
+      core.sdk
       sdk.meta
     )

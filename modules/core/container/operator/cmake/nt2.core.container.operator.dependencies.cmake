@@ -8,9 +8,9 @@
 ################################################################################
 
 SET ( NT2_CORE.CONTAINER.OPERATOR_DEPENDENCIES_EXTRA
-      boost.dispatch
-      boost.simd.sdk
-      core.sdk
       core.base
-      sdk.functor
+      core.sdk
+      core.swar
+      sdk.meta
     )
+

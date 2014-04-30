@@ -8,10 +8,11 @@
 ################################################################################
 
 SET ( NT2_CORE.ADJACENT_DEPENDENCIES_EXTRA
-      boost.simd.swar
+      boost.simd.base
+      core.base
       core.container.table
       core.sdk
-      core.base
+      core.swar
       sdk.functor
       sdk.meta
     )

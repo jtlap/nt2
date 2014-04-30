@@ -8,8 +8,9 @@
 ################################################################################
 
 SET ( NT2_CORE.RANDOM_DEPENDENCIES_EXTRA
-      core.sdk
       core.base
+      core.generative
+      core.sdk
       sdk.config
       sdk.functor
       sdk.timing
