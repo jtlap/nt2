@@ -62,17 +62,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_FORCEINLINE result_type operator()(A0 a0, A1 const&, A2 const& a2, A3 const& a3 ) const
     {
-      #if defined(__GNUC__)
-        result_type that;
-        for(std::size_t i=0; i!=meta::cardinal_of<result_type>::value; ++i)
-          if (a2[i])
-            that[i] = static_cast<stype>(a0[i]);
-          else
-            that[i] = static_cast<stype>(a3[i]);
-        return that;
-      #else
-         return if_else(a2,load<result_type>(a0),a3);
-      #endif
+      return if_else(a2,load<result_type>(a0),a3);
     }
   };
 
