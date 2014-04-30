@@ -41,6 +41,9 @@ NT2_TEST_CASE_TPL ( if_else_integer,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
   NT2_TEST_EQUAL(if_else(boost::simd::True<vlT>(), boost::simd::One<vT>(), boost::simd::Two<vT>()), boost::simd::One<r_t>());
   NT2_TEST_EQUAL(if_else(boost::simd::True<vlT>(),boost::simd::Zero<vT>(),boost::simd::Two<vT>()), boost::simd::Zero<r_t>());
   NT2_TEST_EQUAL(if_else(boost::simd::False<vlT>(), boost::simd::Zero<vT>(), boost::simd::Zero<vT>()), boost::simd::Zero<r_t>());
+  NT2_TEST_EQUAL(if_else(boost::simd::False<vlT>(), boost::simd::False<vlT>(), boost::simd::False<vlT>()), boost::simd::False<vlT>());
+  NT2_TEST_EQUAL(if_else(boost::simd::True<vlT>(), boost::simd::True<vlT>(), boost::simd::False<vlT>()), boost::simd::True<vlT>());
+  NT2_TEST_EQUAL(if_else(boost::simd::One<vT>(), boost::simd::True<lvT>(), boost::simd::False<vlT>()), boost::simd::True<vlT>());
 } // end of test for integer_
 
 NT2_TEST_CASE_TPL ( if_else_real,  BOOST_SIMD_SIMD_REAL_TYPES)
