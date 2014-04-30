@@ -17,6 +17,7 @@
 #include <nt2/include/functions/relative_index.hpp>
 #include <nt2/core/container/dsl/generator.hpp>
 #include <nt2/core/functions/table/details/is_vectorizable_indexer.hpp>
+#include <nt2/core/functions/table/details/reindex.hpp>
 #include <nt2/core/utility/of_size.hpp>
 #include <boost/mpl/if.hpp>
 #include <boost/array.hpp>

@@ -17,6 +17,7 @@
 #include <nt2/include/functions/tie.hpp>
 #include <nt2/include/functions/numel.hpp>
 #include <nt2/include/functions/zeros.hpp>
+#include <nt2/include/functions/function.hpp>
 #include <nt2/include/functions/colvect.hpp>
 #include <nt2/include/functions/rowvect.hpp>
 #include <nt2/include/functions/linsolve.hpp>

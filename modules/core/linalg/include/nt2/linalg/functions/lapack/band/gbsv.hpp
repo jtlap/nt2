@@ -11,6 +11,7 @@
 
 #include <nt2/linalg/functions/gbsv.hpp>
 #include <nt2/include/functions/width.hpp>
+#include <nt2/include/functions/of_size.hpp>
 #include <nt2/linalg/details/utility/f77_wrapper.hpp>
 
 extern "C"

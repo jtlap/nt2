@@ -17,6 +17,7 @@
 #include <nt2/include/functions/numel.hpp>
 #include <nt2/include/functions/max.hpp>
 #include <nt2/include/constants/zero.hpp>
+#include <nt2/core/container/extremum/extremum.hpp>
 
 namespace nt2
 {
@@ -54,13 +55,6 @@ namespace nt2
     result_type r = { res, err, fcnt, warn == 0, warn};
     return r;
   }
-
-
 }
 
-
 #endif
-
-// /////////////////////////////////////////////////////////////////////////////
-// End of primitive.hpp
-// /////////////////////////////////////////////////////////////////////////////

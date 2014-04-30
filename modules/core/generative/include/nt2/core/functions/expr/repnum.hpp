@@ -10,6 +10,7 @@
 #define NT2_CORE_FUNCTIONS_EXPR_REPNUM_HPP_INCLUDED
 
 #include <nt2/core/functions/repnum.hpp>
+#include <nt2/include/functions/as_size.hpp>
 #include <nt2/core/container/dsl.hpp>
 
 namespace nt2 { namespace ext
@@ -21,7 +22,7 @@ namespace nt2 { namespace ext
                               ((ast_<A1, nt2::container::domain>))
                             )
   {
-   BOOST_DISPATCH_RETURNS( 2, ( const A0& a0, const A1& a1)
+   BOOST_DISPATCH_RETURNS ( 2, ( const A0& a0, const A1& a1)
                           , (nt2::repnum( a0, nt2::as_size(a1)))
                           )
   };
