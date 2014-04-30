@@ -11,7 +11,7 @@
 #ifdef BOOST_SIMD_HAS_VMX_SUPPORT
 
 #include <boost/simd/memory/functions/make.hpp>
-#include <boost/simd/operator/functions/simd/details/make_helper.hpp>
+#include <boost/simd/preprocessor/make_helper.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
