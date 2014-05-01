@@ -1,7 +1,7 @@
 //==============================================================================
-//         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
-//         Copyright 2011 - 2012   MetaScale SAS
+//         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2014   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2012 - 2014   MetaScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -13,8 +13,6 @@
 #include <nt2/sdk/parameters.hpp>
 #include <nt2/include/functor.hpp>
 #include <nt2/sdk/simd/category.hpp>
-#include <nt2/core/container/dsl/details/resize.hpp>
-#include <nt2/core/container/dsl/details/generator.hpp>
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>
 
 namespace nt2
@@ -43,54 +41,6 @@ namespace nt2
   #undef M0
 }
 
-namespace boost { namespace dispatch { namespace meta
-{
-  template<>
-  struct hierarchy_of<boost::proto::tag::function>
-  {
-    typedef nt2::tag::function_ type;
-  };
-
-  template<>
-  struct proto_tag<nt2::tag::function_>
-  {
-    typedef boost::proto::tag::function type;
-  };
-} } }
-
-
-namespace nt2 { namespace ext
-{
-  //============================================================================
-  // resize function expression - do nothing
-  //============================================================================
-  template<class Domain, int N, class Expr>
-  struct resize<nt2::tag::function_, Domain, N, Expr>
-  {
-    template<class Sz> BOOST_FORCEINLINE void operator()(Expr&, Sz const&) {}
-  };
-} }
-
-namespace nt2 { namespace details
-{
-  //==========================================================================
-  // Generator nullary function call case - handle expr()
-  //==========================================================================
-  template<class Domain, class Expr>
-  struct  generator<tag::function_, Domain, 1, Expr>
-  {
-    typedef typename boost::proto::result_of::child_c<Expr,0>::type   expr_t;
-    typedef typename boost::dispatch::meta::semantic_of<expr_t>::type sema_t;
-
-    typedef container::expression < typename boost::remove_const<Expr>::type
-                                  , sema_t
-                                  >                               result_type;
-
-    BOOST_FORCEINLINE result_type operator()(Expr& e) const
-    {
-      return result_type(e);
-    }
-  };
-} }
+#include <nt2/core/functions/details/function.hpp>
 
 #endif

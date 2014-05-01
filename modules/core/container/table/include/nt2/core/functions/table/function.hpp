@@ -11,8 +11,6 @@
 
 #include <nt2/core/functions/function.hpp>
 #include <nt2/include/functions/run.hpp>
-#include <nt2/core/functions/table/details/function_size.hpp>
-#include <nt2/core/functions/table/details/function_value_type.hpp>
 
 namespace nt2 { namespace ext
 {
