@@ -18,7 +18,6 @@
 #include <nt2/include/constants/pi.hpp>
 #include <nt2/include/constants/three.hpp>
 #include <nt2/include/constants/two.hpp>
-#include <nt2/include/constants/zero.hpp>
 #include <nt2/include/functions/simd/abs.hpp>
 #include <nt2/include/functions/simd/any.hpp>
 #include <nt2/include/functions/simd/divides.hpp>

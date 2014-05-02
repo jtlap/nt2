@@ -10,40 +10,12 @@
 #define NT2_EULER_FUNCTIONS_SIMD_COMMON_BETA_HPP_INCLUDED
 
 #include <nt2/euler/functions/beta.hpp>
-#include <nt2/sdk/meta/as_floating.hpp>
-#include <nt2/sdk/simd/meta/is_real_convertible.hpp>
-
-#include <nt2/include/functions/simd/signgam.hpp>
-#include <nt2/include/functions/simd/gammaln.hpp>
 #include <nt2/include/functions/simd/exp.hpp>
-#include <nt2/include/functions/simd/tofloat.hpp>
-
-/**
- * \ingroup euler_beta
- * \defgroup euler_beta_simd Notes on the SIMD implementation
- *
- * \par Specificities
- *
- *  Some info on \c beta in SIMD mode
- **/
-
-namespace nt2 { namespace ext
-{
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::beta_, tag::cpu_
-                            , (A0)(X)
-                            , ((simd_<arithmetic_<A0>,X>))
-                              ((simd_<arithmetic_<A0>,X>))
-                            )
-  {
-
-    typedef typename meta::as_floating<A0>::type result_type;
-
-    NT2_FUNCTOR_CALL_REPEAT(2)
-    {
-      return nt2::beta(tofloat(a0), tofloat(a1));
-    }
-  };
-} }
+#include <nt2/include/functions/simd/gammaln.hpp>
+#include <nt2/include/functions/simd/minus.hpp>
+#include <nt2/include/functions/simd/multiplies.hpp>
+#include <nt2/include/functions/simd/plus.hpp>
+#include <nt2/include/functions/simd/signgam.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -64,6 +36,5 @@ namespace nt2 { namespace ext
     }
   };
 } }
-
 
 #endif

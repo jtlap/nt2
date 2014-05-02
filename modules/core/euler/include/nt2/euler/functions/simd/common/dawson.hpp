@@ -16,7 +16,6 @@
 #include <nt2/include/functions/simd/copysign.hpp>
 #include <nt2/include/functions/simd/if_else.hpp>
 #include <nt2/include/functions/simd/inbtrue.hpp>
-#include <nt2/include/functions/simd/is_greater_equal.hpp>
 #include <nt2/include/functions/simd/is_less.hpp>
 #include <nt2/include/functions/simd/logical_andnot.hpp>
 #include <nt2/include/functions/simd/multiplies.hpp>
@@ -70,6 +69,5 @@ namespace nt2 { namespace ext
   };
 
 } }
-
 
 #endif

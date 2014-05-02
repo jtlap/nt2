@@ -10,36 +10,28 @@
 #define NT2_EULER_FUNCTIONS_SCALAR_BETA_HPP_INCLUDED
 
 #include <nt2/euler/functions/beta.hpp>
-#include <boost/math/special_functions/beta.hpp>
-#include <nt2/sdk/error/policies.hpp>
-#include <boost/dispatch/meta/as_floating.hpp>
-
-/**
- * \ingroup euler_beta
- * \defgroup euler_beta_scalar Notes on the scalar implementation
- *
- * \par Specificities
- *
- *  Some info on \c beta in scalar mode
- **/
+#include <nt2/include/functions/scalar/exp.hpp>
+#include <nt2/include/functions/scalar/gammaln.hpp>
+#include <nt2/include/functions/scalar/signgam.hpp>
 
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::beta_, tag::cpu_
                             , (A0)
-                            , (scalar_< arithmetic_<A0> >)
-                              (scalar_< arithmetic_<A0> >)
+                            , (scalar_< floating_<A0> >)
+                              (scalar_< floating_<A0> >)
                             )
   {
 
-    typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
+    typedef A0 result_type;
 
     NT2_FUNCTOR_CALL_REPEAT(2)
     {
-      return boost::math::beta(result_type(a0), result_type(a1), nt2_policy());
+      const A0 y = a0+a1;
+      const A0 sign = signgam(a0)*signgam(a1)*signgam(y);
+      return sign*exp(gammaln(a0)+gammaln(a1)-gammaln(y));
     }
   };
 } }
-
 
 #endif
