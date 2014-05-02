@@ -129,8 +129,6 @@ namespace nt2 { namespace ext
     {
       if ((a0 == nt2::Inf<A0>()) || nt2::is_eqz(a0) ) return nt2::Inf<A0>();
       typedef typename meta::as_integer<A0>::type iA0;
-      A0 nx, tx;
-      iA0 i;
       A0 x = a0;
       A0 q = nt2::abs(x);
       if(x > Maxgammaln<A0>()) return Inf<A0>();
