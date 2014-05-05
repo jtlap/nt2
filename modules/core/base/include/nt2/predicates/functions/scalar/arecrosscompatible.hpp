@@ -23,7 +23,7 @@ namespace nt2 { namespace ext
   {
     typedef bool result_type;
 
-    BOOST_FORCEINLINE result_type operator()(const A0&, const A1&, A2 dim) const
+    BOOST_FORCEINLINE result_type operator()(const A0&, const A1&, A2) const
     {
       return false;
     }
