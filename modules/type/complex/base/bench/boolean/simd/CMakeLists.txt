@@ -8,7 +8,21 @@
 ##############################################################################
 
 SET( SOURCES
-# List of simd test files for toolbox boolean
-   )
+  if_allbits_else.cpp
+  if_else_allbits.cpp
+  if_else_zero.cpp
+  ifnotadd.cpp
+  ifnotdec.cpp
+  ifnotinc.cpp
+  ifnotsub.cpp
+  if_one_else_zero.cpp
+  if_zero_else.cpp
+  if_zero_else_one.cpp
+  seladd.cpp
+  seldec.cpp
+  selinc.cpp
+  selsub.cpp
+  # List of simd test files for toolbox boolean
+  )
 
 nt2_module_add_tests(type.complex.base.boolean.simd.bench ${SOURCES})

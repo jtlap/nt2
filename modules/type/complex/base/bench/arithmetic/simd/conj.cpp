@@ -6,34 +6,30 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#include <nt2/include/functions/adds.hpp>
+#include <nt2/include/functions/conj.hpp>
 #include <nt2/sdk/complex/complex.hpp>
-#include <nt2/sdk/complex/dry.hpp>
-#include <complex>
-
+#include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/sdk/bench/benchmark.hpp>
 #include <nt2/sdk/bench/timing.hpp>
+#include <complex>
 
-using nt2::tag::adds_;
+//////////////////////////////////////////////////////////////////////////////
+// scalar runtime benchmark for functor<conj_>
+//////////////////////////////////////////////////////////////////////////////
+using nt2::tag::conj_;
 
 namespace n1 {
   typedef float             sT;
   typedef std::complex<sT>  T;
-
-  NT2_TIMING( adds_
-            , ((T,T(-100,-100),T(100,100)))
-              ((T,T(-100,-100),T(100,100)))
-            )
-    }
-
+  typedef boost::simd::meta::vector_of<T, BOOST_SIMD_BYTES/sizeof(sT)>::type vcT;
+  NT2_TIMING(conj_,((vcT,T(-10, -10),T(10, 10))))
+}
 namespace n2 {
-  typedef double            sT;
+  typedef double           sT;
   typedef std::complex<sT>  T;
-
-  NT2_TIMING( adds_
-            , ((T,T(-100,-100),T(100,100)))
-              ((T,T(-100,-100),T(100,100)))
-            )
-    }
+  typedef boost::simd::meta::vector_of<T, BOOST_SIMD_BYTES/sizeof(sT)>::type vcT;
+  NT2_TIMING(conj_,((vcT,T(-10, -10),T(10, 10))))
+}
 
 
+#undef RS

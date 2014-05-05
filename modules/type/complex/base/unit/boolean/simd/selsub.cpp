@@ -36,12 +36,12 @@ NT2_TEST_CASE_TPL( selsub_floating, BOOST_SIMD_SIMD_REAL_TYPES)
   typedef native<cT,ext_t>                vcT;
 
   // specific values tests
-  NT2_TEST_EQUAL(selsub(nt2::One<vT>(), nt2::Mone<vT>()   , nt2::One<vT>()   ), nt2::Mtwo<vT>());
-  NT2_TEST_EQUAL(selsub(nt2::One<vT>(), nt2::One<vT>()    , nt2::One<vT>()    ), nt2::Zero<vT>());
-  NT2_TEST_EQUAL(selsub(nt2::One<vT>(), nt2::Valmax<vT>() , nt2::One<vT>() ), nt2::Valmax<vT>());
-  NT2_TEST_EQUAL(selsub(nt2::One<vT>(), nt2::Zero<vT>()   , nt2::One<vT>()   ), nt2::Mone<vT>());
-  NT2_TEST_EQUAL(selsub(nt2::Zero<vT>(), nt2::Mone<vT>()  , nt2::One<vT>()  ), nt2::Mone<vT>());
-  NT2_TEST_EQUAL(selsub(nt2::Zero<vT>(), nt2::Zero<vT>()  , nt2::One<vT>()  ), nt2::Zero<vT>());
-  NT2_TEST_EQUAL(selsub(nt2::Zero<vT>(), nt2::Valmax<vT>(), nt2::One<vT>()), nt2::Valmax<vT>());
-  NT2_TEST_EQUAL(selsub(nt2::Zero<vT>(), nt2::Zero<vT>()  , nt2::One<vT>()  ), nt2::Zero<vT>());
+  NT2_TEST_EQUAL(selsub(nt2::One<vcT>(), nt2::Mone<vcT>()   , nt2::One<vcT>()   ), nt2::Mtwo<vcT>());
+  NT2_TEST_EQUAL(selsub(nt2::One<vcT>(), nt2::One<vcT>()    , nt2::One<vcT>()    ), nt2::Zero<vcT>());
+  NT2_TEST_EQUAL(selsub(nt2::One<vcT>(), nt2::Valmax<vcT>() , nt2::One<vcT>() ), nt2::Valmax<vcT>());
+  NT2_TEST_EQUAL(selsub(nt2::One<vcT>(), nt2::Zero<vcT>()   , nt2::One<vcT>()   ), nt2::Mone<vcT>());
+  NT2_TEST_EQUAL(selsub(nt2::Zero<vcT>(), nt2::Mone<vcT>()  , nt2::One<vcT>()  ), nt2::Mone<vcT>());
+  NT2_TEST_EQUAL(selsub(nt2::Zero<vcT>(), nt2::Zero<vcT>()  , nt2::One<vcT>()  ), nt2::Zero<vcT>());
+  NT2_TEST_EQUAL(selsub(nt2::Zero<vcT>(), nt2::Valmax<vcT>(), nt2::One<vcT>()), nt2::Valmax<vcT>());
+  NT2_TEST_EQUAL(selsub(nt2::Zero<vcT>(), nt2::Zero<vcT>()  , nt2::One<vcT>()  ), nt2::Zero<vcT>());
 }

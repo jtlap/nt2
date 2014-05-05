@@ -8,7 +8,15 @@
 ##############################################################################
 
 SET( SOURCES
-# List of simd test files for toolbox ieee
-   )
+  frac.cpp
+  ldexp.cpp
+  maxmag.cpp
+  maxnummag.cpp
+  minmag.cpp
+  minnummag.cpp
+  sign.cpp
+  ulpdist.cpp
+  # List of simd test files for toolbox ieee
+  )
 
 nt2_module_add_tests(type.complex.base.ieee.simd.bench ${SOURCES})

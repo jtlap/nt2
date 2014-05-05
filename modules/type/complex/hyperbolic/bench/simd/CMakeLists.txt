@@ -8,6 +8,20 @@
 ##############################################################################
 
 SET( SOURCES
+  acosh.cpp
+  acoth.cpp
+  acsch.cpp
+  asech.cpp
+  asinh.cpp
+  atanh.cpp
+  cosh.cpp
+  coth.cpp
+  csch.cpp
+  sech.cpp
+#  sinhc.cpp
+  sinhcosh.cpp
+  sinh.cpp
+  tanh.cpp
 # List of scalar test files for toolbox trigonometric
 )
 

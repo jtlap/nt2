@@ -9,17 +9,17 @@
 
 SET( SOURCES
 #  expx2.cpp
-#  pow.cpp
-#  pow_abs.cpp
+  pow.cpp
+  pow_abs.cpp
 #  nthroot.cpp
-#  log2.cpp
-#  log1p.cpp
-#  log10.cpp
-#  log.cpp
-#  expm1.cpp
-#  exp2.cpp
-#  exp10.cpp
-#  exp.cpp
+  log2.cpp
+  log1p.cpp
+  log10.cpp
+  log.cpp
+  expm1.cpp
+  exp2.cpp
+  exp10.cpp
+  exp.cpp
 #  cbrt.cpp
 # List of scalar test files for toolbox exponential
 )
