@@ -10,7 +10,7 @@
 #define NT2_CORE_UTILITY_AS_SUBSCRIPT_HPP_INCLUDED
 
 #include <nt2/include/functions/simd/plus.hpp>
-#include <nt2/include/functions/simd/splat.hpp>
+#include <nt2/memory/include/functions/splat.hpp>
 #include <nt2/include/functions/simd/modulo.hpp>
 #include <nt2/include/functions/simd/divides.hpp>
 #include <nt2/include/functions/simd/bitwise_cast.hpp>
