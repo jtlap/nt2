@@ -18,8 +18,12 @@
 #include <boost/dispatch/meta/scalar_of.hpp>
 #include <boost/mpl/equal_to.hpp>
 #include <boost/dispatch/attributes.hpp>
-#include <boost/simd/include/functions/simd/if_else.hpp>
-#include <boost/simd/include/functions/simd/splat.hpp>
+
+#include <boost/simd/operator/functions/if_else.hpp>
+#include <boost/simd/constant/constants/zero.hpp>
+#include <boost/simd/constant/constants/false.hpp>
+
+#include <boost/simd/memory/functions/details/zero_or_false.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -40,7 +44,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_FORCEINLINE result_type operator()(A0 a0, A1 const&, A2 const& a2) const
     {
-      return load<result_type>(a0,a2,boost::simd::splat<result_type>(0));
+      return load<result_type>(a0,a2,details::Zero_or_False<result_type>());
     }
   };
 
@@ -203,7 +207,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_FORCEINLINE result_type
     operator()(A0 a0, const A1&, const A2& a2, const A3& a3 ) const
     {
-      return load<result_type>(a0,a2,a3,splat<result_type>(0));
+      return load<result_type>(a0,a2,a3,details::Zero_or_False<result_type>());
     }
   };
 
@@ -302,6 +306,9 @@ namespace boost { namespace simd { namespace ext
     }
   };
 } } }
+
+#include <boost/simd/include/functions/simd/if_else.hpp>
+#include <boost/simd/include/constants/zero.hpp>
+#include <boost/simd/include/constants/false.hpp>
+
 #endif
-
-
