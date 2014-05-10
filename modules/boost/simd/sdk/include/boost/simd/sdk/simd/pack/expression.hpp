@@ -54,9 +54,15 @@ namespace boost { namespace simd
       return *this;
     }
 
+    // operator[] forces evaluation and return element
+    BOOST_FORCEINLINE typename meta::scalar_of<ResultType>::type
+    operator[](std::size_t i) const
+    {
+      return boost::simd::evaluate(*this)[i];
+    }
+
     // Conversion operator forces evaluation
-    BOOST_FORCEINLINE
-    operator ResultType() const
+    BOOST_FORCEINLINE operator ResultType() const
     {
       return boost::simd::evaluate(*this);
     }

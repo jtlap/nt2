@@ -50,6 +50,21 @@ NT2_TEST_CASE(issue_495)
   NT2_TEST_COMPLETE("Issue #495");
 }
 
+NT2_TEST_CASE(indexing_expression)
+{
+  using namespace boost::simd;
+  pack<float> f, g;
+
+  for(std::size_t i=0;i<pack<float>::static_size;++i)
+  {
+    f[i] = 1.f+i;
+    g[i] = 1.f/(1+i);
+  }
+
+  for(std::size_t i=0;i<pack<float>::static_size;++i)
+    NT2_TEST_EQUAL((f+g)[i],f[i]+g[i]);
+}
+
 NT2_TEST_CASE(compare_equal)
 {
   using namespace boost::simd;
