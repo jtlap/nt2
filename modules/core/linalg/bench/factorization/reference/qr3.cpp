@@ -82,10 +82,10 @@ template<typename T> struct qr3_float_nt2
       call = false;
     }
 
-      d = nt2::numel(jpvt);
+    d = nt2::numel(jpvt);
     P = nt2::zeros(d, nt2::meta::as_<T>());
 
-    for(std::size_t i = 1; i <= (std::size_t)d; ++i)
+    for(i = 1; i <= d; ++i)
       (P)(jpvt(i),i) = 1;
   }
 
@@ -170,10 +170,10 @@ template<typename T> struct qr3_double_nt2
       call = false;
     }
 
-        d = nt2::numel(jpvt);
+    d = nt2::numel(jpvt);
     P = nt2::zeros(d, nt2::meta::as_<T>());
 
-    for(std::size_t i = 1; i <= (std::size_t)d; ++i)
+    for( i = 1; i <= d; ++i)
       (P)(jpvt(i),i) = 1;
 
   }
