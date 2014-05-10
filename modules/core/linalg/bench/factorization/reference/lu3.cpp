@@ -49,7 +49,7 @@ template<typename T> struct lu3_float_nt2
     U = nt2::triu(input);
 
     P = nt2::zeros(m,m, nt2::meta::as_<T>());
-    for(std::size_t i = 1; i <= m;++i)
+    for(std::size_t i = 1; i <= (std::size_t)m;++i)
       P(i,jpvt(i)) = 1;
   }
 
@@ -101,7 +101,7 @@ template<typename T> struct lu3_double_nt2
     U = nt2::triu(input);
 
     P = nt2::zeros(m,m, nt2::meta::as_<T>());
-    for(std::size_t i = 1; i <= m;++i)
+    for(std::size_t i = 1; i <= (std::size_t)m;++i)
       P(i,jpvt(i)) = 1;
   }
 
