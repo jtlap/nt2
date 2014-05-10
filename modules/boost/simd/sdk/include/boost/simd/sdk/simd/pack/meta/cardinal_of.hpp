@@ -22,6 +22,13 @@ namespace boost { namespace simd { namespace meta
     : mpl::size_t<Cardinal>
   {
   };
+
+  // cardinal of an expression of pack is the cardinal of its ResultType
+  template< class Expression, class ResultType>
+  struct  cardinal_of< boost::simd::expression<Expression,ResultType> >
+        : cardinal_of<ResultType>
+  {
+  };
 } } }
 
 #endif

@@ -60,12 +60,24 @@ namespace boost { namespace simd { namespace tag
     @return A SIMD register full of <tt>value[N]</tt>
   **/
   template<std::size_t N, typename Type>
-  BOOST_FORCEINLINE Type broadcast(Type const& value)
+  BOOST_FORCEINLINE
+  typename  boost::dispatch::meta::
+            result_of < typename boost::dispatch::meta::
+                        dispatch_call < tag::broadcast_
+                                      ( Type const&
+                                      , boost::mpl::int_<N> const&
+                                      )
+                                      >::type
+                        ( Type const&
+                        , boost::mpl::int_<N> const&
+                        )
+                      >::type
+  broadcast(Type const& value)
   {
     typename  boost::dispatch::meta
             ::dispatch_call<tag::broadcast_
                                   ( Type const&
-                                  , boost::mpl::int_<N> const
+                                  , boost::mpl::int_<N> const&
                                   )>::type          callee;
 
     BOOST_MPL_ASSERT_MSG( (N < meta::cardinal_of<Type>::value)
