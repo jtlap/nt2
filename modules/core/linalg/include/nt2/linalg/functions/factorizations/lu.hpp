@@ -24,6 +24,7 @@
 #include <nt2/sdk/meta/concrete.hpp>
 #include <nt2/sdk/error/warning.hpp>
 #include <boost/dispatch/meta/terminal_of.hpp>
+#include <boost/dispatch/meta/ignore_unused.hpp>
 #include <nt2/core/container/table/table.hpp>
 
 namespace nt2 { namespace ext
@@ -55,6 +56,7 @@ namespace nt2 { namespace ext
 
       nt2::container::table<nt2_la_int> ip;
       nt2_la_int lapack_info = nt2::getrf(boost::proto::value(out),boost::proto::value(ip));
+      boost::dispatch::ignore_unused(lapack_info);
 
       NT2_WARNING ( lapack_info <= 0
                   , "LU factorization has been completed, but U is exactly "
@@ -166,6 +168,7 @@ namespace nt2 { namespace ext
     /// INTERNAL ONLY
     void check_success(nt2_la_int lapack_info) const
     {
+      boost::dispatch::ignore_unused(lapack_info);
       NT2_WARNING ( lapack_info <= 0
                   , "LU factorization has been completed, but U is exactly "
                     "singular. Division by zero will occur if it is used to "

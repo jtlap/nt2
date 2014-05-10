@@ -25,7 +25,7 @@ namespace nt2{ namespace ext
     template<typename A0,typename A1,typename eval_type> BOOST_FORCEINLINE
     void eval_param(A0& a0, A1& a1, eval_type& that)
    {
-      nt2_la_int  m   = nt2::height(a0);
+      //nt2_la_int  m   = nt2::height(a0);
       nt2_la_int  m1  = nt2::height(a1);
       nt2_la_int  n   = nt2::width(a0);
       nt2_la_int  n1  = nt2::width(a1);
