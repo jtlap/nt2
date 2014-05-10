@@ -48,14 +48,14 @@ template<typename T> struct qr3_float_nt2
 
     tau.resize(nt2::of_size(std::min(m,m), 1));
 
-    NT2_F77NAME(sgeqp3)(&h1,&w1,0,&m,0,0,work.main(),nt2::details::query(),&i);
+    NT2_F77NAME(sgeqp3)(&h1,&w1,0,&m,0,0,work.main(),nt2::details::query(),&info);
 
     work.prepare_main();
     jpvt = nt2::zeros(m,1,nt2::meta::as_<nt2_la_int>());
     lwork = work.main_size();
 
     NT2_F77NAME(sgeqp3)(&h1,&w1,input.raw(),&m,jpvt.raw(),tau.raw(),work.main()
-                       ,&lwork, &i
+                       ,&lwork, &info
                        );
 
     R = nt2::triu(input);
@@ -67,7 +67,7 @@ template<typename T> struct qr3_float_nt2
       char trans = 'N';
 
       NT2_F77NAME(sormqr)( &side, &trans, &h1, &w1, &k, input.raw(), &h1, tau.raw()
-                            , Q.raw(), &h1, work.main(), &lwork, &i);
+                            , Q.raw(), &h1, work.main(), &lwork, &info);
       call = true;
     }
     else
@@ -78,14 +78,14 @@ template<typename T> struct qr3_float_nt2
         input = nt2::expand(input,nt2::of_size(h1,h1));
       }
       NT2_F77NAME(sorgqr)(&h1, &w1 , &k, input.raw(), &h1, tau.raw(), work.main()
-                         , &lwork, &i);
+                         , &lwork, &info);
       call = false;
     }
 
     d = nt2::numel(jpvt);
     P = nt2::zeros(d, nt2::meta::as_<T>());
 
-    for(i = 1; i <= d; ++i)
+    for(nt2_la_int i = 1; i <= d; ++i)
       (P)(jpvt(i),i) = 1;
   }
 
@@ -102,7 +102,7 @@ private:
   bool call;
   std::size_t size_;
   nt2::details::workspace<float> work;
-  nt2_la_int i,m,lwork,h1,w1,k,d;
+  nt2_la_int info,m,lwork,h1,w1,k,d;
   nt2::table<T> input, Q,R,P, tau;
   nt2::table<nt2_la_int> jpvt;
 };
@@ -136,14 +136,14 @@ template<typename T> struct qr3_double_nt2
 
     tau.resize(nt2::of_size(std::min(m,m), 1));
 
-    NT2_F77NAME(dgeqp3)(&h1,&w1,0,&m,0,0,work.main(),nt2::details::query(),&i);
+    NT2_F77NAME(dgeqp3)(&h1,&w1,0,&m,0,0,work.main(),nt2::details::query(),&info);
 
     work.prepare_main();
     jpvt = nt2::zeros(m,1,nt2::meta::as_<nt2_la_int>());
     lwork = work.main_size();
 
     NT2_F77NAME(dgeqp3)(&h1,&w1,input.raw(),&m,jpvt.raw(),tau.raw(),work.main()
-                       ,&lwork, &i
+                       ,&lwork, &info
                        );
 
     R = nt2::triu(input);
@@ -155,7 +155,7 @@ template<typename T> struct qr3_double_nt2
       char trans = 'N';
 
       NT2_F77NAME(dormqr)( &side, &trans, &h1, &w1, &k, input.raw(), &h1, tau.raw()
-                            , Q.raw(), &h1, work.main(), &lwork, &i);
+                            , Q.raw(), &h1, work.main(), &lwork, &info);
       call = true;
     }
     else
@@ -166,14 +166,14 @@ template<typename T> struct qr3_double_nt2
         input = nt2::expand(input,nt2::of_size(h1,h1));
       }
       NT2_F77NAME(dorgqr)(&h1, &w1 , &k, input.raw(), &h1, tau.raw(), work.main()
-                         , &lwork, &i);
+                         , &lwork, &info);
       call = false;
     }
 
     d = nt2::numel(jpvt);
     P = nt2::zeros(d, nt2::meta::as_<T>());
 
-    for( i = 1; i <= d; ++i)
+    for(nt2_la_int i = 1; i <= d; ++i)
       (P)(jpvt(i),i) = 1;
 
   }
@@ -190,7 +190,7 @@ private:
   bool call;
   std::size_t size_;
   nt2::details::workspace<double> work;
-  nt2_la_int i,m,k,lwork,h1,w1,d;
+  nt2_la_int info,m,k,lwork,h1,w1,d;
   nt2::table<T> input, Q,R,P, tau;
   nt2::table<nt2_la_int> jpvt;
 };

@@ -44,7 +44,7 @@ template<typename T> struct lu3_float_nt2
   {
     m = size();
     jpvt.resize(nt2::of_size(std::min(size_, size_), 1) );
-    NT2_F77NAME(sgetrf)( &m, &m, input.raw(), &m, jpvt.raw(), &i);
+    NT2_F77NAME(sgetrf)( &m, &m, input.raw(), &m, jpvt.raw(), &info);
     L = nt2::tri1l(input);
     U = nt2::triu(input);
 
@@ -63,7 +63,7 @@ template<typename T> struct lu3_float_nt2
 
 private:
   std::size_t size_;
-  nt2_la_int i,m;
+  nt2_la_int info,m;
   nt2::table<T> input, L, U, P;
   nt2::table<nt2_la_int> jpvt;
 };
@@ -96,7 +96,7 @@ template<typename T> struct lu3_double_nt2
   {
     m= size();
     jpvt.resize(nt2::of_size(std::min(size_, size_), 1) );
-    NT2_F77NAME(dgetrf)( &m, &m, input.raw(), &m, jpvt.raw(), &i);
+    NT2_F77NAME(dgetrf)( &m, &m, input.raw(), &m, jpvt.raw(), &info);
     L = nt2::tri1l(input);
     U = nt2::triu(input);
 
@@ -115,7 +115,7 @@ template<typename T> struct lu3_double_nt2
 
 private:
   std::size_t size_;
-  nt2_la_int i,m;
+  nt2_la_int info,m;
   nt2::table<T> input, L,U, P;
   nt2::table<nt2_la_int> jpvt;
 };
