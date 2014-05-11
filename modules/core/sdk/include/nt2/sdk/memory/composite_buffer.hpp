@@ -28,9 +28,6 @@
 #include <boost/fusion/include/as_vector.hpp>
 #include <boost/fusion/include/transform_view.hpp>
 
-#include <iostream>
-#include <nt2/sdk/meta/type_id.hpp>
-
 namespace nt2 { namespace memory
 {
   //============================================================================
