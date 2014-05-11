@@ -28,6 +28,9 @@
 #include <boost/fusion/include/as_vector.hpp>
 #include <boost/fusion/include/transform_view.hpp>
 
+#include <iostream>
+#include <nt2/sdk/meta/type_id.hpp>
+
 namespace nt2 { namespace memory
 {
   //============================================================================
@@ -182,6 +185,33 @@ namespace nt2 { namespace memory
       typedef boost::fusion::zip_view<pseq_t>           pview_t;
 
       boost::fusion::for_each( pview_t( pseq_t(data_,t) ), pusher() );
+    }
+
+    //==========================================================================
+    // Resizes and add a range of elements at the end
+    //==========================================================================
+    struct range_pusher
+    {
+      template<typename T> BOOST_FORCEINLINE
+      void operator()(T const& t) const
+      {
+        boost::fusion::at_c<0>(t).push_back ( boost::fusion::at_c<1>(t)
+                                            , boost::fusion::at_c<2>(t)
+                                            );
+      }
+    };
+
+    template<typename Iterator>
+    void push_back( Iterator const& b, Iterator const& e )
+    {
+      typedef typename Iterator::sequence_type iseq_t;
+      typedef boost::fusion::vector3< data_t&
+                                    , iseq_t const&
+                                    , iseq_t const&
+                                    >               pseq_t;
+      typedef boost::fusion::zip_view<pseq_t>       pview_t;
+
+      boost::fusion::for_each( pview_t(pseq_t(data_,b,e)), range_pusher() );
     }
 
     //==========================================================================

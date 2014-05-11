@@ -37,6 +37,8 @@ namespace nt2 { namespace memory
     struct enabler {};
 
     public:
+    typedef P sequence_type;
+
     //==========================================================================
     // Default constructor
     //==========================================================================

@@ -475,6 +475,49 @@ NT2_TEST_CASE_TPL(buffer_push_back, NT2_TYPES )
 }
 
 //==============================================================================
+// Test for buffer push_back range
+//==============================================================================
+NT2_TEST_CASE(buffer_push_back_range)
+{
+  using nt2::memory::buffer;
+  using nt2::memory::composite_buffer;
+
+  composite_buffer< buffer<foo> > x(7), b(5);
+
+  for ( std::size_t i = 0; i < 7; ++i )
+  {
+    foo f = {2.+i,3.f-i,short(1+i)};
+    x[i] = f;
+  }
+
+  for ( std::size_t i = 0; i < 5; ++i )
+  {
+    foo f = {2.*i,3.f*i,short(i)};
+    b[i] = f;
+  }
+
+  x.push_back(b.begin(),b.end());
+
+  NT2_TEST_EQUAL(x.size() , 12u );
+  NT2_TEST_GREATER_EQUAL(x.capacity(), 12u );
+
+  std::size_t i = 0;
+
+  for( ; i < 7; ++i )
+  {
+    foo f = {2.+i,3.f-i,short(1+i)};
+    NT2_TEST_EQUAL( x[i], boost::fusion::as_vector(f) );
+  }
+
+  for( ; i < 5; ++i )
+  {
+    std::size_t j = i - 7;
+    foo f = {2.*j,3.f*j,short(j)};
+    NT2_TEST_EQUAL( x[i], boost::fusion::as_vector(f) );
+  }
+}
+
+//==============================================================================
 // buffer push_back single value in empty buffer
 //==============================================================================
 NT2_TEST_CASE_TPL(buffer_push_back_def, NT2_TYPES )
