@@ -363,3 +363,27 @@ NT2_TEST_CASE_TPL( container_push_back, NT2_TYPES)
   NT2_TEST_EQUAL( a.extent(), nt2::of_size(2*3+7) );
   NT2_TEST_EQUAL( a, ref );
 }
+
+NT2_TEST_CASE_TPL( container_push_back_range, NT2_TYPES)
+{
+  using nt2::_2D;
+  using nt2::of_size_;
+  using nt2::memory::container;
+
+  typedef container<some_kind_, T,_2D> type;
+  type a(nt2::of_size(2, 3));
+  type b(nt2::of_size(2, 3));
+
+  std::vector<T> ref(2*6);
+
+  for(std::ptrdiff_t i=0; i<2*3; ++i) b[i] = 2*(a[i] = T(1+i));
+
+  std::ptrdiff_t i=0;
+  for(; i<6; ++i)  ref[i] = a[i];
+  for(; i<12; ++i) ref[i] = b[i-6];
+
+  a.push_back(b);
+
+  NT2_TEST_EQUAL( a.extent(), nt2::of_size(2,6) );
+  NT2_TEST_EQUAL( a, ref );
+}

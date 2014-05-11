@@ -281,10 +281,23 @@ namespace nt2 { namespace memory
      * @brief Add element at end of container, reshape to 1D
      */
     //==========================================================================
-    void push_back( Type const& t)
+    void push_back( value_type const& t)
     {
       data_.push_back(t);
       sizes_ = extent_type(numel(sizes_) + 1);
+    };
+
+    //==========================================================================
+    /*!
+     * @brief Add range of element at end of container's most external dimension
+     */
+    //==========================================================================
+    template<typename Container> void push_back( Container const& c)
+    {
+      static const std::size_t d = extent_type::static_size-1;
+
+      data_.push_back(c.begin(),c.end());
+      sizes_[d] += boost::fusion::at_c<d>(c.extent());
     };
 
     /*!

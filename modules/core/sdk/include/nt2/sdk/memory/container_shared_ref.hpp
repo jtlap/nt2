@@ -306,6 +306,16 @@ namespace nt2 { namespace memory
 
     //==========================================================================
     /*!
+     * @brief Add range of element at end of container's most external dimension
+     */
+    //==========================================================================
+    template<typename Container> void push_back( Container const& c)
+    {
+      base_->push_back(c);
+    };
+
+    //==========================================================================
+    /*!
      * @brief Return the container dimensions set
      * @return A reference to a constant Fusion RandomAccessSequence containing
      * the size of the container over each of its dimensions.
