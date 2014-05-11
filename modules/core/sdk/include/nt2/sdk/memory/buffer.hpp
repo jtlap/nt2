@@ -224,14 +224,35 @@ namespace nt2 { namespace memory
     //==========================================================================
     void push_back( T const& t )
     {
+      std::ptrdiff_t osz = size();
+
       if( end_ >= capacity_ )
       {
-        buffer that(*this, 2*(end_ - begin_ + 1));
+        buffer that(*this, NT2_BUFFER_GROWTH_FACTOR*(osz+1));
         swap(that);
       }
 
       new(end_) T(t);
       ++end_;
+    }
+
+    //==========================================================================
+    // Resizes and add a range of elements at the end
+    //==========================================================================
+    template<typename Iterator> void push_back( Iterator b, Iterator e )
+    {
+      std::ptrdiff_t osz = size();
+      std::ptrdiff_t sz = e-b;
+
+      if( end_ >= capacity_ )
+      {
+        buffer that(*this, NT2_BUFFER_GROWTH_FACTOR*(osz + sz));
+        swap(that);
+      }
+
+      nt2::memory::copy(b,e,begin_+osz);
+
+      end_ += sz;
     }
 
     //==========================================================================
