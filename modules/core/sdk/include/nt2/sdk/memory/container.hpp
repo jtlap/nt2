@@ -21,7 +21,9 @@
 #include <nt2/sdk/memory/adapted/container.hpp>
 #include <nt2/sdk/memory/composite_buffer.hpp>
 #include <boost/fusion/include/is_sequence.hpp>
+#include <boost/fusion/include/pop_back.hpp>
 #include <boost/mpl/at.hpp>
+#include <boost/assert.hpp>
 
 #ifdef NT2_LOG_COPIES
 #include <iostream>
@@ -294,6 +296,11 @@ namespace nt2 { namespace memory
     //==========================================================================
     template<typename Container> void push_back( Container const& c)
     {
+      BOOST_ASSERT_MSG(    boost::fusion::pop_back(sizes_)
+                        == boost::fusion::pop_back(c.extent())
+                      , "Incompatible size in range push_back"
+                      );
+
       static const std::size_t d = extent_type::static_size-1;
 
       data_.push_back(c.begin(),c.end());

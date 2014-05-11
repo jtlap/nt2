@@ -386,4 +386,8 @@ NT2_TEST_CASE_TPL( container_push_back_range, NT2_TYPES)
 
   NT2_TEST_EQUAL( a.extent(), nt2::of_size(2,6) );
   NT2_TEST_EQUAL( a, ref );
+
+  type c(nt2::of_size(7, 5));
+
+  NT2_TEST_ASSERT(a.push_back(c));
 }
