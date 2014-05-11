@@ -266,6 +266,26 @@ namespace nt2 { namespace container
     }
 
     //==========================================================================
+    // push_back through container
+    //==========================================================================
+    template<typename Data>
+    void push_back( Data const& c)
+    {
+      //========================================================================
+      //       ****NT2_INVALID_PUSH_BACK_ON_NON_TERMINAL****
+      // If this static assert triggers, push_back has been called onto
+      // a non-terminal
+      //       ****NT2_INVALID_PUSH_BACK_ON_NON_TERMINAL****
+      //========================================================================
+      BOOST_MPL_ASSERT_MSG( (boost::proto::arity_of<Expr>::value == 0)
+                          , NT2_INVALID_PUSH_BACK_ON_NON_TERMINAL
+                          , (Expr&)
+                          );
+
+      boost::proto::value(*this).push_back(c);
+    }
+
+    //==========================================================================
     // Access to raw data
     //==========================================================================
     pointer       raw()
