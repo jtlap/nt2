@@ -162,7 +162,7 @@ NT2_TEST_CASE( composite_buffer_allocator_ctor )
 
   NT2_TEST(b.empty());
   NT2_TEST_EQUAL(b.size()     , 0u      );
-  NT2_TEST_EQUAL(b.capacity() , 0u      );
+  NT2_TEST_GREATER_EQUAL(b.capacity() , 0u      );
   NT2_TEST_EQUAL(b.begin()    , b.end() );
 }
 
@@ -178,7 +178,7 @@ NT2_TEST_CASE( composite_buffer_size_ctor )
 
   NT2_TEST(!b.empty());
   NT2_TEST_EQUAL(b.size()     , 5u    );
-  NT2_TEST_EQUAL(b.capacity() , 5u    );
+  NT2_TEST_GREATER_EQUAL(b.capacity() , 5u    );
 
   for ( std::size_t i = 0; i < 5; ++i )
   {
@@ -206,7 +206,7 @@ NT2_TEST_CASE( composite_buffer_size_allocator_ctor )
 
   NT2_TEST(!b.empty());
   NT2_TEST_EQUAL(b.size()     , 5u    );
-  NT2_TEST_EQUAL(b.capacity() , 5u    );
+  NT2_TEST_GREATER_EQUAL(b.capacity() , 5u    );
 
   for ( std::size_t i = 0; i < 5; ++i )
   {
@@ -241,7 +241,7 @@ NT2_TEST_CASE( buffer_data_ctor)
 
   NT2_TEST(!x.empty());
   NT2_TEST_EQUAL(x.size()     , 5u    );
-  NT2_TEST_EQUAL(x.capacity() , 5u    );
+  NT2_TEST_GREATER_EQUAL(x.capacity() , 5u    );
 
   for ( std::size_t i = 0; i < 5; ++i )
   {
@@ -269,7 +269,7 @@ NT2_TEST_CASE(buffer_resize)
   b.resize(3);
   NT2_TEST(!b.empty());
   NT2_TEST_EQUAL(b.size()     , 3u    );
-  NT2_TEST_EQUAL(b.capacity() , 5u    );
+  NT2_TEST_GREATER_EQUAL(b.capacity() , 5u    );
 
   for ( std::size_t i = 0; i < 3; ++i )
   {
@@ -280,7 +280,7 @@ NT2_TEST_CASE(buffer_resize)
   b.resize(5);
   NT2_TEST(!b.empty());
   NT2_TEST_EQUAL(b.size()     , 5u    );
-  NT2_TEST_EQUAL(b.capacity() , 5u    );
+  NT2_TEST_GREATER_EQUAL(b.capacity() , 5u    );
 
   for ( std::size_t i = 0; i < 5; ++i )
   {
@@ -291,7 +291,7 @@ NT2_TEST_CASE(buffer_resize)
   b.resize(9);
   NT2_TEST(!b.empty());
   NT2_TEST_EQUAL(b.size()     , 9u    );
-  NT2_TEST_EQUAL(b.capacity() , 9u    );
+  NT2_TEST_GREATER_EQUAL(b.capacity() , 9u    );
 
   for ( std::size_t i = 0; i < 9; ++i )
   {
@@ -308,7 +308,7 @@ NT2_TEST_CASE(buffer_resize)
   b.resize(1);
   NT2_TEST(!b.empty());
   NT2_TEST_EQUAL(b.size()     , 1u    );
-  NT2_TEST_EQUAL(b.capacity() , 9u    );
+  NT2_TEST_GREATER_EQUAL(b.capacity() , 9u    );
 
   for ( std::size_t i = 0; i < 1; ++i )
   {
@@ -337,7 +337,7 @@ NT2_TEST_CASE(buffer_assignment)
 
   NT2_TEST(!x.empty());
   NT2_TEST_EQUAL(x.size()     , 5u    );
-  NT2_TEST_EQUAL(x.capacity() , 5u    );
+  NT2_TEST_GREATER_EQUAL(x.capacity() , 5u    );
 
   for ( std::size_t i = 0; i < 5; ++i )
   {
@@ -372,11 +372,11 @@ NT2_TEST_CASE(buffer_swap)
 
   NT2_TEST(!x.empty());
   NT2_TEST_EQUAL(x.size()     , 5u    );
-  NT2_TEST_EQUAL(x.capacity() , 5u    );
+  NT2_TEST_GREATER_EQUAL(x.capacity() , 5u    );
 
   NT2_TEST(!b.empty());
   NT2_TEST_EQUAL(b.size()     , 7u    );
-  NT2_TEST_EQUAL(b.capacity() , 7u    );
+  NT2_TEST_GREATER_EQUAL(b.capacity() , 7u    );
 
   for ( std::size_t i = 0; i < 5; ++i )
   {
@@ -433,3 +433,72 @@ NT2_TEST_CASE(buffer_iterator)
     NT2_TEST_EQUAL( x[i], boost::fusion::as_vector(fx) );
   }
 }
+
+//==============================================================================
+// buffer push_back single value
+//==============================================================================
+NT2_TEST_CASE_TPL(buffer_push_back, NT2_TYPES )
+{
+  using nt2::memory::buffer;
+  using nt2::memory::composite_buffer;
+
+  composite_buffer< buffer<foo> > x(5);
+
+  for ( std::size_t i = 0; i < 5; ++i )
+  {
+    foo f = {2.*i,3.f*i,short(i)};
+    x[i] = f;
+  }
+
+  for ( std::size_t i = 0; i < 7; ++i )
+  {
+    foo f = {-1.*i,3.f/i,short(i/2)};
+    x.push_back(f);
+  }
+
+  NT2_TEST_EQUAL( x.size(), 12u );
+  std::ptrdiff_t i = 0;
+  for ( ; i < 5;  ++i )
+  {
+    foo f = {2.*i,3.f*i,short(i)};
+    NT2_TEST_EQUAL( x[i], boost::fusion::as_vector(f) );
+  }
+
+  for ( ; i < 12;  ++i )
+  {
+    std::ptrdiff_t j = i-5;
+    foo f = {-1.*j,3.f/j,short(j/2)};
+    NT2_TEST_EQUAL( x[i], boost::fusion::as_vector(f) );
+  }
+
+  std::cout << "capacity = " << x.capacity() << std::endl;
+}
+
+//==============================================================================
+// buffer push_back single value in empty buffer
+//==============================================================================
+NT2_TEST_CASE_TPL(buffer_push_back_def, NT2_TYPES )
+{
+  using nt2::memory::buffer;
+  using nt2::memory::composite_buffer;
+
+  composite_buffer< buffer<foo> > x;
+
+  for ( std::size_t i = 0; i < 7; ++i )
+  {
+    foo f = {-1.*i,3.f/i,short(i/2)};
+    x.push_back(f);
+  }
+
+  NT2_TEST_EQUAL( x.size(), 7u );
+
+  std::ptrdiff_t i = 0;
+  for ( ; i < 7;  ++i )
+  {
+    foo f = {-1.*i,3.f/i,short(i/2)};
+    NT2_TEST_EQUAL( x[i], boost::fusion::as_vector(f) );
+  }
+
+  std::cout << "capacity = " << x.capacity() << std::endl;
+}
+
