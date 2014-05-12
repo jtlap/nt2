@@ -40,6 +40,7 @@
 #include <nt2/core/container/table/table.hpp>
 
 
+
 namespace nt2 { namespace ext
 {
   //============================================================================
@@ -58,7 +59,7 @@ namespace nt2 { namespace ext
     typedef void  result_type;
     typedef typename A0::value_type ctype_t;
     typedef typename nt2::meta::as_real<ctype_t>::type   type_t;
-    typedef typename meta::option<typename A0::settings_type,nt2::tag::shape_>::type shape;
+    typedef typename meta::option<typename A0::proto_child0::settings_type,nt2::tag::shape_>::type shape;
 
     typedef nt2::container::table<ctype_t>  entry_type;
     typedef nt2::container::table<ctype_t,shape>  matrix_type;
@@ -80,7 +81,6 @@ namespace nt2 { namespace ext
     {
       entry_type work(a1);
       entry_type entry(a0);
-
       eval_param( a0, a1, work);
 
       if (issquare(entry)) nt2::gesv(boost::proto::value(entry)
@@ -151,11 +151,12 @@ namespace nt2 { namespace ext
               , boost::mpl::long_<1> const&, nt2::upper_triangular_ const&
               ) const
     {
+
       boost::proto::child_c<0>(a2) = nt2::trsolve(a0,a1);
     }
 
     //==========================================================================
-    /// INTERNAL ONLY - X = LINSOLVE(A,B) -- upper triangular shape
+    /// INTERNAL ONLY - X = LINSOLVE(A,B) -- lower triangular shape
     BOOST_FORCEINLINE
     void eval ( A0 const& a0, A1 const& a1 , A2 const& a2, nt2::container::table<nt2_la_int>&
               , boost::mpl::long_<1> const&, nt2::lower_triangular_ const&

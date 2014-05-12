@@ -10,19 +10,13 @@
 #define NT2_LINALG_FUNCTIONS_LAPACK_SNE_HPP_INCLUDED
 
 #include <nt2/linalg/functions/sne.hpp>
-#include <nt2/include/functions/lange.hpp>
 #include <nt2/include/functions/width.hpp>
 #include <nt2/include/functions/height.hpp>
 #include <nt2/include/functions/of_size.hpp>
-#include <nt2/include/functions/trsm.hpp>
 #include <nt2/include/functions/qr.hpp>
 #include <nt2/include/functions/mtimes.hpp>
-#include <nt2/include/functions/tie.hpp>
-#include <nt2/include/functions/transpose.hpp>
+#include <nt2/include/functions/linsolve.hpp>
 #include <nt2/linalg/details/utility/f77_wrapper.hpp>
-#include <nt2/linalg/details/blas/blas2.hpp>
-#include <nt2/linalg/details/blas/blas3.hpp>
-#include <nt2/include/functions/norm.hpp>
 #include <nt2/include/functions/colon.hpp>
 
 #include <nt2/core/container/table/table.hpp>
@@ -42,14 +36,13 @@ namespace nt2{ namespace ext
      BOOST_FORCEINLINE result_type operator()(A0 const& a, A1 const& b) const
     {
       nt2_la_int na = nt2::width(a);
-      t_t r = nt2::qr(a,nt2::no_pivot_);
+      nt2::container::table<type_t,nt2::upper_triangular_> r = nt2::qr(a,nt2::no_pivot_);
       r= nt2::triu( r( _(1,na), _ ) );
 
       t_t x = nt2::mtimes(nt2::trans(a),b);
 
-      nt2::trsm('l','u','t','n',boost::proto::value(r),boost::proto::value(x));
-
-      nt2::trsm('l','u','n','n',boost::proto::value(r),boost::proto::value(x));
+      x = nt2::linsolve(nt2::trans(r),x);
+      x = nt2::linsolve(r,x);
 
       return x;
     }
@@ -58,4 +51,3 @@ namespace nt2{ namespace ext
 } }
 
 #endif
-

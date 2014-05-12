@@ -14,6 +14,7 @@
 #include <nt2/include/functions/clinsolve.hpp>
 #include <nt2/include/functions/plinsolve.hpp>
 #include <nt2/include/functions/mlinsolve.hpp>
+#include <nt2/include/functions/mtimes.hpp>
 #include <nt2/include/functions/tie.hpp>
 #include <nt2/sdk/meta/settings_of.hpp>
 #include <nt2/sdk/meta/concrete.hpp>
@@ -22,6 +23,7 @@
 
 namespace nt2 { namespace ext
 {
+
   //============================================================================
   // LINSOLVE
   //============================================================================
