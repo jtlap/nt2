@@ -15,6 +15,7 @@
   @brief Defines the BOOST_SIMD_CONSTANT_IMPLEMENTATION macro
 **/
 #include <boost/dispatch/meta/as.hpp>
+#include <boost/simd/sdk/simd/category.hpp>
 #include <boost/dispatch/functor/functor.hpp>
 
 namespace boost { namespace dispatch { namespace meta
