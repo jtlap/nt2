@@ -17,19 +17,20 @@
 #include <boost/assert.hpp>
 #include <nt2/linalg/details/utility/f77_wrapper.hpp>
 
-namespace nt2{ namespace ext
-  {
-
+namespace nt2 { namespace ext
+{
     //==========================================================================
     /// INTERNAL ONLY - Parameters evaluation
+    //==========================================================================
     template<typename A0,typename A1,typename eval_type> BOOST_FORCEINLINE
     void eval_param(A0& a0, A1& a1, eval_type& that)
-   {
+    {
       nt2_la_int  m1  = nt2::height(a1);
       nt2_la_int  n   = nt2::width(a0);
       nt2_la_int  n1  = nt2::width(a1);
 
-      BOOST_ASSERT_MSG( nt2_la_int(nt2::width(a1)) == m1 , "Nonconformant arguments");
+      BOOST_ASSERT_MSG( nt2_la_int(nt2::height(a0)) == m1 , "Nonconformant arguments" );
+
       if(m1 < n)
       {
         that = nt2::expand(a1,nt2::of_size(n,n1));
@@ -43,8 +44,7 @@ namespace nt2{ namespace ext
         }
       }
       else that = a1;
-   }
+    }
+} }
 
-}
-}
 #endif
