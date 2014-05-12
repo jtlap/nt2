@@ -14,10 +14,8 @@
 #include <nt2/include/functions/width.hpp>
 #include <nt2/include/functions/height.hpp>
 #include <nt2/include/functions/of_size.hpp>
-#include <nt2/include/functions/trsm.hpp>
 #include <nt2/include/functions/qr.hpp>
 #include <nt2/include/functions/mtimes.hpp>
-#include <nt2/include/functions/transpose.hpp>
 #include <nt2/include/functions/maximum.hpp>
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/cast.hpp>
@@ -25,6 +23,8 @@
 #include <nt2/include/constants/eps.hpp>
 
 #include <nt2/core/container/table/table.hpp>
+
+#include <nt2/table.hpp>
 
 namespace nt2{ namespace ext
 {
@@ -42,8 +42,6 @@ namespace nt2{ namespace ext
     {
       nt2_la_int lda = a.leading_size();
       nt2_la_int na = nt2::width(a);
-      //nt2_la_int n = nt2::width(b);
-      //nt2_la_int ldb = b.leading_size();
 
       t_t e,x;
 
@@ -52,7 +50,8 @@ namespace nt2{ namespace ext
       double cte = anrm*eps*nt2::sqrt( type_t(na));
       double xnrm, rnrm;
 
-      nt2::container::table<float> sa,sb,sx,sr,sr1(nt2::of_size(na,na));
+      nt2::container::table<float> sa,sb,sx;
+      nt2::container::table<float,nt2::upper_triangular_> sr,sr1(nt2::of_size(na,na));
       sa = nt2::cast<float>(a);
       sr = nt2::qr(sa,nt2::no_pivot_);
 
@@ -67,18 +66,18 @@ namespace nt2{ namespace ext
 
       sx= nt2::mtimes(nt2::trans(sa),nt2::cast<float>(b));
 
-      nt2::trsm('l','u','t','n',boost::proto::value(sr),boost::proto::value(sx));
-      nt2::trsm('l','u','n','n',boost::proto::value(sr),boost::proto::value(sx));
+      sx = nt2::linsolve(nt2::trans(sr),sx);
+      sx = nt2::linsolve(sr,sx);
 
       x = nt2::cast<double>(sx);
       e = b - nt2::mtimes(a,x);
-      size_t i;
-      for( i = 1; i<=10;++i)
+
+      for( size_t i = 1; i<=10;++i)
       {
         sx = nt2::cast<float> (nt2::mtimes(nt2::trans(a),e) ) ;
 
-        nt2::trsm('l','u','t','n',boost::proto::value(sr),boost::proto::value(sx));
-        nt2::trsm('l','u','n','n',boost::proto::value(sr),boost::proto::value(sx));
+        sx = nt2::linsolve(nt2::trans(sr),sx);
+        sx = nt2::linsolve(sr,sx);
 
         e = nt2::cast<double>(sx);
         rnrm = nt2::maximum(nt2::abs(e(_)));
@@ -96,4 +95,3 @@ namespace nt2{ namespace ext
 } }
 
 #endif
-

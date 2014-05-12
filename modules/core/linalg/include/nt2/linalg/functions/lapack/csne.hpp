@@ -10,15 +10,13 @@
 #define NT2_LINALG_FUNCTIONS_LAPACK_CSNE_HPP_INCLUDED
 
 #include <nt2/linalg/functions/csne.hpp>
-#include <nt2/include/functions/lange.hpp>
 #include <nt2/include/functions/width.hpp>
 #include <nt2/include/functions/height.hpp>
-#include <nt2/include/functions/trsm.hpp>
 #include <nt2/include/functions/qr.hpp>
 #include <nt2/include/functions/mtimes.hpp>
 #include <nt2/include/functions/colon.hpp>
 #include <nt2/include/functions/tie.hpp>
-#include <nt2/include/functions/transpose.hpp>
+#include <nt2/include/functions/linsolve.hpp>
 #include <nt2/linalg/details/utility/f77_wrapper.hpp>
 
 #include <nt2/core/container/table/table.hpp>
@@ -37,26 +35,23 @@ namespace nt2{ namespace ext
 
      BOOST_FORCEINLINE result_type operator()(A0 const& a, A1 const& b) const
     {
-      //nt2_la_int n = nt2::width(b);
       nt2_la_int na = nt2::width(a);
-      //nt2_la_int ldb = b.leading_size();
-      t_t e,r,x;
+
+      t_t x;
+      nt2::container::table<type_t,nt2::upper_triangular_> e,r;
       r = nt2::qr(a,nt2::no_pivot_);
       r= nt2::triu( r( _(1,na), _ ) );
 
       x= nt2::mtimes(nt2::trans(a),b);
 
       nt2::trsm('l','u','t','n',boost::proto::value(r),boost::proto::value(x));
-
       nt2::trsm('l','u','n','n',boost::proto::value(r),boost::proto::value(x));
 
       // One-step refinement
       e = b - nt2::mtimes(a,x);
-
       e = nt2::mtimes(nt2::trans(a),e);
 
       nt2::trsm('l','u','t','n',boost::proto::value(r),boost::proto::value(e));
-
       nt2::trsm('l','u','n','n',boost::proto::value(r),boost::proto::value(e));
 
       return x + e;

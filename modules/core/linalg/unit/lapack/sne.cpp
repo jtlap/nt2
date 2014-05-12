@@ -74,7 +74,7 @@ NT2_TEST_CASE_TPL(msne, (double) )
   t_t s1 = nt2::mcsne(a,b);
   t_t s2 = nt2::linsolve(a,b);
 
-  NT2_TEST_ULP_EQUAL(s1, s2(_(1,n)), T(10000000));
+  NT2_TEST_ULP_EQUAL(s1, s2(_(1,n)), T(100));
 }
 
 
