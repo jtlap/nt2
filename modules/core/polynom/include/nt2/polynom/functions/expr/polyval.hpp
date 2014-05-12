@@ -19,7 +19,7 @@
 #include <nt2/include/functions/sum.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/functions/inf.hpp>
-#include <nt2/include/functions/tr_solve.hpp>
+#include <nt2/include/functions/trsolve.hpp>
 #include <nt2/polynom/category.hpp>
 #include <nt2/sdk/meta/fusion.hpp>
 #include <boost/fusion/adapted/array.hpp>
@@ -114,7 +114,7 @@ namespace nt2 { namespace ext
     {
       NT2_WARNING(nt2::is_eqz(value_type(df)), "zero degree of freedom implies infinite error bounds.");
       BOOST_AUTO_TPL(vnd, nt2::vandermonde(x, nc));
-      BOOST_AUTO_TPL(err, nt2::tr_solve(nt2::trans(r), nt2::trans(vnd), 'L', 'N', 'N'));
+      BOOST_AUTO_TPL(err, nt2::trsolve(nt2::trans(r), nt2::trans(vnd),'L') );
       value_type fact =   (normr/nt2::sqrt(value_type(df)));
       delta(nt2::_) =nt2::sqrt(oneplus(sum(sqr(err),1)))*fact;
     }
