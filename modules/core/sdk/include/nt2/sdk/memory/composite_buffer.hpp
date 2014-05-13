@@ -9,13 +9,6 @@
 #ifndef NT2_SDK_MEMORY_COMPOSITE_BUFFER_HPP_INCLUDED
 #define NT2_SDK_MEMORY_COMPOSITE_BUFFER_HPP_INCLUDED
 
-//==============================================================================
-/**
-  * \file
-  * \brief Defines and implements the \c nt2::memory::composite_buffer class
-  **/
-//==============================================================================
-
 #include <boost/mpl/transform.hpp>
 #include <boost/fusion/adapted/mpl.hpp>
 #include <boost/fusion/include/mpl.hpp>
@@ -25,14 +18,15 @@
 #include <boost/dispatch/meta/model_of.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/sdk/meta/container_traits.hpp>
+#include <nt2/sdk/memory/composite_iterator.hpp>
+#include <nt2/sdk/memory/composite_reference.hpp>
+#include <nt2/sdk/memory/adapted/composite_buffer.hpp>
+#include <boost/fusion/include/vector.hpp>
 #include <boost/fusion/include/for_each.hpp>
 #include <boost/fusion/include/value_at.hpp>
 #include <boost/fusion/include/zip_view.hpp>
 #include <boost/fusion/include/as_vector.hpp>
-#include <nt2/sdk/memory/composite_iterator.hpp>
-#include <nt2/sdk/memory/composite_reference.hpp>
 #include <boost/fusion/include/transform_view.hpp>
-#include <nt2/sdk/memory/adapted/composite_buffer.hpp>
 
 namespace nt2 { namespace memory
 {
@@ -163,6 +157,58 @@ namespace nt2 { namespace memory
     void resize( size_type sz )
     {
       boost::fusion::for_each(data_, resizer(sz) );
+    }
+
+    private:
+    //==========================================================================
+    // push_back helpers
+    //==========================================================================
+    struct pusher
+    {
+      template<typename T> BOOST_FORCEINLINE
+      void operator()(T const& t) const
+      {
+        boost::fusion::at_c<0>(t).push_back(boost::fusion::at_c<1>(t));
+      }
+    };
+
+    public:
+    //==========================================================================
+    // Resizes and add one element at the end
+    //==========================================================================
+    template<typename T> void push_back( T const& t )
+    {
+      typedef boost::fusion::vector2<data_t&,T const&>  pseq_t;
+      typedef boost::fusion::zip_view<pseq_t>           pview_t;
+
+      boost::fusion::for_each( pview_t( pseq_t(data_,t) ), pusher() );
+    }
+
+    //==========================================================================
+    // Resizes and add a range of elements at the end
+    //==========================================================================
+    struct range_pusher
+    {
+      template<typename T> BOOST_FORCEINLINE
+      void operator()(T const& t) const
+      {
+        boost::fusion::at_c<0>(t).push_back ( boost::fusion::at_c<1>(t)
+                                            , boost::fusion::at_c<2>(t)
+                                            );
+      }
+    };
+
+    template<typename Iterator>
+    void push_back( Iterator const& b, Iterator const& e )
+    {
+      typedef typename Iterator::sequence_type iseq_t;
+      typedef boost::fusion::vector3< data_t&
+                                    , iseq_t const&
+                                    , iseq_t const&
+                                    >               pseq_t;
+      typedef boost::fusion::zip_view<pseq_t>       pview_t;
+
+      boost::fusion::for_each( pview_t(pseq_t(data_,b,e)), range_pusher() );
     }
 
     //==========================================================================

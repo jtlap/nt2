@@ -16,6 +16,7 @@ SET( SOURCES
   table_returning.cpp
   multind.cpp
   composite_table.cpp
+  push_back.cpp
 # List of scalar test files for toolbox core.settings
    )
 

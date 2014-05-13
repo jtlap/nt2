@@ -18,10 +18,13 @@
 #include <nt2/core/settings/storage_scheme.hpp>
 #include <nt2/core/utility/of_size.hpp>
 #include <nt2/include/functions/scalar/numel.hpp>
+#include <nt2/include/functions/scalar/ndims.hpp>
 #include <nt2/sdk/memory/adapted/container.hpp>
 #include <nt2/sdk/memory/composite_buffer.hpp>
 #include <boost/fusion/include/is_sequence.hpp>
 #include <boost/mpl/at.hpp>
+#include <boost/assert.hpp>
+#include <algorithm>
 
 #ifdef NT2_LOG_COPIES
 #include <iostream>
@@ -281,11 +284,38 @@ namespace nt2 { namespace memory
      * @brief Add element at end of container, reshape to 1D
      */
     //==========================================================================
-    void push_back( Type const& t)
+    void push_back( value_type const& t )
     {
       data_.push_back(t);
       sizes_ = extent_type(numel(sizes_) + 1);
+    }
+
+    //==========================================================================
+    /*!
+     * @brief Add range of element at end of container's most external dimension
+     */
+    //==========================================================================
+    template<typename Container> void push_back(Container const& c, std::size_t d)
+    {
+      BOOST_ASSERT_MSG( d >= (nt2::ndims(sizes_)-1u)
+                      , "Dimension for push_back isn't outer dimension"
+                      );
+      BOOST_ASSERT_MSG( d < extent_type::static_size && (empty() || std::equal(c.extent().begin(), c.extent().begin()+std::min(d,c.extent().size()), sizes_.begin()))
+                      , "Incompatible size in range push_back"
+                      );
+
+      if(empty())
+        sizes_ = c.extent();
+      else
+        sizes_[d] += (d < c.extent().size()) ? c.extent()[d] : 1u;
+
+      data_.push_back(c.begin(), c.end());
     };
+
+    template<typename Container> void push_back(Container const& c)
+    {
+      return push_back(c, nt2::ndims(c.extent()));
+    }
 
     /*!
       @brief Return the container dimensions set

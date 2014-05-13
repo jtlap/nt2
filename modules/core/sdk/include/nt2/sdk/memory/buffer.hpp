@@ -21,6 +21,11 @@
 #include <boost/swap.hpp>
 #include <cstddef>
 
+// Growth factor is globally optimizable
+#ifndef NT2_BUFFER_GROWTH_FACTOR
+#define NT2_BUFFER_GROWTH_FACTOR 2
+#endif
+
 namespace nt2 { namespace memory
 {
   //============================================================================
@@ -93,6 +98,32 @@ namespace nt2 { namespace memory
 
       begin_ = that.release();
       end_ = capacity_ = begin_ + n;
+    }
+
+    //==========================================================================
+    // Size constructor with specified capacity
+    //==========================================================================
+    buffer( size_type n, size_type c, allocator_type a = allocator_type())
+          : allocator_type(a)
+          , begin_(&dummy_), end_(&dummy_), capacity_(&dummy_)
+    {
+      if(!c) return;
+
+      // Allocate c elements ...
+      local_ptr<T,deleter> that ( allocator_type::allocate(c)
+                                , deleter(c,get_allocator())
+                                );
+
+      // ... but only initialize n
+      self_construct( that.get(), that.get() + n
+                    , typename boost::is_same < Allocator
+                                              , fixed_allocator<T>
+                                              >::type()
+                    );
+
+      begin_    = that.release();
+      end_      = begin_ + n;
+      capacity_ = begin_ + c;
     }
 
     //==========================================================================
@@ -173,7 +204,8 @@ namespace nt2 { namespace memory
     {
       if(sz > capacity() )
       {
-        buffer that(sz,get_allocator());
+        // Resize to twice the requested size to optimize capacity usage
+        buffer that(sz,NT2_BUFFER_GROWTH_FACTOR*sz,get_allocator());
         swap(that);
         return;
       }
@@ -192,14 +224,35 @@ namespace nt2 { namespace memory
     //==========================================================================
     void push_back( T const& t )
     {
+      std::ptrdiff_t osz = size();
+
       if( end_ >= capacity_ )
       {
-        buffer that(*this, 2*(end_ - begin_ + 1));
+        buffer that(*this, NT2_BUFFER_GROWTH_FACTOR*(osz+1));
         swap(that);
       }
 
       new(end_) T(t);
       ++end_;
+    }
+
+    //==========================================================================
+    // Resizes and add a range of elements at the end
+    //==========================================================================
+    template<typename Iterator> void push_back( Iterator b, Iterator e )
+    {
+      std::ptrdiff_t osz = size();
+      std::ptrdiff_t sz = e-b;
+
+      if( end_ >= capacity_ )
+      {
+        buffer that(*this, NT2_BUFFER_GROWTH_FACTOR*(osz + sz));
+        swap(that);
+      }
+
+      nt2::memory::copy(b,e,begin_+osz);
+
+      end_ += sz;
     }
 
     //==========================================================================
