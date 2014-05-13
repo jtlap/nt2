@@ -30,7 +30,7 @@ namespace boost { namespace simd { namespace ext
   struct sse3_permutation
   {
     template<typename T, typename P>
-    BOOST_FORCEINLINE static T call(T const& a0, P const& p)
+    BOOST_FORCEINLINE static T call(T const& a0, P const& )
     {
       typedef typename T::template rebind<unsigned char>::type m_t;
       m_t const that = _mm_shuffle_epi8( bitwise_cast<m_t>(a0)
