@@ -297,7 +297,10 @@ namespace nt2 { namespace memory
     //==========================================================================
     template<typename Container> void push_back(Container const& c, std::size_t d)
     {
-      BOOST_ASSERT_MSG( d < extent_type::static_size && (empty() || std::equal(c.extent().begin(), c.extent().begin()+d, sizes_.begin()))
+      BOOST_ASSERT_MSG( d >= (nt2::ndims(sizes_)-1u)
+                      , "Dimension for push_back isn't outer dimension"
+                      );
+      BOOST_ASSERT_MSG( d < extent_type::static_size && (empty() || std::equal(c.extent().begin(), c.extent().begin()+std::min(d,c.extent().size()), sizes_.begin()))
                       , "Incompatible size in range push_back"
                       );
 
