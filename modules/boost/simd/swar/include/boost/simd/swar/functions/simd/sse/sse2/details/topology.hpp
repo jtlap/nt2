@@ -57,7 +57,10 @@ namespace boost { namespace simd { namespace details
   // Check if a permutation follows SSE2 shuffle restriction in a way or another
   //============================================================================
   template<typename Permutation, std::size_t Cardinal>
-  struct sse2_topology;
+  struct sse2_topology
+  {
+    typedef indirect_ type;
+  };
 
   //============================================================================
   // Cardinal 2 is either direct or indirect, no room for mixed
