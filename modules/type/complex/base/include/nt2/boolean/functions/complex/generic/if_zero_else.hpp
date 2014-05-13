@@ -1,6 +1,7 @@
 //==============================================================================
 //         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
 //         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2012 - 2014 MetaScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -13,12 +14,12 @@
 #include <nt2/include/functions/real.hpp>
 #include <nt2/include/functions/imag.hpp>
 #include <nt2/include/functions/is_nez.hpp>
-#include <nt2/sdk/meta/as_logical.hpp>
+#include <boost/dispatch/attributes.hpp>
 
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::if_zero_else_, tag::cpu_, (A0)(A1)
-                            , (generic_< logical_<A0> >)
+                            , (generic_< fundamental_<A0> >)
                               (generic_< complex_<floating_<A1> > >)
                             )
   {
@@ -30,13 +31,13 @@ namespace nt2 { namespace ext
   };
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::if_zero_else_, tag::cpu_, (A0)(A1)
                             , (generic_< complex_<floating_<A0> > >)
-                              (generic_< complex_<floating_<A1> > >)
+                              (generic_< unspecified_<A1> >)
                             )
   {
     typedef A1 result_type;
     result_type  operator()(A0 const& a0, A1 const& a1) const
     {
-      return result_type(if_zero_else(is_nez(a0), real(a1)), if_zero_else(is_nez(a0), imag(a1)));
+      return if_zero_else(is_nez(a0), a1);
     }
   };
 } }
