@@ -63,7 +63,7 @@ namespace nt2 { namespace ext
         if(value)
         {
           boost::array<idx_t, 2> a = nt2::as_subscript( boost::fusion::make_vector(idx_t(m),idx_t(n)), idx_t(i) );
-          boost::proto::value(ret).push_back(idx_t(a[0]+1));
+          boost::proto::value(ret).push_back(index_type(a[0]+1));
         }
       }
 
