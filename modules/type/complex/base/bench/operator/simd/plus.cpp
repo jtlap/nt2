@@ -8,7 +8,7 @@
 //==============================================================================
 #include <nt2/include/functions/plus.hpp>
 #include <nt2/sdk/complex/complex.hpp>
-#include <boost/simd/sdk/simd/native.hpp>
+
 #include <complex>
 
 #include <nt2/sdk/bench/benchmark.hpp>

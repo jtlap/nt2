@@ -9,6 +9,26 @@
 
 SET( SOURCES
 # List of scalar test files for toolbox trigonometric
+  acos.cpp
+#  acot.cpp
+#  acsc.cpp
+#  asec.cpp
+  asin.cpp
+  atan.cpp
+  cos.cpp
+  cospi.cpp
+  cot.cpp
+  csc.cpp
+  cscpi.cpp
+  sec.cpp
+  secpi.cpp
+#  sinc.cpp
+  sincos.cpp
+#  sincospi.cpp
+  sin.cpp
+  sinpi.cpp
+  tan.cpp
+  tanpi.cpp
 )
 
 nt2_module_add_tests(type.complex.trigonometric.simd.bench ${SOURCES})

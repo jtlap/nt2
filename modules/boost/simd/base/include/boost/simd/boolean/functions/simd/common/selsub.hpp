@@ -14,7 +14,7 @@
 #include <boost/simd/include/functions/simd/if_else_zero.hpp>
 #include <boost/simd/include/functions/simd/minus.hpp>
 #include <boost/simd/include/functions/simd/plus.hpp>
-#include <boost/simd/include/functions/simd/negate.hpp>
+#include <boost/simd/include/functions/simd/unary_minus.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/mpl/equal_to.hpp>
 #include <boost/dispatch/attributes.hpp>

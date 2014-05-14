@@ -24,9 +24,9 @@ namespace boost { namespace simd { namespace ext
                                                                , boost::simd::meta::cardinal_of<A1>
                                                                >
                                          )
-                                       , ((simd_<unspecified_<A0>,X>))
-                                         ((simd_<unspecified_<A1>,X>))
-                                         ((simd_<unspecified_<A1>,X>))
+                                       , ((simd_<fundamental_<A0>,X>))
+                                         ((simd_<fundamental_<A1>,X>))
+                                         ((simd_<fundamental_<A1>,X>))
                                        )
   {
     typedef A1 result_type;
