@@ -382,12 +382,12 @@ NT2_TEST_CASE_TPL( container_push_back_range, NT2_TYPES)
   for(; i<6; ++i)  ref[i] = a[i];
   for(; i<12; ++i) ref[i] = b[i-6];
 
-  a.push_back(b);
+  a.push_back(b, 1);
 
   NT2_TEST_EQUAL( a.extent(), nt2::of_size(2,6) );
   NT2_TEST_EQUAL( a, ref );
 
   type c(nt2::of_size(7, 5));
 
-  NT2_TEST_ASSERT(a.push_back(c));
+  NT2_TEST_ASSERT(a.push_back(c, 1));
 }
