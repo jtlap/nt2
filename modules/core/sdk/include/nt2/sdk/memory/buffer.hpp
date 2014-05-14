@@ -101,29 +101,26 @@ namespace nt2 { namespace memory
     }
 
     //==========================================================================
-    // Size constructor with specified capacity
+    // Copy constructor with extra capacity
     //==========================================================================
-    buffer( size_type n, size_type c, allocator_type a = allocator_type())
-          : allocator_type(a)
+    buffer( buffer const& src, std::size_t capa )
+          : allocator_type(src.get_allocator())
           , begin_(&dummy_), end_(&dummy_), capacity_(&dummy_)
     {
-      if(!c) return;
+      if(!capa) return;
 
-      // Allocate c elements ...
-      local_ptr<T,deleter> that ( allocator_type::allocate(c)
-                                , deleter(c,get_allocator())
+      local_ptr<T,deleter> that ( allocator_type::allocate(capa)
+                                , deleter(capa,get_allocator())
                                 );
 
-      // ... but only initialize n
-      self_construct( that.get(), that.get() + n
-                    , typename boost::is_same < Allocator
-                                              , fixed_allocator<T>
-                                              >::type()
-                    );
+      nt2::memory::copy_construct ( src.begin(),src.end()
+                                  , that.get()
+                                  , get_allocator()
+                                  );
 
       begin_    = that.release();
-      end_      = begin_ + n;
-      capacity_ = begin_ + c;
+      end_      = begin_ + src.size();
+      capacity_ = begin_ + capa;
     }
 
     //==========================================================================
@@ -146,29 +143,6 @@ namespace nt2 { namespace memory
 
       begin_ = that.release();
       end_ = capacity_ = begin_ + src.size();
-    }
-
-    //==========================================================================
-    // Copy constructor with extra capacity
-    //==========================================================================
-    buffer( buffer const& src, std::size_t capa )
-          : allocator_type(src.get_allocator())
-          , begin_(&dummy_), end_(&dummy_), capacity_(&dummy_)
-    {
-      if(!capa) return;
-
-      local_ptr<T,deleter> that ( allocator_type::allocate(capa)
-                                , deleter(capa,get_allocator())
-                                );
-
-      nt2::memory::copy_construct ( src.begin(),src.end()
-                                  , that.get()
-                                  , get_allocator()
-                                  );
-
-      begin_    = that.release();
-      end_      = begin_ + src.size();
-      capacity_ = begin_ + capa;
     }
 
     //==========================================================================
@@ -205,7 +179,7 @@ namespace nt2 { namespace memory
       if(sz > capacity() )
       {
         // Resize to twice the requested size to optimize capacity usage
-        buffer that(sz,NT2_BUFFER_GROWTH_FACTOR*sz,get_allocator());
+        buffer that(sz,get_allocator());
         swap(that);
         return;
       }
@@ -228,7 +202,8 @@ namespace nt2 { namespace memory
 
       if( end_ >= capacity_ )
       {
-        buffer that(*this, NT2_BUFFER_GROWTH_FACTOR*(osz+1));
+        typename boost::is_same<Allocator,fixed_allocator<T> >::type is_fixed;
+        buffer that(*this, new_size(osz, 1, is_fixed));
         swap(that);
       }
 
@@ -246,7 +221,8 @@ namespace nt2 { namespace memory
 
       if( end_ >= capacity_ )
       {
-        buffer that(*this, NT2_BUFFER_GROWTH_FACTOR*(osz + sz));
+        typename boost::is_same<Allocator,fixed_allocator<T> >::type is_fixed;
+        buffer that(*this, new_size(osz, sz, is_fixed));
         swap(that);
       }
 
@@ -360,6 +336,20 @@ namespace nt2 { namespace memory
     }
 
   private:
+
+    inline std::size_t new_size ( std::size_t osz, std::size_t
+                                , boost::mpl::true_ const&
+                                )
+    {
+      return osz;
+    }
+
+    inline std::size_t new_size ( std::size_t osz, std::size_t extra
+                                , boost::mpl::false_ const&
+                                )
+    {
+      return NT2_BUFFER_GROWTH_FACTOR*(osz + extra);
+    }
 
     inline bool is_initialized() const { return begin_ != &dummy_; }
 
