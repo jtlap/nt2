@@ -53,11 +53,6 @@ namespace nt2 { namespace ext
   struct  size_of<tag::qr_,Domain,N,Expr>
         : meta::size_as<Expr,0>
   {};
-
-  template<class Domain, int N, class Expr>
-  struct  value_type<tag::qr_,Domain,N,Expr>
-        : meta::value_as<Expr,0>
-  {};
 } }
 
 #endif

@@ -6,14 +6,13 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 linalg toolbox - tied svd function"
-
 #include <nt2/include/functions/chol.hpp>
 #include <nt2/include/functions/rand.hpp>
 #include <nt2/include/functions/eye.hpp>
 #include <nt2/include/functions/cons.hpp>
 #include <nt2/include/functions/transpose.hpp>
 #include <nt2/include/functions/mtimes.hpp>
+#include <nt2/include/functions/ones.hpp>
 
 #include <nt2/table.hpp>
 #include <nt2/sdk/unit/module.hpp>
@@ -21,6 +20,16 @@
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/tests/exceptions.hpp>
 
+NT2_TEST_CASE_TPL(chol_scalar, NT2_REAL_TYPES )
+{
+  typedef nt2::table<T>           t_t;
+  T a0 =  nt2::One<T>();
+  t_t s = nt2::chol(a0);
+  NT2_TEST_ULP_EQUAL(s, nt2::ones<T>(1),1 );
+  s =  nt2::chol(a0, nt2::econ_);
+  NT2_TEST_ULP_EQUAL(s, nt2::ones<T>(1),1 );
+
+}
 
 
 NT2_TEST_CASE_TPL(chol, NT2_REAL_TYPES )

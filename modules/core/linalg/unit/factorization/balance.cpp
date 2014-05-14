@@ -6,8 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 linalg toolbox - balance factorization"
-
 #include <nt2/table.hpp>
 #include <nt2/include/functions/zeros.hpp>
 #include <nt2/include/functions/ones.hpp>
@@ -18,14 +16,25 @@
 #include <nt2/include/functions/rif.hpp>
 #include <nt2/include/functions/cif.hpp>
 
-#include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests/ulp.hpp>
 #include <nt2/sdk/unit/tests/exceptions.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/include/functions/mtimes.hpp>
 #include <nt2/include/functions/globalmax.hpp>
 #include <nt2/include/functions/isulpequal.hpp>
 #include <nt2/include/functions/inv.hpp>
+
+NT2_TEST_CASE_TPL(balance_scalar, NT2_REAL_TYPES )
+{
+  typedef nt2::table<T>           t_t;
+  T a0 =  nt2::One<T>();
+  t_t s = nt2::balance(a0);
+  NT2_TEST_ULP_EQUAL(s,a0,1);
+  s = nt2::balance(a0, 'B');
+  NT2_TEST_ULP_EQUAL(s,a0,1);
+
+}
 
 NT2_TEST_CASE_TPL(balance,  NT2_REAL_TYPES)
 {

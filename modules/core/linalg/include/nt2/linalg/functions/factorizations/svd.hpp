@@ -23,6 +23,7 @@
 #include <nt2/linalg/options.hpp>
 #include <nt2/sdk/meta/concrete.hpp>
 #include <nt2/sdk/meta/as_real.hpp>
+#include <nt2/include/functions/abs.hpp>
 
 #include <nt2/core/container/table/table.hpp>
 
@@ -30,6 +31,34 @@
 
 namespace nt2 { namespace ext
 {
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::svd_, tag::cpu_
+                            , (A0)
+                            , (scalar_<unspecified_<A0> >)
+                            )
+  {
+    typedef  typename nt2::meta::as_real<A0>::type result_type;
+
+    BOOST_FORCEINLINE result_type operator()(const A0& a0) const
+    {
+      return nt2::abs(a0);
+    }
+  };
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::svd_, tag::cpu_
+                            , (A0)(A1)
+                            , (scalar_<unspecified_<A0> >)
+                              (unspecified_<A1>)
+                            )
+  {
+    typedef  typename nt2::meta::as_real<A0>::type result_type;
+
+    BOOST_FORCEINLINE result_type operator()(const A0& a0, const A1&) const
+    {
+      return nt2::abs(a0);
+    }
+  };
+
+
   //============================================================================
   //SVD
   //============================================================================

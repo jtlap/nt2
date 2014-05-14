@@ -6,8 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 linalg toolbox - geneig_result factorization"
-
 #include <nt2/table.hpp>
 #include <nt2/include/functions/zeros.hpp>
 #include <nt2/include/functions/ones.hpp>
@@ -20,11 +18,30 @@
 #include <nt2/include/functions/mtimes.hpp>
 #include <nt2/include/functions/globalmax.hpp>
 #include <nt2/include/functions/isulpequal.hpp>
+#include <nt2/include/constants/one.hpp>
+#include <nt2/include/constants/two.hpp>
 
-#include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/exceptions.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
+#include <nt2/sdk/unit/tests/ulp.hpp>
+
+NT2_TEST_CASE_TPL(geneig_scalar, NT2_REAL_TYPES )
+{
+  typedef std::complex<T>         cT;
+  typedef nt2::table<cT>         t_t;
+  T a0 =  nt2::One<T>();
+  T a1 =  nt2::Two<T>();
+  t_t s = nt2::geneig(a0);
+  NT2_TEST_ULP_EQUAL(s,cT(a0),1);
+  NT2_TEST_ULP_EQUAL(s,cT(a0/a1),1);
+  typedef  nt2::table<T, nt2::_2D> t_t2d;
+  t_t2d ta0 = a0,  ta1 = a1;
+  typedef typename nt2::meta::call<nt2::tag::factorization::geneig_(t_t2d const&, t_t2d const&, char, char, char)>::type result_type;
+  result_type f = nt2::factorization::geneig(ta0, ta1, 'V', 'V', 'S');
+  t_t s1 = f.wr();
+  NT2_TEST_ULP_EQUAL(s,s1,1);
+}
 
 NT2_TEST_CASE_TPL(geneig, NT2_REAL_TYPES)
 {
