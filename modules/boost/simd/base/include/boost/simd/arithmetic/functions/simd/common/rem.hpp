@@ -9,6 +9,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_SIMD_COMMON_REM_HPP_INCLUDED
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_SIMD_COMMON_REM_HPP_INCLUDED
+
 #include <boost/simd/arithmetic/functions/rem.hpp>
 #include <boost/simd/include/functions/simd/multiplies.hpp>
 #include <boost/simd/include/functions/simd/is_nez.hpp>
@@ -16,6 +17,7 @@
 #include <boost/simd/include/functions/simd/divfix.hpp>
 #include <boost/simd/include/functions/simd/idivfix.hpp>
 #include <boost/simd/include/functions/simd/is_invalid.hpp>
+#include <boost/simd/include/functions/simd/if_allbits_else.hpp>
 #include <boost/dispatch/attributes.hpp>
 
 namespace boost { namespace simd { namespace ext
