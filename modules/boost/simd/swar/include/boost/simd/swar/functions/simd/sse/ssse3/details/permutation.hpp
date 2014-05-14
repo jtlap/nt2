@@ -109,7 +109,7 @@ namespace boost { namespace simd { namespace ext
 
     // Indirect shuffle requires swapping a0/a1 in call to shuffle
     template<typename T, typename P>
-    BOOST_FORCEINLINE static T call ( T const& a0, T const& a1, P const& p
+    BOOST_FORCEINLINE static T call ( T const& a0, T const& a1, P const&
                                     , details::indirect_ const&
                                     )
     {
