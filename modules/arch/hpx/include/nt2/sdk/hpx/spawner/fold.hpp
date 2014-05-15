@@ -14,6 +14,7 @@
 
 #include <hpx/include/lcos.hpp>
 #include <hpx/lcos/future_wait.hpp>
+#include <hpx/include/util.hpp>
 
 #include <nt2/sdk/shared_memory/spawner.hpp>
 
@@ -23,7 +24,7 @@
 #include <boost/exception_ptr.hpp>
 #endif
 
-#include <cstdio>
+#include <vector>
 
 namespace nt2
 {
@@ -31,6 +32,56 @@ namespace nt2
   {
     struct fold_;
     template<class T> struct hpx_;
+  }
+
+  namespace details
+  {
+    template<class Worker, class result_type>
+    struct Hpx_Folder
+    {
+        typedef typename hpx::lcos::future<result_type> Future;
+        typedef typename HPX_STD_TUPLE< Future , Future  > Two_Futures;
+
+        Hpx_Folder(Worker & w)
+        :w_(w)
+        {}
+
+        Future operator()(std::size_t begin, std::size_t size, std::size_t  grain)
+        {
+           if (size == grain)
+           {
+             result_type out = w_.neutral_(nt2::meta::as_<result_type>());
+             w_(out,begin,size);
+             return hpx::make_ready_future(out);
+            }
+
+           std::size_t middle = begin + (size/(2*grain))*grain;
+
+           hpx::lcos::future<result_type> other_out
+             = hpx::async(*this,middle,begin+size-middle,grain).unwrap();
+
+           hpx::lcos::future<result_type> my_out
+             = (*this)(begin, middle-begin, grain);
+
+           return hpx::when_all(my_out,other_out).then( Hpx_Folder(w_) );
+        };
+
+        template < typename T >
+        result_type operator()(T deps) const
+        {
+            Two_Futures two_results = deps.get();
+
+            return w_.bop_( ( hpx::util::get<0>(two_results) ).get()
+                          , ( hpx::util::get<1>(two_results) ).get()
+                          );
+        }
+
+        Worker & w_;
+
+    private:
+        Hpx_Folder& operator=(Hpx_Folder const&);
+
+    };
   }
 
   template<class Site, class result_type>
@@ -42,25 +93,11 @@ namespace nt2
     template<typename Worker>
     result_type operator()(Worker w, std::size_t begin, std::size_t size, std::size_t  grain)
     {
+      details::Hpx_Folder<Worker,result_type> hpx_w ( w );
 
       BOOST_ASSERT_MSG( size % grain == 0, "Reduce size not divisible by grain");
 
-      if (size == grain)
-       {
-         result_type out = w.neutral_(nt2::meta::as_<result_type>());
-         w(out,begin,size);
-         return out;
-        }
-
-       std::size_t middle = begin + (size/(2*grain))*grain;
-
-       hpx::lcos::shared_future<result_type>
-         other_out = hpx::async(*this,w,middle*1,begin+size-middle,grain*1);
-
-       result_type my_out = (*this)(w, begin, middle-begin, grain);
-
-       return w.bop_( my_out, other_out.get() );
-
+      return hpx_w(begin,size,grain).get();
     }
   };
 }
