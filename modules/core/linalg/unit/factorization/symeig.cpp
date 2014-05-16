@@ -13,76 +13,88 @@
 #include <nt2/include/functions/ones.hpp>
 #include <nt2/include/functions/eye.hpp>
 #include <nt2/include/functions/symeig.hpp>
-
+#include <nt2/include/functions/cons.hpp>
+#include <nt2/include/functions/ldexp.hpp>
+#include <nt2/include/functions/repnum.hpp>
+#include <nt2/include/functions/rif.hpp>
+#include <nt2/include/functions/isulpequal.hpp>
+#include <nt2/include/functions/transpose.hpp>
+#include <nt2/include/functions/globalmax.hpp>
+#include <nt2/include/functions/triu.hpp>
+#include <nt2/include/functions/mtimes.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/exceptions.hpp>
+#include <nt2/sdk/unit/tests/basic.hpp>
 
-NT2_TEST_CASE_TPL(symeig_factorization, NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL(symeig_sca, NT2_REAL_TYPES)
 {
-  using nt2::tag::factorization::symeig_;
-
+  using nt2::symeig;
   typedef nt2::table<T> t_t;
-  t_t b =       nt2::ones (4, 4, nt2::meta::as_<T>())
-        + T(10)*nt2::eye  (4, 4, nt2::meta::as_<T>());
-
-  typedef typename nt2::meta::call<symeig_(t_t const&,char, char)>::type result_type;
-
-  result_type res = nt2::factorization::symeig(b, 'V', 'U');
-
-  NT2_DISPLAY(b);
-  NT2_DISPLAY(res.w());
-  NT2_DISPLAY(res.v());
-  std::cout << "res.cond() "<< res.cond() << std::endl;
-  std::cout << "res.rank() "<< res.rank() << std::endl;
-
-  b = nt2::zeros(4, 4, nt2::meta::as_<T>());
-  b(1,1) = 1;
-  NT2_DISPLAY(b);
-  res = nt2::factorization::symeig(b,'V', 'U');
-  NT2_DISPLAY(b);
-
-  NT2_DISPLAY(res.w());
-  NT2_DISPLAY(res.v());
-  std::cout << "res.cond() "<< res.cond() << std::endl;
-  std::cout << "res.rank() "<< res.rank() << std::endl;
-
-  NT2_TEST_ASSERT( nt2::factorization::symeig(nt2::ones(4, 2),'V', 'U') );
+  t_t w =   symeig(T(2));
+  NT2_TEST_ULP_EQUAL(w, T(2), 0);
+  w =   symeig(T(2), nt2::matrix_);
+  NT2_TEST_ULP_EQUAL(w, T(2), 0);
+  w =   symeig(T(2), nt2::matrix_, 'L');
+  NT2_TEST_ULP_EQUAL(w, T(2), 0);
+//   t_t v;
+//   nt2::tie(w, v) = symeig(T(2), nt2::matrix_);
 }
 
-NT2_TEST_CASE_TPL ( symeig_factorization_inplace, NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL(symeig, NT2_REAL_TYPES)
 {
-  using nt2::tag::factorization::symeig_;
-  using nt2::meta::as_;
-
+  using nt2::symeig;
+  using nt2::_;
+  typedef typename nt2::meta::as_integer<T, signed>::type itype_t;
   typedef nt2::table<T> t_t;
+  typedef nt2::table<itype_t> it_t;
   t_t b =       nt2::ones (4, 4, nt2::meta::as_<T>())
         + T(10)*nt2::eye  (4, 4, nt2::meta::as_<T>());
-  NT2_DISPLAY(b);
+  //  b(_, 1) = b(_, 3);
+  t_t w = symeig(b);
+  t_t sw =  nt2::cons<T>(nt2::of_size(4, 1), T(10), T(10), T(10), T(14));
+  NT2_TEST_ULP_EQUAL(w, sw, 1);
+  nt2::display("w     ", w);
+  nt2::display("b     ", b);
+  w = symeig(b, nt2::matrix_);
+  NT2_TEST_ULP_EQUAL(w, from_diag(sw), 1);
+  w = symeig(b, nt2::vector_);
+  NT2_TEST_ULP_EQUAL(w, sw, 1);
+  w = symeig(b, 'L');
+  NT2_TEST_ULP_EQUAL(w, sw, 1);
 
-  typedef typename nt2::meta::call
-          <symeig_(t_t&, char, char, as_<nt2::details::in_place_> const&)>::type ip_t;
+  w = symeig(b, nt2::matrix_, 'L');
+  NT2_TEST_ULP_EQUAL(w, from_diag(sw), 1);
+  w = symeig(b, nt2::vector_, 'L');
+  NT2_TEST_ULP_EQUAL(w, sw, 1);
 
-  ip_t ires = nt2::factorization::symeig(b,'V','L',nt2::in_place_);
 
-  NT2_DISPLAY(b);
-  NT2_DISPLAY(ires.w());
-  NT2_DISPLAY(ires.v());
-  std::cout << "ires.cond() "<< ires.cond() << std::endl;
-  std::cout << "ires.rank() "<< ires.rank() << std::endl;
+  t_t v;
+  nt2::tie(w, v) = symeig(b);
+  nt2::display("w     ", w);
+  nt2::display("v     ", v);
+  NT2_TEST_ULP_EQUAL(w, from_diag(sw), 1);
+  t_t z =  mtimes(mtimes(v, w), nt2::trans(v));
+  NT2_TEST_ULP_EQUAL(nt2::triu(b), nt2::triu(z), 8);
 
-  b = nt2::zeros(4, 4, nt2::meta::as_<T>());
-  b(1,1) = 1;
-  NT2_DISPLAY(b);
-  ires = nt2::factorization::symeig(b,'V', 'U',nt2::in_place_);
+  nt2::tie(w, v) = symeig(b, nt2::matrix_);
+  z =  mtimes(mtimes(v, w), nt2::trans(v));
+  NT2_TEST_ULP_EQUAL(nt2::triu(b), nt2::triu(z), 8);
 
-  NT2_DISPLAY(b);
-  NT2_DISPLAY(ires.w());
-  NT2_DISPLAY(ires.v());
-  std::cout << "ires.cond() "<< ires.cond() << std::endl;
-  std::cout << "ires.rank() "<< ires.rank() << std::endl;
+  nt2::tie(w, v) = symeig(b, nt2::vector_);
+  z =  mtimes(mtimes(v, nt2::from_diag(w)), nt2::trans(v));
+  NT2_TEST_ULP_EQUAL(nt2::triu(b), nt2::triu(z), 8);
 
-  b = nt2::ones(4, 2, nt2::meta::as_<T>());
-  NT2_TEST_ASSERT( nt2::factorization::symeig(b,'V', 'U',nt2::in_place_) );
+  nt2::tie(w, v) = symeig(b, 'L');
+  z =  mtimes(mtimes(v, w), nt2::trans(v));
+  NT2_TEST_ULP_EQUAL(nt2::triu(b), nt2::triu(z), 8);
+
+  nt2::tie(w, v) = symeig(b, nt2::matrix_, 'L');
+  z =  mtimes(mtimes(v, w), nt2::trans(v));
+  NT2_TEST_ULP_EQUAL(nt2::triu(b), nt2::triu(z), 8);
+
+  nt2::tie(w, v) = symeig(b, nt2::vector_, 'L');
+  z =  mtimes(mtimes(v, nt2::from_diag(w)), nt2::trans(v));
+  NT2_TEST_ULP_EQUAL(nt2::triu(b), nt2::triu(z), 8);
+
 }
-
