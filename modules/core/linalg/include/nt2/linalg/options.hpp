@@ -23,8 +23,12 @@ namespace nt2
     struct precise_   : boost::mpl::false_  {};
     struct classic_   : boost::mpl::false_  {};
     struct econ_      : boost::mpl::false_  {};
-    struct lower_      : boost::mpl::false_  {};
-    struct upper_      : boost::mpl::false_  {};
+    struct lower_     : boost::mpl::false_  {};
+    struct upper_     : boost::mpl::false_  {};
+    struct real_      : boost::mpl::false_  {};
+    struct cmplx_     : boost::mpl::false_  {};
+    struct sort_      : boost::mpl::false_  {};
+    struct eigs_      : boost::mpl::false_  {};
   }
 
   nt2::policy<ext::pivot_>     const pivot_;
@@ -37,6 +41,10 @@ namespace nt2
   nt2::policy<ext::econ_>      const econ_;
   nt2::policy<ext::lower_>     const lower_;
   nt2::policy<ext::upper_>     const upper_;
+  nt2::policy<ext::real_>      const real_;
+  nt2::policy<ext::cmplx_>     const cmplx_;
+  nt2::policy<ext::sort_>      const sort_;
+  nt2::policy<ext::eigs_>      const eigs_;
 }
 
 #endif

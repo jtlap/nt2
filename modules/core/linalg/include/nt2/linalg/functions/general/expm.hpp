@@ -16,7 +16,7 @@
 #include <nt2/include/functions/diag_of.hpp>
 #include <nt2/include/functions/from_diag.hpp>
 #include <nt2/include/functions/isdiagonal.hpp>
-#include <nt2/include/functions/schur.hpp>
+//#include <nt2/include/functions/schur.hpp>
 #include <nt2/include/functions/mtimes.hpp>
 #include <nt2/include/functions/sum.hpp>
 #include <nt2/include/functions/asum1.hpp>

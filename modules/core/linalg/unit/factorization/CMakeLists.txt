@@ -16,10 +16,11 @@ SET( SOURCES
   ldl_result.cpp
   lu.cpp
   qr.cpp
-  schur_result.cpp
+  schur.cpp
+#  schur_result.cpp
   svd.cpp
   symeig.cpp
-  symeig_result.cpp
+#  symeig_result.cpp
   )
 
 nt2_module_add_tests(core.linalg.factorization.unit ${SOURCES})

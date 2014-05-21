@@ -11,6 +11,7 @@
 
 #include <nt2/linalg/functions/hsev.hpp>
 #include <nt2/include/functions/width.hpp>
+#include <nt2/include/functions/height.hpp>
 #include <nt2/linalg/details/utility/workspace.hpp>
 #include <nt2/linalg/details/utility/f77_wrapper.hpp>
 #include <boost/dispatch/attributes.hpp>
@@ -67,7 +68,7 @@ namespace nt2 { namespace ext
         result_type info;
         details::workspace<typename A0::value_type> wk;
         nt2_la_int n = nt2::width(a);
-        BOOST_ASSERT_MSG(n == nt2_la_int(nt2::width(a)), "input must be square");
+        BOOST_ASSERT_MSG(n == nt2_la_int(nt2::height(a)), "input must be square");
         nt2_la_int lda = a.leading_size();
 
         NT2_F77NAME(dsyev) ( &jobz, &uplo, &n, 0, &lda, 0, wk.main(), details::query(), &info);
@@ -94,7 +95,7 @@ namespace nt2 { namespace ext
      {
         result_type info;
         nt2_la_int  n   = nt2::width(a);
-        BOOST_ASSERT_MSG(n == nt2_la_int(nt2::width(a)), "input must be square");
+        BOOST_ASSERT_MSG(n == nt2_la_int(nt2::height(a)), "input must be square");
         nt2_la_int  lda = a.leading_size();
 
         nt2_la_int  wn = wk.main_size();
@@ -121,7 +122,7 @@ namespace nt2 { namespace ext
         result_type info;
         details::workspace<typename A0::value_type> wk;
         nt2_la_int  n   = nt2::width(a);
-        BOOST_ASSERT_MSG(n == nt2_la_int(nt2::width(a)), "input must be square");
+        BOOST_ASSERT_MSG(n == nt2_la_int(nt2::height(a)), "input must be square");
         nt2_la_int  lda = a.leading_size();
 
         NT2_F77NAME(ssyev) (&jobz, &uplo, &n, 0, &lda, 0, wk.main(), details::query()
@@ -150,7 +151,7 @@ namespace nt2 { namespace ext
      {
         result_type info;
         nt2_la_int  n   = nt2::width(a);
-        BOOST_ASSERT_MSG(n == nt2_la_int(nt2::width(a)), "input must be square");
+        BOOST_ASSERT_MSG(n == nt2_la_int(nt2::height(a)), "input must be square");
         nt2_la_int  lda = a.leading_size();
 
         nt2_la_int  wn = wk.main_size();
@@ -179,7 +180,7 @@ namespace nt2 { namespace ext
         result_type info;
         details::workspace<typename A0::value_type> wk;
         nt2_la_int  n   = nt2::width(a);
-        BOOST_ASSERT_MSG(n == nt2_la_int(nt2::width(a)), "input must be square");
+        BOOST_ASSERT_MSG(n == nt2_la_int(nt2::height(a)), "input must be square");
         nt2_la_int  lda = a.leading_size();
 
         NT2_F77NAME(chsev) (&jobz, &uplo, &n, 0, &lda, 0, wk.main(), details::query(), wk.reals(), &info);
@@ -208,7 +209,7 @@ namespace nt2 { namespace ext
      {
         result_type info;
         nt2_la_int  n   = nt2::width(a);
-        BOOST_ASSERT_MSG(n == nt2_la_int(nt2::width(a)), "input must be square");
+        BOOST_ASSERT_MSG(n == nt2_la_int(nt2::height(a)), "input must be square");
         nt2_la_int  lda = a.leading_size();
 
         nt2_la_int  wn = w.main_size();
@@ -238,7 +239,7 @@ namespace nt2 { namespace ext
         result_type info;
         details::workspace<typename A0::value_type> wk;
         nt2_la_int  n   = nt2::width(a);
-        BOOST_ASSERT_MSG(n == nt2_la_int(nt2::width(a)), "input must be square");
+        BOOST_ASSERT_MSG(n == nt2_la_int(nt2::height(a)), "input must be square");
         nt2_la_int  lda = a.leading_size();
 
         NT2_F77NAME(zhsev) (&jobz, &uplo, &n, 0, &lda, 0, wk.main(), details::query(), wk.reals()
@@ -268,7 +269,7 @@ namespace nt2 { namespace ext
      {
         result_type info;
         nt2_la_int  n   = nt2::width(a);
-        BOOST_ASSERT_MSG(n == nt2_la_int(nt2::width(a)), "input must be square");
+        BOOST_ASSERT_MSG(n == nt2_la_int(nt2::height(a)), "input must be square");
         nt2_la_int  lda = a.leading_size();
 
         nt2_la_int  wn = w.main_size();
