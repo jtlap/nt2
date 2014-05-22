@@ -13,7 +13,6 @@
 #if defined(NT2_USE_HPX)
 
 #include <hpx/include/lcos.hpp>
-#include <hpx/lcos/future_wait.hpp>
 
 #include <nt2/sdk/shared_memory/spawner.hpp>
 
