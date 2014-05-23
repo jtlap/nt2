@@ -6,6 +6,10 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
+#include <nt2/include/functions/function.hpp>
+#include <nt2/core/container/colon/colon.hpp>
+#include <nt2/core/container/extremum/extremum.hpp>
+
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 
