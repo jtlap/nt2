@@ -29,6 +29,12 @@ namespace nt2
     struct cmplx_     : boost::mpl::false_  {};
     struct sort_      : boost::mpl::false_  {};
     struct eigs_      : boost::mpl::false_  {};
+    struct left_      : boost::mpl::false_  {};
+    struct right_     : boost::mpl::false_  {};
+    struct both_      : boost::mpl::false_  {};
+    struct none_      : boost::mpl::false_  {};
+    struct no_perm_   : boost::mpl::false_  {};
+    struct perm_      : boost::mpl::false_  {};
   }
 
   nt2::policy<ext::pivot_>     const pivot_;
@@ -45,6 +51,12 @@ namespace nt2
   nt2::policy<ext::cmplx_>     const cmplx_;
   nt2::policy<ext::sort_>      const sort_;
   nt2::policy<ext::eigs_>      const eigs_;
+  nt2::policy<ext::left_>      const left_;
+  nt2::policy<ext::right_>     const right_;
+  nt2::policy<ext::both_>      const both_;
+  nt2::policy<ext::none_>      const none_;
+  nt2::policy<ext::no_perm_>   const no_perm_;
+  nt2::policy<ext::perm_>      const perm_;
 }
 
 #endif

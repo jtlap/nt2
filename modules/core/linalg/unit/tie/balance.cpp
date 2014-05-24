@@ -6,30 +6,33 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 linalg toolbox - tied balance function"
-
 #include <nt2/table.hpp>
 #include <nt2/include/functions/zeros.hpp>
 #include <nt2/include/functions/ones.hpp>
 #include <nt2/include/functions/eye.hpp>
 #include <nt2/include/functions/balance.hpp>
 #include <nt2/include/functions/tie.hpp>
+#include <nt2/linalg/options.hpp>
 
-#include <nt2/sdk/unit/tests.hpp>
+#include <nt2/sdk/unit/tests/ulp.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/exceptions.hpp>
 #include <nt2/include/functions/transpose.hpp>
+#include <nt2/include/functions/colon.hpp>
+#include <nt2/include/functions/ones.hpp>
+#include <nt2/include/functions/from_diag.hpp>
+#include <nt2/include/functions/height.hpp>
 #include <nt2/include/functions/mtimes.hpp>
 #include <nt2/include/functions/globalmax.hpp>
-#include <nt2/include/functions/isulpequal.hpp>
 #include <nt2/include/functions/inv.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
+#include <boost/dispatch/meta/as.hpp>
 
 NT2_TEST_CASE_TPL ( balance_expr, NT2_REAL_TYPES)
 {
-  typedef typename nt2::meta::as_integer<T, signed>::type itype_t;
+  typedef typename nt2::meta::as_integer<T, signed>::type iT;
   typedef nt2::table<T> t_t;
-  typedef nt2::table<itype_t> it_t;
+  typedef nt2::table<iT> it_t;
 
   T bc[25] =  {
     1.0, 2.0, 0., 0., 0.,
@@ -50,22 +53,86 @@ NT2_TEST_CASE_TPL ( balance_expr, NT2_REAL_TYPES)
 
     }
   NT2_DISPLAY(a);
-  t_t t, s, b, zz;
+  t_t t, s, b, zz, b1;
   it_t ip;
-  nt2::tie(b) = nt2::balance(a);
+  b = nt2::balance(a);
   NT2_DISPLAY(b);
+  b = nt2::balance(a, nt2::no_perm_);
+  NT2_DISPLAY(b);
+  b = nt2::balance(a, nt2::perm_);
+  NT2_DISPLAY(b);
+  b = nt2::balance(a, nt2::both_);
+  NT2_DISPLAY(b);
+  b = nt2::balance(a, nt2::none_);
+  NT2_DISPLAY(b);
+
+
+
+  tie(t, b) = nt2::balance(a);
+  NT2_DISPLAY(b);
+  NT2_DISPLAY(t);
+  zz = nt2::mtimes(nt2::mtimes(nt2::inv(t), a), t);
+  NT2_TEST_ULP_EQUAL(zz, b, 10);
+
+  tie(t, b) = nt2::balance(a, nt2::no_perm_);
+  NT2_DISPLAY(b);
+  NT2_DISPLAY(t);
+  zz = nt2::mtimes(nt2::mtimes(nt2::inv(t), a), t);
+  NT2_TEST_ULP_EQUAL(zz, b, 10);
+
+  tie(t, b) = nt2::balance(a, nt2::perm_);
+  NT2_DISPLAY(b);
+  NT2_DISPLAY(t);
+  zz = nt2::mtimes(nt2::mtimes(nt2::inv(t), a), t);
+  NT2_TEST_ULP_EQUAL(zz, b, 10);
+
+  tie(t, b) = nt2::balance(a, nt2::both_);
+  NT2_DISPLAY(b);
+  NT2_DISPLAY(t);
+  zz = nt2::mtimes(nt2::mtimes(nt2::inv(t), a), t);
+  NT2_TEST_ULP_EQUAL(zz, b, 10);
+
+  tie(t, b) = nt2::balance(a, nt2::none_);
+  NT2_DISPLAY(b);
+  NT2_DISPLAY(t);
+  zz = nt2::mtimes(nt2::mtimes(nt2::inv(t), a), t);
+  NT2_TEST_ULP_EQUAL(zz, b, 10);
+
+  std::cout << "nt2::balance(a, nt2::none_);" << std::endl;
+  nt2::tie(s, ip, b) = nt2::balance(a, nt2::none_);
+  NT2_DISPLAY(b);
+  NT2_DISPLAY(s);
+  NT2_DISPLAY(ip);
+  NT2_TEST_ULP_EQUAL(a, b, 10);
+  iT n = height(a);
+  NT2_TEST_ULP_EQUAL(s, nt2::ones(n, 1, boost::dispatch::meta::as_<T>()), 0);
+  NT2_TEST_ULP_EQUAL(ip, nt2::_(iT(1), n), 0);
+
+  std::cout << "nt2::balance(a);" << std::endl;
   nt2::tie(s, ip, b) = nt2::balance(a);
   NT2_DISPLAY(b);
   NT2_DISPLAY(s);
   NT2_DISPLAY(ip);
-  nt2::tie(t, b) = nt2::balance(a);
-  NT2_DISPLAY(b);
-  NT2_DISPLAY(t);
+  nt2::tie(t, b1) = nt2::balance(a);
+  NT2_TEST_ULP_EQUAL(t(nt2::_, ip), from_diag(s), 0);
+  NT2_TEST_ULP_EQUAL(b(ip, ip), mtimes(mtimes(from_diag(nt2::One<T>()/s), a), from_diag(s)), 0.5);
 
-  nt2::tie(t, b) = nt2::balance(a, 'S');
-  //  nt2::tie(t, b) = nt2::balance(a, "noperm"); //TODO is it an easy way without duplicating to much code ?
+  std::cout << "nt2::balance(a, nt2::perm_);" << std::endl;
+  nt2::tie(s, ip, b) = nt2::balance(a, nt2::perm_);
   NT2_DISPLAY(b);
-  NT2_DISPLAY(t);
-  zz = nt2::mtimes(nt2::mtimes(nt2::inv(t), a), t);
-  NT2_TEST(nt2::isulpequal(zz, b, T(10.0)));
+  NT2_DISPLAY(s);
+  NT2_DISPLAY(ip);
+  nt2::tie(t, b1) = nt2::balance(a, nt2::perm_);
+  NT2_TEST_ULP_EQUAL(t(nt2::_, ip), from_diag(s), 0);
+  NT2_TEST_ULP_EQUAL(b(ip, ip), mtimes(mtimes(from_diag(nt2::One<T>()/s), a), from_diag(s)), 0.5);
+
+  std::cout << "nt2::balance(a, nt2::no_perm_);" << std::endl;
+  nt2::tie(s, ip, b) = nt2::balance(a, nt2::no_perm_);
+  NT2_DISPLAY(b);
+  NT2_DISPLAY(s);
+  NT2_DISPLAY(ip);
+  nt2::tie(t, b1) = nt2::balance(a, nt2::no_perm_);
+  NT2_TEST_ULP_EQUAL(t(nt2::_, ip), from_diag(s), 0);
+  NT2_TEST_ULP_EQUAL(b(ip, ip), mtimes(mtimes(from_diag(nt2::One<T>()/s), a), from_diag(s)), 0.5);
+
 }
