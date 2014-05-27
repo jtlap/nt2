@@ -12,6 +12,7 @@ SET( SOURCES
     of_size.cpp
     of_size_max.cpp
     max_extent.cpp
+    ndims.cpp
    )
 
 nt2_module_add_tests(core.sdk.utility.unit ${SOURCES})
