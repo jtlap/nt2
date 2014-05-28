@@ -16,23 +16,52 @@
 namespace nt2 { namespace ext
 {
   //============================================================================
+  // General outer_scan
+  //============================================================================
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::outer_scan_, tag::cpu_
+                            , (Out)(In)(Neutral)(Bop)(Uop)
+                            , ((ast_< Out, nt2::container::domain>))
+                              ((ast_< In, nt2::container::domain>))
+                              (unspecified_<Neutral>)
+                              (unspecified_<Bop>)
+                              (unspecified_<Uop>)
+                            )
+  {
+    typedef void                                                              result_type;
+    typedef typename Out::value_type                                          value_type;
+    typedef typename In::extent_type                                          extent_type;
+
+    BOOST_FORCEINLINE result_type
+    operator()(Out& out, In& in, Neutral const& neutral, Bop const& bop, Uop const& uop) const
+    {
+      extent_type ext = in.extent();
+      std::size_t obound = nt2::numel(boost::fusion::pop_front(ext));
+
+      value_type neutral = neutral(meta::as_<value_type>());
+      nt2::outer_scan(out,in,neutral,bop,uop,std::make_pair(0,obound));
+    }
+  };
+
+  //============================================================================
   // Generates outer_scan
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::outer_scan_, tag::cpu_, (A0)(A1)(A2)(A3)(A4)
-                            , ((ast_< A0, nt2::container::domain>))
-                              ((ast_< A1, nt2::container::domain>))
-                              (unspecified_<A2>)
-                              (unspecified_<A3>)
-                              (unspecified_<A4>)
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::outer_scan_, tag::cpu_, (Out)(In)(Neutral)(Bop)(Uop)
+                            , ((ast_< Out, nt2::container::domain>))
+                              ((ast_< In, nt2::container::domain>))
+                              (unspecified_<Neutral>)
+                              (unspecified_<Bop>)
+                              (unspecified_<Uop>)
+                              (unspecified_<Range>)
                             )
   {
     typedef void                                                               result_type;
-    typedef typename A0::value_type                                            value_type;
-    typedef typename boost::remove_reference<A1>::type::extent_type            extent_type;
+    typedef typename Out::value_type                                            value_type;
+    typedef typename boost::remove_reference<In>::type::extent_type            extent_type;
 
     BOOST_FORCEINLINE result_type
-    operator()( A0& out, A1& in , A2 const& neutral
-              , A3 const& bop   , A4 const&
+    operator()( Out& out, In& in , Neutral const& neutral
+              , Bop const& bop   , Uop const&
+              , Range const& range
               ) const
     {
       extent_type ext = in.extent();
@@ -41,14 +70,17 @@ namespace nt2 { namespace ext
       std::size_t mbound =  boost::fusion::at_c<1>(ext);
       std::size_t obound =  boost::fusion::at_c<2>(ext);
 
+      std::size_t begin = range.first;
+      std::size_t size = range.second;
+
       std::size_t it = 0;
-      for(std::size_t o = 0; o < obound; ++o)
+      for(std::size_t o = begin; o < size; ++o)
       {
         for(std::size_t i = 0; i < ibound; ++i)
         {
           it = i+o*mbound*ibound;
 
-          value_type prev = neutral(meta::as_<value_type>());
+          value_type prev = neutral(nt2::meta::as_<value_type>());
           for(std::size_t k = 0; k < mbound; ++k, it += ibound)
           {
             prev = bop(prev, nt2::run(in, it, meta::as_<value_type>()));
