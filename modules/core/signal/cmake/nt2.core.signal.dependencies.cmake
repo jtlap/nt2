@@ -11,7 +11,6 @@ SET ( NT2_CORE.SIGNAL_DEPENDENCIES_EXTRA
       boost.simd.base
       boost.simd.config
       boost.simd.sdk
-      boost.simd.swar
       core.adjacent
       core.base
       core.container.placeholders

@@ -10,8 +10,6 @@
 SET ( NT2_TYPE.COMPLEX.SWAR_DEPENDENCIES_EXTRA
       boost.dispatch
       boost.simd.base
-      boost.simd.reduction
       boost.simd.sdk
-      boost.simd.swar
       type.complex.sdk
     )

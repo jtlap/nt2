@@ -10,7 +10,6 @@
 SET ( NT2_CORE.SWAR_DEPENDENCIES_EXTRA
       boost.simd.base
       boost.simd.sdk
-      boost.simd.swar
       core.adjacent
       core.base
       core.container.table
