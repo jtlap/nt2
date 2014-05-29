@@ -58,7 +58,7 @@ namespace nt2
           {
 #endif
             // Call operation
-            w(out,begin+(std::size_t)n*grain,grain);
+            out = w(out,begin+(std::size_t)n*grain,grain);
 
             #pragma omp critical
             reduced_out = w.bop_(reduced_out, out);

@@ -48,8 +48,7 @@ namespace nt2
            if (size == grain)
            {
              result_type out = w_.neutral_(nt2::meta::as_<result_type>());
-             w_(out,begin,size);
-             return hpx::make_ready_future(out);
+             return hpx::make_ready_future(w_(out,begin,size));
             }
 
            std::size_t middle = begin + (size/(2*grain))*grain;
@@ -88,7 +87,7 @@ namespace nt2
     spawner() {}
 
     template<typename Worker>
-    result_type operator()(Worker & w, std::size_t begin, std::size_t size, std::size_t  grain)
+    result_type operator()(Worker & w, std::size_t begin, std::size_t size, std::size_t grain)
     {
       details::Hpx_Folder<Worker,result_type> hpx_w ( w );
 
