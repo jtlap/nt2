@@ -37,7 +37,6 @@ namespace nt2 { namespace ext
       extent_type ext = in.extent();
       std::size_t obound = nt2::numel(boost::fusion::pop_front(ext));
 
-      value_type neutral = neutral(meta::as_<value_type>());
       nt2::outer_scan(out,in,neutral,bop,uop,std::make_pair(0,obound));
     }
   };
@@ -45,7 +44,7 @@ namespace nt2 { namespace ext
   //============================================================================
   // Generates outer_scan
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::outer_scan_, tag::cpu_, (Out)(In)(Neutral)(Bop)(Uop)
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::outer_scan_, tag::cpu_, (Out)(In)(Neutral)(Bop)(Uop)(Range)
                             , ((ast_< Out, nt2::container::domain>))
                               ((ast_< In, nt2::container::domain>))
                               (unspecified_<Neutral>)

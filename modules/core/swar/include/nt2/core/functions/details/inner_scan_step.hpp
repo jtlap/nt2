@@ -31,7 +31,7 @@ namespace nt2
   namespace details
   {
     template<class Summary, class Out, class In, class Bop,class Range>
-    inline Result inner_scan_step(Summary& summary, Out& out, In& in, Bop const& bop, Range const & range, bool prescan)
+    inline Summary inner_scan_step(Summary summary, Out& out, In& in, Bop const& bop, Range const & range, bool prescan)
     {
       std::size_t begin = range.first;
       std::size_t size = range.second;
@@ -39,8 +39,11 @@ namespace nt2
       for(std::size_t i = begin; i != begin+size; i++)
       {
        summary = bop(summary, nt2::run(in, i, meta::as_<Out>()));
+
        if(!prescan) nt2::run(out, i, summary);
       }
+
+      return summary;
     }
   }
 

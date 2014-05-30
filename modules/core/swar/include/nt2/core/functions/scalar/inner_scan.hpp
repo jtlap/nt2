@@ -73,14 +73,16 @@ namespace nt2 { namespace ext
       std::size_t begin = range.first;
       std::size_t size  = range.second;
 
-      for(std::size_t j = begin, k = begin*ibound; j < size; ++j)
+      for(std::size_t j = begin, k = begin*ibound; j < size; ++j, k+=ibound)
       {
-        value_type prev = neutral(nt2::meta::as_<value_type>());
-        for(std::size_t m = k+ibound; k != m; ++k)
-        {
-          prev = bop(prev, nt2::run(in, k, meta::as_<value_type>()));
-          nt2::run(out, k, prev);
-        }
+        value_type res = details::inner_scan_step(
+          neutral(nt2::meta::as_<value_type>())
+         ,out
+         ,in
+         ,bop
+         ,std::make_pair(k,ibound)
+         ,false
+         );
       }
     }
   };
