@@ -9,6 +9,7 @@
 
 SET( SOURCES
   chol.cpp
+  eig.cpp
   geneig.cpp
   geneig_result.cpp
   ldl_result.cpp

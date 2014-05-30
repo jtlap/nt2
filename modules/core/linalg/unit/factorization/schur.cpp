@@ -32,6 +32,7 @@
 #include <nt2/sdk/unit/tests/basic.hpp>
 #include <complex>
 #include <nt2/linalg/options.hpp>
+#include <nt2/include/functions/cos.hpp>
 
 NT2_TEST_CASE_TPL(schur_sca, NT2_REAL_TYPES)
 {
@@ -47,6 +48,7 @@ NT2_TEST_CASE_TPL(schur_sca, NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(t, T(2), 0);
 }
 
+
 NT2_TEST_CASE_TPL(schur, NT2_REAL_TYPES)
 {
   using nt2::schur;
@@ -55,10 +57,10 @@ NT2_TEST_CASE_TPL(schur, NT2_REAL_TYPES)
   typedef nt2::table<T> t_t;
   typedef nt2::table<cT> ct_t;
   T sq = nt2::Sqrt_2o_2<T>();
-//  t_t b = nt2::cons(nt2::of_size(2, 2), sq, sq, -sq, sq);
+// t_t b = nt2::cons(nt2::of_size(2, 2), sq, sq, -sq, sq);
   t_t b =       nt2::ones (4, 4, nt2::meta::as_<T>())
         + T(10)*nt2::eye  (4, 4, nt2::meta::as_<T>());
-  b(1, 1) = T(1);
+//   b(1, 1) = T(1);
 //   b(_, 1) = b(_, 3);
 //   b(3, 3) = T(20);
 
@@ -81,6 +83,18 @@ NT2_TEST_CASE_TPL(schur, NT2_REAL_TYPES)
     ct_t ct =  schur(b, nt2::cmplx_);
     nt2::display("t", ct);
   }
+  std::cout << "icitte" << std::endl;
+  {
+    ct_t w =  schur(cb, nt2::eigs_);
+    nt2::display("w", w);
+  }
+  std::cout << "latte" << std::endl;
+  std::cout << "icitte" << std::endl;
+  {
+    ct_t w =  schur(b, nt2::eigs_);
+    nt2::display("w", w);
+  }
+  std::cout << "latte" << std::endl;
   {
     ct_t ct =  schur(cb);
     nt2::display("t", ct);

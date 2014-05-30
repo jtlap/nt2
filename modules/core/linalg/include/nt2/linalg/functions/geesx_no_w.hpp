@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_LINALG_FUNCTIONS_GEESX_HPP_INCLUDED
-#define NT2_LINALG_FUNCTIONS_GEESX_HPP_INCLUDED
+#ifndef NT2_LINALG_FUNCTIONS_GEESX_NO_W_HPP_INCLUDED
+#define NT2_LINALG_FUNCTIONS_GEESX_NO_W_HPP_INCLUDED
 
 /*!
   @file
@@ -20,8 +20,9 @@ namespace nt2
 {
   namespace tag
   {
-    /// @brief Defines geesx function tag
-    struct geesx_ : boost::dispatch::tag::formal_
+    /// @brief Defines geesx_no_w_ function tag
+
+    struct geesx_no_w_ : boost::dispatch::tag::formal_
     {
       /// INTERNAL ONLY
       typedef boost::dispatch::tag::formal_  parent;
@@ -36,14 +37,14 @@ namespace nt2
 
     @return
   **/
-  NT2_FUNCTION_IMPLEMENTATION_TPL (tag::geesx_, geesx
-                                  , (A0&)(A1&)(A2&)
-                                  , 3
+  NT2_FUNCTION_IMPLEMENTATION_TPL (tag::geesx_no_w_, geesx_no_w
+                                  , (A0&)(A1&)
+                                  , 2
                                   );
 
-  NT2_FUNCTION_IMPLEMENTATION_TPL (tag::geesx_, geesx
-                                  , (A0&)(A1&)(A2&)(A3&)
-                                  , 4
+  NT2_FUNCTION_IMPLEMENTATION_TPL (tag::geesx_no_w_, geesx_no_w
+                                  , (A0&)(A1&)(A2&)
+                                  , 3
                                   );
 }
 
