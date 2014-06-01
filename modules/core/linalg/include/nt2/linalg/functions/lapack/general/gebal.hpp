@@ -146,7 +146,7 @@ namespace nt2 { namespace ext
         nt2_la_int  n   = nt2::width(a);
         BOOST_ASSERT_MSG(n == nt2_la_int(nt2::height(a)), "input must be square");
         nt2_la_int  lda = nt2::max(a.leading_size(), One<size_t>());
-        NT2_F77NAME(cgebal) (&job, &n
+        NT2_F77NAME(zgebal) (&job, &n
                             , a.raw(), &lda
                             , &ilo, &ihi
                             , scale.raw(), &info);
