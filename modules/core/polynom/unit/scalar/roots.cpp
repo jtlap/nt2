@@ -10,9 +10,11 @@
 #include <nt2/include/functions/eye.hpp>
 #include <nt2/include/functions/ones.hpp>
 #include <nt2/include/functions/real.hpp>
+#include <nt2/include/functions/sort.hpp>
 #include <nt2/sdk/unit/tests/ulp.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/table.hpp>
+#include <complex>
 
 
 NT2_TEST_CASE_TPL ( roots_real__1_0,  NT2_REAL_TYPES)
@@ -20,10 +22,15 @@ NT2_TEST_CASE_TPL ( roots_real__1_0,  NT2_REAL_TYPES)
 
   using nt2::roots;
   using nt2::tag::roots_;
+  typedef typename std::complex < T >  cT;
   nt2::table<T> p =  nt2::_(T(1), T(3));
   p(2) = T(-3); p(3) = T(2);
   nt2::table<T> c = nt2::_(T(2), T(-1), T(1));
-  NT2_TEST_ULP_EQUAL(nt2::real(roots(p)), c, 5.0);
+  display("p", p);
+  display("c", c);
+  nt2::table<cT> z = nt2::real(roots(p));
+  display("z", z);
+  NT2_TEST_ULP_EQUAL(nt2::sort(nt2::real(z)), sort(c), 5.0);
 }
 
 
