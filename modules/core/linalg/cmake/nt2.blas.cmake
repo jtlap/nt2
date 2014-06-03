@@ -74,7 +74,6 @@ if(NT2_BLAS_VENDOR STREQUAL "Intel" OR (NOT DEFINED NT2_BLAS_VENDOR AND NOT NT2_
     set(NT2_MKL_LIBRARY_DIR $ENV{MKLROOT}/lib/)
     find_library(NT2_MKL_LP64${STATIC}
                  NAMES mkl_core mkl_intel_lp64 libmkl_intel_lp64.so
-                 # /opt/intel/composer_xe_2013_sp1.1.106/mkl/lib/mic/libmkl_intel_lp64.a
                  PATHS ${NT2_MKL_LIBRARY_DIR}
                  PATH_SUFFIXES ${NT2_MKL_LIBRARY_SUFFIXES}
                 )
@@ -115,10 +114,17 @@ if(NT2_BLAS_VENDOR STREQUAL "Intel" OR (NOT DEFINED NT2_BLAS_VENDOR AND NOT NT2_
                     )
         file(TO_CMAKE_PATH "$ENV{LIBRARY_PATH}" LIBRARY_PATH)
 
-        find_library(NT2_INTEL_OMP${STATIC} NAMES libiomp5md iomp5md iomp5
-                     PATHS ${CMAKE_FIND_ROOT_PATH}/compiler/lib/
-                     PATH_SUFFIXES ${NT2_MKL_LIBRARY_SUFFIXES}
-                    )
+        if(NT2_ARCH_MIC)
+          find_library(NT2_INTEL_OMP${STATIC} NAMES libiomp5md iomp5md iomp5
+                       PATHS ${CMAKE_FIND_ROOT_PATH}/compiler/lib/
+                       PATH_SUFFIXES ${NT2_MKL_LIBRARY_SUFFIXES}
+                      )
+        else()
+          find_library(NT2_INTEL_OMP${STATIC} NAMES libiomp5md iomp5md iomp5
+                       PATHS ${LIBRARY_PATH}
+                       PATH_SUFFIXES ${NT2_MKL_LIBRARY_SUFFIXES}
+                      )
+        endif()
         set(NT2_BLAS_LIBRARIES ${NT2_BLAS_LIBRARIES} ${NT2_MKL_INTEL_THREAD${STATIC}} ${NT2_INTEL_OMP${STATIC}})
       elseif(NT2_COMPILER_GCC_LIKE)
         unset(NT2_MKL_INTEL_THREAD${STATIC})
