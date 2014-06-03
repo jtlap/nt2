@@ -32,7 +32,7 @@
 #include <nt2/sdk/unit/tests/basic.hpp>
 #include <complex>
 #include <nt2/linalg/options.hpp>
-#include <nt2/include/functions/cos.hpp>
+
 
 NT2_TEST_CASE_TPL(schur_sca, NT2_REAL_TYPES)
 {

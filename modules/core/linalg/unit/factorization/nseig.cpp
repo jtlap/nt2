@@ -215,26 +215,26 @@ NT2_TEST_CASE_TPL(nseig, NT2_REAL_TYPES)
 }
 
 
-NT2_TEST_CASE_TPL(nseig2, NT2_REAL_TYPES)
-{
-  using nt2::tag::nseig_;
-  using nt2::mtimes;
-  using nt2::_;
-  typedef std::complex<T> cT;
-  typedef nt2::table<T> t_t;
-  typedef nt2::table<cT> ct_t;
-  t_t a =  nt2::cons(nt2::of_size(2, 2), nt2::One<T>(), nt2::One<T>(), -nt2::One<T>(), nt2::One<T>());
-  ct_t w, v, vl;
-  nt2::display("a     ", a);
-  nt2::tie(v, w, vl) = nseig(a);
-  nt2::display("w     ", w);
-  nt2::display("v     ", v);
-  nt2::display("vl    ", vl);
-  ct_t ca = a;
-  nt2::display("ca     ", ca);
-  nt2::tie(v, w, vl) = nseig(ca);
-  nt2::display("w     ", w);
-  nt2::display("v     ", v);
-  nt2::display("vl    ", vl);
-}
+// NT2_TEST_CASE_TPL(nseig2, NT2_REAL_TYPES)
+// {
+//   using nt2::tag::nseig_;
+//   using nt2::mtimes;
+//   using nt2::_;
+//   typedef std::complex<T> cT;
+//   typedef nt2::table<T> t_t;
+//   typedef nt2::table<cT> ct_t;
+//   t_t a =  nt2::cons(nt2::of_size(2, 2), nt2::One<T>(), nt2::One<T>(), -nt2::One<T>(), nt2::One<T>());
+//   ct_t w, v, vl;
+//   nt2::display("a     ", a);
+//   nt2::tie(v, w, vl) = nseig(a);
+//   nt2::display("w     ", w);
+//   nt2::display("v     ", v);
+//   nt2::display("vl    ", vl);
+//   ct_t ca = a;
+//   nt2::display("ca     ", ca);
+//   nt2::tie(v, w, vl) = nseig(ca);
+//   nt2::display("w     ", w);
+//   nt2::display("v     ", v);
+//   nt2::display("vl    ", vl);
+// }
 

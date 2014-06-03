@@ -16,6 +16,7 @@
 #include <nt2/core/container/dsl/size.hpp>
 #include <nt2/sdk/meta/tieable_hierarchy.hpp>
 #include <nt2/core/container/dsl/value_type.hpp>
+#include <nt2/sdk/complex/meta/as_complex.hpp>
 
 namespace nt2
 {
@@ -70,8 +71,16 @@ namespace nt2 { namespace ext
 
   template<class Domain, int N, class Expr>
   struct  value_type<tag::nseig_,Domain,N,Expr>
-        : meta::value_as<Expr,0>
-  {};
+  {
+    typedef typename  boost::proto::result_of
+               ::child_c<Expr&,0>::value_type::value_type  intype;
+    typedef typename meta::as_complex<intype>::type type;
+  };
+
+//   template<class Domain, int N, class Expr>
+//   struct  value_type<tag::nseig_,Domain,N,Expr>
+//         : meta::value_as<Expr,0>
+//   {};
 } }
 
 #endif
