@@ -42,6 +42,12 @@ ELSEIF(NT2_SYSTEM_PROCESSOR MATCHES "amd64|x86|i[3-9]86")
     SET(NT2_ARCH_X86_64 1)
   ENDIF()
 ################################################################################
+# MIC processor
+################################################################################
+ELSEIF(NT2_SYSTEM_PROCESSOR MATCHES "mic")
+  SET(NT2_ARCH "i686")
+  SET(NT2_ARCH_MIC 1)
+################################################################################
 # Power PC processor
 ################################################################################
 ELSEIF(CMAKE_SYSTEM_PROCESSOR MATCHES "ppc|powerpc")

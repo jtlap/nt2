@@ -26,6 +26,9 @@ if(NT2_BLAS_STATIC)
   set(OLD_CMAKE_FIND_LIBRARY_SUFFIXES ${CMAKE_FIND_LIBRARY_SUFFIXES})
   set(CMAKE_FIND_LIBRARY_SUFFIXES ".a;.lib")
 endif()
+if(NT2_ARCH_MIC)
+  set(CMAKE_FIND_LIBRARY_SUFFIXES ".a;.lib;.so")
+endif()
 set(STATIC)
 if(NT2_BLAS_STATIC)
   set(STATIC _static)
@@ -56,10 +59,22 @@ if(NT2_BLAS_VENDOR STREQUAL "Intel" OR (NOT DEFINED NT2_BLAS_VENDOR AND NOT NT2_
   endif()
 
   set(NT2_BLAS_LIBRARIES)
-  set(NT2_MKL_LIBRARY_DIR ${MKLROOT}/lib)
+  set(NT2_MKL_LIBRARY_DIR ${MKLROOT}/lib/)
   if(NT2_ARCH_X86_64)
     set(NT2_MKL_LIBRARY_SUFFIXES intel64)
     find_library(NT2_MKL_LP64${STATIC} NAMES mkl_intel_lp64_dll mkl_intel_lp64
+                 PATHS ${NT2_MKL_LIBRARY_DIR}
+                 PATH_SUFFIXES ${NT2_MKL_LIBRARY_SUFFIXES}
+                )
+    set(NT2_BLAS_LIBRARIES ${NT2_BLAS_LIBRARIES} ${NT2_MKL_LP64${STATIC}})
+  elseif(NT2_ARCH_MIC)
+    set(NT2_MKL_LIBRARY_DIR ${NT2_BLAS_ROOT} ${MKLROOT}/lib/mic/)
+    set(NT2_MKL_LIBRARY_SUFFIXES mic)
+
+    set(NT2_MKL_LIBRARY_DIR $ENV{MKLROOT}/lib/)
+    find_library(NT2_MKL_LP64${STATIC}
+                 NAMES mkl_core mkl_intel_lp64 libmkl_intel_lp64.so
+                 # /opt/intel/composer_xe_2013_sp1.1.106/mkl/lib/mic/libmkl_intel_lp64.a
                  PATHS ${NT2_MKL_LIBRARY_DIR}
                  PATH_SUFFIXES ${NT2_MKL_LIBRARY_SUFFIXES}
                 )
@@ -81,7 +96,6 @@ if(NT2_BLAS_VENDOR STREQUAL "Intel" OR (NOT DEFINED NT2_BLAS_VENDOR AND NOT NT2_
         set(NT2_BLAS_MULTICORE 1)
       endif()
     endif()
-
     if(NOT NT2_BLAS_MULTICORE)
       find_library(NT2_MKL_SEQ${STATIC} NAMES mkl_sequential_dll mkl_sequential
                    PATHS ${NT2_MKL_LIBRARY_DIR}
@@ -100,8 +114,9 @@ if(NT2_BLAS_VENDOR STREQUAL "Intel" OR (NOT DEFINED NT2_BLAS_VENDOR AND NOT NT2_
                      PATH_SUFFIXES ${NT2_MKL_LIBRARY_SUFFIXES}
                     )
         file(TO_CMAKE_PATH "$ENV{LIBRARY_PATH}" LIBRARY_PATH)
+
         find_library(NT2_INTEL_OMP${STATIC} NAMES libiomp5md iomp5md iomp5
-                     PATHS ${LIBRARY_PATH}
+                     PATHS ${CMAKE_FIND_ROOT_PATH}/compiler/lib/
                      PATH_SUFFIXES ${NT2_MKL_LIBRARY_SUFFIXES}
                     )
         set(NT2_BLAS_LIBRARIES ${NT2_BLAS_LIBRARIES} ${NT2_MKL_INTEL_THREAD${STATIC}} ${NT2_INTEL_OMP${STATIC}})
@@ -116,13 +131,11 @@ if(NT2_BLAS_VENDOR STREQUAL "Intel" OR (NOT DEFINED NT2_BLAS_VENDOR AND NOT NT2_
         set(NT2_BLAS_LINK_FLAGS ${OpenMP_CXX_FLAGS})
       endif()
     endif()
-
     find_library(NT2_MKL_CORE${STATIC} NAMES mkl_core_dll mkl_core
                  PATHS ${NT2_MKL_LIBRARY_DIR}
                  PATH_SUFFIXES ${NT2_MKL_LIBRARY_SUFFIXES}
                 )
     set(NT2_BLAS_LIBRARIES ${NT2_BLAS_LIBRARIES} ${NT2_MKL_CORE${STATIC}})
-
     if(UNIX)
         set(NT2_BLAS_LIBRARIES -Wl,--start-group ${NT2_BLAS_LIBRARIES} -Wl,--end-group)
         if(NT2_BLAS_STATIC)
