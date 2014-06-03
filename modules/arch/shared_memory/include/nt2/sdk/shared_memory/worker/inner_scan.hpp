@@ -27,7 +27,7 @@ namespace nt2
   }
 
   // Inner Scan Step worker
-  template<class BackEnd, class Site, class In, class Neutral, class Bop>
+  template<class BackEnd, class Site, class Out, class In, class Neutral, class Bop>
   struct worker<tag::inner_scan_step_,BackEnd,Site,Out,In,Neutral,Bop>
   {
     worker(Out& out, In & in, Neutral const & neutral, Bop const & bop)
@@ -35,7 +35,7 @@ namespace nt2
     {}
 
     template<class Summary>
-    Summary operator()(Summary & summary, std::size_t begin, std::size_t size, bool prescan)
+    Summary operator()(Summary summary, std::size_t begin, std::size_t size, bool prescan)
     {
       return details::inner_scan_step(summary,out_,in_,bop_,std::make_pair(begin,size),prescan);
     };
@@ -50,14 +50,14 @@ namespace nt2
   };
 
   // Inner Scan worker
-  template<class BackEnd,class Site, class Out, class In, class Neutral,class Bop,class Uop>
-  struct worker<tag::inner_scan_,BackEnd,Site,Out,In,Neutral,Bop,Uop>
+  template<class BackEnd,class Site, class Out, class In, class Neutral,class Bop>
+  struct worker<tag::inner_scan_,BackEnd,Site,Out,In,Neutral,Bop>
   {
     typedef typename boost::remove_reference<In>::type::extent_type           extent_type;
     typedef typename Out::value_type                                          value_type;
 
-    worker(Out& out, In& in, Neutral const& n, Bop const& bop, Uop const& uop)
-    : out_(out), in_(in), neutral_(n), bop_(bop), uop_(uop)
+    worker(Out& out, In& in, Neutral const& n, Bop const& bop)
+    : out_(out), in_(in), neutral_(n), bop_(bop)
     {}
 
     void operator()(std::size_t begin, std::size_t size) const
@@ -70,8 +70,8 @@ namespace nt2
       std::size_t ibound = (bound/grain) * grain;
       std::size_t obound = nt2::numel(boost::fusion::pop_front(ext));
 
-      nt2::worker<tag::inner_scan_step_,BackEnd,Site,In,Neutral,Bop>
-      w(in_,neutral_,bop_);
+      nt2::worker<tag::inner_scan_step_,BackEnd,Site,Out,In,Neutral,Bop>
+      w(out_,in_,neutral_,bop_);
 
       nt2::spawner<tag::scan_, BackEnd, value_type> s;
 
@@ -91,7 +91,6 @@ namespace nt2
     In&                      in_;
     Neutral const &          neutral_;
     Bop const &              bop_;
-    Uop const &              uop_;
 
     private:
     worker& operator=(worker const&);

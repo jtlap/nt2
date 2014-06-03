@@ -44,8 +44,8 @@ namespace nt2 { namespace ext
       std::size_t top_cache_line_size = config::top_cache_size(2)/sizeof(value_type);
       std::size_t grain = top_cache_line_size;
 
-      nt2::worker<tag::inner_scan_,BackEnd,Site,Out,In,Neutral,Bop,Uop>
-      w(out, in, neutral, bop, uop);
+      nt2::worker<tag::inner_scan_,BackEnd,Site,Out,In,Neutral,Bop>
+      w(out, in, neutral, bop);
 
       if((obound > grain) && (8*grain < bound*obound))
       {
