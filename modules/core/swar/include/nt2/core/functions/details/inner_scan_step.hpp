@@ -38,8 +38,7 @@ namespace nt2
 
       for(std::size_t i = begin; i != begin+size; i++)
       {
-       summary = bop(summary, nt2::run(in, i, meta::as_<Out>()));
-
+       summary = bop(summary, nt2::run(in, i, meta::as_<Summary>()));
        if(!prescan) nt2::run(out, i, summary);
       }
 
