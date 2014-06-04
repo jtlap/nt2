@@ -64,7 +64,7 @@ namespace nt2
     {
       extent_type ext = in_.extent();
       std::size_t top_cache_line_size = config::top_cache_size(2)/sizeof(value_type);
-      std::size_t grain  = top_cache_line_size;
+      std::size_t grain  = 4; /*top_cache_line_size;*/
 
       std::size_t bound  = boost::fusion::at_c<0>(ext);
       std::size_t ibound = (bound/grain) * grain;
@@ -79,11 +79,17 @@ namespace nt2
       {
         value_type s_out = neutral_(nt2::meta::as_<value_type>());
 
-        if( (size == obound) && (grain < ibound) )
-           s( w, k, ibound, grain );
+        if( (size == obound) && (2*grain < ibound) )
+          s_out = s( w, k, ibound, grain );
 
-        else
-           s_out = w(s_out, k, ibound, false);
+        else if( ibound != 0 )
+          s_out = w(s_out, k, ibound, false);
+
+        for(std::size_t i = ibound; i != bound; ++i)
+        {
+             s_out = bop_(s_out, nt2::run(in_, i+k, meta::as_<value_type>()));
+             nt2::run(out_, i+k, s_out);
+        }
       }
     }
 

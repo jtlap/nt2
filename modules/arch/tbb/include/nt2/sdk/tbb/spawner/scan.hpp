@@ -12,12 +12,9 @@
 
 #if defined(NT2_USE_TBB)
 
-#if defined(NT2_USE_TBB)
-
 #include <tbb/tbb.h>
 #include <nt2/sdk/tbb/blocked_range.hpp>
 #include <nt2/sdk/shared_memory/spawner.hpp>
-#include <nt2/core/functions/details/inner_scan_step.hpp>
 
 #ifndef BOOST_NO_EXCEPTIONS
 #include <boost/exception_ptr.hpp>
@@ -56,7 +53,7 @@ namespace nt2
 
         void reverse_join(Tbb_Scaner& rhs)
         {
-            out_ = w_.bop_(out_, rhs.out_);
+            out_ = w_.bop_(rhs.out_,out_);
         }
 
         void assign( Tbb_Scaner& b )
@@ -76,30 +73,36 @@ namespace nt2
   template<class Site, class result_type>
   struct spawner< tag::scan_, tag::tbb_<Site> , result_type>
   {
+    spawner(){}
 
+    template<typename Worker>
+    result_type operator()(Worker & w, std::size_t begin, std::size_t size, std::size_t grain)
+    {
 #ifndef BOOST_NO_EXCEPTIONS
       boost::exception_ptr exception;
 #endif
 
-     BOOST_ASSERT_MSG( size % grain == 0, "Reduce size not divisible by grain");
+      BOOST_ASSERT_MSG( size % grain == 0, "Reduce size not divisible by grain");
 
-     details::Tbb_Scaner<Worker,result_type> tbb_w ( w );
-
-#ifndef BOOST_NO_EXCEPTIONS
-            try
-            {
-#endif
-             tbb::parallel_scan( nt2::blocked_range<std::size_t>(begin,begin+size,grain)
-                               , tbb_w
-                               );
+      details::Tbb_Scaner<Worker,result_type> tbb_w ( w );
 
 #ifndef BOOST_NO_EXCEPTIONS
-            }
-            catch(...)
-            {
-              exception = boost::current_exception();
-            }
+      try
+      {
 #endif
+         tbb::parallel_scan( nt2::blocked_range<std::size_t>(begin,begin+size,grain)
+                           , tbb_w
+                           );
+
+#ifndef BOOST_NO_EXCEPTIONS
+      }
+      catch(...)
+      {
+        exception = boost::current_exception();
+      }
+#endif
+
+      return tbb_w.out_;
     }
   };
 }

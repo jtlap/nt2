@@ -98,7 +98,7 @@ namespace nt2
     spawner() {}
 
     template<typename Worker>
-    void operator()(Worker & w, std::size_t begin, std::size_t size, std::size_t grain)
+    result_type operator()(Worker & w, std::size_t begin, std::size_t size, std::size_t grain)
     {
       BOOST_ASSERT_MSG( size % grain == 0, "Scan size not divisible by grain");
 
@@ -111,6 +111,8 @@ namespace nt2
       result_type result = hpx_w(end,size,grain).get();
 
       hpx::wait_all(barrier);
+
+      return result;
     }
   };
 }

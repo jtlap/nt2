@@ -30,12 +30,12 @@ namespace nt2
     spawner() {}
 
     template<typename Worker>
-    void operator()(Worker & w, std::size_t begin, std::size_t size, std::size_t)
+    result_type operator()(Worker & w, std::size_t begin, std::size_t size, std::size_t)
     {
         result_type summary = w.neutral_(nt2::meta::as_<result_type>());
 
         // Call operation
-        summary = w(summary,begin,size,false);
+        return w(summary,begin,size,false);
     }
   };
 }

@@ -9,6 +9,8 @@
 #ifndef NT2_CORE_FUNCTIONS_DETAILS_INNER_SCAN_STEP_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_DETAILS_INNER_SCAN_STEP_HPP_INCLUDED
 
+#include <cstdio>
+
 /*!
   @file
   @brief Define and implements the inner_scan_step function

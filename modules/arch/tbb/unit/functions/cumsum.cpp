@@ -39,7 +39,7 @@ NT2_TEST_CASE( cumsum_inner )
   typedef double T;
   using nt2::_;
 
-  std::size_t M = 19;
+  std::size_t M = 16;
   std::size_t N = 3;
   std::size_t size = M*N;
 
@@ -65,13 +65,7 @@ NT2_TEST_CASE( cumsum_inner )
     }
   }
 
-  nt2::display(b);
-
-  // table<T, nt2::shared_> c(of_size(M,N)
-  //                         ,nt2::share(&r[0],&r[size])
-  //                         );
-  // NT2_TEST( isequal(b, c) );
-
+  // nt2::display(b);
   NT2_TEST_EQUAL(b, r);
 }
 
