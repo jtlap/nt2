@@ -45,7 +45,7 @@ ELSEIF(NT2_SYSTEM_PROCESSOR MATCHES "amd64|x86|i[3-9]86")
 # MIC processor
 ################################################################################
 ELSEIF(NT2_SYSTEM_PROCESSOR MATCHES "mic")
-  SET(NT2_ARCH "i686")
+  SET(NT2_ARCH "mic")
   SET(NT2_ARCH_MIC 1)
 ################################################################################
 # Power PC processor
