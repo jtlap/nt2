@@ -48,7 +48,7 @@ namespace nt2
         template<typename Tag>
         void operator()(nt2::blocked_range<std::size_t> const& r, Tag)
         {
-            out_ = w_(out_,r.begin(),r.size(),Tag::is_final_scan());
+            out_ = w_(out_,r.begin(),r.size(),!Tag::is_final_scan());
         };
 
         void reverse_join(Tbb_Scaner& rhs)
@@ -78,6 +78,7 @@ namespace nt2
     template<typename Worker>
     result_type operator()(Worker & w, std::size_t begin, std::size_t size, std::size_t grain)
     {
+
 #ifndef BOOST_NO_EXCEPTIONS
       boost::exception_ptr exception;
 #endif

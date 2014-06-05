@@ -14,6 +14,11 @@
 
 #include <omp.h>
 #include <nt2/sdk/shared_memory/spawner.hpp>
+#include <vector>
+
+#ifndef BOOST_NO_EXCEPTIONS
+#include <boost/exception_ptr.hpp>
+#endif
 
 namespace nt2
 {
@@ -30,12 +35,66 @@ namespace nt2
     spawner() {}
 
     template<typename Worker>
-    result_type operator()(Worker & w, std::size_t begin, std::size_t size, std::size_t)
+    result_type operator()(Worker & w, std::size_t begin, std::size_t size, std::size_t grain)
     {
-        result_type summary = w.neutral_(nt2::meta::as_<result_type>());
+
+#ifndef BOOST_NO_EXCEPTIONS
+      boost::exception_ptr exception;
+#endif
+
+      BOOST_ASSERT_MSG( size % grain == 0, "Reduce size not divisible by grain");
+
+      std::ptrdiff_t nblocks  = size/grain;
+
+      std::vector<result_type> summaries
+        ( nblocks, w.neutral_(nt2::meta::as_<result_type>()) );
+
+      std::vector<bool> prescan_bits( nblocks, true );
+      prescan_bits[0] = false;
+
+
+      #pragma omp parallel
+      {
+
+#ifndef BOOST_NO_EXCEPTIONS
+        try
+        {
+#endif
+          // Dispatch group of blocks over each threads
+          #pragma omp for schedule(static)
+          for(std::ptrdiff_t n=0;n<nblocks;++n)
+          {
+              // Call operation
+              summaries[n] = w(summaries[n],begin+n*grain,grain,prescan_bits[n]);
+          }
+
+          #pragma omp for schedule(static)
+          for(std::ptrdiff_t n=1;n<nblocks;++n)
+          {
+              result_type summary = w.neutral_(nt2::meta::as_<result_type>());
+
+              for(std::ptrdiff_t k=0;k<n;++k)
+                summary = w.bop_(summary,summaries[k]);
+
+              // Call operation
+              summary = w(summary,begin+n*grain,grain,false);
+          }
+
+#ifndef BOOST_NO_EXCEPTIONS
+        }
+        catch(...)
+        {
+
+          #pragma omp critical
+          exception = boost::current_exception();
+        }
+#endif
+
+      }
+
 
         // Call operation
-        return w(summary,begin,size,false);
+        return summaries[nblocks-1];
     }
   };
 }
