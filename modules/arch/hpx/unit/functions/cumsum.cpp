@@ -25,10 +25,7 @@
 #include <nt2/sdk/unit/tests/type_expr.hpp>
 #include <nt2/sdk/unit/tests/exceptions.hpp>
 
-#include <nt2/include/functions/display.hpp>
-
 #include <vector>
-#include <iostream>
 
 NT2_TEST_CASE( cumsum_inner )
 {
@@ -64,13 +61,6 @@ NT2_TEST_CASE( cumsum_inner )
        r[m+nn] = tmp;
     }
   }
-
-  nt2::display(b);
-
-  // table<T, nt2::shared_> c(of_size(M,N)
-  //                         ,nt2::share(&r[0],&r[size])
-  //                         );
-  // NT2_TEST( isequal(b, c) );
 
   NT2_TEST_EQUAL(b, r);
 }
