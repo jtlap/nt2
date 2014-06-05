@@ -48,14 +48,14 @@ namespace nt2 { namespace ext
       nt2::worker<tag::inner_scan_,BackEnd,Site,Out,In,Neutral,Bop>
       w(out, in, neutral, bop);
 
-     // if((obound > grain) && (8*grain < bound*obound))
-     // {
-     //   nt2::spawner< tag::transform_, BackEnd > s;
-     //   s(w,0,obound,grain);
-     // }
+      if((obound > grain) && (8*grain < bound*obound))
+      {
+        nt2::spawner< tag::transform_, BackEnd > s;
+        s(w,0,obound,grain);
+      }
 
-     // else
-        w(0,obound);
+     else
+      w(0,obound);
 
     }
 

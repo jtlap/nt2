@@ -64,7 +64,7 @@ namespace nt2
     {
       extent_type ext = in_.extent();
       std::size_t top_cache_line_size = config::top_cache_size(2)/sizeof(value_type);
-      std::size_t grain  = 4; /*top_cache_line_size;*/
+      std::size_t grain  = top_cache_line_size;
 
       std::size_t bound  = boost::fusion::at_c<0>(ext);
       std::size_t ibound = (bound/grain) * grain;
