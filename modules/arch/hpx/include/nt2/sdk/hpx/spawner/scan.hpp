@@ -72,9 +72,8 @@ namespace nt2
             Two_Futures two_results = deps.get();
             result_type result1 = ( hpx::util::get<0>(two_results) ).get();
             result_type result2 = ( hpx::util::get<1>(two_results) ).get();
-            result_type summary = result1;
 
-            barrier_.push_back( hpx::async(w_, summary, begin_, size_,false) );
+            barrier_.push_back( hpx::async(w_, result1, begin_, size_, false) );
 
             return w_.bop_(result1,result2);
         }
