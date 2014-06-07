@@ -15,11 +15,11 @@
 #include <nt2/include/functions/asum1.hpp>
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/include/constants/nan.hpp>
-#include <boost/assert.hpp>
+#include <nt2/core/container/dsl.hpp>
 #include <nt2/linalg/options.hpp>
 #include <nt2/sdk/meta/as_real.hpp>
-#include <nt2/core/container/dsl.hpp>
 #include <nt2/sdk/meta/property_of.hpp>
+#include <boost/assert.hpp>
 
 namespace nt2 { namespace ext
 {

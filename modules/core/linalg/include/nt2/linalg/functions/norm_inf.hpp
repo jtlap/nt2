@@ -9,9 +9,6 @@
 #ifndef NT2_LINALG_FUNCTIONS_NORM_INF_HPP_INCLUDED
 #define NT2_LINALG_FUNCTIONS_NORM_INF_HPP_INCLUDED
 #include <nt2/include/functor.hpp>
-#include <boost/simd/include/functor.hpp>
-#include <boost/dispatch/include/functor.hpp>
-#include <nt2/sdk/memory/container.hpp>
 
 /*!
  * \ingroup algebra
