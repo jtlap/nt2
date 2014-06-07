@@ -15,7 +15,7 @@
  * \defgroup algebra_norm_1 norm_1
  *
  * \par Description
- * compute the 1inity norm of a vector or a matrix
+ * compute the 1-norm of a vector or a matrix
  *
  * that is :
  *  sum(abs(a)) for a vector
@@ -38,12 +38,6 @@
  * the second parameter can be used to suppose with vector_ that a is a big column vector
  * or with matrix_ that it is a matrix
  * \param a the matrix or vector expression a
- *
- * \param type of norm_1 required
- *
- * \par Notes
- *   Call the dedicated lapack routines available on the target.
- * \par
  *
  **/
 

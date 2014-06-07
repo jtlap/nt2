@@ -39,12 +39,6 @@
  * or with matrix_ that it is a matrix
  * \param a the matrix or vector expression a
  *
- * \param type of norm_inf required
- *
- * \par Notes
- *   Call the dedicated lapack routines available on the target.
- * \par
- *
  **/
 
 namespace nt2 { namespace tag
