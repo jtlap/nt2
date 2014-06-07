@@ -12,6 +12,7 @@ SET( SOURCES
   det.cpp
   norm.cpp
   norm_inf.cpp
+  norm_1.cpp
   normest.cpp
   rank.cpp
   rcond.cpp
