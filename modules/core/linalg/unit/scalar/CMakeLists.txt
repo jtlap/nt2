@@ -13,6 +13,7 @@ SET( SOURCES
   norm.cpp
   norm_inf.cpp
   norm_1.cpp
+  norm_fro.cpp
   normest.cpp
   rank.cpp
   rcond.cpp
