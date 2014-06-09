@@ -21,4 +21,4 @@ set( SOURCES
     split.cpp
    )
 
-nt2_module_add_tests(type.complex.swar.simd.unit ${SOURCES})
+nt2_module_add_tests(type.complex.base.swar.simd.unit ${SOURCES})

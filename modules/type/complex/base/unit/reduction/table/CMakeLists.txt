@@ -41,4 +41,4 @@ SET( SOURCES
 # List of test files for toolbox core.reduction
    )
 
-nt2_module_add_tests(type.complex.reduction.table.unit ${SOURCES})
+nt2_module_add_tests(type.complex.base.reduction.table.unit ${SOURCES})

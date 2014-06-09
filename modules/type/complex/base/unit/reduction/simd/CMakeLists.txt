@@ -21,4 +21,4 @@ set( SOURCES
   none.cpp
   )
 
-nt2_module_add_tests(type.complex.reduction.simd.unit ${SOURCES})
+nt2_module_add_tests(type.complex.base.reduction.simd.unit ${SOURCES})
