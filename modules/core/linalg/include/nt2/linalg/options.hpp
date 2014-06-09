@@ -39,6 +39,7 @@ namespace nt2
     struct no_balance_: boost::mpl::false_  {};
     struct alphabeta_ : boost::mpl::false_  {};
     struct lambda_    : boost::mpl::false_  {};
+    struct no_sort_   : boost::mpl::false_  {};
   }
 
   nt2::policy<ext::pivot_>       const pivot_;
@@ -65,6 +66,7 @@ namespace nt2
   nt2::policy<ext::no_balance_>  const no_balance_;
   nt2::policy<ext::alphabeta_>   const alphabeta_;
   nt2::policy<ext::lambda_>      const lambda_;
+  nt2::policy<ext::no_sort_>     const no_sort_;
 }
 
 #endif

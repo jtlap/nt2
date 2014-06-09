@@ -28,17 +28,33 @@ namespace nt2
   }
 
   /**
+    symeig computes the eigenvalues and/or eigenvectors of a symetric real or
+    hermitian complex input.
+
     symeig can be called:
     w = symeig(a)
-    w = symeig(a, matrix_/vector_/'U'/'L')
-    w = symeig(a, matrix_/vector_, 'U'/'L')
+    w = symeig(a, matrix_/vector_/lower_/upper_)
+    w = symeig(a, matrix_/vector_,  lower_, upper)
     [w, v] = symeig(a)
-    [w, v] = symeig(a, matrix_/vector_/'U'/'L')
-    [w, v] = symeig(a, matrix_/vector_, 'U'/'L')
+    [w, v] = symeig(a, matrix_/vector_/lower_/upper)
+    [w, v] = symeig(a, matrix_/vector_,  lower_, upper)
 
-    w will contain the eigenvalues which are real in vector_ or diagonal matrix_ form
+    w will contain the eigenvalues which are real in vector_ or diagonal matrix_ form.
+    w is always real.
+    With 2 outputs default is matrix_
+    With 1 output  default is vector_
+
     v will contain the eigenvectors in a matrix of element of the same type as the input
+    v is always complex
 
+    lower_/upper_ determines which part of the supposed symetric/hermitian input will
+    be accessed (default is upper_), the other part being never referenced.
+
+    For instance symeig(a,lower_) and  symeig(tril(a),lower_) leads to the same result.
+
+
+
+    Note : with 3 inputs the 2 options can be in reverse order
    **/
   NT2_FUNCTION_IMPLEMENTATION(tag::symeig_, symeig, 1)
   NT2_FUNCTION_IMPLEMENTATION(tag::symeig_, symeig, 2)
@@ -47,6 +63,14 @@ namespace nt2
 
 namespace nt2 { namespace ext
 {
+  template<class Domain, class Expr>
+  struct  value_type<tag::symeig_,Domain,1,Expr>
+  {
+    typedef typename boost::proto::result_of::child_c<Expr&,0>::value_type child0;
+    typedef typename child0::value_type c_type;
+    typedef typename nt2::meta::as_real<c_type>::type  type;
+  };
+
   template<class Domain, int N, class Expr>
   struct  size_of<tag::symeig_,Domain,N,Expr>
         : meta::size_as<Expr,0>
