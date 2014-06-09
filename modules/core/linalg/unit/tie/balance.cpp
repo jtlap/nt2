@@ -27,6 +27,7 @@
 #include <nt2/include/functions/inv.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
 #include <boost/dispatch/meta/as.hpp>
+#include <complex>
 
 NT2_TEST_CASE_TPL ( balance_expr, NT2_REAL_TYPES)
 {
@@ -106,6 +107,118 @@ NT2_TEST_CASE_TPL ( balance_expr, NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(a, b, 10);
   iT n = height(a);
   NT2_TEST_ULP_EQUAL(s, nt2::ones(n, 1, boost::dispatch::meta::as_<T>()), 0);
+  NT2_TEST_ULP_EQUAL(ip, nt2::_(iT(1), n), 0);
+
+  std::cout << "nt2::balance(a);" << std::endl;
+  nt2::tie(s, ip, b) = nt2::balance(a);
+  NT2_DISPLAY(b);
+  NT2_DISPLAY(s);
+  NT2_DISPLAY(ip);
+  nt2::tie(t, b1) = nt2::balance(a);
+  NT2_TEST_ULP_EQUAL(t(nt2::_, ip), from_diag(s), 0);
+  NT2_TEST_ULP_EQUAL(b(ip, ip), mtimes(mtimes(from_diag(nt2::One<T>()/s), a), from_diag(s)), 0.5);
+
+  std::cout << "nt2::balance(a, nt2::perm_);" << std::endl;
+  nt2::tie(s, ip, b) = nt2::balance(a, nt2::perm_);
+  NT2_DISPLAY(b);
+  NT2_DISPLAY(s);
+  NT2_DISPLAY(ip);
+  nt2::tie(t, b1) = nt2::balance(a, nt2::perm_);
+  NT2_TEST_ULP_EQUAL(t(nt2::_, ip), from_diag(s), 0);
+  NT2_TEST_ULP_EQUAL(b(ip, ip), mtimes(mtimes(from_diag(nt2::One<T>()/s), a), from_diag(s)), 0.5);
+
+  std::cout << "nt2::balance(a, nt2::no_perm_);" << std::endl;
+  nt2::tie(s, ip, b) = nt2::balance(a, nt2::no_perm_);
+  NT2_DISPLAY(b);
+  NT2_DISPLAY(s);
+  NT2_DISPLAY(ip);
+  nt2::tie(t, b1) = nt2::balance(a, nt2::no_perm_);
+  NT2_TEST_ULP_EQUAL(t(nt2::_, ip), from_diag(s), 0);
+  NT2_TEST_ULP_EQUAL(b(ip, ip), mtimes(mtimes(from_diag(nt2::One<T>()/s), a), from_diag(s)), 0.5);
+
+}
+
+NT2_TEST_CASE_TPL ( balance_exprc, (double))//NT2_REAL_TYPES)
+{
+  typedef std::complex<T> cT;
+  typedef typename nt2::meta::as_integer<T, signed>::type iT;
+  typedef nt2::table<T> t_t;
+  typedef nt2::table<cT> ct_t;
+  typedef nt2::table<iT> it_t;
+
+  T bc[25] =  {
+    1.0, 2.0, 0., 0., 0.,
+    0. , 2.0, 0., 0., 0.,
+    1.,  100.,  10000., 4., 0.2,
+    .01,  1.,  100., 0.2, 0.1,
+    .0001,  .01,  1., 0., 0.000
+  };
+
+  int k = 0;
+  ct_t a(nt2::of_size(5, 5));
+  for(int i=1; i <= 5; i++)
+    {
+      for(int j=1; j <= 5; j++)
+        {
+          a(i, j) = bc[k++];
+        }
+
+    }
+  NT2_DISPLAY(a);
+  ct_t t, b, zz, b1;
+  ct_t s;
+  it_t ip;
+  b = nt2::balance(a);
+  NT2_DISPLAY(b);
+  b = nt2::balance(a, nt2::no_perm_);
+  NT2_DISPLAY(b);
+  b = nt2::balance(a, nt2::perm_);
+  NT2_DISPLAY(b);
+  b = nt2::balance(a, nt2::both_);
+  NT2_DISPLAY(b);
+  b = nt2::balance(a, nt2::none_);
+  NT2_DISPLAY(b);
+
+
+
+  tie(t, b) = nt2::balance(a);
+  NT2_DISPLAY(b);
+  NT2_DISPLAY(t);
+  zz = nt2::mtimes(nt2::mtimes(nt2::inv(t), a), t);
+  NT2_TEST_ULP_EQUAL(zz, b, 10);
+
+  tie(t, b) = nt2::balance(a, nt2::no_perm_);
+  NT2_DISPLAY(b);
+  NT2_DISPLAY(t);
+  zz = nt2::mtimes(nt2::mtimes(nt2::inv(t), a), t);
+  NT2_TEST_ULP_EQUAL(zz, b, 10);
+
+  tie(t, b) = nt2::balance(a, nt2::perm_);
+  NT2_DISPLAY(b);
+  NT2_DISPLAY(t);
+  zz = nt2::mtimes(nt2::mtimes(nt2::inv(t), a), t);
+  NT2_TEST_ULP_EQUAL(zz, b, 10);
+
+  tie(t, b) = nt2::balance(a, nt2::both_);
+  NT2_DISPLAY(b);
+  NT2_DISPLAY(t);
+  zz = nt2::mtimes(nt2::mtimes(nt2::inv(t), a), t);
+  NT2_TEST_ULP_EQUAL(zz, b, 10);
+
+  tie(t, b) = nt2::balance(a, nt2::none_);
+  NT2_DISPLAY(b);
+  NT2_DISPLAY(t);
+  zz = nt2::mtimes(nt2::mtimes(nt2::inv(t), a), t);
+  NT2_TEST_ULP_EQUAL(zz, b, 10);
+
+  std::cout << "nt2::balance(a, nt2::none_);" << std::endl;
+  nt2::tie(s, ip, b) = nt2::balance(a, nt2::none_);
+  NT2_DISPLAY(b);
+  NT2_DISPLAY(s);
+  NT2_DISPLAY(ip);
+  NT2_TEST_ULP_EQUAL(a, b, 10);
+  iT n = height(a);
+  NT2_TEST_ULP_EQUAL(s, nt2::ones(n, 1, boost::dispatch::meta::as_<cT>()), 0);
   NT2_TEST_ULP_EQUAL(ip, nt2::_(iT(1), n), 0);
 
   std::cout << "nt2::balance(a);" << std::endl;

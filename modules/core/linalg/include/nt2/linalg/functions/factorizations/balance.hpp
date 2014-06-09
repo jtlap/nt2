@@ -14,6 +14,7 @@
 #include <nt2/include/functions/colvect.hpp>
 #include <nt2/include/functions/colon.hpp>
 #include <nt2/include/functions/eye.hpp>
+#include <nt2/include/functions/is_nez.hpp>
 #include <nt2/include/functions/gebak.hpp>
 #include <nt2/include/functions/gebal.hpp>
 #include <nt2/include/functions/height.hpp>
@@ -22,6 +23,7 @@
 #include <nt2/include/functions/ones.hpp>
 #include <nt2/include/functions/tie.hpp>
 #include <nt2/include/functions/value.hpp>
+#include <nt2/linalg/details/utility/warning.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/sdk/meta/as_real.hpp>
 #include <nt2/linalg/options.hpp>
@@ -84,8 +86,6 @@ namespace nt2 { namespace ext
 
     BOOST_FORCEINLINE result_type operator()( A0& a0, A1& a1 ) const
     {
-      char uplo =  'U';
-      char jobz =  'N';
       eval(a0, a1, N0(), N1());
     }
   private:
@@ -108,7 +108,8 @@ namespace nt2 { namespace ext
               , boost::mpl::long_<1> const&
               ) const
     {
-      eval2_1(a0, a1, boost::proto::value(boost::proto::child_c<1>(a0)));
+      eval2_1(a0, a1
+             , boost::proto::value(boost::proto::child_c<1>(a0)));
     }
 
     //perm_
@@ -124,9 +125,9 @@ namespace nt2 { namespace ext
       nt2_la_int ilo, ihi;
       nt2_la_int n = height(boost::proto::child_c<0>(a1));
       nt2::container::table<rtype_t> scale(of_size(n, 1));
-      gebal(boost::proto::value(boost::proto::child_c<0>(a1))
-           , boost::proto::value(scale)
-           , ilo, ihi, 'P');
+      lapack_warn(gebal(boost::proto::value(boost::proto::child_c<0>(a1))
+                       , boost::proto::value(scale)
+                       , ilo, ihi, 'P'));
     }
 
     //no_perm_
@@ -142,9 +143,9 @@ namespace nt2 { namespace ext
       nt2_la_int ilo, ihi;
       nt2_la_int n = height(boost::proto::child_c<0>(a1));
       nt2::container::table<rtype_t> scale(of_size(n, 1));
-      gebal( boost::proto::value(boost::proto::child_c<0>(a1))
-           , boost::proto::value(scale)
-           , ilo, ihi, 'S');
+      lapack_warn(gebal( boost::proto::value(boost::proto::child_c<0>(a1))
+                       , boost::proto::value(scale)
+                       , ilo, ihi, 'S'));
     }
 
     //both_
@@ -160,9 +161,9 @@ namespace nt2 { namespace ext
       nt2_la_int ilo, ihi;
       nt2_la_int n = height(boost::proto::child_c<0>(a1));
       nt2::container::table<rtype_t> scale(of_size(n, 1));
-      gebal(boost::proto::value(boost::proto::child_c<0>(a1))
-           , boost::proto::value(scale)
-           , ilo, ihi, 'B');
+      lapack_warn(gebal(boost::proto::value(boost::proto::child_c<0>(a1))
+                       , boost::proto::value(scale)
+                       , ilo, ihi, 'B'));
     }
 
     // none_
@@ -218,13 +219,13 @@ namespace nt2 { namespace ext
       nt2_la_int ilo, ihi;
       nt2_la_int n = height(boost::proto::child_c<1>(a1));
       nt2::container::table<rtype_t> scale(of_size(n, 1));
-      gebal(boost::proto::value(boost::proto::child_c<1>(a1))
-           , boost::proto::value(scale)
-           , ilo, ihi, job);
+      lapack_warn(gebal(boost::proto::value(boost::proto::child_c<1>(a1))
+                       , boost::proto::value(scale)
+                       , ilo, ihi, job));
       boost::proto::child_c<0>(a1) = nt2::eye(n, n, meta::as_<type_t>());
       nt2_la_int ldt = boost::proto::child_c<1>(a1).leading_size();
-      gebak(boost::proto::value(boost::proto::child_c<0>(a1)),
-            boost::proto::value(scale), ilo, ihi,  job, 'R');
+      lapack_warn(gebak(boost::proto::value(boost::proto::child_c<0>(a1)),
+                        boost::proto::value(scale), ilo, ihi,  job, 'R'));
     }
 
     // both_
@@ -264,7 +265,6 @@ namespace nt2 { namespace ext
       boost::proto::child_c<0>(a1) = nt2::eye(n, n, meta::as_<type_t>());
       BOOST_ASSERT_MSG(issquare(boost::proto::child_c<1>(a1)),
                        "matrix to balance must be square");
-
     }
 
     //==========================================================================
@@ -278,7 +278,7 @@ namespace nt2 { namespace ext
               , boost::mpl::long_<3> const&
               ) const
     {
-      eval3_2(a0, a1,  nt2::policy<ext::both_>());
+      eval3_2(a0, a1, 'B');
     }
 
     //==========================================================================
@@ -304,34 +304,37 @@ namespace nt2 { namespace ext
        boost::proto::child_c<2>(a1) = boost::proto::child_c<0>(a0);
        nt2_la_int ilo, ihi;
        nt2_la_int n = height(boost::proto::child_c<2>(a1));
-       gebal(boost::proto::value(boost::proto::child_c<2>(a1))
-            , boost::proto::value(boost::proto::child_c<0>(a1))
-            , ilo, ihi, job);
+       nt2::container::table<rtype_t> scale(of_size(n, 1));
+       lapack_warn(gebal(boost::proto::value(boost::proto::child_c<2>(a1))
+                        , boost::proto::value(scale)
+                        , ilo, ihi, job));
        nt2::container::table<type_t> t =  nt2::eye(n, n, meta::as_<type_t>());
-       nt2_la_int ldt = t.leading_size();
-       gebak( boost::proto::value(t)
-            , boost::proto::value(boost::proto::child_c<0>(a1))
-            , ilo, ihi,  job, 'R');
+       lapack_warn(gebak( boost::proto::value(t)
+                        , boost::proto::value(scale)
+                        , ilo, ihi,  job, 'R'));
        extract_ips(a1, t);
     }
 
     /// INTERNAL ONLY
+    template < class T>
     BOOST_FORCEINLINE
-    void  extract_ips(A1& a1, nt2::container::table<type_t>& t) const
+    void  extract_ips(A1& a1, const T& t) const
     {
       size_t n =  height(t);
-        for(size_t i=1; i <= n; ++i)
+      boost::proto::child_c<1>(a1).resize(of_size(n, 1));
+      boost::proto::child_c<0>(a1).resize(of_size(n, 1));
+      for(size_t i=1; i <= n; ++i)
+      {
+        for(size_t j=1; j <= n; ++j)
         {
-          for(size_t j=1; j <= n; ++j)
+          if(is_nez(t(i, j)))
           {
-            if(t(i, j))
-            {
-              boost::proto::child_c<1>(a1)(i) = j;
-              boost::proto::child_c<0>(a1)(i) = t(i, j);
-              break;
-            }
+            boost::proto::child_c<1>(a1)(i) = j;
+            boost::proto::child_c<0>(a1)(i) = real(t(i, j));
+            break;
           }
         }
+      }
     }
 
     /// INTERNAL ONLY

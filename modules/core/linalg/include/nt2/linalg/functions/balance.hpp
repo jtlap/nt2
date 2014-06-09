@@ -16,6 +16,7 @@
 #include <nt2/core/container/dsl/size.hpp>
 #include <nt2/sdk/meta/tieable_hierarchy.hpp>
 #include <nt2/core/container/dsl/value_type.hpp>
+#include <nt2/sdk/meta/as_real.hpp>
 
 namespace nt2
 {
@@ -41,15 +42,15 @@ namespace nt2
    * For any given matrix expression a, performs a
    * balance diagonal scaling to improve eigenvalue accuracy.
    *
-   *     [t,b] = balance(a) finds a similarity transformation t such
-   *     that b = inv(t)*t has, as nearly as possible, approximately equal
+   *     tie(t,b) = balance(a) finds a similarity transformation t such
+   *     that b = inv(t)*a*t has, as nearly as possible, approximately equal
    *     row and column norms.  t is a permutation of a diagonal matrix
    *     whose elements are integer powers of two so that the balancing
    *     doesn't introduce any round-off error.
    *
    *     b = balance(a) returns the balanced matrix b.
    *
-   *     [s,p,b] = balance(a) returns the scaling vector s and the
+   *     tie(s,p,b) = balance(a) returns the scaling vector s and the
    *     permutation vector p separately.  the transformation t and
    *     balanced matrix b are obtained from a,s,p by
    *        t(_,p) = diag(s), b(p,p) = from_diag(1./s)*a*from_diag(s).
@@ -59,12 +60,14 @@ namespace nt2
    *     to do nothing(!), use the syntax balance(a, none_).
    *     (this can be useful to see the impact while retaining the code).
    *
-   *     [s,p,b] = balance(a), [t,b] = balance(a) and b = balance(a)
+   *     tie(s,p,b) = balance(a), [t,b] = balance(a) and b = balance(a)
    *     are respectively equivalent to
-   *     [s,p,b] = balance(a, both_), [t,b] = balance(a, both_)
+   *     tie(s,p,b) = balance(a, both_), tie(t,b) = balance(a, both_)
    *     and b = balance(a, both_).
    *
+   *     balance uses xgebal and xgebak lapack routines
    **/
+
   NT2_FUNCTION_IMPLEMENTATION(tag::balance_, balance, 1)
   NT2_FUNCTION_IMPLEMENTATION(tag::balance_, balance, 2)
 

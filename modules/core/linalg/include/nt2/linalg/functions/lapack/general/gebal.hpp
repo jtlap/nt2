@@ -142,7 +142,7 @@ namespace nt2 { namespace ext
      BOOST_FORCEINLINE result_type operator()( A0& a, A1& scale
                                              , A2& ilo, A3& ihi, C0 job) const
      {
-        result_type info;
+        result_type info = 0;
         nt2_la_int  n   = nt2::width(a);
         BOOST_ASSERT_MSG(n == nt2_la_int(nt2::height(a)), "input must be square");
         nt2_la_int  lda = nt2::max(a.leading_size(), One<size_t>());

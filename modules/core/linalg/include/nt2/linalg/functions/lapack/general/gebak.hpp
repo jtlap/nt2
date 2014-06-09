@@ -145,7 +145,7 @@ namespace nt2 { namespace ext
                             , (A0)(S0)(A1)(S1)(C0)(C1)(C2)(C3)
                             , ((container_<nt2::tag::table_,  complex_<double_<A0> > , S0 >)) //a
                                ((container_<nt2::tag::table_,  double_<A1>, S1 >))            //scale
-                             (scalar_< integer_<C0> >)                                        //ilo
+                              (scalar_< integer_<C0> >)                                        //ilo
                               (scalar_< integer_<C1> >)                                       //ihi
                               (scalar_< ints8_<C2> >)                                         //job
                               (scalar_< ints8_<C3> >)                                         //side
