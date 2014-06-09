@@ -88,4 +88,15 @@ set(NT2_BINDING.MAGMA_COMPILE_FLAGS               ${MAGMA_CXX_FLAGS})
 set(NT2_BINDING.MAGMA_DEPENDENCIES_INCLUDE_DIR ${MAGMA_INCLUDE_PATH} ${CUDA_INCLUDE_PATH})
 set(NT2_BINDING.MAGMA_DEPENDENCIES_LIBRARIES        ${MAGMA_LIBRARY})
 
-set(NT2_BINDING.MAGMA_DEPENDENCIES_EXTRA sdk.functor core.linalg)
+set(  NT2_BINDING.MAGMA_DEPENDENCIES_EXTRA
+      boost.dispatch
+      boost.simd.base
+      core.base
+      core.container.table
+      core.exponential
+      core.generative
+      core.linalg
+      core.reduction
+      core.restructuring
+      core.sdk
+    )

@@ -10,14 +10,9 @@
 SET ( NT2_CORE.BASE_DEPENDENCIES_EXTRA
       boost.dispatch
       boost.simd.base
+      boost.simd.reduction
       boost.simd.sdk
-      core.adjacent
-      core.container.placeholders
-      core.container.table
-      core.reduction
-      core.restructuring
       core.sdk
-      core.swar
       sdk.config
       sdk.functor
       sdk.meta

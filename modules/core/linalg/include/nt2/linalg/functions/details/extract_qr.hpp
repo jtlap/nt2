@@ -9,9 +9,11 @@
 #ifndef NT2_LINALG_FUNCTIONS_DETAILS_EXTRACT_QR_HPP_INCLUDED
 #define NT2_LINALG_FUNCTIONS_DETAILS_EXTRACT_QR_HPP_INCLUDED
 
+#include <nt2/core/container/colon/colon.hpp>
 #include <nt2/core/container/table/table.hpp>
 #include <nt2/include/functions/height.hpp>
 #include <nt2/include/functions/expand.hpp>
+#include <nt2/include/functions/function.hpp>
 #include <nt2/include/functions/width.hpp>
 #include <nt2/include/functions/triu.hpp>
 #include <nt2/include/functions/gqr.hpp>

@@ -24,8 +24,8 @@
 #include <nt2/include/functions/isscalar.hpp>
 #include <nt2/include/functions/repnum.hpp>
 #include <nt2/include/constants/true.hpp>
-#include <nt2/core/container/table/table.hpp>
 #include <nt2/core/container/colon/colon.hpp>
+#include <nt2/table.hpp>
 
 namespace nt2
 {

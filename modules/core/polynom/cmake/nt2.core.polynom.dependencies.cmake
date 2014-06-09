@@ -12,6 +12,7 @@ SET ( NT2_CORE.POLYNOM_DEPENDENCIES_EXTRA
       core.container.placeholders
       core.container.table
       core.generative
+      core.extractive
       core.linalg
       core.reduction
       core.restructuring
@@ -21,5 +22,4 @@ SET ( NT2_CORE.POLYNOM_DEPENDENCIES_EXTRA
       sdk.functor
       sdk.meta
       type.complex.sdk
-      type.complex.base
     )

@@ -10,15 +10,12 @@
 SET ( NT2_CORE.HYPERBOLIC_DEPENDENCIES_EXTRA
       boost.dispatch
       boost.simd.base
-      boost.simd.reduction
       boost.simd.sdk
+      core.base
       core.exponential
       core.polynomials
+      core.reduction
       core.sdk
-      core.trigonometric
-      core.base
-      sdk.error
       sdk.functor
       sdk.meta
-      sdk.simd
     )

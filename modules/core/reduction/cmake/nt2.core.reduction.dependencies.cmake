@@ -12,12 +12,12 @@ SET ( NT2_CORE.REDUCTION_DEPENDENCIES_EXTRA
       boost.simd.base
       boost.simd.reduction
       boost.simd.sdk
-      boost.simd.swar
       core.adjacent
+      core.base
       core.exponential
       core.restructuring
       core.sdk
-      core.base
+      core.swar
       sdk.config
       sdk.functor
       sdk.meta

@@ -14,6 +14,7 @@
 #include <nt2/include/functions/sqr.hpp>
 #include <nt2/include/functions/sqrt.hpp>
 #include <nt2/include/functions/rowvect.hpp>
+#include <nt2/include/functions/function.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/two.hpp>
 #include <nt2/include/constants/three.hpp>
