@@ -13,7 +13,6 @@ SET ( NT2_CORE.ELLIPTIC_DEPENDENCIES_EXTRA
       core.base
       core.exponential
       core.polynomials
-      core.reduction
       core.sdk
       core.trigonometric
       sdk.error
