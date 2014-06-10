@@ -15,6 +15,7 @@
 #include <nt2/include/functions/height.hpp>
 #include <nt2/include/functions/of_size.hpp>
 #include <nt2/include/functions/qr.hpp>
+#include <nt2/include/functions/linsolve.hpp>
 #include <nt2/include/functions/mtimes.hpp>
 #include <nt2/include/functions/maximum.hpp>
 #include <nt2/include/functions/abs.hpp>

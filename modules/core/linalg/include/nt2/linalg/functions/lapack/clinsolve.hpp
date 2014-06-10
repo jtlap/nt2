@@ -184,7 +184,7 @@ namespace nt2 { namespace ext
         char norm = '1';
 
         type_t anorm = nt2::lange(boost::proto::value(entry),norm);
-        boost::proto::child_c<1>(a2) = nt2::con(boost::proto::value(entry),norm,anorm);
+        boost::proto::child_c<1>(a2) = nt2::gecon(boost::proto::value(entry),norm,anorm);
       }
       else
       {
@@ -257,7 +257,7 @@ namespace nt2 { namespace ext
       char norm = '1';
 
       type_t anorm = nt2::langb(boost::proto::value(entry),norm);
-      nt2::bsv( boost::proto::value(entry), boost::proto::value(piv)
+      nt2::gbsv( boost::proto::value(entry), boost::proto::value(piv)
               , boost::proto::value(work));
       boost::proto::child_c<1>(a2) = nt2::gbcon( boost::proto::value(entry)
                                                , boost::proto::value(piv),anorm);
