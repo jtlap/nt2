@@ -99,15 +99,15 @@ namespace nt2
     @endcode
   **/
 
-   union ufloat{
-      float f;
-      unsigned u;
-      int i;
-    };
 
   template<typename Type, typename TestF, typename RefF> inline
   void exhaustive_test(float mini, float maxi, TestF test_f, RefF reference_f)
   {
+    union ufloat{
+      float f;
+      unsigned u;
+    };
+
     typedef Type                                                    n_t;
     typedef typename boost::dispatch::meta::as_integer<Type>::type  in_t;
 
@@ -150,8 +150,6 @@ namespace nt2
               << "             With T: " << nt2::type_id<Type>()      << "\n"
               << "           in range: [" << mini << ", " << maxi << "]" << "\n";
     std::cout << std::endl;
-
-  //  std::cout << "[" << std::flush;
 
     int NN;
     nt2::uint32_t k = 0;
