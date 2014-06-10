@@ -52,8 +52,8 @@ template<typename T> struct linsolve_nt2
   {
     // result = b;
     //  ac = a;
-    nt2::gels(boost::proto::value(a),boost::proto::value(b) );
-    // result = mcsne(a,b);
+    // nt2::gels(boost::proto::value(a),boost::proto::value(b) );
+    result = mcsne(a,b);
     // result = nt2::mtimes(a,b);
     // result = nt2::linsolve(a,b);
   }
@@ -68,7 +68,6 @@ template<typename T> struct linsolve_nt2
        // return ((FLOPS_GETRF(h,w)+ FLOPS_DGETRS(h,1))/r.second)/1000.;
      // return ((FLOPS_DGEMM(h,w,w))/r.second)/1000.;
     return ((FLOPS_GEQRF(h,w)+ FLOPS_DGETRS(h,1)));
-    // return (FLOPS_GEQRF(h,w)+ FLOPS_DGETRS(h,1));
   }
 
 private:

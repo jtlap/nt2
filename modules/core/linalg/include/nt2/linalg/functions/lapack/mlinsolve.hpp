@@ -11,20 +11,15 @@
 
 #include <nt2/linalg/functions/mlinsolve.hpp>
 #include <nt2/linalg/functions/clinsolve.hpp>
-<<<<<<< HEAD
 #include <nt2/include/functions/gemsv.hpp>
-#include <nt2/include/functions/pomsv.hpp>
-=======
-#include <nt2/include/functions/msv.hpp>
 #include <nt2/include/functions/mcsne.hpp>
-#include <nt2/include/functions/mposv.hpp>
->>>>>>> Modified linsolve :
+#include <nt2/include/functions/pomsv.hpp>
 #include <nt2/linalg/options.hpp>
 #include <nt2/sdk/meta/concrete.hpp>
 #include <nt2/sdk/meta/settings_of.hpp>
 #include <nt2/include/functions/tie.hpp>
 #include <nt2/sdk/meta/as_real.hpp>
-
+#include <boost/proto/traits.hpp>
 #include <nt2/core/container/table/table.hpp>
 
 #include <boost/dispatch/meta/ignore_unused.hpp>
@@ -66,19 +61,21 @@ namespace nt2 { namespace ext
 
       if (m>n)
       {
-        a2 = nt2::mcsne(a0,a1);
+      typedef nt2::memory::container<tag::table_, ctype_t, nt2::settings(nt2::_2D,shape)> desired_semantic;
+      typename container::as_terminal<desired_semantic, A0&>::type in = container::as_terminal<desired_semantic, A0&>::init(a0);
+       a2 = nt2::mcsne(in,a1);
       }
       else
       {
       entry_type entry(a0);
-      nt2_la_int iter = nt2::msv(boost::proto::value(entry)
+      nt2_la_int iter = nt2::gemsv(boost::proto::value(entry)
                        ,boost::proto::value(a1),boost::proto::value(a2) );
       boost::dispatch::ignore_unused(iter);
       }
 
     }
 
-    /// INTERNAL ONLY - Rectangular shape
+    /// INTERNAL ONLY - Positive definite shape
     BOOST_FORCEINLINE
     void eval ( A0 const& a0, A1 const& a1 , A2& a2, double const, nt2::positive_definite_ const&) const
     {
@@ -90,42 +87,9 @@ namespace nt2 { namespace ext
       a2 = var;
     }
 
-<<<<<<< HEAD
-    template<typename sh>
-    BOOST_FORCEINLINE
-    void shape_analysis ( A0 const& a0, A1 const& a1, A2& a2
-                        , sh const&
-                        ) const
-    {
-      eval(a0, a1, a2);
-    }
-    //==========================================================================
-    /// INTERNAL ONLY -
-    BOOST_FORCEINLINE
-    void eval ( A0 const& a0, A1 const& a1 , A2& a2) const
-    {
-      const type_t x = type_t(0);
-      eval(a0,a1,a2,x);
-    }
-
-    //==========================================================================
-    /// INTERNAL ONLY - Solve with no shape info Todo : Analyse shape
-    BOOST_FORCEINLINE
-    void eval ( A0 const& a0, A1 const& a1 , A2& a2, double const) const
-    {
-      entry_type entry(a0);
-      nt2_la_int iter = nt2::gemsv(boost::proto::value(entry)
-                       ,boost::proto::value(a1),boost::proto::value(a2) );
-      boost::dispatch::ignore_unused(iter);
-    }
-
-    /// INTERNAL ONLY -
-    void eval ( A0 const& a0, A1 const& a1 , A2& a2, float const) const
-=======
     /// INTERNAL ONLY - Default case
     template<typename T, typename sh> BOOST_FORCEINLINE
     void eval ( A0 const& a0, A1 const& a1 , A2& a2, T const, sh const&) const
->>>>>>> Modified linsolve :
     {
       nt2::clinsolve(a0,a1,nt2::tie(a2));
     }
