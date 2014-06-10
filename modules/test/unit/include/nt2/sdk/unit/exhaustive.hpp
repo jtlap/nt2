@@ -151,7 +151,6 @@ namespace nt2
               << "           in range: [" << mini << ", " << maxi << "]" << "\n";
     std::cout << std::endl;
 
-    int NN;
     nt2::uint32_t k = 0;
     #pragma omp parallel
     {
@@ -175,9 +174,6 @@ namespace nt2
       // Fill up the reference SIMD register data
       unsigned numThreads = omp_get_num_threads();
       float a[N];
-
-      if(omp_get_thread_num()==0)
-        NN = omp_get_num_threads();
 
       unsigned num_inc = diff.u / numThreads;
 
