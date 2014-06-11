@@ -1,6 +1,6 @@
 //==============================================================================
-//         Copyright 2009 - 2013 LRI    UMR 8623 CNRS/Univ Paris Sud XI
-//         Copyright 2013        MetaScale SAS
+//         Copyright 2014        LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2014        NumScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -27,7 +27,7 @@
 #include <iomanip>
 #include <cstdio>
 #include <cstddef>
-#include <omp.h>
+#include "omp.hpp"
 
 namespace nt2
 {
@@ -152,7 +152,9 @@ namespace nt2
     std::cout << std::endl;
 
     nt2::uint32_t k = 0;
+    #ifdef _OPENMP
     #pragma omp parallel
+    #endif
     {
       float maxin_loc[M+2];
       float minin_loc[M+2];
@@ -172,12 +174,12 @@ namespace nt2
 
       float my_mini, my_maxi;
       // Fill up the reference SIMD register data
-      unsigned numThreads = omp_get_num_threads();
+      unsigned numThreads = get_num_threads();
       float a[N];
 
       unsigned num_inc = diff.u / numThreads;
 
-      int my_id = omp_get_thread_num();
+      int my_id = get_thread_num();
 
       if (my_id==0)
         my_mini = mini;
@@ -189,7 +191,7 @@ namespace nt2
 
       my_maxi = nt2::successor(my_mini,num_inc-1);
 
-      if (my_id == omp_get_num_threads() -1)
+      if (my_id == numThreads -1)
       {
         my_maxi = maxi;
       }
@@ -252,7 +254,9 @@ namespace nt2
         a0 = nt2::successor(a0, vN);
       }
 
+      #ifdef _OPENMP
       #pragma omp critical
+      #endif
       {
         for (int kk=0;kk<M+2;kk++)
         {
