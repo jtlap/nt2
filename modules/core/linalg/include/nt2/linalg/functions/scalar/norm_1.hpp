@@ -21,6 +21,8 @@
 #include <nt2/sdk/meta/as_real.hpp>
 #include <nt2/sdk/meta/property_of.hpp>
 #include <boost/assert.hpp>
+#include <boost/static_assert.hpp>
+#include <boost/mpl/bool.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -32,21 +34,29 @@ namespace nt2 { namespace ext
     typedef typename A0::value_type                   type_t;
     typedef typename meta::as_real<type_t>::type result_type;
 
-    NT2_FUNCTOR_CALL(1)
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
+    {
+      BOOST_ASSERT_MSG(nt2::ismatrix(a0) || isvector(a0), "a0 is not matrix nor vector");
+      typedef typename details::is_definitely_vector<typename A0::extent_type>::type choice_t;
+      return eval(a0, choice_t());
+    }
+
+    BOOST_FORCEINLINE type_t
+    eval(A0 const& a0, boost::mpl::true_ const &) const
+    {
+      return asum1(a0);
+    }
+    BOOST_FORCEINLINE type_t
+    eval(A0 const& a0, boost::mpl::false_ const &) const
     {
       if (isvector(a0))
       {
         return asum1(a0);
       }
-      else if (ismatrix(a0))
+      else
       {
         return nt2::globalmax(nt2::asum1(a0, 1));
       }
-      else
-      {
-        BOOST_ASSERT_MSG(false, "a0 is not matrix nor vector");
-        return Nan<result_type>();
-       }
     }
   };
 
@@ -81,7 +91,7 @@ namespace nt2 { namespace ext
     template < class T >
     BOOST_FORCEINLINE result_type eval(const A0 & a0, const T &)
     {
-      BOOST_ASSERT_MSG(false, "unknown option to norm_1");
+      BOOST_MPL_ASSERT_MSG((false), UNKNOWN_OPTION_TO_NORM_1, (T));
       return Nan<result_type>();
     }
 
