@@ -48,7 +48,6 @@ NT2_TEST_CASE_TPL(schur_sca, NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(t, T(2), 0);
 }
 
-
 NT2_TEST_CASE_TPL(schur, NT2_REAL_TYPES)
 {
   using nt2::schur;
@@ -160,6 +159,121 @@ NT2_TEST_CASE_TPL(schur, NT2_REAL_TYPES)
   }
 
 }
+
+
+NT2_TEST_CASE_TPL(schurc, NT2_REAL_TYPES)
+{
+  using nt2::schur;
+  using nt2::_;
+  typedef std::complex<T> cT;
+  typedef nt2::table<T> t_t;
+  typedef nt2::table<cT> ct_t;
+  T sq = nt2::Sqrt_2o_2<T>();
+// t_t b = nt2::cons(nt2::of_size(2, 2), sq, sq, -sq, sq);
+  ct_t b =       nt2::ones (4, 4, nt2::meta::as_<T>())
+        + T(10)*nt2::eye  (4, 4, nt2::meta::as_<T>());
+//   b(1, 1) = T(1);
+//   b(_, 1) = b(_, 3);
+//   b(3, 3) = T(20);
+
+  nt2::display("b", b);
+  {
+    ct_t t = schur(b);
+    nt2::display("t", t);
+  }
+  ct_t cb = b;
+  nt2::display("cb", cb);
+  {
+    ct_t ct =  schur(cb);
+    nt2::display("ct", ct);
+  }
+  {
+    ct_t ct =  schur(cb, nt2::real_);
+    nt2::display("t", ct);
+  }
+  {
+    ct_t ct =  schur(b, nt2::cmplx_);
+    nt2::display("t", ct);
+  }
+  std::cout << "icitte" << std::endl;
+  {
+    ct_t w =  schur(cb, nt2::eigs_);
+    nt2::display("w", w);
+  }
+  std::cout << "latte" << std::endl;
+  std::cout << "icitte" << std::endl;
+  {
+    ct_t w =  schur(b, nt2::eigs_);
+    nt2::display("w", w);
+  }
+  std::cout << "latte" << std::endl;
+  {
+    ct_t ct =  schur(cb);
+    nt2::display("t", ct);
+  }
+  {
+    std::cout << "--1--" << std::endl;
+    ct_t t, u;
+    tie(t, u) = schur(b);
+    nt2::display("t", t);
+    nt2::display("u", u);
+    ct_t z =  mtimes(mtimes(u, t), nt2::trans(u));
+    NT2_TEST_ULP_EQUAL(b, z, 32);
+  }
+  {
+    std::cout << "--2--" << std::endl;
+    ct_t ct, cu;
+    tie(ct, cu) = schur(cb);
+    nt2::display("ct", ct);
+    nt2::display("cu", cu);
+    ct_t cz =  mtimes(mtimes(cu, ct), nt2::trans(conj(cu)));
+    NT2_TEST_ULP_EQUAL(cb, cz, 32);
+  }
+  {
+    std::cout << "--3--" << std::endl;
+    ct_t ct, cu;
+    tie(ct, cu) = schur(cb, nt2::real_);
+    nt2::display("ct", ct);
+    nt2::display("cu", cu);
+    ct_t cz =  mtimes(mtimes(cu, ct), nt2::trans(conj(cu)));
+    NT2_TEST_ULP_EQUAL(cb, cz, 32);
+  }
+  {
+    std::cout << "--4--" << std::endl;
+    ct_t ct, cu;
+    tie(ct, cu) = schur(b, nt2::cmplx_);
+    nt2::display("ct", ct);
+    nt2::display("cu", cu);
+    ct_t cz =  mtimes(mtimes(cu, ct), nt2::trans(conj(cu)));
+    NT2_TEST_ULP_EQUAL(cb, cz, 32);
+  }
+  {
+    std::cout << "--5--" << std::endl;
+    ct_t t, u;
+    ct_t w;
+    tie(t, u, w) = schur(b);
+    nt2::display("t", t);
+    nt2::display("u", u);
+    nt2::display("w", w);
+    ct_t z =  mtimes(mtimes(u, t), nt2::trans(u));
+    NT2_TEST_ULP_EQUAL(b, z, 32);
+  }
+
+  {
+    std::cout << "--6--" << std::endl;
+    ct_t ct, cu;
+    ct_t w;
+    tie(ct, cu, w) = schur(cb);
+    nt2::display("t", ct);
+    nt2::display("u", cu);
+    nt2::display("w", w);
+    ct_t cz =  mtimes(mtimes(cu, ct), nt2::trans(conj(cu)));
+    NT2_TEST_ULP_EQUAL(cb, cz, 32);
+  }
+
+}
+
+
 NT2_TEST_CASE_TPL(schur_b, NT2_REAL_TYPES)
 {
   using nt2::schur;

@@ -173,7 +173,7 @@ namespace nt2 { namespace ext
     {
       // Here  boost::proto::child_c<0>(a0) is complex
       boost::proto::child_c<0>(a1) = boost::proto::child_c<0>(a0);
-      nt2::geesx(boost::proto::child_c<0>(a1), ctype_t(0));
+      nt2::geesx(boost::proto::value(boost::proto::child_c<0>(a1)), ctype_t(0));
     }
 
     //==========================================================================
