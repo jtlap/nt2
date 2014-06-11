@@ -10,47 +10,88 @@
 #define NT2_LINALG_FUNCTIONS_DETAILS_COMBINE_HPP_INCLUDED
 
 #include <nt2/include/functions/tocomplex.hpp>
+#include <nt2/include/functions/numel.hpp>
+#include <nt2/include/functions/height.hpp>
+#include <nt2/include/functions/colon.hpp>
+#include <nt2/include/functions/conj.hpp>
+#include <nt2/core/container/table/table.hpp>
+#include <nt2/core/utility/share.hpp>
+
 
 
 namespace nt2 { namespace details
 {
+
+
   template < class T, class A0 >
   BOOST_FORCEINLINE void
   combine_eigens(const T& wr,  const T& wi, A0& w)
   {
-    int n = height(wr);
+    typedef typename A0::value_type type_t;
+    int n = numel(wr);
     w.resize(of_size(n, 1));
-    for(int i=0; i < n; ++i)
-    {
-      w.raw()[i] = std::complex<float>(wr.raw()[i], wi.raw()[i]);
-    }
+    nt2::container::table<type_t, nt2::shared_> sw(of_size(n, 1), share(w.raw(), w.raw()+n));
+    sw = tocomplex(wr, wi);
   }
   template < class T1, class T2, class A0 >
   BOOST_FORCEINLINE void
   combine_vects(const T1& rv, const T2& wi, A0& v)
   {
+    typedef typename A0::value_type type_t;
     int n = height(rv);
     v.resize(of_size(n, n));
-    for(int j=0; j < n; ++j)
+    nt2::container::table<type_t, nt2::shared_> sv(of_size(n, n), share(v.raw(), v.raw()+numel(v)));
+    for(int j=1; j <= n; ++j)
     {
-      if(wi.raw()[j])
+      if(wi(j))
       {
-        for(int i = 0; i < n; ++i)
-        {
-          int ij = i+n*j;
-          v.raw()[ij] = tocomplex(rv.raw()[ij],rv.raw()[ij+n]);
-          v.raw()[ij+n] = conj(v.raw()[ij]);
-        }
+        sv(nt2::_, j  ) = tocomplex(rv(nt2::_, j), rv(nt2::_, j+1));
+        sv(nt2::_, j+1) = conj(sv(nt2::_, j));
         ++j;
       }
       else
-        for(int i = 0; i < n; ++i)
-        {
-          int ij = i+n*j;
-          v.raw()[ij] = rv.raw()[ij];
-        }
+        sv(nt2::_, j) = rv(nt2::_, j);
     }
   }
+
+//   template < class T, class A0 >
+//   BOOST_FORCEINLINE void
+//   combine_eigens(const T& wr,  const T& wi, A0& w)
+//   {
+//     int n = height(wr);
+//     w.resize(of_size(n, 1));
+//     for(int i=0; i < n; ++i)
+//     {
+//       w.raw()[i] = std::complex<float>(wr.raw()[i], wi.raw()[i]);
+//     }
+//   }
+
+//   template < class T1, class T2, class A0 >
+//   BOOST_FORCEINLINE void
+//   combine_vects(const T1& rv, const T2& wi, A0& v)
+//   {
+//     int n = height(rv);
+//     v.resize(of_size(n, n));
+//     for(int j=0; j < n; ++j)
+//     {
+//       if(wi.raw()[j])
+//       {
+//         for(int i = 0; i < n; ++i)
+//         {
+//           int ij = i+n*j;
+//           v.raw()[ij] = tocomplex(rv.raw()[ij],rv.raw()[ij+n]);
+//           v.raw()[ij+n] = conj(v.raw()[ij]);
+//         }
+//         ++j;
+//       }
+//       else
+//         for(int i = 0; i < n; ++i)
+//         {
+//           int ij = i+n*j;
+//           v.raw()[ij] = rv.raw()[ij];
+//         }
+//     }
+//   }
 } }
 
 #endif

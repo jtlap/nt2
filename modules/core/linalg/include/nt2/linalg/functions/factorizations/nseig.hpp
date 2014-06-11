@@ -177,6 +177,8 @@ namespace nt2 { namespace ext
                  ) const
     {
       nt2::container::table<type_t> a = boost::proto::child_c<0>(a0);
+      size_t n = height(boost::proto::child_c<0>(a0));
+      boost::proto::child_c<1>(a1).resize(of_size(n, 1));
       nt2::geev_wvr( boost::proto::value(a)
                    , boost::proto::value(boost::proto::child_c<1>(a1))
                    , boost::proto::value(boost::proto::child_c<0>(a1))
@@ -192,6 +194,7 @@ namespace nt2 { namespace ext
       nt2::container::table<type_t> a = boost::proto::child_c<0>(a0);
       size_t n = height(boost::proto::child_c<0>(a0));
       nt2::container::table<ctype_t> w(of_size(n, 1));
+      boost::proto::child_c<0>(a1).resize(of_size(n, n));
       nt2::geev_wvr( boost::proto::value(a)
                    , boost::proto::value(w)
                    , boost::proto::value(boost::proto::child_c<0>(a1))
@@ -252,6 +255,8 @@ namespace nt2 { namespace ext
       nt2::container::table<type_t> a = boost::proto::child_c<0>(a0);
       size_t n = height(boost::proto::child_c<0>(a0));
       nt2::container::table<ctype_t> w(of_size(n, 1));
+      boost::proto::child_c<0>(a1).resize(of_size(n, n));
+      boost::proto::child_c<2>(a1).resize(of_size(n, n));
       nt2::geev_wvrvl( boost::proto::value(a)
                      , boost::proto::value(w)
                      , boost::proto::value(boost::proto::child_c<0>(a1))
@@ -267,6 +272,10 @@ namespace nt2 { namespace ext
                  ) const
     {
       nt2::container::table<type_t> a = boost::proto::child_c<0>(a0);
+      size_t n = height(boost::proto::child_c<0>(a0));
+      boost::proto::child_c<0>(a1).resize(of_size(n, n));
+      boost::proto::child_c<2>(a1).resize(of_size(n, n));
+      boost::proto::child_c<1>(a1).resize(of_size(n, 1));
       nt2::geev_wvrvl( boost::proto::value(a)
                      , boost::proto::value(boost::proto::child_c<1>(a1))
                      , boost::proto::value(boost::proto::child_c<0>(a1))
@@ -280,7 +289,9 @@ namespace nt2 { namespace ext
                  , nt2::policy<ext::no_balance_> const &
                  ) const
     {
-      eval3_3(a0, a1, nt2::policy<ext::matrix_>() , nt2::policy<ext::no_balance_>());
+      eval3_3(a0, a1
+             , nt2::policy<ext::matrix_>()
+             , nt2::policy<ext::no_balance_>());
     }
 
     /// INTERNAL ONLY: 3o 2i

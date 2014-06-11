@@ -215,6 +215,177 @@ NT2_TEST_CASE_TPL(nseig, NT2_REAL_TYPES)
 }
 
 
+NT2_TEST_CASE_TPL(nseigc, NT2_REAL_TYPES)
+{
+  using nt2::nseig;
+  using nt2::mtimes;
+  using nt2::_;
+  typedef typename nt2::meta::as_integer<T, signed>::type itype_t;
+  typedef std::complex<T> cT;
+  typedef nt2::table<T> t_t;
+  typedef nt2::table<cT> ct_t;
+  typedef nt2::table<itype_t> it_t;
+  ct_t b =      nt2::triu(nt2::from_diag(nt2::_(T(1), T(4)))
+                     + nt2::ones  (4, 4, nt2::meta::as_<T>()));
+  //  b(_, 1) = b(_, 3);
+  ct_t w, w1;
+
+  display("b", b);
+  w = nseig(b);
+  display("w", w);
+  ct_t cb = b;
+
+  display("cb", cb);
+  w1 = nseig(cb);
+  display("w1", w1);
+  NT2_TEST_ULP_EQUAL(w, w1, 2);
+  w = nseig(b, nt2::matrix_);
+  display("w", w);
+  w1 = nseig(cb, nt2::matrix_);
+  display("w1", w1);
+  std::cout << "- 1 -" << std::endl;
+  NT2_TEST_ULP_EQUAL(w, w1, 2);
+
+  w = nseig(b, nt2::matrix_, nt2::balance_);
+  display("w", w);
+  w1 = nseig(cb, nt2::matrix_, nt2::balance_);
+  display("w1", w1);
+  std::cout << "- -1 -" << std::endl;
+  NT2_TEST_ULP_EQUAL(w, w1, 2);
+
+  ct_t v;
+  nt2::tie(v, w) = nseig(b);
+  nt2::display("w     ", w);
+  nt2::display("v     ", v);
+  std::cout << "- 0 -" << std::endl;
+  NT2_TEST_ULP_EQUAL(mtimes( v, w), mtimes(cb, v), 8);
+
+  nt2::tie(v, w) = nseig(cb);
+  nt2::display("w     ", w);
+  nt2::display("v     ", v);
+  std::cout << "- 1 -" << std::endl;
+  NT2_TEST_ULP_EQUAL(mtimes(v, w), mtimes(cb, v), 8);
+
+  nt2::tie(v, w) = nseig(b, nt2::matrix_);
+  nt2::display("w     ", w);
+  nt2::display("v     ", v);
+  std::cout << "- 2 -" << std::endl;
+  NT2_TEST_ULP_EQUAL(mtimes( v, w), mtimes(cb, v), 8);
+
+  nt2::tie(v, w) = nseig(cb, nt2::matrix_);
+  nt2::display("w     ", w);
+  nt2::display("v     ", v);
+  std::cout << "- 3 -" << std::endl;
+  NT2_TEST_ULP_EQUAL(mtimes(v, w), mtimes(cb, v), 8);
+
+  nt2::tie(v, w) = nseig(b, nt2::vector_);
+  nt2::display("w     ", w);
+  nt2::display("v     ", v);
+  std::cout << "- 4 -" << std::endl;
+  NT2_TEST_ULP_EQUAL(mtimes( v, nt2::from_diag(w)), mtimes(cb, v), 8);
+
+  nt2::tie(v, w) = nseig(cb, nt2::vector_);
+  nt2::display("w     ", w);
+  nt2::display("v     ", v);
+  std::cout << "- 5 -" << std::endl;
+  NT2_TEST_ULP_EQUAL(mtimes(v, nt2::from_diag(w)), mtimes(cb, v), 8);
+
+  ct_t vl;
+
+  nt2::tie(v, w, vl) = nseig(b);
+  nt2::display("w     ", w);
+  nt2::display("v     ", v);
+  nt2::display("vl    ", vl);
+  std::cout << "- 6 -" << std::endl;
+  NT2_TEST_ULP_EQUAL(mtimes( v, w), mtimes(cb, v), 8);
+
+  nt2::tie(v, w, vl) = nseig(cb);
+  nt2::display("w     ", w);
+  nt2::display("v     ", v);
+  nt2::display("vl    ", vl);
+  std::cout << "- 7 -" << std::endl;
+  NT2_TEST_ULP_EQUAL(mtimes(v, w), mtimes(cb, v), 8);
+  std::cout << "- 1 -" << std::endl;
+  NT2_TEST_ULP_EQUAL(mtimes(vl, ctrans(w)), mtimes(ctrans(cb), vl), 8);
+
+  nt2::tie(v, w, vl) = nseig(b, nt2::matrix_);
+  nt2::display("w     ", w);
+  nt2::display("v     ", v);
+  nt2::display("vl    ", vl);
+  std::cout << "- 8 -" << std::endl;
+  NT2_TEST_ULP_EQUAL(mtimes( v, w), mtimes(cb, v), 8);
+  std::cout << "- 9 -" << std::endl;
+  NT2_TEST_ULP_EQUAL(mtimes(vl, ctrans(w)), mtimes(ctrans(cb), vl), 8);
+
+  nt2::tie(v, w, vl) = nseig(cb, nt2::matrix_);
+  nt2::display("w     ", w);
+  nt2::display("v     ", v);
+  nt2::display("vl    ", vl);
+  std::cout << "- 10 -" << std::endl;
+  NT2_TEST_ULP_EQUAL(mtimes(v, w), mtimes(cb, v), 8);
+  std::cout << "- 11 -" << std::endl;
+  NT2_TEST_ULP_EQUAL(mtimes(vl, ctrans(w)), mtimes(ctrans(cb), vl), 8);
+
+  nt2::tie(v, w, vl) = nseig(b, nt2::vector_);
+  nt2::display("w     ", w);
+  nt2::display("v     ", v);
+  std::cout << "- 12 -" << std::endl;
+  NT2_TEST_ULP_EQUAL(mtimes( v, nt2::from_diag(w)), mtimes(cb, v), 8);
+  std::cout << "- 13 -" << std::endl;
+  NT2_TEST_ULP_EQUAL(mtimes(vl, ctrans(nt2::from_diag(w))), mtimes(ctrans(cb), vl), 8);
+
+  nt2::tie(v, w, vl) = nseig(cb, nt2::vector_);
+  nt2::display("w     ", w);
+  nt2::display("v     ", v);
+  nt2::display("vl    ", vl);
+  std::cout << "- 14 -" << std::endl;
+  NT2_TEST_ULP_EQUAL(mtimes(v, nt2::from_diag(w)), mtimes(cb, v), 8);
+  std::cout << "- 15 -" << std::endl;
+  NT2_TEST_ULP_EQUAL(mtimes(vl, ctrans(nt2::from_diag(w))), mtimes(ctrans(cb), vl), 8);
+
+  nt2::tie(v, w) = nseig(cb, nt2::vector_, nt2::balance_);
+  nt2::display("w     ", w);
+  nt2::display("v     ", v);
+  std::cout << "- 16 -" << std::endl;
+  NT2_TEST_ULP_EQUAL(mtimes(v, nt2::from_diag(w)), mtimes(cb, v), 8);
+
+  nt2::tie(v, w) = nseig(cb, nt2::matrix_, nt2::balance_);
+  nt2::display("w     ", w);
+  nt2::display("v     ", v);
+  std::cout << "- 17 -" << std::endl;
+  NT2_TEST_ULP_EQUAL(mtimes(v, w), mtimes(cb, v), 8);
+
+  nt2::tie(v, w, vl) = nseig(cb, nt2::vector_, nt2::balance_);
+  nt2::display("w     ", w);
+  nt2::display("v     ", v);
+  nt2::display("vl    ", vl);
+  std::cout << "- 18 -" << std::endl;
+  NT2_TEST_ULP_EQUAL(mtimes(v, nt2::from_diag(w)), mtimes(cb, v), 8);
+  std::cout << "- 19 -" << std::endl;
+  NT2_TEST_ULP_EQUAL(mtimes(vl, ctrans(nt2::from_diag(w))), mtimes(ctrans(cb), vl), 8);
+
+  nt2::tie(v, w, vl) = nseig(cb, nt2::matrix_, nt2::balance_);
+  nt2::display("w     ", w);
+  nt2::display("v     ", v);
+  nt2::display("vl    ", vl);
+  std::cout << "- 20 -" << std::endl;
+  NT2_TEST_ULP_EQUAL(mtimes(v, w), mtimes(cb, v), 8);
+  std::cout << "- 21 -" << std::endl;
+  NT2_TEST_ULP_EQUAL(mtimes(vl, ctrans(w)), mtimes(ctrans(cb), vl), 8);
+
+  nt2::tie(v, w, vl) = nseig(cb);
+  nt2::display("w     ", w);
+  nt2::display("v     ", v);
+  nt2::display("vl    ", vl);
+  std::cout << "- 22-" << std::endl;
+  NT2_TEST_ULP_EQUAL(mtimes(v, w), mtimes(cb, v), 8);
+  std::cout << "- 23 -" << std::endl;
+  NT2_TEST_ULP_EQUAL(mtimes(vl, ctrans(w)), mtimes(ctrans(cb), vl), 8);
+
+
+}
+
+
 // NT2_TEST_CASE_TPL(nseig2, NT2_REAL_TYPES)
 // {
 //   using nt2::tag::nseig_;

@@ -77,10 +77,6 @@ namespace nt2 { namespace ext
     typedef typename meta::as_complex<intype>::type type;
   };
 
-//   template<class Domain, int N, class Expr>
-//   struct  value_type<tag::nseig_,Domain,N,Expr>
-//         : meta::value_as<Expr,0>
-//   {};
 } }
 
 #endif
