@@ -304,15 +304,6 @@ macro(nt2_module_main module)
       nt2_module_dir(cover)
     endif()
     if(NT2_WITH_TESTS_EXHAUSTIVE)
-      if(DEFINED OpenMP_CXX_FLAGS AND NOT OpenMP_CXX_FLAGS)
-        set(OPENMP_FOUND 0)
-      else()
-        find_package(OpenMP QUIET)
-      endif()
-
-      set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
-      set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${OpenMP_CXX_FLAGS}")
-
       nt2_module_dir(exhaustive)
     endif()
   endif()
@@ -984,6 +975,7 @@ macro(nt2_postconfigure_run)
     endif()
 
     file(STRINGS ${file} commands)
+
     foreach(command ${commands})
       string(REGEX REPLACE "^([^ ]+) (.*)$" "\\1" tool ${command})
       string(REGEX REPLACE "^([^ ]+) (.*)$" "\\2" args ${command})
