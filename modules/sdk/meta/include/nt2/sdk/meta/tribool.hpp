@@ -76,6 +76,6 @@ namespace nt2
     template<class A>
     struct not_ : details::not_<typename A::type> {};
   }
-} }
+}
 
 #endif
