@@ -8,6 +8,9 @@
 ##############################################################################
 
 SET( SOURCES
+  arecatcompatible.cpp
+  arecrosscompatible.cpp
+  havesamesize.cpp
   is_not_equal_with_equal_nans.cpp
   is_equal_with_equal_nans.cpp
   is_not_less_equal.cpp
@@ -15,8 +18,8 @@ SET( SOURCES
   is_not_less.cpp
   is_not_greater.cpp
   is_not_infinite.cpp
-  majority.cpp
-  is_unord.cpp  is_positive.cpp
+  is_unord.cpp
+  is_positive.cpp
   is_ord.cpp
   is_odd.cpp
   is_not_finite.cpp
@@ -34,8 +37,12 @@ SET( SOURCES
   is_gtz.cpp
   is_gez.cpp
   is_flint.cpp
-  is_finite.cpp  is_even.cpp
+  is_finite.cpp
+  is_even.cpp
   is_eqz.cpp
+  majority.cpp
+  ofsamewidth.cpp
+  ofsameheight.cpp
 # List of scalar test files for toolbox predicates
    )
 

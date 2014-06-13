@@ -10,11 +10,12 @@
 SET ( NT2_CORE.EXPONENTIAL_DEPENDENCIES_EXTRA
       boost.dispatch
       boost.simd.base
-      boost.simd.reduction
+      boost.simd.config
       boost.simd.sdk
       core.base
       core.polynomials
-      sdk.error
+      core.reduction
+      core.sdk
       sdk.functor
       sdk.meta
       sdk.simd

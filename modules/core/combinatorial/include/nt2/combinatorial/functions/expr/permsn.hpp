@@ -11,6 +11,7 @@
 
 #include <nt2/combinatorial/functions/permsn.hpp>
 #include <nt2/include/functions/numel.hpp>
+#include <nt2/include/functions/of_size.hpp>
 #include <nt2/include/functions/prod.hpp>
 #include <nt2/include/functions/min.hpp>
 #include <nt2/include/functions/colvect.hpp>

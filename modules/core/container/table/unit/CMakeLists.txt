@@ -6,18 +6,13 @@
 ###                 See accompanying file LICENSE.txt or copy at
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ##############################################################################
-
 nt2_module_use_modules(test.unit)
 
-SET( SOURCES
-  table_settings.cpp
-  resize.cpp
-  constructor.cpp
-  table_returning.cpp
-  multind.cpp
-  composite_table.cpp
-  push_back.cpp
-# List of scalar test files for toolbox core.settings
-   )
+include(nt2.pch)
+nt2_pch(nt2/table.hpp)
 
-nt2_module_add_tests(core.container.table.unit ${SOURCES})
+ADD_SUBDIRECTORY(arithmetic)
+ADD_SUBDIRECTORY(ieee)
+ADD_SUBDIRECTORY(operator)
+ADD_SUBDIRECTORY(predicates)
+ADD_SUBDIRECTORY(table)

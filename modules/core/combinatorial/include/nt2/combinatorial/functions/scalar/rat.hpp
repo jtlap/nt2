@@ -9,12 +9,14 @@
 #ifndef NT2_COMBINATORIAL_FUNCTIONS_SCALAR_RAT_HPP_INCLUDED
 #define NT2_COMBINATORIAL_FUNCTIONS_SCALAR_RAT_HPP_INCLUDED
 #include <nt2/combinatorial/functions/rat.hpp>
+#include <nt2/core/container/colon/colon.hpp>
 #include <nt2/core/container/table/table.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/functions/scalar/abs.hpp>
 #include <nt2/include/functions/scalar/eps.hpp>
 #include <nt2/include/functions/eye.hpp>
+#include <nt2/include/functions/function.hpp>
 #include <nt2/include/functions/horzcat.hpp>
 #include <nt2/include/functions/scalar/is_eqz.hpp>
 #include <nt2/include/functions/scalar/is_finite.hpp>

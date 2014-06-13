@@ -6,7 +6,7 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#include <nt2/core/container/table/table.hpp>
+#include <nt2/table.hpp>
 #include <nt2/include/functions/adjfun.hpp>
 #include <nt2/include/functions/isempty.hpp>
 #include <nt2/include/functions/isequal.hpp>

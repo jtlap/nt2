@@ -21,7 +21,7 @@
 #include <nt2/include/functions/numel.hpp>
 #include <nt2/include/functions/zeros.hpp>
 #include <nt2/include/functions/colvect.hpp>
-#include <nt2/include/functions/zeros.hpp>
+#include <nt2/include/functions/function.hpp>
 #include <nt2/include/functions/eye.hpp>
 #include <nt2/include/functions/mtimes.hpp>
 #include <nt2/include/functions/isempty.hpp>

@@ -14,7 +14,8 @@
 #include <nt2/core/container/dsl/size.hpp>
 #include <nt2/core/container/dsl/value_type.hpp>
 #include <nt2/sdk/meta/tieable_hierarchy.hpp>
-#include <nt2/include/functions/size.hpp>
+#include <nt2/sdk/meta/size_as.hpp>
+#include <nt2/sdk/meta/value_as.hpp>
 
 namespace nt2
 {

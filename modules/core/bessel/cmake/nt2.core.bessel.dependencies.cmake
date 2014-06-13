@@ -9,11 +9,12 @@
 
 SET ( NT2_CORE.BESSEL_DEPENDENCIES_EXTRA
       boost.simd.base
-      boost.simd.reduction
       boost.simd.sdk
       core.base
       core.exponential
       core.polynomials
+      core.reduction
+      core.sdk
       core.trigonometric
       sdk.functor
       sdk.meta

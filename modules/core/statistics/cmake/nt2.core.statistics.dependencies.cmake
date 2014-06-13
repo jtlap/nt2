@@ -9,17 +9,18 @@
 
 SET ( NT2_CORE.STATISTICS_DEPENDENCIES_EXTRA
       boost.simd.base
-      boost.simd.reduction
+      core.base
       core.container.placeholders
       core.container.table
       core.euler
       core.exponential
+      core.generative
+      core.polynomials
       core.random
       core.reduction
       core.restructuring
       core.sdk
       core.trigonometric
-      core.base
-      sdk.config
       sdk.functor
+      sdk.meta
     )

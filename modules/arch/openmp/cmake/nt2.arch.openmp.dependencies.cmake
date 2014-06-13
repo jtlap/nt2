@@ -23,5 +23,4 @@ endif()
 set ( NT2_ARCH.OPENMP_DEPENDENCIES_EXTRA
       arch.shared_memory
       boost.dispatch
-      sdk.functor
     )
