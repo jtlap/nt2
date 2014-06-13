@@ -310,9 +310,9 @@ namespace nt2 { namespace ext
       }
 
       typedef nt2::memory::container<tag::table_, value_type, nt2::_2D> desired_semantic;
-      typename container::as_terminal<desired_semantic, typename boost::proto::result_of::child_c<A1&, 0>::type>::type child0 = boost::proto::child_c<0>(a1);
-      typename container::as_terminal<desired_semantic, typename boost::proto::result_of::child_c<A1&, 1>::type>::type child1 = boost::proto::child_c<1>(a1);
-      typename container::as_terminal<desired_semantic, A0&>::type result = container::as_terminal<desired_semantic, A0&>::init(a0);
+      NT2_AS_TERMINAL_IN(desired_semantic, child0, boost::proto::child_c<0>(a0));
+      NT2_AS_TERMINAL_IN(desired_semantic, child1, boost::proto::child_c<1>(a0));
+      NT2_AS_TERMINAL_OUT(desired_semantic, result, a0);
 
       value_type alpha = boost::proto::value(boost::proto::child_c<3>(a1));
       value_type beta = boost::proto::value(boost::proto::child_c<2>(a1));

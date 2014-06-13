@@ -46,4 +46,9 @@ namespace nt2 { namespace container
   };
 } }
 
+
+#define NT2_AS_TERMINAL_IN(semantic, name, input)  typename container::as_terminal<semantic, BOOST_DISPATCH_TYPEOF(input)&>::type name = (input);
+#define NT2_AS_TERMINAL_OUT(semantic, name, output)  typename container::as_terminal<semantic, BOOST_DISPATCH_TYPEOF(output)&>::type name = container::as_terminal<desired_semantic, BOOST_DISPATCH_TYPEOF(output)&>::init((output));
+#define NT2_AS_TERMINAL_INOUT(semantic, name, input, output)  /*TODO*/
+
 #endif
