@@ -18,6 +18,7 @@
 #include <boost/dispatch/meta/enable_if_type.hpp>
 #include <boost/dispatch/attributes.hpp>
 #include <boost/config.hpp>
+#include <boost/version.hpp>
 #include <boost/mpl/bool.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <boost/iterator/iterator_traits.hpp>
@@ -38,6 +39,7 @@ namespace boost
   {
   };
 
+#if (BOOST_VERSION < 105600)
   namespace detail
   {
     template<class T>
@@ -53,6 +55,7 @@ namespace boost
 #endif
     };
   }
+#endif
 }
 
 // Looks like stlport and other do not handle restrict in iterator_traits
