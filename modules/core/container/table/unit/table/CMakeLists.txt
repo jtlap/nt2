@@ -38,6 +38,7 @@ SET( SOURCES
   tie.cpp
   transform.cpp
   width.cpp
+  is_vector.cpp
 # List of scalar test files for toolbox core.container.table
    )
 
