@@ -21,7 +21,7 @@ namespace nt2 { namespace details
   {
     static const std::size_t n = Seq::static_size;
     static const bool is_not = n < 1 || (n > 1 && meta::mpl_safe_at_c<typename Seq::values_type, 1, boost::mpl::long_<1> >::type::value != -1);
-    typedef typename meta::indeterminate_false<is_not>::type type;
+    typedef typename meta::indeterminate_false<!is_not>::type type;
   };
 
   template<std::ptrdiff_t N>
@@ -35,7 +35,7 @@ namespace nt2 { namespace details
   {
     static const std::size_t n = Seq::static_size;
     static const bool is_not = n < 2 || (n > 2 && meta::mpl_safe_at_c<typename Seq::values_type, 2, boost::mpl::long_<1> >::type::value != -1);
-    typedef typename meta::indeterminate_false<is_not>::type type;
+    typedef typename meta::indeterminate_false<!is_not>::type type;
   };
 
   template<std::ptrdiff_t N>
