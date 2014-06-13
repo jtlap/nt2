@@ -16,6 +16,7 @@
 #include <nt2/include/functions/rec.hpp>
 #include <nt2/include/functions/linsolve.hpp>
 #include <nt2/include/functions/zeros.hpp>
+#include <nt2/include/functions/function.hpp>
 #include <nt2/include/constants/ten.hpp>
 #include <nt2/include/constants/mone.hpp>
 #include <nt2/include/constants/zero.hpp>

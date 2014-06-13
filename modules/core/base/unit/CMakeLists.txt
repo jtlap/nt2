@@ -7,10 +7,7 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-nt2_module_use_modules(test.unit core.container.table)
-
-include(nt2.pch)
-nt2_pch(nt2/table.hpp)
+nt2_module_use_modules(test.unit)
 
 ADD_SUBDIRECTORY(arithmetic)
 ADD_SUBDIRECTORY(bitwise)

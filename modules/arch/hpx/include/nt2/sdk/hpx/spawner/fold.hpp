@@ -13,7 +13,6 @@
 #if defined(NT2_USE_HPX)
 
 #include <hpx/include/lcos.hpp>
-#include <hpx/lcos/future_wait.hpp>
 #include <hpx/include/util.hpp>
 
 #include <nt2/sdk/shared_memory/spawner.hpp>
@@ -23,8 +22,6 @@
 #ifndef BOOST_NO_EXCEPTIONS
 #include <boost/exception_ptr.hpp>
 #endif
-
-#include <vector>
 
 namespace nt2
 {
@@ -91,7 +88,7 @@ namespace nt2
     spawner() {}
 
     template<typename Worker>
-    result_type operator()(Worker w, std::size_t begin, std::size_t size, std::size_t  grain)
+    result_type operator()(Worker & w, std::size_t begin, std::size_t size, std::size_t  grain)
     {
       details::Hpx_Folder<Worker,result_type> hpx_w ( w );
 

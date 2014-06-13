@@ -33,7 +33,8 @@ namespace nt2
   /*!
     @brief First  dimension of given length
 
-    For a given expression, returns the first dimension which is not equal to 1.
+    For a given expression, returns the first dimension which is equal to a
+    given value. If none exists, firstoflength returns 0.
 
     @param a0 Expression to inspect
     @param a1 length to match

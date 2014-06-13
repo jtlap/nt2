@@ -12,7 +12,9 @@
 #include <cstddef>
 #include <nt2/sdk/option/options.hpp>
 #include <nt2/sdk/meta/as_real.hpp>
+#include <nt2/sdk/meta/as_logical.hpp>
 #include <nt2/include/constants/sqrteps.hpp>
+#include <nt2/include/functions/of_size.hpp>
 #include <nt2/core/container/table/table.hpp>
 #include <nt2/sdk/complex/meta/is_complex.hpp>
 

@@ -9,13 +9,14 @@
 
 SET ( NT2_CORE.SWAR_DEPENDENCIES_EXTRA
       boost.simd.base
+      boost.simd.sdk
       boost.simd.swar
       core.adjacent
+      core.base
       core.container.table
       core.generative
       core.restructuring
       core.sdk
-      core.base
       sdk.functor
       sdk.meta
     )

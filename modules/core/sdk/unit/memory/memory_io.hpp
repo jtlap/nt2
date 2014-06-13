@@ -17,18 +17,21 @@
 //==============================================================================
 // Local iostream insertion for NT2_TEST_EQUAL
 //==============================================================================
-template<typename T, typename A> inline std::ostream&
-operator<<(std::ostream& os, nt2::memory::buffer<T,A> const& v)
+namespace nt2 { namespace memory
 {
-  typedef typename nt2::memory::buffer<T,A>::const_iterator iterator_t;
+  template<typename T, typename A> inline std::ostream&
+  operator<<(std::ostream& os, buffer<T,A> const& v)
+  {
+    typedef typename buffer<T,A>::const_iterator iterator_t;
 
-  os << "\n";
-  for(iterator_t it = v.begin(); it != v.end(); ++it)
-    os << boost::simd::details::display(*it) << "  ";
-  os << "\n";
+    os << "\n";
+    for(iterator_t it = v.begin(); it != v.end(); ++it)
+      os << boost::simd::details::display(*it) << "  ";
+    os << "\n";
 
-  return os;
-}
+    return os;
+  }
+} }
 
 #endif
 

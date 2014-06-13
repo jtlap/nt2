@@ -143,7 +143,7 @@ namespace nt2 { namespace ext
                                (generic_< dry_< arithmetic_<A2> > >)
                              )
   {
-    typedef A2 result_type;
+    typedef A1 result_type;
     BOOST_FORCEINLINE result_type operator()(const A0& a0, const A1& a1, const A2&a2) const
     {
       return if_else(is_nez(a0), a1, a2);
@@ -181,7 +181,7 @@ namespace nt2 { namespace ext
   //arithmetic/complex 1
   NT2_FUNCTOR_IMPLEMENTATION ( nt2::tag::if_else_, tag::cpu_, (A0)(A1)(A2)
                              , (generic_< logical_<A0> >)
-                               (generic_< arithmetic_< arithmetic_<A1> > >)
+                               (generic_< arithmetic_<A1> >)
                                (generic_< complex_< arithmetic_<A2> > >)
                              )
   {
@@ -195,7 +195,7 @@ namespace nt2 { namespace ext
   //arithmetic/complex 2
   NT2_FUNCTOR_IMPLEMENTATION ( nt2::tag::if_else_, tag::cpu_, (A0)(A1)(A2)
                              , (generic_< fundamental_<A0> >)
-                               (generic_< arithmetic_< arithmetic_<A1> > >)
+                               (generic_< arithmetic_<A1> >)
                                (generic_< complex_< arithmetic_<A2> > >)
                              )
   {

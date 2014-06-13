@@ -62,6 +62,8 @@ SET( SOURCES
   toint.cpp
   toints.cpp
   tofloat.cpp
+  center.cpp
+  linear_interp.cpp
 # List of scalar test files for toolbox arithmetic
    )
 

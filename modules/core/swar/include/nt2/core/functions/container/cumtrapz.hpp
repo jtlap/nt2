@@ -21,6 +21,7 @@
 #include <nt2/include/functions/numel.hpp>
 #include <nt2/include/functions/size.hpp>
 #include <nt2/include/functions/firstnonsingleton.hpp>
+#include <nt2/include/constants/half.hpp>
 
 namespace nt2 { namespace ext
 {

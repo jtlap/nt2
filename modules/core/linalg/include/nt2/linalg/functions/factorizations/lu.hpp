@@ -15,9 +15,10 @@
 #include <nt2/include/functions/getrf.hpp>
 #include <nt2/include/functions/triu.hpp>
 #include <nt2/include/functions/tri1l.hpp>
-#include <nt2/include/functions/colon.hpp>
+#include <nt2/core/container/colon/colon.hpp>
 #include <nt2/include/functions/zeros.hpp>
 #include <nt2/include/functions/width.hpp>
+#include <nt2/include/functions/function.hpp>
 #include <nt2/include/functions/numel.hpp>
 #include <nt2/include/functions/height.hpp>
 #include <nt2/include/functions/issquare.hpp>
@@ -140,8 +141,8 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE void extract_lu(A1& a1, W& work) const
     {
       std::size_t d  = dim(work);
-      boost::proto::child_c<1>(a1) = nt2::triu( work( _(1, d), _) );
-      boost::proto::child_c<0>(a1) = nt2::tri1l( work(_, _(1, d) ) );
+      boost::proto::child_c<1>(a1) = nt2::triu( work( nt2::_(1, d), nt2::_) );
+      boost::proto::child_c<0>(a1) = nt2::tri1l( work(nt2::_, nt2::_(1, d) ) );
     }
 
     /// INTERNAL ONLY - Size of L/U

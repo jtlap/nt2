@@ -17,6 +17,7 @@
 #include <nt2/include/functions/is_equal.hpp>
 #include <nt2/include/functions/horzcat.hpp>
 #include <nt2/include/functions/vertcat.hpp>
+#include <nt2/include/constants/half.hpp>
 #include <nt2/include/constants/four.hpp>
 #include <nt2/include/constants/two.hpp>
 #include <nt2/include/constants/three.hpp>

@@ -16,6 +16,7 @@
 #include <nt2/include/functions/repnum.hpp>
 #include <nt2/include/functions/colvect.hpp>
 #include <nt2/include/constants/oneo_10.hpp>
+#include <nt2/include/constants/one.hpp>
 #include <nt2/optimization/output.hpp>
 #include <nt2/optimization/options.hpp>
 #include <nt2/core/container/table/table.hpp>

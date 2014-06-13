@@ -8,7 +8,10 @@
 ################################################################################
 
 set ( NT2_ARCH.SHARED_MEMORY_DEPENDENCIES_EXTRA
-      core.reduction
+      arch.openmp
+      boost.simd.sdk
       core.base
+      core.reduction
       sdk.config
+      sdk.functor
     )

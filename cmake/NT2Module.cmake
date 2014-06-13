@@ -975,6 +975,7 @@ macro(nt2_postconfigure_run)
     endif()
 
     file(STRINGS ${file} commands)
+
     foreach(command ${commands})
       string(REGEX REPLACE "^([^ ]+) (.*)$" "\\1" tool ${command})
       string(REGEX REPLACE "^([^ ]+) (.*)$" "\\2" args ${command})

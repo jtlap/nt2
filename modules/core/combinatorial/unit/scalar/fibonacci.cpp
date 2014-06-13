@@ -7,12 +7,12 @@
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #include <nt2/combinatorial/include/functions/fibonacci.hpp>
+#include <nt2/table.hpp>
 
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/tests/type_expr.hpp>
-#include <nt2/core/container/table/table.hpp>
 
 NT2_TEST_CASE_TPL ( fibonacci_real__1_0,  NT2_REAL_TYPES)
 {

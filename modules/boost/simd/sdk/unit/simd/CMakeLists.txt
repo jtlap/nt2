@@ -28,7 +28,6 @@ SET( SOURCES
     register_of.cpp
     scalar_of.cpp
     sign_of.cpp
-    transform.cpp
     upgrade.cpp
    )
 

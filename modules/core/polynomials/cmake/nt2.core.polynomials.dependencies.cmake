@@ -11,6 +11,7 @@ SET ( NT2_CORE.POLYNOMIALS_DEPENDENCIES_EXTRA
       boost.dispatch
       boost.simd.base
       core.base
+      core.sdk
       sdk.functor
       sdk.meta
     )
