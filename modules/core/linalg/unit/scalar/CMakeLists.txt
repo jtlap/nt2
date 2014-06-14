@@ -11,9 +11,10 @@ SET( SOURCES
   cond.cpp
   det.cpp
   norm.cpp
-  norm_inf.cpp
-  norm_1.cpp
-  norm_fro.cpp
+  mnorm.cpp
+  mnorminf.cpp
+  mnorm1.cpp
+  mnormfro.cpp
   normest.cpp
   rank.cpp
   rcond.cpp
