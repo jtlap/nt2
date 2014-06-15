@@ -49,6 +49,9 @@ namespace nt2
     template<class B>
     struct and_< meta::indeterminate_, B > : meta::indeterminate_ {};
 
+    template <>
+    struct and_< meta::indeterminate_, meta::indeterminate_ > : meta::indeterminate_ {};
+
     template<class A, class B>
     struct or_ : boost::mpl::or_<A, B> {};
 
@@ -57,6 +60,9 @@ namespace nt2
 
     template<class B>
     struct or_< meta::indeterminate_, B > : B {};
+
+    template <>
+    struct or_< meta::indeterminate_, meta::indeterminate_ > : meta::indeterminate_ {};
 
     template<class A>
     struct not_ : boost::mpl::not_<A> {};
