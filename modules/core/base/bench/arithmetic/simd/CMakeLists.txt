@@ -50,6 +50,7 @@ SET( SOURCES
   average.cpp
   abs.cpp
   toint.cpp
+  fast_toint.cpp
   toints.cpp
   touint.cpp
   touints.cpp
