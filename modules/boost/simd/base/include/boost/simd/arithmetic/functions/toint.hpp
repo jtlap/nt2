@@ -81,7 +81,6 @@ namespace boost { namespace simd { namespace tag
 
   **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::toint_, toint, 1)
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::toint_, fast_toint, 1)
 
 } }
 
