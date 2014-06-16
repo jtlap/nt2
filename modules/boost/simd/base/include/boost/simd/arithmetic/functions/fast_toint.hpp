@@ -6,25 +6,25 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_FASTTOINT_HPP_INCLUDED
-#define BOOST_SIMD_ARITHMETIC_FUNCTIONS_FASTTOINT_HPP_INCLUDED
+#ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_FAST_TOINT_HPP_INCLUDED
+#define BOOST_SIMD_ARITHMETIC_FUNCTIONS_FAST_TOINT_HPP_INCLUDED
 #include <boost/simd/include/functor.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
 namespace boost { namespace simd { namespace tag
   {
     /*!
-      @brief  fasttoint generic tag
+      @brief  fast_toint generic tag
 
-      Represents the fasttoint function in generic contexts.
+      Represents the fast_toint function in generic contexts.
 
       @par Models:
       Hierarchy
     **/
-    struct fasttoint_ : ext::elementwise_<fasttoint_>
+    struct fast_toint_ : ext::elementwise_<fast_toint_>
     {
       /// @brief Parent hierarchy
-      typedef ext::elementwise_<fasttoint_> parent;
+      typedef ext::elementwise_<fast_toint_> parent;
     };
   }
   /*!
@@ -34,7 +34,7 @@ namespace boost { namespace simd { namespace tag
     For any given value @c x of type @c T:
 
     @code
-    as_integer<T> r = fasttoint(x);
+    as_integer<T> r = fast_toint(x);
     @endcode
 
     The code is similar to:
@@ -45,7 +45,7 @@ namespace boost { namespace simd { namespace tag
 
     @par Notes:
 
-    @c fasttoint cast a floating value to the signed integer value of the same bit size.
+    @c fast_toint cast a floating value to the signed integer value of the same bit size.
 
     This is done by C casting for scalars and corresponding intrinsic in simd (if available).
 
@@ -55,7 +55,7 @@ namespace boost { namespace simd { namespace tag
     (For instance it is quite frequent that the test:
 
     @code
-    fasttoint(Inf<double>()) ==  fasttoint(1.0/0.0)
+    fast_toint(Inf<double>()) ==  fast_toint(1.0/0.0)
     @endcode
 
 
@@ -68,19 +68,19 @@ namespace boost { namespace simd { namespace tag
 
     returns true !)
 
-    If you intend to use nans and infs entries,  consider using fasttoints instead.
+    If you intend to use nans and infs entries,  consider using fast_toints instead.
     On integral typed values, it acts as identity.
 
     @par Alias
 
-    fast_fasttoint
+    fast__fast_toint
 
     @param  a0
 
     @return      a value of the integer type associated to the input.
 
   **/
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::fasttoint_, fasttoint, 1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::fast_toint_, fast_toint, 1)
 
 } }
 

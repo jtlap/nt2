@@ -16,7 +16,7 @@
 #include <nt2/include/functions/simd/logical_and.hpp>
 #include <nt2/include/functions/simd/split.hpp>
 #include <nt2/include/functions/simd/group.hpp>
-#include <nt2/include/functions/simd/fasttoint.hpp>
+#include <nt2/include/functions/simd/fast_toint.hpp>
 #include <nt2/include/functions/simd/round2even.hpp>
 #include <nt2/include/functions/simd/if_else_allbits.hpp>
 #include <nt2/include/functions/simd/is_not_greater.hpp>
@@ -274,7 +274,7 @@ namespace nt2 { namespace details
       A0 x2 = x - xi * nt2::_90<A0>();
 
       xr =  nt2::inrad(x2);
-      return nt2::fasttoint(xi);
+      return nt2::fast_toint(xi);
     }
   };
 
@@ -294,7 +294,7 @@ namespace nt2 { namespace details
       A0 x2 = x - xi * nt2::_90<A0>();
 
       xr =  nt2::inrad(x2);
-      return nt2::fasttoint(xi);
+      return nt2::fast_toint(xi);
     }
   };
   #endif
@@ -313,7 +313,7 @@ namespace nt2 { namespace details
       A0 xi = nt2::round2even(x*nt2::Two<A0>());
       A0 x2 = x - xi * nt2::Half<A0>();
       xr = x2*nt2::Pi<A0>();
-      return nt2::fasttoint(xi);
+      return nt2::fast_toint(xi);
     }
   };
 } }
