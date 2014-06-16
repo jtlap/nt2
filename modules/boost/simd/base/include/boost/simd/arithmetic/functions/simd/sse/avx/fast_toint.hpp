@@ -13,8 +13,6 @@
 #include <boost/simd/arithmetic/functions/fast_toint.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 
-#include <iostream>
-
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::fast_toint_
