@@ -15,6 +15,7 @@
 #include <nt2/include/functions/colon.hpp>
 #include <nt2/include/functions/norm.hpp>
 #include <nt2/linalg/details/utility/f77_wrapper.hpp>
+#include <nt2/include/functions/cons.hpp>
 
 #include <nt2/table.hpp>
 
@@ -77,6 +78,27 @@ NT2_TEST_CASE_TPL(msne, (double) )
   NT2_TEST_ULP_EQUAL(s1, s2(_(1,n)), T(100));
 }
 
+NT2_TEST_CASE_TPL(msne_complex, (double) )
+{
+  using nt2::_;
+
+  typedef std::complex<T>          cT;
+  typedef nt2::table<cT>           t_t;
+
+  t_t a = nt2::cons<cT>(nt2::of_size(4,3)
+                    ,cT(2,0),cT(1,0),cT(1,0)
+                    ,cT(1,0),cT(2,0),cT(2,0)
+                    ,cT(2,0),cT(5,0),cT(7,0)
+                    ,cT(2,0),cT(4,0),cT(1,0)
+                    );
+  t_t b = nt2::cons<cT>(nt2::of_size(4,1)
+                    ,cT(1,0),cT(2,0),cT(5,0),cT(2,0));
+
+  t_t s1 = nt2::mcsne(a,b);
+  t_t s2 = nt2::linsolve(a,b);
+
+  NT2_TEST_ULP_EQUAL(s1, s2(_(1,3)), T(100));
+}
 
 // #include <sys/time.h>
 // #include <iostream>
