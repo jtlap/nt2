@@ -11,6 +11,7 @@
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_SCALAR_FAST_TOINT_HPP_INCLUDED
 
 #include <boost/simd/arithmetic/functions/fast_toint.hpp>
+#include <boost/simd/arithmetic/functions/toint.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/dispatch/attributes.hpp>
 
