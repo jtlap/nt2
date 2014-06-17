@@ -50,17 +50,3 @@ NT2_TEST_CASE_TPL ( toint_real__1_0,  NT2_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(toint(boost::simd::splat<vT>(T(-8388608))), boost::simd::splat<r_t>(-8388608));
   NT2_TEST_EQUAL(toint(boost::simd::splat<vT>(T(-16777216))), boost::simd::splat<r_t>(-16777216));
 } // end of test for floating_
-
-NT2_TEST_CASE ( toint_double__1_0)
-{
-  typedef double T;
-
-  using nt2::toint;
-  using nt2::tag::toint_;
-  using boost::simd::native;
-  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef native<T,ext_t>           vT;
-  typedef typename nt2::meta::call<toint_(vT)>::type r_t;
-
-  NT2_TEST_EQUAL(toint(boost::simd::splat<vT>(T(1073741823))), boost::simd::splat<r_t>(1073741823));
-}
