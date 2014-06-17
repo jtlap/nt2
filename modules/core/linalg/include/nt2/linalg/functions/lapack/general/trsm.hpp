@@ -186,7 +186,7 @@ namespace nt2 { namespace ext
                               (scalar_< ints8_<A3> >)
                               ((container_< nt2::tag::table_, complex_<double_<A4> >, S4 >))
                               ((container_< nt2::tag::table_, complex_<double_<A5> >, S5 >))
-                              (scalar_< floating_<A6> >)
+                              (scalar_< complex_<floating_<A6> > >)
                             )
   {
     typedef void  result_type;
@@ -213,7 +213,7 @@ namespace nt2 { namespace ext
                               (scalar_< ints8_<A3> >)
                               ((container_< nt2::tag::table_, complex_<single_<A4> >, S4 >))
                               ((container_< nt2::tag::table_, complex_<single_<A5> >, S5 >))
-                              (scalar_< floating_<A6> >)
+                              (scalar_< complex_<floating_<A6> > >)
                             )
   {
     typedef void  result_type;

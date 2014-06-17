@@ -38,6 +38,31 @@ y = nt2::trsolve(u,y,'U');
 NT2_TEST_EQUAL( y, x);
 }
 
+NT2_TEST_CASE_TPL(trsm_noshape_complex, NT2_REAL_TYPES )
+{
+using nt2::_;
+
+typedef std::complex<T>          cT;
+typedef nt2::table<cT>            t_t;
+
+t_t a = nt2::cons<cT>(nt2::of_size(3,3),cT(2,0),cT(1,0),cT(1,0),cT(1,0),cT(1,0),cT(1,0)
+                                       ,cT(1,0),cT(1,0),cT(2,0));
+t_t b = nt2::cons<cT>(nt2::of_size(3,1),cT(1,0),cT(2,0),cT(5,0));
+t_t x = nt2::cons<cT>(nt2::of_size(3,1),cT(-1,0),cT(0,0),cT(3,0));
+
+t_t p,y(b);
+
+nt2::table<cT> u ;
+nt2::table<cT> l ;
+
+nt2::tie(l,u,p) = nt2::lu(a);
+
+y = nt2::trsolve(l,y,'L');
+y = nt2::trsolve(u,y,'U');
+
+NT2_TEST_EQUAL( y, x);
+}
+
 NT2_TEST_CASE_TPL(trsm, NT2_REAL_TYPES )
 {
 using nt2::_;

@@ -18,12 +18,9 @@
 #include <nt2/include/functions/pocon.hpp>
 #include <nt2/include/functions/lange.hpp>
 #include <nt2/include/functions/lansy.hpp>
-<<<<<<< HEAD
+
 #include <nt2/include/functions/gecon.hpp>
-=======
-#include <nt2/include/functions/svx.hpp>
-#include <nt2/include/functions/con.hpp>
->>>>>>> Modified linsolve :
+#include <nt2/include/functions/gesvx.hpp>
 #include <nt2/include/functions/eye.hpp>
 #include <nt2/include/functions/tie.hpp>
 #include <nt2/include/functions/zeros.hpp>
@@ -107,15 +104,12 @@ NT2_TEST_ULP_EQUAL( x , x1 , T(10));
 // [X,R] = linsolve(A,B)
 nt2::tie(x,rcond) = nt2::linsolve(a,b);
 
-<<<<<<< HEAD
 t_t lu = nt2::lu(a);
 anorm = nt2::lange(boost::proto::value(a), norm);
-std::cout<< "anorm" << anorm << std::endl;
-rcond1 = nt2::gecon( boost::proto::value(lu),norm,anorm);
-=======
-nt2_la_int p = nt2::svx(boost::proto::value(a),boost::proto::value(b)
+
+nt2_la_int p = nt2::gesvx(boost::proto::value(a),boost::proto::value(b)
                         ,boost::proto::value(x),rcond1);
->>>>>>> Modified linsolve :
+
 
 NT2_TEST_ULP_EQUAL(rcond, rcond1, T(10) );
 NT2_TEST_EQUAL(T(p), T(0) );
@@ -196,14 +190,9 @@ NT2_TEST_ULP_EQUAL( x , x1 , T(10));
 
 nt2::tie(x,rcond) = nt2::linsolve(a,b);
 
-<<<<<<< HEAD
-t_t lu = nt2::lu(a);
-anorm = nt2::lange( boost::proto::value(a), norm);
-rcond1 = nt2::gecon( boost::proto::value(lu),norm,anorm);
-=======
-nt2_la_int p = nt2::svx(boost::proto::value(a),boost::proto::value(b)
+
+nt2_la_int p = nt2::gesvx(boost::proto::value(a),boost::proto::value(b)
                         ,boost::proto::value(x),rcond1);
->>>>>>> Modified linsolve :
 
 NT2_TEST_ULP_EQUAL(rcond, rcond1, T(10) );
 NT2_TEST_EQUAL(T(0), T(p) );
@@ -283,14 +272,9 @@ NT2_TEST_ULP_EQUAL( x , x1 , T(10));
 
 nt2::tie(x,rcond) = nt2::linsolve(a,b);
 
-<<<<<<< HEAD
-t_t lu = nt2::lu(a);
-anorm = nt2::lange( boost::proto::value(a), norm);
-rcond1 = nt2::gecon( boost::proto::value(lu),norm,anorm);
-=======
-nt2_la_int p = nt2::svx(boost::proto::value(a),boost::proto::value(b)
+nt2_la_int p = nt2::gesvx(boost::proto::value(a),boost::proto::value(b)
                         ,boost::proto::value(x),rcond1);
->>>>>>> Modified linsolve :
+
 
 NT2_TEST_ULP_EQUAL(rcond, rcond1, T(10) );
 NT2_TEST_EQUAL(T(0), T(p) );

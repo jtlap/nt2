@@ -10,7 +10,7 @@
 #define NT2_LINALG_FUNCTIONS_LAPACK_MLINSOLVE_HPP_INCLUDED
 
 #include <nt2/linalg/functions/mlinsolve.hpp>
-#include <nt2/linalg/functions/clinsolve.hpp>
+#include <nt2/include/functions/clinsolve.hpp>
 #include <nt2/include/functions/gemsv.hpp>
 #include <nt2/include/functions/mcsne.hpp>
 #include <nt2/include/functions/pomsv.hpp>
@@ -62,7 +62,8 @@ namespace nt2 { namespace ext
       if (m>n)
       {
       typedef nt2::memory::container<tag::table_, ctype_t, nt2::settings(nt2::_2D,shape)> desired_semantic;
-      typename container::as_terminal<desired_semantic, A0&>::type in = container::as_terminal<desired_semantic, A0&>::init(a0);
+      typename container::as_terminal<desired_semantic, A0&>::type in = container::as_terminal<desired_semantic
+                                                                                              , A0&>::init(a0);
        a2 = nt2::mcsne(in,a1);
       }
       else
