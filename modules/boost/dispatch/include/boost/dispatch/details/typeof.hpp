@@ -31,16 +31,38 @@
 #error compiler supports neither decltype nor typeof
 #endif
 
+#ifdef BOOST_NO_DECLTYPE
+#include <cstddef>
+namespace boost { namespace dispatch { namespace details
+{
+  template<class T>
+  char match_const(T &);
+
+  template<class T>
+  char (&match_const(T const &))[2];
+
+  template<std::size_t N, class T> struct match_const_impl { typedef T& type; };
+  template<class T> struct match_const_impl<2u, T> { typedef T const& type; };
+} } }
+#endif
+
 /// INTERNAL ONLY
 #ifndef BOOST_NO_DECLTYPE
 #  define BOOST_DISPATCH_TYPEOF_(EXPR, TYPE) typedef decltype(EXPR) TYPE;
 #  define BOOST_DISPATCH_TYPEOF(EXPR) decltype(EXPR)
+#  define BOOST_DISPATCH_DECLTYPE(EXPR) decltype((EXPR))
 #else
 #  define BOOST_DISPATCH_TYPEOF_(EXPR, TYPE)                                                       \
     BOOST_TYPEOF_NESTED_TYPEDEF_TPL(BOOST_PP_CAT(nested_, TYPE), (EXPR))                           \
     typedef typename BOOST_PP_CAT(nested_, TYPE)::type TYPE;                                       \
    /**/
 #  define BOOST_DISPATCH_TYPEOF(EXPR) BOOST_TYPEOF_TPL(EXPR)
+#  define BOOST_DISPATCH_DECLTYPE(EXPR)                                                            \
+    typename boost::dispatch::details::                                                            \
+             match_const_impl< sizeof( boost::dispatch::details::match_const((EXPR)))              \
+                             , BOOST_TYPEOF_TPL(EXPR)                                              \
+                             >::type                                                               \
+    /**/
 #endif
 
 #endif

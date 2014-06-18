@@ -41,4 +41,12 @@ NT2_TEST_CASE_TPL ( toint_real__1_0,  NT2_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(toint(nt2::Mone<vT>()), nt2::Mone<r_t>());
   NT2_TEST_EQUAL(toint(nt2::One<vT>()), nt2::One<r_t>());
   NT2_TEST_EQUAL(toint(nt2::Zero<vT>()), nt2::Zero<r_t>());
+
+
+  NT2_TEST_EQUAL(toint(boost::simd::splat<vT>(T(4194304))), boost::simd::splat<r_t>(4194304));
+  NT2_TEST_EQUAL(toint(boost::simd::splat<vT>(T(16777216))), boost::simd::splat<r_t>(16777216));
+
+  NT2_TEST_EQUAL(toint(boost::simd::splat<vT>(T(-4194304))), boost::simd::splat<r_t>(-4194304));
+  NT2_TEST_EQUAL(toint(boost::simd::splat<vT>(T(-8388608))), boost::simd::splat<r_t>(-8388608));
+  NT2_TEST_EQUAL(toint(boost::simd::splat<vT>(T(-16777216))), boost::simd::splat<r_t>(-16777216));
 } // end of test for floating_
