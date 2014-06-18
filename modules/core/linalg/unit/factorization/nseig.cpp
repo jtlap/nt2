@@ -58,12 +58,22 @@ NT2_TEST_CASE_TPL(nseig, NT2_REAL_TYPES)
                      + nt2::ones  (4, 4, nt2::meta::as_<T>()));
   //  b(_, 1) = b(_, 3);
   ct_t w, w1;
-
+  ct_t wr = nt2::_(T(2), T(5));
   display("b", b);
   w = nseig(b);
   display("w", w);
-  ct_t cb = b;
+  w = nseig(nt2::triu(nt2::from_diag(nt2::_(T(1), T(4)))
+                      + nt2::ones  (4, 4, nt2::meta::as_<T>())));
+  display("w", w);
+  NT2_TEST_EQUAL(w, wr);
+  ct_t z = nt2::ones(8, 1, nt2::meta::as_<T>());
 
+  z(nt2::_(1, 2, 8)) = nseig(b);
+  display("z", z);
+  NT2_TEST_EQUAL(w, z(nt2::_(1, 2, 8)));
+
+  ct_t cb = b;
+  NT2_TEST_EQUAL(height(w), height(b));
   display("cb", cb);
   w1 = nseig(cb);
   display("w1", w1);
@@ -111,7 +121,8 @@ NT2_TEST_CASE_TPL(nseig, NT2_REAL_TYPES)
   nt2::display("w     ", w);
   nt2::display("v     ", v);
   std::cout << "- 4 -" << std::endl;
-  NT2_TEST_ULP_EQUAL(mtimes( v, nt2::from_diag(w)), mtimes(cb, v), 8);
+  NT2_TEST_ULP_EQUAL(mtimes( v, nt2::from_diag(w)), mtimes(b, v), 8);
+
 
   nt2::tie(v, w) = nseig(cb, nt2::vector_);
   nt2::display("w     ", w);
@@ -210,6 +221,14 @@ NT2_TEST_CASE_TPL(nseig, NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(mtimes(v, w), mtimes(cb, v), 8);
   std::cout << "- 23 -" << std::endl;
   NT2_TEST_ULP_EQUAL(mtimes(vl, ctrans(w)), mtimes(ctrans(cb), vl), 8);
+
+//   ct_t vv = nt2::ones(10, 10, nt2::meta::as_<T>());
+//   nt2::tie(vv(nt2::_(1, 2, 8), nt2::_(1, 2, 8))
+//           , z(nt2::_(1, 2, 8))
+//           , vl) = nseig(cb, nt2::vector_);
+//   nt2::display("z     ", z);
+//   nt2::display("vv    ", vv);
+//   nt2::display("vl    ", vl);
 
 
 }
@@ -381,8 +400,6 @@ NT2_TEST_CASE_TPL(nseigc, NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(mtimes(v, w), mtimes(cb, v), 8);
   std::cout << "- 23 -" << std::endl;
   NT2_TEST_ULP_EQUAL(mtimes(vl, ctrans(w)), mtimes(ctrans(cb), vl), 8);
-
-
 }
 
 

@@ -25,10 +25,10 @@
 #include <nt2/sdk/meta/as_real.hpp>
 #include <nt2/sdk/complex/meta/is_complex.hpp>
 #include <nt2/linalg/options.hpp>
+#include <nt2/core/container/dsl/as_terminal.hpp>
 #include <boost/dispatch/attributes.hpp>
 #include <boost/assert.hpp>
 #include <boost/mpl/bool.hpp>
-#include <iostream>
 
 namespace nt2 { namespace ext
 {
@@ -90,10 +90,11 @@ namespace nt2 { namespace ext
                             )
   {
     typedef void  result_type;
-    typedef typename boost::proto::result_of::child_c<A0&,0>::value_type child0;
-    typedef typename child0::value_type                                  type_t;
-    typedef typename nt2::meta::as_real<type_t>::type                   rtype_t;
-    typedef typename nt2::meta::as_complex<rtype_t>::type               ctype_t;
+    typedef typename boost::proto::result_of::child_c<A0&,0>::value_type    child0;
+    typedef typename child0::value_type                                     type_t;
+    typedef typename nt2::meta::as_real<type_t>::type                      rtype_t;
+    typedef typename nt2::meta::as_complex<rtype_t>::type                  ctype_t;
+    typedef nt2::memory::container<tag::table_, ctype_t, nt2::_2D> desired_semantic;
 
     BOOST_FORCEINLINE result_type operator()( A0& a0, A1& a1 ) const
     {
@@ -127,9 +128,13 @@ namespace nt2 { namespace ext
                  , nt2::policy<ext::vector_> const &
                  ) const
     {
-      nt2::container::table<type_t> a = boost::proto::child_c<0>(a0);
+      nt2::container::table<type_t> work;
+      NT2_AS_TERMINAL_INOUT(desired_semantic, a, boost::proto::child_c<0>(a0), work);
+      NT2_AS_TERMINAL_OUT  (desired_semantic, w, boost::proto::child_c<0>(a1));
+      w.resize(of_size(height(a), 1));
       nt2::geev_just_w( boost::proto::value(a)
-                      , boost::proto::value(boost::proto::child_c<0>(a1)));
+                      , boost::proto::value(w));
+      boost::proto::child_c<0>(a1) = w;
     }
 
     /// INTERNAL ONLY: 1o 2i
@@ -138,9 +143,9 @@ namespace nt2 { namespace ext
                  , nt2::policy<ext::matrix_> const &
                  ) const
     {
-      nt2::container::table<type_t> a = boost::proto::child_c<0>(a0);
-      size_t n = height(boost::proto::child_c<0>(a0));
-      container::table <ctype_t> w(nt2::of_size(n,1));
+      nt2::container::table<type_t> work;
+      NT2_AS_TERMINAL_INOUT(desired_semantic, a, boost::proto::child_c<0>(a0), work);
+      nt2::container::table <ctype_t, _2D > w(of_size(height(a), 1));
       nt2::geev_just_w( boost::proto::value(a)
                       , boost::proto::value(w)
                       );
@@ -176,13 +181,19 @@ namespace nt2 { namespace ext
                  , nt2::policy<ext::vector_> const &
                  ) const
     {
-      nt2::container::table<type_t> a = boost::proto::child_c<0>(a0);
-      size_t n = height(boost::proto::child_c<0>(a0));
-      boost::proto::child_c<1>(a1).resize(of_size(n, 1));
+      nt2::container::table<type_t> work;
+      NT2_AS_TERMINAL_INOUT(desired_semantic,  a, boost::proto::child_c<0>(a0), work);
+      NT2_AS_TERMINAL_OUT  (desired_semantic, vr, boost::proto::child_c<0>(a1));
+      NT2_AS_TERMINAL_OUT  (desired_semantic,  w, boost::proto::child_c<1>(a1));
+      size_t n = height(a);
+      w.resize(of_size(n, 1));
+      vr.resize(of_size(n, n));
       nt2::geev_wvr( boost::proto::value(a)
-                   , boost::proto::value(boost::proto::child_c<1>(a1))
-                   , boost::proto::value(boost::proto::child_c<0>(a1))
+                   , boost::proto::value(w)
+                   , boost::proto::value(vr)
                   );
+      boost::proto::child_c<1>(a1) = w;
+      boost::proto::child_c<0>(a1) = vr;
     }
 
     /// INTERNAL ONLY: 2o 2i
@@ -191,15 +202,18 @@ namespace nt2 { namespace ext
                  , nt2::policy<ext::matrix_> const &
                  ) const
     {
-      nt2::container::table<type_t> a = boost::proto::child_c<0>(a0);
-      size_t n = height(boost::proto::child_c<0>(a0));
+      nt2::container::table<type_t> work;
+      NT2_AS_TERMINAL_INOUT(desired_semantic,  a, boost::proto::child_c<0>(a0), work);
+      NT2_AS_TERMINAL_OUT  (desired_semantic, vr, boost::proto::child_c<0>(a1));
+      size_t n = height(a);
       nt2::container::table<ctype_t> w(of_size(n, 1));
-      boost::proto::child_c<0>(a1).resize(of_size(n, n));
+      vr.resize(of_size(n, n));
       nt2::geev_wvr( boost::proto::value(a)
                    , boost::proto::value(w)
-                   , boost::proto::value(boost::proto::child_c<0>(a1))
+                   , boost::proto::value(vr)
                   );
       boost::proto::child_c<1>(a1) = from_diag(w);
+      boost::proto::child_c<0>(a1) = vr;
     }
 
     /// INTERNAL ONLY: 2o 2i
@@ -232,7 +246,9 @@ namespace nt2 { namespace ext
               , boost::mpl::long_<3> const&
               ) const
     {
-      eval3_3(a0, a1, nt2::policy<ext::matrix_>(), nt2::policy<ext::no_balance_>());
+      eval3_3( a0, a1
+             , nt2::policy<ext::matrix_>()
+             , nt2::policy<ext::no_balance_>());
     }
 
     //==========================================================================
@@ -252,17 +268,22 @@ namespace nt2 { namespace ext
                  , nt2::policy<ext::matrix_> const &
                  ) const
     {
-      nt2::container::table<type_t> a = boost::proto::child_c<0>(a0);
-      size_t n = height(boost::proto::child_c<0>(a0));
+      nt2::container::table<type_t> work;
+      NT2_AS_TERMINAL_INOUT(desired_semantic,  a, boost::proto::child_c<0>(a0), work);
+      NT2_AS_TERMINAL_OUT  (desired_semantic, vr, boost::proto::child_c<0>(a1));
+      NT2_AS_TERMINAL_OUT  (desired_semantic, vl, boost::proto::child_c<2>(a1));
+      size_t n = height(a);
       nt2::container::table<ctype_t> w(of_size(n, 1));
-      boost::proto::child_c<0>(a1).resize(of_size(n, n));
-      boost::proto::child_c<2>(a1).resize(of_size(n, n));
+      vr.resize(of_size(n, n));
+      vl.resize(of_size(n, n));
       nt2::geev_wvrvl( boost::proto::value(a)
                      , boost::proto::value(w)
-                     , boost::proto::value(boost::proto::child_c<0>(a1))
-                     , boost::proto::value(boost::proto::child_c<2>(a1))
+                     , boost::proto::value(vr)
+                     , boost::proto::value(vl)
                      );
       boost::proto::child_c<1>(a1) = from_diag(w);
+      boost::proto::child_c<0>(a1) = vr;
+      boost::proto::child_c<2>(a1) = vl;
     }
 
     /// INTERNAL ONLY: 3o 2i
@@ -271,16 +292,23 @@ namespace nt2 { namespace ext
                  , nt2::policy<ext::vector_> const &
                  ) const
     {
-      nt2::container::table<type_t> a = boost::proto::child_c<0>(a0);
-      size_t n = height(boost::proto::child_c<0>(a0));
-      boost::proto::child_c<0>(a1).resize(of_size(n, n));
-      boost::proto::child_c<2>(a1).resize(of_size(n, n));
-      boost::proto::child_c<1>(a1).resize(of_size(n, 1));
+      nt2::container::table<type_t> work;
+      NT2_AS_TERMINAL_INOUT(desired_semantic,  a, boost::proto::child_c<0>(a0), work);
+      NT2_AS_TERMINAL_OUT  (desired_semantic, vr, boost::proto::child_c<0>(a1));
+      NT2_AS_TERMINAL_OUT  (desired_semantic,  w, boost::proto::child_c<1>(a1));
+      NT2_AS_TERMINAL_OUT  (desired_semantic, vl, boost::proto::child_c<2>(a1));
+      size_t n = height(a);
+      vr.resize(of_size(n, n));
+      vl.resize(of_size(n, n));
+      w.resize(of_size(n, 1));
       nt2::geev_wvrvl( boost::proto::value(a)
-                     , boost::proto::value(boost::proto::child_c<1>(a1))
-                     , boost::proto::value(boost::proto::child_c<0>(a1))
-                     , boost::proto::value(boost::proto::child_c<2>(a1))
+                     , boost::proto::value(w)
+                     , boost::proto::value(vr)
+                     , boost::proto::value(vl)
                      );
+      boost::proto::child_c<1>(a1) = w;
+      boost::proto::child_c<0>(a1) = vr;
+      boost::proto::child_c<2>(a1) = vl;
     }
 
     /// INTERNAL ONLY: 3o 2i
@@ -348,7 +376,7 @@ namespace nt2 { namespace ext
     {
       nt2::container::table<type_t> a = boost::proto::child_c<0>(a0);
       nt2::container::table<type_t> b = balance(a);
-      boost::proto::child_c<0>(a1) = nseig(b);
+      boost::proto::child_c<0>(a1) = nseig(b); //as_temporary(b));
 
     }
     //==========================================================================
@@ -381,16 +409,21 @@ namespace nt2 { namespace ext
                  ,  nt2::policy<ext::balance_> const &
                  ) const
     {
-      nt2::container::table<type_t> a = boost::proto::child_c<0>(a0);
+      nt2::container::table<type_t> work;
+      NT2_AS_TERMINAL_INOUT(desired_semantic,  a, boost::proto::child_c<0>(a0), work);
+      NT2_AS_TERMINAL_OUT  (desired_semantic,  v, boost::proto::child_c<0>(a1));
+      NT2_AS_TERMINAL_OUT  (desired_semantic,  w, boost::proto::child_c<1>(a1));
+
       nt2_la_int ilo, ihi;
       nt2_la_int n = height(a);
       nt2::container::table<rtype_t> scale(of_size(n, 1));
       gebal(boost::proto::value(a), boost::proto::value(scale), ilo, ihi, 'B');
-      tie(boost::proto::child_c<0>(a1)
-         ,boost::proto::child_c<1>(a1)) = nseig(a, nt2::policy<ext::vector_>());
-      nt2_la_int ldt = boost::proto::child_c<1>(a1).leading_size();
-      gebak(boost::proto::value(boost::proto::child_c<0>(a1)),
-            boost::proto::value(scale), ilo, ihi, 'B', 'R');
+      tie(v, w) = nseig(a, nt2::policy<ext::vector_>());
+      gebak( boost::proto::value(v)
+           , boost::proto::value(scale)
+           , ilo, ihi, 'B', 'R');
+      boost::proto::child_c<1>(a1) = w;
+      boost::proto::child_c<0>(a1) = v;
     }
 
     /// INTERNAL ONLY: 2o 3i
@@ -400,15 +433,22 @@ namespace nt2 { namespace ext
                  ,  nt2::policy<ext::balance_> const &
                  ) const
     {
-      nt2::container::table<type_t> a = boost::proto::child_c<0>(a0);
+      nt2::container::table<type_t> work;
+      NT2_AS_TERMINAL_INOUT(desired_semantic,  a, boost::proto::child_c<0>(a0), work);
+      NT2_AS_TERMINAL_OUT  (desired_semantic,  v, boost::proto::child_c<0>(a1));
+      NT2_AS_TERMINAL_OUT  (desired_semantic,  w, boost::proto::child_c<1>(a1));
       nt2_la_int ilo, ihi;
       nt2_la_int n = height(a);
       nt2::container::table<rtype_t> scale(of_size(n, 1));
-      gebal(boost::proto::value(a), boost::proto::value(scale), ilo, ihi, 'B');
-      tie( boost::proto::child_c<0>(a1)
-         , boost::proto::child_c<1>(a1)) = nseig(a, nt2::policy<ext::matrix_>());
-      gebak( boost::proto::value(boost::proto::child_c<0>(a1))
-           , boost::proto::value(scale), ilo, ihi, 'B', 'R');
+      gebal( boost::proto::value(a)
+           , boost::proto::value(scale)
+           , ilo, ihi, 'B');
+      tie(v, w) = nseig(a, nt2::policy<ext::matrix_>());
+      gebak( boost::proto::value(v)
+           , boost::proto::value(scale)
+           , ilo, ihi, 'B', 'R');
+      boost::proto::child_c<1>(a1) = w;
+      boost::proto::child_c<0>(a1) = v;
     }
 
 
@@ -432,7 +472,8 @@ namespace nt2 { namespace ext
                  ,  nt2::policy<ext::no_balance_> const &
                  ) const
     {
-      nt2::container::table<type_t> a = boost::proto::child_c<0>(a0);
+      nt2::container::table<type_t> work;
+      NT2_AS_TERMINAL_INOUT(desired_semantic,  a, boost::proto::child_c<0>(a0), work);
       tie( boost::proto::child_c<0>(a1)
          , boost::proto::child_c<1>(a1)
          , boost::proto::child_c<2>(a1)) = nseig(a, nt2::policy<ext::vector_>());
@@ -445,13 +486,16 @@ namespace nt2 { namespace ext
                  ,  nt2::policy<ext::no_balance_> const &
                  ) const
     {
-      nt2::container::table<type_t> a = boost::proto::child_c<0>(a0);
+      nt2::container::table<type_t> work;
+      NT2_AS_TERMINAL_INOUT(desired_semantic,  a, boost::proto::child_c<0>(a0), work);
+      NT2_AS_TERMINAL_OUT  (desired_semantic, vr, boost::proto::child_c<0>(a1));
+      NT2_AS_TERMINAL_OUT  (desired_semantic, vl, boost::proto::child_c<2>(a1));
       nt2_la_int n = height(a);
       nt2::container::table<ctype_t> w(of_size(n, 1));
-      tie( boost::proto::child_c<0>(a1)
-         , w
-         , boost::proto::child_c<2>(a1)) = nseig(a, nt2::policy<ext::vector_>());
+      tie( vr, w, vl) = nseig(a, nt2::policy<ext::vector_>());
       boost::proto::child_c<1>(a1) =  from_diag(w);
+      boost::proto::child_c<0>(a1) = vr;
+      boost::proto::child_c<2>(a1) = vl;
     }
 
     /// INTERNAL ONLY: 3o 3i
@@ -461,19 +505,23 @@ namespace nt2 { namespace ext
                  ,  nt2::policy<ext::balance_> const &
                  ) const
     {
-      nt2::container::table<type_t> a = boost::proto::child_c<0>(a0);
+      nt2::container::table<type_t> work;
+      NT2_AS_TERMINAL_INOUT(desired_semantic,  a, boost::proto::child_c<0>(a0), work);
+      NT2_AS_TERMINAL_OUT  (desired_semantic, vr, boost::proto::child_c<0>(a1));
+      NT2_AS_TERMINAL_OUT  (desired_semantic, vl, boost::proto::child_c<2>(a1));
+      NT2_AS_TERMINAL_OUT  (desired_semantic,  w, boost::proto::child_c<1>(a1));
       nt2_la_int ilo, ihi;
       nt2_la_int n = height(a);
       nt2::container::table<rtype_t> scale(of_size(n, 1));
       gebal(boost::proto::value(a), boost::proto::value(scale), ilo, ihi, 'B');
-      tie( boost::proto::child_c<0>(a1)
-         , boost::proto::child_c<1>(a1)
-         , boost::proto::child_c<2>(a1)) = nseig(a, nt2::policy<ext::vector_>()
-                                                , nt2::policy<ext::no_balance_>());
-      gebak(boost::proto::value(boost::proto::child_c<0>(a1)),
+      tie(vr, w, vl) = nseig(a, nt2::policy<ext::vector_>(), nt2::policy<ext::no_balance_>());
+      gebak(boost::proto::value(vr),
             boost::proto::value(scale), ilo, ihi, 'B', 'R');
-      gebak(boost::proto::value(boost::proto::child_c<2>(a1)),
+      gebak(boost::proto::value(vl),
             boost::proto::value(scale), ilo, ihi, 'B', 'L');
+      boost::proto::child_c<1>(a1) = w;
+      boost::proto::child_c<0>(a1) = vr;
+      boost::proto::child_c<2>(a1) = vl;
     }
 
     /// INTERNAL ONLY
@@ -483,19 +531,23 @@ namespace nt2 { namespace ext
                  ,  nt2::policy<ext::balance_> const &
                  ) const
     {
-      nt2::container::table<type_t> a = boost::proto::child_c<0>(a0);
+      nt2::container::table<type_t> work;
+      NT2_AS_TERMINAL_INOUT(desired_semantic,  a, boost::proto::child_c<0>(a0), work);
+      NT2_AS_TERMINAL_OUT  (desired_semantic, vr, boost::proto::child_c<0>(a1));
+      NT2_AS_TERMINAL_OUT  (desired_semantic, vl, boost::proto::child_c<2>(a1));
+      NT2_AS_TERMINAL_OUT  (desired_semantic,  w, boost::proto::child_c<1>(a1));
       nt2_la_int ilo, ihi;
       nt2_la_int n = height(a);
       nt2::container::table<rtype_t> scale(of_size(n, 1));
       gebal(boost::proto::value(a), boost::proto::value(scale), ilo, ihi, 'B');
-      tie(boost::proto::child_c<0>(a1)
-         , boost::proto::child_c<1>(a1)
-         , boost::proto::child_c<2>(a1)) = nseig(a, nt2::policy<ext::matrix_>()
-                                              , nt2::policy<ext::no_balance_>());
-      gebak(boost::proto::value(boost::proto::child_c<0>(a1)),
+      tie(vr, w, vl) = nseig(a, nt2::policy<ext::matrix_>(), nt2::policy<ext::no_balance_>());
+      gebak(boost::proto::value(vr),
             boost::proto::value(scale), ilo, ihi, 'B', 'R');
-      gebak(boost::proto::value(boost::proto::child_c<2>(a1)),
+      gebak(boost::proto::value(vl),
             boost::proto::value(scale), ilo, ihi, 'B', 'L');
+      boost::proto::child_c<1>(a1) = w;
+      boost::proto::child_c<0>(a1) = vr;
+      boost::proto::child_c<2>(a1) = vl;
     }
 
   };

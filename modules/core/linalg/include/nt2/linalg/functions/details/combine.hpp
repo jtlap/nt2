@@ -16,7 +16,7 @@
 #include <nt2/include/functions/conj.hpp>
 #include <nt2/core/container/table/table.hpp>
 #include <nt2/core/utility/share.hpp>
-
+#include <nt2/core/container/colon/colon.hpp>
 
 
 namespace nt2 { namespace details
