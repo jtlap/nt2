@@ -27,6 +27,8 @@
 #include <boost/dispatch/attributes.hpp>
 #include <boost/assert.hpp>
 #include <boost/mpl/bool.hpp>
+#include <nt2/linalg/details/utility/lapack_assert.hpp>
+#include <nt2/core/container/dsl/as_terminal.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -82,6 +84,9 @@ namespace nt2 { namespace ext
     typedef typename nt2::meta::as_complex<type_t>::type                ctype_t;
     typedef typename nt2::meta::as_real<type_t>::type                   rtype_t;
     typedef rtype_t T;
+    typedef nt2::memory::container<tag::table_,  type_t, nt2::_2D>   o_semantic;
+    typedef nt2::memory::container<tag::table_, rtype_t, nt2::_2D>   r_semantic;
+    typedef nt2::memory::container<tag::table_, ctype_t, nt2::_2D>   c_semantic;
 
     BOOST_FORCEINLINE result_type operator()( A0& a0, A1& a1 ) const
     {
@@ -97,8 +102,10 @@ namespace nt2 { namespace ext
               , boost::mpl::long_<1> const&
               ) const
     {
-      boost::proto::child_c<0>(a1) = boost::proto::child_c<0>(a0);
-      nt2::geesx(boost::proto::value( boost::proto::child_c<0>(a1)), type_t(0));
+      nt2::container::table<type_t> work;
+      NT2_AS_TERMINAL_INOUT(o_semantic, a, boost::proto::child_c<0>(a0), work);
+      lapack_assert(nt2::geesx(boost::proto::value(a), type_t(0)));
+      boost::proto::child_c<0>(a1) = a;
     }
 
     //==========================================================================
@@ -123,12 +130,13 @@ namespace nt2 { namespace ext
                  ) const
     {
       BOOST_ASSERT_MSG(isreal(boost::proto::child_c<0>(a0)),
-                       "all input matrix element are to be real to support 'real_' option with complex type input");
+                       "all input matrix elements are to be real to support 'real_' option with complex type input");
+      nt2::container::table<type_t> work;
+      NT2_AS_TERMINAL_INOUT(r_semantic, t, real(boost::proto::child_c<0>(a0)), work);
       // Here one cannot be sure that boost::proto::child_c<0>(a1) is real typed
       // as the 'real'schur decomposition can be put in a complex table
       // so we cannot pass it to geesx that needs a real table
-      nt2::container::table<rtype_t> t = real(boost::proto::child_c<0>(a0));
-      nt2::geesx(boost::proto::value(t), rtype_t(0));
+      lapack_assert(nt2::geesx(boost::proto::value(t), rtype_t(0)));
       boost::proto::child_c<0>(a1) = t;
     }
 
@@ -139,9 +147,12 @@ namespace nt2 { namespace ext
                  , nt2::policy<ext::eigs_>
                  ) const
     {
-      nt2::container::table<type_t> t = boost::proto::child_c<0>(a0);
-      nt2::geesxw(boost::proto::value(t),
-                  boost::proto::value( boost::proto::child_c<0>(a1)));
+      nt2::container::table<type_t> work;
+      NT2_AS_TERMINAL_INOUT(o_semantic, t, boost::proto::child_c<0>(a0), work);
+      NT2_AS_TERMINAL_OUT  (o_semantic, w, boost::proto::child_c<0>(a1));
+      lapack_assert( nt2::geesxw(boost::proto::value(t),
+                                 boost::proto::value(w)));
+      boost::proto::child_c<0>(a1) = w;
    }
 
     //==========================================================================
@@ -161,8 +172,9 @@ namespace nt2 { namespace ext
                  ) const
     {
       // Here boost::proto::child_c<0>(a0) is real and geesx has to receive a complex table
-      nt2::container::table<ctype_t> t = boost::proto::child_c<0>(a0);
-      nt2::geesx(boost::proto::value(t), ctype_t(0));
+      nt2::container::table<type_t> work;
+      NT2_AS_TERMINAL_INOUT(c_semantic, t, boost::proto::child_c<0>(a0), work);
+      lapack_assert(nt2::geesx(boost::proto::value(t), ctype_t(0)));
       boost::proto::child_c<0>(a1) = t;
     }
 
@@ -172,9 +184,11 @@ namespace nt2 { namespace ext
                  ) const
     {
       // Here  boost::proto::child_c<0>(a0) is complex
-      boost::proto::child_c<0>(a1) = boost::proto::child_c<0>(a0);
-      nt2::geesx(boost::proto::value(boost::proto::child_c<0>(a1)), ctype_t(0));
-    }
+      nt2::container::table<type_t> work;
+      NT2_AS_TERMINAL_INOUT(c_semantic, t, boost::proto::child_c<0>(a0), work);
+      lapack_assert(nt2::geesx(boost::proto::value(t), ctype_t(0)));
+      boost::proto::child_c<0>(a1) = t;
+     }
 
     //==========================================================================
     /// INTERNAL ONLY - [T, U]= SCHUR(A)
@@ -184,12 +198,16 @@ namespace nt2 { namespace ext
               , boost::mpl::long_<2> const&
               ) const
     {
-      size_t n =   height(boost::proto::child_c<0>(a0));
-      boost::proto::child_c<1>(a1).resize(of_size(n, n));
-      boost::proto::child_c<0>(a1) = boost::proto::child_c<0>(a0);
-      nt2::geesx_no_w( boost::proto::value( boost::proto::child_c<0>(a1))
-                     , boost::proto::value( boost::proto::child_c<1>(a1))
-                     );
+      nt2::container::table<type_t> work;
+      NT2_AS_TERMINAL_INOUT(o_semantic, t, boost::proto::child_c<0>(a0), work);
+      NT2_AS_TERMINAL_OUT  (o_semantic, u, boost::proto::child_c<1>(a1));
+      size_t n = height(t);
+      u.resize(of_size(n, n));
+      lapack_assert(nt2::geesx_no_w( boost::proto::value(t)
+                                   , boost::proto::value(u)
+                                   ));
+      boost::proto::child_c<0>(a1) = t;
+      boost::proto::child_c<1>(a1) = u;
     }
 
     //==========================================================================
@@ -214,16 +232,16 @@ namespace nt2 { namespace ext
     {
       BOOST_ASSERT_MSG(isreal(boost::proto::child_c<0>(a0)),
                        "all input matrix element are to be real to support 'real_' option with complex type input");
-      nt2::container::table<rtype_t> t = real(boost::proto::child_c<0>(a0));
-      size_t n = nt2::height(t);
-      nt2::container::table<rtype_t>  u;
+      nt2::container::table<type_t> work;
+      NT2_AS_TERMINAL_INOUT(r_semantic, t, real(boost::proto::child_c<0>(a0)), work);
+      NT2_AS_TERMINAL_OUT  (r_semantic, u, boost::proto::child_c<1>(a1));
+      size_t n = height(t);
       u.resize(of_size(n, n));
-      boost::proto::child_c<0>(a1) = boost::proto::child_c<0>(a0);
-      nt2::geesx_no_w( boost::proto::value(t)
-                     , boost::proto::value(u)
-                     );
-       boost::proto::child_c<0>(a1) = t;
-       boost::proto::child_c<1>(a1) = u;
+      lapack_assert(nt2::geesx_no_w( boost::proto::value(t)
+                                   , boost::proto::value(u)
+                                   ));
+      boost::proto::child_c<0>(a1) = t;
+      boost::proto::child_c<1>(a1) = u;
     }
 
     //==========================================================================
@@ -233,14 +251,14 @@ namespace nt2 { namespace ext
                  , nt2::policy<ext::cmplx_>
                  ) const
     {
-      nt2::container::table<ctype_t> t = boost::proto::child_c<0>(a0);
+      nt2::container::table<type_t> work;
+      NT2_AS_TERMINAL_INOUT(c_semantic, t, boost::proto::child_c<0>(a0), work);
+      NT2_AS_TERMINAL_OUT  (c_semantic, u, boost::proto::child_c<1>(a1));
       size_t n = nt2::height(t);
-      nt2::container::table<ctype_t>  u;
       u.resize(of_size(n, n));
-      boost::proto::child_c<0>(a1) = boost::proto::child_c<0>(a0);
-      nt2::geesx_no_w( boost::proto::value(t)
-                     , boost::proto::value(u)
-                     );
+      lapack_assert(nt2::geesx_no_w( boost::proto::value(t)
+                                   , boost::proto::value(u)
+                                   ));
       boost::proto::child_c<0>(a1) = t;
       boost::proto::child_c<1>(a1) = u;
     }
@@ -253,14 +271,20 @@ namespace nt2 { namespace ext
               , boost::mpl::long_<3> const&
               ) const
     {
-      size_t n =   height(boost::proto::child_c<0>(a0));
-      boost::proto::child_c<1>(a1).resize(of_size(n, n));
-      boost::proto::child_c<2>(a1).resize(of_size(n, 1));
-      boost::proto::child_c<0>(a1) = boost::proto::child_c<0>(a0);
-      nt2::geesx( boost::proto::value( boost::proto::child_c<0>(a1))
-                , boost::proto::value( boost::proto::child_c<2>(a1))
-                , boost::proto::value( boost::proto::child_c<1>(a1))
-                );
+      nt2::container::table<type_t> work;
+      NT2_AS_TERMINAL_INOUT(o_semantic, t, boost::proto::child_c<0>(a0), work);
+      NT2_AS_TERMINAL_OUT  (o_semantic, u, boost::proto::child_c<1>(a1));
+      NT2_AS_TERMINAL_OUT  (c_semantic, w, boost::proto::child_c<2>(a1));
+      size_t n =   height(t);
+      u.resize(of_size(n, n));
+      w.resize(of_size(n, 1));
+      lapack_assert(nt2::geesx( boost::proto::value(t)
+                              , boost::proto::value(w)
+                              , boost::proto::value(u)
+                              ));
+      boost::proto::child_c<0>(a1) = t;
+      boost::proto::child_c<1>(a1) = u;
+      boost::proto::child_c<2>(a1) = w;
 
     }
   };
