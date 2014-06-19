@@ -66,30 +66,43 @@ NT2_TEST_CASE_TPL(symeig, NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(w, sw, 1);
 
 
+  std::cout << "- 1 -" << std::endl;
   t_t v;
   nt2::tie(w, v) = symeig(b);
+  nt2::display("b     ", b);
   nt2::display("w     ", w);
   nt2::display("v     ", v);
   NT2_TEST_ULP_EQUAL(w, from_diag(sw), 1);
   t_t z =  mtimes(mtimes(v, w), nt2::trans(v));
   NT2_TEST_ULP_EQUAL(nt2::triu(b), nt2::triu(z), 8);
 
+  std::cout << "- 2 -" << std::endl;
   nt2::tie(w, v) = symeig(b, nt2::matrix_);
+  nt2::display("b     ", b);
+  nt2::display("w     ", w);
+  nt2::display("v     ", v);
   z =  mtimes(mtimes(v, w), nt2::trans(v));
   NT2_TEST_ULP_EQUAL(nt2::triu(b), nt2::triu(z), 8);
 
+  std::cout << "- 3 -" << std::endl;
   nt2::tie(w, v) = symeig(b, nt2::vector_);
+  nt2::display("b     ", b);
+  nt2::display("w     ", w);
+  nt2::display("v     ", v);
   z =  mtimes(mtimes(v, nt2::from_diag(w)), nt2::trans(v));
   NT2_TEST_ULP_EQUAL(nt2::triu(b), nt2::triu(z), 8);
 
+  std::cout << "- 4 -" << std::endl;
   nt2::tie(w, v) = symeig(nt2::tril(b), nt2::lower_);
   z =  mtimes(mtimes(v, w), nt2::trans(v));
   NT2_TEST_ULP_EQUAL(nt2::tril(b), nt2::tril(z), 8);
 
+  std::cout << "- 5 -" << std::endl;
   nt2::tie(w, v) = symeig(b, nt2::matrix_, nt2::lower_);
   z =  mtimes(mtimes(v, w), nt2::trans(v));
   NT2_TEST_ULP_EQUAL(nt2::triu(b), nt2::triu(z), 8);
 
+  std::cout << "- 6 -" << std::endl;
   nt2::tie(w, v) = symeig(b, nt2::vector_, nt2::lower_);
   z =  mtimes(mtimes(v, nt2::from_diag(w)), nt2::trans(v));
   NT2_TEST_ULP_EQUAL(nt2::triu(b), nt2::triu(z), 8);
@@ -140,6 +153,7 @@ NT2_TEST_CASE_TPL(symeigc, NT2_REAL_TYPES)
   }
 
   {
+    std::cout << "- 1c -" << std::endl;
     ct_t v;
     t_t w;
     nt2::tie(w, v) = symeig(b);
@@ -151,6 +165,8 @@ NT2_TEST_CASE_TPL(symeigc, NT2_REAL_TYPES)
   }
 
   {
+    std::cout << "- 2c -" << std::endl;
+    nt2::display("b     ", b);
     ct_t v;
     t_t w;
     nt2::tie(w, v) = symeig(b, nt2::matrix_);
@@ -161,6 +177,7 @@ NT2_TEST_CASE_TPL(symeigc, NT2_REAL_TYPES)
   }
 
   {
+    std::cout << "- 3c -" << std::endl;
     ct_t v;
     t_t w;
 
@@ -174,6 +191,7 @@ NT2_TEST_CASE_TPL(symeigc, NT2_REAL_TYPES)
   }
 
   {
+    std::cout << "- 4c -" << std::endl;
     ct_t v;
     t_t w;
 
@@ -183,6 +201,7 @@ NT2_TEST_CASE_TPL(symeigc, NT2_REAL_TYPES)
   }
 
   {
+    std::cout << "- 5c -" << std::endl;
     ct_t v;
     t_t w;
 

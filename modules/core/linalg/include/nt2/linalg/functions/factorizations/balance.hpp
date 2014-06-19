@@ -23,12 +23,13 @@
 #include <nt2/include/functions/ones.hpp>
 #include <nt2/include/functions/tie.hpp>
 #include <nt2/include/functions/value.hpp>
-#include <nt2/linalg/details/utility/warning.hpp>
+#include <nt2/linalg/details/utility/lapack_assert.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/sdk/meta/as_real.hpp>
 #include <nt2/linalg/options.hpp>
 #include <boost/assert.hpp>
 #include <boost/dispatch/attributes.hpp>
+#include <nt2/core/container/dsl/as_terminal.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -83,6 +84,8 @@ namespace nt2 { namespace ext
     typedef typename child0::value_type                                  type_t;
     typedef typename meta::as_real<type_t>::type                        rtype_t;
     typedef typename meta::as_integer<rtype_t>::type                    itype_t;
+    typedef nt2::memory::container<tag::table_,  type_t, nt2::_2D>   o_semantic;
+    typedef nt2::memory::container<tag::table_, rtype_t, nt2::_2D>   r_semantic;
 
     BOOST_FORCEINLINE result_type operator()( A0& a0, A1& a1 ) const
     {
@@ -91,7 +94,6 @@ namespace nt2 { namespace ext
   private:
     //==========================================================================
     /// INTERNAL ONLY - B = BALANCE(A)
-    // returns eigenvalues as a vector
     BOOST_FORCEINLINE
     void eval ( A0& a0, A1& a1
               , boost::mpl::long_<1> const&
@@ -113,57 +115,59 @@ namespace nt2 { namespace ext
     }
 
     //perm_
-    /// INTERNAL ONLY
+    /// INTERNAL ONLY: 1o 2i
     BOOST_FORCEINLINE
     void eval2_1 ( A0& a0, A1& a1
                    , nt2::policy<ext::perm_>
                    ) const
     {
-      boost::proto::child_c<0>(a1) = boost::proto::child_c<0>(a0);
+      nt2::container::table<type_t> work;
+      NT2_AS_TERMINAL_INOUT(o_semantic, a, boost::proto::child_c<0>(a0), work);
       BOOST_ASSERT_MSG(issquare(boost::proto::child_c<0>(a1)),
                        "matrix to balance must be square");
       nt2_la_int ilo, ihi;
-      nt2_la_int n = height(boost::proto::child_c<0>(a1));
-      nt2::container::table<rtype_t> scale(of_size(n, 1));
-      lapack_warn(gebal(boost::proto::value(boost::proto::child_c<0>(a1))
+      nt2::container::table<rtype_t> scale(of_size(height(a), 1));
+      lapack_assert(gebal(boost::proto::value(a)
                        , boost::proto::value(scale)
                        , ilo, ihi, 'P'));
+      boost::proto::child_c<0>(a1) = a;
     }
 
     //no_perm_
-    /// INTERNAL ONLY
+    /// INTERNAL ONLY: 1o 2i
     BOOST_FORCEINLINE
       void eval2_1 ( A0& a0, A1& a1
                    , nt2::policy<ext::no_perm_>
                    ) const
     {
-      boost::proto::child_c<0>(a1) = boost::proto::child_c<0>(a0);
-      BOOST_ASSERT_MSG(issquare(boost::proto::child_c<0>(a1)),
+      nt2::container::table<type_t> work;
+      NT2_AS_TERMINAL_INOUT(o_semantic, a, boost::proto::child_c<0>(a0), work);
+      BOOST_ASSERT_MSG(issquare(a),
                        "matrix to balance must be square");
       nt2_la_int ilo, ihi;
-      nt2_la_int n = height(boost::proto::child_c<0>(a1));
-      nt2::container::table<rtype_t> scale(of_size(n, 1));
-      lapack_warn(gebal( boost::proto::value(boost::proto::child_c<0>(a1))
-                       , boost::proto::value(scale)
-                       , ilo, ihi, 'S'));
+      nt2::container::table<rtype_t> scale(of_size(height(a), 1));
+      lapack_assert(gebal( boost::proto::value(a)
+                         , boost::proto::value(scale)
+                         , ilo, ihi, 'S'));
+      boost::proto::child_c<0>(a1) = a;
     }
 
     //both_
-    /// INTERNAL ONLY
+    /// INTERNAL ONLY: 1o 2i
     BOOST_FORCEINLINE
       void eval2_1 ( A0& a0, A1& a1
                    , nt2::policy<ext::both_>
                    ) const
     {
-      boost::proto::child_c<0>(a1) = boost::proto::child_c<0>(a0);
-      BOOST_ASSERT_MSG(issquare(boost::proto::child_c<0>(a1)),
-                       "matrix to balance must be square");
+      nt2::container::table<type_t> work;
+      NT2_AS_TERMINAL_INOUT(o_semantic, a, boost::proto::child_c<0>(a0), work);
+      BOOST_ASSERT_MSG(issquare(a), "matrix to balance must be square");
       nt2_la_int ilo, ihi;
-      nt2_la_int n = height(boost::proto::child_c<0>(a1));
-      nt2::container::table<rtype_t> scale(of_size(n, 1));
-      lapack_warn(gebal(boost::proto::value(boost::proto::child_c<0>(a1))
-                       , boost::proto::value(scale)
-                       , ilo, ihi, 'B'));
+      nt2::container::table<rtype_t> scale(of_size(height(a), 1));
+      lapack_assert(gebal(boost::proto::value(a)
+                         , boost::proto::value(scale)
+                         , ilo, ihi, 'B'));
+      boost::proto::child_c<0>(a1) = a;
     }
 
     // none_
@@ -173,9 +177,10 @@ namespace nt2 { namespace ext
                    , nt2::policy<ext::none_>
                    ) const
     {
-      boost::proto::child_c<0>(a1) = boost::proto::child_c<0>(a0);
-      BOOST_ASSERT_MSG(issquare(boost::proto::child_c<0>(a1)),
-                       "matrix to balance must be square");
+      nt2::container::table<type_t> work;
+      NT2_AS_TERMINAL_INOUT(o_semantic, a, boost::proto::child_c<0>(a0), work);
+      BOOST_ASSERT_MSG(issquare(a), "matrix to balance must be square");
+      boost::proto::child_c<0>(a1) = a;
     }
 
     //==========================================================================
@@ -206,26 +211,28 @@ namespace nt2 { namespace ext
       eval2_2(a0, a1, boost::proto::value(boost::proto::child_c<1>(a0)));
     }
 
-    // none_
     /// INTERNAL ONLY
     BOOST_FORCEINLINE
     void eval2_2 ( A0& a0, A1& a1
                  , char job
                  ) const
     {
-      boost::proto::child_c<1>(a1) = boost::proto::child_c<0>(a0);
-      BOOST_ASSERT_MSG(issquare(boost::proto::child_c<1>(a1)),
+      nt2::container::table<type_t> work;
+      NT2_AS_TERMINAL_INOUT(o_semantic, a, boost::proto::child_c<0>(a0), work);
+      NT2_AS_TERMINAL_OUT  (o_semantic, t, boost::proto::child_c<0>(a1));
+      BOOST_ASSERT_MSG(issquare(a),
                        "matrix to balance must be square");
       nt2_la_int ilo, ihi;
-      nt2_la_int n = height(boost::proto::child_c<1>(a1));
+      nt2_la_int n = height(a);
       nt2::container::table<rtype_t> scale(of_size(n, 1));
-      lapack_warn(gebal(boost::proto::value(boost::proto::child_c<1>(a1))
+      lapack_assert(gebal(boost::proto::value(a)
                        , boost::proto::value(scale)
                        , ilo, ihi, job));
-      boost::proto::child_c<0>(a1) = nt2::eye(n, n, meta::as_<type_t>());
-      nt2_la_int ldt = boost::proto::child_c<1>(a1).leading_size();
-      lapack_warn(gebak(boost::proto::value(boost::proto::child_c<0>(a1)),
-                        boost::proto::value(scale), ilo, ihi,  job, 'R'));
+      t = nt2::eye(n, n, meta::as_<type_t>());
+      lapack_assert(gebak(boost::proto::value(t),
+                          boost::proto::value(scale), ilo, ihi,  job, 'R'));
+      boost::proto::child_c<0>(a1) = t;
+      boost::proto::child_c<1>(a1) = a;
     }
 
     // both_
@@ -260,11 +267,13 @@ namespace nt2 { namespace ext
                    , nt2::policy<ext::none_>
                    ) const
     {
-      boost::proto::child_c<1>(a1) = boost::proto::child_c<0>(a0);
-      nt2_la_int n = height(boost::proto::child_c<1>(a1));
+      nt2::container::table<type_t> work;
+      NT2_AS_TERMINAL_INOUT(o_semantic, a, boost::proto::child_c<0>(a0), work);
+      NT2_AS_TERMINAL_OUT  (o_semantic, t, boost::proto::child_c<0>(a1));
+      nt2_la_int n = height(a);
+      BOOST_ASSERT_MSG(issquare(a), "matrix to balance must be square");
       boost::proto::child_c<0>(a1) = nt2::eye(n, n, meta::as_<type_t>());
-      BOOST_ASSERT_MSG(issquare(boost::proto::child_c<1>(a1)),
-                       "matrix to balance must be square");
+      boost::proto::child_c<1>(a1) = a;
     }
 
     //==========================================================================
@@ -299,38 +308,46 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE
     void eval3_2 ( A0& a0, A1& a1, char job) const
     {
-       BOOST_ASSERT_MSG(issquare(boost::proto::child_c<0>(a0)),
-                        "matrix to balance must be square");
-       boost::proto::child_c<2>(a1) = boost::proto::child_c<0>(a0);
-       nt2_la_int ilo, ihi;
-       nt2_la_int n = height(boost::proto::child_c<2>(a1));
-       nt2::container::table<rtype_t> scale(of_size(n, 1));
-       lapack_warn(gebal(boost::proto::value(boost::proto::child_c<2>(a1))
-                        , boost::proto::value(scale)
-                        , ilo, ihi, job));
-       nt2::container::table<type_t> t =  nt2::eye(n, n, meta::as_<type_t>());
-       lapack_warn(gebak( boost::proto::value(t)
-                        , boost::proto::value(scale)
-                        , ilo, ihi,  job, 'R'));
-       extract_ips(a1, t);
+      typedef typename boost::proto::result_of::child_c<A1&,1>::value_type child1;
+      typedef typename child1::value_type                                 itype_t;
+      typedef nt2::memory::container<tag::table_, itype_t, nt2::_2D>   i_semantic;
+      nt2::container::table<type_t> work;
+      NT2_AS_TERMINAL_INOUT(o_semantic, a,   boost::proto::child_c<0>(a0), work);
+      NT2_AS_TERMINAL_OUT  (i_semantic, ips, boost::proto::child_c<1>(a1));
+      NT2_AS_TERMINAL_OUT  (o_semantic, s,   boost::proto::child_c<0>(a1));
+      BOOST_ASSERT_MSG(issquare(a),
+                       "matrix to balance must be square");
+      nt2_la_int ilo, ihi;
+      nt2_la_int n = height(a);
+      nt2::container::table<rtype_t> scale(of_size(n, 1));
+      lapack_assert(gebal(boost::proto::value(a)
+                       , boost::proto::value(scale)
+                       , ilo, ihi, job));
+      nt2::container::table<type_t> t = nt2::eye(n, n, meta::as_<type_t>());
+      lapack_assert(gebak(boost::proto::value(t),
+                          boost::proto::value(scale), ilo, ihi,  job, 'R'));
+      extract_ips(ips, s, t);
+      boost::proto::child_c<0>(a1) = s;
+      boost::proto::child_c<1>(a1) = ips;
+      boost::proto::child_c<2>(a1) = a;
     }
 
     /// INTERNAL ONLY
-    template < class T>
+    template < class IPS,  class SCA, class T>
     BOOST_FORCEINLINE
-    void  extract_ips(A1& a1, const T& t) const
+    void  extract_ips(IPS& ips, SCA& sca, const T& t) const
     {
       size_t n =  height(t);
-      boost::proto::child_c<1>(a1).resize(of_size(n, 1));
-      boost::proto::child_c<0>(a1).resize(of_size(n, 1));
+      ips.resize(of_size(n, 1));
+      sca.resize(of_size(n, 1));
       for(size_t i=1; i <= n; ++i)
       {
         for(size_t j=1; j <= n; ++j)
         {
           if(is_nez(t(i, j)))
           {
-            boost::proto::child_c<1>(a1)(i) = j;
-            boost::proto::child_c<0>(a1)(i) = real(t(i, j));
+            ips(i) = j;
+            sca(i) = real(t(i, j));
             break;
           }
         }

@@ -101,6 +101,7 @@ NT2_TEST_CASE_TPL ( balance_expr, NT2_REAL_TYPES)
 
   std::cout << "nt2::balance(a, nt2::none_);" << std::endl;
   nt2::tie(s, ip, b) = nt2::balance(a, nt2::none_);
+  NT2_DISPLAY(a);
   NT2_DISPLAY(b);
   NT2_DISPLAY(s);
   NT2_DISPLAY(ip);
@@ -109,11 +110,14 @@ NT2_TEST_CASE_TPL ( balance_expr, NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(s, nt2::ones(n, 1, boost::dispatch::meta::as_<T>()), 0);
   NT2_TEST_ULP_EQUAL(ip, nt2::_(iT(1), n), 0);
 
-  std::cout << "nt2::balance(a);" << std::endl;
+  std::cout << "nt2::tie(s, ip, b) = nt2::balance(a);" << std::endl;
   nt2::tie(s, ip, b) = nt2::balance(a);
+  NT2_DISPLAY(a);
   NT2_DISPLAY(b);
   NT2_DISPLAY(s);
   NT2_DISPLAY(ip);
+  NT2_DISPLAY(mtimes(mtimes(from_diag(nt2::One<T>()/s), a), from_diag(s)));
+  NT2_DISPLAY(  b(ip, ip));
   nt2::tie(t, b1) = nt2::balance(a);
   NT2_TEST_ULP_EQUAL(t(nt2::_, ip), from_diag(s), 0);
   NT2_TEST_ULP_EQUAL(b(ip, ip), mtimes(mtimes(from_diag(nt2::One<T>()/s), a), from_diag(s)), 0.5);
