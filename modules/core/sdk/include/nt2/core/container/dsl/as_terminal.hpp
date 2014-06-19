@@ -101,7 +101,7 @@ namespace nt2 { namespace container
 } }
 
 #define NT2_AS_TERMINAL_IN(semantic, name, input) typename container::as_terminal<semantic, BOOST_DISPATCH_DECLTYPE((input))>::type name = (input);
-#define NT2_AS_TERMINAL_OUT(semantic, name, output) typename container::as_terminal<semantic, BOOST_DISPATCH_DECLTYPE((output))>::type name = container::as_terminal<desired_semantic, BOOST_DISPATCH_DECLTYPE((output))>::init((output));
+#define NT2_AS_TERMINAL_OUT(semantic, name, output) typename container::as_terminal<semantic, BOOST_DISPATCH_DECLTYPE((output))>::type name = container::as_terminal<semantic, BOOST_DISPATCH_DECLTYPE((output))>::init((output));
 #define NT2_AS_TERMINAL_INOUT(semantic, name, input, output) typename container::as_terminal_inout<semantic, BOOST_DISPATCH_DECLTYPE((input)), BOOST_DISPATCH_DECLTYPE((output))>::type name = container::as_terminal_inout<semantic, BOOST_DISPATCH_DECLTYPE((input)), BOOST_DISPATCH_DECLTYPE((output))>::init((input), (output));
 
 #endif
