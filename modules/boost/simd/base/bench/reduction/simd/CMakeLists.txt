@@ -28,4 +28,4 @@ SET( SOURCES
 # List of simd test files for toolbox reduction
    )
 
-nt2_module_add_tests(boost.simd.reduction.simd.bench ${SOURCES})
+nt2_module_add_tests(boost.simd.base.reduction.simd.bench ${SOURCES})

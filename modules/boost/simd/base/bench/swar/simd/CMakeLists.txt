@@ -21,4 +21,4 @@ SET( SOURCES
 # List of simd test files for toolbox swar
    )
 
-nt2_module_add_tests(boost.simd.swar.simd.bench ${SOURCES})
+nt2_module_add_tests(boost.simd.base.swar.simd.bench ${SOURCES})
