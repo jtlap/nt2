@@ -15,6 +15,33 @@
 #include <boost/type_traits/is_same.hpp>
 #include <boost/type_traits/remove_reference.hpp>
 
+namespace nt2 { namespace meta
+{
+  template<class Value>
+  struct is_container_shared
+       : boost::mpl::false_
+  {
+  };
+
+  template<typename Kind, typename T, typename S, bool Own>
+  struct is_container_shared< memory::container_shared_ref<Kind, T, S, Own> >
+       : boost::mpl::true_
+  {
+  };
+
+  template<class In, long Arity = boost::remove_reference<In>::type::proto_arity_c>
+  struct is_terminal_shared
+       : boost::mpl::false_
+  {
+  };
+
+  template<class In>
+  struct is_terminal_shared<In, 0>
+       : is_container_shared<typename boost::remove_reference<In>::type::proto_child0>
+  {
+  };
+} }
+
 namespace nt2 { namespace container
 {
   template<class Semantic, class Expr = int, class Enable = void>
@@ -44,6 +71,37 @@ namespace nt2 { namespace container
       return expr;
     }
   };
+
+  template<class Semantic, class In, class Out, class Enable = void>
+  struct as_terminal_inout
+  {
+    typedef as_terminal<Semantic, Out> impl;
+    typedef typename impl::type type;
+
+    static type init(In in, Out out)
+    {
+      type result = impl::init(out);
+      result = in;
+      return result;
+    }
+  };
+
+  template<class Semantic, class In, class Out>
+  struct as_terminal_inout< Semantic, In, Out
+                          , typename boost::enable_if< meta::is_terminal_shared<In> >::type
+                        >
+  {
+    typedef In type;
+
+    static type init(In in, Out)
+    {
+      return in;
+    }
+  };
 } }
+
+#define NT2_AS_TERMINAL_IN(semantic, name, input) typename container::as_terminal<semantic, BOOST_DISPATCH_DECLTYPE((input))>::type name = (input);
+#define NT2_AS_TERMINAL_OUT(semantic, name, output) typename container::as_terminal<semantic, BOOST_DISPATCH_DECLTYPE((output))>::type name = container::as_terminal<desired_semantic, BOOST_DISPATCH_DECLTYPE((output))>::init((output));
+#define NT2_AS_TERMINAL_INOUT(semantic, name, input, output) typename container::as_terminal_inout<semantic, BOOST_DISPATCH_DECLTYPE((input)), BOOST_DISPATCH_DECLTYPE((output))>::type name = container::as_terminal_inout<semantic, BOOST_DISPATCH_DECLTYPE((input)), BOOST_DISPATCH_DECLTYPE((output))>::init((input), (output));
 
 #endif
