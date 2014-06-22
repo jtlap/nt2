@@ -24,6 +24,8 @@
 #include <boost/mpl/bool.hpp>
 #include <nt2/core/functions/table/details/is_definitely_vector.hpp>
 //  one norm of a matrix (maximum column sum)
+// TODO optimize mnorm1(trans(a)) as mnorminf(a)
+
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::mnorm1_, tag::cpu_,
@@ -78,15 +80,15 @@ namespace nt2 { namespace ext
     {
       if (isrow(a0)) //row vector
       {
-        return globalmax(nt2::abs(a0));
+        return eval(a0, boost::mpl::true_());
       }
       else if  (iscolumn(a0)) // col vector
       {
-        return globalasum1(a0);
+        return eval2(a0, boost::mpl::true_());
       }
-      else  // matrix but not vectorr
+      else  // matrix but not vector
       {
-        return nt2::globalmax(nt2::asum1(a0, 1));
+        return eval2(a0, boost::mpl::false_());
       }
     }
 

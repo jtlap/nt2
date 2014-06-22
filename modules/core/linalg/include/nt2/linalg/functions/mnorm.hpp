@@ -26,13 +26,7 @@
  *
  * mnorm can be used as
  * mnorm(a)
- *   or
- * mnorm(a, nt2::vector_)
- *  or
- * mnorm(a, nt2::matrix_)
  *
- * the second parameter can be used to suppose with vector_ that a is a big column vector
- * or with matrix_ that it is a matrix
  * \param a the matrix or vector expression a
  *
  **/

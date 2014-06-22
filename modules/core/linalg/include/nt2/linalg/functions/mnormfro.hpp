@@ -26,15 +26,9 @@
  * #include <nt2/include/functions/mnormfro.hpp>
  * \endcode
  *
- *
  * mnormfro can be used as
  * mnormfro(a)
- *   or
- * mnormfro(a, nt2::vector_)
- *  or
- * mnormfro(a, nt2::matrix_)
  *
- * the second parameter is for shake of compatibility with morm_1 and norm_inf
  * \param a the matrix or vector expression a
  *
  **/

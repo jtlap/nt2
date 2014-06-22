@@ -23,6 +23,8 @@
 #include <nt2/core/functions/table/details/is_definitely_vector.hpp>
 
 //  infinity norm  of a matrix  (maximum row sum)
+// TODO optimize mnorminf(trans(a)) as mnorm1(a)
+
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::mnorminf_, tag::cpu_,
@@ -76,15 +78,15 @@ namespace nt2 { namespace ext
     {
       if (iscolumn(a0)) // col vector
       {
-        return nt2::globalmax(nt2::abs(a0));
+        return eval(a0, boost::mpl::true_());
       }
       else if (isrow(a0)) //row vector
       {
-        return globalasum1(a0);
+        return eval2(a0, boost::mpl::true_());
       }
-      else  // matrix but not vectorr
+      else  // matrix but not vector
       {
-        return nt2::globalmax(nt2::asum1(a0, 2));
+        return eval2(a0, boost::mpl::false_());
       }
     }
   };

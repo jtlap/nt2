@@ -32,8 +32,5 @@ NT2_TEST_CASE_TPL(norm, NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(mnorm(ns),  nt2::Three<T>(), 0);
   nt2::table<T, nt2::of_size_<9,1> > ns1 = n1;
   NT2_TEST_ULP_EQUAL(mnorm(ns1),  nt2::Three<T>(), 0);
-//   nt2::table<T, nt2::of_size_<9,9> > as = a;
-//   NT2_TEST_ULP_EQUAL(mnorm(as), nt2::Nine<T>(), 0);
-
 }
 
