@@ -14,10 +14,10 @@
 #include <nt2/include/functions/svd.hpp>
 #include <nt2/include/functions/globalnorm2.hpp>
 #include <nt2/core/container/dsl/forward.hpp>
-#include <boost/assert.hpp>
-#include <boost/static_assert.hpp>
-#include <boost/mpl/bool.hpp>
 #include <nt2/core/functions/table/details/is_definitely_vector.hpp>
+#include <boost/assert.hpp>
+#include <boost/mpl/bool.hpp>
+#include <boost/static_assert.hpp>
 
 namespace nt2 { namespace ext
 {

@@ -19,10 +19,10 @@
 #include <nt2/include/functions/ismatrix.hpp>
 #include <nt2/include/constants/nan.hpp>
 #include <nt2/core/container/dsl/forward.hpp>
-#include <boost/assert.hpp>
-#include <boost/static_assert.hpp>
-#include <boost/mpl/bool.hpp>
 #include <nt2/core/functions/table/details/is_definitely_vector.hpp>
+#include <boost/assert.hpp>
+#include <boost/mpl/bool.hpp>
+#include <boost/static_assert.hpp>
 //  one norm of a matrix (maximum column sum)
 // TODO optimize mnorm1(trans(a)) as mnorminf(a)
 
