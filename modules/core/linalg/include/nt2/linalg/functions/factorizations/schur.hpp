@@ -149,7 +149,7 @@ namespace nt2 { namespace ext
     {
       nt2::container::table<type_t> work;
       NT2_AS_TERMINAL_INOUT(o_semantic, t, boost::proto::child_c<0>(a0), work);
-      NT2_AS_TERMINAL_OUT  (o_semantic, w, boost::proto::child_c<0>(a1));
+      NT2_AS_TERMINAL_OUT  (c_semantic, w, boost::proto::child_c<0>(a1));
       lapack_assert( nt2::geesxw(boost::proto::value(t),
                                  boost::proto::value(w)));
       boost::proto::child_c<0>(a1) = w;

@@ -56,12 +56,8 @@ NT2_TEST_CASE_TPL(schur, NT2_REAL_TYPES)
   typedef nt2::table<T> t_t;
   typedef nt2::table<cT> ct_t;
   T sq = nt2::Sqrt_2o_2<T>();
-// t_t b = nt2::cons(nt2::of_size(2, 2), sq, sq, -sq, sq);
   t_t b =       nt2::ones (4, 4, nt2::meta::as_<T>())
         + T(10)*nt2::eye  (4, 4, nt2::meta::as_<T>());
-//   b(1, 1) = T(1);
-//   b(_, 1) = b(_, 3);
-//   b(3, 3) = T(20);
 
   nt2::display("b", b);
   {
@@ -82,22 +78,22 @@ NT2_TEST_CASE_TPL(schur, NT2_REAL_TYPES)
     ct_t ct =  schur(b, nt2::cmplx_);
     nt2::display("t", ct);
   }
-  std::cout << "icitte" << std::endl;
+
+
   {
     ct_t w =  schur(cb, nt2::eigs_);
     nt2::display("w", w);
   }
-  std::cout << "latte" << std::endl;
-  std::cout << "icitte" << std::endl;
   {
     ct_t w =  schur(b, nt2::eigs_);
     nt2::display("w", w);
   }
-  std::cout << "latte" << std::endl;
   {
     ct_t ct =  schur(cb);
     nt2::display("t", ct);
   }
+
+
   {
     std::cout << "--1--" << std::endl;
     t_t t, u;
@@ -169,12 +165,11 @@ NT2_TEST_CASE_TPL(schurc, NT2_REAL_TYPES)
   typedef nt2::table<T> t_t;
   typedef nt2::table<cT> ct_t;
   T sq = nt2::Sqrt_2o_2<T>();
-// t_t b = nt2::cons(nt2::of_size(2, 2), sq, sq, -sq, sq);
   ct_t b =       nt2::ones (4, 4, nt2::meta::as_<T>())
         + T(10)*nt2::eye  (4, 4, nt2::meta::as_<T>());
-//   b(1, 1) = T(1);
-//   b(_, 1) = b(_, 3);
-//   b(3, 3) = T(20);
+  b(1, 1) = T(1);
+  b(_, 1) = b(_, 3);
+  b(3, 3) = T(20);
 
   nt2::display("b", b);
   {
@@ -195,18 +190,14 @@ NT2_TEST_CASE_TPL(schurc, NT2_REAL_TYPES)
     ct_t ct =  schur(b, nt2::cmplx_);
     nt2::display("t", ct);
   }
-  std::cout << "icitte" << std::endl;
   {
     ct_t w =  schur(cb, nt2::eigs_);
     nt2::display("w", w);
   }
-  std::cout << "latte" << std::endl;
-  std::cout << "icitte" << std::endl;
   {
     ct_t w =  schur(b, nt2::eigs_);
     nt2::display("w", w);
   }
-  std::cout << "latte" << std::endl;
   {
     ct_t ct =  schur(cb);
     nt2::display("t", ct);
@@ -218,7 +209,7 @@ NT2_TEST_CASE_TPL(schurc, NT2_REAL_TYPES)
     nt2::display("t", t);
     nt2::display("u", u);
     ct_t z =  mtimes(mtimes(u, t), nt2::trans(u));
-    NT2_TEST_ULP_EQUAL(b, z, 32);
+    NT2_TEST_ULP_EQUAL(b, z, 50);
   }
   {
     std::cout << "--2--" << std::endl;
@@ -227,7 +218,7 @@ NT2_TEST_CASE_TPL(schurc, NT2_REAL_TYPES)
     nt2::display("ct", ct);
     nt2::display("cu", cu);
     ct_t cz =  mtimes(mtimes(cu, ct), nt2::trans(conj(cu)));
-    NT2_TEST_ULP_EQUAL(cb, cz, 32);
+    NT2_TEST_ULP_EQUAL(cb, cz, 50);
   }
   {
     std::cout << "--3--" << std::endl;
@@ -236,7 +227,7 @@ NT2_TEST_CASE_TPL(schurc, NT2_REAL_TYPES)
     nt2::display("ct", ct);
     nt2::display("cu", cu);
     ct_t cz =  mtimes(mtimes(cu, ct), nt2::trans(conj(cu)));
-    NT2_TEST_ULP_EQUAL(cb, cz, 32);
+    NT2_TEST_ULP_EQUAL(cb, cz, 50);
   }
   {
     std::cout << "--4--" << std::endl;
@@ -245,7 +236,7 @@ NT2_TEST_CASE_TPL(schurc, NT2_REAL_TYPES)
     nt2::display("ct", ct);
     nt2::display("cu", cu);
     ct_t cz =  mtimes(mtimes(cu, ct), nt2::trans(conj(cu)));
-    NT2_TEST_ULP_EQUAL(cb, cz, 32);
+    NT2_TEST_ULP_EQUAL(cb, cz, 50);
   }
   {
     std::cout << "--5--" << std::endl;
@@ -256,7 +247,7 @@ NT2_TEST_CASE_TPL(schurc, NT2_REAL_TYPES)
     nt2::display("u", u);
     nt2::display("w", w);
     ct_t z =  mtimes(mtimes(u, t), nt2::trans(u));
-    NT2_TEST_ULP_EQUAL(b, z, 32);
+    NT2_TEST_ULP_EQUAL(b, z, 50);
   }
 
   {
@@ -268,7 +259,7 @@ NT2_TEST_CASE_TPL(schurc, NT2_REAL_TYPES)
     nt2::display("u", cu);
     nt2::display("w", w);
     ct_t cz =  mtimes(mtimes(cu, ct), nt2::trans(conj(cu)));
-    NT2_TEST_ULP_EQUAL(cb, cz, 32);
+    NT2_TEST_ULP_EQUAL(cb, cz, 50);
   }
 
 }
@@ -290,5 +281,5 @@ NT2_TEST_CASE_TPL(schur_b, NT2_REAL_TYPES)
   ct_t cz =  mtimes(mtimes(u, t), nt2::trans(conj(u)));
     nt2::display("t", t);
     nt2::display("u", u);
-  NT2_TEST_ULP_EQUAL(tocomplex(n), cz, 32);
+  NT2_TEST_ULP_EQUAL(tocomplex(n), cz, 50);
 }
