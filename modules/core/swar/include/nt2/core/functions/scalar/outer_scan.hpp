@@ -35,7 +35,7 @@ namespace nt2 { namespace ext
     operator()(Out& out, In& in, Neutral const& neutral, Bop const& bop, Uop const& uop) const
     {
       extent_type ext = in.extent();
-      std::size_t obound = nt2::numel(boost::fusion::pop_front(ext));
+      std::size_t obound =  boost::fusion::at_c<2>(ext);
 
       nt2::outer_scan(out,in,neutral,bop,uop,std::make_pair(0,obound));
     }
@@ -82,7 +82,7 @@ namespace nt2 { namespace ext
           value_type prev = neutral(nt2::meta::as_<value_type>());
           for(std::size_t k = 0; k < mbound; ++k, it += ibound)
           {
-            prev = bop(prev, nt2::run(in, it, meta::as_<value_type>()));
+            prev = bop(prev, nt2::run(in, it, nt2::meta::as_<value_type>()));
             nt2::run(out, it, prev);
           }
         }
