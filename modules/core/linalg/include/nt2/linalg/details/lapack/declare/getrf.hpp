@@ -1,5 +1,6 @@
 #ifndef NT2_LINALG_DETAILS_LAPACK_DECLARE_GETRF_HPP_INCLUDED
 #define NT2_LINALG_DETAILS_LAPACK_DECLARE_GETRF_HPP_INCLUDED
+#include <nt2/linalg/details/utility/f77_wrapper.hpp>
 
 /// Lapack declaration interface
 ///

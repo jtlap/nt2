@@ -27,6 +27,47 @@ namespace nt2
   }
 
   /**
+     Syntax
+
+     [q,r] = qr(a)
+     [q,r] = qr(a,0)
+     [q,r,e] = qr(a)
+     [q,r,e] = qr(a,matrix_)
+     [q,r,e] = qr(a,vector_)
+     [q,r,e] = qr(a,0)
+     r = qr(a, upper_)
+     x = qr(a)
+     x = qr(a,0)
+     x = qr(a, lapack_)
+
+     description
+
+     [q,r] = qr(a), where a is m-by-n, produces an m-by-n upper
+     triangular matrix r and an m-by-m unitary matrix q so that a =
+     q*r.
+
+     [q,r] = qr(a,0) produces the economy-size decomposition. if m >
+     n, only the first n columns of q and the first n rows of r are
+     computed. if m<=n, this is the same as [q,r] = qr(a).
+
+     [q,r,e] = qr(a) or [q,r,e] = qr(a,'matrix') produces unitary q,
+     upper triangular r and a permutation matrix e so that a*e =
+     q*r. the column permutation e is chosen so that abs(diag(r)) is
+     decreasing.
+
+     [q,r,e] = qr(a,'vector') returns the permutation information as a
+     vector instead of a matrix. that is, e is a row vector such that
+     a(:,e) = q*r.
+
+     [q,r,e] = qr(a,0) produces an economy-size decomposition in which
+     e is a permutation vector, so that a(:,e) = q*r.
+
+     r = qr(a, upper_) return the upper triangular matix r
+
+     x = qr(a) and x = qr(a,0) and x = qr(a,lapack_) return a matrix x
+     such that triu(x) is the upper triangular factor r.
+
+
    * @brief Perform QR factorization
    *
    * For any given matrix expression, performs a QR factorization of
