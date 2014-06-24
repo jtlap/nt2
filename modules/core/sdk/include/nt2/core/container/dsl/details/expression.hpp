@@ -31,9 +31,8 @@ namespace nt2 { namespace meta
 {
   /// INTERNAL ONLY : Option of expression use its settings and semantic
   template<typename Expr, typename Result, typename Tag>
-  struct  option< nt2::container::expression<Expr, Result> , Tag>
-        : option< typename meta::settings_of<Result>::type
-                , Tag, tag::table_>
+  struct  option<nt2::container::expression<Expr, Result>, Tag>
+        : option<Result, Tag>
   {};
 
   /// INTERNAL ONLY : Extract settings from expression
