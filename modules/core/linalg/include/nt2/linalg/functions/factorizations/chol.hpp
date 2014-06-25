@@ -88,8 +88,7 @@ namespace nt2 { namespace ext
               , boost::mpl::long_<1> const& , boost::mpl::long_<1> const&
               ) const
     {
-      nt2::container::table<type_t> work;
-      NT2_AS_TERMINAL_INOUT(o_semantic, a, boost::proto::child_c<0>(a0), work);
+      NT2_AS_TERMINAL_INOUT(o_semantic, a, boost::proto::child_c<0>(a0), boost::proto::child_c<0>(a1));
 
       lapack_assert(nt2::potrf(boost::proto::value(a),'U'));
 
@@ -116,8 +115,7 @@ namespace nt2 { namespace ext
               , nt2::policy<ext::lower_> const&
               ) const
     {
-      nt2::container::table<type_t> work;
-      NT2_AS_TERMINAL_INOUT(o_semantic, a, boost::proto::child_c<0>(a0), work);
+      NT2_AS_TERMINAL_INOUT(o_semantic, a, boost::proto::child_c<0>(a0), boost::proto::child_c<0>(a1));
 
       lapack_assert(nt2::potrf(boost::proto::value(a),'L'));
 
@@ -144,8 +142,7 @@ namespace nt2 { namespace ext
               , boost::mpl::long_<1> const& , boost::mpl::long_<2> const&
               ) const
     {
-      nt2::container::table<type_t> work;
-      NT2_AS_TERMINAL_INOUT(o_semantic, a, boost::proto::child_c<0>(a0), work);
+      NT2_AS_TERMINAL_INOUT(o_semantic, a, boost::proto::child_c<0>(a0), boost::proto::child_c<0>(a1));
 
       nt2_la_int info = nt2::potrf(boost::proto::value(a),'U');
       BOOST_ASSERT_MSG(info >= 0, "invalid parameter in potrf call");
@@ -180,8 +177,7 @@ namespace nt2 { namespace ext
               , nt2::policy<ext::lower_> const&
               ) const
     {
-      nt2::container::table<type_t> work;
-      NT2_AS_TERMINAL_INOUT(o_semantic, a, boost::proto::child_c<0>(a0), work);
+      NT2_AS_TERMINAL_INOUT(o_semantic, a, boost::proto::child_c<0>(a0), boost::proto::child_c<0>(a1));
 
       nt2_la_int info = nt2::potrf(boost::proto::value(a),'L');
       BOOST_ASSERT_MSG(info >= 0, "invalid parameter in potrf call");

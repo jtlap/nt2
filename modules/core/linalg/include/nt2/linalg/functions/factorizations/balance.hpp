@@ -121,8 +121,7 @@ namespace nt2 { namespace ext
                    , nt2::policy<ext::perm_>
                    ) const
     {
-      nt2::container::table<type_t> work;
-      NT2_AS_TERMINAL_INOUT(o_semantic, a, boost::proto::child_c<0>(a0), work);
+      NT2_AS_TERMINAL_INOUT(o_semantic, a, boost::proto::child_c<0>(a0), boost::proto::child_c<0>(a1));
       BOOST_ASSERT_MSG(issquare(boost::proto::child_c<0>(a1)),
                        "matrix to balance must be square");
       nt2_la_int ilo, ihi;
@@ -140,8 +139,7 @@ namespace nt2 { namespace ext
                    , nt2::policy<ext::no_perm_>
                    ) const
     {
-      nt2::container::table<type_t> work;
-      NT2_AS_TERMINAL_INOUT(o_semantic, a, boost::proto::child_c<0>(a0), work);
+      NT2_AS_TERMINAL_INOUT(o_semantic, a, boost::proto::child_c<0>(a0), boost::proto::child_c<0>(a1));
       BOOST_ASSERT_MSG(issquare(a),
                        "matrix to balance must be square");
       nt2_la_int ilo, ihi;
@@ -159,8 +157,7 @@ namespace nt2 { namespace ext
                    , nt2::policy<ext::both_>
                    ) const
     {
-      nt2::container::table<type_t> work;
-      NT2_AS_TERMINAL_INOUT(o_semantic, a, boost::proto::child_c<0>(a0), work);
+      NT2_AS_TERMINAL_INOUT(o_semantic, a, boost::proto::child_c<0>(a0), boost::proto::child_c<0>(a1));
       BOOST_ASSERT_MSG(issquare(a), "matrix to balance must be square");
       nt2_la_int ilo, ihi;
       nt2::container::table<rtype_t> scale(of_size(height(a), 1));
@@ -177,8 +174,7 @@ namespace nt2 { namespace ext
                    , nt2::policy<ext::none_>
                    ) const
     {
-      nt2::container::table<type_t> work;
-      NT2_AS_TERMINAL_INOUT(o_semantic, a, boost::proto::child_c<0>(a0), work);
+      NT2_AS_TERMINAL_INOUT(o_semantic, a, boost::proto::child_c<0>(a0), boost::proto::child_c<0>(a1));
       BOOST_ASSERT_MSG(issquare(a), "matrix to balance must be square");
       boost::proto::child_c<0>(a1) = a;
     }
@@ -217,8 +213,7 @@ namespace nt2 { namespace ext
                  , char job
                  ) const
     {
-      nt2::container::table<type_t> work;
-      NT2_AS_TERMINAL_INOUT(o_semantic, a, boost::proto::child_c<0>(a0), work);
+      NT2_AS_TERMINAL_INOUT(o_semantic, a, boost::proto::child_c<0>(a0), boost::proto::child_c<1>(a1));
       NT2_AS_TERMINAL_OUT  (o_semantic, t, boost::proto::child_c<0>(a1));
       BOOST_ASSERT_MSG(issquare(a),
                        "matrix to balance must be square");
@@ -267,8 +262,7 @@ namespace nt2 { namespace ext
                    , nt2::policy<ext::none_>
                    ) const
     {
-      nt2::container::table<type_t> work;
-      NT2_AS_TERMINAL_INOUT(o_semantic, a, boost::proto::child_c<0>(a0), work);
+      NT2_AS_TERMINAL_INOUT(o_semantic, a, boost::proto::child_c<0>(a0), boost::proto::child_c<1>(a1));
       NT2_AS_TERMINAL_OUT  (o_semantic, t, boost::proto::child_c<0>(a1));
       nt2_la_int n = height(a);
       BOOST_ASSERT_MSG(issquare(a), "matrix to balance must be square");
@@ -311,8 +305,7 @@ namespace nt2 { namespace ext
       typedef typename boost::proto::result_of::child_c<A1&,1>::value_type child1;
       typedef typename child1::value_type                                 itype_t;
       typedef nt2::memory::container<tag::table_, itype_t, nt2::_2D>   i_semantic;
-      nt2::container::table<type_t> work;
-      NT2_AS_TERMINAL_INOUT(o_semantic, a,   boost::proto::child_c<0>(a0), work);
+      NT2_AS_TERMINAL_INOUT(o_semantic, a,   boost::proto::child_c<0>(a0), boost::proto::child_c<2>(a1));
       NT2_AS_TERMINAL_OUT  (i_semantic, ips, boost::proto::child_c<1>(a1));
       NT2_AS_TERMINAL_OUT  (o_semantic, s,   boost::proto::child_c<0>(a1));
       BOOST_ASSERT_MSG(issquare(a),

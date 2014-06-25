@@ -276,8 +276,7 @@ namespace nt2 { namespace ext
                  , nt2::policy<ext::matrix_>
                  ) const
     {
-      nt2::container::table<type_t> work;
-      NT2_AS_TERMINAL_INOUT(o_semantic, u, boost::proto::child_c<0>(a0), work);
+      NT2_AS_TERMINAL_INOUT(o_semantic, u, boost::proto::child_c<0>(a0), boost::proto::child_c<1>(a1));
       nt2::container::table<rtype_t> w(of_size(height(u), 1));
       lapack_assert(nt2::hsev_wu( boost::proto::value(u)
                                 , boost::proto::value(w)
@@ -291,8 +290,7 @@ namespace nt2 { namespace ext
                  , nt2::policy<ext::vector_>
                  ) const
     {
-      nt2::container::table<type_t> work;
-      NT2_AS_TERMINAL_INOUT(o_semantic, u, boost::proto::child_c<0>(a0), work);
+      NT2_AS_TERMINAL_INOUT(o_semantic, u, boost::proto::child_c<0>(a0), boost::proto::child_c<1>(a1));
       NT2_AS_TERMINAL_OUT  (r_semantic, w, boost::proto::child_c<0>(a1));
       w.resize(nt2::of_size(height(u), 1));
       lapack_assert(nt2::hsev_wu( boost::proto::value(u)
@@ -344,8 +342,7 @@ namespace nt2 { namespace ext
                  , nt2::policy<ext::lower_>
                  ) const
     {
-      nt2::container::table<type_t> work;
-      NT2_AS_TERMINAL_INOUT(o_semantic, u, boost::proto::child_c<0>(a0), work);
+      NT2_AS_TERMINAL_INOUT(o_semantic, u, boost::proto::child_c<0>(a0), boost::proto::child_c<1>(a1));
       nt2::container::table<rtype_t> w(of_size(height(u), 1));
       lapack_assert(nt2::hsev_wu( boost::proto::value(u)
                                 , boost::proto::value(w)
@@ -360,8 +357,7 @@ namespace nt2 { namespace ext
                  , nt2::policy<ext::upper_>
                  ) const
     {
-      nt2::container::table<type_t> work;
-      NT2_AS_TERMINAL_INOUT(o_semantic, u, boost::proto::child_c<0>(a0), work);
+      NT2_AS_TERMINAL_INOUT(o_semantic, u, boost::proto::child_c<0>(a0), boost::proto::child_c<1>(a1));
       nt2::container::table<rtype_t> w(of_size(height(u), 1));
       lapack_assert(nt2::hsev_wu( boost::proto::value(u)
                                 , boost::proto::value(w)
@@ -376,8 +372,7 @@ namespace nt2 { namespace ext
                  , nt2::policy<ext::upper_>
                  ) const
     {
-      nt2::container::table<type_t> work;
-      NT2_AS_TERMINAL_INOUT(o_semantic, u, boost::proto::child_c<0>(a0), work);
+      NT2_AS_TERMINAL_INOUT(o_semantic, u, boost::proto::child_c<0>(a0), boost::proto::child_c<1>(a1));
       NT2_AS_TERMINAL_OUT  (r_semantic, w, boost::proto::child_c<0>(a1));
       w.resize(of_size(height(u), 1));
       lapack_assert(nt2::hsev_wu( boost::proto::value(u)
@@ -393,8 +388,7 @@ namespace nt2 { namespace ext
                  , nt2::policy<ext::lower_>
                  ) const
     {
-      nt2::container::table<type_t> work;
-      NT2_AS_TERMINAL_INOUT(o_semantic, u, boost::proto::child_c<0>(a0), work);
+      NT2_AS_TERMINAL_INOUT(o_semantic, u, boost::proto::child_c<0>(a0), boost::proto::child_c<1>(a1));
       NT2_AS_TERMINAL_OUT  (r_semantic, w, boost::proto::child_c<0>(a1));
       w.resize(of_size(height(u), 1));
       lapack_assert(nt2::hsev_wu( boost::proto::value(u)

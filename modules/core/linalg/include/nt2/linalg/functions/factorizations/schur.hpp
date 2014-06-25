@@ -102,8 +102,7 @@ namespace nt2 { namespace ext
               , boost::mpl::long_<1> const&
               ) const
     {
-      nt2::container::table<type_t> work;
-      NT2_AS_TERMINAL_INOUT(o_semantic, a, boost::proto::child_c<0>(a0), work);
+      NT2_AS_TERMINAL_INOUT(o_semantic, a, boost::proto::child_c<0>(a0), boost::proto::child_c<0>(a1));
       lapack_assert(nt2::geesx(boost::proto::value(a), type_t(0)));
       boost::proto::child_c<0>(a1) = a;
     }
@@ -131,8 +130,7 @@ namespace nt2 { namespace ext
     {
       BOOST_ASSERT_MSG(isreal(boost::proto::child_c<0>(a0)),
                        "all input matrix elements are to be real to support 'real_' option with complex type input");
-      nt2::container::table<type_t> work;
-      NT2_AS_TERMINAL_INOUT(r_semantic, t, real(boost::proto::child_c<0>(a0)), work);
+      NT2_AS_TERMINAL_INOUT(r_semantic, t, real(boost::proto::child_c<0>(a0)), boost::proto::child_c<0>(a1));
       // Here one cannot be sure that boost::proto::child_c<0>(a1) is real typed
       // as the 'real'schur decomposition can be put in a complex table
       // so we cannot pass it to geesx that needs a real table
@@ -172,8 +170,7 @@ namespace nt2 { namespace ext
                  ) const
     {
       // Here boost::proto::child_c<0>(a0) is real and geesx has to receive a complex table
-      nt2::container::table<type_t> work;
-      NT2_AS_TERMINAL_INOUT(c_semantic, t, boost::proto::child_c<0>(a0), work);
+      NT2_AS_TERMINAL_INOUT(c_semantic, t, boost::proto::child_c<0>(a0), boost::proto::child_c<0>(a1));
       lapack_assert(nt2::geesx(boost::proto::value(t), ctype_t(0)));
       boost::proto::child_c<0>(a1) = t;
     }
@@ -184,8 +181,7 @@ namespace nt2 { namespace ext
                  ) const
     {
       // Here  boost::proto::child_c<0>(a0) is complex
-      nt2::container::table<type_t> work;
-      NT2_AS_TERMINAL_INOUT(c_semantic, t, boost::proto::child_c<0>(a0), work);
+      NT2_AS_TERMINAL_INOUT(c_semantic, t, boost::proto::child_c<0>(a0), boost::proto::child_c<0>(a1));
       lapack_assert(nt2::geesx(boost::proto::value(t), ctype_t(0)));
       boost::proto::child_c<0>(a1) = t;
      }
@@ -198,8 +194,7 @@ namespace nt2 { namespace ext
               , boost::mpl::long_<2> const&
               ) const
     {
-      nt2::container::table<type_t> work;
-      NT2_AS_TERMINAL_INOUT(o_semantic, t, boost::proto::child_c<0>(a0), work);
+      NT2_AS_TERMINAL_INOUT(o_semantic, t, boost::proto::child_c<0>(a0), boost::proto::child_c<0>(a1));
       NT2_AS_TERMINAL_OUT  (o_semantic, u, boost::proto::child_c<1>(a1));
       size_t n = height(t);
       u.resize(of_size(n, n));
@@ -232,8 +227,7 @@ namespace nt2 { namespace ext
     {
       BOOST_ASSERT_MSG(isreal(boost::proto::child_c<0>(a0)),
                        "all input matrix element are to be real to support 'real_' option with complex type input");
-      nt2::container::table<type_t> work;
-      NT2_AS_TERMINAL_INOUT(r_semantic, t, real(boost::proto::child_c<0>(a0)), work);
+      NT2_AS_TERMINAL_INOUT(r_semantic, t, real(boost::proto::child_c<0>(a0)), boost::proto::child_c<0>(a1));
       NT2_AS_TERMINAL_OUT  (r_semantic, u, boost::proto::child_c<1>(a1));
       size_t n = height(t);
       u.resize(of_size(n, n));
@@ -251,8 +245,7 @@ namespace nt2 { namespace ext
                  , nt2::policy<ext::cmplx_>
                  ) const
     {
-      nt2::container::table<type_t> work;
-      NT2_AS_TERMINAL_INOUT(c_semantic, t, boost::proto::child_c<0>(a0), work);
+      NT2_AS_TERMINAL_INOUT(c_semantic, t, boost::proto::child_c<0>(a0), boost::proto::child_c<0>(a1));
       NT2_AS_TERMINAL_OUT  (c_semantic, u, boost::proto::child_c<1>(a1));
       size_t n = nt2::height(t);
       u.resize(of_size(n, n));
@@ -271,8 +264,7 @@ namespace nt2 { namespace ext
               , boost::mpl::long_<3> const&
               ) const
     {
-      nt2::container::table<type_t> work;
-      NT2_AS_TERMINAL_INOUT(o_semantic, t, boost::proto::child_c<0>(a0), work);
+      NT2_AS_TERMINAL_INOUT(o_semantic, t, boost::proto::child_c<0>(a0), boost::proto::child_c<0>(a1));
       NT2_AS_TERMINAL_OUT  (o_semantic, u, boost::proto::child_c<1>(a1));
       NT2_AS_TERMINAL_OUT  (c_semantic, w, boost::proto::child_c<2>(a1));
       size_t n =   height(t);
