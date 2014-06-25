@@ -14,7 +14,7 @@
 #include <boost/simd/swar/functions/split_low.hpp>
 #include <boost/dispatch/meta/upgrade.hpp>
 #include <boost/dispatch/attributes.hpp>
-#include <iostream>
+
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::split_low_
