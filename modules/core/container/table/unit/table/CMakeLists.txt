@@ -10,6 +10,7 @@
 SET( SOURCES
   as_size.cpp
   composite_table.cpp
+  cons.cpp
   constructor.cpp
   disp.cpp
   erase.cpp
