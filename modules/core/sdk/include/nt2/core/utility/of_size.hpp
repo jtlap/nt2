@@ -10,6 +10,7 @@
 #define NT2_CORE_UTILITY_OF_SIZE_HPP_INCLUDED
 
 #include <nt2/core/settings/forward/size.hpp>
+#include <nt2/core/settings/forward/storage_duration.hpp>
 #include <nt2/core/utility/of_size/fusion.hpp>
 #include <nt2/core/utility/fusion.hpp>
 #include <nt2/core/functions/scalar/numel.hpp>
