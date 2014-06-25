@@ -13,6 +13,7 @@
 #include <nt2/sdk/meta/is_container.hpp>
 #include <nt2/core/functions/scalar/numel.hpp>
 #include <nt2/core/settings/storage_size.hpp>
+#include <nt2/core/settings/option.hpp>
 #include <nt2/core/settings/size.hpp>
 #include <boost/dispatch/meta/ignore_unused.hpp>
 #include <boost/mpl/assert.hpp>
