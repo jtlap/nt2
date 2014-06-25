@@ -63,7 +63,7 @@ namespace nt2
     void operator()(std::size_t begin, std::size_t size) const
     {
       extent_type ext = in_.extent();
-      std::size_t top_cache_line_size = config::top_cache_size(2)/sizeof(value_type);
+      std::size_t top_cache_line_size = config::top_cache_line_size(2)/sizeof(value_type);
       std::size_t grain  = top_cache_line_size;
 
       std::size_t bound  = boost::fusion::at_c<0>(ext);
@@ -79,7 +79,7 @@ namespace nt2
       {
         value_type s_out = neutral_(nt2::meta::as_<value_type>());
 
-        if( (size == obound) && (2*grain < ibound) )
+        if( (size == obound) && (8*grain < ibound) )
           s_out = s( w, k, ibound, grain );
 
         else if( ibound != 0 )
