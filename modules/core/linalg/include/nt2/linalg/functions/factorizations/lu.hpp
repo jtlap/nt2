@@ -177,8 +177,7 @@ namespace nt2 { namespace ext
                    , const nt2::policy<ext::lapack_>&
                    ) const
     {
-      nt2::container::table<type_t> work;
-      NT2_AS_TERMINAL_INOUT(o_semantic, lu, boost::proto::child_c<0>(a0), work);
+      NT2_AS_TERMINAL_INOUT(o_semantic, lu, boost::proto::child_c<0>(a0), boost::proto::child_c<0>(a1));
       nt2::container::table<nt2_la_int> ls(of_size(dim(lu), 1));
       nt2_la_int info = nt2::getrf( boost::proto::value(lu)
                                   , boost::proto::value(ls));
@@ -194,8 +193,7 @@ namespace nt2 { namespace ext
                    ) const
     {
       typedef nt2::memory::container<tag::table_, nt2_la_int, nt2::_2D> i_semantic;
-      nt2::container::table<type_t> work;
-      NT2_AS_TERMINAL_INOUT(o_semantic, lu, boost::proto::child_c<0>(a0), work);
+      NT2_AS_TERMINAL_INOUT(o_semantic, lu, boost::proto::child_c<0>(a0),  boost::proto::child_c<0>(a1));
       NT2_AS_TERMINAL_OUT(i_semantic, ls, boost::proto::child_c<1>(a1));
 
       ls.resize(of_size(dim(lu), 1));
@@ -217,8 +215,7 @@ namespace nt2 { namespace ext
     {
       typedef nt2::memory::container<tag::table_, nt2_la_int, nt2::_2D> i_semantic;
       nt2_la_int info;
-      nt2::container::table<type_t> work;
-      NT2_AS_TERMINAL_INOUT(o_semantic, lu, boost::proto::child_c<0>(a0), work);
+      NT2_AS_TERMINAL_INOUT(o_semantic, lu, boost::proto::child_c<0>(a0), boost::proto::child_c<1>(a1));
       NT2_AS_TERMINAL_OUT  (o_semantic, l,  boost::proto::child_c<0>(a1));
       NT2_AS_TERMINAL_OUT  (o_semantic, u,  boost::proto::child_c<1>(a1));
       std::size_t d  = dim(lu);
@@ -228,9 +225,8 @@ namespace nt2 { namespace ext
       check_success(info);
       nt2::container::table<nt2_la_int> ip;
       construct_ip(ls, ip, height(lu));
-      boost::proto::child_c<1>(a1) = nt2::triu(lu( nt2::_(1, d), nt2::_) );
       boost::proto::child_c<0>(a1) = nt2::tri1l(lu(nt2::_, nt2::_(1, d) ) )(ip, nt2::_);
-
+      boost::proto::child_c<1>(a1) = nt2::triu(lu( nt2::_(1, d), nt2::_) );
     }
 
     ///////////////////////////////////////////////////////////////////////////////
@@ -244,8 +240,7 @@ namespace nt2 { namespace ext
       typedef typename child::value_type                                     itype_t;
       typedef nt2::memory::container<tag::table_, itype_t, nt2::_2D>      i_semantic;
       nt2_la_int info;
-      nt2::container::table<type_t> work;
-      NT2_AS_TERMINAL_INOUT(o_semantic, lu, boost::proto::child_c<0>(a0), work);
+      NT2_AS_TERMINAL_INOUT(o_semantic, lu, boost::proto::child_c<0>(a0), boost::proto::child_c<1>(a1));
       NT2_AS_TERMINAL_OUT  (o_semantic, l,  boost::proto::child_c<0>(a1));
       NT2_AS_TERMINAL_OUT  (o_semantic, u,  boost::proto::child_c<1>(a1));
       NT2_AS_TERMINAL_OUT  (i_semantic, ip, boost::proto::child_c<2>(a1));
@@ -255,8 +250,8 @@ namespace nt2 { namespace ext
                        , boost::proto::value(ls));
       check_success(info);
       construct_ip(ls, ip, height(lu));
-      boost::proto::child_c<1>(a1) = nt2::triu(lu( nt2::_(1, d), nt2::_) );
       boost::proto::child_c<0>(a1) = nt2::tri1l(lu(nt2::_, nt2::_(1, d) ) );
+      boost::proto::child_c<1>(a1) = nt2::triu(lu( nt2::_(1, d), nt2::_) );
       boost::proto::child_c<2>(a1) = ip;
     }
 

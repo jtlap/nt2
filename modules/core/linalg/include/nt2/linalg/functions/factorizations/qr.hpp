@@ -161,8 +161,7 @@ namespace nt2 { namespace ext
                    , const nt2::policy<ext::lapack_>&
                    ) const
     {
-      nt2::container::table<type_t> work;
-      NT2_AS_TERMINAL_INOUT(o_semantic, r, boost::proto::child_c<0>(a0), work);
+      NT2_AS_TERMINAL_INOUT(o_semantic, r, boost::proto::child_c<0>(a0), boost::proto::child_c<0>(a1));
       nt2::container::table<type_t> tau(of_size(height(r), 1));
       lapack_assert(nt2::geqrf( boost::proto::value(r)
                               , boost::proto::value(tau)));
@@ -208,8 +207,7 @@ namespace nt2 { namespace ext
                    , const nt2::policy<ext::lapack_>&
                    ) const
     {
-      nt2::container::table<type_t> work;
-      NT2_AS_TERMINAL_INOUT(o_semantic, x, boost::proto::child_c<0>(a0), work);
+      NT2_AS_TERMINAL_INOUT(o_semantic, x, boost::proto::child_c<0>(a0), boost::proto::child_c<0>(a1));
       NT2_AS_TERMINAL_OUT(o_semantic, tau, boost::proto::child_c<1>(a1));
       tau.resize(of_size(dim(x), 1));
       lapack_assert(nt2::geqrf( boost::proto::value(x)
@@ -226,7 +224,7 @@ namespace nt2 { namespace ext
                    ) const
     {
       nt2::container::table<type_t> work;
-      NT2_AS_TERMINAL_INOUT(o_semantic, x, boost::proto::child_c<0>(a0), work);
+      NT2_AS_TERMINAL_INOUT(o_semantic, x, boost::proto::child_c<0>(a0), boost::proto::child_c<0>(a1));
       NT2_AS_TERMINAL_OUT(o_semantic, tau, boost::proto::child_c<1>(a1));
       NT2_AS_TERMINAL_OUT(i_semantic,  ip, boost::proto::child_c<2>(a1));
       tau.resize(of_size(dim(x), 1));
