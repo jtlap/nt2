@@ -9,3 +9,10 @@
 
 include(NT2Module)
 nt2_module_source_setup(core.container.table)
+
+include(nt2.preprocess)
+nt2_preprocess( core.container.preprocess
+                ${NT2_CORE.CONTAINER.TABLE_ROOT}/include/nt2/core/functions/cons.hpp
+                OPTIONS -DNT2_DONT_USE_PREPROCESSED_FILES
+                        -DNT2_CREATE_PREPROCESSED_FILES
+              )

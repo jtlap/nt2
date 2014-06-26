@@ -25,6 +25,8 @@ namespace nt2
   template<> struct of_size_<>
   {
     typedef of_size_                                of_size_type;
+    typedef boost::mpl::integral_c<std::size_t,1U>  storage_size_type;
+    typedef automatic_                              storage_duration_type;
     typedef tag::of_size_                           fusion_tag;
     typedef boost::fusion::fusion_sequence_tag      tag;
     typedef boost::mpl::vector_c< std::ptrdiff_t >  values_type;

@@ -16,6 +16,7 @@
 #include <boost/simd/sdk/details/io_fix.hpp>
 #include <nt2/sdk/meta/type_id.hpp>
 #include <nt2/sdk/meta/as.hpp>
+#include <boost/array.hpp>
 
 namespace std
 {
@@ -46,6 +47,20 @@ namespace std
   inline std::ostream& operator<<(std::ostream& os, nt2::meta::as_<T> const&)
   {
     os <<  "as_<" << nt2::type_id<T>() << ">";
+
+    return os;
+  }
+}
+
+namespace boost
+{
+  template<typename T, std::size_t N>
+  inline std::ostream& operator<<(std::ostream& os, boost::array<T,N> const& v)
+  {
+    os << "\n";
+    for(std::size_t i=0;i<N;++i)
+      os << boost::simd::details::display(v[i]) << "  ";
+    os << "\n";
 
     return os;
   }

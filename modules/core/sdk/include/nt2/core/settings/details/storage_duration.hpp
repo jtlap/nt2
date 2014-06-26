@@ -10,6 +10,7 @@
 #define NT2_CORE_SETTINGS_DETAILS_STORAGE_DURATION_HPP_INCLUDED
 
 #include <nt2/core/settings/size.hpp>
+#include <nt2/core/settings/storage_size.hpp>
 #include <nt2/core/settings/option.hpp>
 #include <nt2/core/settings/allocator.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
@@ -28,6 +29,8 @@ namespace nt2
    **/
   struct dynamic_
   {
+    typedef dynamic_ storage_duration_type;
+
     template<typename Container, typename Alloc = void> struct apply
     {
       /*
@@ -51,33 +54,26 @@ namespace nt2
   // When using automatic memory, we rely on array_buffer to store our data
   struct automatic_
   {
+    typedef automatic_ storage_duration_type;
+
     template <typename Container, typename D = void>
     struct apply
     {
-      // TODO: make this capacity_ and have capicity_ default be current of_size_
-      // so we can fix Issue #390
-
-      typedef typename meta::option<Container, tag::of_size_>::type size_;
+      typedef typename meta::option<Container, tag::storage_size_>::type size_;
+      typedef typename size_::storage_size_type                        stored_;
 
       //*************************** STATIC ASSERT ****************************//
       //         Automatic storage option have been set for a container       //
       //          with a dynamic size. Check your container settings.         //
       //*************************** STATIC ASSERT ****************************//
       BOOST_MPL_ASSERT_MSG
-      ( (size_::static_status)
-      , SETTINGS_MISMATCH_AUTOMATIC_STORAGE_REQUESTED_WITH_DYNAMIC_SIZES
+      ( (stored_::value >= 0)
+      , SETTINGS_MISMATCH_AUTOMATIC_STORAGE_REQUESTED_WITH_DYNAMIC_STORAGE_SIZE
       , (size_)
       );
 
-      /// INTERNAL ONLY Compute total size
-      typedef typename boost::mpl::fold < typename size_::values_type
-                                        , boost::mpl::size_t<1>
-                                        , boost::mpl::times < boost::mpl::_1
-                                                            , boost::mpl::_2
-                                                            >
-                                        >::type                         dims_t;
       typedef typename boost::dispatch::meta::value_of<Container>::type value_t;
-      typedef memory::array_buffer<value_t,dims_t>                      type;
+      typedef memory::array_buffer<value_t,stored_>                        type;
     };
   };
 }

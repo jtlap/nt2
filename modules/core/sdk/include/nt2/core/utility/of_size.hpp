@@ -10,6 +10,7 @@
 #define NT2_CORE_UTILITY_OF_SIZE_HPP_INCLUDED
 
 #include <nt2/core/settings/forward/size.hpp>
+#include <nt2/core/settings/forward/storage_duration.hpp>
 #include <nt2/core/utility/of_size/fusion.hpp>
 #include <nt2/core/utility/fusion.hpp>
 #include <nt2/core/functions/scalar/numel.hpp>
@@ -156,6 +157,18 @@ namespace nt2
             vector_c< std::ptrdiff_t
                     , BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS,D)
                     >                                               values_type;
+
+    //==========================================================================
+    // Storage Size informations
+    //==========================================================================
+    typedef boost::mpl::integral_c< std::size_t
+                                  , (static_status ? static_numel : -1)
+                                  >                           storage_size_type;
+
+    typedef typename boost::mpl::if_c < static_status
+                                      , automatic_
+                                      , dynamic_
+                                      >::type             storage_duration_type;
 
     //==========================================================================
     // Size values storage

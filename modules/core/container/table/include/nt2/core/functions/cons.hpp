@@ -12,7 +12,10 @@
 
 #include <nt2/core/container/table/table.hpp>
 #include <nt2/include/functions/of_size.hpp>
+#include <nt2/core/functions/scalar/numel.hpp>
+#include <nt2/core/settings/storage_size.hpp>
 #include <nt2/core/utility/of_size.hpp>
+#include <boost/assert.hpp>
 
 #ifdef NT2_DONT_USE_PREPROCESSED_FILES
 #include <boost/preprocessor/repetition/enum_params.hpp>
@@ -28,6 +31,7 @@ namespace nt2
 #if defined(__WAVE__) && defined(NT2_CREATE_PREPROCESSED_FILES) && __INCLUDE_LEVEL__ == 0
 #pragma wave option(preserve: 2, line: 0, output: "preprocessed/cons.hpp")
 #undef BOOST_FORCEINLINE
+#undef BOOST_ASSERT_MSG
 #endif
 
 #define BOOST_PP_ITERATION_PARAMS_1 (3, ( 1, BOOST_PP_LIMIT_ITERATION-1, "nt2/core/functions/cons.hpp"))
@@ -46,12 +50,12 @@ namespace nt2
 #define N BOOST_PP_ITERATION()
 
 template<class T>
-nt2::container::table<T, nt2::settings(nt2::of_size_<N>, nt2::automatic_)>
+BOOST_FORCEINLINE nt2::container::table<T,nt2::of_size_<N> >
 cons(BOOST_PP_ENUM_PARAMS(N, T const& a))
 {
   T const data[] = { BOOST_PP_ENUM_PARAMS(N, a) };
   return nt2::container::
-         table<T, nt2::settings(nt2::of_size_<N>, nt2::automatic_)>
+  table<T,nt2::of_size_<N> >
   (
     nt2::of_size(N)
   , &data[0]
@@ -60,12 +64,14 @@ cons(BOOST_PP_ENUM_PARAMS(N, T const& a))
 }
 
 template<class T>
-nt2::container::table<T>
+BOOST_FORCEINLINE nt2::container::table<T, nt2::storage_size_<N> >
 cons(nt2::of_size_max const& sz, BOOST_PP_ENUM_PARAMS(N, T const& a))
 {
+  BOOST_ASSERT_MSG( nt2::numel(sz) <= N, "Incompatible size in cons");
+
   T const data[] = { BOOST_PP_ENUM_PARAMS(N, a) };
   return nt2::container::
-         table<T>
+         table<T, nt2::storage_size_<N> >
   (
     sz
   , &data[0]

@@ -20,6 +20,7 @@ SET( SOURCES
      sharing.cpp
      storage_duration.cpp
      storage_scheme.cpp
+     storage_size.cpp
    )
 
 include(CheckCXXCompilerFlag)
