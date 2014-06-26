@@ -9,19 +9,7 @@
 #ifndef NT2_LINALG_FUNCTIONS_FACTORIZATIONS_LDL_HPP_INCLUDED
 #define NT2_LINALG_FUNCTIONS_FACTORIZATIONS_LDL_HPP_INCLUDED
 
-#include <nt2/include/functions/colon.hpp>
-#include <nt2/include/functions/expand.hpp>
-#include <nt2/include/functions/eye.hpp>
-#include <nt2/include/functions/hstrf.hpp>
-#include <nt2/include/functions/tie.hpp>
-#include <nt2/include/functions/triu.hpp>
-#include <nt2/include/functions/tril.hpp>
-#include <nt2/include/functions/width.hpp>
-#include <nt2/include/functions/zeros.hpp>
-#include <nt2/linalg/options.hpp>
-#include <nt2/core/container/dsl/as_terminal.hpp>
-#include <nt2/core/container/colon/colon.hpp>
-#include <nt2/linalg/details/utility/lapack_assert.hpp>
+#include <nt2/linalg/functions/ldl.hpp>
 #include <nt2/core/container/table/table.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <boost/dispatch/meta/terminal_of.hpp>
