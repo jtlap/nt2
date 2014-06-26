@@ -14,6 +14,8 @@
 #include <nt2/include/functions/height.hpp>
 #include <nt2/include/functions/qr.hpp>
 #include <nt2/include/functions/mtimes.hpp>
+#include <nt2/include/functions/transpose.hpp>
+#include <nt2/include/functions/linsolve.hpp>
 #include <nt2/include/functions/colon.hpp>
 #include <nt2/include/functions/tie.hpp>
 #include <nt2/include/functions/linsolve.hpp>
@@ -44,15 +46,15 @@ namespace nt2{ namespace ext
 
       x= nt2::mtimes(nt2::trans(a),b);
 
-      nt2::trsm('l','u','t','n',boost::proto::value(r),boost::proto::value(x));
-      nt2::trsm('l','u','n','n',boost::proto::value(r),boost::proto::value(x));
+      x = nt2::linsolve(nt2::trans(r),x);
+      x = nt2::linsolve(r,x);
 
       // One-step refinement
       e = b - nt2::mtimes(a,x);
       e = nt2::mtimes(nt2::trans(a),e);
 
-      nt2::trsm('l','u','t','n',boost::proto::value(r),boost::proto::value(e));
-      nt2::trsm('l','u','n','n',boost::proto::value(r),boost::proto::value(e));
+      e = nt2::linsolve(nt2::trans(r),e);
+      e = nt2::linsolve(r,e);
 
       return x + e;
     }

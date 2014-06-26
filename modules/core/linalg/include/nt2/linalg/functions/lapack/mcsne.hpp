@@ -15,6 +15,8 @@
 #include <nt2/include/functions/height.hpp>
 #include <nt2/include/functions/of_size.hpp>
 #include <nt2/include/functions/qr.hpp>
+#include <nt2/include/functions/sqrt.hpp>
+#include <nt2/include/functions/colon.hpp>
 #include <nt2/include/functions/linsolve.hpp>
 #include <nt2/include/functions/mtimes.hpp>
 #include <nt2/include/functions/maximum.hpp>
@@ -23,10 +25,12 @@
 #include <nt2/linalg/details/utility/f77_wrapper.hpp>
 #include <nt2/include/constants/eps.hpp>
 #include <boost/dispatch/meta/downgrade.hpp>
+#include <nt2/sdk/meta/as_real.hpp>
 
 #include <nt2/core/container/table/table.hpp>
 
 #include <nt2/table.hpp>
+#include <iostream>
 
 namespace nt2{ namespace ext
 {
@@ -46,15 +50,16 @@ namespace nt2{ namespace ext
     {
       nt2_la_int lda = a.leading_size();
       nt2_la_int na = nt2::width(a);
+      nt2_la_int nb = nt2::width(b);
 
-      t_ct e,x;
+      t_ct e,x(nt2::of_size(na, nb));
 
       double eps = boost::simd::Eps<double>();
       double anrm = nt2::lange( boost::proto::value(a),'I');
       double cte = anrm*eps*nt2::sqrt( double(na));
       double xnrm, rnrm;
 
-      nt2::container::table<dtype> sa,sb,sx;
+      nt2::container::table<dtype> sa,sx;
       nt2::container::table<dtype,nt2::upper_triangular_> sr,sr1(nt2::of_size(na,na));
       sa = nt2::cast<dtype>(a);
       sr = nt2::qr(sa,nt2::no_pivot_);
@@ -68,30 +73,36 @@ namespace nt2{ namespace ext
 
       boost::proto::value(sr).swap(boost::proto::value(sr1) );
 
-      sx= nt2::mtimes(nt2::trans(sa),nt2::cast<dtype>(b));
-
-      sx = nt2::linsolve(nt2::trans(sr),sx);
-      sx = nt2::linsolve(sr,sx);
-
-      x = nt2::cast<ctype_t>(sx);
-      e = b - nt2::mtimes(a,x);
-
-      for( size_t i = 1; i<=10;++i)
+      for(nt2_la_int iterb = 1 ; iterb <= nb ; iterb++)
       {
-        sx = nt2::cast<dtype> (nt2::mtimes(nt2::trans(a),e) ) ;
+        nt2::table<ctype_t> test = b( _  , iterb );
+
+        sx= nt2::mtimes(nt2::trans(sa),nt2::cast<dtype>(b( _ ,iterb) ));
 
         sx = nt2::linsolve(nt2::trans(sr),sx);
         sx = nt2::linsolve(sr,sx);
 
-        e = nt2::cast<ctype_t>(sx);
-        rnrm = nt2::maximum(nt2::abs(e(_)));
-        x = x + e;
-        e = b - nt2::mtimes(a,x);
+        x( _ ,iterb) = nt2::cast<ctype_t>(sx);
+        e = b( _ ,iterb) - nt2::mtimes(a,x( _ ,iterb));
 
-        xnrm = nt2::maximum(nt2::abs(x(_)));
+        for( size_t i = 1; i<=10;++i)
+        {
+          sx = nt2::cast<dtype> (nt2::mtimes(nt2::trans(a),e) ) ;
 
-        if(rnrm < xnrm*cte) { break; }
+          sx = nt2::linsolve(nt2::trans(sr),sx);
+          sx = nt2::linsolve(sr,sx);
+
+          e = nt2::cast<ctype_t>(sx);
+          rnrm = nt2::maximum(nt2::abs(e(_)));
+          x( _ ,iterb) = x( _ ,iterb) + e;
+          e = b( _ ,iterb) - nt2::mtimes(a,x( _ ,iterb) );
+
+          xnrm = nt2::maximum(nt2::abs(x( _ ,iterb) ));
+
+          if(rnrm < xnrm*cte) { break; }
+        }
       }
+
       return x;
     }
   };

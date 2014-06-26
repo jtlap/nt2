@@ -13,6 +13,7 @@
 #include <nt2/include/functions/linsolve.hpp>
 #include <nt2/include/functions/zeros.hpp>
 #include <nt2/include/functions/colon.hpp>
+#include <nt2/include/functions/tri1l.hpp>
 #include <nt2/include/functions/norm.hpp>
 #include <nt2/linalg/details/utility/f77_wrapper.hpp>
 #include <nt2/include/functions/cons.hpp>
@@ -72,10 +73,17 @@ NT2_TEST_CASE_TPL(msne, (double) )
   size_t m=20,n=10,q=1,nr=1;
 
   nt2::tie(a,x,r,b)= nt2::llspgen(m,n,q,nr);
+  b.resize( nt2::of_size(m,4) );
+
+  for(size_t i = 2; i <= 4 ; ++i)
+  {
+    b( _ , i) = b(_ , 1) ;
+  }
+
   t_t s1 = nt2::mcsne(a,b);
   t_t s2 = nt2::linsolve(a,b);
 
-  NT2_TEST_ULP_EQUAL(s1, s2(_(1,n)), T(100));
+  NT2_TEST_ULP_EQUAL( s1( _(1,n) , _ ) , s2( _(1,n) , _ ), T(100));
 }
 
 NT2_TEST_CASE_TPL(msne_complex, (double) )
