@@ -12,7 +12,7 @@
 #ifdef BOOST_SIMD_HAS_SSE4_1_SUPPORT
 
 #include <boost/simd/swar/functions/split_high.hpp>
-#include <boost/simd/include/functions/slide.hpp>
+#include <boost/simd/include/functions/simd/slide.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/dispatch/meta/upgrade.hpp>
 #include <boost/dispatch/attributes.hpp>
