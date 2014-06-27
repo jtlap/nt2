@@ -70,7 +70,7 @@ NT2_TEST_CASE_TPL(msne, (double) )
   typedef nt2::table<T>           t_t;
 
   t_t a,x,r,b;
-  size_t m=20,n=10,q=1,nr=1;
+  size_t m=25,n=10,q=1,nr=1;
 
   nt2::tie(a,x,r,b)= nt2::llspgen(m,n,q,nr);
   b.resize( nt2::of_size(m,4) );
@@ -79,9 +79,10 @@ NT2_TEST_CASE_TPL(msne, (double) )
   {
     b( _ , i) = b(_ , 1) ;
   }
+  b.resize( nt2::of_size(m+5,4) );
 
-  t_t s1 = nt2::mcsne(a,b);
-  t_t s2 = nt2::linsolve(a,b);
+  t_t s1 = nt2::mcsne(    a( _(1,m), _ ) , b( _(1,m) , _) );
+  t_t s2 = nt2::linsolve( a( _(1,m), _ ) , b( _(1,m) , _) );
 
   NT2_TEST_ULP_EQUAL( s1( _(1,n) , _ ) , s2( _(1,n) , _ ), T(100));
 }

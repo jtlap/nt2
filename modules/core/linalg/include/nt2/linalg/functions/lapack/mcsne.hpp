@@ -26,28 +26,46 @@
 #include <nt2/include/constants/eps.hpp>
 #include <boost/dispatch/meta/downgrade.hpp>
 #include <nt2/sdk/meta/as_real.hpp>
-
+#include <boost/dispatch/meta/terminal_of.hpp>
 #include <nt2/core/container/table/table.hpp>
-
-#include <nt2/table.hpp>
-#include <iostream>
 
 namespace nt2{ namespace ext
 {
+
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::mcsne_, tag::cpu_
                             , (A0)(A1)
                             , ((ast_<A0, nt2::container::domain>))
                               ((ast_<A1, nt2::container::domain>))
                             )
   {
-    typedef typename A0::value_type ctype_t;
+    BOOST_DISPATCH_RETURNS(2, (A0 const& a0, A0 const& a1),
+                           (boost::proto::
+                            make_expr<nt2::tag::mcsne_, container::domain>
+                            ( boost::cref(a0), boost::cref(a1) )
+                           )
+                          )
+  };
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_assign_, tag::cpu_
+                            , (A0)(A1)(N)
+                            , ((ast_<A0, nt2::container::domain>))
+                              ((node_<A1,nt2::tag::mcsne_,N,nt2::container::domain>))
+                            )
+  {
+    typedef typename A1::proto_child1::proto_child0::value_type ctype_t;
     typedef typename nt2::meta::as_real<ctype_t>::type   type_t;
     typedef typename boost::dispatch::meta::downgrade<ctype_t>::type dtype;
     typedef typename nt2::container::table<ctype_t> t_ct;
-    typedef  t_ct                                      result_type;
+    typedef typename meta::option<typename  A1::proto_child1::proto_child0::settings_type,nt2::tag::shape_>::type shape;
+    typedef nt2::memory::container<tag::table_, ctype_t, nt2::settings(nt2::_2D)> desired_semantic;
+    typedef nt2::memory::container<tag::table_, ctype_t, nt2::settings(nt2::_2D,shape)> desired_semantic1;
+    typedef A0&                                                          result_type;
 
-     BOOST_FORCEINLINE result_type operator()(A0 const& a, A1 const& b) const
+     BOOST_FORCEINLINE result_type operator()(A0& a0, A1& a1) const
     {
+      NT2_AS_TERMINAL_IN(desired_semantic1,a,boost::proto::child_c<0>(a1));
+      NT2_AS_TERMINAL_INOUT(desired_semantic,b,boost::proto::child_c<1>(a1),a0);
+
       nt2_la_int lda = a.leading_size();
       nt2_la_int na = nt2::width(a);
       nt2_la_int nb = nt2::width(b);
@@ -75,7 +93,7 @@ namespace nt2{ namespace ext
 
       for(nt2_la_int iterb = 1 ; iterb <= nb ; iterb++)
       {
-        nt2::table<ctype_t> test = b( _  , iterb );
+        nt2::container::table<ctype_t> test = b( _  , iterb );
 
         sx= nt2::mtimes(nt2::trans(sa),nt2::cast<dtype>(b( _ ,iterb) ));
 

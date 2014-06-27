@@ -18,7 +18,7 @@
 #include <nt2/include/functions/linsolve.hpp>
 #include <nt2/linalg/details/utility/f77_wrapper.hpp>
 #include <nt2/include/functions/colon.hpp>
-
+#include <boost/dispatch/meta/terminal_of.hpp>
 #include <nt2/core/container/table/table.hpp>
 
 namespace nt2{ namespace ext
@@ -29,14 +29,18 @@ namespace nt2{ namespace ext
                               ((ast_<A1, nt2::container::domain>))
                             )
   {
-    typedef typename A0::value_type type_t;
-    typedef typename nt2::container::table<type_t> t_t;
+    typedef typename A0::value_type ctype_t;
+    typedef typename nt2::container::table<ctype_t> t_t;
+    typedef nt2::memory::container<tag::table_, ctype_t, nt2::settings(nt2::_2D)> desired_semantic;
     typedef  t_t                                      result_type;
 
-     BOOST_FORCEINLINE result_type operator()(A0 const& a, A1 const& b) const
+     BOOST_FORCEINLINE result_type operator()(A0 const& A, A1 const& B) const
     {
+      NT2_AS_TERMINAL_IN(desired_semantic,a,A);
+      NT2_AS_TERMINAL_IN(desired_semantic,b,B);
+
       nt2_la_int na = nt2::width(a);
-      nt2::container::table<type_t,nt2::upper_triangular_> r = nt2::qr(a,nt2::no_pivot_);
+      nt2::container::table<ctype_t,nt2::upper_triangular_> r = nt2::qr(a,nt2::no_pivot_);
       r= nt2::triu( r( _(1,na), _ ) );
 
       t_t x = nt2::mtimes(nt2::trans(a),b);
