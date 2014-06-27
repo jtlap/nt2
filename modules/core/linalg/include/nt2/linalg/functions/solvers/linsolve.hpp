@@ -17,7 +17,6 @@
 #include <nt2/include/functions/mtimes.hpp>
 #include <nt2/include/functions/tie.hpp>
 #include <nt2/sdk/meta/settings_of.hpp>
-#include <nt2/sdk/meta/concrete.hpp>
 #include <nt2/linalg/options.hpp>
 #include <nt2/sdk/meta/as_real.hpp>
 

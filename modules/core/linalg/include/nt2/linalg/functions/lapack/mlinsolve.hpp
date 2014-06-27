@@ -14,14 +14,14 @@
 #include <nt2/include/functions/gemsv.hpp>
 #include <nt2/include/functions/mcsne.hpp>
 #include <nt2/include/functions/pomsv.hpp>
+#include <nt2/include/functions/of_size.hpp>
 #include <nt2/linalg/options.hpp>
-#include <nt2/sdk/meta/concrete.hpp>
 #include <nt2/sdk/meta/settings_of.hpp>
 #include <nt2/include/functions/tie.hpp>
 #include <nt2/sdk/meta/as_real.hpp>
 #include <boost/proto/traits.hpp>
 #include <nt2/core/container/table/table.hpp>
-
+#include <boost/dispatch/meta/terminal_of.hpp>
 #include <boost/dispatch/meta/ignore_unused.hpp>
 
 namespace nt2 { namespace ext
@@ -40,9 +40,7 @@ namespace nt2 { namespace ext
     typedef typename A0::value_type ctype_t;
     typedef typename nt2::meta::as_real<ctype_t>::type   type_t;
     typedef typename meta::option<typename A0::settings_type,nt2::tag::shape_>::type shape;
-
-    typedef nt2::container::table<ctype_t>  entry_type;
-    typedef nt2::container::table<ctype_t,shape>  matrix_type;
+    typedef nt2::memory::container<tag::table_, ctype_t, nt2::settings(nt2::_2D,shape)> desired_semantic1;
 
     BOOST_FORCEINLINE result_type operator()( A0 const& a0, A1 const& a1, A2& a2 ) const
     {
@@ -61,15 +59,12 @@ namespace nt2 { namespace ext
 
       if (m>n)
       {
-      typedef nt2::memory::container<tag::table_, ctype_t, nt2::settings(nt2::_2D,shape)> desired_semantic;
-      typename container::as_terminal<desired_semantic, A0&>::type in = container::as_terminal<desired_semantic
-                                                                                              , A0&>::init(a0);
-       a2 = nt2::mcsne(in,a1);
+       a2 = nt2::mcsne(a0,a1);
       }
       else
       {
-      entry_type entry(a0);
-      nt2_la_int iter = nt2::gemsv(boost::proto::value(entry)
+      NT2_AS_TERMINAL_IN(desired_semantic1,a,a0);
+      nt2_la_int iter = nt2::gemsv(boost::proto::value(a)
                        ,boost::proto::value(a1),boost::proto::value(a2) );
       boost::dispatch::ignore_unused(iter);
       }
@@ -80,12 +75,15 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE
     void eval ( A0 const& a0, A1 const& a1 , A2& a2, double const, nt2::positive_definite_ const&) const
     {
-      entry_type var(a2);
-      matrix_type entry(a0);
-      nt2_la_int iter = nt2::pomsv( boost::proto::value(entry)
-                                  , boost::proto::value(a1) ,var);
+      nt2_la_int m   = boost::fusion::at_c<0>( a0.extent() );
+      nt2_la_int n   = boost::fusion::at_c<1>( a0.extent() );
+
+      a2.resize(nt2::of_size(m,n));
+
+      NT2_AS_TERMINAL_IN(desired_semantic1,a,a0);
+      nt2_la_int iter = nt2::pomsv( boost::proto::value(a)
+                                  , boost::proto::value(a1) ,a2);
       boost::dispatch::ignore_unused(iter);
-      a2 = var;
     }
 
     /// INTERNAL ONLY - Default case

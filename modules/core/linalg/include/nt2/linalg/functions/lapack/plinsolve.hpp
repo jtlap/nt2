@@ -17,14 +17,13 @@
 #include <nt2/include/functions/of_size.hpp>
 #include <nt2/include/functions/resize.hpp>
 #include <nt2/linalg/options.hpp>
-#include <nt2/sdk/meta/concrete.hpp>
 #include <nt2/linalg/functions/details/eval_linsolve.hpp>
 #include <nt2/sdk/meta/settings_of.hpp>
 #include <nt2/sdk/meta/as_real.hpp>
 
 #include <nt2/include/functions/tie.hpp>
 #include <nt2/core/container/table/table.hpp>
-
+#include <boost/dispatch/meta/terminal_of.hpp>
 #include <boost/dispatch/meta/ignore_unused.hpp>
 
 namespace nt2 { namespace ext
