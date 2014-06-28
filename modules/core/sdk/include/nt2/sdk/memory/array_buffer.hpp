@@ -9,6 +9,7 @@
 #ifndef NT2_SDK_MEMORY_ARRAY_BUFFER_HPP_INCLUDED
 #define NT2_SDK_MEMORY_ARRAY_BUFFER_HPP_INCLUDED
 
+#include <nt2/sdk/memory/is_safe.hpp>
 #include <nt2/sdk/memory/adapted/array_buffer.hpp>
 #include <boost/simd/preprocessor/aligned_type.hpp>
 #include <boost/swap.hpp>
@@ -87,21 +88,21 @@ namespace nt2 {  namespace memory
     // operator[]
     inline reference operator[](size_type i)
     {
-      BOOST_ASSERT_MSG( is_safe(i), "Out of range acces on array_buffer" );
+      BOOST_ASSERT_MSG( nt2::memory::is_safe(*this,i)
+                      , "Out of range acces on array_buffer"
+                      );
+
       return elems[i];
     }
 
     inline const_reference operator[](size_type i) const
     {
-      BOOST_ASSERT_MSG( is_safe(i), "Out of range acces on array_buffer" );
+      BOOST_ASSERT_MSG( nt2::memory::is_safe(*this,i)
+                      , "Out of range acces on array_buffer"
+                      );
+
       return elems[i];
     }
-
-    static BOOST_FORCEINLINE bool is_safe(size_type p)
-    {
-      return  (Size::value && p < size()) || !(Size::value || p );
-    }
-
 
     static void resize( size_type )     {}
 

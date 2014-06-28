@@ -16,6 +16,7 @@
 #include <boost/fusion/include/vector_tie.hpp>
 #include <boost/fusion/include/make_vector.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
+#include <nt2/sdk/memory/is_safe.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
@@ -288,22 +289,24 @@ NT2_TEST_CASE_TPL(buffer_push_back_range_def, NT2_TYPES )
 NT2_TEST_CASE(buffer_empty)
 {
   using nt2::memory::buffer;
+  using nt2::memory::is_safe;
+
   buffer<char> x;
   buffer<char> y(x);
   buffer<char> z(x,0);
   buffer<char> w(x,3);
 
-  NT2_TEST_EQUAL(x.is_safe(0), true);
-  NT2_TEST_EQUAL(y.is_safe(0), true);
-  NT2_TEST_EQUAL(z.is_safe(0), true);
-  NT2_TEST_EQUAL(w.is_safe(0), true);
+  NT2_TEST_EQUAL(is_safe(x,0), true);
+  NT2_TEST_EQUAL(is_safe(y,0), true);
+  NT2_TEST_EQUAL(is_safe(z,0), true);
+  NT2_TEST_EQUAL(is_safe(w,0), true);
 
   buffer<char> u;
   u = x;
 
-  NT2_TEST_EQUAL(u.is_safe(0), true);
+  NT2_TEST_EQUAL(is_safe(u,0), true);
 
   buffer<char> v(6);
   v.swap(x);
-  NT2_TEST_EQUAL(v.is_safe(0), true);
+  NT2_TEST_EQUAL(is_safe(v,0), true);
 }

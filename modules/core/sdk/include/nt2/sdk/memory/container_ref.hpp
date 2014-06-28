@@ -269,11 +269,6 @@ namespace nt2 { namespace memory
     //==========================================================================
     specific_data_type&  specifics() const { return base_->specifics(); }
 
-    //==========================================================================
-    // Check if a position is safely R/W in the current container
-    //==========================================================================
-    BOOST_FORCEINLINE bool is_safe(size_type p) const { return p == 0u || p < size(); }
-
     cbase_t* base() const { return base_; }
 
   private:

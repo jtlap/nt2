@@ -13,8 +13,8 @@
 #include <nt2/include/functions/load.hpp>
 #include <nt2/include/functions/store.hpp>
 #include <nt2/include/functions/splat.hpp>
-#include <boost/simd/include/functions/simd/maximum.hpp>
 #include <nt2/sdk/memory/category.hpp>
+#include <nt2/sdk/memory/is_safe.hpp>
 #include <nt2/sdk/simd/category.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>
@@ -22,19 +22,6 @@
 
 namespace nt2 { namespace ext
 {
-  // move to details namespace?
-  template<class T, class A0>
-  std::size_t maxpos(A0 const& a0)
-  {
-    return a0 + meta::cardinal_of<T>::value - 1;
-  }
-
-  template<class T, class A0, class X>
-  std::size_t maxpos(boost::simd::native<A0, X> const& a0)
-  {
-    return boost::simd::maximum(a0);
-  }
-
   //============================================================================
   // table terminal with a position in scalar read mode
   //============================================================================
@@ -104,7 +91,7 @@ namespace nt2 { namespace ext
     result_type operator()(A0 const& a0, State const& state, Data const&) const
     {
       BOOST_ASSERT_MSG
-      ( boost::proto::value(a0).is_safe(maxpos<result_type>(state))
+      ( nt2::memory::is_safe<result_type>(boost::proto::value(a0),state)
       , "Out of range SIMD read"
       );
 
@@ -132,7 +119,7 @@ namespace nt2 { namespace ext
     result_type operator()(A0& a0, State const& state, Data const& data) const
     {
       BOOST_ASSERT_MSG
-      ( boost::proto::value(a0).is_safe(maxpos<result_type>(state))
+      ( nt2::memory::is_safe<result_type>(boost::proto::value(a0),state)
       , "Out of range SIMD read"
       );
 

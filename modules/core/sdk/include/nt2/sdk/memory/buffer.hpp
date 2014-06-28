@@ -13,6 +13,7 @@
 #include <nt2/sdk/memory/destruct.hpp>
 #include <nt2/sdk/memory/local_ptr.hpp>
 #include <nt2/sdk/memory/construct.hpp>
+#include <nt2/sdk/memory/is_safe.hpp>
 #include <nt2/sdk/memory/adapted/buffer.hpp>
 #include <nt2/sdk/memory/fixed_allocator.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -328,7 +329,7 @@ namespace nt2 { namespace memory
     //==========================================================================
     inline reference       operator[](size_type i)
     {
-      BOOST_ASSERT_MSG( is_safe(i)
+      BOOST_ASSERT_MSG( nt2::memory::is_safe(*this,i)
                       , "Out of range acces on buffer"
                       );
       return begin_[i];
@@ -336,15 +337,10 @@ namespace nt2 { namespace memory
 
     inline const_reference operator[](size_type i) const
     {
-      BOOST_ASSERT_MSG(  is_safe(i)
+      BOOST_ASSERT_MSG(  nt2::memory::is_safe(*this,i)
                       , "Out of range acces on buffer"
                       );
       return begin_[i];
-    }
-
-    BOOST_FORCEINLINE bool is_safe(size_type p) const
-    {
-      return !p || p < size();
     }
 
   private:

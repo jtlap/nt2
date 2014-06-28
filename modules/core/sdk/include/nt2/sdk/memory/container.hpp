@@ -397,9 +397,6 @@ namespace nt2 { namespace memory
       return data_[i];
     }
 
-    // Check if a position is safely R/W in the current container
-    BOOST_FORCEINLINE bool is_safe(size_type p) const { return data_.is_safe(p); }
-
     protected:
 
     /// INTERNAL ONLY

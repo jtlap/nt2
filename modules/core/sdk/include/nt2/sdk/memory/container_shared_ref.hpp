@@ -221,11 +221,6 @@ namespace nt2 { namespace memory
     //==========================================================================
     specific_data_type&  specifics() const { BOOST_ASSERT_MSG(0, "unimplemented"); }
 
-    //==========================================================================
-    // Check if a position is safely R/W in the current container
-    //==========================================================================
-    BOOST_FORCEINLINE bool is_safe(size_type p) const { return p == 0u || p < size(); }
-
     boost::shared_ptr<cbase_t> base() const { return base_; }
 
   private:
@@ -408,11 +403,6 @@ namespace nt2 { namespace memory
      **/
     //==========================================================================
     specific_data_type&  specifics() const { return base_->specifics(); }
-
-    //==========================================================================
-    // Check if a position is safely R/W in the current container
-    //==========================================================================
-    BOOST_FORCEINLINE bool is_safe(size_type p) const { return p == 0u || p < size(); }
 
   private:
     template<typename U, typename S2, typename Kind2, bool Own2>
