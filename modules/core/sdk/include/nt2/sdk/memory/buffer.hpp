@@ -28,6 +28,8 @@
 
 namespace nt2 { namespace memory
 {
+  template<class T, class Size> class array_buffer;
+
   //============================================================================
   /**!
    * @brief buffer is a dynamically-sized sequence using dynamic storage.
@@ -262,6 +264,16 @@ namespace nt2 { namespace memory
       }
 
       boost::swap(get_allocator() , src.get_allocator() );
+    }
+
+    template<typename Buffer> void swap(Buffer& that)
+    {
+      BOOST_ASSERT_MSG( size() == that.size()
+                      , "Incompatible size in swap"
+                      );
+
+      for(size_type i=0; i<size(); ++i)
+        boost::swap(begin_[i],that[i]);
     }
 
     //==========================================================================

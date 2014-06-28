@@ -109,9 +109,14 @@ namespace nt2 {  namespace memory
     static bool empty()         { return false;       }
     static size_type max_size() { return static_size; }
 
-    void swap(array_buffer<T,Size>& y)
+    template<typename Buffer> void swap(Buffer& that)
     {
-      for(size_type i=0; i<static_size; ++i) boost::swap(elems[i],y.elems[i]);
+      BOOST_ASSERT_MSG( size() == that.size()
+                      , "Incompatible size in swap"
+                      );
+
+      for(size_type i=0; i<static_size; ++i)
+        boost::swap(elems[i],that[i]);
     }
 
     const_pointer  raw() const { return elems; }
