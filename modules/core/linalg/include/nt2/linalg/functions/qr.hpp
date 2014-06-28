@@ -66,23 +66,6 @@ namespace nt2
 
      x = qr(a) and x = qr(a,0) and x = qr(a,lapack_) return a matrix x
      such that triu(x) is the upper triangular factor r.
-
-
-   * @brief Perform QR factorization
-   *
-   * For any given matrix expression, performs a QR factorization of
-   * said matrix using the specified output layout for the QR method.
-   *
-   * Contrary to the nt2::factorization::qr function which performs a partial evaluation of
-   * said decomposition, nt2::qr returns a result similar to the Matlab interface,
-   * making it useful for Matlab like usage.
-   *
-   * @param  xpr                   Matrix expression to factorize
-   * @param  0/pivot_/no_pivot_    Optimize computation and choose qr function call
-   * @param  Matrix/vector         return type of permutation vector/matrix
-   *
-   * @return A tuple-like type containing the factorized matrix and an indicator
-   * of the success of the factorization
    **/
   NT2_FUNCTION_IMPLEMENTATION(tag::qr_, qr, 1)
   NT2_FUNCTION_IMPLEMENTATION(tag::qr_, qr, 2)

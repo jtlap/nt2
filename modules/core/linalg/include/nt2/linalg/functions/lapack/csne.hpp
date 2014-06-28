@@ -41,7 +41,7 @@ namespace nt2{ namespace ext
       nt2_la_int na = nt2::width(a);
       //nt2_la_int ldb = b.leading_size();
       t_t e,r,x;
-      r = nt2::qr(a,nt2::no_pivot_);
+      r = nt2::qr(a);
       r= nt2::triu( r( _(1,na), _ ) );
 
       x= nt2::mtimes(nt2::trans(a),b);

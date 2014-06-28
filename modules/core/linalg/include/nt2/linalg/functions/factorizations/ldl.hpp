@@ -10,10 +10,15 @@
 #define NT2_LINALG_FUNCTIONS_FACTORIZATIONS_LDL_HPP_INCLUDED
 
 #include <nt2/linalg/functions/ldl.hpp>
+#include <nt2/include/functions/assign.hpp>
+#include <nt2/include/functions/tie.hpp>
+#include <nt2/include/functions/hstrf.hpp>
 #include <nt2/core/container/table/table.hpp>
+#include <nt2/core/container/dsl/as_terminal.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <boost/dispatch/meta/terminal_of.hpp>
 #include <boost/dispatch/meta/ignore_unused.hpp>
+#include <nt2/linalg/options.hpp>
 
 namespace nt2 { namespace ext
 {

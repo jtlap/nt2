@@ -54,7 +54,7 @@ namespace nt2{ namespace ext
 
       nt2::container::table<float> sa,sb,sx,sr,sr1(nt2::of_size(na,na));
       sa = nt2::cast<float>(a);
-      sr = nt2::qr(sa,nt2::no_pivot_);
+      sr = nt2::qr(sa);
 
       size_t size_n = sizeof(float)*(na);
 
