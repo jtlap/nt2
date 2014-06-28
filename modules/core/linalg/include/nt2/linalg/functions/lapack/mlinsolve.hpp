@@ -41,6 +41,8 @@ namespace nt2 { namespace ext
     typedef typename nt2::meta::as_real<ctype_t>::type   type_t;
     typedef typename meta::option<typename A0::settings_type,nt2::tag::shape_>::type shape;
     typedef nt2::memory::container<tag::table_, ctype_t, nt2::settings(nt2::_2D,shape)> desired_semantic1;
+    typedef nt2::memory::container<tag::table_, ctype_t, nt2::settings(nt2::_2D)> desired_semantic;
+    typedef nt2::container::table<ctype_t,shape>  matrix_type;
 
     BOOST_FORCEINLINE result_type operator()( A0 const& a0, A1 const& a1, A2& a2 ) const
     {
@@ -55,17 +57,23 @@ namespace nt2 { namespace ext
     void eval ( A0 const& a0, A1 const& a1 , A2& a2, double const, nt2::rectangular_ const&) const
     {
       nt2_la_int m   = boost::fusion::at_c<0>( a0.extent() );
-      nt2_la_int n   = boost::fusion::at_c<1>( a0.extent() );
+      nt2_la_int n   = boost::fusion::at_c<1>( a1.extent() );
 
       if (m>n)
       {
-       a2 = nt2::mcsne(a0,a1);
+      NT2_AS_TERMINAL_IN(desired_semantic1,a,a0);
+      NT2_AS_TERMINAL_IN(desired_semantic,b,a1);
+
+      a2 = nt2::mcsne(a,b);
       }
       else
       {
-      NT2_AS_TERMINAL_IN(desired_semantic1,a,a0);
-      nt2_la_int iter = nt2::gemsv(boost::proto::value(a)
-                       ,boost::proto::value(a1),boost::proto::value(a2) );
+      // Copy of matrix a is costly and should be avoided
+      matrix_type entry(a0);
+      NT2_AS_TERMINAL_IN(desired_semantic,b,a1);
+      a2.resize(nt2::of_size(m,n));
+      nt2_la_int iter = nt2::gemsv(boost::proto::value(entry)
+                       ,boost::proto::value(b),boost::proto::value(a2) );
       boost::dispatch::ignore_unused(iter);
       }
 
@@ -76,13 +84,13 @@ namespace nt2 { namespace ext
     void eval ( A0 const& a0, A1 const& a1 , A2& a2, double const, nt2::positive_definite_ const&) const
     {
       nt2_la_int m   = boost::fusion::at_c<0>( a0.extent() );
-      nt2_la_int n   = boost::fusion::at_c<1>( a0.extent() );
+      nt2_la_int n   = boost::fusion::at_c<1>( a1.extent() );
 
+      matrix_type entry(a0);
+      NT2_AS_TERMINAL_IN(desired_semantic,b,a1);
       a2.resize(nt2::of_size(m,n));
-
-      NT2_AS_TERMINAL_IN(desired_semantic1,a,a0);
-      nt2_la_int iter = nt2::pomsv( boost::proto::value(a)
-                                  , boost::proto::value(a1) ,a2);
+      nt2_la_int iter = nt2::pomsv( boost::proto::value(entry)
+                                  , boost::proto::value(b),a2);
       boost::dispatch::ignore_unused(iter);
     }
 
