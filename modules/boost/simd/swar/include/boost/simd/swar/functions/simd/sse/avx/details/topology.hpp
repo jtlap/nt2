@@ -43,6 +43,19 @@ namespace boost { namespace simd { namespace details
           >
   {};
 
+  template<typename P, std::size_t Cardinal> struct avx_blend_mask;
+
+  template<typename P>
+  struct  avx_blend_mask<P,4>
+        : boost::mpl::int_
+          < ( (details::permuted<details::fix_zero<P>,3,4>::value==7)<<3
+            | (details::permuted<details::fix_zero<P>,2,4>::value==6)<<2
+            | (details::permuted<details::fix_zero<P>,1,4>::value==5)<<1
+            | (details::permuted<details::fix_zero<P>,0,4>::value==4)
+            )
+          >
+  {};
+
   //============================================================================
   // Markup for AVX topology
   //============================================================================
@@ -50,6 +63,7 @@ namespace boost { namespace simd { namespace details
   typedef boost::mpl::int_<4>   dupe_;
   typedef boost::mpl::int_<8>   r_zero_;
   typedef boost::mpl::int_<16>  l_zero_;
+  typedef boost::mpl::int_<32>  blend_;
 
   //============================================================================
   // Check if a permutation follows AVX shuffle restriction in a way or another
@@ -88,10 +102,15 @@ namespace boost { namespace simd { namespace details
     static const bool swap_shf  =   (p0==4 || p0==5)  &&  (p1==0 || p1==1)
                                 &&  (p2==6 || p2==7)  &&  (p3==2 || p3==3);
 
+    // Check for _mm256_blend_pd(a1,a0) calls
+    static const bool blend_shf  =   !(direct_shf | dupe_shf)
+                                && ((p0==0 || p0==4)  &&  (p1==1 || p1==5)
+                                &&  (p2==2 || p2==6)  &&  (p3==3 || p3==7));
     // Compute topology mask
     typedef boost::mpl::int_< int(direct_shf)
                             + int(swap_shf  )*2 + int(dupe_shf  )*4
                             + int(r_zero_shf)*8 + int(l_zero_shf)*16
+                            + int(blend_shf)*32
                             > type;
   };
 

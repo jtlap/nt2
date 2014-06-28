@@ -93,6 +93,22 @@ namespace boost { namespace simd { namespace ext
       return details::default_permutation<4>::call(a0,a1,p);
     }
 
+    // blend use _mm256_blend_pd
+    template<typename T, typename P>
+    BOOST_FORCEINLINE static T call ( T const& a0, T const& a1, P const&
+                                    , details::blend_ const&
+                                    )
+    {
+      typedef typename dispatch::meta::as_floating<T>::type f_t;
+
+      return bitwise_cast<T>( f_t(_mm256_blend_pd ( bitwise_cast<f_t>(a0)
+                                                    , bitwise_cast<f_t>(a1)
+                                                    , (details::avx_blend_mask<P,4>::value)
+                                                    )
+                                 )
+                            );
+    }
+
     // Direct use _mm256_shuffle_pd
     template<typename T, typename P>
     BOOST_FORCEINLINE static T call ( T const& a0, T const& a1, P const&
