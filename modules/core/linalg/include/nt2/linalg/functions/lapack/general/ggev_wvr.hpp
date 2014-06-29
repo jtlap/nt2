@@ -220,12 +220,12 @@ namespace nt2 { namespace ext
       wk.resize_main(wn);
       NT2_F77NAME(dggev) ( &jobvl, &jobvr
                          , &n
-                         , a.raw(), &lda
-                         , b.raw(), &ldb
-                         , alphar.raw(), alphai.raw()
-                         , beta.raw()
+                         , a.data(), &lda
+                         , b.data(), &ldb
+                         , alphar.data(), alphai.data()
+                         , beta.data()
                          , 0/*vl*/, &ldvl
-                         , rvr.raw(), &ldvr
+                         , rvr.data(), &ldvr
                          , wk.main(), &wn
                          , &info);
       combine_eigens(alphar, alphai, alpha);
@@ -268,12 +268,12 @@ namespace nt2 { namespace ext
       wk.resize_main(wn);
       NT2_F77NAME(sggev) ( &jobvl, &jobvr
                          , &n
-                         , a.raw(), &lda
-                         , b.raw(), &ldb
-                         , alphar.raw(), alphai.raw()
-                         , beta.raw()
+                         , a.data(), &lda
+                         , b.data(), &ldb
+                         , alphar.data(), alphai.data()
+                         , beta.data()
                          , 0/*vl*/, &ldvl
-                         , rvr.raw(), &ldvr
+                         , rvr.data(), &ldvr
                          , wk.main(), &wn
                          , &info);
       combine_eigens(alphar, alphai, alpha);
@@ -314,12 +314,12 @@ namespace nt2 { namespace ext
       nt2_la_int ldvr = vr.leading_size();
       NT2_F77NAME(zggev) ( &jobvl, &jobvr
                          , &n
-                         , a.raw(), &lda
-                         , b.raw(), &ldb
-                         , alpha.raw()
-                         , beta.raw()
+                         , a.data(), &lda
+                         , b.data(), &ldb
+                         , alpha.data()
+                         , beta.data()
                          , 0/*vl*/, &ldvl
-                         , vr.raw(), &ldvr
+                         , vr.data(), &ldvr
                          , wk.main(), &wn
                          , wk.reals()
                          , &info);
@@ -359,12 +359,12 @@ namespace nt2 { namespace ext
       nt2_la_int ldvr = vr.leading_size();
       NT2_F77NAME(cggev) ( &jobvl, &jobvr
                          , &n
-                         , a.raw(), &lda
-                         , b.raw(), &ldb
-                         , alpha.raw()
-                         , beta.raw()
+                         , a.data(), &lda
+                         , b.data(), &ldb
+                         , alpha.data()
+                         , beta.data()
                          , 0/*vl*/, &ldvl
-                         , vr.raw(), &ldvr
+                         , vr.data(), &ldvr
                          , wk.main(), &wn
                          , wk.reals()
                          , &info);

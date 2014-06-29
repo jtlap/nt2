@@ -57,23 +57,23 @@ namespace nt2 { namespace ext
         nt2::container::table<nt2_la_int> ipiv(nt2::of_size(n,1));
 
         details::magma_buffer<T>     rwork(n,1);
-        details::magma_buffer<T>     dAf(n,n  , copya.raw());
-        details::magma_buffer<T>     dA(n,n   , copya.raw());
-        details::magma_buffer<T>     dB(n,nhrs, copyb.raw());
-        details::magma_buffer<T>     dX(n,nhrs, copyb.raw());
-        magma_dgesv_gpu( n, nhrs, dAf.raw(), n, ipiv.raw(),dX.raw(), ldb, &that);
+        details::magma_buffer<T>     dAf(n,n  , copya.data());
+        details::magma_buffer<T>     dA(n,n   , copya.data());
+        details::magma_buffer<T>     dB(n,nhrs, copyb.data());
+        details::magma_buffer<T>     dX(n,nhrs, copyb.data());
+        magma_dgesv_gpu( n, nhrs, dAf.data(), n, ipiv.data(),dX.data(), ldb, &that);
 
         dgerfs_gpu(    MagmaNoTrans
                            , n           , nhrs
-                           , dA.raw()    , n
-                           , dAf.raw()   , n
-                           , ipiv.raw()
-                           , dB.raw()    , ldb
-                           , dX.raw()    , ldb
-                           , rwork.raw() , &iter
+                           , dA.data()    , n
+                           , dAf.data()   , n
+                           , ipiv.data()
+                           , dB.data()    , ldb
+                           , dX.data()    , ldb
+                           , rwork.data() , &iter
                            , &that
                            );
-        dX.raw( a2.raw() );
+        dX.raw( a2.data() );
 
 
 
@@ -108,22 +108,22 @@ namespace nt2 { namespace ext
         nt2::container::table<nt2_la_int> ipiv(nt2::of_size(n,1));
 
         details::magma_buffer<T>     rwork(n,1);
-        details::magma_buffer<T>     dAf(n,n   , copya.raw());
-        details::magma_buffer<T>     dA(n,n   , copya.raw());
-        details::magma_buffer<T>     dB(n,nhrs, copyb.raw());
-        details::magma_buffer<T>     dX(n,nhrs, copyb.raw());
-        magma_sgesv_gpu( n, nhrs, dAf.raw(), n, ipiv.raw(),dX.raw(), ldb, &that);
+        details::magma_buffer<T>     dAf(n,n   , copya.data());
+        details::magma_buffer<T>     dA(n,n   , copya.data());
+        details::magma_buffer<T>     dB(n,nhrs, copyb.data());
+        details::magma_buffer<T>     dX(n,nhrs, copyb.data());
+        magma_sgesv_gpu( n, nhrs, dAf.data(), n, ipiv.data(),dX.data(), ldb, &that);
         sgerfs_gpu(    MagmaNoTrans
                            , n           , nhrs
-                           , dA.raw()    , n
-                           , dAf.raw()   , n
-                           , ipiv.raw()
-                           , dB.raw()    , ldb
-                           , dX.raw()    , ldb
-                           , rwork.raw() , &iter
+                           , dA.data()    , n
+                           , dAf.data()   , n
+                           , ipiv.data()
+                           , dB.data()    , ldb
+                           , dX.data()    , ldb
+                           , rwork.data() , &iter
                            , &that
                            );
-        dX.raw( a2.raw() );
+        dX.raw( a2.data() );
 
         return that;
      }
@@ -157,24 +157,24 @@ namespace nt2 { namespace ext
         nt2::container::table<nt2_la_int> ipiv(nt2::of_size(n,1));
 
         details::magma_buffer<cT>     rwork(n,1);
-        details::magma_buffer<cT>     dAf(n,n  , copya.raw());
-        details::magma_buffer<cT>     dA(n,n   , copya.raw());
-        details::magma_buffer<cT>     dB(n,nhrs, copyb.raw());
-        details::magma_buffer<cT>     dX(n,nhrs, copyb.raw());
-        magma_zgesv_gpu( n, nhrs, (cuDoubleComplex*)dAf.raw(), n, ipiv.raw()
-                       , (cuDoubleComplex*)dX.raw(), ldb, &that);
+        details::magma_buffer<cT>     dAf(n,n  , copya.data());
+        details::magma_buffer<cT>     dA(n,n   , copya.data());
+        details::magma_buffer<cT>     dB(n,nhrs, copyb.data());
+        details::magma_buffer<cT>     dX(n,nhrs, copyb.data());
+        magma_zgesv_gpu( n, nhrs, (cuDoubleComplex*)dAf.data(), n, ipiv.data()
+                       , (cuDoubleComplex*)dX.data(), ldb, &that);
 
         zgerfs_gpu(    MagmaNoTrans
                            , n                             , nhrs
-                           , (cuDoubleComplex*)dA.raw()    , n
-                           , (cuDoubleComplex*)dAf.raw()   , n
-                           , ipiv.raw()
-                           , (cuDoubleComplex*)dB.raw()    , ldb
-                           , (cuDoubleComplex*)dX.raw()    , ldb
-                           , (cuDoubleComplex*)rwork.raw() , &iter
+                           , (cuDoubleComplex*)dA.data()    , n
+                           , (cuDoubleComplex*)dAf.data()   , n
+                           , ipiv.data()
+                           , (cuDoubleComplex*)dB.data()    , ldb
+                           , (cuDoubleComplex*)dX.data()    , ldb
+                           , (cuDoubleComplex*)rwork.data() , &iter
                            , &that
                            );
-        dX.raw( a2.raw() );
+        dX.raw( a2.data() );
 
 
 
@@ -211,24 +211,24 @@ namespace nt2 { namespace ext
         nt2::container::table<nt2_la_int> ipiv(nt2::of_size(n,1));
 
         details::magma_buffer<cT>     rwork(n,1);
-        details::magma_buffer<cT>     dAf(n,n  , copya.raw());
-        details::magma_buffer<cT>     dA(n,n   , copya.raw());
-        details::magma_buffer<cT>     dB(n,nhrs, copyb.raw());
-        details::magma_buffer<cT>     dX(n,nhrs, copyb.raw());
-        magma_cgesv_gpu( n, nhrs, (cuFloatComplex*)dAf.raw(), n, ipiv.raw()
-                       , (cuFloatComplex*)dX.raw(), ldb, &that);
+        details::magma_buffer<cT>     dAf(n,n  , copya.data());
+        details::magma_buffer<cT>     dA(n,n   , copya.data());
+        details::magma_buffer<cT>     dB(n,nhrs, copyb.data());
+        details::magma_buffer<cT>     dX(n,nhrs, copyb.data());
+        magma_cgesv_gpu( n, nhrs, (cuFloatComplex*)dAf.data(), n, ipiv.data()
+                       , (cuFloatComplex*)dX.data(), ldb, &that);
 
         cgerfs_gpu(    MagmaNoTrans
                            , n                            , nhrs
-                           , (cuFloatComplex*)dA.raw()    , n
-                           , (cuFloatComplex*)dAf.raw()   , n
-                           , ipiv.raw()
-                           , (cuFloatComplex*)dB.raw()    , ldb
-                           , (cuFloatComplex*)dX.raw()    , ldb
-                           , (cuFloatComplex*)rwork.raw() , &iter
+                           , (cuFloatComplex*)dA.data()    , n
+                           , (cuFloatComplex*)dAf.data()   , n
+                           , ipiv.data()
+                           , (cuFloatComplex*)dB.data()    , ldb
+                           , (cuFloatComplex*)dX.data()    , ldb
+                           , (cuFloatComplex*)rwork.data() , &iter
                            , &that
                            );
-        dX.raw( a2.raw() );
+        dX.raw( a2.data() );
 
 
 

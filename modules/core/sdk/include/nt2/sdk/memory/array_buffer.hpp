@@ -120,8 +120,8 @@ namespace nt2 {  namespace memory
         boost::swap(elems[i],that[i]);
     }
 
-    const_pointer  raw() const { return elems; }
-    pointer        raw()       { return elems; }
+    const_pointer  data() const { return elems; }
+    pointer        data()       { return elems; }
   };
 
   //============================================================================

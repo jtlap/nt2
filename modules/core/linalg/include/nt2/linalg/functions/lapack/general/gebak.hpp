@@ -45,7 +45,7 @@ namespace nt2 { namespace ext
         nt2_la_int  ldv = nt2::max(v.leading_size(), One<size_t>());
         NT2_F77NAME(dgebak) (&job, &side, &n
                             , &ilo, &ihi
-                            , scale.raw(), &m, v.raw()
+                            , scale.data(), &m, v.data()
                             , &ldv, &info);
         return info;
      }
@@ -75,7 +75,7 @@ namespace nt2 { namespace ext
         nt2_la_int  ldv = nt2::max(v.leading_size(), One<size_t>());
         NT2_F77NAME(sgebak) (&job, &side, &n
                             , &ilo, &ihi
-                            , scale.raw(), &m, v.raw()
+                            , scale.data(), &m, v.data()
                             , &ldv, &info);
         return info;
      }
@@ -105,7 +105,7 @@ namespace nt2 { namespace ext
         nt2_la_int  ldv = nt2::max(v.leading_size(), One<size_t>());
         NT2_F77NAME(cgebak) (&job, &side, &n
                             , &ilo, &ihi
-                            , scale.raw(), &m, v.raw()
+                            , scale.data(), &m, v.data()
                             , &ldv, &info);
         return info;
      }
@@ -135,7 +135,7 @@ namespace nt2 { namespace ext
         nt2_la_int  ldv = nt2::max(v.leading_size(), One<size_t>());
         NT2_F77NAME(zgebak) (&job, &side, &n
                             , &ilo, &ihi
-                            , scale.raw(), &m, v.raw()
+                            , scale.data(), &m, v.data()
                             , &ldv, &info);
         return info;
      }

@@ -70,7 +70,7 @@ namespace nt2 { namespace ext
         nt2_la_int  lda = a.leading_size();
 
         nt2_la_int  wn = wk.main_size();
-        NT2_F77NAME(dsyev) (&jobz, &uplo, &n, a.raw(), &lda, w.raw(), wk.main(), &wn, &info);
+        NT2_F77NAME(dsyev) (&jobz, &uplo, &n, a.data(), &lda, w.data(), wk.main(), &wn, &info);
 
         return info;
      }
@@ -126,7 +126,7 @@ namespace nt2 { namespace ext
         nt2_la_int  lda = a.leading_size();
 
         nt2_la_int  wn = wk.main_size();
-        NT2_F77NAME(ssyev) (&jobz, &uplo, &n, a.raw(), &lda, w.raw(), wk.main(), &wn, &info);
+        NT2_F77NAME(ssyev) (&jobz, &uplo, &n, a.data(), &lda, w.data(), wk.main(), &wn, &info);
 
         return info;
      }
@@ -185,7 +185,7 @@ namespace nt2 { namespace ext
         nt2_la_int  lda = a.leading_size();
 
         nt2_la_int  wn = wk.main_size();
-        NT2_F77NAME(cheev) (&jobz, &uplo, &n, a.raw(), &lda, w.raw(), wk.main(), &wn, wk.reals()
+        NT2_F77NAME(cheev) (&jobz, &uplo, &n, a.data(), &lda, w.data(), wk.main(), &wn, wk.reals()
                            , &info);
 
         return info;
@@ -245,7 +245,7 @@ namespace nt2 { namespace ext
         nt2_la_int  lda = a.leading_size();
 
         nt2_la_int  wn = wk.main_size();
-        NT2_F77NAME(zheev) (&jobz, &uplo, &n, a.raw(), &lda, w.raw(), wk.main(), &wn, wk.reals()
+        NT2_F77NAME(zheev) (&jobz, &uplo, &n, a.data(), &lda, w.data(), wk.main(), &wn, wk.reals()
                            , &info);
 
         return info;

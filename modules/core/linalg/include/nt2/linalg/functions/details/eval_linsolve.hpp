@@ -40,7 +40,7 @@ namespace nt2 { namespace ext
         for(nt2_la_int i = 1; i <= n1; ++i)
         {
           coord = m1+(i-1)*n;
-          std::fill(that.raw()+coord,that.raw()+mn+coord,that(m1,i));
+          std::fill(that.data()+coord,that.data()+mn+coord,that(m1,i));
         }
       }
       else that = a1;

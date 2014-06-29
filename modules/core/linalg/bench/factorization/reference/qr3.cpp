@@ -54,7 +54,7 @@ template<typename T> struct qr3_float_nt2
     jpvt = nt2::zeros(m,1,nt2::meta::as_<nt2_la_int>());
     lwork = work.main_size();
 
-    NT2_F77NAME(sgeqp3)(&h1,&w1,input.raw(),&m,jpvt.raw(),tau.raw(),work.main()
+    NT2_F77NAME(sgeqp3)(&h1,&w1,input.data(),&m,jpvt.data(),tau.data(),work.main()
                        ,&lwork, &info
                        );
 
@@ -66,8 +66,8 @@ template<typename T> struct qr3_float_nt2
       char side  = 'L';
       char trans = 'N';
 
-      NT2_F77NAME(sormqr)( &side, &trans, &h1, &w1, &k, input.raw(), &h1, tau.raw()
-                            , Q.raw(), &h1, work.main(), &lwork, &info);
+      NT2_F77NAME(sormqr)( &side, &trans, &h1, &w1, &k, input.data(), &h1, tau.data()
+                            , Q.data(), &h1, work.main(), &lwork, &info);
       call = true;
     }
     else
@@ -77,7 +77,7 @@ template<typename T> struct qr3_float_nt2
         nt2::table<float> local(input);
         input = nt2::expand(input,nt2::of_size(h1,h1));
       }
-      NT2_F77NAME(sorgqr)(&h1, &w1 , &k, input.raw(), &h1, tau.raw(), work.main()
+      NT2_F77NAME(sorgqr)(&h1, &w1 , &k, input.data(), &h1, tau.data(), work.main()
                          , &lwork, &info);
       call = false;
     }
@@ -142,7 +142,7 @@ template<typename T> struct qr3_double_nt2
     jpvt = nt2::zeros(m,1,nt2::meta::as_<nt2_la_int>());
     lwork = work.main_size();
 
-    NT2_F77NAME(dgeqp3)(&h1,&w1,input.raw(),&m,jpvt.raw(),tau.raw(),work.main()
+    NT2_F77NAME(dgeqp3)(&h1,&w1,input.data(),&m,jpvt.data(),tau.data(),work.main()
                        ,&lwork, &info
                        );
 
@@ -154,8 +154,8 @@ template<typename T> struct qr3_double_nt2
       char side  = 'L';
       char trans = 'N';
 
-      NT2_F77NAME(dormqr)( &side, &trans, &h1, &w1, &k, input.raw(), &h1, tau.raw()
-                            , Q.raw(), &h1, work.main(), &lwork, &info);
+      NT2_F77NAME(dormqr)( &side, &trans, &h1, &w1, &k, input.data(), &h1, tau.data()
+                            , Q.data(), &h1, work.main(), &lwork, &info);
       call = true;
     }
     else
@@ -165,7 +165,7 @@ template<typename T> struct qr3_double_nt2
         nt2::table<double> local(input);
         input = nt2::expand(input,nt2::of_size(h1,h1));
       }
-      NT2_F77NAME(dorgqr)(&h1, &w1 , &k, input.raw(), &h1, tau.raw(), work.main()
+      NT2_F77NAME(dorgqr)(&h1, &w1 , &k, input.data(), &h1, tau.data(), work.main()
                          , &lwork, &info);
       call = false;
     }

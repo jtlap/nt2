@@ -36,7 +36,7 @@ namespace nt2 { namespace ext
       a0.resize( boost::proto::value(boost::proto::child_c<0>(a1)) );
 
       // Forward to current random_stream and fill the data
-      current_prng_.generator_->rand(a0.raw(),0,nt2::numel(a0));
+      current_prng_.generator_->rand(a0.data(),0,nt2::numel(a0));
 
       return a0;
     }

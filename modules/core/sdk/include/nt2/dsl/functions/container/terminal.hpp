@@ -95,7 +95,7 @@ namespace nt2 { namespace ext
       , "Out of range SIMD read"
       );
 
-      return boost::simd::load<result_type>(a0.raw(), state);
+      return boost::simd::load<result_type>(a0.data(), state);
     }
   };
 
@@ -123,7 +123,7 @@ namespace nt2 { namespace ext
       , "Out of range SIMD read"
       );
 
-      boost::simd::store(data, a0.raw(), state);
+      boost::simd::store(data, a0.data(), state);
       return data;
     }
   };

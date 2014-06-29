@@ -112,7 +112,7 @@ namespace nt2 { namespace ext
         nt2_la_int  ldb = a1.leading_size();
         char trans = 'N';
 
-        NT2_F77NAME(dgels) (&trans, &m, &n, &nhrs, a0.raw(), &ld, a1.raw(), &ldb
+        NT2_F77NAME(dgels) (&trans, &m, &n, &nhrs, a0.data(), &ld, a1.data(), &ldb
                             , a2.main()
                             , &wn, &that
                             );
@@ -177,7 +177,7 @@ namespace nt2 { namespace ext
         char trans = 'N';
 
 
-        NT2_F77NAME(sgels) (&trans, &m, &n, &nhrs, a0.raw(), &ld, a1.raw(),  &ldb
+        NT2_F77NAME(sgels) (&trans, &m, &n, &nhrs, a0.data(), &ld, a1.data(),  &ldb
                             , a2.main()
                             , &wn, &that
                             );
@@ -242,7 +242,7 @@ namespace nt2 { namespace ext
         nt2_la_int  ldb = a1.leading_size();
         char trans = 'N';
 
-        NT2_F77NAME(zgels) (&trans, &m, &n, &nhrs, a0.raw(), &ld, a1.raw(), &ldb
+        NT2_F77NAME(zgels) (&trans, &m, &n, &nhrs, a0.data(), &ld, a1.data(), &ldb
                             , a2.main()
                             , &wn, &that
                             );
@@ -305,7 +305,7 @@ namespace nt2 { namespace ext
         nt2_la_int  ldb = a1.leading_size();
         char trans = 'N';
 
-        NT2_F77NAME(cgels) (&trans, &m, &n, &nhrs, a0.raw(), &ld, a1.raw(), &ldb
+        NT2_F77NAME(cgels) (&trans, &m, &n, &nhrs, a0.data(), &ld, a1.data(), &ldb
                             , a2.main()
                             , &wn, &that
                             );

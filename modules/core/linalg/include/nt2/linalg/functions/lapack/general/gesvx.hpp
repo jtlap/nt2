@@ -112,15 +112,15 @@ namespace nt2 { namespace ext
 
         NT2_F77NAME(sgesvx)( &fact       , &trans
                            , &n          , &nhrs
-                           , a0.raw()    , &n
-                           , af.raw()    , &n
-                           , ipiv.raw()  , &equed
-                           , r.raw()     , c.raw()
-                           , a1.raw()    , &ldb
-                           , a2.raw()    , &ldb
-                           , &rcond      , ferr.raw()
-                           , berr.raw()  , work.main()
-                           , iwork.raw() , &that
+                           , a0.data()    , &n
+                           , af.data()    , &n
+                           , ipiv.data()  , &equed
+                           , r.data()     , c.data()
+                           , a1.data()    , &ldb
+                           , a2.data()    , &ldb
+                           , &rcond      , ferr.data()
+                           , berr.data()  , work.main()
+                           , iwork.data() , &that
                            );
 
         return that;
@@ -161,15 +161,15 @@ namespace nt2 { namespace ext
 
         NT2_F77NAME(dgesvx)( &fact       , &trans
                            , &n          , &nhrs
-                           , a0.raw()    , &n
-                           , af.raw()    , &n
-                           , ipiv.raw()  , &equed
-                           , r.raw()     , c.raw()
-                           , a1.raw()    , &ldb
-                           , a2.raw()    , &ldb
-                           , &rcond      , ferr.raw()
-                           , berr.raw()  , work.main()
-                           , iwork.raw() , &that
+                           , a0.data()    , &n
+                           , af.data()    , &n
+                           , ipiv.data()  , &equed
+                           , r.data()     , c.data()
+                           , a1.data()    , &ldb
+                           , a2.data()    , &ldb
+                           , &rcond      , ferr.data()
+                           , berr.data()  , work.main()
+                           , iwork.data() , &that
                            );
 
         return that;
@@ -213,15 +213,15 @@ namespace nt2 { namespace ext
 
         NT2_F77NAME(cgesvx)( &fact       , &trans
                            , &n          , &nhrs
-                           , a0.raw()    , &n
-                           , af.raw()    , &n
-                           , ipiv.raw()  , &equed
-                           , r.raw()     , c.raw()
-                           , a1.raw()    , &ldb
-                           , a2.raw()    , &ldb
-                           , &rcond      , ferr.raw()
-                           , berr.raw()  , work.main()
-                           , rwork.raw() , &that
+                           , a0.data()    , &n
+                           , af.data()    , &n
+                           , ipiv.data()  , &equed
+                           , r.data()     , c.data()
+                           , a1.data()    , &ldb
+                           , a2.data()    , &ldb
+                           , &rcond      , ferr.data()
+                           , berr.data()  , work.main()
+                           , rwork.data() , &that
                            );
 
         return that;
@@ -265,15 +265,15 @@ namespace nt2 { namespace ext
 
         NT2_F77NAME(zgesvx)( &fact       , &trans
                            , &n          , &nhrs
-                           , a0.raw()    , &n
-                           , af.raw()    , &n
-                           , ipiv.raw()  , &equed
-                           , r.raw()     , c.raw()
-                           , a1.raw()    , &ldb
-                           , a2.raw()    , &ldb
-                           , &rcond      , ferr.raw()
-                           , berr.raw()  , work.main()
-                           , rwork.raw() , &that
+                           , a0.data()    , &n
+                           , af.data()    , &n
+                           , ipiv.data()  , &equed
+                           , r.data()     , c.data()
+                           , a1.data()    , &ldb
+                           , a2.data()    , &ldb
+                           , &rcond      , ferr.data()
+                           , berr.data()  , work.main()
+                           , rwork.data() , &that
                            );
 
         return that;

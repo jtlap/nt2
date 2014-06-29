@@ -39,7 +39,7 @@ NT2_TEST_CASE( array_buffer_default_ctor )
   array_buffer<nt2::object, boost::mpl::size_t<2> > b;
 
   NT2_TEST_EQUAL(b.size(), 2u );
-  NT2_TEST_EQUAL(b.raw(),&b[0]);
+  NT2_TEST_EQUAL(b.data(),&b[0]);
 
   for(std::size_t i=0;i<b.size();++i)
   {
@@ -61,7 +61,7 @@ NT2_TEST_CASE( array_buffer_data_ctor )
 
   array_buffer<nt2::object, boost::mpl::size_t<5> > x(b);
   NT2_TEST_EQUAL(x.size() , 5u     );
-  NT2_TEST_EQUAL(x.raw()  , &x[0] );
+  NT2_TEST_EQUAL(x.data()  , &x[0] );
 
   for( std::size_t i = 0; i < 5; ++i )
     NT2_TEST_EQUAL(x[i].s, std::string("copied") );
@@ -82,7 +82,7 @@ NT2_TEST_CASE(array_buffer_assignment )
   x = b;
 
   NT2_TEST_EQUAL(x.size() , 5u     );
-  NT2_TEST_EQUAL(x.raw()  , &x[0] );
+  NT2_TEST_EQUAL(x.data()  , &x[0] );
 
   for(std::size_t i=0;i<b.size();++i)
     NT2_TEST_EQUAL(x[i].s, std::string("assigned") );
@@ -106,8 +106,8 @@ NT2_TEST_CASE(array_buffer_swap)
 
   NT2_TEST_EQUAL(x.size() , 5u    );
   NT2_TEST_EQUAL(b.size() , 5u    );
-  NT2_TEST_EQUAL(x.raw()  , &x[0] );
-  NT2_TEST_EQUAL(b.raw()  , &b[0] );
+  NT2_TEST_EQUAL(x.data()  , &x[0] );
+  NT2_TEST_EQUAL(b.data()  , &b[0] );
 
   for( std::size_t i = 0; i < 5; ++i )
   {

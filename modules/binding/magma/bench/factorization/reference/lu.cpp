@@ -43,7 +43,7 @@ template<typename T> struct lu1_float_nt2
     h1 = size_;
     w1 = size_;
     jpvt.resize(nt2::of_size(std::min(h1, w1), 1) );
-    magma_sgetrf( h1, w1, input.raw(), h1, jpvt.raw(), &i);
+    magma_sgetrf( h1, w1, input.data(), h1, jpvt.data(), &i);
     result = input;
   }
 
@@ -90,7 +90,7 @@ template<typename T> struct lu1_double_nt2
     h1 = size_;
     w1 = size_;
     jpvt.resize(nt2::of_size(std::min(h1, w1), 1) );
-    magma_dgetrf( h1, w1, input.raw(), h1, jpvt.raw(), &i);
+    magma_dgetrf( h1, w1, input.data(), h1, jpvt.data(), &i);
     result = input;
   }
 

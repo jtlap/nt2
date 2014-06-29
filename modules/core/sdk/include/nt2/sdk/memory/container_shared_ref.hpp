@@ -81,7 +81,7 @@ namespace nt2 { namespace memory
 
     template<typename Kind2, typename U, typename S2, bool Own2>
     container_shared_ref(container_shared_ref<Kind2, U, S2, Own2> const& other)
-                        : ptr(other.raw())
+                        : ptr(other.data())
                         , sz(other.extent())
                         , base_(other.base_)
     {
@@ -185,7 +185,7 @@ namespace nt2 { namespace memory
      * Return the begin of the raw memory
      */
     //==========================================================================
-    BOOST_FORCEINLINE pointer        raw() const { return ptr; }
+    BOOST_FORCEINLINE pointer        data() const { return ptr; }
 
     //==========================================================================
     /*!
@@ -368,7 +368,7 @@ namespace nt2 { namespace memory
      * Return the begin of the raw memory
      */
     //==========================================================================
-    BOOST_FORCEINLINE pointer        raw() const { return base_->raw(); }
+    BOOST_FORCEINLINE pointer        data() const { return base_->data(); }
 
     //==========================================================================
     /*!

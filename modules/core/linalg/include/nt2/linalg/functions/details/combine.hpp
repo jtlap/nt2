@@ -30,7 +30,7 @@ namespace nt2 { namespace details
     typedef typename A0::value_type type_t;
     int n = numel(wr);
     w.resize(of_size(n, 1));
-    nt2::container::table<type_t, nt2::shared_> sw(of_size(n, 1), share(w.raw(), w.raw()+n));
+    nt2::container::table<type_t, nt2::shared_> sw(of_size(n, 1), share(w.data(), w.data()+n));
     sw = tocomplex(wr, wi);
   }
   template < class T1, class T2, class A0 >
@@ -40,7 +40,7 @@ namespace nt2 { namespace details
     typedef typename A0::value_type type_t;
     int n = height(rv);
     v.resize(of_size(n, n));
-    nt2::container::table<type_t, nt2::shared_> sv(of_size(n, n), share(v.raw(), v.raw()+numel(v)));
+    nt2::container::table<type_t, nt2::shared_> sv(of_size(n, n), share(v.data(), v.data()+numel(v)));
     for(int j=1; j <= n; ++j)
     {
       if(wi(j))

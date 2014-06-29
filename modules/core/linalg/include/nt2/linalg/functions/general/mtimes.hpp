@@ -356,10 +356,10 @@ namespace nt2 { namespace ext
       gemm( &transA, &transB
           , &m, &n, &k
           , &alpha
-          , child0.raw(), &lda
-          , child1.raw(), &ldb
+          , child0.data(), &lda
+          , child1.data(), &ldb
           , &beta
-          , result_view.raw(), &ldc
+          , result_view.data(), &ldc
           );
 
       if(swap)

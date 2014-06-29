@@ -356,10 +356,10 @@ namespace nt2 { namespace memory
       @brief Raw memory accessor
       @return Pointer to the raw memory of the container
     **/
-    BOOST_FORCEINLINE pointer       raw()       { return data_.raw(); }
+    BOOST_FORCEINLINE pointer       data()       { return data_.data(); }
 
     /// @overload
-    BOOST_FORCEINLINE const_pointer raw() const { return data_.raw(); }
+    BOOST_FORCEINLINE const_pointer data() const { return data_.data(); }
 
     /*!
       @brief Container's beginning of data

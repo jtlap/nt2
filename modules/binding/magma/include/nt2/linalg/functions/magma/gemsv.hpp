@@ -60,18 +60,18 @@ namespace nt2 { namespace ext
 
 
 
-        details::magma_buffer<double>     dA(n,n   ,a0.raw());
-        details::magma_buffer<double>     dB(n,nhrs, copyb.raw());
+        details::magma_buffer<double>     dA(n,n   ,a0.data());
+        details::magma_buffer<double>     dB(n,nhrs, copyb.data());
         details::magma_buffer<double>     dX(n,nhrs);
 
         magma_dsgesv_gpu( trans             , n          , nhrs
-                        , dA.raw()          , lda        , ipiv.raw()
-                        , dipiv.raw()       , dB.raw()   , ldb
-                        , dX.raw()          , ldb        , dwork.raw()
-                        , swork.raw()       , &iter      , &info
+                        , dA.data()          , lda        , ipiv.data()
+                        , dipiv.data()       , dB.data()   , ldb
+                        , dX.data()          , ldb        , dwork.data()
+                        , swork.data()       , &iter      , &info
                         );
 
-        dX.raw( a2.raw() );
+        dX.raw( a2.data() );
         return iter;
      }
   };
@@ -104,18 +104,18 @@ namespace nt2 { namespace ext
         details::magma_buffer<dComplex>                  dwork(n*nhrs,1);
         details::magma_buffer<nt2_la_int>                dipiv(n,1);
 
-        details::magma_buffer<dComplex>     dA(n,n   ,a0.raw());
-        details::magma_buffer<dComplex>     dB(n,nhrs, copyb.raw());
+        details::magma_buffer<dComplex>     dA(n,n   ,a0.data());
+        details::magma_buffer<dComplex>     dB(n,nhrs, copyb.data());
         details::magma_buffer<dComplex>     dX(n,nhrs);
 
         magma_zcgesv_gpu( trans                        , n          , nhrs
-                        , (cuDoubleComplex*)dA.raw()   , lda        , ipiv.raw()
-                        , dipiv.raw(), (cuDoubleComplex*)dB.raw()   , ldb
-                        , (cuDoubleComplex*)dX.raw()   , ldb        , (cuDoubleComplex*)dwork.raw()
-                        , (cuFloatComplex*)swork.raw(), &iter      , &info
+                        , (cuDoubleComplex*)dA.data()   , lda        , ipiv.data()
+                        , dipiv.data(), (cuDoubleComplex*)dB.data()   , ldb
+                        , (cuDoubleComplex*)dX.data()   , ldb        , (cuDoubleComplex*)dwork.data()
+                        , (cuFloatComplex*)swork.data(), &iter      , &info
                         );
 
-        dX.raw( a2.raw() );
+        dX.raw( a2.data() );
         return iter;
      }
   };

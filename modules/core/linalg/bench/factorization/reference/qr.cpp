@@ -51,7 +51,7 @@ template<typename T> struct qr_float_nt2
     jpvt = nt2::zeros(m,1,nt2::meta::as_<nt2_la_int>());
     lwork = work.main_size();
 
-    NT2_F77NAME(sgeqp3)(&m,&m,input.raw(),&m,jpvt.raw(),tau.raw(),work.main()
+    NT2_F77NAME(sgeqp3)(&m,&m,input.data(),&m,jpvt.data(),tau.data(),work.main()
                        ,&lwork, &i
                        );
 
@@ -108,7 +108,7 @@ template<typename T> struct qr_double_nt2
     jpvt = nt2::zeros(m,1,nt2::meta::as_<nt2_la_int>());
     lwork = work.main_size();
 
-    NT2_F77NAME(dgeqp3)(&m,&m,input.raw(),&m,jpvt.raw(),tau.raw(),work.main()
+    NT2_F77NAME(dgeqp3)(&m,&m,input.data(),&m,jpvt.data(),tau.data(),work.main()
                        ,&lwork, &i
                        );
 

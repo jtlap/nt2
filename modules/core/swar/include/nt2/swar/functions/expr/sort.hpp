@@ -200,7 +200,7 @@ namespace boost { namespace simd { namespace ext
       size_t nbslice =  nt2::numel(res)/h;
 //    if (dim == 1)
 //    {
-//      value_type* beg = res.raw();
+//      value_type* beg = res.data();
 //      value_type* fin = beg+h;
 //      for(size_t i=0; i < nbslice; ++i)
 //      {
@@ -213,7 +213,7 @@ namespace boost { namespace simd { namespace ext
         size_t stride = nt2::linesstride(res, dim);
         size_t decal =  stride*(nt2::size(res, dim)-1);
         size_t p = 0;
-        value_type* beg = res.raw();
+        value_type* beg = res.data();
         for(size_t i=0; i < nbslice; ++i)
         {
           sub_t pos = nt2::as_subscript(res.extent(), p);
@@ -243,8 +243,8 @@ namespace boost { namespace simd { namespace ext
       size_t stride = linesstride(res, dim);
       size_t decal = stride*(nt2::size(res, dim)-1);
       size_t p = 0;
-      value_type* beg = res.raw();
-      i_type* bep = idx.raw();
+      value_type* beg = res.data();
+      i_type* bep = idx.data();
       for(size_t i=0; i < nbslice; ++i)
       {
         sub_t pos = as_subscript(res.extent(), p);
@@ -273,8 +273,8 @@ namespace boost { namespace simd { namespace ext
       size_t stride = nt2::linesstride(res, dim);
       size_t decal = stride*(nt2::size(res, dim)-1);
       size_t p = 0;
-      value_type* beg = res.raw();
-      i_type* bep = idx.raw();
+      value_type* beg = res.data();
+      i_type* bep = idx.data();
       for(size_t i=0; i < nbslice; ++i)
       {
         sub_t pos = nt2::as_subscript(res.extent(), p);

@@ -55,7 +55,7 @@ template<typename T> struct sgesv_nt2
     a1 = a;
     b1 = b;
 
-   magma_sgesv( h1, nhrs, a1.raw(), h1, jpvt.raw(), b1.raw(),h1,&i);
+   magma_sgesv( h1, nhrs, a1.data(), h1, jpvt.data(), b1.data(),h1,&i);
     }
 
   friend std::ostream& operator<<(std::ostream& os, sgesv_nt2<T> const& p)
@@ -111,7 +111,7 @@ template<typename T> struct dgesv_nt2
     a1 = a;
     b1 = b;
 
-    magma_dgesv( h1, nhrs, a1.raw(), h1, jpvt.raw(), b1.raw(),h1,&i);
+    magma_dgesv( h1, nhrs, a1.data(), h1, jpvt.data(), b1.data(),h1,&i);
     }
 
   friend std::ostream& operator<<(std::ostream& os, dgesv_nt2<T> const& p)

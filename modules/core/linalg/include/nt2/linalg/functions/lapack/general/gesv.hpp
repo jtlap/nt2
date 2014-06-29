@@ -60,7 +60,7 @@ namespace nt2 { namespace ext
 
         a1.resize(nt2::of_size(n,1));
 
-        NT2_F77NAME(dgesv)(&n,&nhrs,a0.raw(),&lda,a1.raw(),a2.raw(),&ldb,&that);
+        NT2_F77NAME(dgesv)(&n,&nhrs,a0.data(),&lda,a1.data(),a2.data(),&ldb,&that);
 
         return that;
      }
@@ -85,7 +85,7 @@ namespace nt2 { namespace ext
 
         a1.resize(nt2::of_size(n,1));
 
-        NT2_F77NAME(sgesv)(&n,&nhrs,a0.raw(),&lda,a1.raw(),a2.raw(),&ldb,&that);
+        NT2_F77NAME(sgesv)(&n,&nhrs,a0.data(),&lda,a1.data(),a2.data(),&ldb,&that);
 
         return that;
      }
@@ -110,7 +110,7 @@ namespace nt2 { namespace ext
 
         a1.resize(nt2::of_size(n,1));
 
-        NT2_F77NAME(zgesv)(&n,&nhrs,a0.raw(),&lda,a1.raw(),a2.raw(),&ldb,&that);
+        NT2_F77NAME(zgesv)(&n,&nhrs,a0.data(),&lda,a1.data(),a2.data(),&ldb,&that);
 
         return that;
      }
@@ -135,7 +135,7 @@ namespace nt2 { namespace ext
 
         a1.resize(nt2::of_size(n,1));
 
-        NT2_F77NAME(cgesv)(&n,&nhrs,a0.raw(),&lda,a1.raw(),a2.raw(),&ldb,&that);
+        NT2_F77NAME(cgesv)(&n,&nhrs,a0.data(),&lda,a1.data(),a2.data(),&ldb,&that);
 
         return that;
      }

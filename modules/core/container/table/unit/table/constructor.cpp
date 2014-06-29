@@ -115,7 +115,7 @@ NT2_TEST_CASE( shared_ctor_boost_array )
   table<float, settings(shared_)> x(of_size(3,2), share(data));
 
   NT2_TEST_EQUAL( nt2::extent(x), of_size(3,2 ) );
-  NT2_TEST_EQUAL( x.raw(), &data[0] );
+  NT2_TEST_EQUAL( x.data(), &data[0] );
 
   for(int j=first_index<2>(x);j<=last_index<2>(x);++j)
     for(int i=first_index<1>(x);i<=last_index<1>(x);++i)
@@ -137,7 +137,7 @@ NT2_TEST_CASE( shared_ctor_c_array )
   table<float, settings(shared_)> x(of_size(3,2), share(data));
 
   NT2_TEST_EQUAL( nt2::extent(x), of_size(3,2 ) );
-  NT2_TEST_EQUAL( x.raw(), &data[0] );
+  NT2_TEST_EQUAL( x.data(), &data[0] );
 
   for(int j=first_index<2>(x);j<=last_index<2>(x);++j)
     for(int i=first_index<1>(x);i<=last_index<1>(x);++i)
@@ -159,7 +159,7 @@ NT2_TEST_CASE( shared_ctor_pointer )
   table<float, settings(shared_)> x(of_size(3,2), share(&data[0], &data[0] + 6));
 
   NT2_TEST_EQUAL( nt2::extent(x), of_size(3,2 ) );
-  NT2_TEST_EQUAL( x.raw(), &data[0] );
+  NT2_TEST_EQUAL( x.data(), &data[0] );
 
   for(int j=first_index<2>(x);j<=last_index<2>(x);++j)
     for(int i=first_index<1>(x);i<=last_index<1>(x);++i)
@@ -179,7 +179,7 @@ NT2_TEST_CASE( shared_ctor_scalar )
   table<float,settings(shared_)> x(nt2::extent(f), share(&f, &f + 1));
 
   NT2_TEST_EQUAL( nt2::extent(x), of_size(1 ) );
-  NT2_TEST_EQUAL( x.raw(), &f );
+  NT2_TEST_EQUAL( x.data(), &f );
 
   NT2_TEST_EQUAL( float(x(1,1)), 1.f );
   x = 2.f;

@@ -33,7 +33,7 @@ namespace nt2 { namespace ext
 
       // Forward to current random_stream and fill the data
       current_prng_.generator_
-              ->randi ( a0.raw()
+              ->randi ( a0.data()
                       , 0, nt2::numel(a0)
                       , boost::proto::value(boost::proto::child_c<0>(a1))
                       , boost::proto::value(boost::proto::child_c<1>(a1))

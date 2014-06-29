@@ -334,24 +334,24 @@ namespace nt2 { namespace memory
 
       template<typename T> BOOST_FORCEINLINE
       typename result<rawer(T&)>::type
-      operator()(T& t) const  { return t.raw(); }
+      operator()(T& t) const  { return t.data(); }
 
       template<typename T> BOOST_FORCEINLINE
       typename result<rawer(T const&)>::type
-      operator()(T const& t) const  { return t.raw(); }
+      operator()(T const& t) const  { return t.data(); }
     };
 
     public:
     //==========================================================================
     // Raw values
     //==========================================================================
-    BOOST_FORCEINLINE pointer raw()
+    BOOST_FORCEINLINE pointer data()
     {
       boost::fusion::transform_view<data_t,rawer> that(data_, rawer() );
       return that;
     }
 
-    BOOST_FORCEINLINE const_pointer raw() const
+    BOOST_FORCEINLINE const_pointer data() const
     {
       boost::fusion::transform_view<data_t const,rawer> that(data_, rawer() );
       return that;

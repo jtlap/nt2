@@ -138,9 +138,9 @@ namespace nt2 { namespace details
       vt_.resize(of_size(ldvt_, vtcol_));
       ldvt_ = vt_.leading_size();
       w_.resize(of_size(nt2::min(n_, m_), 1));
-      nt2::details::gesvd(&jobu_, &jobvt_, &m_, &n_, aa_.raw(), &lda_,
-                          w_.raw(), u_.raw(), &ldu_,
-                          vt_.raw(), &ldvt_, &info_, wrk_);
+      nt2::details::gesvd(&jobu_, &jobvt_, &m_, &n_, aa_.data(), &lda_,
+                          w_.data(), u_.data(), &ldu_,
+                          vt_.data(), &ldvt_, &info_, wrk_);
     }
 
     svd_result& operator=(svd_result const& src)

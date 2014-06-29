@@ -53,7 +53,7 @@ template<typename T> struct sgesv_nt2
     a1 = a;
     b1 = b;
 
-    NT2_F77NAME(sgesv)( &h1, &nhrs, a1.raw(), &h1, jpvt.raw(), b1.raw(),&h1,&i);
+    NT2_F77NAME(sgesv)( &h1, &nhrs, a1.data(), &h1, jpvt.data(), b1.data(),&h1,&i);
     }
 
   friend std::ostream& operator<<(std::ostream& os, sgesv_nt2<T> const& p)
@@ -109,7 +109,7 @@ template<typename T> struct dgesv_nt2
     a1 = a;
     b1 = b;
 
-    NT2_F77NAME(dgesv)( &h1, &nhrs, a1.raw(), &h1, jpvt.raw(), b1.raw(),&h1,&i);
+    NT2_F77NAME(dgesv)( &h1, &nhrs, a1.data(), &h1, jpvt.data(), b1.data(),&h1,&i);
     }
 
   friend std::ostream& operator<<(std::ostream& os, dgesv_nt2<T> const& p)
@@ -177,15 +177,15 @@ template<typename T> struct dgesvx_nt2
 
         NT2_F77NAME(dgesvx)( &fact       , &trans
                            , &h1         , &nhrs
-                           , a.raw()     , &h1
-                           , af.raw()    , &h1
-                           , jpvt.raw()  , &equed
-                           , r.raw()     , c.raw()
-                           , b.raw()     , &h1
-                           , x.raw()     , &h1
-                           , &rcond      , ferr.raw()
-                           , berr.raw()  , work.raw()
-                           , iwork.raw() , &i
+                           , a.data()     , &h1
+                           , af.data()    , &h1
+                           , jpvt.data()  , &equed
+                           , r.data()     , c.data()
+                           , b.data()     , &h1
+                           , x.data()     , &h1
+                           , &rcond      , ferr.data()
+                           , berr.data()  , work.data()
+                           , iwork.data() , &i
                            );
     }
 
@@ -255,15 +255,15 @@ template<typename T> struct sgesvx_nt2
 
         NT2_F77NAME(sgesvx)( &fact       , &trans
                            , &h1         , &nhrs
-                           , a.raw()     , &h1
-                           , af.raw()    , &h1
-                           , jpvt.raw()  , &equed
-                           , r.raw()     , c.raw()
-                           , b.raw()     , &h1
-                           , x.raw()     , &h1
-                           , &rcond      , ferr.raw()
-                           , berr.raw()  , work.raw()
-                           , iwork.raw() , &i
+                           , a.data()     , &h1
+                           , af.data()    , &h1
+                           , jpvt.data()  , &equed
+                           , r.data()     , c.data()
+                           , b.data()     , &h1
+                           , x.data()     , &h1
+                           , &rcond      , ferr.data()
+                           , berr.data()  , work.data()
+                           , iwork.data() , &i
                            );
     }
 

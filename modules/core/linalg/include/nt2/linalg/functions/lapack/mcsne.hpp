@@ -98,7 +98,7 @@ namespace nt2{ namespace ext
 
       for(nt2_la_int i=0; i<na; i++)
       {
-        std::memcpy(sr1.raw()+i*na, sr.raw()+i*lda, size_n);
+        std::memcpy(sr1.data()+i*na, sr.data()+i*lda, size_n);
       }
 
       boost::proto::value(sr).swap(boost::proto::value(sr1) );

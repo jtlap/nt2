@@ -82,7 +82,7 @@ namespace nt2 { namespace ext
 
         a2.resize( nt2::of_size(std::min(n, m), 1) );
 
-        magma_dgeqp3 (m, n, a0.raw(), ld, a1.raw(), a2.raw(), a3.main()
+        magma_dgeqp3 (m, n, a0.data(), ld, a1.data(), a2.data(), a3.main()
                             , wn, &that
                             );
         return that;
@@ -139,7 +139,7 @@ namespace nt2 { namespace ext
 
         a2.resize( nt2::of_size(std::min(n, m), 1) );
 
-        magma_sgeqp3 (m, n, a0.raw(), ld, a1.raw(), a2.raw(), a3.main()
+        magma_sgeqp3 (m, n, a0.data(), ld, a1.data(), a2.data(), a3.main()
                             , wn, &that
                             );
         return that;
@@ -200,8 +200,8 @@ namespace nt2 { namespace ext
         nt2::container::table<double> rwork(nt2::of_size(2*n,1));
         a2.resize( nt2::of_size(std::min(n, m), 1) );
 
-        magma_zgeqp3(m, n, (cuDoubleComplex*)a0.raw(), ld, a1.raw(), (cuDoubleComplex*)a2.raw()
-                    ,(cuDoubleComplex*) a3.main(), wn, rwork.raw(), &that
+        magma_zgeqp3(m, n, (cuDoubleComplex*)a0.data(), ld, a1.data(), (cuDoubleComplex*)a2.data()
+                    ,(cuDoubleComplex*) a3.main(), wn, rwork.data(), &that
                             );
         return that;
      }
@@ -259,8 +259,8 @@ namespace nt2 { namespace ext
         nt2::container::table<float> rwork(nt2::of_size(2*n,1));
         a2.resize( nt2::of_size(std::min(n, m), 1) );
 
-        magma_cgeqp3(m, n, (cuFloatComplex*)a0.raw(), ld, a1.raw(), (cuFloatComplex*)a2.raw()
-                    , (cuFloatComplex*)a3.main() , wn, rwork.raw(), &that
+        magma_cgeqp3(m, n, (cuFloatComplex*)a0.data(), ld, a1.data(), (cuFloatComplex*)a2.data()
+                    , (cuFloatComplex*)a3.main() , wn, rwork.data(), &that
                             );
         return that;
      }

@@ -76,8 +76,8 @@ namespace nt2 { namespace ext
         char side  = 'L';
         char trans = 'N';
 
-        NT2_F77NAME(dormqr) ( &side, &trans, &m, &m, &k, a0.raw(), &ld, a1.raw()
-                            , a2.raw(), &m, a3.main(), &wn, &that
+        NT2_F77NAME(dormqr) ( &side, &trans, &m, &m, &k, a0.data(), &ld, a1.data()
+                            , a2.data(), &m, a3.main(), &wn, &that
                             );
         return that;
      }
@@ -136,8 +136,8 @@ namespace nt2 { namespace ext
         char side  = 'L';
         char trans = 'N';
 
-        NT2_F77NAME(sormqr) ( &side, &trans, &m, &m, &k, a0.raw(), &m, a1.raw()
-                            , a2.raw(), &m, a3.main(), &wn, &that
+        NT2_F77NAME(sormqr) ( &side, &trans, &m, &m, &k, a0.data(), &m, a1.data()
+                            , a2.data(), &m, a3.main(), &wn, &that
                             );
         return that;
      }
@@ -199,8 +199,8 @@ namespace nt2 { namespace ext
         char side  = 'L';
         char trans = 'N';
 
-        NT2_F77NAME(cunmqr) ( &side, &trans, &m, &m, &k, a0.raw(), &m, a1.raw()
-                            , a2.raw(), &m, a3.main(), &wn, &that
+        NT2_F77NAME(cunmqr) ( &side, &trans, &m, &m, &k, a0.data(), &m, a1.data()
+                            , a2.data(), &m, a3.main(), &wn, &that
                             );
         return that;
      }
@@ -259,8 +259,8 @@ namespace nt2 { namespace ext
         char side  = 'L';
         char trans = 'N';
 
-        NT2_F77NAME(zunmqr) ( &side, &trans, &m, &m, &k, a0.raw(), &m, a1.raw()
-                            , a2.raw(), &m, a3.main(), &wn, &that
+        NT2_F77NAME(zunmqr) ( &side, &trans, &m, &m, &k, a0.data(), &m, a1.data()
+                            , a2.data(), &m, a3.main(), &wn, &that
                             );
         return that;
      }

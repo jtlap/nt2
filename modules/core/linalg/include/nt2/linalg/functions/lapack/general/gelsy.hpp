@@ -127,8 +127,8 @@ namespace nt2 { namespace ext
         w.prepare_main();
         nt2_la_int  wn = w.main_size();
 
-        NT2_F77NAME(dgelsy) (&m, &n, &nhrs, a0.raw(), &ld, a2.raw(), &ldb
-                            , a1.raw(), &rcond, &a3, w.main()
+        NT2_F77NAME(dgelsy) (&m, &n, &nhrs, a0.data(), &ld, a2.data(), &ldb
+                            , a1.data(), &rcond, &a3, w.main()
                             , &wn, &that
                             );
 
@@ -161,8 +161,8 @@ namespace nt2 { namespace ext
 
         T rcond = Sqrteps<T>() - (Sqrteps<T>() - Eps<T>())/2;
 
-        NT2_F77NAME(dgelsy) (&m, &n, &nhrs, a0.raw(), &ld, a2.raw(), &ldb
-                            , a1.raw(), &rcond, &rank, a3.main()
+        NT2_F77NAME(dgelsy) (&m, &n, &nhrs, a0.data(), &ld, a2.data(), &ldb
+                            , a1.data(), &rcond, &rank, a3.main()
                             , &wn, &that
                             );
 
@@ -236,8 +236,8 @@ namespace nt2 { namespace ext
         w.prepare_main();
         nt2_la_int  wn = w.main_size();
 
-        NT2_F77NAME(sgelsy) (&m, &n, &nhrs, a0.raw(), &ld, a2.raw(), &ldb
-                            , a1.raw(), &rcond, &a3, w.main()
+        NT2_F77NAME(sgelsy) (&m, &n, &nhrs, a0.data(), &ld, a2.data(), &ldb
+                            , a1.data(), &rcond, &a3, w.main()
                             , &wn, &that
                             );
 
@@ -271,8 +271,8 @@ namespace nt2 { namespace ext
         T rcond = Sqrteps<T>() - (Sqrteps<T>() - Eps<T>())/2;
 
 
-        NT2_F77NAME(sgelsy) (&m, &n, &nhrs, a0.raw(), &ld, a2.raw(), &ldb
-                            , a1.raw(), &rcond, &rank, a3.main()
+        NT2_F77NAME(sgelsy) (&m, &n, &nhrs, a0.data(), &ld, a2.data(), &ldb
+                            , a1.data(), &rcond, &rank, a3.main()
                             , &wn, &that
                             );
 
@@ -341,15 +341,15 @@ namespace nt2 { namespace ext
         nt2::container::table<T> rwork(nt2::of_size(2*n,1));
 
         NT2_F77NAME(cgelsy) (&m, &n, &nhrs, 0, &ld, 0, &ldb, 0, &rcond, &a3
-                            , w.main(), details::query(), rwork.raw(), &that
+                            , w.main(), details::query(), rwork.data(), &that
                             );
 
         w.prepare_main();
         nt2_la_int  wn = w.main_size();
 
-        NT2_F77NAME(cgelsy) (&m, &n, &nhrs, a0.raw(), &ld, a2.raw(), &ldb
-                            , a1.raw(), &rcond, &a3, w.main()
-                            , &wn, rwork.raw(), &that
+        NT2_F77NAME(cgelsy) (&m, &n, &nhrs, a0.data(), &ld, a2.data(), &ldb
+                            , a1.data(), &rcond, &a3, w.main()
+                            , &wn, rwork.data(), &that
                             );
 
         return that;
@@ -382,9 +382,9 @@ namespace nt2 { namespace ext
         T rcond = Sqrteps<T>() - (Sqrteps<T>() - Eps<T>())/2;
         nt2::container::table<T> rwork(nt2::of_size(2*n,1));
 
-        NT2_F77NAME(cgelsy) (&m, &n, &nhrs, a0.raw(), &ld, a2.raw(), &ldb
-                            , a1.raw(), &rcond, &rank, a3.main()
-                            , &wn, rwork.raw(), &that
+        NT2_F77NAME(cgelsy) (&m, &n, &nhrs, a0.data(), &ld, a2.data(), &ldb
+                            , a1.data(), &rcond, &rank, a3.main()
+                            , &wn, rwork.data(), &that
                             );
 
         return that;
@@ -458,9 +458,9 @@ namespace nt2 { namespace ext
         w.prepare_main();
         nt2_la_int  wn = w.main_size();
 
-        NT2_F77NAME(zgelsy) (&m, &n, &nhrs, a0.raw(), &ld, a2.raw(), &ldb
-                            , a1.raw(), &rcond, &a3, w.main()
-                            , &wn, rwork.raw(), &that
+        NT2_F77NAME(zgelsy) (&m, &n, &nhrs, a0.data(), &ld, a2.data(), &ldb
+                            , a1.data(), &rcond, &a3, w.main()
+                            , &wn, rwork.data(), &that
                             );
 
         return that;
@@ -492,9 +492,9 @@ namespace nt2 { namespace ext
         T rcond = Sqrteps<T>() - (Sqrteps<T>() - Eps<T>())/2;
         nt2::container::table<T> rwork(nt2::of_size(2*n,1));
 
-        NT2_F77NAME(zgelsy) (&m, &n, &nhrs, a0.raw(), &ld, a2.raw(), &ldb
-                            , a1.raw(), &rcond, &rank, a3.main()
-                            , &wn, rwork.raw(), &that
+        NT2_F77NAME(zgelsy) (&m, &n, &nhrs, a0.data(), &ld, a2.data(), &ldb
+                            , a1.data(), &rcond, &rank, a3.main()
+                            , &wn, rwork.data(), &that
                             );
 
         return that;

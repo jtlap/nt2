@@ -71,7 +71,7 @@ namespace nt2 { namespace ext
         nt2_la_int  wn = a2.main_size();
         nt2_la_int  k  = a1.leading_size();
 
-        NT2_F77NAME(dorgqr) (&m, &n, &k, a0.raw(), &ld, a1.raw(), a2.main()
+        NT2_F77NAME(dorgqr) (&m, &n, &k, a0.data(), &ld, a1.data(), a2.main()
                             , &wn, &that
                             );
         return that;
@@ -128,7 +128,7 @@ namespace nt2 { namespace ext
         nt2_la_int  k  = a1.leading_size();
 
 
-        NT2_F77NAME(sorgqr) (&m, &n, &k, a0.raw(), &ld, a1.raw(), a2.main()
+        NT2_F77NAME(sorgqr) (&m, &n, &k, a0.data(), &ld, a1.data(), a2.main()
                             , &wn, &that
                             );
         return that;
@@ -186,7 +186,7 @@ namespace nt2 { namespace ext
         nt2_la_int  wn = a2.main_size();
         nt2_la_int  k  = a1.leading_size();
 
-        NT2_F77NAME(zungqr) (&m, &n, &k, a0.raw(), &ld, a1.raw(), a2.main()
+        NT2_F77NAME(zungqr) (&m, &n, &k, a0.data(), &ld, a1.data(), a2.main()
                             , &wn, &that
                             );
         return that;
@@ -243,7 +243,7 @@ namespace nt2 { namespace ext
         nt2_la_int  k  = a1.leading_size();
 
 
-        NT2_F77NAME(cungqr) (&m, &n, &k, a0.raw(), &ld, a1.raw(), a2.main()
+        NT2_F77NAME(cungqr) (&m, &n, &k, a0.data(), &ld, a1.data(), a2.main()
                             , &wn, &that
                             );
         return that;

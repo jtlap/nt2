@@ -314,8 +314,8 @@ namespace nt2 { namespace memory
     //==========================================================================
     // Raw values
     //==========================================================================
-    pointer        raw()       { return begin_;  }
-    const_pointer  raw() const { return begin_;  }
+    pointer        data()       { return begin_;  }
+    const_pointer  data() const { return begin_;  }
 
     //==========================================================================
     // Size related members

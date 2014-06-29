@@ -59,7 +59,7 @@ namespace nt2 { namespace ext
     operator()(A0& a0, A0& a1) const
     {
       a0.resize(a1.extent());
-      if(a0.raw() != a1.raw()) nt2::transform(container::as_view(a0), a1);
+      if(a0.data() != a1.data()) nt2::transform(container::as_view(a0), a1);
       return a0;
     }
   };

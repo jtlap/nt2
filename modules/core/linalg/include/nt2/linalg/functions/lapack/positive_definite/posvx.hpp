@@ -107,14 +107,14 @@ namespace nt2 { namespace ext
 
         NT2_F77NAME(dposvx)( &fact       , &uplo
                            , &n          , &nhrs
-                           , a0.raw()    , &n
-                           , af.raw()    , &n
-                           , &equed      , s.raw()
-                           , a1.raw()    , &ldb
-                           , a2.raw()    , &ldb
-                           , &a3         , ferr.raw()
-                           , berr.raw()  , work.main()
-                           , iwork.raw() , &that
+                           , a0.data()    , &n
+                           , af.data()    , &n
+                           , &equed      , s.data()
+                           , a1.data()    , &ldb
+                           , a2.data()    , &ldb
+                           , &a3         , ferr.data()
+                           , berr.data()  , work.main()
+                           , iwork.data() , &that
                            );
 
         return that;
@@ -154,14 +154,14 @@ namespace nt2 { namespace ext
 
         NT2_F77NAME(sposvx)( &fact       , &uplo
                            , &n          , &nhrs
-                           , a0.raw()    , &n
-                           , af.raw()    , &n
-                           , &equed      , s.raw()
-                           , a1.raw()    , &ldb
-                           , a2.raw()    , &ldb
-                           , &a3         , ferr.raw()
-                           , berr.raw()  , work.main()
-                           , iwork.raw() , &that
+                           , a0.data()    , &n
+                           , af.data()    , &n
+                           , &equed      , s.data()
+                           , a1.data()    , &ldb
+                           , a2.data()    , &ldb
+                           , &a3         , ferr.data()
+                           , berr.data()  , work.main()
+                           , iwork.data() , &that
                            );
 
         return that;
@@ -203,14 +203,14 @@ namespace nt2 { namespace ext
 
         NT2_F77NAME(zposvx)( &fact       , &uplo
                            , &n          , &nhrs
-                           , a0.raw()    , &n
-                           , af.raw()    , &n
-                           , &equed      , s.raw()
-                           , a1.raw()    , &ldb
-                           , a2.raw()    , &ldb
-                           , &a3         , ferr.raw()
-                           , berr.raw()  , work.main()
-                           , rwork.raw() , &that
+                           , a0.data()    , &n
+                           , af.data()    , &n
+                           , &equed      , s.data()
+                           , a1.data()    , &ldb
+                           , a2.data()    , &ldb
+                           , &a3         , ferr.data()
+                           , berr.data()  , work.main()
+                           , rwork.data() , &that
                            );
 
         return that;
@@ -252,14 +252,14 @@ namespace nt2 { namespace ext
 
         NT2_F77NAME(cposvx)( &fact       , &uplo
                            , &n          , &nhrs
-                           , a0.raw()    , &n
-                           , af.raw()    , &n
-                           , &equed      , s.raw()
-                           , a1.raw()    , &ldb
-                           , a2.raw()    , &ldb
-                           , &a3         , ferr.raw()
-                           , berr.raw()  , work.main()
-                           , rwork.raw() , &that
+                           , a0.data()    , &n
+                           , af.data()    , &n
+                           , &equed      , s.data()
+                           , a1.data()    , &ldb
+                           , a2.data()    , &ldb
+                           , &a3         , ferr.data()
+                           , berr.data()  , work.main()
+                           , rwork.data() , &that
                            );
 
         return that;

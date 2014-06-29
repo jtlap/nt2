@@ -28,7 +28,7 @@ namespace nt2
     std::size_t k = 0u;
     std::size_t i = 0u;
 
-    typename A::value_type* p = a.raw();
+    typename A::value_type* p = a.data();
     std::size_t n = nt2::numel(a);
 
     for(; i != n; ++i)

@@ -46,7 +46,7 @@ namespace nt2 { namespace ext
         nt2_la_int  ldb = a2.leading_size();
 
         a1.resize(nt2::of_size(n,1));
-        magma_dgesv(n,nhrs,a0.raw(),lda,a1.raw(),a2.raw(),ldb,&that);
+        magma_dgesv(n,nhrs,a0.data(),lda,a1.data(),a2.data(),ldb,&that);
 
         return that;
      }
@@ -71,7 +71,7 @@ namespace nt2 { namespace ext
 
         a1.resize(nt2::of_size(n,1));
 
-        magma_sgesv(n,nhrs,a0.raw(),lda,a1.raw(),a2.raw(),ldb,&that);
+        magma_sgesv(n,nhrs,a0.data(),lda,a1.data(),a2.data(),ldb,&that);
 
         return that;
      }
@@ -97,8 +97,8 @@ namespace nt2 { namespace ext
 
         a1.resize(nt2::of_size(n,1));
 
-        magma_zgesv(n,nhrs,(cuDoubleComplex*)a0.raw(),lda,a1.raw()
-                   ,(cuDoubleComplex*)a2.raw(),ldb,&that);
+        magma_zgesv(n,nhrs,(cuDoubleComplex*)a0.data(),lda,a1.data()
+                   ,(cuDoubleComplex*)a2.data(),ldb,&that);
 
         return that;
      }
@@ -123,8 +123,8 @@ namespace nt2 { namespace ext
 
         a1.resize(nt2::of_size(n,1));
 
-        magma_cgesv(n,nhrs,(cuFloatComplex*)a0.raw(),lda,a1.raw()
-                   ,(cuDoubleComplex*)a2.raw(),ldb,&that);
+        magma_cgesv(n,nhrs,(cuFloatComplex*)a0.data(),lda,a1.data()
+                   ,(cuDoubleComplex*)a2.data(),ldb,&that);
 
         return that;
      }

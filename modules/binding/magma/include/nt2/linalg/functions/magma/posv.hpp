@@ -45,7 +45,7 @@ namespace nt2 { namespace ext
         nt2_la_int  nhrs = nt2::width(a1);
         char uplo = 'L';
 
-        magma_dposv( uplo, n, nhrs, a0.raw(), ld, a1.raw(), ldb, &that);
+        magma_dposv( uplo, n, nhrs, a0.data(), ld, a1.data(), ldb, &that);
 
         return that;
      }
@@ -69,7 +69,7 @@ namespace nt2 { namespace ext
         char uplo = 'L';
 
 
-        magma_sposv( uplo, n, nhrs, a0.raw(), ld, a1.raw(), ldb , &that );
+        magma_sposv( uplo, n, nhrs, a0.data(), ld, a1.data(), ldb , &that );
 
         return that;
      }
@@ -93,7 +93,7 @@ namespace nt2 { namespace ext
         nt2_la_int  nhrs = nt2::width(a1);
         char uplo = 'L';
 
-        magma_zposv( uplo, n, nhrs, (cuDoubleComplex*)a0.raw(), ld, (cuDoubleComplex*)a1.raw(), ldb , &that );
+        magma_zposv( uplo, n, nhrs, (cuDoubleComplex*)a0.data(), ld, (cuDoubleComplex*)a1.data(), ldb , &that );
 
         return that;
      }
@@ -117,7 +117,7 @@ namespace nt2 { namespace ext
         nt2_la_int  nhrs = nt2::width(a1);
         char uplo = 'L';
 
-        magma_cposv( uplo, n, nhrs, (cuFloatComplex*)a0.raw(), ld, (cuFloatComplex*) a1.raw(), ldb, &that);
+        magma_cposv( uplo, n, nhrs, (cuFloatComplex*)a0.data(), ld, (cuFloatComplex*) a1.data(), ldb, &that);
 
         return that;
      }

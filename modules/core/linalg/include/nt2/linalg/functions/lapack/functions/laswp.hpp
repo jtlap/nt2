@@ -59,7 +59,7 @@ namespace nt2 { namespace ext
       nt2_la_int k2 = a1.leading_size();
       nt2_la_int incx = 1;
 
-      NT2_F77NAME(dlaswp) ( &n, a0.raw(), &ld, &k1, &k2 , a1.raw(), &incx);
+      NT2_F77NAME(dlaswp) ( &n, a0.data(), &ld, &k1, &k2 , a1.data(), &incx);
     }
   };
 
@@ -81,7 +81,7 @@ namespace nt2 { namespace ext
       nt2_la_int incx = 1;
 
 
-      NT2_F77NAME(slaswp) ( &n, a0.raw(), &ld, &k1, &k2 , a1.raw(), &incx);
+      NT2_F77NAME(slaswp) ( &n, a0.data(), &ld, &k1, &k2 , a1.data(), &incx);
     }
   };
 
@@ -103,7 +103,7 @@ namespace nt2 { namespace ext
       nt2_la_int incx = 1;
 
 
-      NT2_F77NAME(zlaswp) ( &n, a0.raw(), &ld, &k1, &k2 , a1.raw(), &incx);
+      NT2_F77NAME(zlaswp) ( &n, a0.data(), &ld, &k1, &k2 , a1.data(), &incx);
     }
   };
 
@@ -124,7 +124,7 @@ namespace nt2 { namespace ext
       nt2_la_int k2 = a1.leading_size();
       nt2_la_int incx = 1;
 
-      NT2_F77NAME(claswp) ( &n, a0.raw(), &ld, &k1, &k2 , a1.raw(), &incx);
+      NT2_F77NAME(claswp) ( &n, a0.data(), &ld, &k1, &k2 , a1.data(), &incx);
     }
   };
 } }

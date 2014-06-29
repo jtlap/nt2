@@ -51,7 +51,7 @@ template<typename T> struct qr_float_nt2
     jpvt = nt2::zeros(w1,1,nt2::meta::as_<nt2_la_int>());
     lwork = work.main_size();
 
-    magma_sgeqp3(h1,w1,input.raw(),h1,jpvt.raw(),tau.raw(),work.main()
+    magma_sgeqp3(h1,w1,input.data(),h1,jpvt.data(),tau.data(),work.main()
                        ,lwork, &i
                        );
 
@@ -107,7 +107,7 @@ template<typename T> struct qr_double_nt2
     jpvt = nt2::zeros(w1,1,nt2::meta::as_<nt2_la_int>());
     lwork = work.main_size();
 
-    magma_dgeqp3(h1,w1,input.raw(),h1,jpvt.raw(),tau.raw(),work.main()
+    magma_dgeqp3(h1,w1,input.data(),h1,jpvt.data(),tau.data(),work.main()
                        ,lwork, &i
                        );
 

@@ -151,14 +151,14 @@ namespace nt2 { namespace ext
 
         NT2_F77NAME(dsysvx)( &fact       , &uplo
                            , &n          , &nhrs
-                           , a0.raw()    , &n
-                           , af.raw()    , &n
-                           , a1.raw()    , a2.raw()
-                           , &ldb        , a3.raw()
+                           , a0.data()    , &n
+                           , af.data()    , &n
+                           , a1.data()    , a2.data()
+                           , &ldb        , a3.data()
                            , &ldb        , &a4
-                           , ferr.raw()  , berr.raw()
+                           , ferr.data()  , berr.data()
                            , a5.main()   , &wn
-                           , iwork.raw() , &that
+                           , iwork.data() , &that
                            );
 
         return that;
@@ -242,14 +242,14 @@ namespace nt2 { namespace ext
 
         NT2_F77NAME(ssysvx)( &fact       , &uplo
                            , &n          , &nhrs
-                           , a0.raw()    , &n
-                           , af.raw()    , &n
-                           , a1.raw()    , a2.raw()
-                           , &ldb        , a3.raw()
+                           , a0.data()    , &n
+                           , af.data()    , &n
+                           , a1.data()    , a2.data()
+                           , &ldb        , a3.data()
                            , &ldb        , &a4
-                           , ferr.raw()  , berr.raw()
+                           , ferr.data()  , berr.data()
                            , a5.main()   , &wn
-                           , iwork.raw() , &that
+                           , iwork.data() , &that
                            );
 
         return that;
@@ -336,14 +336,14 @@ namespace nt2 { namespace ext
 
         NT2_F77NAME(zsysvx)( &fact       , &uplo
                            , &n          , &nhrs
-                           , a0.raw()    , &n
-                           , af.raw()    , &n
-                           , a1.raw()    , a2.raw()
-                           , &ldb        , a3.raw()
+                           , a0.data()    , &n
+                           , af.data()    , &n
+                           , a1.data()    , a2.data()
+                           , &ldb        , a3.data()
                            , &ldb        , &a4
-                           , ferr.raw()  , berr.raw()
+                           , ferr.data()  , berr.data()
                            , a5.main()   , &wn
-                           , rwork.raw() , &that
+                           , rwork.data() , &that
                            );
 
         return that;
@@ -429,14 +429,14 @@ namespace nt2 { namespace ext
 
         NT2_F77NAME(csysvx)( &fact       , &uplo
                            , &n          , &nhrs
-                           , a0.raw()    , &n
-                           , af.raw()    , &n
-                           , a1.raw()    , a2.raw()
-                           , &ldb        , a3.raw()
+                           , a0.data()    , &n
+                           , af.data()    , &n
+                           , a1.data()    , a2.data()
+                           , &ldb        , a3.data()
                            , &ldb        , &a4
-                           , ferr.raw()  , berr.raw()
+                           , ferr.data()  , berr.data()
                            , a5.main()   , &wn
-                           , rwork.raw() , &that
+                           , rwork.data() , &that
                            );
 
         return that;

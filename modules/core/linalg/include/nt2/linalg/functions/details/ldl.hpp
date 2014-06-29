@@ -110,7 +110,7 @@ namespace nt2 { namespace details
       , pl_(of_size(0, 1))
       , invt_(of_size(0, 1))
     {
-      nt2::details::hstrf(&uplo_, &n_, ldl_.raw(), &ldldl_, ipiv_.raw(), &info_, w_);
+      nt2::details::hstrf(&uplo_, &n_, ldl_.data(), &ldldl_, ipiv_.data(), &info_, w_);
     }
 
     ldl_result(ldl_result const& src)
