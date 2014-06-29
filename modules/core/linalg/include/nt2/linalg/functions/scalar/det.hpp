@@ -11,11 +11,19 @@
 #define NT2_LINALG_FUNCTIONS_SCALAR_DET_HPP_INCLUDED
 
 #include <nt2/linalg/functions/det.hpp>
+#include <nt2/include/functions/colon.hpp>
+#include <nt2/include/functions/colvect.hpp>
 #include <nt2/include/functions/getrf.hpp>
+#include <nt2/include/functions/lu.hpp>
+#include <nt2/include/functions/is_equal.hpp>
 #include <nt2/include/functions/numel.hpp>
 #include <nt2/include/functions/diag_of.hpp>
+#include <nt2/include/functions/inbtrue.hpp>
+#include <nt2/include/functions/is_odd.hpp>
 #include <nt2/include/functions/issquare.hpp>
 #include <nt2/include/functions/globalprod.hpp>
+#include <nt2/include/constants/one.hpp>
+#include <nt2/include/constants/mone.hpp>
 #include <nt2/core/container/table/table.hpp>
 #include <boost/dispatch/meta/ignore_unused.hpp>
 
@@ -38,20 +46,13 @@ namespace nt2{ namespace ext
 
       nt2::container::table<typename A0::value_type>  lu(a0);
       nt2::container::table<nt2_la_int>               ip;
-
       // Factorize A as L/U
       nt2_la_int  info = nt2::getrf(boost::proto::value(lu),boost::proto::value(ip));
       boost::dispatch::ignore_unused(info);
-
       // DET(A) is the product of LU(A) diagonal by -1 at the power of
       // the number of non-permutations done in LU(A)
-      std::size_t n     = nt2::numel(ip);
-      result_type sign  = One<result_type>();
-
-      // TODO: Parallelize this somehow ?
-      for(std::size_t i = 1;i <= n;++i)
-        sign  *= (ip(i) != nt2_la_int(i)) ? 1 : -1;
-
+      nt2_la_int n = nt2::numel(ip);
+      result_type sign = inbtrue(eq(ip, colvect(nt2::_(nt2_la_int(1), n))))&1 ? Mone<result_type>() : One<result_type>();
       return nt2::globalprod(nt2::diag_of(lu))*sign;
     }
   };

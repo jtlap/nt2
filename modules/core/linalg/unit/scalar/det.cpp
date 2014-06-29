@@ -12,6 +12,9 @@
 #include <nt2/include/functions/eye.hpp>
 #include <nt2/include/functions/kms.hpp>
 #include <nt2/include/functions/binomial.hpp>
+#include <nt2/include/functions/eye.hpp>
+#include <nt2/include/functions/ones.hpp>
+#include <nt2/include/functions/cons.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/ten.hpp>
 #include <nt2/include/constants/mone.hpp>
@@ -37,3 +40,10 @@ NT2_TEST_CASE_TPL(det, NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(det(nt2::binomial(4, nt2::meta::as_<T>())), T(64), 1);
   NT2_TEST_ULP_EQUAL(det(nt2::kms<T>(4)), T(0.421875), 1);
 }
+NT2_TEST_CASE_TPL(det1, NT2_REAL_TYPES)
+{
+  nt2::table<T> a = nt2::eye(4, 4, nt2::meta::as_<T>());
+  nt2::table<T> b = a(nt2::_, nt2::cons(2, 1, 3, 4));
+  NT2_TEST_ULP_EQUAL(det(a), -det(b), 1);
+}
+
