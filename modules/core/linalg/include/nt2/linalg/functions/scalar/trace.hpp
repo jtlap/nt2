@@ -10,7 +10,7 @@
 #define NT2_LINALG_FUNCTIONS_SCALAR_TRACE_HPP_INCLUDED
 #include <nt2/linalg/functions/trace.hpp>
 #include <nt2/include/functions/ismatrix.hpp>
-#include <nt2/include/functions/sum.hpp>
+#include <nt2/include/functions/globalsum.hpp>
 #include <nt2/include/functions/diag_of.hpp>
 
 //sum of diagonal elements even if a is not square
@@ -26,8 +26,7 @@ namespace nt2{ namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       BOOST_ASSERT_MSG(ismatrix(a0), "a0 is not a matrix or vector in trace call");
-      result_type r = nt2::sum(nt2::diag_of(a0)(nt2::_)); //TODO
-      return r;
+      return nt2::globalsum(nt2::diag_of(a0));
     }
   };
 } }
