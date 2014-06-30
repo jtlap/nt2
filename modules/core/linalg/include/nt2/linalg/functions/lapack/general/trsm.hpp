@@ -12,11 +12,10 @@
 #include <nt2/linalg/functions/trsm.hpp>
 #include <nt2/linalg/details/utility/f77_wrapper.hpp>
 #include <nt2/linalg/details/blas/blas3.hpp>
-#include <complex>
-
 #include <nt2/include/functions/of_size.hpp>
 #include <nt2/include/functions/height.hpp>
 #include <nt2/include/functions/width.hpp>
+#include <complex>
 
 namespace nt2 { namespace ext
 {

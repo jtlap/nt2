@@ -45,8 +45,8 @@ namespace nt2 { namespace ext
     typedef typename A0::value_type ctype_t;
     typedef typename nt2::meta::as_real<ctype_t>::type   type_t;
     typedef typename meta::option<typename A0::settings_type,nt2::tag::shape_>::type shape;
-    typedef nt2::container::table<ctype_t>  entry_type;
-    typedef nt2::container::table<ctype_t,shape>  matrix_type;
+    typedef nt2::memory::container<tag::table_, ctype_t, nt2::settings(nt2::_2D)> desired_semantic;
+    typedef nt2::memory::container<tag::table_, ctype_t, nt2::settings(nt2::_2D,shape)> desired_semantic1;
 
     BOOST_FORCEINLINE result_type operator()( A0 const& a0, A1 const& a1, A2 const&  a2 ) const
     {
@@ -63,7 +63,9 @@ namespace nt2 { namespace ext
     {
       type_t rcond;
       boost::proto::child_c<0>(a2).resize(nt2::of_size(a0.leading_size(),1));
-      nt2::gesvx( boost::proto::value(concrete(a0)), boost::proto::value(concrete(a1))
+      NT2_AS_TERMINAL_IN(desired_semantic1,a,a0);
+      NT2_AS_TERMINAL_IN(desired_semantic,b,a1);
+      nt2::gesvx( boost::proto::value(a), boost::proto::value(b)
               , boost::proto::value(boost::proto::child_c<0>(a2)), rcond );
     }
 
@@ -75,7 +77,9 @@ namespace nt2 { namespace ext
     {
       type_t rcond;
       boost::proto::child_c<0>(a2).resize(nt2::of_size(a0.leading_size(),1));
-      nt2::gesvx( boost::proto::value(concrete(a0)), boost::proto::value(concrete(a1))
+      NT2_AS_TERMINAL_IN(desired_semantic1,a,a0);
+      NT2_AS_TERMINAL_IN(desired_semantic,b,a1);
+      nt2::gesvx( boost::proto::value(a), boost::proto::value(b)
               , boost::proto::value(boost::proto::child_c<0>(a2))
               , rcond );
       boost::proto::child_c<1>(a2) = rcond;
@@ -90,8 +94,10 @@ namespace nt2 { namespace ext
       type_t rcond;
       nt2::container::table<nt2_la_int> piv(nt2::of_size(a0.leading_size(),1));
       boost::proto::child_c<0>(a2).resize(nt2::of_size(a0.leading_size(),1));
-      nt2_la_int iter = nt2::sysvx( boost::proto::value(a0),boost::proto::value(piv)
-                                 , boost::proto::value(a1)
+      NT2_AS_TERMINAL_IN(desired_semantic1,a,a0);
+      NT2_AS_TERMINAL_IN(desired_semantic,b,a1);
+      nt2_la_int iter = nt2::sysvx( boost::proto::value(a),boost::proto::value(piv)
+                                 , boost::proto::value(b)
                                  , boost::proto::value(boost::proto::child_c<0>(a2))
                                  , rcond);
       boost::dispatch::ignore_unused(iter);
@@ -106,9 +112,10 @@ namespace nt2 { namespace ext
       type_t rcond;
       nt2::container::table<nt2_la_int> piv(nt2::of_size(a0.leading_size(),1));
       boost::proto::child_c<0>(a2).resize(nt2::of_size(a0.leading_size(),1));
-
-      nt2_la_int iter = nt2::sysvx( boost::proto::value(a0),boost::proto::value(piv)
-                                 , boost::proto::value(a1)
+      NT2_AS_TERMINAL_IN(desired_semantic1,a,a0);
+      NT2_AS_TERMINAL_IN(desired_semantic,b,a1);
+      nt2_la_int iter = nt2::sysvx( boost::proto::value(a),boost::proto::value(piv)
+                                 , boost::proto::value(b)
                                  , boost::proto::value(boost::proto::child_c<0>(a2))
                                  , rcond);
 
@@ -124,7 +131,9 @@ namespace nt2 { namespace ext
     {
       type_t rcond;
       boost::proto::child_c<0>(a2).resize(nt2::of_size(a0.leading_size(),1));
-      nt2_la_int iter = nt2::posvx( boost::proto::value(a0), boost::proto::value(a1)
+      NT2_AS_TERMINAL_IN(desired_semantic1,a,a0);
+      NT2_AS_TERMINAL_IN(desired_semantic,b,a1);
+      nt2_la_int iter = nt2::posvx( boost::proto::value(a), boost::proto::value(b)
                                   , boost::proto::value(boost::proto::child_c<0>(a2))
                                   , rcond);
       boost::dispatch::ignore_unused(iter);
@@ -138,7 +147,9 @@ namespace nt2 { namespace ext
     {
       type_t rcond;
       boost::proto::child_c<0>(a2).resize(nt2::of_size(a0.leading_size(),1));
-      nt2_la_int iter = nt2::posvx( boost::proto::value(a0), boost::proto::value(a1)
+      NT2_AS_TERMINAL_IN(desired_semantic1,a,a0);
+      NT2_AS_TERMINAL_IN(desired_semantic,b,a1);
+      nt2_la_int iter = nt2::posvx( boost::proto::value(a), boost::proto::value(b)
                                   , boost::proto::value(boost::proto::child_c<0>(a2))
                                   , rcond);
 

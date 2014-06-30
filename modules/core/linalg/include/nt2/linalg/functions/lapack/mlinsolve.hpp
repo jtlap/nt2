@@ -57,7 +57,8 @@ namespace nt2 { namespace ext
     void eval ( A0 const& a0, A1 const& a1 , A2& a2, double const, nt2::rectangular_ const&) const
     {
       nt2_la_int m   = boost::fusion::at_c<0>( a0.extent() );
-      nt2_la_int n   = boost::fusion::at_c<1>( a1.extent() );
+      nt2_la_int n   = boost::fusion::at_c<1>( a0.extent() );
+      nt2_la_int nb   = boost::fusion::at_c<1>( a1.extent() );
 
       if (m>n)
       {
@@ -71,7 +72,7 @@ namespace nt2 { namespace ext
       // Copy of matrix a is costly and should be avoided
       matrix_type entry(a0);
       NT2_AS_TERMINAL_IN(desired_semantic,b,a1);
-      a2.resize(nt2::of_size(m,n));
+      a2.resize(nt2::of_size(m,nb));
       nt2_la_int iter = nt2::gemsv(boost::proto::value(entry)
                        ,boost::proto::value(b),boost::proto::value(a2) );
       boost::dispatch::ignore_unused(iter);

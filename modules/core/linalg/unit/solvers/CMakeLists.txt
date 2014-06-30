@@ -10,8 +10,6 @@
 SET ( SOURCES
       linsolve.cpp
       chol_result_solve.cpp
-      svd_result_solve.cpp
-      svd_solve.cpp
       lsq_lse_result_solve.cpp
       lsq_lse_solve.cpp
     )

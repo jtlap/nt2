@@ -24,6 +24,8 @@
 #include <boost/dispatch/meta/terminal_of.hpp>
 #include <nt2/sdk/memory/category.hpp>
 #include <nt2/sdk/meta/as_real.hpp>
+#include <nt2/sdk/meta/size_as.hpp>
+#include <nt2/sdk/meta/value_as.hpp>
 #include <boost/proto/traits.hpp>
 #include <boost/assert.hpp>
 
@@ -54,10 +56,12 @@ namespace nt2 { namespace ext
         : meta::size_as<Expr,1>
   {};
 
+
   template<class Domain, int N, class Expr>
   struct  value_type<tag::trsolve_,Domain,N,Expr>
         : meta::value_as<Expr,1>
   {};
+
 } }
 
 namespace nt2 { namespace ext

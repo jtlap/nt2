@@ -50,12 +50,12 @@ template<typename T> struct linsolve_nt2
 
   void operator()()
   {
-    // result = b;
-    //  ac = a;
-    // nt2::gels(boost::proto::value(a),boost::proto::value(b) );
-    result = mcsne(a,b);
+    result = b;
+     ac = a;
+    nt2::gels(boost::proto::value(a),boost::proto::value(b) );
+    // result = mcsne(a,b);
     // result = nt2::mtimes(a,b);
-    // result = nt2::linsolve(a,b);
+    // result = nt2::linsolve(a,b,nt2::fast_);
   }
 
   friend std::ostream& operator<<(std::ostream& os, linsolve_nt2<T> const& p)
@@ -65,6 +65,7 @@ template<typename T> struct linsolve_nt2
 
   std::size_t size() const { return h*w; }
   std::size_t flops() const {
+        // return FLOPS_GETRF(h,w) + FLOPS_DGETRS(h,1);
        // return ((FLOPS_GETRF(h,w)+ FLOPS_DGETRS(h,1))/r.second)/1000.;
      // return ((FLOPS_DGEMM(h,w,w))/r.second)/1000.;
     return ((FLOPS_GEQRF(h,w)+ FLOPS_DGETRS(h,1)));
@@ -78,13 +79,16 @@ private:
 
 NT2_REGISTER_BENCHMARK_TPL( linsolve_nt2, (float)(double) )
 {
-  std::size_t size_min = args("size_min", 16);
-  std::size_t size_max = args("size_max", 4096);
+  std::size_t size_min = args("size_min", 1600);
+  std::size_t size_max = args("size_max", 17000);
   std::size_t size_step = args("size_step", 10);
+
+  std::size_t size_min1 = args("size_min", 1000);
+  std::size_t size_max1 = args("size_max", 11000);
 
   run_during_with< linsolve_nt2<T> > ( 1.
                                 , and_( geometric(size_min,size_max,size_step)
-                                      , geometric(size_min,size_max,size_step)
+                                      , geometric(size_min1,size_max1,size_step)
                                       )
                                 , gflops<stats::median_>()
                                 );
