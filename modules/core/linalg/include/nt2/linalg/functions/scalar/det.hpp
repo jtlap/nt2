@@ -26,6 +26,8 @@
 #include <nt2/include/functions/is_odd.hpp>
 #include <nt2/include/functions/issquare.hpp>
 #include <nt2/include/functions/globalprod.hpp>
+#include <nt2/include/constants/one.hpp>
+#include <nt2/include/constants/mone.hpp>
 #include <nt2/core/container/table/table.hpp>
 #include <boost/dispatch/meta/ignore_unused.hpp>
 
