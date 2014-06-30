@@ -12,10 +12,12 @@
 
 
 #include <nt2/include/functor.hpp>
+#include <nt2/sdk/meta/value_as.hpp>
 #include <nt2/core/container/dsl/size.hpp>
 #include <nt2/include/functions/width.hpp>
 #include <nt2/include/functions/height.hpp>
 #include <nt2/include/functions/size.hpp>
+
 
 namespace nt2
 {
