@@ -12,23 +12,21 @@
 
 /*!
  * \ingroup algebra
- * \defgroup algebra_trace trace
+ * \defgroup algebra_det det
  *
  * \par Description
- * Elementary Least square
+ * matrix determinant
  *
  * \par Header file
  *
  * \code
- * #include <nt2/include/functions/trace.hpp>
+ * #include <nt2/include/functions/det.hpp>
  * \endcode
  *
  *
  * \param a the matrix a,  a must be square
  *
- * \par Notes
- *   Call the dedicated lapack routines available on the target.
- * \par
+ *
  *
 **/
 //==============================================================================
@@ -45,6 +43,9 @@ namespace nt2 { namespace tag
   }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::det_, det, 1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL( tag::det_, det
+                                            , (A0 const&)(A1&), 2
+                                            )
 }
 
 #endif

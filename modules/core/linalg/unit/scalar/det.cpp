@@ -47,3 +47,37 @@ NT2_TEST_CASE_TPL(det1, NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(det(a), -det(b), 1);
 }
 
+NT2_TEST_CASE_TPL(detem, NT2_REAL_TYPES)
+{
+  using nt2::det;
+  using nt2::tag::det_;
+  nt2::table<T> n = nt2::eye(10, 10, nt2::meta::as_<T>());
+  int e;
+  T m;
+  m = det(n, e);
+  NT2_DISPLAY(m);
+  NT2_DISPLAY(e);
+  NT2_TEST_ULP_EQUAL(ldexp(m, e), nt2::One<T>(), 0);
+  m = det(n+n, e);
+  NT2_DISPLAY(m);
+  NT2_DISPLAY(e);
+  NT2_TEST_ULP_EQUAL(ldexp(m, e), T(1024), 0);
+  n(10, 10) = 10;
+  m = det(n, e);
+  NT2_DISPLAY(m);
+  NT2_DISPLAY(e);
+  NT2_TEST_ULP_EQUAL(ldexp(m, e), nt2::Ten<T>(), 0);
+  m = det(n+n, e);
+  NT2_DISPLAY(m);
+  NT2_DISPLAY(e);
+  NT2_TEST_ULP_EQUAL(ldexp(m, e), T(1024)*nt2::Ten<T>(), 0);
+  n(10, 10) = -1;
+  m = det(n, e);
+  NT2_DISPLAY(m);
+  NT2_DISPLAY(e);
+  NT2_TEST_ULP_EQUAL(ldexp(m, e), nt2::Mone<T>(), 0);
+  m = det(n+n, e);
+  NT2_DISPLAY(m);
+  NT2_DISPLAY(e);
+  NT2_TEST_ULP_EQUAL(ldexp(m, e), T(-1024), 0);
+}
