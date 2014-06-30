@@ -18,13 +18,10 @@
 #include <nt2/include/functions/is_equal.hpp>
 #include <nt2/include/functions/numel.hpp>
 #include <nt2/include/functions/diag_of.hpp>
-<<<<<<< Updated upstream
 #include <nt2/include/functions/globalsum.hpp>
 #include <nt2/include/functions/frexp.hpp>
 #include <nt2/include/functions/negif.hpp>
 #include <nt2/include/functions/if_else_zero.hpp>
-=======
->>>>>>> Stashed changes
 #include <nt2/include/functions/inbtrue.hpp>
 #include <nt2/include/functions/is_odd.hpp>
 #include <nt2/include/functions/issquare.hpp>
@@ -41,13 +38,7 @@ namespace nt2{ namespace ext
                             , ((ast_<A0, nt2::container::domain>))
                             )
   {
-<<<<<<< Updated upstream
     typedef typename A0::value_type result_type;
-=======
-    typedef typename A0::value_type                 type_t;
-    typedef typename boost::dispatch::meta::as_floating<type_t>
-                                          ::type  result_type;
->>>>>>> Stashed changes
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
     {
@@ -64,7 +55,6 @@ namespace nt2{ namespace ext
       // DET(A) is the product of LU(A) diagonal by -1 at the power of
       // the number of non-permutations done in LU(A)
       nt2_la_int n = nt2::numel(ip);
-<<<<<<< Updated upstream
       result_type d = nt2::globalprod(nt2::diag_of(lu));
       return nt2::negif((inbtrue(eq(ip, colvect(nt2::_(nt2_la_int(1), n))))&1), d);
     }
@@ -99,17 +89,13 @@ namespace nt2{ namespace ext
       nt2_la_int  info = nt2::getrf( boost::proto::value(lu)
                                    , boost::proto::value(ip));
       boost::dispatch::ignore_unused(info);
-      nt2::container::table<result_type> tmp = diag_of(lu);
+//      nt2::container::table<result_type> tmp = diag_of(lu);
       nt2::container::table<A1> e;
       itype_t e1;
-      result_type m1 = nt2::frexp(nt2::globalprod(nt2::frexp(tmp, e)), e1);
+      result_type m1 = nt2::frexp(nt2::globalprod(nt2::frexp(diag_of(lu), e)), e1);
       a1 = if_else_zero(is_nez(m1), globalsum(e)+e1);
       nt2_la_int n = nt2::numel(ip);
       return nt2::negif((inbtrue(eq(ip, colvect(nt2::_(nt2_la_int(1), n))))&1), m1);
-=======
-      result_type sign = inbtrue(eq(ip, colvect(nt2::_(nt2_la_int(1), n))))&1 ? Mone<result_type>() : One<result_type>();
-      return nt2::globalprod(nt2::diag_of(lu))*sign;
->>>>>>> Stashed changes
     }
   };
 

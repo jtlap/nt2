@@ -42,7 +42,6 @@ NT2_TEST_CASE_TPL(det, NT2_REAL_TYPES)
 }
 NT2_TEST_CASE_TPL(det1, NT2_REAL_TYPES)
 {
-<<<<<<< Updated upstream
   nt2::table<T> a = nt2::eye(4, 4, nt2::meta::as_<T>());
   nt2::table<T> b = a(nt2::_, nt2::cons(2, 1, 3, 4));
   NT2_TEST_ULP_EQUAL(det(a), -det(b), 1);
@@ -82,10 +81,3 @@ NT2_TEST_CASE_TPL(detem, NT2_REAL_TYPES)
   NT2_DISPLAY(e);
   NT2_TEST_ULP_EQUAL(ldexp(m, e), T(-1024), 0);
 }
-=======
-  nt2::table<T> a = nt2::eye(4, 4, nt2::meta::as_<T>());
-  nt2::table<T> b = a(nt2::_, nt2::cons(2, 1, 3, 4));
-  NT2_TEST_ULP_EQUAL(det(a), -det(b), 1);
-}
-
->>>>>>> Stashed changes
