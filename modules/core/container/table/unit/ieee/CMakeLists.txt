@@ -9,6 +9,7 @@
 
 set(SOURCES
     frexp.cpp
+    modf.cpp
    )
 
 nt2_module_add_tests(core.container.ieee.unit ${SOURCES})
