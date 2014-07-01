@@ -89,7 +89,6 @@ namespace nt2{ namespace ext
       nt2_la_int  info = nt2::getrf( boost::proto::value(lu)
                                    , boost::proto::value(ip));
       boost::dispatch::ignore_unused(info);
-//      nt2::container::table<result_type> tmp = diag_of(lu);
       nt2::container::table<A1> e;
       itype_t e1;
       result_type m1 = nt2::frexp(nt2::globalprod(nt2::frexp(diag_of(lu), e)), e1);
