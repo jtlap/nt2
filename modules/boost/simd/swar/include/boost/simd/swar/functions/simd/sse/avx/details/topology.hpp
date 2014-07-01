@@ -103,7 +103,7 @@ namespace boost { namespace simd { namespace details
                                 &&  (p2==6 || p2==7)  &&  (p3==2 || p3==3);
 
     // Check for _mm256_blend_pd(a1,a0) calls
-    static const bool blend_shf  =   !(direct_shf | dupe_shf)
+    static const bool blend_shf  =   !(direct_shf | swap_shf | dupe_shf)
                                 && ((p0==0 || p0==4)  &&  (p1==1 || p1==5)
                                 &&  (p2==2 || p2==6)  &&  (p3==3 || p3==7));
     // Compute topology mask
