@@ -10,7 +10,7 @@
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/valmax.hpp>
 
-#include <nt2/sdk/unit/exhaustive.hpp>
+#include <nt2/sdk/exhaustive/exhaustive.hpp>
 
 #define NT2_ASSERTS_AS_TRAP
 #include <nt2/sdk/error/assert_as_trap.hpp>

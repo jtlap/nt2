@@ -7,6 +7,6 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-nt2_module_use_modules(test.unit extern.standard extern.cephes extern.libc extern.crlibm)
+nt2_module_use_modules(test.exhaustive)
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)

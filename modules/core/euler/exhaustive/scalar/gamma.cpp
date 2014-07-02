@@ -8,7 +8,7 @@
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #include <nt2/include/functions/gamma.hpp>
-#include <nt2/sdk/unit/exhaustive.hpp>
+#include <nt2/sdk/exhaustive/exhaustive.hpp>
 
 #define NT2_ASSERTS_AS_TRAP
 #include <nt2/sdk/error/assert_as_trap.hpp>

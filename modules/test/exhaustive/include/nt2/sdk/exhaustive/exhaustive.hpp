@@ -61,7 +61,7 @@ namespace nt2
     #include <nt2/include/constants/zero.hpp>
     #include <nt2/include/constants/valmax.hpp>
 
-    #include <nt2/sdk/unit/exhaustive.hpp>
+    #include <nt2/sdk/exhaustive/exhaustive.hpp>
 
     // specific to nt2 tests: specify assert handling
     #define NT2_ASSERTS_AS_TRAP

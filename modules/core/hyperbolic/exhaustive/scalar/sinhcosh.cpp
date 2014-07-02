@@ -10,7 +10,7 @@
 #include <nt2/include/constants/maxlog.hpp>
 #include <nt2/include/constants/minlog.hpp>
 
-#include <nt2/sdk/unit/exhaustive.hpp>
+#include <nt2/sdk/exhaustive/exhaustive.hpp>
 extern "C" { double cephes_sinh( double); }
 extern "C" { double cephes_cosh( double); }
 
