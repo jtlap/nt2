@@ -179,14 +179,14 @@ namespace nt2
 
       unsigned num_inc = diff.u / numThreads;
 
-      int my_id = get_thread_num();
+      unsigned my_id = get_thread_num();
 
       if (my_id==0)
         my_mini = mini;
       else
         my_mini = nt2::successor(mini,num_inc);
 
-      for (int jj=1;jj<my_id;jj++)
+      for (unsigned jj=1;jj<my_id;jj++)
         my_mini = nt2::successor(my_mini,num_inc);
 
       my_maxi = nt2::successor(my_mini,num_inc-1);
@@ -258,7 +258,7 @@ namespace nt2
       #pragma omp critical
       #endif
       {
-        for (int kk=0;kk<M+2;kk++)
+        for (unsigned kk=0;kk<M+2;kk++)
         {
           maxin[kk] = std::max(maxin_loc[kk],maxin[kk]);
           if (minin_loc[kk]<minin[kk])
