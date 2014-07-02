@@ -33,4 +33,13 @@ NT2_TEST_CASE_TPL(vecnorm, NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(vecnorm(n, 3), nt2::pow(nt2::Ten<T>(), 1/T(3)), 0);
   NT2_TEST_ULP_EQUAL(vecnorm(n, nt2::Inf<T>()), nt2::One<T>(), 0);
   NT2_TEST_ULP_EQUAL(vecnorm(n, nt2::Minf<T>()), nt2::One<T>(), 0);
+  // statically taged
+  NT2_TEST_ULP_EQUAL(vecnorm(n, nt2::meta::as_<nt2::tag::Minf>()), nt2::One<T>(), 0);
+  NT2_TEST_ULP_EQUAL(vecnorm<nt2::tag::Minf>(n), nt2::One<T>(), 0);
+  NT2_TEST_ULP_EQUAL(vecnorm(n, nt2::meta::as_<nt2::tag::Inf>()), nt2::One<T>(), 0);
+  NT2_TEST_ULP_EQUAL(vecnorm<nt2::tag::Inf>(n), nt2::One<T>(), 0);
+  NT2_TEST_ULP_EQUAL(vecnorm(n, nt2::meta::as_<nt2::tag::One>()), nt2::Ten<T>(), 0);
+  NT2_TEST_ULP_EQUAL(vecnorm<nt2::tag::One>(n), nt2::Ten<T>(), 0);
+  NT2_TEST_ULP_EQUAL(vecnorm(n, nt2::meta::as_<nt2::tag::Two>()), nt2::sqrt(nt2::Ten<T>()), 0);
+  NT2_TEST_ULP_EQUAL(vecnorm<nt2::tag::Two>(n), nt2::sqrt(nt2::Ten<T>()), 0);
 }

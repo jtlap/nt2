@@ -16,13 +16,24 @@
  * \defgroup algebra_vecnorm vecnorm
  *
  * \par Description
- * norm of a vector
+ * norm of a vector with static or dynamic choice of the norm
+ * the input parameter is always considered as a big column vector.
+ * second parameter can be a positive floating number p or -inf
+ * in which case the lp norm is computed
  *
- * vecnorm(v) is the same as vecnorm(v,2).
- * vecnorm(v,p) returns the p-norm of v defined as sum(abs(v).^p)^(1/p).
- * vecnorm(v,inf) returns the largest element of abs(v).
- * vecnorm(v,-inf) returns the smallest element of abs(v).
- * by convention, nan is returned if x or v contains nans.
+ * Note that if 0 < p < 1 or p = -inf, the functor does not share the
+ * properties that define a mathematical norm.
+ *
+ * vecnorm(v) is the same as vecnorm(v,tag::Two).
+ * vecnorm(v,p) returns the lp-norm of v defined as sum(abs(v).^p)^(1/p).
+ * vecnorm(v,Inf<T>()) returns the largest element of abs(v).
+ * vecnorm(v,-Minf<T>())) returns the smallest element of abs(v)
+ * nan is returned if v contains nans.
+ *
+ * vecnorm can also be invoked with a static choice of the second parameter
+ * using a templated version:
+ * vecnorm<T>(v)
+ * T can be nt2::tag::Inf, nt2::tag::Minf, nt2::tag::One or nt2::tag::Two,
  *
  * \par Header file
  *
@@ -58,6 +69,14 @@ namespace nt2 { namespace tag
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(nt2::tag::vecnorm_, vecnorm, 1)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(nt2::tag::vecnorm_, vecnorm, 2)
+
+  template < class T, class A>
+  BOOST_FORCEINLINE typename meta::as_real<typename A::value_type>::type
+  vecnorm(const A& a)
+  {
+    return vecnorm(a, nt2::meta::as_<T>());
+  }
+
 }
 
 #endif
