@@ -128,46 +128,6 @@ namespace nt2 { namespace ext
     }
   };
 
-
-//   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::globalnorm_, tag::cpu_,
-//                                      (A0)(A1),
-//                                      ((ast_<A0, nt2::container::domain>))
-//                                      (unspecified_<A1>)
-//                                      )
-//   {
-//     typedef typename A0::value_type                   type_t;
-//     typedef typename meta::as_real<type_t>::type result_type;
-//     BOOST_FORCEINLINE result_type operator()(A0 const &a0, A1 const&) const
-//     {
-//       std::cout << type_id < A1>() << std::endl;
-//       //     return eval(a0, A1());
-//     }
-
-//   private:
-//     BOOST_FORCEINLINE result_type eval(A0 const &a0
-//                                       , boost::mpl::int_<1> const&) const
-//     {
-//       return nt2::globalasum1(nt2::abs(a0));
-//     }
-
-//     BOOST_FORCEINLINE result_type eval(A0 const &a0
-//                                       , boost::mpl::int_<2> const&) const
-//     {
-//       return globalnorm2(a0);
-//     }
-
-// //     template < int N >
-// //     BOOST_FORCEINLINE result_type eval(A0 const &a0
-// //                                       , boost::mpl::int_<N> const &) const
-// //     {
-// //       // outside of One and Two we get back to the dynamic normp
-// //       return  globalnormp(a0, N);
-// //     }
-//   };
-
-
-
-
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::globalnorm_, tag::cpu_,
                                      (A0)(A1),
                                      (scalar_<arithmetic_<A0> > )
