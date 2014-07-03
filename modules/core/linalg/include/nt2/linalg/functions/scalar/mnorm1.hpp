@@ -13,7 +13,6 @@
 #include <nt2/include/functions/asum1.hpp>
 #include <nt2/include/functions/globalmax.hpp>
 #include <nt2/include/functions/globalasum1.hpp>
-#include <nt2/include/functions/asum1.hpp>
 #include <nt2/include/functions/iscolumn.hpp>
 #include <nt2/include/functions/isrow.hpp>
 #include <nt2/include/functions/ismatrix.hpp>
@@ -89,7 +88,7 @@ namespace nt2 { namespace ext
     }
 
     BOOST_FORCEINLINE result_type
-      eval(A0 const& a0, nt2::meta::indeterminate_ const &) const
+    eval(A0 const& a0, nt2::meta::indeterminate_ const &) const
     {
       if (isrow(a0)) //row vector
       {

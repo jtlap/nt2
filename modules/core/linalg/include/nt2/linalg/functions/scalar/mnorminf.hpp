@@ -87,7 +87,7 @@ namespace nt2 { namespace ext
     }
 
     BOOST_FORCEINLINE result_type
-     eval(A0 const& a0, nt2::meta::indeterminate_ const &) const
+    eval(A0 const& a0, nt2::meta::indeterminate_ const &) const
     {
       if (iscolumn(a0)) // col vector
       {
