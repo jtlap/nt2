@@ -6,13 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_LINALG_FUNCTIONS_SWAP_HPP_INCLUDED
-#define NT2_LINALG_FUNCTIONS_SWAP_HPP_INCLUDED
-
-/*!
-  @file
-  @brief Defines and implements swap function
-**/
+#ifndef NT2_CORE_FUNCTIONS_SWAP_HPP_INCLUDED
+#define NT2_CORE_FUNCTIONS_SWAP_HPP_INCLUDED
 
 #include <nt2/include/functor.hpp>
 
@@ -29,18 +24,17 @@ namespace nt2
   }
 
   /*!
-    @brief
+    @brief Swap values
 
-    @param
-    @param
+    Swap values between expression of same number of element.
 
-    @return
+    @param First expression to swap
+    @param Second expression to swap
   **/
-  NT2_FUNCTION_IMPLEMENTATION_TPL (tag::swap_, swap
-                                  , (A0&)(A1&)
-                                  , 2
-                                  );
-
+  NT2_FUNCTION_IMPLEMENTATION_TPL(tag::swap_, swap, (A0&)(A1&)            , 2);
+  NT2_FUNCTION_IMPLEMENTATION_TPL(tag::swap_, swap, (A0 const&)(A1&)      , 2);
+  NT2_FUNCTION_IMPLEMENTATION_TPL(tag::swap_, swap, (A0 &)(A1 const&)     , 2);
+  NT2_FUNCTION_IMPLEMENTATION_TPL(tag::swap_, swap, (A0 const&)(A1 const&), 2);
 }
 
 #endif

@@ -15,6 +15,7 @@ SET( SOURCES
   length.cpp
   linesstride.cpp
   nblines.cpp
+  swap.cpp
   width.cpp
 # List of test files for toolbox core.utility
    )
