@@ -12,7 +12,7 @@
 #include <nt2/include/constants/minlog.hpp>
 #include <nt2/include/functions/rec.hpp>
 
-#include <nt2/sdk/unit/exhaustive.hpp>
+#include <nt2/sdk/exhaustive/exhaustive.hpp>
 
 
 #define NT2_ASSERTS_AS_TRAP

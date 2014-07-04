@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_SDK_UNIT_EXHAUSTIVE_HPP_INCLUDED
-#define NT2_SDK_UNIT_EXHAUSTIVE_HPP_INCLUDED
+#ifndef NT2_SDK_EXHAUSTIVE_EXHAUSTIVE_HPP_INCLUDED
+#define NT2_SDK_EXHAUSTIVE_EXHAUSTIVE_HPP_INCLUDED
 
 #include <nt2/include/functions/simd/load.hpp>
 #include <nt2/include/functions/simd/extract.hpp>
@@ -61,7 +61,7 @@ namespace nt2
     #include <nt2/include/constants/zero.hpp>
     #include <nt2/include/constants/valmax.hpp>
 
-    #include <nt2/sdk/unit/exhaustive.hpp>
+    #include <nt2/sdk/exhaustive/exhaustive.hpp>
 
     // specific to nt2 tests: specify assert handling
     #define NT2_ASSERTS_AS_TRAP
