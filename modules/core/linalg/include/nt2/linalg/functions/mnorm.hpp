@@ -15,7 +15,13 @@
  * \defgroup algebra_mnorm mnorm
  *
  * \par Description
- * compute the 2 norm of a  matrix ie the largest singular value of the matrix
+ * compute the matricial norms of a matrix chosen by the optional second parameter
+ * that can be 1,  2, inf or fro_
+ * 1, 2 and inf can be given dynamically or statically as template parameter ie:
+ * mnorm(a, 1) or mnorm<tag::One>(a) or mnorm<1>(a)
+ * mnorm(a, 2) or mnorm<tag::Two>(a) or mnorm<2>(a) or mnorm(a)
+ * mnorm(a, Inf<T>()) or mnorm<tag::Inf>(a)
+ * mnorm(a, nt2::Fro) or mnorm<tag::Fro>(a)
  *
  * \par Header file
  *
@@ -25,7 +31,7 @@
  *
  *
  * mnorm can be used as
- * mnorm(a)
+ * mnorm(a) and compute the 2 norm of a  matrix ie the largest singular value of the matrix
  *
  * \param a the matrix or vector expression a
  *
@@ -45,8 +51,16 @@ namespace nt2 { namespace tag
   }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::mnorm_, mnorm, 1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::mnorm_, mnorm, 2)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::mnorm_, mnorm2, 1)
 
+  template < class T, class A>
+  BOOST_FORCEINLINE
+  typename meta::as_real<typename A::value_type>::type
+  mnorm(const A& a)
+  {
+    return mnorm(a, nt2::meta::as_<T>());
+  }
 }
 
 #endif
