@@ -28,14 +28,6 @@
 #include <boost/mpl/bool.hpp>
 #include <boost/static_assert.hpp>
 
-namespace nt2
-{
-  namespace tag
-  {
-    struct Fro     : tag::Mone   {};
-  }
-  nt2::meta::as_<tag::Fro>     const Fro = {};
-}
 
 namespace nt2 {  namespace ext
 {
@@ -50,7 +42,6 @@ namespace nt2 {  namespace ext
     {
       return nt2::abs(a0);
     }
-
   };
 
 
@@ -65,7 +56,6 @@ namespace nt2 {  namespace ext
     {
       return nt2::abs(a0);
     }
-
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::mnorm_, tag::cpu_
@@ -119,14 +109,15 @@ namespace nt2 {  namespace ext
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const & a1) const
     {
       BOOST_ASSERT_MSG(nt2::ismatrix(a0), "a0 is not a matrix");
-      result_type choice = result_type(a1);
-      if (choice == Two<result_type>()) return nt2::mnorm(a0);
-      if (choice == One<result_type>()) return nt2::mnorm1(a0);
-      if (choice == Inf<result_type>()) return nt2::mnorminf(a0);
-      if (is_ltz(choice))               return nt2::mnormfro(a0);
-
-      BOOST_ASSERT_MSG(false, "mnorm is not defined for this parameters setting");
-      return Nan<result_type>();
+      BOOST_ASSERT_MSG((a1 == Two<A1>()) ||
+                       (a1 == One<A1>()) ||
+                       (a1 == Inf<A1>()) ||
+                       (a1 == Mone<A1>()),
+                       "mnorm is not defined for this parameters setting");
+      if (a1 == Two<A1>()) return nt2::mnorm(a0);
+      if (a1 == One<A1>()) return nt2::mnorm1(a0);
+      if (a1 == Inf<A1>()) return nt2::mnorminf(a0);
+      return nt2::mnormfro(a0);
     }
   };
 
@@ -160,17 +151,9 @@ namespace nt2 {  namespace ext
       return mnorm(a0);
     }
     BOOST_FORCEINLINE result_type eval(A0 const &a0
-                                      , nt2::meta::as_<tag::Fro> const&) const
+                                      , nt2::meta::as_<tag::fro_> const&) const
     {
       return mnormfro(a0);
-    }
-    template < class T >
-    BOOST_FORCEINLINE result_type eval(A0 const &a0
-                                      , nt2::meta::as_<T> const&) const
-    {
-      BOOST_ASSERT_MSG(false, "mnorm is not defined for this parameters setting"
-                              "tag must be One Two Inf or Fro");
-      return Nan<result_type>();
     }
   };
 
@@ -185,6 +168,12 @@ namespace nt2 {  namespace ext
     typedef typename meta::as_real<type_t>::type result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const &a0, A1 const&) const
     {
+      // outside of Inf,  Minf,  One and Two no hope
+      BOOST_ASSERT_MSG((A1::Value == Two<A1>()) ||
+                       (A1::Value == One<A1>()) ||
+                       (A1::Value == Zero<A1>()) ||
+                       (A1::Value == Mone<A1>())
+                      , "Norm Value must be 1 2 0 (Inf) or -1 (Fro)" );
       return eval(a0, A1());
     }
 
@@ -211,16 +200,6 @@ namespace nt2 {  namespace ext
                                       ) const
     {
       return nt2::mnorminf(a0);
-    }
-
-    template<int Value>
-    BOOST_FORCEINLINE result_type eval( A0 const &a0
-                                      , boost::mpl::int_<Value> const&
-                                      ) const
-    {
-      // outside of Inf,  Minf,  One and Two no hope
-      BOOST_ASSERT_MSG( false, "Norm Value must be 1 2 0 (Inf) or -1 (Fro)" );
-      return Nan<result_type>();
     }
   };
 

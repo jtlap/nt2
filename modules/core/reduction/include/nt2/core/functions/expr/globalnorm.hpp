@@ -56,10 +56,10 @@ namespace nt2 { namespace ext
                       , "p must be strictly positive or infinite"
                       );
 
-      if(a1 == Two<result_type>())  return nt2::globalnorm2(a0);
-      if(a1 == One<result_type>())  return nt2::globalasum1(a0);
-      if(a1 == Inf<A1>())           return nt2::globalmax(nt2::abs(a0));
-      if(a1 == Minf<A1>())          return nt2::globalmin(nt2::abs(a0));
+      if(a1 == Two<A1>())  return nt2::globalnorm2(a0);
+      if(a1 == One<A1>())  return nt2::globalasum1(a0);
+      if(a1 == Inf<A1>())  return nt2::globalmax(nt2::abs(a0));
+      if(a1 == Minf<A1>()) return nt2::globalmin(nt2::abs(a0));
 
       return nt2::globalnormp(a0, a1);
     }

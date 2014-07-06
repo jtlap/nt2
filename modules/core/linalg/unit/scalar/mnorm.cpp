@@ -58,13 +58,13 @@ NT2_TEST_CASE_TPL(normp, NT2_REAL_TYPES)
   using nt2::mnorm;
   using nt2::tag::mnorm_;
   nt2::table<T> n = nt2::ones(1, 9, nt2::meta::as_<T>());
-  //NT2_TEST_ULP_EQUAL(mnorm<nt2::two_>(n),  nt2::Three<T>(), 0);
   NT2_TEST_ULP_EQUAL(mnorm<nt2::tag::Two>(n),  nt2::Three<T>(), 0);
   NT2_TEST_ULP_EQUAL(mnorm(n, 2),  nt2::Three<T>(), 0);
-  std::cout << nt2::type_id(nt2::Fro) << std::endl;
+  std::cout << nt2::type_id(nt2::fro_) << std::endl;
   nt2::table<T> n1 = nt2::ones(3, 3, nt2::meta::as_<T>());
-  NT2_TEST_ULP_EQUAL(mnorm(n1, nt2::Fro), nt2::Three<T>(), 0);
-  NT2_TEST_ULP_EQUAL(mnorm<nt2::tag::Fro>(n1),  nt2::Three<T>(), 0);
-  NT2_TEST_ULP_EQUAL(mnorm<-1>(n1),  nt2::Three<T>(), 0);
-  NT2_TEST_ULP_EQUAL(mnorm<0> (n1),   nt2::Three<T>(), 0);
+  NT2_TEST_ULP_EQUAL(mnorm(n1, nt2::fro_), nt2::Three<T>(), 0);
+  NT2_TEST_ULP_EQUAL(mnorm<nt2::tag::fro_>(n1),  nt2::Three<T>(), 0);
+
+  NT2_TEST_ULP_EQUAL(mnorm<2>(n1),  nt2::Three<T>(), 0);
+  NT2_TEST_ULP_EQUAL(mnorm<1> (n1),   nt2::Three<T>(), 0);
 }

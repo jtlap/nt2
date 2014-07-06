@@ -11,6 +11,8 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/sdk/meta/as_real.hpp>
 #include <boost/mpl/int.hpp>
+#include <nt2/include/constants/mone.hpp>
+#include <nt2/include/constants/zero.hpp>
 
 namespace nt2 { namespace tag
   {
@@ -99,6 +101,17 @@ namespace nt2 { namespace tag
   {
     return mnorm(a, boost::mpl::int_<Value>());
   }
+}
+
+namespace nt2
+{
+  namespace tag
+  {
+    struct fro_   {};
+    struct inf_   {};
+  }
+  nt2::meta::as_<tag::fro_>     const fro_ = {};
+  nt2::meta::as_<tag::inf_>     const inf_ = {};
 }
 
 #endif
