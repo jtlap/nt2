@@ -17,18 +17,6 @@
 
 namespace nt2 { namespace container
 {
-  template<class T, long Arity = T::proto_arity_c>
-  struct is_container_terminal
-       : boost::mpl::false_
-  {
-  };
-
-  template<class T>
-  struct is_container_terminal<T, 0l>
-       : meta::is_container<typename T::proto_child0>
-  {
-  };
-
   template<class A0, class A1>
   typename boost::enable_if<
     boost::mpl::and_< is_container_terminal<A0>

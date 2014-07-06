@@ -15,7 +15,6 @@ SET ( SOURCES
       gqr.cpp
       mqr.cpp
       laswp.cpp
-      swap.cpp
       gesv.cpp
       gesvx.cpp
       gels.cpp
