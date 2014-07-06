@@ -1,13 +1,13 @@
-//==============================================================================
-//         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
-//
-//          Distributed under the Boost Software License, Version 1.0.
-//                 See accompanying file LICENSE.txt or copy at
-//                     http://www.boost.org/LICENSE_1_0.txt
-//==============================================================================
-#ifndef NT2_LINALG_FUNCTIONS_SCALAR_GLOBALNORM_HPP_INCLUDED
-#define NT2_LINALG_FUNCTIONS_SCALAR_GLOBALNORM_HPP_INCLUDED
+/*******************************************************************************
+ *         Copyright 2003-2014 LASMEA UMR 6602 CNRS/U.B.P
+ *         Copyright 2011-2014 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+ *
+ *          Distributed under the Boost Software License, Version 1.0.
+ *                 See accompanying file LICENSE.txt or copy at
+ *                     http://www.boost.org/LICENSE_1_0.txt
+ ******************************************************************************/
+#ifndef NT2_CORE_FUNCTIONS_EXPR_GLOBALNORM_HPP_INCLUDED
+#define NT2_CORE_FUNCTIONS_EXPR_GLOBALNORM_HPP_INCLUDED
 
 #include <nt2/include/functions/globalnorm.hpp>
 #include <nt2/core/container/dsl.hpp>
@@ -52,14 +52,14 @@ namespace nt2 { namespace ext
 
     BOOST_FORCEINLINE result_type operator()(A0 const &a0, A1 a1) const
     {
-      BOOST_ASSERT_MSG( (a1 > 0) || (a1 == Minf<A1>()) || (a1 == Inf<A1>())
+      BOOST_ASSERT_MSG( (a1 > 0) || (a1 == Minf<A1>())
                       , "p must be strictly positive or infinite"
                       );
 
       if(a1 == Two<result_type>())  return nt2::globalnorm2(a0);
       if(a1 == One<result_type>())  return nt2::globalasum1(a0);
       if(a1 == Inf<A1>())           return nt2::globalmax(nt2::abs(a0));
-      if(a1 == Minf<A1>())          return nt2::globalmax(nt2::abs(a0));
+      if(a1 == Minf<A1>())          return nt2::globalmin(nt2::abs(a0));
 
       return nt2::globalnormp(a0, a1);
     }
@@ -153,3 +153,5 @@ namespace nt2 { namespace ext
 } }
 
 #endif
+
+

@@ -27,8 +27,6 @@
 #include <boost/assert.hpp>
 #include <boost/mpl/bool.hpp>
 #include <boost/static_assert.hpp>
-#include <nt2/sdk/meta/is_target.hpp>
-#include <boost/utility/enable_if.hpp>
 
 namespace nt2
 {
@@ -101,13 +99,9 @@ namespace nt2 {  namespace ext
     eval(A0 const& a0, nt2::meta::indeterminate_ const &) const
     {
       if (isvector(a0))
-      {
         return globalnorm2(a0);
-      }
       else
-      {
         return svd(a0)(1);
-      }
     }
 
 
@@ -126,27 +120,13 @@ namespace nt2 {  namespace ext
     {
       BOOST_ASSERT_MSG(nt2::ismatrix(a0), "a0 is not a matrix");
       result_type choice = result_type(a1);
-      if (choice == Two<result_type>())
-      {
-        return nt2::mnorm(a0);
-      }
-      else if (choice == One<result_type>())
-      {
-        return nt2::mnorm1(a0);
-      }
-      else if (choice == Inf<result_type>())
-      {
-        return nt2::mnorminf(a0);
-      }
-      else if (is_ltz(choice))
-      {
-        return nt2::mnormfro(a0);
-      }
-      else
-      {
-        BOOST_ASSERT_MSG(false, "mnorm is not defined for this parameters setting");
-        return Nan<result_type>();
-      }
+      if (choice == Two<result_type>()) return nt2::mnorm(a0);
+      if (choice == One<result_type>()) return nt2::mnorm1(a0);
+      if (choice == Inf<result_type>()) return nt2::mnorminf(a0);
+      if (is_ltz(choice))               return nt2::mnormfro(a0);
+
+      BOOST_ASSERT_MSG(false, "mnorm is not defined for this parameters setting");
+      return Nan<result_type>();
     }
   };
 
@@ -188,9 +168,62 @@ namespace nt2 {  namespace ext
     BOOST_FORCEINLINE result_type eval(A0 const &a0
                                       , nt2::meta::as_<T> const&) const
     {
-      BOOST_ASSERT_MSG(false, "mnorm is not defined for this parameters setting");
+      BOOST_ASSERT_MSG(false, "mnorm is not defined for this parameters setting"
+                              "tag must be One Two Inf or Fro");
+      return Nan<result_type>();
     }
   };
+
+   // Selects globalnorm from static norm value
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::mnorm_, tag::cpu_
+                            , (A0)(A1)
+                            , ((ast_<A0, nt2::container::domain>))
+                              (mpl_integral_< scalar_< fundamental_<A1> > >)
+                            )
+  {
+    typedef typename A0::value_type                   type_t;
+    typedef typename meta::as_real<type_t>::type result_type;
+    BOOST_FORCEINLINE result_type operator()(A0 const &a0, A1 const&) const
+    {
+      return eval(a0, A1());
+    }
+
+    BOOST_FORCEINLINE result_type eval( A0 const &a0
+                                      , boost::mpl::int_<2> const&
+                                      ) const
+    {
+      return nt2::mnorm2(a0);
+    }
+    BOOST_FORCEINLINE result_type eval( A0 const &a0
+                                      , boost::mpl::int_<1> const&
+                                      ) const
+    {
+      return nt2::mnorm1(a0);
+    }
+    BOOST_FORCEINLINE result_type eval( A0 const &a0
+                                      , boost::mpl::int_<-1> const&
+                                      ) const
+    {
+      return nt2::mnormfro(a0);
+    }
+    BOOST_FORCEINLINE result_type eval( A0 const &a0
+                                      , boost::mpl::int_<0> const&
+                                      ) const
+    {
+      return nt2::mnorminf(a0);
+    }
+
+    template<int Value>
+    BOOST_FORCEINLINE result_type eval( A0 const &a0
+                                      , boost::mpl::int_<Value> const&
+                                      ) const
+    {
+      // outside of Inf,  Minf,  One and Two no hope
+      BOOST_ASSERT_MSG( false, "Norm Value must be 1 2 0 (Inf) or -1 (Fro)" );
+      return Nan<result_type>();
+    }
+  };
+
 
 } }
 

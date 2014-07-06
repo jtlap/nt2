@@ -8,6 +8,9 @@
 //==============================================================================
 #include <nt2/table.hpp>
 #include <nt2/include/functions/globalnorm.hpp>
+#include <nt2/include/functions/asump.hpp>
+#include <nt2/include/functions/cbrt.hpp>
+#include <nt2/include/functions/colon.hpp>
 #include <nt2/include/functions/ones.hpp>
 #include <nt2/include/functions/sqrt.hpp>
 #include <nt2/include/functions/pow.hpp>
@@ -33,22 +36,23 @@ NT2_TEST_CASE_TPL(globalnorm, NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(globalnorm(n, nt2::Inf<T>()), nt2::One<T>(), 0);
   NT2_TEST_ULP_EQUAL(globalnorm(n, nt2::Minf<T>()), nt2::One<T>(), 0);
 
-  // statically taged with constants
-  NT2_TEST_ULP_EQUAL(globalnorm(n, nt2::meta::as_<nt2::tag::Minf>()), nt2::One<T>(), 0);
-  NT2_TEST_ULP_EQUAL(globalnorm<nt2::tag::Minf>(n), nt2::One<T>(), 0);
-  NT2_TEST_ULP_EQUAL(globalnorm(n, nt2::meta::as_<nt2::tag::Inf>()), nt2::One<T>(), 0);
-  NT2_TEST_ULP_EQUAL(globalnorm<nt2::tag::Inf>(n), nt2::One<T>(), 0);
-  NT2_TEST_ULP_EQUAL(globalnorm(n, nt2::meta::as_<nt2::tag::One>()), nt2::Ten<T>(), 0);
-  NT2_TEST_ULP_EQUAL(globalnorm<nt2::tag::One>(n), nt2::Ten<T>(), 0);
-  NT2_TEST_ULP_EQUAL(globalnorm(n, nt2::meta::as_<nt2::tag::Two>()), nt2::sqrt(nt2::Ten<T>()), 0);
-  NT2_TEST_ULP_EQUAL(globalnorm<nt2::tag::Two>(n), nt2::sqrt(nt2::Ten<T>()), 0);
-  NT2_TEST_ULP_EQUAL(globalnorm(n, nt2::meta::as_<nt2::tag::Two>()), nt2::sqrt(nt2::Ten<T>()), 0);
-  NT2_TEST_ULP_EQUAL(globalnorm<nt2::tag::Three>(n), nt2::pow(nt2::Ten<T>(), 1/T(3)), 0);
 
   // statically taged with int
   NT2_TEST_ULP_EQUAL(globalnorm<1>(n), nt2::Ten<T>(), 0);
   NT2_TEST_ULP_EQUAL(globalnorm<2>(n), nt2::sqrt(nt2::Ten<T>()), 0);
   NT2_TEST_ULP_EQUAL(globalnorm<3>(n), nt2::pow(nt2::Ten<T>(), 1/T(3)), 0);
+
+  // statically taged with constants
+  n = nt2::_(T(1), T(5));
+  NT2_TEST_ULP_EQUAL(globalnorm(n, nt2::meta::as_<nt2::tag::Minf>()), nt2::One<T>(), 0);
+  NT2_TEST_ULP_EQUAL(globalnorm<nt2::tag::Minf>(n), nt2::One<T>(), 0);
+  NT2_TEST_ULP_EQUAL(globalnorm(n, nt2::meta::as_<nt2::tag::Inf>()), T(5), 0);
+  NT2_TEST_ULP_EQUAL(globalnorm<nt2::tag::Inf>(n), T(5), 0);
+  NT2_TEST_ULP_EQUAL(globalnorm(n, nt2::meta::as_<nt2::tag::One>()), T(15), 0);
+  NT2_TEST_ULP_EQUAL(globalnorm<nt2::tag::One>(n), T(15), 0);
+  NT2_TEST_ULP_EQUAL(globalnorm(n, nt2::meta::as_<nt2::tag::Two>()), nt2::sqrt(T(55)), 0);
+  NT2_TEST_ULP_EQUAL(globalnorm<nt2::tag::Two>(n), nt2::sqrt(T(55)), 0);
+  NT2_TEST_ULP_EQUAL(globalnorm<nt2::tag::Three>(n), nt2::cbrt(asump(n, 3)), 0.5);
 
   // Check invalid norms
   NT2_TEST_ASSERT( globalnorm(n, T(-1)) );

@@ -65,4 +65,6 @@ NT2_TEST_CASE_TPL(normp, NT2_REAL_TYPES)
   nt2::table<T> n1 = nt2::ones(3, 3, nt2::meta::as_<T>());
   NT2_TEST_ULP_EQUAL(mnorm(n1, nt2::Fro), nt2::Three<T>(), 0);
   NT2_TEST_ULP_EQUAL(mnorm<nt2::tag::Fro>(n1),  nt2::Three<T>(), 0);
+  NT2_TEST_ULP_EQUAL(mnorm<-1>(n1),  nt2::Three<T>(), 0);
+  NT2_TEST_ULP_EQUAL(mnorm<0> (n1),   nt2::Three<T>(), 0);
 }

@@ -78,7 +78,8 @@ namespace nt2 { namespace tag
     if @c p is -Inf.
 
     @note If 0 < p < 1 or p = -inf, globalnorm does not share the properties that
-    define a mathematical norm,  but only a quasi-norm.
+    define a mathematical norm,  but only a quasi-norm if  0 < p < 1 and a notation
+    facility for p = -inf.
 
     @par Static Interface
 
