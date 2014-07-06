@@ -109,13 +109,14 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type eval(A0 const &a0
                                       , nt2::meta::as_<tag::One> const&) const
     {
-      return nt2::globalasum1(nt2::abs(a0));
+      return nt2::globalasum1(a0);
     }
     BOOST_FORCEINLINE result_type eval(A0 const &a0
                                       , nt2::meta::as_<tag::Two> const&) const
     {
       return globalnorm(a0);
     }
+
     template < class Target >
     BOOST_FORCEINLINE result_type eval(A0 const &a0
                                       , Target const&) const
@@ -127,6 +128,7 @@ namespace nt2 { namespace ext
       return  globalnormp(a0, callee( tgt ));
     }
   };
+
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::globalnorm_, tag::cpu_,
                                      (A0)(A1),

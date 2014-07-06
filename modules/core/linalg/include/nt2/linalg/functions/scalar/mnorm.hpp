@@ -144,7 +144,7 @@ namespace nt2 {  namespace ext
       }
       else
       {
-        BOOST_ASSERT_MSG(false, "mnorm is not defined forr this parameters setting");
+        BOOST_ASSERT_MSG(false, "mnorm is not defined for this parameters setting");
         return Nan<result_type>();
       }
     }

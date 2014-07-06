@@ -72,10 +72,17 @@ namespace nt2 { namespace tag
     return globalnorm(a, nt2::meta::as_<T>());
   }
 
+  template < int N > struct bag : boost::mpl::int_<N>
+  {
+    typedef int value_type;
+  };
+
+
   template <int N, class A>
   BOOST_FORCEINLINE typename meta::as_real<typename A::value_type>::type
   globalnorm(const A& a)
   {
+
     return globalnorm(a, N);
   }
 
