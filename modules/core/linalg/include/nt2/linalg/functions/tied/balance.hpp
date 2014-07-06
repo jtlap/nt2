@@ -13,6 +13,7 @@
 #include <nt2/linalg/functions/factorizations/balance.hpp>
 #include <nt2/include/functions/assign.hpp>
 #include <nt2/include/functions/tie.hpp>
+#include <nt2/linalg/options.hpp>
 #include <cstring>
 
 namespace nt2 { namespace ext
@@ -32,7 +33,7 @@ namespace nt2 { namespace ext
     typedef typename boost::proto::result_of::child_c<A1&,0>::type       child0;
     typedef typename meta::
             call< nt2::tag::
-                  factorization::balance_(child0,char, nt2::details::in_place_)
+                  factorization::balance_(child0,char, nt2::ext::in_place_)
                 >::type                                             fact_t;
 
     BOOST_FORCEINLINE result_type operator()( A0& a0, A1& a1 ) const
@@ -43,7 +44,7 @@ namespace nt2 { namespace ext
       char job =  choice(a0, N0());
 
       // Factorize in place
-      fact_t f = factorization::balance(boost::proto::child_c<0>(a1),job,in_place_);
+      fact_t f = factorization::balance(boost::proto::child_c<0>(a1),job,nt2::in_place_);
       decomp(f, a1, N1());
     }
 

@@ -61,7 +61,7 @@ NT2_TEST_CASE_TPL ( symeig_factorization_inplace, NT2_REAL_TYPES)
   NT2_DISPLAY(b);
 
   typedef typename nt2::meta::call
-          <symeig_(t_t&, char, char, as_<nt2::details::in_place_> const&)>::type ip_t;
+          <symeig_(t_t&, char, char, as_<nt2::ext::in_place_> const&)>::type ip_t;
 
   ip_t ires = nt2::factorization::symeig(b,'V','L',nt2::in_place_);
 

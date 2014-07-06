@@ -41,7 +41,7 @@ namespace nt2 { namespace ext
     typedef typename meta::
             call< nt2::tag::
                  solvers::lsq_lse_solve_( dest0_t&, dest0_t&, dest0_t&, dest0_t&
-                                    , nt2::details::in_place_
+                                    , nt2::ext::in_place_
                                     )
                 >::type                                                 solve_t;
 
@@ -58,7 +58,7 @@ namespace nt2 { namespace ext
 
       // solve in place
       solve_t
-        f = solvers::lsq_lse_solve(a, b, c, d, in_place_);
+        f = solvers::lsq_lse_solve(a, b, c, d, nt2::in_place_);
 
       solve(f, a1, N1());
     }
