@@ -11,9 +11,10 @@
 #define NT2_CORE_FUNCTIONS_SCALAR_GLOBALNORM_HPP_INCLUDED
 
 #include <nt2/core/functions/globalnorm.hpp>
-#include <nt2/include/functions/abs.hpp>
 #include <nt2/core/container/dsl.hpp>
 #include <nt2/sdk/meta/as_real.hpp>
+#include <nt2/include/functions/abs.hpp>
+#include <boost/dispatch/attributes.hpp>
 
 namespace nt2 { namespace ext
 {

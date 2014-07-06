@@ -10,82 +10,132 @@
 #define NT2_CORE_FUNCTIONS_GLOBALNORM_HPP_INCLUDED
 
 #include <nt2/include/functor.hpp>
+#include <nt2/sdk/meta/as_real.hpp>
 #include <boost/mpl/int.hpp>
-
-/*!
- * \par Description
- * norm of a whole table expression elements with static or dynamic choice
- * of the norm computation formula.
- * The input parameter is always considered as a big column vector.
- * second parameter can be a positive floating number p or -inf
- * in which case the lp norm is computed
- *
- * Note that if 0 < p < 1 or p = -inf, the functor does not share the
- * properties that define a mathematical norm,  but only a quasi-norm
- * if  0 < p < 1 and a notation commodity in the last case.
- *
- * globalnorm(v) is the same as globalnorm2(v).
- * globalnorm(v,p) returns the lp-norm of v defined as sum(abs(v).^p)^(1/p).
- * globalnorm(v,Inf<T>()) returns the largest element of abs(v).
- * globalnorm(v,-Minf<T>())) returns the smallest element of abs(v)
- * nan is returned if v contains nans.
- *
- * globalnorm can also be invoked with a static choice of the second parameter
- * using a templated version:
- * globalnorm<T>(v)
- * T can be nt2::tag::Inf, nt2::tag::Minf, nt2::tag::One or nt2::tag::Two,
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/globalnorm.hpp>
- * \endcode
- *
- *
- * \param v the expresion vector, even if matricial it is always considered as a
- *          big column vector
- *
- * \param the type of norm required
- *
- *
-**/
 
 namespace nt2 { namespace tag
   {
     /*!
-     * \brief Define the tag globalnorm_ of functor globalnorm
-     *        in namespace nt2::tag for toolbox reduction
+      @brief globalnorm generic tag
+
+      Represents the globalnorm function in generic contexts.
+
+      @par Models:
+      Hierarchy
     **/
-    struct globalnorm_ : boost::dispatch::tag::formal_
+    struct globalnorm_ : tag::formal_
     {
+      /// @brief Parent hierarchy
       typedef boost::dispatch::tag::formal_ parent;
     };
   }
 
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(nt2::tag::globalnorm_, globalnorm, 1)
+  /*!
+    @brief Global norm
+
+    Computes the norm of a whole table expression with static or dynamic choice
+    of the norm computation formula.
+
+    @par Semantic:
+
+    For any expression @c a0 of type @c A0, the following call:
+
+    @code
+    as_real<A0::value_type>::type x = globalnorm(a0);
+    @endcode
+
+    is equivalent to:
+
+    @code
+    as_real<A0::value_type>::type x = globalnorm2(a0);
+    @endcode
+
+    For any expression @c a0 of type @c A0 and any floating point value @c p, the
+    following call:
+
+    @code
+    as_real<A0::value_type>::type x = globalnorm(a0,p);
+    @endcode
+
+    is equivalent to:
+
+    @code
+    as_real<A0::value_type>::type x = globalnormp(a0,p);
+    @endcode
+
+    if @c p is finite and to :
+
+    @code
+    as_real<A0::value_type>::type x = globalmax(abs(a0));
+    @endcode
+
+    if @c is +Inf and to :
+
+    @code
+    as_real<A0::value_type>::type x = globalmin(abs(a0));
+    @endcode
+
+    if @c p is -Inf.
+
+    @note If 0 < p < 1 or p = -inf, globalnorm does not share the properties that
+    define a mathematical norm,  but only a quasi-norm.
+
+    @par Static Interface
+
+    globalnorm can also be invoked with a template parameter which is either a
+    functor tag describing the constant value to use instead of @c p or an
+    Integral Constant. For example,
+
+    @code
+    as_real<A0::value_type>::type x = globalnorm<tag::Two>(a0);
+    @endcode
+
+    is equivalent to:
+
+    @code
+    as_real<A0::value_type>::type x = globalnorm2(a0);
+    @endcode
+
+    Similarly,
+
+    @code
+    as_real<A0::value_type>::type x = globalnorm<5>(a0);
+    @endcode
+
+    is equivalent to:
+
+    @code
+    as_real<A0::value_type>::type x = globalnormp(a0,5);
+    @endcode
+
+    @note Whenever a constant functor tag or an Integral Constant is used, compile
+    time optimization is performed so the correct variant of globalnorm is
+    called. For example, calls similar to globalnorm<2> will invoke
+    globalnorm2 directly instead of globalnormp.
+
+    @param a0 Expression to compute the norm of
+    @param a1 Type of norm to compute
+  **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(nt2::tag::globalnorm_, globalnorm, 2)
 
-  template < class T, class A>
-  BOOST_FORCEINLINE typename meta::as_real<typename A::value_type>::type
-  globalnorm(const A& a)
+  /// @overload
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(nt2::tag::globalnorm_, globalnorm, 1)
+
+  /// @overload
+  template<typename Tag, typename A0>
+  BOOST_FORCEINLINE typename meta::as_real<typename A0::value_type>::type
+  globalnorm(const A0& a0)
   {
-    return globalnorm(a, nt2::meta::as_<T>());
+    return globalnorm(a0, nt2::meta::as_<Tag>());
   }
 
-  template < int N > struct bag : boost::mpl::int_<N>
+  /// @overload
+  template<int Value, typename A0>
+  BOOST_FORCEINLINE typename meta::as_real<typename A0::value_type>::type
+  globalnorm(const A0& a0)
   {
-    typedef int value_type;
-  };
-
-
-  template <int N, class A>
-  BOOST_FORCEINLINE typename meta::as_real<typename A::value_type>::type
-  globalnorm(const A& a)
-  {
-
-    return globalnorm(a, N);
+    return globalnorm(a0, boost::mpl::int_<Value>() );
   }
-
 }
 
 #endif
