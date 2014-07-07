@@ -19,8 +19,8 @@ namespace nt2 { namespace container
 {
   template<class A0, class A1>
   typename boost::enable_if<
-    boost::mpl::and_< is_container_terminal<A0>
-                    , is_container_terminal<A1>
+    boost::mpl::and_< meta::is_container_terminal<A0>
+                    , meta::is_container_terminal<A1>
                     >
   >::type
   assign_swap(A0& a0, A1& a1)
@@ -30,8 +30,8 @@ namespace nt2 { namespace container
 
   template<class A0, class A1>
   typename boost::disable_if<
-    boost::mpl::and_< is_container_terminal<A0>
-                    , is_container_terminal<A1>
+    boost::mpl::and_< meta::is_container_terminal<A0>
+                    , meta::is_container_terminal<A1>
                     >
   >::type
   assign_swap(A0& a0, A1& a1)
