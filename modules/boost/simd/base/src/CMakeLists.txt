@@ -16,6 +16,8 @@ nt2_module_configure_toolbox(ieee 1)
 nt2_module_configure_toolbox(operator 1)
 nt2_module_configure_toolbox(predicates 1)
 nt2_module_configure_toolbox(constant 1)
+nt2_module_configure_toolbox(reduction 1)
+nt2_module_configure_toolbox(swar 1)
 
 nt2_module_postconfigure(gather_includes ---ignore details --ignore preprocessed
                                          boost/simd/constant/impl

@@ -12,7 +12,6 @@ SET ( NT2_CORE.EXTRACTIVE_DEPENDENCIES_EXTRA
       core.base
       core.generative
       core.sdk
-      core.swar
       sdk.functor
       sdk.meta
     )

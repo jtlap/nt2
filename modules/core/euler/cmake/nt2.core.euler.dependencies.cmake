@@ -12,12 +12,9 @@ SET ( NT2_CORE.EULER_DEPENDENCIES_EXTRA
       boost.simd.base
       boost.simd.sdk
       core.base
-      core.container.placeholders
       core.exponential
       core.polynomials
-      core.reduction
       core.sdk
-      core.swar
       core.trigonometric
       sdk.error
       sdk.functor

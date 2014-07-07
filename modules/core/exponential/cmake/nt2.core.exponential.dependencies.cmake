@@ -14,7 +14,6 @@ SET ( NT2_CORE.EXPONENTIAL_DEPENDENCIES_EXTRA
       boost.simd.sdk
       core.base
       core.polynomials
-      core.reduction
       core.sdk
       sdk.functor
       sdk.meta

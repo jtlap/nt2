@@ -11,7 +11,8 @@ Boost.SIMD. They cover:
 * basic numeric constants like one, zero, factorials, pi, etc...
 * predicates over values and types properties
 * IEEE 754 specific operations like bit count, mantissa extraction, etc ...
-* reduction operations over SIMD values
+* reduction operations of SIMD registers to scalar value
+* internal operations on SIMD register elements
 
 All those functions act as the basic block of all Boost.SIMD functions and are
 very interdependent. They are gathered into a single module to reduce complex

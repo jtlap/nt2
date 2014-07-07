@@ -6,16 +6,6 @@
 ###          Distributed under the Boost Software License, Version 1.0
 ###                 See accompanying file LICENSE.txt or copy at
 ###                     http://www.boost.org/LICENSE_1_0.txt
-################################################################################
+##############################################################################
 
-nt2_module_use_modules(test.unit)
-
-ADD_SUBDIRECTORY(arithmetic)
-ADD_SUBDIRECTORY(bitwise)
-ADD_SUBDIRECTORY(boolean)
-ADD_SUBDIRECTORY(constant)
-ADD_SUBDIRECTORY(ieee)
-ADD_SUBDIRECTORY(operator)
-ADD_SUBDIRECTORY(predicates)
-ADD_SUBDIRECTORY(reduction)
-ADD_SUBDIRECTORY(swar)
+ADD_SUBDIRECTORY(simd)

@@ -9,7 +9,6 @@
 
 SET ( NT2_TYPE.COMPLEX.HYPERBOLIC_DEPENDENCIES_EXTRA
       boost.simd.base
-      boost.simd.reduction
       core.base
       core.exponential
       core.hyperbolic
