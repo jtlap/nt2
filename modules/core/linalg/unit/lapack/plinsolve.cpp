@@ -39,7 +39,7 @@ t_t x = nt2::ones(nt2::of_size(10,1),nt2::meta::as_<T>());
 t_t x1(b);
 t_i piv;
 
-nt2::plinsolve(a ,b, x);
+nt2::plinsolve(a ,b, nt2::tie(x) );
 nt2_la_int iter = nt2::gesv( boost::proto::value(a), boost::proto::value(piv)
                          , boost::proto::value(x1) );
 

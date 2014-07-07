@@ -12,7 +12,6 @@
 #include <nt2/sdk/magma/magma.hpp>
 #include <cublas.h>
 #include <cstddef>
-#include <stdio.h>
 #include <boost/throw_exception.hpp>
 #include <new>
 
@@ -35,7 +34,7 @@ namespace nt2 { namespace details
     typedef std::size_t     size_type;
     typedef std::ptrdiff_t  difference_type;
 
-    magma_buffer( size_type h, size_type w, pointer host = 0 )
+    magma_buffer( size_type h, size_type w, const_pointer host = 0 )
                 : gpu_ptr_(0), height_(h), width_(w)
     {
       void *ptr;
@@ -55,6 +54,7 @@ namespace nt2 { namespace details
                                           );
       }
     }
+
 
     ~magma_buffer() { cudaFree(gpu_ptr_); }
 

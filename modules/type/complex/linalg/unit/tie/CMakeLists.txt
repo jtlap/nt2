@@ -19,7 +19,6 @@ SET( SOURCES
 #     planerot.cpp
 #     linsolve.cpp
 #     svd_solve.cpp
-#     tr_solve.cpp
 #     lsq_lse_solve.cpp
    )
 

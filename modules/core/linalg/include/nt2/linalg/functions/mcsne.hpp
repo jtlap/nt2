@@ -38,10 +38,12 @@ namespace nt2
 
     @return
   **/
-  NT2_FUNCTION_IMPLEMENTATION_TPL (tag::mcsne_, mcsne
-                                  , (A0 const&)(A1 const&)
-                                  , 2
-                                  );
+//
+  // NT2_FUNCTION_IMPLEMENTATION(tag::mcsne_, mcsne, 2)
+  // NT2_FUNCTION_IMPLEMENTATION(tag::mcsne_, mcsne, 3)
+BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::mcsne_, mcsne, 3);
+BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::mcsne_, mcsne, 2);
+
 }
 
 #endif
