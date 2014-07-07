@@ -7,8 +7,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_SDK_TBB_SPAWNER_FOLD_HPP_INCLUDED
-#define NT2_SDK_TBB_SPAWNER_FOLD_HPP_INCLUDED
+#ifndef NT2_SDK_TBB_SPAWNER_SCAN_HPP_INCLUDED
+#define NT2_SDK_TBB_SPAWNER_SCAN_HPP_INCLUDED
 
 #if defined(NT2_USE_TBB)
 
@@ -22,50 +22,57 @@
 
 namespace nt2
 {
-
   namespace tag
   {
-    struct fold_;
+    struct scan_;
     template<class T> struct tbb_;
   }
 
   namespace details
   {
     template<class Worker, class result_type>
-    struct Tbb_Folder
+    struct Tbb_Scaner
     {
-        Tbb_Folder(Worker & w)
+        Tbb_Scaner(Worker & w)
         :w_(w)
         {
             out_ = w.neutral_(nt2::meta::as_<result_type>());
         }
 
-        Tbb_Folder(Tbb_Folder& src, tbb::split)
+        Tbb_Scaner(Tbb_Scaner& src, tbb::split)
         : w_(src.w_)
         {
             out_ = w_.neutral_(nt2::meta::as_<result_type>());
         }
 
-        void operator()(nt2::blocked_range<std::size_t> const& r)
+        template<typename Tag>
+        void operator()(nt2::blocked_range<std::size_t> const& r, Tag)
         {
-            out_ = w_(out_,r.begin(),r.size());
+            out_ = w_(out_,r.begin(),r.size(),!Tag::is_final_scan());
         };
 
-        void join(Tbb_Folder& rhs) { out_ = w_.bop_(out_, rhs.out_); }
+        void reverse_join(Tbb_Scaner& rhs)
+        {
+            out_ = w_.bop_(rhs.out_,out_);
+        }
+
+        void assign( Tbb_Scaner& b )
+        {
+          out_ = b.out_;
+        }
 
         Worker & w_;
         result_type out_;
 
     private:
-        Tbb_Folder& operator=(Tbb_Folder const&);
+        Tbb_Scaner& operator=(Tbb_Scaner const&);
 
     };
   }
 
   template<class Site, class result_type>
-  struct spawner< tag::fold_, tag::tbb_<Site>, result_type>
+  struct spawner< tag::scan_, tag::tbb_<Site> , result_type>
   {
-
     spawner(){}
 
     template<typename Worker>
@@ -76,31 +83,32 @@ namespace nt2
       boost::exception_ptr exception;
 #endif
 
-     BOOST_ASSERT_MSG( size % grain == 0, "Reduce size not divisible by grain");
+      BOOST_ASSERT_MSG( size % grain == 0, "Reduce size not divisible by grain");
 
-     details::Tbb_Folder<Worker,result_type> tbb_w ( w );
+      details::Tbb_Scaner<Worker,result_type> tbb_w ( w );
 
 #ifndef BOOST_NO_EXCEPTIONS
-            try
-            {
+      try
+      {
 #endif
-             tbb::parallel_reduce( nt2::blocked_range<std::size_t>(begin,begin+size,grain)
-                                  ,tbb_w
-                                 );
+         tbb::parallel_scan( nt2::blocked_range<std::size_t>(begin,begin+size,grain)
+                           , tbb_w
+                           );
 
 #ifndef BOOST_NO_EXCEPTIONS
-            }
-            catch(...)
-            {
-              exception = boost::current_exception();
-            }
+      }
+      catch(...)
+      {
+        exception = boost::current_exception();
+      }
 #endif
 
       return tbb_w.out_;
     }
-
-};
+  };
 }
 
+
 #endif
+
 #endif

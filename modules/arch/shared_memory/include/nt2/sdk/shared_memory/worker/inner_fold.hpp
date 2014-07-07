@@ -51,9 +51,9 @@ namespace nt2
     {}
 
     template<class Out>
-    void operator()(Out & out, std::size_t begin, std::size_t size)
+    Out operator()(Out & out, std::size_t begin, std::size_t size)
     {
-      details::inner_fold_step(out,in_,bop_,std::make_pair(begin,size));
+      return details::inner_fold_step(out,in_,bop_,std::make_pair(begin,size));
     };
 
     In & in_;
@@ -100,7 +100,7 @@ namespace nt2
            vec_out = s( w, k, ibound, grain );
 
         else if( ibound != 0 )
-           w(vec_out, k, ibound);
+           vec_out = w(vec_out, k, ibound);
 
         s_out = uop_( vec_out );
 

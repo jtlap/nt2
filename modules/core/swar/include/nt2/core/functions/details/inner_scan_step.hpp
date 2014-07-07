@@ -6,22 +6,23 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_CORE_FUNCTIONS_DETAILS_INNER_FOLD_STEP_HPP_INCLUDED
-#define NT2_CORE_FUNCTIONS_DETAILS_INNER_FOLD_STEP_HPP_INCLUDED
+#ifndef NT2_CORE_FUNCTIONS_DETAILS_INNER_SCAN_STEP_HPP_INCLUDED
+#define NT2_CORE_FUNCTIONS_DETAILS_INNER_SCAN_STEP_HPP_INCLUDED
 
 /*!
   @file
-  @brief Define and implements the inner_fold_step function
+  @brief Define and implements the inner_scan_step function
 **/
 
 namespace nt2
 {
   /*!
-    @brief PreFold over inner dimension
+    @brief PreScan over inner dimension
 
-    Folds elements of @c a1 along inner dimension, possibly in parallel, and
-    store the result in @c a0.
+    Folds elements of @c a2 along inner dimension, possibly in parallel, and
+    conditionnaly store the result in @c a1.
 
+    @param Summary Value containing the updated summary
     @param Out Expression to store result in
     @param In Expression to reduce
     @param Bop Function to apply for binary reduction, first argument is accumulator
@@ -29,19 +30,19 @@ namespace nt2
   **/
   namespace details
   {
-    template<class Out, class In, class Bop, class Range>
-    inline Out inner_fold_step(Out out, In& in, Bop const& bop, Range const & range)
+    template<class Summary, class Out, class In, class Bop,class Range>
+    inline Summary inner_scan_step(Summary summary, Out& out, In& in, Bop const& bop, Range const & range, bool prescan)
     {
-      static const std::size_t N = boost::simd::meta::cardinal_of<Out>::value;
       std::size_t begin = range.first;
       std::size_t size = range.second;
 
-      BOOST_ASSERT_MSG( (size % N) == 0, "Range for inner_fold_step not divisible by N");
+      for(std::size_t i = begin; i != begin+size; i++)
+      {
+       summary = bop(summary, nt2::run(in, i, meta::as_<Summary>()));
+       if(!prescan) nt2::run(out, i, summary);
+      }
 
-      for(std::size_t i = begin; i != begin+size; i+=N)
-       out = bop(out, nt2::run(in, i, meta::as_<Out>()));
-
-      return out;
+      return summary;
     }
   }
 

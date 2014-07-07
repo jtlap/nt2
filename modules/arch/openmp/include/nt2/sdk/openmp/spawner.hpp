@@ -12,5 +12,6 @@
 
 #include <nt2/sdk/openmp/spawner/transform.hpp>
 #include <nt2/sdk/openmp/spawner/fold.hpp>
+#include <nt2/sdk/openmp/spawner/scan.hpp>
 
 #endif
