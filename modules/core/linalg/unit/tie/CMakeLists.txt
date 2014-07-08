@@ -15,7 +15,6 @@ SET( SOURCES
      qrinsert.cpp
      rref.cpp
      schur.cpp
-     svd_solve.cpp
      symeig.cpp
    )
 
