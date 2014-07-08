@@ -236,7 +236,6 @@ namespace nt2 { namespace ext
                    , const nt2::policy<ext::vector_>&
                    ) const
     {
-      std::cout << "vector" << std::endl;
       typedef typename boost::proto::result_of::child_c<A1&,2>::value_type     child;
       typedef typename child::value_type                                     itype_t;
       typedef nt2::memory::container<tag::table_, itype_t, nt2::_2D>      i_semantic;
@@ -263,7 +262,6 @@ namespace nt2 { namespace ext
                    , const nt2::policy<ext::matrix_>&
                    ) const
     {
-      std::cout << "matrix" << std::endl;
       nt2_la_int info;
       nt2::container::table<type_t> work;
       NT2_AS_TERMINAL_INOUT(o_semantic, lu, boost::proto::child_c<0>(a0), work);
@@ -278,7 +276,7 @@ namespace nt2 { namespace ext
       construct_ip(ls, ip, height(lu));
       boost::proto::child_c<1>(a1) = nt2::triu(lu( nt2::_(1, d), nt2::_) );
       boost::proto::child_c<0>(a1) = nt2::tri1l(lu(nt2::_, nt2::_(1, d) ) );
-      boost::proto::child_c<2>(a1) = eye(d, nt2::meta::as_<rtype_t>())(nt2::_, ip);
+      boost::proto::child_c<2>(a1) = eye(d, nt2::meta::as_<type_t>())(nt2::_, ip);
     }
 
     ////////////////////////////////////////////////////////////////////////////
