@@ -11,8 +11,9 @@
 
 #include <nt2/core/functions/inner_scan.hpp>
 #include <nt2/core/functions/details/inner_scan_step.hpp>
-#include <boost/fusion/include/pop_front.hpp>
 #include <nt2/include/functions/scalar/numel.hpp>
+#include <boost/fusion/include/pop_front.hpp>
+#include <boost/dispatch/meta/ignore_unused.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -69,7 +70,7 @@ namespace nt2 { namespace ext
     {
       extent_type ext = in.extent();
       std::size_t ibound  = boost::fusion::at_c<0>(ext);
-      std::size_t obound =  nt2::numel(boost::fusion::pop_front(ext));
+      //std::size_t obound =  nt2::numel(boost::fusion::pop_front(ext));
       std::size_t begin = range.first;
       std::size_t size  = range.second;
 
@@ -83,6 +84,7 @@ namespace nt2 { namespace ext
          ,std::make_pair(k,ibound)
          ,false
          );
+        boost::dispatch::ignore_unused(res);
       }
     }
   };
