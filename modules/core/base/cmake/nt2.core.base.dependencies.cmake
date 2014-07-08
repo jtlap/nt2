@@ -10,7 +10,6 @@
 SET ( NT2_CORE.BASE_DEPENDENCIES_EXTRA
       boost.dispatch
       boost.simd.base
-      boost.simd.reduction
       boost.simd.sdk
       core.sdk
       sdk.config

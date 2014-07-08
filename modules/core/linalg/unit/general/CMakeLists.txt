@@ -28,6 +28,7 @@ SET( SOURCES
   logm.cpp
   eyeminus.cpp
   eyeplus.cpp
+  trsolve.cpp
   )
 
 nt2_module_add_tests(core.linalg.general.unit ${SOURCES})

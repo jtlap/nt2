@@ -8,7 +8,7 @@
 //==============================================================================
 #include <nt2/include/functions/spence.hpp>
 
-#include <nt2/sdk/unit/exhaustive.hpp>
+#include <nt2/sdk/exhaustive/exhaustive.hpp>
 #include <nt2/include/constants/valmax.hpp>
 #include <nt2/include/constants/zero.hpp>
 

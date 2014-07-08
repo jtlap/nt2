@@ -16,6 +16,8 @@ nt2_module_simd_toolbox(ieee base)
 nt2_module_simd_toolbox(operator base)
 nt2_module_simd_toolbox(predicates base)
 nt2_module_simd_toolbox(constant base)
+nt2_module_simd_toolbox(reduction base)
+nt2_module_simd_toolbox(swar base)
 
 nt2_module_postconfigure(gather_includes ---ignore details --ignore preprocessed
                                          nt2/constant/impl boost/simd/constant/impl

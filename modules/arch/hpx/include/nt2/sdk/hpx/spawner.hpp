@@ -12,5 +12,6 @@
 
 #include <nt2/sdk/hpx/spawner/transform.hpp>
 #include <nt2/sdk/hpx/spawner/fold.hpp>
+#include <nt2/sdk/hpx/spawner/scan.hpp>
 
 #endif

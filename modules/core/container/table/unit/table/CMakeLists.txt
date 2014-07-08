@@ -32,6 +32,7 @@ SET( SOURCES
   resize.cpp
   size.cpp
   subscript.cpp
+  swap.cpp
   sx.cpp
   sxfun.cpp
   table_returning.cpp

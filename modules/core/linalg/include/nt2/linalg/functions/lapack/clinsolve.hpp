@@ -26,17 +26,18 @@
 #include <nt2/include/functions/sycon.hpp>
 #include <nt2/include/functions/pocon.hpp>
 #include <nt2/include/functions/gbcon.hpp>
+#include <nt2/include/functions/trsolve.hpp>
 
 #include <nt2/include/functions/tie.hpp>
 
 #include <nt2/linalg/options.hpp>
-#include <nt2/sdk/meta/concrete.hpp>
 #include <nt2/linalg/functions/details/eval_linsolve.hpp>
 #include <nt2/sdk/meta/settings_of.hpp>
 #include <boost/dispatch/meta/hierarchy_of.hpp>
 #include <nt2/sdk/meta/as_real.hpp>
-
+#include <boost/dispatch/meta/terminal_of.hpp>
 #include <nt2/core/container/table/table.hpp>
+
 
 
 namespace nt2 { namespace ext
@@ -57,115 +58,39 @@ namespace nt2 { namespace ext
     typedef void  result_type;
     typedef typename A0::value_type ctype_t;
     typedef typename nt2::meta::as_real<ctype_t>::type   type_t;
-    typedef typename meta::option<typename A0::settings_type,nt2::tag::shape_>::type shape;
-
+    typedef typename meta::option<typename A0::proto_child0::settings_type,nt2::tag::shape_>::type shape;
+    typedef nt2::memory::container<tag::table_, ctype_t, nt2::settings(nt2::_2D)> desired_semantic;
     typedef nt2::container::table<ctype_t>  entry_type;
     typedef nt2::container::table<ctype_t,shape>  matrix_type;
 
     BOOST_FORCEINLINE result_type operator()( A0 const& a0, A1 const& a1, A2 const& a2  ) const
     {
       nt2::container::table<nt2_la_int> piv;
-      shape_analysis(a0,a1,a2,piv,N2(),shape());
+      eval(a0,a1,a2,piv,N2(),shape());
     }
 
     //==========================================================================
     /// INTERNAL ONLY - Shape analysis
 
-    /// INTERNAL ONLY - Rectangular shape, no usable informations
-    BOOST_FORCEINLINE
-    void shape_analysis ( A0 const& a0, A1 const& a1 , A2 const& a2
-                        , nt2::container::table<nt2_la_int>& piv, N2 const&
-                        , nt2::rectangular_ const&
-                        ) const
-    {
-      eval(a0, a1, a2, piv, N2());
-    }
-
-    /// INTERNAL ONLY - symmetric shape - square matrix
-    BOOST_FORCEINLINE
-    void shape_analysis ( A0 const& a0, A1 const& a1 , A2 const& a2
-                        , nt2::container::table<nt2_la_int>& piv, N2 const&
-                        , nt2::symmetric_ const&
-                        ) const
-    {
-      eval(a0, a1, a2, piv, N2(), shape());
-    }
-
-    /// INTERNAL ONLY - positive definite shape - square matrix
-    BOOST_FORCEINLINE
-    void shape_analysis ( A0 const& a0, A1 const& a1 , A2 const& a2
-                        , nt2::container::table<nt2_la_int>& piv, N2 const&
-                        , nt2::positive_definite_ const&
-                        ) const
-    {
-      eval(a0, a1, a2, piv, N2(), shape());
-    }
-
-    /// INTERNAL ONLY - band diagonal shape - square matrix
-    template<int U, int L>
-    BOOST_FORCEINLINE
-    void shape_analysis ( A0 const& a0, A1 const& a1 , A2 const& a2
-                        , nt2::container::table<nt2_la_int>& piv, N2 const&
-                        , nt2::band_diagonal_<U,L> const&
-                        ) const
-    {
-      eval(a0, a1, a2, piv, N2(), shape());
-    }
-
-    /// INTERNAL ONLY - upper triangular matrix
-    BOOST_FORCEINLINE
-    void shape_analysis ( A0 const& a0, A1 const& a1 , A2 const& a2
-                        , N2 const&
-                        , nt2::upper_triangular_ const&
-                        ) const
-    {
-      eval(a0, a1, a2, N2(), shape());
-    }
-
-    /// INTERNAL ONLY - upper triangular matrix
-    BOOST_FORCEINLINE
-    void shape_analysis ( A0 const& a0, A1 const& a1 , A2 const& a2
-                        , N2 const&
-                        , nt2::lower_triangular_ const&
-                        ) const
-    {
-      eval(a0, a1, a2, N2(), shape());
-    }
-
-    /// INTERNAL ONLY - No info on this shape
-    template<typename sh>
-    BOOST_FORCEINLINE
-    void shape_analysis ( A0 const& a0, A1 const& a1, A2 const& a2
-                        , nt2::container::table<nt2_la_int>& piv, N2 const&
-                        , sh const&
-             ) const
-    {
-      eval(a0, a1, a2, piv, N2());
-    }
-
-    //==========================================================================
     /// INTERNAL ONLY - X = LINSOLVE(A,B) - rectangular shape
     BOOST_FORCEINLINE
     void eval ( A0 const& a0, A1 const& a1 , A2 const& a2, nt2::container::table<nt2_la_int>& piv
-              , boost::mpl::long_<1> const&
+              , boost::mpl::long_<1> const&, nt2::rectangular_ const&
               ) const
     {
-      entry_type work(a1);
+      NT2_AS_TERMINAL_INOUT(desired_semantic,b,a1,boost::proto::child_c<0>(a2) );
       entry_type entry(a0);
-
-      eval_param( a0, a1, work);
+      eval_param( a0, a1, b);
 
       if (issquare(entry)) nt2::gesv(boost::proto::value(entry)
-                           ,boost::proto::value(piv), boost::proto::value(work));
+                           ,boost::proto::value(piv), boost::proto::value(b));
 
       else {
         nt2_la_int n = nt2::width(a0);
         piv = nt2::zeros(n,1, nt2::meta::as_<nt2_la_int>());
         nt2::gelsy( boost::proto::value(entry) ,boost::proto::value(piv)
-                , boost::proto::value(work) );
+                , boost::proto::value(b) );
       }
-
-      boost::proto::child_c<0>(a2) = work;
     }
 
     //==========================================================================
@@ -175,12 +100,10 @@ namespace nt2 { namespace ext
               , boost::mpl::long_<1> const&, nt2::positive_definite_ const&
               ) const
     {
-      entry_type work(a1);
+      NT2_AS_TERMINAL_INOUT(desired_semantic,b,a1,boost::proto::child_c<0>(a2) );
       matrix_type entry(a0);
 
-      nt2::posv(boost::proto::value(entry), boost::proto::value(work));
-
-      boost::proto::child_c<0>(a2) = work;
+      nt2::posv(boost::proto::value(entry), boost::proto::value(b));
     }
 
     //==========================================================================
@@ -190,13 +113,11 @@ namespace nt2 { namespace ext
               , boost::mpl::long_<1> const&, nt2::symmetric_ const&
               ) const
     {
-      entry_type work(a1);
+      NT2_AS_TERMINAL_INOUT(desired_semantic,b,a1,boost::proto::child_c<0>(a2) );
       matrix_type entry(a0);
 
       nt2::sysv( boost::proto::value(entry),boost::proto::value(piv)
-              , boost::proto::value(work));
-
-      boost::proto::child_c<0>(a2) = work;
+              , boost::proto::value(b));
     }
 
     //==========================================================================
@@ -207,13 +128,31 @@ namespace nt2 { namespace ext
               , boost::mpl::long_<1> const&, nt2::band_diagonal_<U,L> const&
               ) const
     {
-      entry_type work(a1);
+      NT2_AS_TERMINAL_INOUT(desired_semantic,b,a1,boost::proto::child_c<0>(a2) );
       matrix_type entry(a0);
 
       nt2::gbsv( boost::proto::value(entry),boost::proto::value(piv)
-              , boost::proto::value(work));
+              , boost::proto::value(b));
+    }
 
-      boost::proto::child_c<0>(a2) = work;
+    //==========================================================================
+    /// INTERNAL ONLY - X = LINSOLVE(A,B) -- upper triangular shape
+    BOOST_FORCEINLINE
+    void eval ( A0 const& a0, A1 const& a1 , A2 const& a2, nt2::container::table<nt2_la_int>&
+              , boost::mpl::long_<1> const&, nt2::upper_triangular_ const&
+              ) const
+    {
+      boost::proto::child_c<0>(a2) = nt2::trsolve(a0,a1);
+    }
+
+    //==========================================================================
+    /// INTERNAL ONLY - X = LINSOLVE(A,B) -- lower triangular shape
+    BOOST_FORCEINLINE
+    void eval ( A0 const& a0, A1 const& a1 , A2 const& a2, nt2::container::table<nt2_la_int>&
+              , boost::mpl::long_<1> const&, nt2::lower_triangular_ const&
+              ) const
+    {
+      boost::proto::child_c<0>(a2) = nt2::trsolve(a0,a1);
     }
 
     //==========================================================================
@@ -223,31 +162,30 @@ namespace nt2 { namespace ext
               , boost::mpl::long_<2> const&
               ) const
     {
-      entry_type work(a1);
+      NT2_AS_TERMINAL_INOUT(desired_semantic,b,a1,boost::proto::child_c<0>(a2) );
       matrix_type entry(a0);
 
-      eval_param( a0, a1, boost::proto::child_c<0>(a2));
+      eval_param( entry, a1, boost::proto::child_c<0>(a2));
 
       if (issquare(entry))
       {
         nt2::gesv( boost::proto::value(entry), boost::proto::value(piv)
-               , boost::proto::value(work) );
+               , boost::proto::value(b) );
         char norm = '1';
-        type_t anorm = nt2::lange(boost::proto::value(a0),norm);
+
+        type_t anorm = nt2::lange(boost::proto::value(entry),norm);
         boost::proto::child_c<1>(a2) = nt2::gecon(boost::proto::value(entry),norm,anorm);
       }
       else
       {
         nt2_la_int rank;
-        nt2_la_int n = nt2::width(a0);
+        nt2_la_int n = nt2::width(entry);
         piv = nt2::zeros(n,1, nt2::meta::as_<nt2_la_int>());
 
         nt2::gelsy( boost::proto::value(entry), boost::proto::value(piv)
-                , boost::proto::value(work), rank);
+                , boost::proto::value(b), rank);
         boost::proto::child_c<1>(a2) = static_cast<type_t>(rank);
       }
-
-      boost::proto::child_c<0>(a2) = work;
     }
 
     //==========================================================================
@@ -257,21 +195,20 @@ namespace nt2 { namespace ext
               , boost::mpl::long_<2> const&, nt2::symmetric_ const&
               ) const
     {
-      entry_type work(a1);
+      NT2_AS_TERMINAL_INOUT(desired_semantic,b,a1,boost::proto::child_c<0>(a2) );
       matrix_type entry(a0);
       char norm = '1';
 
-      piv = nt2::zeros(a0.leading_size(), 1, nt2::meta::as_<nt2_la_int>() );
+      piv = nt2::zeros(entry.leading_size(), 1, nt2::meta::as_<nt2_la_int>() );
 
       typedef typename meta::hierarchy_of<nt2::symmetric_>::stripped h_;
 
-      type_t anorm = nt2::lange(boost::proto::value(a0), norm, h_());
+      type_t anorm = nt2::lange(boost::proto::value(entry), norm, h_());
 
       nt2::sysv( boost::proto::value(entry),boost::proto::value(piv)
-              , boost::proto::value(work));
+              , boost::proto::value(b));
       boost::proto::child_c<1>(a2) = nt2::sycon( boost::proto::value(entry)
                                                , boost::proto::value(piv) ,anorm);
-      boost::proto::child_c<0>(a2) = work;
     }
 
     //==========================================================================
@@ -281,16 +218,14 @@ namespace nt2 { namespace ext
               , boost::mpl::long_<2> const&, nt2::positive_definite_ const&
               ) const
     {
-      entry_type work(a1);
+      NT2_AS_TERMINAL_INOUT(desired_semantic,b,a1,boost::proto::child_c<0>(a2) );
       matrix_type entry(a0);
 
       char norm = '1';
       typedef typename meta::hierarchy_of<nt2::symmetric_>::stripped h_;
-      type_t anorm = nt2::lange(boost::proto::value(a0) ,norm, h_());
-      nt2::posv(boost::proto::value(entry), boost::proto::value(work));
+      type_t anorm = nt2::lange(boost::proto::value(entry) ,norm, h_());
+      nt2::posv(boost::proto::value(entry), boost::proto::value(b));
       boost::proto::child_c<1>(a2) = nt2::pocon(boost::proto::value(entry),anorm);
-
-      boost::proto::child_c<0>(a2) = work;
     }
 
     //==========================================================================
@@ -301,18 +236,28 @@ namespace nt2 { namespace ext
               , boost::mpl::long_<2> const&, nt2::band_diagonal_<U,L> const&
               ) const
     {
-      entry_type work(a1);
+      NT2_AS_TERMINAL_INOUT(desired_semantic,b,a1,boost::proto::child_c<0>(a2) );
       matrix_type entry(a0);
 
       char norm = '1';
-      type_t anorm = nt2::langb(boost::proto::value(a0),norm);
+
+      type_t anorm = nt2::langb(boost::proto::value(entry),norm);
       nt2::gbsv( boost::proto::value(entry), boost::proto::value(piv)
-              , boost::proto::value(work));
+              , boost::proto::value(b));
       boost::proto::child_c<1>(a2) = nt2::gbcon( boost::proto::value(entry)
                                                , boost::proto::value(piv),anorm);
 
-      boost::proto::child_c<0>(a2) = work;
     }
+
+    /// INTERNAL ONLY - X = LINSOLVE(A,B) - default case
+    template<typename N, typename sh> BOOST_FORCEINLINE
+    void eval ( A0 const& a0, A1 const& a1 , A2 const& a2, nt2::container::table<nt2_la_int>& piv
+              , N const&, sh const&
+              ) const
+    {
+      eval(a0,a1,a2,piv,boost::mpl::long_<1>() ,nt2::rectangular_());
+    }
+
   };
 } }
 

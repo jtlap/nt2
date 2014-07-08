@@ -14,14 +14,15 @@
 #include <nt2/include/functions/clinsolve.hpp>
 #include <nt2/include/functions/plinsolve.hpp>
 #include <nt2/include/functions/mlinsolve.hpp>
+#include <nt2/include/functions/mtimes.hpp>
 #include <nt2/include/functions/tie.hpp>
 #include <nt2/sdk/meta/settings_of.hpp>
-#include <nt2/sdk/meta/concrete.hpp>
 #include <nt2/linalg/options.hpp>
 #include <nt2/sdk/meta/as_real.hpp>
 
 namespace nt2 { namespace ext
 {
+
   //============================================================================
   // LINSOLVE
   //============================================================================
@@ -60,12 +61,12 @@ namespace nt2 { namespace ext
 
     //==========================================================================
     /// INTERNAL ONLY - X-R = LINSOLVE(A,B)
-    BOOST_FORCEINLINE
-    void eval ( A0 const& a0, A1 const& a1 , boost::mpl::long_<2> const&
+    template<typename N> BOOST_FORCEINLINE
+    void eval ( A0 const& a0, A1 const& a1 , N const&
               , boost::mpl::long_<2> const&
               ) const
     {
-      nt2::clinsolve( boost::proto::child_c<0>(a0) // A
+      nt2::plinsolve( boost::proto::child_c<0>(a0) // A
                     , boost::proto::child_c<1>(a0) // B
                     , nt2::tie( boost::proto::child_c<0>(a1)
                               , boost::proto::child_c<1>(a1) )
@@ -103,7 +104,7 @@ namespace nt2 { namespace ext
     {
       nt2::plinsolve( boost::proto::child_c<0>(a0) // A
                     , boost::proto::child_c<1>(a0) // B
-                    , boost::proto::child_c<0>(a1) // X
+                    , nt2::tie(boost::proto::child_c<0>(a1) ) // X
                     );
     }
 

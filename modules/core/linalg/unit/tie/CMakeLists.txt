@@ -15,9 +15,7 @@ SET( SOURCES
      qrinsert.cpp
      rref.cpp
      schur.cpp
-     svd_solve.cpp
      symeig.cpp
-     tr_solve.cpp
    )
 
 nt2_module_add_tests(core.linalg.tie.unit ${SOURCES})

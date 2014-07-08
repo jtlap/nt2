@@ -37,7 +37,7 @@ namespace nt2
     @return
   **/
   NT2_FUNCTION_IMPLEMENTATION_TPL (tag::plinsolve_, plinsolve
-                                  , (A0 const&)(A1 const&)(A2&)
+                                  , (A0 const&)(A1 const&)(A2 const&)
                                   , 3
                                   );
 }

@@ -18,8 +18,15 @@ namespace nt2
   //============================================================================
 
   struct rectangular_;
-  struct upper_triangular_    {};
-  struct lower_triangular_    {};
+  struct upper_triangular_
+  {
+    static const char id_value = 'U';
+  };
+
+  struct lower_triangular_
+  {
+    static const char id_value = 'L';
+  };
   template<int U,int L> struct band_diagonal_
   {
     static const int ud = U;

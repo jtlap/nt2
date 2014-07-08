@@ -48,7 +48,7 @@ namespace nt2
 
         void operator()(nt2::blocked_range<std::size_t> const& r)
         {
-            w_(out_,r.begin(),r.size());
+            out_ = w_(out_,r.begin(),r.size());
         };
 
         void join(Tbb_Folder& rhs) { out_ = w_.bop_(out_, rhs.out_); }

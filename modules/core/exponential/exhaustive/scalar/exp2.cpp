@@ -10,7 +10,7 @@
 #include <nt2/include/constants/minlog2.hpp>
 #include <nt2/include/constants/maxlog2.hpp>
 
-#include <nt2/sdk/unit/exhaustive.hpp>
+#include <nt2/sdk/exhaustive/exhaustive.hpp>
 extern "C" {double cephes_exp2(double x); }
 
 #define NT2_ASSERTS_AS_TRAP

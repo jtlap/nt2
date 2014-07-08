@@ -45,14 +45,8 @@ namespace nt2 { namespace ext
     typedef typename boost::proto::result_of::value<child1>::type        type_t;
     typedef typename meta::is_scalar<type_t>::type                     choice_t;
 
-    typedef typename boost::dispatch::meta::
-            terminal_of< typename boost::dispatch::meta::
-                         semantic_of<child0>::type
-                       >::type                                            in0_t;
-    typedef typename boost::dispatch::meta::
-            terminal_of< typename boost::dispatch::meta::
-                         semantic_of<child10>::type
-                       >::type                                            out_t;
+    typedef typename boost::dispatch::meta::terminal_of<child0>::type   in0_t;
+    typedef typename boost::dispatch::meta::terminal_of<child10>::type  out_t;
 
     typedef typename out_t::value_type                                  value_t;
 

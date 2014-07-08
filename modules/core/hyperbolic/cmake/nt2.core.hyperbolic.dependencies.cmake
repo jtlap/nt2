@@ -14,7 +14,6 @@ SET ( NT2_CORE.HYPERBOLIC_DEPENDENCIES_EXTRA
       core.base
       core.exponential
       core.polynomials
-      core.reduction
       core.sdk
       sdk.functor
       sdk.meta

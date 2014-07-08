@@ -11,6 +11,7 @@
 
 #include <nt2/core/container/dsl/forward.hpp>
 #include <boost/dispatch/dsl/semantic_of.hpp>
+#include <boost/dispatch/meta/terminal_of.hpp>
 #include <nt2/core/settings/add_settings.hpp>
 #include <nt2/core/settings/option.hpp>
 #include <nt2/sdk/meta/settings_of.hpp>
@@ -24,6 +25,12 @@ namespace boost { namespace dispatch { namespace meta
   struct semantic_of< nt2::container::expression<Expr, ResultType> >
   {
     typedef ResultType type;
+  };
+
+  template<typename Expr, typename ResultType>
+  struct terminal_of< nt2::container::expression<Expr, ResultType> >
+  {
+    typedef typename terminal_of<ResultType>::type type;
   };
 } } }
 

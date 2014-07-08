@@ -14,9 +14,7 @@ SET ( NT2_CORE.TRIGONOMETRIC_DEPENDENCIES_EXTRA
       boost.simd.sdk
       core.base
       core.polynomials
-      core.reduction
       core.sdk
-      core.swar
       sdk.functor
       sdk.meta
       sdk.simd

@@ -53,6 +53,26 @@ namespace nt2
                            >
     {
     };
+
+    /*!
+      @brief Is an expression a container terminal
+
+      Checks if a given type T is a terminal holding a container.
+
+      @tparam T Type to check
+    **/
+    template<class T, long Arity = T::proto_arity_c>
+    struct is_container_terminal
+         : boost::mpl::false_
+    {
+    };
+
+    /// INTERNAL ONLY
+    template<class T>
+    struct is_container_terminal<T, 0l>
+         : meta::is_container<typename T::proto_child0>
+    {
+    };
   }
 }
 

@@ -10,17 +10,18 @@
 #define NT2_LINALG_FUNCTIONS_LAPACK_MLINSOLVE_HPP_INCLUDED
 
 #include <nt2/linalg/functions/mlinsolve.hpp>
-#include <nt2/linalg/functions/clinsolve.hpp>
+#include <nt2/include/functions/clinsolve.hpp>
 #include <nt2/include/functions/gemsv.hpp>
+#include <nt2/include/functions/mcsne.hpp>
 #include <nt2/include/functions/pomsv.hpp>
+#include <nt2/include/functions/of_size.hpp>
 #include <nt2/linalg/options.hpp>
-#include <nt2/sdk/meta/concrete.hpp>
 #include <nt2/sdk/meta/settings_of.hpp>
 #include <nt2/include/functions/tie.hpp>
 #include <nt2/sdk/meta/as_real.hpp>
-
+#include <boost/proto/traits.hpp>
 #include <nt2/core/container/table/table.hpp>
-
+#include <boost/dispatch/meta/terminal_of.hpp>
 #include <boost/dispatch/meta/ignore_unused.hpp>
 
 namespace nt2 { namespace ext
@@ -39,73 +40,68 @@ namespace nt2 { namespace ext
     typedef typename A0::value_type ctype_t;
     typedef typename nt2::meta::as_real<ctype_t>::type   type_t;
     typedef typename meta::option<typename A0::settings_type,nt2::tag::shape_>::type shape;
-
-    typedef nt2::container::table<ctype_t>  entry_type;
+    typedef nt2::memory::container<tag::table_, ctype_t, nt2::settings(nt2::_2D,shape)> desired_semantic1;
+    typedef nt2::memory::container<tag::table_, ctype_t, nt2::settings(nt2::_2D)> desired_semantic;
     typedef nt2::container::table<ctype_t,shape>  matrix_type;
 
     BOOST_FORCEINLINE result_type operator()( A0 const& a0, A1 const& a1, A2& a2 ) const
     {
-      shape_analysis(a0,a1,a2,shape());
+      const type_t x = type_t(0);
+      eval(a0,a1,a2,x,shape());
     }
-
     //==========================================================================
     /// INTERNAL ONLY - Shape analysis
 
+    /// INTERNAL ONLY - Rectangular shape
     BOOST_FORCEINLINE
-    void shape_analysis ( A0 const& a0, A1 const& a1 , A2& a2
-                        , nt2::rectangular_ const&
-                        ) const
+    void eval ( A0 const& a0, A1 const& a1 , A2& a2, double const, nt2::rectangular_ const&) const
     {
-      eval(a0, a1, a2);
-    }
+      nt2_la_int m   = boost::fusion::at_c<0>( a0.extent() );
+      nt2_la_int n   = boost::fusion::at_c<1>( a0.extent() );
+      nt2_la_int nb   = boost::fusion::at_c<1>( a1.extent() );
 
+      if (m>n)
+      {
+      NT2_AS_TERMINAL_IN(desired_semantic1,a,a0);
+      NT2_AS_TERMINAL_IN(desired_semantic,b,a1);
 
-    BOOST_FORCEINLINE
-    void shape_analysis ( A0 const& a0, A1 const& a1, A2& a2
-                        , nt2::positive_definite_ const&
-                        ) const
-    {
-      entry_type var(a2);
+      a2 = nt2::mcsne(a,b);
+      }
+      else
+      {
+      // Copy of matrix a is costly and should be avoided
       matrix_type entry(a0);
-      nt2_la_int iter = nt2::pomsv( boost::proto::value(entry)
-                                  , boost::proto::value(a1) ,var);
-      boost::dispatch::ignore_unused(iter);
-      a2 = var;
-    }
-
-    template<typename sh>
-    BOOST_FORCEINLINE
-    void shape_analysis ( A0 const& a0, A1 const& a1, A2& a2
-                        , sh const&
-                        ) const
-    {
-      eval(a0, a1, a2);
-    }
-    //==========================================================================
-    /// INTERNAL ONLY -
-    BOOST_FORCEINLINE
-    void eval ( A0 const& a0, A1 const& a1 , A2& a2) const
-    {
-      const type_t x = type_t(0);
-      eval(a0,a1,a2,x);
-    }
-
-    //==========================================================================
-    /// INTERNAL ONLY - Solve with no shape info Todo : Analyse shape
-    BOOST_FORCEINLINE
-    void eval ( A0 const& a0, A1 const& a1 , A2& a2, double const) const
-    {
-      entry_type entry(a0);
+      NT2_AS_TERMINAL_IN(desired_semantic,b,a1);
+      a2.resize(nt2::of_size(m,nb));
       nt2_la_int iter = nt2::gemsv(boost::proto::value(entry)
-                       ,boost::proto::value(a1),boost::proto::value(a2) );
+                       ,boost::proto::value(b),boost::proto::value(a2) );
+      boost::dispatch::ignore_unused(iter);
+      }
+
+    }
+
+    /// INTERNAL ONLY - Positive definite shape
+    BOOST_FORCEINLINE
+    void eval ( A0 const& a0, A1 const& a1 , A2& a2, double const, nt2::positive_definite_ const&) const
+    {
+      nt2_la_int m   = boost::fusion::at_c<0>( a0.extent() );
+      nt2_la_int n   = boost::fusion::at_c<1>( a1.extent() );
+
+      matrix_type entry(a0);
+      NT2_AS_TERMINAL_IN(desired_semantic,b,a1);
+      a2.resize(nt2::of_size(m,n));
+      nt2_la_int iter = nt2::pomsv( boost::proto::value(entry)
+                                  , boost::proto::value(b),a2);
       boost::dispatch::ignore_unused(iter);
     }
 
-    /// INTERNAL ONLY -
-    void eval ( A0 const& a0, A1 const& a1 , A2& a2, float const) const
+    /// INTERNAL ONLY - Default case
+    template<typename T, typename sh> BOOST_FORCEINLINE
+    void eval ( A0 const& a0, A1 const& a1 , A2& a2, T const, sh const&) const
     {
       nt2::clinsolve(a0,a1,nt2::tie(a2));
     }
+
   };
 
 

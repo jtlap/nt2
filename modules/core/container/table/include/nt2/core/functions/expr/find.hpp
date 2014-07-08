@@ -78,15 +78,9 @@ namespace nt2 { namespace ext
     typedef void                                                    result_type;
     typedef typename boost::proto::result_of::child_c<A0&,0>::type       child0;
     typedef typename boost::proto::result_of::child_c<A1&,0>::type       child1;
-    typedef typename boost::dispatch::meta::
-      terminal_of< typename boost::dispatch::meta::
-      semantic_of<child0>::type
-      >::type                                            in0_t;
-    typedef typename in0_t::value_type              value_type;
-    typedef typename boost::dispatch::meta::
-      terminal_of< typename boost::dispatch::meta::
-      semantic_of<child1>::type
-      >::type                                            out_t;
+    typedef typename boost::dispatch::meta::terminal_of<child0>::type    in0_t;
+    typedef typename in0_t::value_type                              value_type;
+    typedef typename boost::dispatch::meta::terminal_of<child1>::type    out_t;
     typedef typename out_t::value_type              index_type;
     typedef typename boost::dispatch::meta::as_integer<value_type, unsigned>::type  idx_t;
 
