@@ -239,9 +239,6 @@ namespace nt2 { namespace ext
       char trans = A1::proto_child3::proto_child0::call();
       char uplo  = boost::proto::value(boost::proto::child_c<4>(a1));
       T alpha    = boost::proto::value(boost::proto::child_c<2>(a1));
-      nt2_la_int m   = boost::fusion::at_c<0>( (boost::proto::child_c<0>(a1)).extent() );
-      nt2_la_int n   = boost::fusion::at_c<1>( (boost::proto::child_c<0>(a1)).extent() );
-      nt2_la_int ldb = boost::fusion::at_c<0>( (boost::proto::child_c<1>(a1)).extent() );
 
       NT2_AS_TERMINAL_INOUT(desired_semantic1,result,boost::proto::child_c<1>(a1),a0);
       NT2_AS_TERMINAL_IN(desired_semantic,child0,boost::proto::child_c<0>(a1));

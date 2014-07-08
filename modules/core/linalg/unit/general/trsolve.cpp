@@ -183,7 +183,7 @@ NT2_TEST_EQUAL( temp(_(3,5)), x);
 }
 
 template<class Expr>
-void test_is_terminal_shared(Expr const& expr)
+void test_is_terminal_shared(Expr const&)
 {
   std::cout << "is_terminal: " << (Expr::proto_arity_c == 0) << std::endl;
   std::cout << "is_terminal_shared: " << nt2::meta::is_terminal_shared<Expr const&>::value << std::endl;
