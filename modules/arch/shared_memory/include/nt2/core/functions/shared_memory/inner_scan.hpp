@@ -36,7 +36,7 @@ namespace nt2 { namespace ext
     typedef typename Out::value_type                                          value_type;
 
     BOOST_FORCEINLINE result_type
-    operator()(Out& out, In& in, Neutral const& neutral, Bop const& bop, Uop const& uop) const
+    operator()(Out& out, In& in, Neutral const& neutral, Bop const& bop, Uop const& /*uop*/) const
     {
 
       extent_type ext = in.extent();
