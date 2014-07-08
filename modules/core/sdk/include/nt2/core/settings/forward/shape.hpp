@@ -17,21 +17,32 @@ namespace nt2
    **/
   //============================================================================
 
-  struct rectangular_;
-  struct upper_triangular_
+  namespace details
   {
-    static const char id_value = 'U';
-  };
+    template<const char C>
+    struct shape_impl
+    {
+      static const char id_value = C;
+    };
 
-  struct lower_triangular_
-  {
-    static const char id_value = 'L';
-  };
-  template<int U,int L> struct band_diagonal_
+    template<const char C>
+    const char shape_impl<C>::id_value;
+  }
+
+  struct rectangular_;
+  struct upper_triangular_ : details::shape_impl<'U'> {};
+  struct lower_triangular_ : details::shape_impl<'L'> {};
+
+  template<int U, int L> struct band_diagonal_
   {
     static const int ud = U;
     static const int ld = L;
   };
+  template<int U, int L>
+  const int band_diagonal_<U, L>::ud;
+  template<int U, int L>
+  const int band_diagonal_<U, L>::ld;
+
   struct diagonal_            {};
   struct positive_definite_   {};
   struct uhess_               {};
