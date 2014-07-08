@@ -14,27 +14,18 @@
 #include <nt2/sdk/memory/container.hpp>
 
 /*!
- * \ingroup algebra
- * \defgroup algebra_norm norm
- *
- * \par Description
- * Elementary Least square
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/norm.hpp>
- * \endcode
- *
- *
- * \param a the matrix or vector expression a
- *
- * \param type of norm required
- *
- * \par Notes
- *   Call the dedicated lapack routines available on the target.
- * \par
- *
+ norm rationale
+ norm is here to mimick the behaviour of the correponding Matlab function
+ norm(x, p) computes
+
+ p                                matrix                    vector
+ 1                                max(sum(abs(x)))          sum(abs(x))
+ 2                                max(svd(x))               sum(abs(x).^2)^(1/2)
+ p numeric finite positive            _                     sum(abs(x).^p)^(1/p)
+ inf                              max(sum(abs(x')))         max(abs(x))
+ -inf                                 _                     min(abs(x))
+ 'fro'                            sqrt(sum(diag(x'*x)))     norm(x)
+
 **/
 
 namespace nt2 { namespace tag

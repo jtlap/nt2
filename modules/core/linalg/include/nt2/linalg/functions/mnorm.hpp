@@ -94,7 +94,7 @@ namespace nt2 { namespace tag
     return mnorm(a, nt2::meta::as_<T>());
   }
   /// @overload
-  template < int Value, class A>
+  template < int Value, typename A>
   BOOST_FORCEINLINE
   typename meta::as_real<typename A::value_type>::type
   mnorm(const A& a)
@@ -116,3 +116,13 @@ namespace nt2
 
 #endif
 
+// dynamic
+// mnorm(a, 1)
+// mnorm(a, 2)
+// mnorm(a, Inf<T>())
+// mnorm(a, nt2::fro_)
+// static
+// mnorm<1>(a) or mnorm<One>(a)
+// mnorm<2>(a) or mnorm<Two>(a)
+// mnorm<Inf>(a)
+// mnorm<fro_>(a)

@@ -28,7 +28,6 @@
 #include <boost/mpl/bool.hpp>
 #include <boost/static_assert.hpp>
 
-
 namespace nt2 {  namespace ext
 {
 
@@ -141,6 +140,11 @@ namespace nt2 {  namespace ext
       return nt2::mnorminf(a0);
     }
     BOOST_FORCEINLINE result_type eval(A0 const &a0
+                                      , nt2::meta::as_<tag::inf_> const&) const
+    {
+      return nt2::mnorminf(a0);
+    }
+    BOOST_FORCEINLINE result_type eval(A0 const &a0
                                       , nt2::meta::as_<tag::One> const&) const
     {
       return nt2::mnorm1(a0);
@@ -168,12 +172,14 @@ namespace nt2 {  namespace ext
     typedef typename meta::as_real<type_t>::type result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const &a0, A1 const&) const
     {
+      typedef typename A1::type itype_t;
       // outside of Inf,  Minf,  One and Two no hope
-      BOOST_ASSERT_MSG((A1::Value == Two<A1>()) ||
-                       (A1::Value == One<A1>()) ||
-                       (A1::Value == Zero<A1>()) ||
-                       (A1::Value == Mone<A1>())
-                      , "Norm Value must be 1 2 0 (Inf) or -1 (Fro)" );
+      BOOST_ASSERT_MSG(nt2::ismatrix(a0), "a0 is not a matrix");
+      BOOST_STATIC_ASSERT_MSG((A1::value == 2) ||
+                              (A1::value == 1) ||
+                              (A1::value == 0) ||
+                              (A1::value == -1)
+                             , "Norm value must be 1 2 0 (inf_) or -1 (fro_)" );
       return eval(a0, A1());
     }
 
