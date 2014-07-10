@@ -23,7 +23,7 @@
 #include <nt2/include/functions/isempty.hpp>
 #include <nt2/include/functions/is_gtz.hpp>
 #include <nt2/include/functions/minusone.hpp>
-#include <nt2/include/functions/norm.hpp>
+#include <nt2/include/functions/globalnorm2.hpp>
 #include <nt2/include/functions/numel.hpp>
 #include <nt2/include/functions/oneminus.hpp>
 #include <nt2/include/functions/oneplus.hpp>
@@ -62,7 +62,7 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type operator()(A0 n, A1 k, T const& tgt) const
     {
       tab_t x0 = nt2::rand(std::size_t(1), std::size_t(n), tgt);
-      v_t   f  = nt2::sqrt(v_t(n))/nt2::norm(x0);
+      v_t   f  = nt2::sqrt(v_t(n))/nt2::globalnorm2(x0);
       x0 *= f;
 
       return  boost::proto::

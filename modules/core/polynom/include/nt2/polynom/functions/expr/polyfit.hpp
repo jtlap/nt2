@@ -20,7 +20,7 @@
 #include <nt2/include/functions/colvect.hpp>
 #include <nt2/include/functions/rowvect.hpp>
 #include <nt2/include/functions/linsolve.hpp>
-#include <nt2/include/functions/norm.hpp>
+#include <nt2/include/functions/globalnorm2.hpp>
 #include <nt2/include/functions/length.hpp>
 #include <nt2/include/functions/oneplus.hpp>
 #include <nt2/include/functions/subs.hpp>
@@ -114,7 +114,7 @@ namespace nt2 {
         s.r = nt2::triu(fact(nt2::_(1, std::min(nt2::height(fact),nt2::width(fact))), nt2::_) );
         p.resize(of_size(nt2::width(vnd),1u ));
         s.df = nt2::subs(nt2::length(y), nt2::oneplus(l));
-        s.normr = nt2::norm(colvect(y)-nt2::mtimes(vnd, p));
+        s.normr = nt2::globalnorm2(colvect(y)-nt2::mtimes(vnd, p));
       }
 
       BOOST_FORCEINLINE
@@ -136,7 +136,7 @@ namespace nt2 {
         r = nt2::triu(fact(nt2::_(1, std::min(nt2::height(fact),nt2::width(fact))), nt2::_) );
         p.resize(of_size(nt2::width(vnd),1u ));
         df = df_type(nt2::subs(nt2::numel(y), l));
-        normr = nt2::norm(colvect(y)-nt2::mtimes(vnd, p));
+        normr = nt2::globalnorm2(colvect(y)-nt2::mtimes(vnd, p));
       }
 
       BOOST_FORCEINLINE
@@ -162,7 +162,7 @@ namespace nt2 {
         r = nt2::triu(fact(nt2::_(1, std::min(nt2::height(fact),nt2::width(fact))), nt2::_) );
         p.resize(of_size(nt2::width(vnd),1u ));
         df = df_type(nt2::subs(nt2::numel(y), l));
-        normr = nt2::norm(colvect(y)-nt2::mtimes(vnd, p));
+        normr = nt2::globalnorm2(colvect(y)-nt2::mtimes(vnd, p));
       }
 
 

@@ -14,7 +14,7 @@
 #include <nt2/include/functions/getri.hpp>
 #include <nt2/include/functions/run.hpp>
 #include <nt2/include/functions/rec.hpp>
-#include <nt2/include/functions/norm.hpp>
+#include <nt2/include/functions/mnorm1.hpp>
 #include <nt2/include/functions/extent.hpp>
 #include <nt2/include/functions/issquare.hpp>
 #include <nt2/core/container/table/table.hpp>
@@ -67,7 +67,7 @@ namespace nt2 { namespace ext
     template<typename V, typename L>
     static base_t rcond_(V const& a0, L const& lu)
     {
-      return nt2::rec(nt2::norm(a0, 1) * nt2::norm(lu, 1));
+      return nt2::rec(nt2::mnorm1(a0) * nt2::mnorm1(lu));
     }
   };
 

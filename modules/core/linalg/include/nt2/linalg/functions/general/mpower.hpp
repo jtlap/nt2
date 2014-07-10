@@ -37,7 +37,6 @@
 #include <nt2/include/functions/transpose.hpp>
 #include <nt2/include/functions/conj.hpp>
 #include <nt2/include/functions/size.hpp>
-#include <nt2/include/functions/norm.hpp>
 #include <nt2/include/functions/isscalar.hpp>
 #include <nt2/include/functions/issquare.hpp>
 #include <nt2/include/functions/real.hpp>

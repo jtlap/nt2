@@ -12,7 +12,7 @@
 #include <nt2/linalg/functions/house.hpp>
 #include <nt2/include/functions/assign.hpp>
 #include <nt2/include/functions/tie.hpp>
-#include <nt2/include/functions/norm.hpp>
+#include <nt2/include/functions/globalnorm2.hpp>
 #include <nt2/include/functions/colon.hpp>
 #include <nt2/include/functions/hypot.hpp>
 #include <nt2/include/functions/isreal.hpp>
@@ -95,7 +95,7 @@ namespace nt2 { namespace ext
       value_t& beta =   boost::proto::child_c<1>(a1);
       value_t& s    =   boost::proto::child_c<2>(a1);
       v = nt2::colvect(x);
-      real_t nrmx2n = nt2::norm(v(nt2::_(2, n)));
+      real_t nrmx2n = nt2::globalnorm2(v(nt2::_(2, n)));
       real_t nrmx = nt2::hypot(x(1), nrmx2n);
       // Quit if x is the zero vector.
       if (nrmx == 0)
