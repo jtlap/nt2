@@ -12,7 +12,7 @@
 #include <nt2/linalg/functions/llspgen.hpp>
 #include <nt2/include/functions/tie.hpp>
 #include <nt2/include/functions/rand.hpp>
-#include <nt2/include/functions/norm.hpp>
+#include <nt2/include/functions/globalnorm2.hpp>
 #include <nt2/include/functions/eye.hpp>
 #include <nt2/include/functions/mtimes.hpp>
 #include <nt2/include/functions/pow.hpp>
@@ -93,9 +93,9 @@ namespace nt2 { namespace ext
     nt2::container::table<type_t> y = nt2::rand(m,1,tgt);
     nt2::container::table<type_t> z = nt2::rand(n,1,tgt);
 
-    type_t norm = (type_t)1./(nt2::norm(c)*nr);
-    c = c*norm ; norm = type_t(1)/nt2::norm(y);
-    y = y*norm ; norm = type_t(1)/nt2::norm(z);
+    type_t norm = (type_t)1./(nt2::globalnorm2(c)*nr);
+    c = c*norm ; norm = type_t(1)/nt2::globalnorm2(y);
+    y = y*norm ; norm = type_t(1)/nt2::globalnorm2(z);
     z = z*norm ;
 
     nt2::container::table<type_t> Y = nt2::eye(m,tgt) - type_t(2)*nt2::mtimes(y,nt2::trans(y));
