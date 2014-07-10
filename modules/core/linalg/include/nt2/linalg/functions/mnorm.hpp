@@ -49,21 +49,21 @@ namespace nt2 { namespace tag
     |-------------------|-------------------|------------------------------|-------------------|
     | mnorm(a0, p)                                                                             |
     |-------------------|-------------------|------------------------------|-------------------|
-    |    static p       |  dynamic p        |     formula                  |  equivalent to    |
+    |    static p       |  dynamic p        |     formula  (pseudo-code)   |  equivalent to    |
     |-------------------|-------------------|------------------------------|-------------------|
-    | nt2::one_         | 1                 |       max(sum(abs(x)))       | morm1(x)          |
-    | nt2::two_         | 2                 |         max(svd(x))          | morm2(x)          |
-    | nt2::inf_         | nt2::Inf<T>()     |   max(sum(abs(ctrans(x))))   | morminf(x)        |
-    | nt2::fro_         | -1                | sqrt(sum(diag(ctrans(x)*x))) | mormfro(x)        |
+    | nt2::one_         | 1                 |       max(sum(abs(x)))       | mnorm1(x)         |
+    | nt2::two_         | 2                 |         max(svd(x))          | mnorm2(x)         |
+    | nt2::inf_         | nt2::Inf<T>()     |   max(sum(abs(ctrans(x))))   | mnorminf(x)       |
+    | nt2::fro_         | -1                | sqrt(sum(diag(ctrans(x)*x))) | mnormfro(x)       |
     |-------------------|-------------------|------------------------------|-------------------|
     | mnorm<p>(a0)                                                                             |
     |-------------------|-------------------|------------------------------|-------------------|
     |    static p       |                   |     matrix                   |                   |
     |-------------------|-------------------|------------------------------|-------------------|
-    | nt2::tag::one_    |        -          |       max(sum(abs(x)))       |  morm1(x)         |
-    | nt2::tag::two_    |        -          |         max(svd(x))          |  morm2(x)         |
-    | nt2::tag::inf_    |        -          |   max(sum(abs(ctrans(x))))   |  morminf(x)       |
-    | nt2::tag::fro_    |        -          | sqrt(sum(diag(ctrans(x)*x))) |  mormfro(x)       |
+    | nt2::tag::one_    |        -          |       max(sum(abs(x)))       |  mnorm1(x)        |
+    | nt2::tag::two_    |        -          |         max(svd(x))          |  mnorm2(x)        |
+    | nt2::tag::inf_    |        -          |   max(sum(abs(ctrans(x))))   |  mnorminf(x)      |
+    | nt2::tag::fro_    |        -          | sqrt(sum(diag(ctrans(x)*x))) |  mnormfro(x)      |
     |-------------------|-------------------|------------------------------|-------------------|
     @endcode
 
