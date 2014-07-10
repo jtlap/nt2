@@ -22,6 +22,7 @@
 #include <nt2/include/constants/two.hpp>
 #include <nt2/include/constants/inf.hpp>
 #include <nt2/include/constants/minf.hpp>
+#include <nt2/tags.hpp>
 #include <boost/dispatch/functor/meta/make_functor.hpp>
 #include <boost/dispatch/attributes.hpp>
 #include <boost/assert.hpp>
@@ -135,6 +136,31 @@ namespace nt2 { namespace ext
     }
 
     BOOST_FORCEINLINE result_type eval(A0 const &a0, tag::Two const&) const
+    {
+      return nt2::globalnorm2(a0);
+    }
+
+    BOOST_FORCEINLINE result_type eval(A0 const &a0, tag::inf_ const&) const
+    {
+      return nt2::globalmax(nt2::abs(a0));
+    }
+
+    BOOST_FORCEINLINE result_type eval(A0 const &a0, tag::minf_ const&) const
+    {
+      return nt2::globalmin(nt2::abs(a0));
+    }
+
+    BOOST_FORCEINLINE result_type eval(A0 const &a0, tag::one_ const&) const
+    {
+      return nt2::globalasum1(a0);
+    }
+
+    BOOST_FORCEINLINE result_type eval(A0 const &a0, tag::two_ const&) const
+    {
+      return nt2::globalnorm2(a0);
+    }
+
+    BOOST_FORCEINLINE result_type eval(A0 const &a0, tag::fro_ const&) const
     {
       return nt2::globalnorm2(a0);
     }

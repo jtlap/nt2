@@ -13,21 +13,6 @@
 #include <boost/dispatch/include/functor.hpp>
 #include <nt2/sdk/memory/container.hpp>
 
-/*!
- norm rationale
- norm is here to mimick the behaviour of the correponding Matlab function
- norm(x, p) computes
-
- p                                matrix                    vector
- 1                                max(sum(abs(x)))          sum(abs(x))
- 2                                max(svd(x))               sum(abs(x).^2)^(1/2)
- p numeric finite positive            _                     sum(abs(x).^p)^(1/p)
- inf                              max(sum(abs(x')))         max(abs(x))
- -inf                                 _                     min(abs(x))
- 'fro'                            sqrt(sum(diag(x'*x)))     norm(x)
-
-**/
-
 namespace nt2 { namespace tag
   {
     /*!
@@ -36,6 +21,41 @@ namespace nt2 { namespace tag
     **/
     struct norm_ :  tag::formal_ { typedef tag::formal_ parent; };
   }
+
+  /*!
+    @brief Matricial or vectorial norm
+
+    norm mimicks the behaviour of the correponding Matlab function
+
+    @code
+    norm(x, p)
+    @endcode
+
+    computes
+
+    @code
+    |--------------|-------------------|-----------------------|----------------------|
+    |    Matlab p  |      NT2 p        |     matrix            |     vector           |
+    |--------------|-------------------|-----------------------|----------------------|
+    |  1           | 1 or nt2::one_    | max(sum(abs(x)))      |     sum(abs(x))      |
+    |  2           | 2 or nt2::two_    |   max(svd(x))         | sum(abs(x).^2)^(1/2) |
+    |  q           | q                 |       _               | sum(abs(x).^q)^(1/q) |
+    |  inf         | nt2::inf_         | max(sum(abs(x')))     |    max(abs(x))       |
+    |  -inf        | nt2::minf_        |       _               |    min(abs(x))       |
+    |  'fro'       | nt2::fro_         | sqrt(sum(diag(x'*x))) | sum(abs(x).^2)^(1/2) |
+    |--------------|-------------------|-----------------------|----------------------|
+    @endcode
+
+    where q is numeric finite positive different from the other possible values
+
+    except 1 2 and q the NT2 calls are statically chosen at compile time.
+    If you know exactly what you need, use preferentially mnorm for matrices
+    and globalnorm for vectors.
+
+    @see{globalnorm}, @see{mnorm}
+  **/
+
+
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::norm_, norm, 2)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::norm_, norm, 1)

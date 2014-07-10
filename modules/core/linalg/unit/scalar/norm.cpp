@@ -39,13 +39,13 @@ NT2_TEST_CASE_TPL(norm, NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(norm(a, 1), nt2::Ten<T>(), 0);
   NT2_TEST_ULP_EQUAL(norm(a, 2), norm(a), 0);
   NT2_TEST_ULP_EQUAL(norm(a, nt2::Inf<T>()), nt2::Ten<T>(), 0);
-  NT2_TEST_ULP_EQUAL(norm(a, nt2::Fro), nt2::Ten<T>(), 0);
+  NT2_TEST_ULP_EQUAL(norm(a, nt2::fro_), nt2::Ten<T>(), 0);
   NT2_TEST_ASSERT(norm(a, 3));
 
   NT2_TEST_ULP_EQUAL(norm(a+a, 1), 2*nt2::Ten<T>(), 0);
   NT2_TEST_ULP_EQUAL(norm(a+a, 2), norm(a+a), 0);
   NT2_TEST_ULP_EQUAL(norm(a+a, nt2::Inf<T>()), 2*nt2::Ten<T>(), 0);
-  NT2_TEST_ULP_EQUAL(norm(a+a, nt2::Fro), 2*nt2::Ten<T>(), 0);
+  NT2_TEST_ULP_EQUAL(norm(a+a, nt2::fro_), 2*nt2::Ten<T>(), 0);
   NT2_TEST_ASSERT(norm(a+a, 3));
 }
 

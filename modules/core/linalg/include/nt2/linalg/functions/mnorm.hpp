@@ -13,6 +13,7 @@
 #include <boost/mpl/int.hpp>
 #include <nt2/include/constants/mone.hpp>
 #include <nt2/include/constants/zero.hpp>
+#include <nt2/tags.hpp>
 
 namespace nt2 { namespace tag
   {
@@ -35,8 +36,36 @@ namespace nt2 { namespace tag
     @brief Matricial norm
 
     Computes the matricial norms of a matrix expression with static or dynamic choice from
-    by the optional second parameter or the template parameter
-    that can be 1,  2, inf or fro_
+    by the optional second parameter
+    that can be 1, nt2::tag::one_  2, nt2::two_, , nt2::inf_ or , nt2::fro_
+    or the template parameter
+    that can be 1, nt2::tag::one_  2, nt2::tag::two_, , nt2::tag::inf_ or , nt2::tag::fro_
+
+    Call protocols to mnorm are summarized in the following table. We advise to use static
+    calls whenever possible as it prevents cascaded run-time if clauses and goes directly
+    to the right call at execution.
+
+    @code
+    |-------------------|-------------------|------------------------------|-------------------|
+    | mnorm(a0, p)                                                                             |
+    |-------------------|-------------------|------------------------------|-------------------|
+    |    static p       |  dynamic p        |     formula                  |  equivalent to    |
+    |-------------------|-------------------|------------------------------|-------------------|
+    | nt2::one_         | 1                 |       max(sum(abs(x)))       | morm1(x)          |
+    | nt2::two_         | 2                 |         max(svd(x))          | morm2(x)          |
+    | nt2::inf_         | nt2::Inf<T>()     |   max(sum(abs(ctrans(x))))   | morminf(x)        |
+    | nt2::fro_         | -1                | sqrt(sum(diag(ctrans(x)*x))) | mormfro(x)        |
+    |-------------------|-------------------|------------------------------|-------------------|
+    | mnorm<p>(a0)                                                                             |
+    |-------------------|-------------------|------------------------------|-------------------|
+    |    static p       |                   |     matrix                   |                   |
+    |-------------------|-------------------|------------------------------|-------------------|
+    | nt2::tag::one_    |        -          |       max(sum(abs(x)))       |  morm1(x)         |
+    | nt2::tag::two_    |        -          |         max(svd(x))          |  morm2(x)         |
+    | nt2::tag::inf_    |        -          |   max(sum(abs(ctrans(x))))   |  morminf(x)       |
+    | nt2::tag::fro_    |        -          | sqrt(sum(diag(ctrans(x)*x))) |  mormfro(x)       |
+    |-------------------|-------------------|------------------------------|-------------------|
+    @endcode
 
     @par Semantic:
     1, 2 and inf can be given dynamically or statically as template parameter ie:
@@ -53,22 +82,22 @@ namespace nt2 { namespace tag
     as_real<A0::value_type>::type x = svd(a0)(1);
     @endcode
 
-    For any expression @c a0 of type @c A0 and any value x in {1, 2, inf, fro}
+    For any expression @c a0 of type @c A0 and any value x in {one_, two_, inf_, fro_}
     following call:
 
     @code
-    as_real<A0::value_type>::type x = mnorm(a0,p);
+    as_real<A0::value_type>::type r = mnorm(a0,nt2::x);
     @endcode
 
     or
 
     @code
-    as_real<A0::value_type>::type x = mnorm<x>(a0);
+    as_real<A0::value_type>::type r = mnorm<nt2::tag::x>(a0);
     @endcode
     is equivalent to:
 
     @code
-    as_real<A0::value_type>::type x = mnormx(a0);
+    as_real<A0::value_type>::type r = mnormx(a0);
     @endcode
 
     @param a0 Expression to compute the norm of
@@ -103,26 +132,5 @@ namespace nt2 { namespace tag
   }
 }
 
-namespace nt2
-{
-  namespace tag
-  {
-    struct fro_   {};
-    struct inf_   {};
-  }
-  nt2::meta::as_<tag::fro_>     const fro_ = {};
-  nt2::meta::as_<tag::inf_>     const inf_ = {};
-}
 
 #endif
-
-// dynamic
-// mnorm(a, 1)
-// mnorm(a, 2)
-// mnorm(a, Inf<T>())
-// mnorm(a, nt2::fro_)
-// static
-// mnorm<1>(a) or mnorm<One>(a)
-// mnorm<2>(a) or mnorm<Two>(a)
-// mnorm<Inf>(a)
-// mnorm<fro_>(a)

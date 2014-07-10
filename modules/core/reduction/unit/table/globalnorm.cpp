@@ -54,6 +54,16 @@ NT2_TEST_CASE_TPL(globalnorm, NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(globalnorm<nt2::tag::Two>(n), nt2::sqrt(T(55)), 0);
   NT2_TEST_ULP_EQUAL(globalnorm<nt2::tag::Three>(n), nt2::cbrt(asump(n, 3)), 0.5);
 
+  // statically taged
+  NT2_TEST_ULP_EQUAL(globalnorm(n, nt2::minf_), nt2::One<T>(), 0);
+  NT2_TEST_ULP_EQUAL(globalnorm<nt2::tag::minf_>(n), nt2::One<T>(), 0);
+  NT2_TEST_ULP_EQUAL(globalnorm(n, nt2::inf_), T(5), 0);
+  NT2_TEST_ULP_EQUAL(globalnorm<nt2::tag::inf_>(n), T(5), 0);
+  NT2_TEST_ULP_EQUAL(globalnorm(n, nt2::one_), T(15), 0);
+  NT2_TEST_ULP_EQUAL(globalnorm<nt2::tag::one_>(n), T(15), 0);
+  NT2_TEST_ULP_EQUAL(globalnorm(n, nt2::two_), nt2::sqrt(T(55)), 0);
+  NT2_TEST_ULP_EQUAL(globalnorm<nt2::tag::two_>(n), nt2::sqrt(T(55)), 0);
+
   // Check invalid norms
   NT2_TEST_ASSERT( globalnorm(n, T(-1)) );
   NT2_TEST_ASSERT( globalnorm<nt2::tag::Mone>(n) );

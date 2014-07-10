@@ -36,6 +36,34 @@ namespace nt2 { namespace tag
     Computes the norm of a whole table expression with static or dynamic choice
     of the norm computation formula.
 
+    Call protocols to globalnorm are summarized in the following table. We advise to use static
+    calls whenever possible as it prevents cascaded run-time if clauses and goes directly
+    to the right call at execution.
+
+    @code
+    |--------------------|-------------------|------------------------------|-------------------|
+    | mnorm(a0, p)                                                                              |
+    |--------------------|-------------------|------------------------------|-------------------|
+    |    static p        |  dynamic p        |     formula (pseudo-code)    |  equivalent to    |
+    |--------------------|-------------------|------------------------------|-------------------|
+    | nt2::one_          | 1                 |       sum(abs(x(_)))         | globalnorm1(x)    |
+    | nt2::two_          | 2                 |   sqrt(sum(sqr(abs(x(_)))))  | globalnorm2(x)    |
+    |    -               | p (positive)      |    sum(abs(x)^p)^(1/p)       | globalnormp(x,p)  |
+    | nt2::inf_          | nt2::Inf<T>()     |       max(abs((x))           | globalnorminf(x)  |
+    | nt2::fro_          | -1                |   sqrt(sum(sqr(abs(x(_)))))  | globalnormfro(x)  |
+    |--------------------|-------------------|------------------------------|-------------------|
+    | mnorm<p>(a0)                                                                              |
+    |--------------------|-------------------|------------------------------|-------------------|
+    |    static p        |                   |     matrix                   |                   |
+    |--------------------|-------------------|------------------------------|-------------------|
+    | nt2::tag::one_ or 1|        -          |       sum(abs(x(_)))         |  globalnorm1(x)   |
+    | nt2::tag::two_ or 2|        -          |   sqrt(sum(sqr(abs(x(_)))))  |  globalnorm2(x)   |
+    | p  (integer only)  |        -          |    sum(abs(x)^p)^(1/p)       |  globalnormp(x,p) |
+    | nt2::tag::inf_     |        -          |       max(abs((x))           |  globalnorminf(x) |
+    | nt2::tag::fro_     |        -          |   sqrt(sum(sqr(abs(x(_)))))  |  globalnormfro(x) |
+    |--------------------|-------------------|------------------------------|-------------------|
+    @endcode
+
     @par Semantic:
 
     For any expression @c a0 of type @c A0, the following call:
@@ -88,7 +116,7 @@ namespace nt2 { namespace tag
     Integral Constant. For example,
 
     @code
-    as_real<A0::value_type>::type x = globalnorm<tag::Two>(a0);
+    as_real<A0::value_type>::type x = globalnorm<tag::two_>(a0);
     @endcode
 
     is equivalent to:
@@ -110,9 +138,10 @@ namespace nt2 { namespace tag
     @endcode
 
     @note Whenever a constant functor tag or an Integral Constant is used, compile
-    time optimization is performed so the correct variant of globalnorm is
-    called. For example, calls similar to globalnorm<2> will invoke
-    globalnorm2 directly instead of globalnormp.
+    time optimization is performed (if available) so the correct variant of globalnorm is
+    called. For example, calls similar to globalnorm<2>(a0) will invoke
+    globalnorm2(a0) instead of globalnormp(a0, 2), and globalnorm<5>(a0) will simply
+    invoke directly globalnormp(a0, 5) but without any runtime selection.
 
     @param a0 Expression to compute the norm of
     @param a1 Type of norm to compute

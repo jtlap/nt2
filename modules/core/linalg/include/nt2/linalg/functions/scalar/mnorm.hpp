@@ -150,7 +150,17 @@ namespace nt2 {  namespace ext
       return nt2::mnorm1(a0);
     }
     BOOST_FORCEINLINE result_type eval(A0 const &a0
+                                      , nt2::meta::as_<tag::one_> const&) const
+    {
+      return nt2::mnorm1(a0);
+    }
+    BOOST_FORCEINLINE result_type eval(A0 const &a0
                                       , nt2::meta::as_<tag::Two> const&) const
+    {
+      return mnorm(a0);
+    }
+    BOOST_FORCEINLINE result_type eval(A0 const &a0
+                                      , nt2::meta::as_<tag::two_> const&) const
     {
       return mnorm(a0);
     }
