@@ -55,22 +55,40 @@ namespace nt2
 
       #pragma omp parallel
       {
-
-#ifndef BOOST_NO_EXCEPTIONS
-        try
-        {
-#endif
           // Dispatch group of blocks over each threads
           #pragma omp for schedule(static)
           for(std::ptrdiff_t n=0;n<nblocks;++n)
           {
+
+#ifndef BOOST_NO_EXCEPTIONS
+              try
+              {
+#endif
+
               // Call operation
               summaries[n] = w(summaries[n],begin+n*grain,grain,prescan_bits[n]);
+
+#ifndef BOOST_NO_EXCEPTIONS
+              }
+              catch(...)
+              {
+
+                #pragma omp critical
+                exception = boost::current_exception();
+              }
+#endif
+
           }
 
           #pragma omp for schedule(static)
           for(std::ptrdiff_t n=1;n<nblocks;++n)
           {
+
+#ifndef BOOST_NO_EXCEPTIONS
+            try
+            {
+#endif
+
               result_type summary = w.neutral_(nt2::meta::as_<result_type>());
 
               for(std::ptrdiff_t k=0;k<n;++k)
@@ -78,23 +96,22 @@ namespace nt2
 
               // Call operation
               summary = w(summary,begin+n*grain,grain,false);
-          }
 
 #ifndef BOOST_NO_EXCEPTIONS
-        }
-        catch(...)
-        {
+            }
+            catch(...)
+            {
 
-          #pragma omp critical
-          exception = boost::current_exception();
-        }
+              #pragma omp critical
+              exception = boost::current_exception();
+            }
 #endif
 
+          }
       }
 
-
-        // Call operation
-        return summaries[nblocks-1];
+      // Call operation
+      return summaries[nblocks-1];
     }
   };
 }
