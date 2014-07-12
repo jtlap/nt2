@@ -18,6 +18,9 @@ NT2_TEST_CASE( container )
 {
   for(int i=1; i <= 4; ++i)
   {
+    nt2::table<int> empty_table;
+    NT2_TEST( nt2::arecatcompatible( empty_table, empty_table, i ));
+
     NT2_TEST( nt2::arecatcompatible( nt2::ones(0),      nt2::ones(0)       , i ));
     NT2_TEST( nt2::arecatcompatible( nt2::ones(1,0),    nt2::ones(1,0)     , i ));
     NT2_TEST( nt2::arecatcompatible( nt2::ones(2,0,2),  nt2::ones(2,0,2)   , i ));

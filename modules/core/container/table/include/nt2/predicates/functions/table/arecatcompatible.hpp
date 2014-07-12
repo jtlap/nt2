@@ -37,6 +37,9 @@ namespace nt2 { namespace ext
       size_t sz = std::min(ex1.size(), ex2.size());
       size_t d  = dim-1;
 
+      // Concatenating to empty array is always OK
+      if(numel(ex1) == 0 || numel(ex2) == 0) return true;
+
       for(size_t i=0; i < sz; ++i)
       {
         if ((i != d) && (ex1.data()[i]!= ex2.data()[i])) return false;
@@ -69,7 +72,7 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE
     result_type operator()(const A0&a0, const A1&, A2 dim) const
     {
-      return isvectoralong(a0, dim);
+      return !numel(a0) || isvectoralong(a0, dim);
     }
   };
 
@@ -85,7 +88,7 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE
     result_type operator()(const A0&, const A1&a1, A2 dim) const
     {
-      return isvectoralong(a1, dim);
+      return !numel(a1) || isvectoralong(a1, dim);
     }
   };
 } }
