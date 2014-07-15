@@ -18,6 +18,7 @@
 #include <boost/dispatch/meta/scalar_of.hpp>
 #include <boost/mpl/equal_to.hpp>
 #include <boost/dispatch/attributes.hpp>
+#include <boost/assert.hpp>
 
 #include <boost/simd/operator/functions/if_else.hpp>
 #include <boost/simd/constant/constants/zero.hpp>
@@ -169,6 +170,10 @@ namespace boost { namespace simd { namespace ext
     BOOST_FORCEINLINE result_type
     operator()(A0 a0, const A1&, const A2& a2) const
     {
+      BOOST_ASSERT_MSG( meta::cardinal_of<result_type>::value == meta::cardinal_of<A2>::value
+                      , "inconsistent cardinal in load gather"
+                      );
+
       result_type that;
       for(std::size_t i=0; i!=meta::cardinal_of<result_type>::value; ++i)
       {
@@ -238,6 +243,11 @@ namespace boost { namespace simd { namespace ext
     BOOST_FORCEINLINE result_type
     operator()(A0 a0, const A1&, const A2& a2, const A3& a3, const A4& a4 ) const
     {
+      BOOST_ASSERT_MSG( meta::cardinal_of<result_type>::value == meta::cardinal_of<A2>::value
+                     && meta::cardinal_of<result_type>::value == meta::cardinal_of<A3>::value
+                      , "inconsistent cardinal in load masked gather"
+                      );
+
       result_type that;
       for(std::size_t i=0; i!=meta::cardinal_of<result_type>::value; ++i)
       {

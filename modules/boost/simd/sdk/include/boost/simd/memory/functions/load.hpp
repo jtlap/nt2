@@ -47,7 +47,8 @@ namespace boost { namespace simd
     @tparam Type  Type of data to load from memory
 
     @param ptr    Memory location to load data from.
-    @param offset Optional memory offset.
+    @param offset Optional memory offset. Can be either a scalar or a SIMD type
+                  of same cardinal than the target type (gather).
     @param mask   Optional logical mask. Only loads values for which the mask is true.
     @param old    Optional. Returns the corresponding
                   entry from old if the mask is set to false. Default is zero.

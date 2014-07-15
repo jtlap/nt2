@@ -48,7 +48,8 @@ namespace boost { namespace simd
 
     @param val    Value to stream
     @param ptr    Memory location to stream @c val to
-    @param offset Optional memory offset.
+    @param offset Optional memory offset. Can be either a scalar or a SIMD type
+                  of same cardinal than the value to write (scatter).
     @param mask   Optional logical mask. Only stores values for which the mask is true.
   **/
   template<typename Value, typename Pointer, typename Offset>

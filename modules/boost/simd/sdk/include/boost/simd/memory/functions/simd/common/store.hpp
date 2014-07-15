@@ -16,6 +16,7 @@
 #include <boost/simd/include/functions/simd/extract.hpp>
 #include <boost/simd/sdk/functor/preprocessor/call.hpp>
 #include <boost/mpl/equal_to.hpp>
+#include <boost/static_assert.hpp>
 #include <boost/pointee.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -94,6 +95,7 @@ namespace boost { namespace simd { namespace ext
     operator()(const A0& a0, A1 a1, A2 const& a2) const
     {
       static const int N = meta::cardinal_of<A0>::value;
+      BOOST_STATIC_ASSERT( N == meta::cardinal_of<A2>::value );
       meta::iterate<N>(local_(a0,a1,a2));
     }
   };
@@ -177,6 +179,7 @@ namespace boost { namespace simd { namespace ext
     operator()(const A0& a0, A1 a1, A2 const& a2) const
     {
       static const int N = meta::cardinal_of<A0>::value;
+      BOOST_STATIC_ASSERT( N == meta::cardinal_of<A2>::value );
       meta::iterate<N>(local_(a0,a1,a2));
     }
   };
@@ -225,6 +228,7 @@ namespace boost { namespace simd { namespace ext
     operator()(const A0& a0, A1 a1, A2 const& a2, A3 const& a3) const
     {
       static const int N = meta::cardinal_of<A0>::value;
+      BOOST_STATIC_ASSERT( N == meta::cardinal_of<A2>::value && N == meta::cardinal_of<A3>::value );
       meta::iterate<N>(local_(a0,a1,a2,a3));
     }
   };
