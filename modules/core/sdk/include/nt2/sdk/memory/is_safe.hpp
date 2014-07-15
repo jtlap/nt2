@@ -48,14 +48,14 @@ namespace nt2
     bool is_safe(Container const& c, Position const& p)
     {
       std::size_t pos = details::maxpos<Type>(p);
-      return !pos || pos < c.size();
+      return pos < c.size();
     }
 
     /// @overload
     template<typename Container, typename Position>
     bool is_safe(Container const& c, Position const& p)
     {
-      return !p || p < c.size();
+      return p < c.size();
     }
   }
 }

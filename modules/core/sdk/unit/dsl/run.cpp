@@ -157,7 +157,7 @@ NT2_TEST_CASE( element_wise )
   typedef float T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
 
-  table<T> a0;
+  table<T> a0(of_size(1));
   table<iT> a1;
   a1 = nt2::toint(a0);
 

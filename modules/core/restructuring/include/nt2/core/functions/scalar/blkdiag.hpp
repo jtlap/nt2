@@ -10,18 +10,17 @@
 #define NT2_CORE_FUNCTIONS_SCALAR_BLKDIAG_HPP_INCLUDED
 
 #include <nt2/core/functions/blkdiag.hpp>
-#include <nt2/include/constants/zero.hpp>
-#include <nt2/include/functions/diag_of.hpp>
-#include <nt2/include/functions/horzcat.hpp>
+#include <nt2/include/functions/cons.hpp>
 
 namespace nt2 { namespace ext
 {
 
   BOOST_DISPATCH_IMPLEMENT  ( blkdiag_, tag::cpu_, (A0)
-                            , (scalar_< arithmetic_<A0> >)
+                            , (scalar_< unspecified_<A0> >)
                             )
   {
-    typedef A0  result_type;
+    typedef A0 const& result_type;
+
     BOOST_FORCEINLINE result_type operator()(A0 const& a) const
     {
       return a;
@@ -29,16 +28,17 @@ namespace nt2 { namespace ext
   };
 
   BOOST_DISPATCH_IMPLEMENT  ( blkdiag_, tag::cpu_, (A0)
-                            , (scalar_< arithmetic_<A0> >)
-                              (scalar_< arithmetic_<A0> >)
+                            , (scalar_< unspecified_<A0> >)
+                              (scalar_< unspecified_<A0> >)
                             )
   {
-    BOOST_DISPATCH_RETURNS(2, (A0 const& a0, A0 const& a1),
-                           nt2::diag_of(nt2::horzcat(a0, a1))
-                           )
+    typedef nt2::container::table<A0,of_size_<2,2> >  result_type;
+
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A0 const& a1) const
+    {
+      return nt2::cons<A0>(nt2::of_size(2,2),a0,A0(0),A0(0),a1);
+    }
   };
-
-
 } }
 
 #endif

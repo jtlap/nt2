@@ -1,7 +1,7 @@
 //==============================================================================
 //         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
-//         Copyright 2011 - 2012   MetaScale SAS
+//         Copyright 2009 - 2014   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2012 - 2014   NumScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -21,15 +21,16 @@ namespace nt2
   namespace tag
   {
     /// Tag for @c cat functor
-    struct cat_ : ext::elementwise_<cat_>
+    struct cat_ : ext::unspecified_<cat_>
     {
       /// @brief Parent hierarchy
-      typedef ext::elementwise_<cat_> parent;
+      typedef ext::unspecified_<cat_> parent;
       template<class... Args>
       static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
       BOOST_AUTO_DECLTYPE_BODY( dispatching_cat_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
   }
+
   namespace ext
   {
     template<class Site>
@@ -91,12 +92,10 @@ namespace nt2 { namespace ext
 
         // Build return size
         result_type sizee(boost::proto::child_c<1>(e).extent());
-        sizee[along] += nt2::size(boost::proto::child_c<2>(e),along+1);
+        sizee[along-1] += nt2::size(boost::proto::child_c<2>(e),along);
 
         return sizee;
       }
-
-
     }
   };
 

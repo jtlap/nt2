@@ -61,7 +61,7 @@ namespace nt2 { namespace memory
     //==========================================================================
     buffer( allocator_type a = allocator_type())
           : allocator_type(a)
-          , begin_(&dummy_), end_(&dummy_), capacity_(&dummy_)
+          , begin_(0), end_(0), capacity_(0)
     {}
 
   private:
@@ -85,7 +85,7 @@ namespace nt2 { namespace memory
     //==========================================================================
     buffer( size_type n, allocator_type a = allocator_type())
           : allocator_type(a)
-          , begin_(&dummy_), end_(&dummy_), capacity_(&dummy_)
+          , begin_(0), end_(0), capacity_(0)
     {
       if(!n) return;
 
@@ -108,7 +108,7 @@ namespace nt2 { namespace memory
     //==========================================================================
     buffer( buffer const& src, std::size_t capa )
           : allocator_type(src.get_allocator())
-          , begin_(&dummy_), end_(&dummy_), capacity_(&dummy_)
+          , begin_(0), end_(0), capacity_(0)
     {
       if(!capa) return;
 
@@ -131,7 +131,7 @@ namespace nt2 { namespace memory
     //==========================================================================
     buffer( buffer const& src )
           : allocator_type(src.get_allocator())
-          , begin_(&dummy_), end_(&dummy_), capacity_(&dummy_)
+          , begin_(0), end_(0), capacity_(0)
     {
       if(!src.size()) return;
 
@@ -153,7 +153,7 @@ namespace nt2 { namespace memory
     //==========================================================================
     ~buffer()
     {
-      if(is_initialized() && begin_)
+      if(begin_)
       {
         self_destruct ( typename boost::is_same < Allocator
                                                 , fixed_allocator<T>
@@ -236,34 +236,12 @@ namespace nt2 { namespace memory
 
     //==========================================================================
     // Swap
-    // The is_initailized dance is required so every buffer always points to
-    // its own dummy memory segment if unitialized.
     //==========================================================================
     void swap( buffer& src )
     {
-      if(src.is_initialized() && is_initialized())
-      {
-        boost::swap(begin_          , src.begin_          );
-        boost::swap(end_            , src.end_            );
-        boost::swap(capacity_       , src.capacity_       );
-      }
-      else
-      {
-        pointer tb,te,tc;
-
-        tb = src.is_initialized() ? src.begin_     : &dummy_;
-        te = src.is_initialized() ? src.end_       : &dummy_;
-        tc = src.is_initialized() ? src.capacity_  : &dummy_;
-
-        src.begin_    = is_initialized() ? begin_     : &src.dummy_;
-        src.end_      = is_initialized() ? end_       : &src.dummy_;
-        src.capacity_ = is_initialized() ? capacity_  : &src.dummy_;
-
-        begin_    = tb;
-        end_      = te;
-        capacity_ = tc;
-      }
-
+      boost::swap(begin_          , src.begin_          );
+      boost::swap(end_            , src.end_            );
+      boost::swap(capacity_       , src.capacity_       );
       boost::swap(get_allocator() , src.get_allocator() );
     }
 
@@ -359,8 +337,6 @@ namespace nt2 { namespace memory
       return NT2_BUFFER_GROWTH_FACTOR*(osz + extra);
     }
 
-    inline bool is_initialized() const { return begin_ != &dummy_; }
-
     inline void self_destruct(boost::mpl::false_ const&)
     {
       nt2::memory::destruct(begin_,end_,get_allocator());
@@ -387,7 +363,6 @@ namespace nt2 { namespace memory
 
     private:
     pointer     begin_, end_, capacity_;
-    value_type  dummy_;
   };
 
   //============================================================================
