@@ -187,19 +187,20 @@ namespace nt2 { namespace memory
     //==========================================================================
     // Resizes and add a range of elements at the end
     //==========================================================================
-    struct range_pusher
+    struct appender
     {
       template<typename T> BOOST_FORCEINLINE
       void operator()(T const& t) const
       {
-        boost::fusion::at_c<0>(t).push_back ( boost::fusion::at_c<1>(t)
-                                            , boost::fusion::at_c<2>(t)
-                                            );
+        nt2::memory::append( boost::fusion::at_c<0>(t)
+                              , boost::fusion::at_c<1>(t)
+                              , boost::fusion::at_c<2>(t)
+                              );
       }
     };
 
     template<typename Iterator>
-    void push_back( Iterator const& b, Iterator const& e )
+    void append( Iterator const& b, Iterator const& e )
     {
       typedef typename Iterator::sequence_type iseq_t;
       typedef boost::fusion::vector3< data_t&
@@ -208,7 +209,7 @@ namespace nt2 { namespace memory
                                     >               pseq_t;
       typedef boost::fusion::zip_view<pseq_t>       pview_t;
 
-      boost::fusion::for_each( pview_t(pseq_t(data_,b,e)), range_pusher() );
+      boost::fusion::for_each( pview_t(pseq_t(data_,b,e)), appender() );
     }
 
     //==========================================================================

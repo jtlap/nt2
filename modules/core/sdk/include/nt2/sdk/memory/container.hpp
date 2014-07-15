@@ -310,12 +310,12 @@ namespace nt2 { namespace memory
       else
         sizes_[d] += (d < c.extent().size()) ? c.extent()[d] : 1u;
 
-      data_.push_back(c.begin(), c.end());
+      nt2::memory::append(data_,c.begin(), c.end());
     };
 
     template<typename Container> void push_back(Container const& c)
     {
-      return push_back(c, nt2::ndims(c.extent()));
+      return this->push_back(c, nt2::ndims(c.extent()));
     }
 
     /*!

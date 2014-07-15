@@ -220,7 +220,7 @@ NT2_TEST_CASE_TPL(buffer_push_back, NT2_TYPES )
 //==============================================================================
 // buffer push_back range of values
 //==============================================================================
-NT2_TEST_CASE_TPL(buffer_push_back_range, NT2_TYPES )
+NT2_TEST_CASE_TPL(buffer_append, NT2_TYPES )
 {
   using nt2::memory::buffer;
 
@@ -229,7 +229,7 @@ NT2_TEST_CASE_TPL(buffer_push_back_range, NT2_TYPES )
   for ( std::ptrdiff_t i = 0; i < 5; ++i ) x[i] = T(3+i);
   for ( std::ptrdiff_t i = 0; i < 7; ++i ) y[i] = T(2*i);
 
-  x.push_back(y.begin(),y.end());
+  x.append(y.begin(),y.end());
 
   NT2_TEST_EQUAL( x.size(), 12u );
 
@@ -237,7 +237,7 @@ NT2_TEST_CASE_TPL(buffer_push_back_range, NT2_TYPES )
   for ( ; i < 5;  ++i ) NT2_TEST_EQUAL( x[i], T(3+i) );
   for ( ; i < 12; ++i ) NT2_TEST_EQUAL( x[i], T(2*(i-5)) );
 
-  x.push_back(y.begin(),y.end());
+  x.append(y.begin(),y.end());
 
   NT2_TEST_EQUAL( x.size(), 19u );
   for ( ; i < 19; ++i ) NT2_TEST_EQUAL( x[i], T(2*(i-12)) );
@@ -248,7 +248,7 @@ NT2_TEST_CASE_TPL(buffer_push_back_range, NT2_TYPES )
 //==============================================================================
 // buffer push_back values in empty buffer
 //==============================================================================
-NT2_TEST_CASE_TPL(buffer_push_back_def, NT2_TYPES )
+NT2_TEST_CASE_TPL(buffer_append_def, NT2_TYPES )
 {
   using nt2::memory::buffer;
 
@@ -265,7 +265,7 @@ NT2_TEST_CASE_TPL(buffer_push_back_def, NT2_TYPES )
 //==============================================================================
 // buffer push_back range of values
 //==============================================================================
-NT2_TEST_CASE_TPL(buffer_push_back_range_def, NT2_TYPES )
+NT2_TEST_CASE_TPL(buffer_push_backs_def, NT2_TYPES )
 {
   using nt2::memory::buffer;
 
@@ -273,7 +273,7 @@ NT2_TEST_CASE_TPL(buffer_push_back_range_def, NT2_TYPES )
   buffer<T> y(7);
   for ( std::ptrdiff_t i = 0; i < 7; ++i ) y[i] = T(2*i);
 
-  x.push_back(y.begin(),y.end());
+  x.append(y.begin(),y.end());
 
   NT2_TEST_EQUAL( x.size(), 7u );
 

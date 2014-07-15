@@ -217,7 +217,7 @@ namespace nt2 { namespace memory
     //==========================================================================
     // Resizes and add a range of elements at the end
     //==========================================================================
-    template<typename Iterator> void push_back( Iterator b, Iterator e )
+    template<typename Iterator> void append( Iterator b, Iterator e )
     {
       std::ptrdiff_t osz = size();
       std::ptrdiff_t sz = e-b;

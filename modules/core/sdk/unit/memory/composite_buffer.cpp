@@ -12,6 +12,7 @@
 #pragma warning(disable: 4996) // std::transform on pointers may be unsafe
 #endif
 
+#include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/sdk/memory/array_buffer.hpp>
 #include <nt2/sdk/memory/composite_buffer.hpp>
 #include <boost/fusion/include/adapt_struct.hpp>
@@ -475,9 +476,9 @@ NT2_TEST_CASE_TPL(buffer_push_back, NT2_TYPES )
 }
 
 //==============================================================================
-// Test for buffer push_back range
+// Test for buffer append range
 //==============================================================================
-NT2_TEST_CASE(buffer_push_back_range)
+NT2_TEST_CASE(buffer_append_range)
 {
   using nt2::memory::buffer;
   using nt2::memory::composite_buffer;
@@ -496,7 +497,7 @@ NT2_TEST_CASE(buffer_push_back_range)
     b[i] = f;
   }
 
-  x.push_back(b.begin(),b.end());
+  x.append(b.begin(),b.end());
 
   NT2_TEST_EQUAL(x.size() , 12u );
   NT2_TEST_GREATER_EQUAL(x.capacity(), 12u );
