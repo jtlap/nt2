@@ -34,11 +34,8 @@ NT2_TEST_CASE( swap_different_table )
   nt2::table<float>           x(nt2::of_size(3,5)), ox;
   nt2::table<float,nt2::_2D>  y(nt2::of_size(5,6)),oy;
 
-  for(std::size_t i=1;i<=numel(x);++i)
-  {
-    x(i) = 1.f+i;
-    y(i) = 2.f*i;
-  }
+  for(std::size_t i=1;i<=numel(x);++i) x(i) = 1.f+i;
+  for(std::size_t i=1;i<=numel(y);++i) y(i) = 2.f*i;
 
   ox = x;
   oy = y;
