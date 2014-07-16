@@ -53,7 +53,8 @@ namespace nt2
     template<class Out>
     Out operator()(Out & out, std::size_t begin, std::size_t size)
     {
-      return details::inner_fold_step(out,in_,bop_,std::make_pair(begin,size));
+      static const std::size_t N = boost::simd::meta::cardinal_of<Out>::value;
+      return details::fold_step(out, in_, bop_, begin, size/N, N);
     };
 
     In & in_;

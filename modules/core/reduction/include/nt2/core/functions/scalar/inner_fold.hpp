@@ -10,7 +10,7 @@
 #define NT2_CORE_FUNCTIONS_SCALAR_INNER_FOLD_HPP_INCLUDED
 
 #include <nt2/core/functions/inner_fold.hpp>
-#include <nt2/core/functions/details/inner_fold_step.hpp>
+#include <nt2/core/functions/details/fold_step.hpp>
 #include <boost/fusion/include/pop_front.hpp>
 #include <nt2/include/functions/scalar/numel.hpp>
 #include <nt2/include/functor.hpp>
@@ -72,12 +72,9 @@ namespace nt2 { namespace ext
 
       for(std::size_t j = begin, k = begin*ibound; j < begin+size; ++j, k+=ibound)
       {
-          value_type s_out = details::inner_fold_step(
-             neutral(nt2::meta::as_<value_type>())
-            ,in
-            ,bop
-            ,std::make_pair(k,ibound)
-            );
+          value_type s_out = details::fold_step(
+             neutral(nt2::meta::as_<value_type>()), in, bop, k, ibound, 1
+             );
 
           nt2::run(out, j, s_out);
       }
