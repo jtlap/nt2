@@ -155,7 +155,7 @@ namespace nt2
       w.resize_reals(5*nt2::min(*m,*n));                                \
       NT2_F77NAME( NAME )(jobu, jobvt, m, n, a, lda, s, u, ldu,         \
                           vt, ldvt, w.main(), query(), w.reals(), info);\
-      nt2_la_int wn = w.main_need();                                    \
+      nt2_la_int wn = 5*nt2::max(m, n);                                 \
       w.resize_main(wn);                                                \
       NT2_F77NAME( NAME )(jobu, jobvt, m, n, a, lda, s, u, ldu,         \
                       vt,ldvt,w.main(),&wn,w.reals(),info);             \
@@ -198,10 +198,10 @@ namespace nt2
     {                                                                   \
       NT2_F77NAME( NAME )(jobu, jobvt, m, n, a, lda, s, u, ldu,         \
                           vt, ldvt, w.main(), query(), info);           \
-      nt2_la_int wn = w.main_need(); \
-      w.resize_main(wn);                                     \
+      nt2_la_int wn = 5*nt2::max(m, n);                                 \
+      w.resize_main(wn);                                                \
       NT2_F77NAME( NAME )(jobu, jobvt, m, n, a, lda, s, u, ldu,         \
-                          vt,ldvt,w.main(),&wn,info);        \
+                          vt,ldvt,w.main(),&wn,info);                   \
     }                                                                   \
     inline void gesvd(const char* jobu,                                 \
                       const char* jobvt,                                \
