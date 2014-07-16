@@ -13,6 +13,7 @@
 #include <nt2/include/functions/height.hpp>
 #include <nt2/include/functions/width.hpp>
 #include <nt2/include/functions/of_size.hpp>
+#include <nt2/include/functions/max.hpp>
 #include <nt2/linalg/details/utility/workspace.hpp>
 #include <nt2/linalg/details/utility/f77_wrapper.hpp>
 
@@ -120,7 +121,7 @@ namespace nt2 { namespace ext
         nt2_la_int  ld = a0.leading_size();
         nt2_la_int ldu = u.leading_size() > 1 ? u.leading_size() : 1 ;
         nt2_la_int ldvt= vt.leading_size() > 1 ? vt.leading_size() : 1 ;
-        nt2_la_int  wn = w.main_size();
+        nt2_la_int  wn =  5*nt2::max(m, n);
 
         NT2_F77NAME(dgesvd) ( &jobu,&jobvt,&m, &n, a0.raw(), &ld, s.raw(), u.raw(), &ldu
                             , vt.raw(), &ldvt, w.main()
@@ -189,7 +190,7 @@ namespace nt2 { namespace ext
         nt2_la_int  ld = a0.leading_size();
         nt2_la_int ldu = u.leading_size() > 1 ? u.leading_size() : 1 ;
         nt2_la_int ldvt= vt.leading_size() > 1 ? vt.leading_size() : 1 ;
-        nt2_la_int  wn = w.main_size();
+        nt2_la_int  wn =  5*nt2::max(m, n);
 
         NT2_F77NAME(sgesvd) ( &jobu,&jobvt,&m, &n, a0.raw(), &ld, s.raw(), u.raw(), &ldu
                             , vt.raw(), &ldvt, w.main()
@@ -329,7 +330,7 @@ namespace nt2 { namespace ext
         nt2_la_int  ld = a0.leading_size();
         nt2_la_int ldu = u.leading_size() > 1 ? u.leading_size() : 1 ;
         nt2_la_int ldvt= vt.leading_size() > 1 ? vt.leading_size() : 1 ;
-        nt2_la_int  wn = w.main_size();
+        nt2_la_int  wn =  5*nt2::max(m, n);
 
         nt2::container::table<double> rwork(nt2::of_size(5*std::min(m,n),1));
 
