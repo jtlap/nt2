@@ -52,7 +52,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_FORCEINLINE result_type
     operator()(const A0& a0, A1 a1) const
     {
-      static const unsigned N = meta::cardinal_of<A0>::value;
+      static const int N = meta::cardinal_of<A0>::value;
       meta::iterate<N>(local_(a0,a1));
     }
   };
@@ -94,8 +94,8 @@ namespace boost { namespace simd { namespace ext
     BOOST_FORCEINLINE result_type
     operator()(const A0& a0, A1 a1, A2 const& a2) const
     {
-      static const unsigned N = meta::cardinal_of<A0>::value;
-      BOOST_STATIC_ASSERT( N == meta::cardinal_of<A2>::value );
+      BOOST_STATIC_ASSERT( meta::cardinal_of<A0>::value == meta::cardinal_of<A2>::value );
+      static const int N = meta::cardinal_of<A0>::value;
       meta::iterate<N>(local_(a0,a1,a2));
     }
   };
@@ -178,8 +178,8 @@ namespace boost { namespace simd { namespace ext
     BOOST_FORCEINLINE result_type
     operator()(const A0& a0, A1 a1, A2 const& a2) const
     {
-      static const unsigned N = meta::cardinal_of<A0>::value;
-      BOOST_STATIC_ASSERT( N == meta::cardinal_of<A2>::value );
+      BOOST_STATIC_ASSERT( meta::cardinal_of<A0>::value == meta::cardinal_of<A2>::value );
+      static const int N = meta::cardinal_of<A0>::value;
       meta::iterate<N>(local_(a0,a1,a2));
     }
   };
@@ -227,8 +227,10 @@ namespace boost { namespace simd { namespace ext
     BOOST_FORCEINLINE result_type
     operator()(const A0& a0, A1 a1, A2 const& a2, A3 const& a3) const
     {
-      static const unsigned N = meta::cardinal_of<A0>::value;
-      BOOST_STATIC_ASSERT( N == meta::cardinal_of<A2>::value && N == meta::cardinal_of<A3>::value );
+      BOOST_STATIC_ASSERT( meta::cardinal_of<A0>::value == meta::cardinal_of<A2>::value
+                        && meta::cardinal_of<A0>::value == meta::cardinal_of<A3>::value
+                         );
+      static const int N = meta::cardinal_of<A0>::value;
       meta::iterate<N>(local_(a0,a1,a2,a3));
     }
   };
@@ -247,7 +249,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_FORCEINLINE result_type
     operator()(const A0& a0, const A1& a1, const A2& a2) const
     {
-      static const unsigned N = fusion::result_of::size<A1>::type::value;
+      static const int N = fusion::result_of::size<A1>::type::value;
       meta::iterate<N>( details::storer< boost::simd::
                                          tag::store_(A0, A1, A2)
                                        >(a0, a1, a2)
@@ -267,7 +269,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_FORCEINLINE result_type operator()(const A0& a0, const A1& a1) const
     {
-      static const unsigned N = fusion::result_of::size<A1>::type::value;
+      static const int N = fusion::result_of::size<A1>::type::value;
       meta::iterate<N>( details::storer< boost::simd::
                                          tag::store_(A0, A1)
                                        >(a0, a1)
