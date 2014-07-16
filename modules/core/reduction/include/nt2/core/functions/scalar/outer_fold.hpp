@@ -10,28 +10,9 @@
 #define NT2_CORE_FUNCTIONS_SCALAR_OUTER_FOLD_HPP_INCLUDED
 
 #include <nt2/core/functions/outer_fold.hpp>
+#include <nt2/core/functions/details/fold_step.hpp>
 #include <boost/fusion/include/pop_front.hpp>
 #include <nt2/include/functions/scalar/numel.hpp>
-
-namespace nt2 { namespace details
-{
- template <class X, class N, class B, class U>
- BOOST_FORCEINLINE typename X::value_type
- outer_fold_step (X const& in, const std::size_t& p, const std::size_t& mbound, N const& neutral, B const& bop, U const&)
- {
-   typedef typename X::value_type   value_type;
-   typedef typename X::extent_type  extent_type;
-   extent_type ext = in.extent();
-   std::size_t ibound  = boost::fusion::at_c<0>(ext);
-   value_type out = neutral(nt2::meta::as_<value_type>());
-
-   for(std::size_t m = 0, m_ = 0; m < mbound; ++m, m_+=ibound)
-   {
-     out = bop(out, nt2::run(in, m_+p, meta::as_<value_type>()));
-   }
-   return out;
- }
-}}
 
 namespace nt2 { namespace ext
 {
@@ -73,6 +54,7 @@ namespace nt2 { namespace ext
                            )
  {
    typedef void                                                               result_type;
+   typedef typename Out::value_type                                            value_type;
    typedef typename boost::remove_reference<In>::type::extent_type            extent_type;
 
    BOOST_FORCEINLINE result_type
@@ -84,17 +66,25 @@ namespace nt2 { namespace ext
      extent_type ext = in.extent();
      std::size_t ibound  = boost::fusion::at_c<0>(ext);
      std::size_t mbound =  boost::fusion::at_c<1>(ext);
-     std::size_t id;
+     std::size_t iboundxmbound =  ibound * mbound;
+
      std::size_t begin = range.first;
      std::size_t size  = range.second;
 
-     for(std::size_t o = begin, o_ = begin*ibound; o < begin+size; ++o, o_+=ibound)
+     for(std::size_t o = begin, oout_ = begin*ibound, oin_ = begin * iboundxmbound;
+         o < begin + size;
+         ++o, oout_+=ibound, oin_+= iboundxmbound)
      {
-       for(std::size_t i = 0; i < ibound; ++i)
-       {
-         id = i+o_;
-         nt2::run(out, id, details::outer_fold_step(in,id,mbound,neutral,bop,uop));
-       }
+        for(std::size_t i = 0, k_ = oout_, m_ = oin_;
+            i < ibound;
+            ++i, ++k_, ++m_)
+        {
+          nt2::run(out, k_,
+            details::fold_step(neutral(nt2::meta::as_<value_type>()), in, bop
+                              ,m_, mbound, ibound
+                              )
+          );
+        }
      }
    }
  };

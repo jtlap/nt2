@@ -10,6 +10,7 @@
 #define NT2_CORE_FUNCTIONS_SIMD_OUTER_FOLD_HPP_INCLUDED
 
 #include <nt2/core/functions/outer_fold.hpp>
+#include <nt2/core/functions/details/fold_step.hpp>
 #include <boost/simd/sdk/simd/meta/is_vectorizable.hpp>
 #include <boost/simd/memory/align_under.hpp>
 #include <boost/fusion/include/pop_back.hpp>
@@ -52,49 +53,46 @@ namespace nt2 { namespace ext
     {
       extent_type ext = in.extent();
       static const std::size_t N = boost::simd::meta::cardinal_of<target_type>::value;
-      std::size_t ibound  = boost::fusion::at_c<0>(ext);
-      std::size_t mbound =  boost::fusion::at_c<1>(ext);
-      std::size_t id;
+      std::size_t ibound = boost::fusion::at_c<0>(ext);
+      std::size_t mbound = boost::fusion::at_c<1>(ext);
+      std::size_t iboundxmbound =  ibound * mbound;
 
       std::size_t cache_line_size = nt2::config::top_cache_line_size(2); // in byte
-      std::size_t nb_vec = cache_line_size/(sizeof(value_type)*N);
+      std::size_t nb_vec = cache_line_size / (sizeof(value_type)*N);
       std::size_t cache_bound = (nb_vec)*N;
-      std::size_t bound  =  boost::simd::align_under(ibound, cache_bound);
+      std::size_t bound =  boost::simd::align_under(ibound, cache_bound);
+
       std::size_t begin = range.first;
       std::size_t size = range.second;
 
-      for(std::size_t o = begin, o_ =begin*ibound; o < begin+size; ++o, o_+=ibound)
+      for(std::size_t o = begin, oout_ = begin*ibound, oin_ = begin * iboundxmbound;
+          o < begin + size;
+          ++o, oout_+=ibound, oin_+= iboundxmbound)
       {
         for(std::size_t i = 0; i < bound; i+=cache_bound)
         {
-          id = i+o_;
-          for (std::size_t k = 0, k_ = id; k < nb_vec; ++k, k_+=N)
-            nt2::run(out, k_, neutral(nt2::meta::as_<target_type>()));
-
-          for(std::size_t m = 0, m_ = 0; m < mbound; ++m, m_+=ibound)
+          for (std::size_t k = 0, kout_ = oout_ + i, kin_ = oin_ + i;
+               k < nb_vec;
+               ++k, kout_+=N, kin_+=N)
           {
-            for (std::size_t k = 0, k_ = id; k < nb_vec; ++k, k_+=N)
-              nt2::run( out, k_
-                      , bop( nt2::run(out, k_, meta::as_<target_type>())
-                           , nt2::run(in, k_+m_, meta::as_<target_type>())
-                           )
-                      );
+            nt2::run(out, kout_,
+              details::fold_step(neutral(nt2::meta::as_<target_type>()), in, bop
+                                ,kin_, mbound, ibound
+                                )
+              );
           }
         }
 
         // scalar part
-        for(std::size_t i = bound; i < ibound; ++i)
+        for(std::size_t i = bound, k_ = oout_ + bound, m_ = oin_ + bound;
+            i < ibound;
+            ++i, ++k_, ++m_)
         {
-          id = i+o_;
-          nt2::run(out, id, neutral(nt2::meta::as_<value_type>()));
-          for(std::size_t m = 0, m_ = 0; m < mbound; ++m, m_+=ibound)
-          {
-            nt2::run( out, id
-                    , bop( nt2::run(out, id,meta::as_<value_type>())
-                         , nt2::run(in, id+m_,meta::as_<value_type>())
-                         )
-                    );
-          }
+          nt2::run(out, k_,
+          details::fold_step(neutral(nt2::meta::as_<value_type>()), in, bop
+                            ,m_, mbound, ibound
+                            )
+          );
         }
       }
     }
