@@ -12,10 +12,10 @@
 
 #include <nt2/sdk/shared_memory/worker.hpp>
 #include <nt2/sdk/shared_memory/spawner.hpp>
+#include <nt2/sdk/shared_memory/details/target_type_from_site.hpp>
 
 #include <nt2/include/functor.hpp>
 #include <nt2/sdk/config/cache.hpp>
-#include <boost/simd/sdk/simd/native.hpp>
 
 namespace nt2
 {
@@ -24,22 +24,6 @@ namespace nt2
   {
     struct inner_fold_step_;
     struct fold_;
-  }
-
-  namespace details
-  {
-   template<class Site, class value_type>
-   struct target_type_from_site
-   {
-     typedef boost::simd::native<value_type,BOOST_SIMD_DEFAULT_EXTENSION> type;
-   };
-
-   template<class value_type>
-   struct target_type_from_site<tag::cpu_,value_type>
-   {
-     typedef value_type type;
-   };
-
   }
 
   // Inner Fold Step worker
@@ -80,7 +64,7 @@ namespace nt2
     void operator()(std::size_t begin, std::size_t size) const
     {
       extent_type ext = in_.extent();
-      std::size_t top_cache_line_size = config::top_cache_size(2)/sizeof(value_type);
+      std::size_t top_cache_line_size = config::top_cache_line_size(2)/sizeof(value_type);
       std::size_t grain  = top_cache_line_size;
 
       std::size_t bound  = boost::fusion::at_c<0>(ext);
