@@ -92,8 +92,8 @@ namespace nt2 { namespace ext
                             , details::query(), &that
                             );
 
-          w.prepare_main();
-          nt2::gesvd(a0,s,u,vt,jobu,jobvt,w);
+        w.resize_main(5*nt2::max(m, n));
+        nt2::gesvd(a0,s,u,vt,jobu,jobvt,w);
 
         return that;
      }
@@ -121,8 +121,7 @@ namespace nt2 { namespace ext
         nt2_la_int  ld = a0.leading_size();
         nt2_la_int ldu = u.leading_size() > 1 ? u.leading_size() : 1 ;
         nt2_la_int ldvt= vt.leading_size() > 1 ? vt.leading_size() : 1 ;
-        nt2_la_int  wn =  5*nt2::max(m, n);
-
+        nt2_la_int wn = w.main_size();
         NT2_F77NAME(dgesvd) ( &jobu,&jobvt,&m, &n, a0.raw(), &ld, s.raw(), u.raw(), &ldu
                             , vt.raw(), &ldvt, w.main()
                             , &wn, &that
@@ -161,8 +160,8 @@ namespace nt2 { namespace ext
                             , details::query(), &that
                             );
 
-          w.prepare_main();
-          nt2::gesvd(a0,s,u,vt,jobu,jobvt,w);
+        w.resize_main(5*nt2::max(m, n));
+        nt2::gesvd(a0,s,u,vt,jobu,jobvt,w);
 
         return that;
      }
@@ -190,7 +189,7 @@ namespace nt2 { namespace ext
         nt2_la_int  ld = a0.leading_size();
         nt2_la_int ldu = u.leading_size() > 1 ? u.leading_size() : 1 ;
         nt2_la_int ldvt= vt.leading_size() > 1 ? vt.leading_size() : 1 ;
-        nt2_la_int  wn =  5*nt2::max(m, n);
+        nt2_la_int  wn = w.main_size();
 
         NT2_F77NAME(sgesvd) ( &jobu,&jobvt,&m, &n, a0.raw(), &ld, s.raw(), u.raw(), &ldu
                             , vt.raw(), &ldvt, w.main()
@@ -231,8 +230,8 @@ namespace nt2 { namespace ext
                             , details::query(), 0, &that
                             );
 
-          w.prepare_main();
-          nt2::gesvd(a0,s,u,vt,jobu,jobvt,w);
+        w.resize_main(5*nt2::max(m, n));
+        nt2::gesvd(a0,s,u,vt,jobu,jobvt,w);
 
         return that;
      }
@@ -301,8 +300,8 @@ namespace nt2 { namespace ext
                             , details::query(), 0, &that
                             );
 
-          w.prepare_main();
-          nt2::gesvd(a0,s,u,vt,jobu,jobvt,w);
+        w.resize_main(5*nt2::max(m, n));
+        nt2::gesvd(a0,s,u,vt,jobu,jobvt,w);
 
         return that;
      }
@@ -330,7 +329,7 @@ namespace nt2 { namespace ext
         nt2_la_int  ld = a0.leading_size();
         nt2_la_int ldu = u.leading_size() > 1 ? u.leading_size() : 1 ;
         nt2_la_int ldvt= vt.leading_size() > 1 ? vt.leading_size() : 1 ;
-        nt2_la_int  wn =  5*nt2::max(m, n);
+        nt2_la_int wn = w.main_size();
 
         nt2::container::table<double> rwork(nt2::of_size(5*std::min(m,n),1));
 
