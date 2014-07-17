@@ -88,7 +88,8 @@ namespace nt2
         // Instanciate the spawner/worker associated to the mbound dimension
         nt2::worker<tag::outer_fold_step_,BackEnd,Site,In,Neutral,Bop>
         w(in_,neutral_,bop_);
-        nt2::spawner<tag::fold_, BackEnd, target_type> s;
+        nt2::spawner<tag::fold_, BackEnd, target_type> s_simd;
+        nt2::spawner<tag::fold_, BackEnd, value_type> s_scalar;
 
         for(std::size_t o = begin, oout_ = begin*ibound, oin_ = begin * iboundxmbound;
             o < begin + size;
@@ -104,7 +105,7 @@ namespace nt2
               target_type vec_out = neutral_(nt2::meta::as_<target_type>());
 
               if( (size == obound) && (grain < mmbound) )
-                  vec_out = s( w, kin_, mmbound, grain);
+                  vec_out = s_simd( w, kin_, mmbound, grain);
               else
                   vec_out = w(vec_out, kin_, mmbound);
 
@@ -122,11 +123,19 @@ namespace nt2
               i < ibound;
               ++i, ++k_, ++m_)
           {
-            nt2::run(out_, k_,
-            details::fold_step(neutral_(nt2::meta::as_<value_type>()), in_, bop_
-                              ,m_, mbound, ibound
-                              )
-            );
+            value_type s_out = neutral_(nt2::meta::as_<value_type>());
+
+            if( (size == obound) && (grain < mmbound) )
+                s_out = s_scalar( w, m_, mmbound, grain);
+            else
+                s_out = w(s_out, m_, mmbound);
+
+            s_out = details::fold_step(
+                        s_out, in_, bop_
+                      , k_+mmbound*ibound, mbound-mmbound, ibound
+                      );
+
+            nt2::run(out_, k_,s_out);
           }
         }
       }

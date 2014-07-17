@@ -60,7 +60,7 @@ namespace nt2 { namespace ext
       std::size_t cache_line_size = nt2::config::top_cache_line_size(2); // in byte
       std::size_t nb_vec = cache_line_size / (sizeof(value_type)*N);
       std::size_t cache_bound = (nb_vec)*N;
-      std::size_t bound =  boost::simd::align_under(ibound, cache_bound);
+      std::size_t iibound =  boost::simd::align_under(ibound, cache_bound);
 
       std::size_t begin = range.first;
       std::size_t size = range.second;
@@ -69,7 +69,7 @@ namespace nt2 { namespace ext
           o < begin + size;
           ++o, oout_+=ibound, oin_+= iboundxmbound)
       {
-        for(std::size_t i = 0; i < bound; i+=cache_bound)
+        for(std::size_t i = 0; i < iibound; i+=cache_bound)
         {
           for (std::size_t k = 0, kout_ = oout_ + i, kin_ = oin_ + i;
                k < nb_vec;
@@ -84,7 +84,7 @@ namespace nt2 { namespace ext
         }
 
         // scalar part
-        for(std::size_t i = bound, k_ = oout_ + bound, m_ = oin_ + bound;
+        for(std::size_t i = iibound, k_ = oout_ + iibound, m_ = oin_ + iibound;
             i < ibound;
             ++i, ++k_, ++m_)
         {
