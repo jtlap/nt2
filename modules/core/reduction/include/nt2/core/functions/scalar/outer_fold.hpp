@@ -75,15 +75,18 @@ namespace nt2 { namespace ext
          o < begin + size;
          ++o, oout_+=ibound, oin_+= iboundxmbound)
      {
-        for(std::size_t i = 0, k_ = oout_, m_ = oin_;
+        for(std::size_t i = 0, kout_ = oout_, kin_ = oin_;
             i < ibound;
-            ++i, ++k_, ++m_)
+            ++i, ++kout_, ++kin_)
         {
-          nt2::run(out, k_,
-            details::fold_step(neutral(nt2::meta::as_<value_type>()), in, bop
-                              ,m_, mbound, ibound
-                              )
-          );
+          nt2::run(out, kout_, neutral(meta::as_<value_type>()));
+
+          for(std::size_t m=0, m_ = kin_; m < mbound; m++, m_+=ibound)
+            nt2::run(out, kout_,
+               bop( nt2::run(out, kout_, meta::as_<value_type>())
+                  , nt2::run(in,  m_,  meta::as_<value_type>())
+                  )
+               );
         }
      }
    }

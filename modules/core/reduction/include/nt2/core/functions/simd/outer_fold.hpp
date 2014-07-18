@@ -75,8 +75,8 @@ namespace nt2 { namespace ext
                k < nb_vec;
                ++k, kout_+=N, kin_+=N)
           {
-            nt2::run(out, kout_, neutral(meta::as_<target_type>()));            
-            
+            nt2::run(out, kout_, neutral(meta::as_<target_type>()));
+
             for(std::size_t m=0, m_ = kin_; m < mbound; m++, m_+=ibound)
               nt2::run(out, kout_,
                  bop( nt2::run(out, kout_, meta::as_<target_type>())
@@ -92,7 +92,7 @@ namespace nt2 { namespace ext
             ++i, ++kout_, ++kin_)
         {
             nt2::run(out, kout_, neutral(meta::as_<value_type>()));
-          
+
             for(std::size_t m=0, m_ = kin_; m < mbound; m++, m_+=ibound)
               nt2::run(out, kout_,
                  bop( nt2::run(out, kout_, meta::as_<value_type>())
