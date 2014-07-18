@@ -22,6 +22,7 @@
 #include <nt2/sdk/memory/adapted/container.hpp>
 #include <nt2/sdk/memory/composite_buffer.hpp>
 #include <boost/dispatch/meta/ignore_unused.hpp>
+#include <nt2/sdk/meta/container_traits.hpp>
 #include <boost/fusion/include/is_sequence.hpp>
 #include <boost/mpl/at.hpp>
 #include <boost/assert.hpp>
@@ -110,7 +111,7 @@ namespace nt2 { namespace memory
                                   >::type               specific_data_type;
 
     /// @brief Allocator type used by the Container
-    typedef typename buffer_type::allocator_type   allocator_type;
+    typedef typename meta::allocator_type_<buffer_type>::type   allocator_type;
 
     /// @brief Value type stored by the Container
     typedef typename buffer_type::value_type       value_type;
@@ -161,7 +162,7 @@ namespace nt2 { namespace memory
     typedef typename meta::option < Settings
                                   , tag::storage_duration_
                                   , Kind
-                                  >::type                     duration_t;
+                                  >::type::storage_duration_type    duration_t;
 
     /// INTERNAL ONLY Check if static initialization is required
     /// This is true for non-automatic, non-empty container

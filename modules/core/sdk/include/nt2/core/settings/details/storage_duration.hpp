@@ -9,18 +9,15 @@
 #ifndef NT2_CORE_SETTINGS_DETAILS_STORAGE_DURATION_HPP_INCLUDED
 #define NT2_CORE_SETTINGS_DETAILS_STORAGE_DURATION_HPP_INCLUDED
 
+#include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/core/settings/size.hpp>
-#include <nt2/core/settings/storage_size.hpp>
 #include <nt2/core/settings/option.hpp>
 #include <nt2/core/settings/allocator.hpp>
-#include <nt2/sdk/memory/buffer.hpp>
-#include <nt2/sdk/memory/array_buffer.hpp>
+#include <nt2/core/settings/storage_size.hpp>
 #include <nt2/sdk/memory/forward/container.hpp>
+#include <boost/simd/memory/aligned_array.hpp>
 #include <boost/dispatch/meta/value_of.hpp>
-#include <boost/mpl/size_t.hpp>
 #include <boost/mpl/assert.hpp>
-#include <boost/mpl/times.hpp>
-#include <boost/mpl/fold.hpp>
 
 namespace nt2
 {
@@ -51,7 +48,7 @@ namespace nt2
     };
   };
 
-  // When using automatic memory, we rely on array_buffer to store our data
+  // When using automatic memory, we rely on aligned_array to store our data
   struct automatic_
   {
     typedef automatic_ storage_duration_type;
@@ -73,7 +70,9 @@ namespace nt2
       );
 
       typedef typename boost::dispatch::meta::value_of<Container>::type value_t;
-      typedef memory::array_buffer<value_t,stored_>                        type;
+      typedef boost::simd::aligned_array< value_t
+                                        , stored_::value
+                                        >                                  type;
     };
   };
 }

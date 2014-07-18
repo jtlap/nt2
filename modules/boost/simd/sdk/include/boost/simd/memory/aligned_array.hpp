@@ -12,6 +12,7 @@
 #include <boost/simd/preprocessor/align_on.hpp>
 #include <boost/simd/forward/aligned_array.hpp>
 #include <boost/simd/memory/details/empty_aligned_array.hpp>
+#include <boost/simd/memory/details/model_aligned_array.hpp>
 #include <boost/simd/sdk/simd/preprocessor/repeat.hpp>
 
 #include <boost/swap.hpp>

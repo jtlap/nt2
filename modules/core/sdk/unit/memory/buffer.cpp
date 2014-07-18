@@ -282,31 +282,3 @@ NT2_TEST_CASE_TPL(buffer_push_backs_def, NT2_TYPES )
 
   std::cout << "capacity = " << x.capacity() << std::endl;
 }
-
-//==============================================================================
-// safety of empty buffer
-//==============================================================================
-NT2_TEST_CASE(buffer_empty)
-{
-  using nt2::memory::buffer;
-  using nt2::memory::is_safe;
-
-  buffer<char> x;
-  buffer<char> y(x);
-  buffer<char> z(x,0);
-  buffer<char> w(x,3);
-
-  NT2_TEST_EQUAL(is_safe(x,0), true);
-  NT2_TEST_EQUAL(is_safe(y,0), true);
-  NT2_TEST_EQUAL(is_safe(z,0), true);
-  NT2_TEST_EQUAL(is_safe(w,0), true);
-
-  buffer<char> u;
-  u = x;
-
-  NT2_TEST_EQUAL(is_safe(u,0), true);
-
-  buffer<char> v(6);
-  v.swap(x);
-  NT2_TEST_EQUAL(is_safe(v,0), true);
-}

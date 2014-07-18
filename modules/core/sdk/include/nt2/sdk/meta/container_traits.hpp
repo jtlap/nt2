@@ -55,7 +55,7 @@ namespace nt2 { namespace meta
    //==============================================================================
   template<class T,class Enable=void> struct allocator_type_
   {
-    typedef std::allocator<T> type;
+    typedef struct none_ {} type;
   };
 
   //==============================================================================

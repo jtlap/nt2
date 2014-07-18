@@ -190,7 +190,7 @@ NT2_TEST_CASE( owned_output )
   using nt2::automatic_;
   using nt2::memory::buffer;
   using nt2::memory::container;
-  using nt2::memory::array_buffer;
+  using boost::simd::aligned_array;
   using nt2::memory::fixed_allocator;
 
   NT2_TEST_EXPR_TYPE( owned_()
@@ -201,7 +201,7 @@ NT2_TEST_CASE( owned_output )
                                           >
                               >
                       )
-                    , (array_buffer<int, integral_c<std::size_t,14> >)
+                    , (aligned_array<int, 14 >)
                     );
 
   NT2_TEST_EXPR_TYPE( owned_()

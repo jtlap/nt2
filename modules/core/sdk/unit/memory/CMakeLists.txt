@@ -12,8 +12,6 @@ ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)
 
 SET( SOURCES
-  array_buffer.cpp
-  array_buffer_non_pod.cpp
   buffer.cpp
   buffer_non_pod.cpp
   composite_buffer.cpp
