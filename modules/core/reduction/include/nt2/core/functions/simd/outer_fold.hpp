@@ -71,35 +71,52 @@ namespace nt2 { namespace ext
       {
         for(std::size_t i = 0; i < iibound; i+=cache_bound)
         {
-          for (std::size_t k = 0, kout_ = oout_ + i, kin_ = oin_ + i;
+          for (std::size_t k = 0, kout_ = oout_ + i;
                k < nb_vec;
-               ++k, kout_+=N, kin_+=N)
+               ++k, kout_+=N)
           {
             nt2::run(out, kout_, neutral(meta::as_<target_type>()));
+          }
 
-            for(std::size_t m=0, m_ = kin_; m < mbound; m++, m_+=ibound)
-              nt2::run(out, kout_,
-                 bop( nt2::run(out, kout_, meta::as_<target_type>())
-                    , nt2::run(in,  m_,  meta::as_<target_type>())
-                    )
-                 );
+          for(std::size_t m=0, m_ = oin_; m < mbound; m++, m_+=ibound)
+          {
+            for (std::size_t k = 0, kout_ = oout_ + i, kin_ = m_ + i;
+                 k < nb_vec;
+                 ++k, kout_+=N, kin_+=N)
+            {
+                nt2::run(out, kout_,
+                   bop( nt2::run(out, kout_, meta::as_<target_type>())
+                      , nt2::run(in,  kin_,  meta::as_<target_type>())
+                      )
+                   );
+            }
           }
         }
 
         // scalar part
-        for(std::size_t i = iibound, kout_ = oout_ + iibound, kin_ = oin_ + iibound;
+        for(std::size_t i = iibound, kout_ = oout_ + iibound;
             i < ibound;
-            ++i, ++kout_, ++kin_)
+            ++i, ++kout_)
         {
-            nt2::run(out, kout_, neutral(meta::as_<value_type>()));
-
-            for(std::size_t m=0, m_ = kin_; m < mbound; m++, m_+=ibound)
-              nt2::run(out, kout_,
-                 bop( nt2::run(out, kout_, meta::as_<value_type>())
-                    , nt2::run(in,  m_,  meta::as_<value_type>())
-                    )
-                 );
+          nt2::run(out, kout_, neutral(meta::as_<value_type>()));
         }
+
+        for(std::size_t m=0, m_ = oin_;
+            m < mbound;
+            m++, m_+=ibound)
+        {
+          for(std::size_t i = iibound, kout_ = oout_+ iibound, kin_ = m_ + iibound;
+              i < ibound;
+              ++i, ++kout_, ++kin_)
+          {
+            nt2::run(out, kout_,
+               bop( nt2::run(out, kout_, meta::as_<value_type>())
+                  , nt2::run(in,  kin_,  meta::as_<value_type>())
+                  )
+               );
+          }
+        }
+
       }
     }
   };

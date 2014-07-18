@@ -75,19 +75,30 @@ namespace nt2 { namespace ext
          o < begin + size;
          ++o, oout_+=ibound, oin_+= iboundxmbound)
      {
-        for(std::size_t i = 0, kout_ = oout_, kin_ = oin_;
+
+        for(std::size_t i = 0, kout_ = oout_;
             i < ibound;
-            ++i, ++kout_, ++kin_)
+            ++i, ++kout_)
         {
           nt2::run(out, kout_, neutral(meta::as_<value_type>()));
+        }
 
-          for(std::size_t m=0, m_ = kin_; m < mbound; m++, m_+=ibound)
+        for(std::size_t m=0, m_ = oin_;
+            m < mbound;
+            m++, m_+=ibound)
+        {
+          for(std::size_t i = 0, kout_ = oout_, kin_ = m_;
+              i < ibound;
+              ++i, ++kout_, ++kin_)
+          {
             nt2::run(out, kout_,
                bop( nt2::run(out, kout_, meta::as_<value_type>())
-                  , nt2::run(in,  m_,  meta::as_<value_type>())
+                  , nt2::run(in,  kin_,  meta::as_<value_type>())
                   )
                );
+          }
         }
+
      }
    }
  };
