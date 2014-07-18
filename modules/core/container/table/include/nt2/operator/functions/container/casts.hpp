@@ -76,7 +76,7 @@ namespace nt2 { namespace ext
   template<class Expr, class From, class To, class Enable = void>
   struct casts_downgrade
   {
-    typedef typename meta::call<tag::group_(Expr)>::type as_group;
+    typedef typename meta::call<tag::groups_(Expr)>::type as_group;
     typedef casts_downgrade<as_group const, typename as_group::value_type, To> rec;
     typedef typename rec::result_type result_type;
 
@@ -120,7 +120,7 @@ namespace nt2 { namespace ext
   template<class Expr, class From, class To>
   struct casts_intfloat<Expr, From, To, typename boost::enable_if_c< meta::is_integral<To>::value && meta::is_signed<To>::value>::type>
   {
-    typedef typename meta::call<tag::toint_(Expr)>::type result_type;
+    typedef typename meta::call<tag::toints_(Expr)>::type result_type;
     BOOST_FORCEINLINE result_type operator()(typename boost::dispatch::meta::as_ref<Expr>::type e) const
     {
       return nt2::toints(e);
@@ -130,7 +130,7 @@ namespace nt2 { namespace ext
   template<class Expr, class From, class To>
   struct casts_intfloat<Expr, From, To, typename boost::enable_if_c< meta::is_integral<To>::value && meta::is_unsigned<To>::value>::type>
   {
-    typedef typename meta::call<tag::touint_(Expr)>::type result_type;
+    typedef typename meta::call<tag::touints_(Expr)>::type result_type;
     BOOST_FORCEINLINE result_type operator()(typename boost::dispatch::meta::as_ref<Expr>::type e) const
     {
       return nt2::touints(e);
