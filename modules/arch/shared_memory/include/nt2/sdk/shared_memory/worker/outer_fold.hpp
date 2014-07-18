@@ -200,8 +200,8 @@ namespace nt2
           // Instanciate the spawner/worker associated to the ibound dimension
           nt2::spawner<tag::transform_, BackEnd> s;
 
-          for(std::size_t o = begin, oout_ = begin*ibound, oin_ = begin * iboundxmbound;
-              o < begin + size;
+          for(std::size_t o = 0, oout_ = begin*ibound, oin_ = begin * iboundxmbound;
+              o < size;
               ++o, oout_+=ibound, oin_+= iboundxmbound)
           {
             nt2::worker<tag::outer_fold_step_incache_,BackEnd,Site,Out,In,Neutral,Bop>
