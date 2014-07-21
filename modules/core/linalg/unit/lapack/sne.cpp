@@ -73,13 +73,16 @@ NT2_TEST_CASE_TPL(msne, (double) )
   size_t m=25,n=10,q=1,nr=1;
 
   nt2::tie(a,x,r,b)= nt2::llspgen(m,n,q,nr);
-  b.resize( nt2::of_size(m,4) );
 
-  for(size_t i = 2; i <= 4 ; ++i)
+  nt2::table<T> bc = b;
+
+  b.resize(nt2::of_size(m+5,4) );
+
+  for(size_t i = 1; i <= 4 ; ++i)
   {
-    b( _ , i) = b(_ , 1) ;
+    b( _(1,m) , i) = bc() ;
   }
-  b.resize( nt2::of_size(m+5,4) );
+
   t_t s1 = nt2::zeros(m+m,m, nt2::meta::as_<T>());
 
   s1( _(7,m+7) , _(5,n+5) ) = nt2::mcsne(    a( _(1,m), _ ) , b( _(1,m) , _) );
