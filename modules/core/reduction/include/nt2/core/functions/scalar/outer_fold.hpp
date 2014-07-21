@@ -10,7 +10,7 @@
 #define NT2_CORE_FUNCTIONS_SCALAR_OUTER_FOLD_HPP_INCLUDED
 
 #include <nt2/core/functions/outer_fold.hpp>
-#include <nt2/core/functions/details/fold_step.hpp>
+#include <nt2/core/functions/details/outer_fold_step.hpp>
 #include <boost/fusion/include/pop_front.hpp>
 #include <nt2/include/functions/scalar/numel.hpp>
 
@@ -75,30 +75,8 @@ namespace nt2 { namespace ext
          o < begin + size;
          ++o, oout_+=ibound, oin_+= iboundxmbound)
      {
-
-        for(std::size_t i = 0, kout_ = oout_;
-            i < ibound;
-            ++i, ++kout_)
-        {
-          nt2::run(out, kout_, neutral(meta::as_<value_type>()));
-        }
-
-        for(std::size_t m=0, m_ = oin_;
-            m < mbound;
-            m++, m_+=ibound)
-        {
-          for(std::size_t i = 0, kout_ = oout_, kin_ = m_;
-              i < ibound;
-              ++i, ++kout_, ++kin_)
-          {
-            nt2::run(out, kout_,
-               bop( nt2::run(out, kout_, meta::as_<value_type>())
-                  , nt2::run(in,  kin_,  meta::as_<value_type>())
-                  )
-               );
-          }
-        }
-
+        details::outer_fold_step<value_type,Out,In,Neutral,Bop>
+        (out, in, neutral, bop, 0, ibound, oout_, oin_);
      }
    }
  };

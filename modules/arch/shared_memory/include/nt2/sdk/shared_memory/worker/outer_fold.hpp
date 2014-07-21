@@ -11,6 +11,8 @@
 #define NT2_SDK_SHARED_MEMORY_WORKER_OUTER_FOLD_HPP_INCLUDED
 
 #include <nt2/sdk/shared_memory/worker.hpp>
+#include <nt2/core/functions/details/fold_step.hpp>
+#include <nt2/core/functions/details/outer_fold_step.hpp>
 #include <nt2/sdk/shared_memory/details/target_type_from_site.hpp>
 #include <nt2/include/functor.hpp>
 
@@ -24,12 +26,13 @@ namespace nt2
     struct outer_fold_step_outcache_;
     struct outer_fold_step_incache_;
     struct fold_;
+    struct cpu_;
   }
   // Outer Fold Step worker incache
   template<class BackEnd, class Site, class Out, class In, class Neutral, class Bop>
   struct worker<tag::outer_fold_step_incache_,BackEnd,Site,Out,In,Neutral,Bop>
   {
-    typedef typename boost::remove_reference<In>::type::extent_type extent_type;
+    typedef typename boost::remove_reference<In>::type::extent_type           extent_type;
     typedef typename Out::value_type                                          value_type;
     typedef typename details::target_type_from_site<Site,value_type>::type    target_type;
 
@@ -40,32 +43,9 @@ namespace nt2
 
     void operator()(std::size_t begin, std::size_t size)
     {
-      extent_type ext = in_.extent();
-      std::size_t ibound = boost::fusion::at_c<0>(ext);
-      std::size_t mbound = boost::fusion::at_c<1>(ext);
-      std::size_t N = boost::simd::meta::cardinal_of<target_type>::value;
-
-        for (std::size_t k = 0, kout_ = oout_ + begin;
-             k < size;
-             k+=N, kout_+=N)
-        {
-          nt2::run(out_, kout_, neutral_(meta::as_<target_type>()));
-        }
-
-        for(std::size_t m=0, m_ = oin_; m < mbound; m++, m_+=ibound)
-        {
-          for (std::size_t k = 0, kout_ = oout_ + begin, kin_ = m_ + begin;
-               k < size;
-               k+=N, kout_+=N, kin_+=N)
-          {
-              nt2::run(out_, kout_,
-                 bop_( nt2::run(out_, kout_, meta::as_<target_type>())
-                     , nt2::run(in_,  kin_,  meta::as_<target_type>())
-                     )
-                 );
-          }
-        }
-      }
+        details::outer_fold_step<target_type,Out,In,Neutral,Bop>
+        (out_, in_, neutral_, bop_, begin, size, oout_, oin_);
+    }
 
     Out & out_;
     In & in_;
@@ -130,9 +110,8 @@ namespace nt2
         std::size_t cache_line_size = nt2::config::top_cache_line_size(2); // in byte
         std::size_t grain  = cache_line_size;
 
-        // Compute the lower multiple of N of ibound
-        std::size_t nb_vec = cache_line_size / (sizeof(value_type)*N);
-        std::size_t cache_bound = (nb_vec)*N;
+        // Compute the lower multiple of cache_line of ibound
+        std::size_t cache_bound = (cache_line_size / (sizeof(value_type)*N))*N;
         std::size_t iibound =  boost::simd::align_under(ibound, cache_bound);
 
         // Compute the lower multiple of grain of mbound
@@ -143,6 +122,7 @@ namespace nt2
           // Instanciate the spawner/worker associated to the mbound dimension
           nt2::worker<tag::outer_fold_step_outcache_,BackEnd,Site,In,Neutral,Bop>
           w(in_,neutral_,bop_);
+
           nt2::spawner<tag::fold_, BackEnd, target_type> s_simd;
           nt2::spawner<tag::fold_, BackEnd, value_type> s_scalar;
 
@@ -150,27 +130,24 @@ namespace nt2
               o < begin + size;
               ++o, oout_+=ibound, oin_+= iboundxmbound)
           {
-            for(std::size_t i = 0; i < iibound; i+=cache_bound)
+            // parallelized part
+            for (std::size_t i = 0, kout_ = oout_, kin_ = oin_;
+                 i < iibound;
+                 i+=N, kout_+=N, kin_+=N)
             {
+              target_type vec_out = neutral_(nt2::meta::as_<target_type>());
 
-              for (std::size_t k = 0, kout_ = oout_ + i, kin_ = oin_ + i;
-                   k < nb_vec;
-                   ++k, kout_+=N, kin_+=N)
-              {
-                target_type vec_out = neutral_(nt2::meta::as_<target_type>());
+              if( (size == obound) && (grain < mmbound) )
+                  vec_out = s_simd( w, kin_, mmbound, grain);
+              else
+                  vec_out = w(vec_out, kin_, mmbound);
 
-                if( (size == obound) && (grain < mmbound) )
-                    vec_out = s_simd( w, kin_, mmbound, grain);
-                else
-                    vec_out = w(vec_out, kin_, mmbound);
+              vec_out = details::fold_step(
+                          vec_out, in_, bop_
+                        , kin_+mmbound*ibound, mbound-mmbound, ibound
+                        );
 
-                vec_out = details::fold_step(
-                            vec_out, in_, bop_
-                          , kin_+mmbound*ibound, mbound-mmbound, ibound
-                          );
-
-                nt2::run(out_, kout_,vec_out);
-              }
+              nt2::run(out_, kout_,vec_out);
             }
 
             // scalar part
@@ -204,34 +181,19 @@ namespace nt2
               o < size;
               ++o, oout_+=ibound, oin_+= iboundxmbound)
           {
+            // vectorized worker
             nt2::worker<tag::outer_fold_step_incache_,BackEnd,Site,Out,In,Neutral,Bop>
+            vec_w(out_,in_,neutral_,bop_, begin*ibound, begin * iboundxmbound);
+
+            // scalar worker
+            nt2::worker<tag::outer_fold_step_incache_,BackEnd,tag::cpu_,Out,In,Neutral,Bop>
             w(out_,in_,neutral_,bop_, begin*ibound, begin * iboundxmbound);
 
-            s(w,0,iibound,grain);
+            // parallelized part
+            s(vec_w,0,iibound,grain);
 
             // scalar part
-            for(std::size_t i = iibound, kout_ = oout_ + iibound;
-                i < ibound;
-                ++i, ++kout_)
-            {
-              nt2::run(out_, kout_, neutral_(meta::as_<value_type>()));
-            }
-
-            for(std::size_t m=0, m_ = oin_;
-                m < mbound;
-                m++, m_+=ibound)
-            {
-              for(std::size_t i = iibound, kout_ = oout_+ iibound, kin_ = m_ + iibound;
-                  i < ibound;
-                  ++i, ++kout_, ++kin_)
-              {
-                nt2::run(out_, kout_,
-                   bop_( nt2::run(out_, kout_, meta::as_<value_type>())
-                      , nt2::run(in_,  kin_,  meta::as_<value_type>())
-                      )
-                   );
-              }
-            }
+            w(iibound,ibound-iibound);
           }
         }
       }
