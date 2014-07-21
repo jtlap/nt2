@@ -80,8 +80,8 @@ private:
 NT2_REGISTER_BENCHMARK_TPL( linsolve_nt2, (float)(double) )
 {
   std::size_t size_min = args("size_min", 1600);
-  std::size_t size_max = args("size_max", 17000);
-  std::size_t size_step = args("size_step", 10);
+  std::size_t size_max = args("size_max", 3200);
+  std::size_t size_step = args("size_step", 2);
 
   std::size_t size_min1 = args("size_min", 1000);
   std::size_t size_max1 = args("size_max", 11000);
