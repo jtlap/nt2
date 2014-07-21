@@ -72,6 +72,16 @@ namespace nt2 { namespace details
   /// Precompiled implementation max_ulps on float
   NT2_TEST_UNIT_DECL double max_ulps(float  a, float  b);
 
+  struct max_ulps_caller
+  {
+    typedef double result_type;
+    template<class T>
+    BOOST_FORCEINLINE double operator()(T const& a, T const& b) const
+    {
+      return max_ulps(a, b);
+    }
+  };
+
   /// Perform a test of equality on A and B with a given ulp tolerance
   /// Detects if A and/or B is actually a Fusion sequence or not
   template< class A, class B
@@ -80,26 +90,27 @@ namespace nt2 { namespace details
           >
   struct max_ulp_value_;
 
-  /// A and B are not Fusion Sequence, call max_ulps on the value
+  /// A and B are not Fusion Sequence, call distance_fn on the value
   template< class A, class B>
   struct max_ulp_value_<A,B,false,false>
   {
     typedef failed_value<A,B> failure_type;
 
-    template<class VF>
+    template<class VF, class F>
     BOOST_FORCEINLINE bool
     operator()( A const& a, B const& b
               , double max_ulpd, VF& fails, std::size_t i
               , double& ru
+              , F const& distance_fn
               ) const
     {
-      double d = max_ulps ( nt2::details::smallest_a( nt2::value(a)
-                                                    , nt2::value(b)
-                                                    )
-                          , nt2::details::smallest_b( nt2::value(a)
-                                                    , nt2::value(b)
-                                                    )
-                          );
+      double d = distance_fn ( nt2::details::smallest_a( nt2::value(a)
+                                                       , nt2::value(b)
+                                                       )
+                             , nt2::details::smallest_b( nt2::value(a)
+                                                       , nt2::value(b)
+                                                       )
+                             );
       if(!(d <= max_ulpd) )
       {
         typename VF::value_type f = { a, b, d, i };
@@ -112,29 +123,29 @@ namespace nt2 { namespace details
     }
   };
 
-  /// A and B are Fusion Sequence, call max_ulps on every elements and
+  /// A and B are Fusion Sequence, call distance_fn on every elements and
   /// compute the maximum
   template< class A, class B>
   struct max_ulp_value_<A,B,true,true>
   {
     template<int I, int N> struct max_ulp_seq_
     {
-      template<class X, class Y>
+      template<class X, class Y, class F>
       BOOST_FORCEINLINE double
-      operator()( X const& a, Y const& b, double z ) const
+      operator()( X const& a, Y const& b, double z, F const& distance_fn ) const
       {
         return max_ulp_seq_<I+1,N>()
               ( a , b
               , safe_max( z
-                        , max_ulps( nt2::details::
-                                    smallest_a( boost::fusion::at_c<I>(a)
-                                              , boost::fusion::at_c<I>(b)
-                                              )
-                                  , nt2::details::
-                                    smallest_b( boost::fusion::at_c<I>(a)
-                                              , boost::fusion::at_c<I>(b)
-                                              )
-                                  )
+                        , distance_fn( nt2::details::
+                                       smallest_a( boost::fusion::at_c<I>(a)
+                                                 , boost::fusion::at_c<I>(b)
+                                                 )
+                                     , nt2::details::
+                                       smallest_b( boost::fusion::at_c<I>(a)
+                                                 , boost::fusion::at_c<I>(b)
+                                                 )
+                                     )
                         )
               );
       }
@@ -142,9 +153,9 @@ namespace nt2 { namespace details
 
     template<int N> struct max_ulp_seq_<N,N>
     {
-      template<class X, class Y>
+      template<class X, class Y, class F>
       BOOST_FORCEINLINE double
-      operator()( X const&, Y const&, double z ) const
+      operator()( X const&, Y const&, double z, F const& ) const
       {
         return z;
       }
@@ -152,15 +163,16 @@ namespace nt2 { namespace details
 
     typedef failed_value<A,B> failure_type;
 
-    template<class VF>
+    template<class VF, class F>
     BOOST_FORCEINLINE bool
     operator()( A const& a, B const& b
               , double max_ulpd, VF& fails, std::size_t i
               , double& ru
+              , F const& distance_fn
               ) const
     {
       double d =  max_ulp_seq_<0,boost::fusion::result_of
-                                              ::size<A>::value>()(a,b,0.);
+                                              ::size<A>::value>()(a,b,0.,distance_fn);
 
       if(!(d <=  max_ulpd))
       {
@@ -175,7 +187,7 @@ namespace nt2 { namespace details
   };
 
   /// Perform a test of equality on A and B with a given ulp tolerance
-  /// Detects if A and/or B is actually a sequence and apply max_ulps on
+  /// Detects if A and/or B is actually a sequence and apply distance_fn on
   /// every elements of said sequences
   template< class A, class B
           , bool IsASeq=nt2::details::is_sequence<A>::value
@@ -191,14 +203,15 @@ namespace nt2 { namespace details
     /// Main operator() checks of A and B are Fusion Sequence then
     /// jump into the proper eval() member functions depending on this
     /// status.
-    template<class VF>
+    template<class VF, class F>
     BOOST_FORCEINLINE bool
     operator()( A const& a, B const& b
               , double max_ulpd, VF& fails, std::size_t i
               , double& ru
+              , F const& distance_fn
               ) const
     {
-      return max_ulp_value_<A,B>()(a, b, max_ulpd, fails, i, ru);
+      return max_ulp_value_<A,B>()(a, b, max_ulpd, fails, i, ru, distance_fn);
     }
   };
 
@@ -211,11 +224,12 @@ namespace nt2 { namespace details
                         , typename B::value_type
                         >                         failure_type;
 
-    template<class VF>
+    template<class VF, class F>
     BOOST_FORCEINLINE bool
     operator()( A const& a, B const& b
               , double max_ulpd, VF& fails, std::size_t i
               , double& ru
+              , F const& distance_fn
               ) const
     {
       if( std::distance(b.begin(),b.end()) == std::distance(a.begin(),a.end()))
@@ -240,7 +254,7 @@ namespace nt2 { namespace details
 
           ok = max_ulp_ < typename A::value_type
                         , typename B::value_type
-                        >()(*ab,*bb,max_ulpd,local_fails,i,r);
+                        >()(*ab,*bb,max_ulpd,local_fails,i,r,distance_fn);
 
           // Does inner check went ok and do we have fails ?
           if(ok && !local_fails.empty())
@@ -274,17 +288,19 @@ namespace nt2 { namespace details
   {
     typedef failed_value<typename A::value_type, B> failure_type;
 
-    template<class VF>
+    template<class VF, class F>
     BOOST_FORCEINLINE bool
     operator()( A const& a, B const& b
               , double max_ulpd, VF& fails, std::size_t i
               , double& ru
+              , F const& distance_fn
               ) const
     {
       if( std::distance(a.begin(),a.end()) == 1)
       {
         return max_ulp_<typename A::value_type,B>() ( *a.begin(),b
                                                     , max_ulpd,fails,i, ru
+                                                    , distance_fn
                                                     );
       }
       else
@@ -300,17 +316,19 @@ namespace nt2 { namespace details
   {
     typedef failed_value<A, typename B::value_type> failure_type;
 
-    template<class VF>
+    template<class VF, class F>
     BOOST_FORCEINLINE bool
     operator()( A const& a, B const& b
               , double max_ulpd, VF& fails , std::size_t i
               , double& ru
+              , F const& distance_fn
               ) const
     {
       if( std::distance(b.begin(),b.end()) == 1)
       {
         return max_ulp_<A,typename B::value_type>() ( a,*b.begin()
                                                     , max_ulpd,fails,i, ru
+                                                    , distance_fn
                                                     );
       }
       else
@@ -325,11 +343,11 @@ namespace nt2 { namespace unit
 {
   /// INTERNAL ONLY
   /// Main test for equality over any types A and B within a given ulp tolerance
-  template<class A, class B, class VF>
+  template<class A, class B, class VF, class F>
   BOOST_FORCEINLINE
-  bool max_ulp( A const& a, B const& b, double max_ulpd, VF& fails, double& ru )
+  bool max_ulp( A const& a, B const& b, double max_ulpd, VF& fails, double& ru, F const& distance_fn )
   {
-    return details::max_ulp_<A,B>()(a,b,max_ulpd,fails,0,ru);
+    return details::max_ulp_<A,B>()(a,b,max_ulpd,fails,0,ru,distance_fn);
   }
 } }
 
@@ -366,11 +384,12 @@ namespace nt2 { namespace details
   }
 
 
-  template<typename A, typename B>
+  template<typename A, typename B, class F>
   BOOST_FORCEINLINE
   void test_ulp_equal ( const char* desc, const char* func, int line
                       , A const& a, B const& b
                       , double N
+                      , F const& distance_fn
                       )
   {
     typedef BOOST_TYPEOF(nt2::unit::eval(a))                        a_t;
@@ -379,7 +398,7 @@ namespace nt2 { namespace details
 
     std::vector< f_t > ulps;
     double ulpd = 0;
-    bool ok = find_ulp_error(a,b,ulps,ulpd,N);
+    bool ok = find_ulp_error(a,b,ulps,ulpd,N,distance_fn);
 
     if(ok)
     {
@@ -391,15 +410,17 @@ namespace nt2 { namespace details
     }
   }
 
-  template<typename A, typename B, typename Fails>
+  template<typename A, typename B, typename Fails, class F>
   BOOST_FORCEINLINE
   bool find_ulp_error ( A const& a, B const& b
                       , Fails& ulps, double& ulpd, double N
+                      , F const& distance_fn
                       )
   {
     bool ok = nt2::unit::max_ulp( nt2::unit::eval(a)
                                 , nt2::unit::eval(b)
                                 , N, ulps, ulpd
+                                , distance_fn
                                 );
     return ok;
   }
