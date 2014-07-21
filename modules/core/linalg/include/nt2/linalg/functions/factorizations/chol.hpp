@@ -12,15 +12,47 @@
 #include <nt2/include/functions/potrf.hpp>
 #include <nt2/include/functions/triu.hpp>
 #include <nt2/include/functions/tril.hpp>
+#include <nt2/include/functions/sqrt.hpp>
+#include <nt2/include/functions/is_gtz.hpp>
 #include <nt2/linalg/options.hpp>
 #include <nt2/include/functions/tie.hpp>
 #include <nt2/sdk/meta/concrete.hpp>
 #include <nt2/core/container/table/table.hpp>
 #include <nt2/linalg/details/utility/f77_wrapper.hpp>
 #include <boost/dispatch/meta/ignore_unused.hpp>
+#include <boost/assert.hpp>
 
 namespace nt2 { namespace ext
 {
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::chol_, tag::cpu_
+                            , (A0)
+                            , (scalar_<floating_<A0> >)
+                            )
+  {
+    typedef A0 result_type;
+
+    BOOST_FORCEINLINE result_type operator()(const A0& a0) const
+    {
+      BOOST_ASSERT_MSG(is_gtz(a0), "matrix is not positive definite");
+      return nt2::sqrt(a0);
+    }
+  };
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::chol_, tag::cpu_
+                            , (A0)(A1)
+                            , (scalar_<floating_<A0> >)
+                              (unspecified_<A1>)
+                            )
+  {
+    typedef A0 result_type;
+
+    BOOST_FORCEINLINE result_type operator()(const A0& a0, const A1&) const
+    {
+      BOOST_ASSERT_MSG(is_gtz(a0), "matrix is not positive definite");
+      return nt2::sqrt(a0);
+    }
+  };
+
   //============================================================================
   //Cholesky factorization
   //============================================================================

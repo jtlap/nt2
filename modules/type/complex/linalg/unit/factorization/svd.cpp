@@ -1,41 +1,46 @@
 //==============================================================================
 //         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 - 2013   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 linalg toolbox - tied svd function"
-
+#include <nt2/table.hpp>
+#include <nt2/include/functions/zeros.hpp>
+#include <nt2/include/functions/ones.hpp>
+#include <nt2/include/functions/eye.hpp>
 #include <nt2/include/functions/svd.hpp>
-#include <nt2/include/functions/rand.hpp>
-#include <nt2/include/functions/of_size.hpp>
-#include <nt2/include/functions/cons.hpp>
+#include <nt2/include/functions/ldexp.hpp>
+#include <nt2/include/functions/repnum.hpp>
+#include <nt2/include/functions/rif.hpp>
 #include <nt2/include/functions/transpose.hpp>
 #include <nt2/include/functions/mtimes.hpp>
-#include <nt2/include/functions/ones.hpp>
-#include <nt2/include/constants/one.hpp>
+#include <nt2/include/functions/globalmax.hpp>
+#include <nt2/include/functions/isulpequal.hpp>
+#include <nt2/include/functions/cons.hpp>
 #include <nt2/include/constants/sqrt_2.hpp>
 
-#include <nt2/table.hpp>
+#include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/unit/tests/ulp.hpp>
-#include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/tests/exceptions.hpp>
+#include <nt2/sdk/unit/tests/basic.hpp>
+#include <nt2/table.hpp>
 
-NT2_TEST_CASE_TPL(svd_scalar, NT2_REAL_TYPES )
+
+
+NT2_TEST_CASE_TPL(svd_scalar_complex, NT2_REAL_TYPES )
 {
+  typedef std::complex<T> cT;
   typedef nt2::table<T>           t_t;
-  T a0 =  nt2::One<T>();
+  cT a0 =  cT(nt2::One<T>(),nt2::One<T>());
   t_t s = nt2::svd(a0);
-  NT2_TEST_ULP_EQUAL(s, nt2::ones<T>(1),1 );
+  NT2_TEST_ULP_EQUAL(s, nt2::Sqrt_2<T>(),1 );
   s =  nt2::svd(a0, nt2::econ_);
-  NT2_TEST_ULP_EQUAL(s, nt2::ones<T>(1),1 );
-
+  NT2_TEST_ULP_EQUAL(s, nt2::Sqrt_2<T>(),1 );
 }
 
-NT2_TEST_CASE_TPL(svdc, NT2_REAL_TYPES )
+NT2_TEST_CASE_TPL(svd_complex, NT2_REAL_TYPES )
 {
   using nt2::_;
 

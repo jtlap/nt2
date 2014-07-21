@@ -18,6 +18,33 @@
 
 namespace nt2 { namespace ext
 {
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::balance_, tag::cpu_
+                            , (A0)
+                            , (scalar_<unspecified_<A0> >)
+                            )
+  {
+    typedef A0 result_type;
+
+    BOOST_FORCEINLINE result_type operator()(const A0& a0) const
+    {
+      return a0;
+    }
+  };
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::balance_, tag::cpu_
+                            , (A0)(A1)
+                            , (scalar_<unspecified_<A0> >)
+                              (unspecified_<A1>)
+                            )
+  {
+    typedef A0 result_type;
+
+    BOOST_FORCEINLINE result_type operator()(const A0& a0, const A1&) const
+    {
+      return a0;
+    }
+  };
+
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::factorization::balance_, tag::cpu_
                             , (A0)(A1)
                             , ((ast_<A0, nt2::container::domain>))

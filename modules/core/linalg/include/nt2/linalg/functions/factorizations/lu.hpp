@@ -30,6 +30,19 @@
 
 namespace nt2 { namespace ext
 {
+ NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::lu_, tag::cpu_
+                            , (A0)
+                            , (scalar_<unspecified_<A0> >)
+                            )
+  {
+    typedef A0 result_type;
+
+    BOOST_FORCEINLINE result_type operator()(const A0& a0) const
+    {
+      return a0;
+    }
+  };
+
   /// INTERNAL ONLY - D = LU(A)
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::lu_, tag::cpu_
                             , (A0)(N0)(A1)

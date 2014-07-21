@@ -17,6 +17,33 @@
 
 namespace nt2 { namespace ext
 {
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::geneig_, tag::cpu_
+                            , (A0)
+                            , (scalar_<unspecified_<A0> >)
+                            )
+  {
+    typedef typename meta::as_complex<A0>::type result_type;
+
+    BOOST_FORCEINLINE result_type operator()(const A0& a0) const
+    {
+      return result_type(a0);
+    }
+  };
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::geneig_, tag::cpu_
+                            , (A0)
+                            , (scalar_<unspecified_<A0> >)
+                              (scalar_<unspecified_<A0> >)
+                            )
+  {
+    typedef typename meta::as_complex<A0>::type result_type;
+
+    BOOST_FORCEINLINE result_type operator()(const A0& a0, const A0& a1) const
+    {
+      return result_type(a0/a1);
+    }
+  };
+
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::factorization::geneig_, tag::cpu_
                               , (A0)(A1)(A2)(A3)(A4)
                               , ((ast_<A0, nt2::container::domain>))

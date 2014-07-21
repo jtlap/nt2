@@ -34,26 +34,29 @@ template<typename T>
    return p;
   }
 
-NT2_TEST_CASE_TPL(qr_scalar, NT2_REAL_TYPES )
+NT2_TEST_CASE_TPL(qr_complex_scalar, NT2_REAL_TYPES )
 {
-  typedef nt2::table<T>           t_t;
-  T a0 =  nt2::One<T>();
+  typedef std::complex<T> cT;
+  typedef nt2::table<cT>           t_t;
+  cT a0 =  cT(nt2::One<T>(),nt2::One<T>());
   t_t s = nt2::qr(a0);
   NT2_TEST_ULP_EQUAL(s,a0,1);
-  s = nt2::qr(a0, nt2::no_pivot_);
+  typedef std::complex<T> cT;
+  s = nt2::qr(a0,nt2::no_pivot_);
   NT2_TEST_ULP_EQUAL(s,a0,1);
-  t_t ta0 = a0;
-  NT2_TEST_ULP_EQUAL(s,nt2::qr(ta0),1);
 }
+
 NT2_TEST_CASE_TPL ( direct_qr, NT2_REAL_TYPES)
 {
+  typedef std::complex<T> cT;
   using nt2::_;
   using nt2::meta::as_;
 
-  nt2::table<T> x, q, r, p,ux,u;
-  nt2::table<T> a = nt2::rand(6 , 6, as_<T>());
-  nt2::table<T> b = nt2::ones(4, 4, as_<T>());
-  u = nt2::zeros(4, as_<T>());
+  nt2::table<cT> x, q, r, p, ux,u;
+  nt2::table<T> ra = nt2::rand(6 , 6, as_<T>());
+  nt2::table<cT> a = ra;
+  nt2::table<cT> b = nt2::ones(4, 4, as_<cT>());
+  u = nt2::zeros(4, as_<cT>());
   u(1,1) = u(1,2) = u(1,3) = u(1,4) = T(-2);
 
   /// Interface tests
@@ -75,6 +78,7 @@ NT2_TEST_CASE_TPL ( direct_qr, NT2_REAL_TYPES)
 
 NT2_TEST_CASE_TPL ( option_qr_square, NT2_REAL_TYPES)
 {
+  typedef std::complex<T> cT;
   using nt2::_;
   using nt2::meta::as_;
   using nt2::pivot_;
@@ -82,15 +86,16 @@ NT2_TEST_CASE_TPL ( option_qr_square, NT2_REAL_TYPES)
   using nt2::vector_;
   using nt2::no_pivot_;
 
-  typedef  nt2::table<T> t_t;
-  nt2::table<T> x, q, q1, r, r1, p, p1;
-  nt2::table<T> a = nt2::rand(6 , 6, as_<T>());
-
+  typedef  nt2::table<cT> t_t;
+  nt2::table<cT> x, q, q1, r, r1;
+  nt2::table< T> p, p1;
+  nt2::table<T> ra = nt2::rand(6 , 6, as_<T>());
+  nt2::table<cT> a = ra;
   /// Interface tests
 
   // [Q,R] = QR(A,0)
   nt2::tie(q, r) = nt2::qr(a,0);
-  NT2_TEST_ULP_EQUAL( a, nt2::mtimes(q, r), T(200));
+  NT2_TEST_ULP_EQUAL( a, nt2::mtimes(q, r), T(250));
 
   x = nt2::qr(a, no_pivot_);
   t_t u = triu(x);
@@ -118,6 +123,7 @@ NT2_TEST_CASE_TPL ( option_qr_square, NT2_REAL_TYPES)
 
 NT2_TEST_CASE_TPL ( option_qr_not_square_m_inferior_n, NT2_REAL_TYPES)
 {
+  typedef std::complex<T> cT;
   using nt2::_;
   using nt2::meta::as_;
   using nt2::pivot_;
@@ -125,9 +131,11 @@ NT2_TEST_CASE_TPL ( option_qr_not_square_m_inferior_n, NT2_REAL_TYPES)
   using nt2::vector_;
   using nt2::no_pivot_;
 
-  typedef  nt2::table<T> t_t;
-  nt2::table<T> x, q, q1, r, r1, p, p1;
-  nt2::table<T> a = nt2::rand(6 , 9, as_<T>());
+  typedef  nt2::table<cT> t_t;
+  nt2::table<cT> x, q, q1, r, r1;
+  nt2::table< T> p, p1;
+  nt2::table<T> ra = nt2::rand(6 , 9, as_<T>());
+  nt2::table<cT> a = ra;
 
   /// Interface tests
 
@@ -160,6 +168,7 @@ NT2_TEST_CASE_TPL ( option_qr_not_square_m_inferior_n, NT2_REAL_TYPES)
 
 NT2_TEST_CASE_TPL ( option_qr_not_square_m_superior_n, NT2_REAL_TYPES)
 {
+  typedef std::complex<T> cT;
   using nt2::_;
   using nt2::meta::as_;
   using nt2::pivot_;
@@ -167,9 +176,11 @@ NT2_TEST_CASE_TPL ( option_qr_not_square_m_superior_n, NT2_REAL_TYPES)
   using nt2::vector_;
   using nt2::no_pivot_;
 
-  typedef  nt2::table<T> t_t;
-  nt2::table<T> x, q, q1, r, r1, p, p1;
-  nt2::table<T> a = nt2::rand(9 , 6, as_<T>());
+  typedef  nt2::table<cT> t_t;
+  nt2::table<cT> x, q, q1, r, r1;
+  nt2::table< T> p, p1;
+  nt2::table<T> ra = nt2::rand(9 , 6, as_<T>());
+  nt2::table<cT> a = ra;
 
   /// Interface tests
 
