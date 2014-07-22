@@ -10,6 +10,7 @@
 #define NT2_CORE_FUNCTIONS_SCALAR_OUTER_SCAN_HPP_INCLUDED
 
 #include <nt2/core/functions/outer_scan.hpp>
+#include <nt2/core/functions/details/scan_step.hpp>
 #include <boost/fusion/include/pop_front.hpp>
 #include <nt2/include/functions/scalar/numel.hpp>
 
