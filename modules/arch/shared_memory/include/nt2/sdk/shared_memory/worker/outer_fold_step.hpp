@@ -60,22 +60,23 @@ namespace nt2
   {
     typedef typename boost::remove_reference<In>::type::extent_type extent_type;
 
-    worker(In & in, Neutral const & neutral, Bop const & bop)
-          :in_(in),neutral_(neutral),bop_(bop)
+    worker(In & in, Neutral const & neutral, Bop const & bop, std::size_t o)
+          :in_(in),neutral_(neutral),bop_(bop),o_(o)
     {}
 
     template<class Out>
-    Out operator()(Out & out, std::size_t begin, std::size_t size)
+    Out operator()(Out out, std::size_t begin, std::size_t size)
     {
       extent_type ext = in_.extent();
       std::size_t ibound = boost::fusion::at_c<0>(ext);
 
-      return details::fold_step(out, in_, bop_, begin, size, ibound);
+      return details::fold_step(out, in_, bop_, o_ + begin*ibound, size, ibound);
     };
 
     In & in_;
     Neutral const & neutral_;
     Bop const & bop_;
+    std::size_t o_;
 
     private:
     worker& operator=(worker const&);

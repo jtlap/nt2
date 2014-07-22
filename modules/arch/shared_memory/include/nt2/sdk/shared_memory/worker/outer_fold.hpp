@@ -62,9 +62,6 @@ namespace nt2
         if( ibound < grain )
         {
           // Instanciate the spawner/worker associated to the mbound dimension
-          nt2::worker<tag::outer_fold_step_outcache_,BackEnd,Site,In,Neutral,Bop>
-          w(in_,neutral_,bop_);
-
           nt2::spawner<tag::fold_, BackEnd, target_type> s_simd;
           nt2::spawner<tag::fold_, BackEnd, value_type> s_scalar;
 
@@ -77,14 +74,17 @@ namespace nt2
                  i < iibound;
                  i+=N, kout_+=N, kin_+=N)
             {
+              nt2::worker<tag::outer_fold_step_outcache_,BackEnd,Site,In,Neutral,Bop>
+              w(in_,neutral_,bop_,kin_);
+
               target_type vec_out = neutral_(nt2::meta::as_<target_type>());
 
               if( (size == obound) && (grain < mmbound) )
-                  vec_out = s_simd( w, kin_, mmbound, grain);
+                  vec_out = s_simd( w, 0, mmbound, grain);
               else
-                  vec_out = w(vec_out, kin_, mmbound);
+                  vec_out = w(vec_out, 0, mmbound);
 
-              vec_out = w(vec_out, kin_+mmbound*ibound, mbound-mmbound);
+              vec_out = w(vec_out, mmbound, mbound-mmbound);
 
               nt2::run(out_, kout_,vec_out);
             }
@@ -94,14 +94,17 @@ namespace nt2
                 i < ibound;
                 ++i, ++k_, ++m_)
             {
+              nt2::worker<tag::outer_fold_step_outcache_,BackEnd,Site,In,Neutral,Bop>
+              w(in_,neutral_,bop_,m_);
+
               value_type s_out = neutral_(nt2::meta::as_<value_type>());
 
               if( (size == obound) && (grain < mmbound) )
-                  s_out = s_scalar( w, m_, mmbound, grain);
+                  s_out = s_scalar( w, 0, mmbound, grain);
               else
-                  s_out = w(s_out, m_, mmbound);
+                  s_out = w(s_out, 0, mmbound);
 
-              s_out = w(s_out, k_+mmbound*ibound, mbound-mmbound);
+              s_out = w(s_out, mmbound, mbound-mmbound);
 
               nt2::run(out_, k_,s_out);
             }
