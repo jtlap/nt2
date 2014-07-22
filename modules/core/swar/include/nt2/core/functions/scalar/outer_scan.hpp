@@ -67,24 +67,19 @@ namespace nt2 { namespace ext
 
       std::size_t ibound  = boost::fusion::at_c<0>(ext);
       std::size_t mbound =  boost::fusion::at_c<1>(ext);
-      //std::size_t obound =  boost::fusion::at_c<2>(ext);
+      std::size_t iboundxmbound = ibound * mbound;
 
       std::size_t begin = range.first;
       std::size_t size = range.second;
 
-      std::size_t it = 0;
-      for(std::size_t o = begin; o < size; ++o)
+      for(std::size_t o = begin, o_ = begin * iboundxmbound;
+          o < size;
+          ++o, o_+=iboundxmbound)
       {
-        for(std::size_t i = 0; i < ibound; ++i)
+        for(std::size_t i = 0, i_ = o_; i < ibound; ++i, ++i_)
         {
-          it = i+o*mbound*ibound;
-
-          value_type prev = neutral(nt2::meta::as_<value_type>());
-          for(std::size_t k = 0; k < mbound; ++k, it += ibound)
-          {
-            prev = bop(prev, nt2::run(in, it, nt2::meta::as_<value_type>()));
-            nt2::run(out, it, prev);
-          }
+          value_type summary = neutral(nt2::meta::as_<value_type>());
+          summary = details::scan_step(summary, out, in, bop, i_, mbound, ibound, false);
         }
       }
     }

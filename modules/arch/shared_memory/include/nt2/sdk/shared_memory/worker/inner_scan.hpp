@@ -12,6 +12,7 @@
 
 #include <nt2/sdk/shared_memory/worker.hpp>
 #include <nt2/sdk/shared_memory/spawner.hpp>
+#include <nt2/core/functions/details/scan_step.hpp>
 
 #include <nt2/include/functor.hpp>
 #include <nt2/sdk/config/cache.hpp>
@@ -37,7 +38,7 @@ namespace nt2
     template<class Summary>
     Summary operator()(Summary summary, std::size_t begin, std::size_t size, bool prescan)
     {
-      return details::inner_scan_step(summary,out_,in_,bop_,std::make_pair(begin,size),prescan);
+      return details::scan_step(summary,out_,in_,bop_,begin,size,1,prescan);
     };
 
     Out & out_;

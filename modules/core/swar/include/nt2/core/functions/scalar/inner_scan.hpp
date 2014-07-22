@@ -10,7 +10,7 @@
 #define NT2_CORE_FUNCTIONS_SCALAR_INNER_SCAN_HPP_INCLUDED
 
 #include <nt2/core/functions/inner_scan.hpp>
-#include <nt2/core/functions/details/inner_scan_step.hpp>
+#include <nt2/core/functions/details/scan_step.hpp>
 #include <nt2/include/functions/scalar/numel.hpp>
 #include <boost/fusion/include/pop_front.hpp>
 #include <boost/dispatch/meta/ignore_unused.hpp>
@@ -70,18 +70,19 @@ namespace nt2 { namespace ext
     {
       extent_type ext = in.extent();
       std::size_t ibound  = boost::fusion::at_c<0>(ext);
-      //std::size_t obound =  nt2::numel(boost::fusion::pop_front(ext));
       std::size_t begin = range.first;
       std::size_t size  = range.second;
 
       for(std::size_t j = begin, k = begin*ibound; j < size; ++j, k+=ibound)
       {
-        value_type res = details::inner_scan_step(
+        value_type res = details::scan_step(
           neutral(nt2::meta::as_<value_type>())
          ,out
          ,in
          ,bop
-         ,std::make_pair(k,ibound)
+         ,k
+         ,ibound
+         ,1
          ,false
          );
         boost::dispatch::ignore_unused(res);
