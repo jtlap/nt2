@@ -147,6 +147,7 @@ namespace nt2 { namespace details
                                                  )
                                      )
                         )
+              , distance_fn
               );
       }
     };
@@ -348,6 +349,15 @@ namespace nt2 { namespace unit
   bool max_ulp( A const& a, B const& b, double max_ulpd, VF& fails, double& ru, F const& distance_fn )
   {
     return details::max_ulp_<A,B>()(a,b,max_ulpd,fails,0,ru,distance_fn);
+  }
+
+  /// INTERNAL ONLY
+  /// Main test for equality over any types A and B within a given ulp tolerance
+  template<class A, class B, class VF>
+  BOOST_FORCEINLINE
+  bool max_ulp( A const& a, B const& b, double max_ulpd, VF& fails, double& ru )
+  {
+    return max_ulp(a, b, max_ulpd, fails, ru, details::max_ulps_caller());
   }
 } }
 
