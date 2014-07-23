@@ -19,7 +19,9 @@
 #include <nt2/sdk/meta/concrete.hpp>
 #include <nt2/core/container/table/table.hpp>
 #include <nt2/linalg/details/utility/f77_wrapper.hpp>
-#include <boost/dispatch/meta/ignore_unused.hpp>
+#include <nt2/linalg/details/utility/lapack_assert.hpp>
+#include <nt2/core/container/dsl/as_terminal.hpp>
+#include <nt2/core/container/colon/colon.hpp>
 #include <boost/assert.hpp>
 
 namespace nt2 { namespace ext
@@ -54,6 +56,38 @@ namespace nt2 { namespace ext
   };
 
   //============================================================================
+  //CHOL Scalar
+  //============================================================================
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::chol_, tag::cpu_
+                            , (A0)
+                            , (scalar_<unspecified_<A0> >)
+                            )
+  {
+    typedef A0 result_type;
+
+    BOOST_FORCEINLINE result_type operator()(const A0& a0) const
+    {
+      BOOST_ASSERT_MSG(is_gtz(a0), "Matrix must be positive definite");
+      return a0;
+    }
+  };
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::chol_, tag::cpu_
+                            , (A0)(A1)
+                            , (scalar_<unspecified_<A0> >)
+                              (unspecified_<A1>)
+                            )
+  {
+    typedef typename nt2::meta::as_real<A0>::type result_type;
+
+    BOOST_FORCEINLINE result_type operator()(const A0& a0, const A1&) const
+    {
+      BOOST_ASSERT_MSG(is_gtz(a0), "Matrix must be positive definite");
+      return a0;
+    }
+  };
+
+  //============================================================================
   //Cholesky factorization
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::chol_, tag::cpu_
@@ -70,7 +104,8 @@ namespace nt2 { namespace ext
   {
     typedef void  result_type;
     typedef typename boost::proto::result_of::child_c<A0&,0>::value_type child0;
-    typedef typename child0::value_type type_t;
+    typedef typename child0::value_type                                  type_t;
+    typedef nt2::memory::container<tag::table_,  type_t, nt2::_2D>   o_semantic;
 
     BOOST_FORCEINLINE result_type operator()( A0& a0, A1& a1 ) const
     {
@@ -84,17 +119,15 @@ namespace nt2 { namespace ext
               , boost::mpl::long_<1> const& , boost::mpl::long_<1> const&
               ) const
     {
-      nt2::container::table<type_t> work = boost::proto::child_c<0>(a0);
+      NT2_AS_TERMINAL_INOUT(o_semantic, a, boost::proto::child_c<0>(a0), boost::proto::child_c<0>(a1));
 
+      lapack_assert(nt2::potrf(boost::proto::value(a),'U'));
 
-      nt2_la_int info = nt2::potrf( boost::proto::value(work),'U');
-      boost::dispatch::ignore_unused(info);
-
-      boost::proto::child_c<0>(a1) = nt2::triu(work);
+      boost::proto::child_c<0>(a1) = nt2::triu(a);
     }
 
     //==========================================================================
-    /// INTERNAL ONLY - L = chol(A,Lower/Upper)
+    /// INTERNAL ONLY - L = chol(A,lower_/upper_)
     BOOST_FORCEINLINE
     void eval ( A0& a0 , A1& a1
               , boost::mpl::long_<2> const& , boost::mpl::long_<1> const&
@@ -106,24 +139,23 @@ namespace nt2 { namespace ext
     }
 
     //==========================================================================
-    /// INTERNAL ONLY - L = chol(A,Lower)
+    /// INTERNAL ONLY - L = chol(A,lower_)
     BOOST_FORCEINLINE
     void eval( A0& a0 , A1& a1
               , boost::mpl::long_<2> const& , boost::mpl::long_<1> const&
               , nt2::policy<ext::lower_> const&
               ) const
     {
-      nt2::container::table<type_t> work = boost::proto::child_c<0>(a0);
+      NT2_AS_TERMINAL_INOUT(o_semantic, a, boost::proto::child_c<0>(a0), boost::proto::child_c<0>(a1));
 
-      nt2_la_int info = nt2::potrf(  boost::proto::value(work),'L');
-      boost::dispatch::ignore_unused(info);
+      lapack_assert(nt2::potrf(boost::proto::value(a),'L'));
 
-      boost::proto::child_c<0>(a1) = nt2::tril(work);
+      boost::proto::child_c<0>(a1) = nt2::tril(a);
     }
 
 
     //==========================================================================
-    /// INTERNAL ONLY - R = chol(A,Upper)
+    /// INTERNAL ONLY - R = chol(A,upper_)
     BOOST_FORCEINLINE
     void eval ( A0& a0 , A1& a1
               , boost::mpl::long_<2> const& , boost::mpl::long_<1> const&
@@ -141,16 +173,23 @@ namespace nt2 { namespace ext
               , boost::mpl::long_<1> const& , boost::mpl::long_<2> const&
               ) const
     {
-      nt2::container::table<type_t> work = boost::proto::child_c<0>(a0);
+      NT2_AS_TERMINAL_INOUT(o_semantic, a, boost::proto::child_c<0>(a0), boost::proto::child_c<0>(a1));
 
-      nt2_la_int info = nt2::potrf(  boost::proto::value(work),'U');
-
-      boost::proto::child_c<0>(a1) = nt2::triu(work);
+      nt2_la_int info = nt2::potrf(boost::proto::value(a),'U');
+      BOOST_ASSERT_MSG(info >= 0, "invalid parameter in potrf call");
+      if (info == 0)
+      {
+        boost::proto::child_c<0>(a1) = nt2::triu(a);
+      }
+      else
+      {
+        boost::proto::child_c<0>(a1) = nt2::triu(a(nt2::_(1, info-1), nt2::_(1, info-1)));
+      }
       boost::proto::child_c<1>(a1) = info;
     }
 
     //==========================================================================
-    /// INTERNAL ONLY - R,P = chol(A,Lower/Upper)
+    /// INTERNAL ONLY - R,P = chol(A,lower_/upper_)
     BOOST_FORCEINLINE
     void eval ( A0& a0 , A1& a1
               , boost::mpl::long_<2> const& , boost::mpl::long_<2> const&
@@ -162,23 +201,30 @@ namespace nt2 { namespace ext
     }
 
     //==========================================================================
-    /// INTERNAL ONLY - L,P = chol(A,Lower)
+    /// INTERNAL ONLY - L,P = chol(A,lower_)
     BOOST_FORCEINLINE
     void eval ( A0& a0 , A1& a1
               , boost::mpl::long_<2> const& , boost::mpl::long_<2> const&
               , nt2::policy<ext::lower_> const&
               ) const
     {
-      nt2::container::table<type_t> work = boost::proto::child_c<0>(a0);
+      NT2_AS_TERMINAL_INOUT(o_semantic, a, boost::proto::child_c<0>(a0), boost::proto::child_c<0>(a1));
 
-      nt2_la_int info = nt2::potrf(  boost::proto::value(work),'L');
-
-      boost::proto::child_c<0>(a1) = nt2::tril(work);
+      nt2_la_int info = nt2::potrf(boost::proto::value(a),'L');
+      BOOST_ASSERT_MSG(info >= 0, "invalid parameter in potrf call");
+      if (info == 0)
+      {
+        boost::proto::child_c<0>(a1) = nt2::tril(a);
+      }
+      else
+      {
+        boost::proto::child_c<0>(a1) = nt2::tril(a(nt2::_(1, info-1), nt2::_(1, info-1)));
+      }
       boost::proto::child_c<1>(a1) = info;
     }
 
     //==========================================================================
-    /// INTERNAL ONLY - R,P = chol(A,Upper)
+    /// INTERNAL ONLY - R,P = chol(A,upper_)
     BOOST_FORCEINLINE
     void eval ( A0& a0 , A1& a1
               , boost::mpl::long_<2> const& , boost::mpl::long_<2> const&

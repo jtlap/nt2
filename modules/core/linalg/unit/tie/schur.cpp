@@ -21,9 +21,8 @@
 #include <nt2/include/functions/transpose.hpp>
 #include <nt2/include/functions/mtimes.hpp>
 #include <nt2/include/functions/globalmax.hpp>
-#include <nt2/include/functions/isulpequal.hpp>
 
-#include <nt2/sdk/unit/tests.hpp>
+#include <nt2/sdk/unit/tests/ulp.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/exceptions.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
@@ -38,7 +37,7 @@ NT2_TEST_CASE_TPL ( schur, NT2_REAL_TYPES)
   t = nt2::schur(b);
   NT2_DISPLAY(t); // just quasi diag matrix
 
-  nt2::tie(z, t) = nt2::schur(b); //real
+  nt2::tie(t, z) = nt2::schur(b); //real
   NT2_DISPLAY(z);
   NT2_DISPLAY(t);
   NT2_DISPLAY(nt2::mtimes(nt2::mtimes(z, t), nt2::trans(z)));
@@ -56,10 +55,9 @@ NT2_TEST_CASE_TPL ( schurc, NT2_REAL_TYPES)
   t = nt2::schur(b);
   NT2_DISPLAY(t); // triu matrix
 
-  nt2::tie(z, t) = nt2::schur(b); //complex
+  nt2::tie(t, z) = nt2::schur(b); //complex
   NT2_DISPLAY(z);
   NT2_DISPLAY(t);
-  NT2_DISPLAY(nt2::mtimes(nt2::mtimes(z, t), nt2::trans(z)));
   NT2_TEST_ULP_EQUAL(b, nt2::mtimes(nt2::mtimes(z, t), nt2::trans(nt2::conj(z))), 20.0);
 }
 
@@ -83,11 +81,21 @@ NT2_TEST_CASE_TPL ( schur_m_test, NT2_REAL_TYPES)
         }
     }
   NT2_DISPLAY(b);
-  nt2::tie(z, t) = nt2::schur(b); //real
+  nt2::tie( t, z) = nt2::schur(b); //real
   NT2_DISPLAY(z);
   NT2_DISPLAY(t);
   zz =  mtimes(nt2::mtimes(z, t), nt2::trans(z));
-  NT2_TEST(isulpequal(zz, b, T(16.0)));
+  NT2_TEST_ULP_EQUAL(zz, b, T(16.0));
+  typedef std::complex<T> cT;
+  typedef nt2::table<cT> ctable_t;
+  ctable_t cz, ct, czz;
+  ctable_t cb = b;
+  nt2::tie( ct, cz) = nt2::schur(cb); //complex
+  NT2_DISPLAY(cz);
+  NT2_DISPLAY(ct);
+  czz =  mtimes(nt2::mtimes(cz, ct), nt2::trans(nt2::conj(cz)));
+  NT2_TEST_ULP_EQUAL(czz, cb, T(16.0));
+
 }
 
 

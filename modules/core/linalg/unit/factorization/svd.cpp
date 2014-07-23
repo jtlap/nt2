@@ -14,9 +14,8 @@
 #include <nt2/include/functions/cons.hpp>
 #include <nt2/include/functions/transpose.hpp>
 #include <nt2/include/functions/mtimes.hpp>
-#include <nt2/include/functions/ones.hpp>
-#include <nt2/include/constants/one.hpp>
-#include <nt2/include/constants/sqrt_2.hpp>
+#include <nt2/include/functions/from_diag.hpp>
+#include <nt2/include/functions/expand.hpp>
 
 #include <nt2/table.hpp>
 #include <nt2/sdk/unit/module.hpp>
@@ -29,10 +28,45 @@ NT2_TEST_CASE_TPL(svd_scalar, NT2_REAL_TYPES )
   typedef nt2::table<T>           t_t;
   T a0 =  nt2::One<T>();
   t_t s = nt2::svd(a0);
-  NT2_TEST_ULP_EQUAL(s, nt2::ones<T>(1),1 );
-  s =  nt2::svd(a0, nt2::econ_);
-  NT2_TEST_ULP_EQUAL(s, nt2::ones<T>(1),1 );
+  NT2_TEST_ULP_EQUAL(s, res,T(1) );
 
+  // [U,S,V] = SVD(A)
+  t_t s1;
+  t_t u,u1;
+  t_t v,v1, vt;
+
+
+  nt2::tie(u,s1,v) = svd(a0);
+      NT2_DISPLAY(u);
+      NT2_DISPLAY(s1);
+      NT2_DISPLAY(v);
+
+  NT2_TEST_ULP_EQUAL(nt2::mtimes(nt2::mtimes(u,s1),nt2::trans(v)), a0,T(20));
+
+  // [U,S,V] = SVD(A,0)
+  a0 = nt2::cons<T>(nt2::of_size(4,2),1.,2.,5.,7.,2.,4.,6.,8.);
+
+  nt2::tie(u,s1,v) = svd(a0,0);
+  NT2_TEST_ULP_EQUAL(nt2::mtimes(nt2::mtimes(u,s1),nt2::trans(v)), a0,T(20));
+
+  // [U,S,V] = SVD(A,econ)
+  a0 = nt2::cons<T>(nt2::of_size(2,4),1.,2.,5.,7.,2.,4.,6.,8.);
+
+  nt2::tie(u,s1,v) = svd(a0, nt2::econ_);
+  NT2_TEST_ULP_EQUAL(nt2::mtimes(nt2::mtimes(u,s1),nt2::trans(v)), a0,T(20));
+
+  // [U,S,V] = SVD(A,lapack_)
+  a0 = nt2::cons<T>(nt2::of_size(2,4),1.,2.,5.,7.,2.,4.,6.,8.);
+
+  nt2::tie(u,s1,vt) = svd(a0, nt2::lapack_);
+  NT2_DISPLAY(s1);
+  NT2_DISPLAY(u);
+  NT2_DISPLAY(vt);
+
+  s =  nt2::expand(nt2::from_diag(s1), height(a0),width(a0));
+  NT2_DISPLAY(s);
+
+  NT2_TEST_ULP_EQUAL(nt2::mtimes(nt2::mtimes(u,s),vt), a0,T(20));
 }
 
 NT2_TEST_CASE_TPL(svdc, NT2_REAL_TYPES )
@@ -56,22 +90,31 @@ NT2_TEST_CASE_TPL(svdc, NT2_REAL_TYPES )
   // [U,S,V] = SVD(A)
   t_rt s1;
   t_t u,u1;
-  t_t vt,vt1;
+  t_t v,v1, vt;
 
 
-  nt2::tie(u,s1,vt) = svd(a0);
-  NT2_TEST_ULP_EQUAL(nt2::mtimes(nt2::mtimes(u,s1),nt2::trans(vt)), a0,T(20));
+  nt2::tie(u,s1,v) = svd(a0);
+  NT2_TEST_ULP_EQUAL(nt2::mtimes(nt2::mtimes(u,s1),nt2::trans(v)), a0,T(20));
 
   // [U,S,V] = SVD(A,0)
-  a0 = nt2::cons<cT>(nt2::of_size(4,2),cT(1,0),cT(2,0),cT(5,0),cT(7,0),cT(2,0),cT(4,0),cT(6,0),cT(8,0));
+  a0 = nt2::cons<cT>(nt2::of_size(4,2),cT(1,0),cT(2,1),cT(5,0),cT(7,0),cT(2,0),cT(4,0),cT(6,0),cT(8,0));
 
-  nt2::tie(u,s1,vt) = svd(a0,0);
-  NT2_TEST_ULP_EQUAL(nt2::mtimes(nt2::mtimes(u,s1),nt2::trans(vt)), a0,T(20));
+  nt2::tie(u,s1,v) = svd(a0,0);
+  NT2_TEST_ULP_EQUAL(nt2::mtimes(nt2::mtimes(u,s1),nt2::trans(v)), a0,T(20));
 
   // [U,S,V] = SVD(A,econ)
-  a0 = nt2::cons<cT>(nt2::of_size(2,4),cT(1,0),cT(2,0),cT(5,0),cT(7,0),cT(2,0),cT(4,0),cT(6,0),cT(8,0));
+  a0 = nt2::cons<cT>(nt2::of_size(2,4),cT(1,0),cT(2,1),cT(5,0),cT(7,0),cT(2,0),cT(4,0),cT(6,0),cT(8,0));
 
-  nt2::tie(u,s1,vt) = svd(a0, nt2::econ_);
-  NT2_TEST_ULP_EQUAL(nt2::mtimes(nt2::mtimes(u,s1),nt2::trans(vt)), a0,T(20));
+  nt2::tie(u,s1,v) = svd(a0, nt2::econ_);
+  NT2_TEST_ULP_EQUAL(nt2::mtimes(nt2::mtimes(u,s1),nt2::trans(v)), a0,T(20));
 
+  nt2::tie(u,s1,vt) = svd(a0, nt2::lapack_);
+  NT2_DISPLAY(s1);
+  NT2_DISPLAY(u);
+  NT2_DISPLAY(vt);
+
+  s =  nt2::expand(nt2::from_diag(s1), height(a0),width(a0));
+  NT2_DISPLAY(s);
+
+  NT2_TEST_ULP_EQUAL(nt2::mtimes(nt2::mtimes(u,s),vt), a0,T(20));
 }

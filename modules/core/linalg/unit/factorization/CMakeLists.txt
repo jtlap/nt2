@@ -8,18 +8,15 @@
 ##############################################################################
 
 SET( SOURCES
-  balance.cpp
-  balance_result.cpp
   chol.cpp
+  nseig.cpp
   geneig.cpp
-  geneig_result.cpp
   ldl_result.cpp
   lu.cpp
   qr.cpp
-  schur_result.cpp
+  schur.cpp
   svd.cpp
   symeig.cpp
-  symeig_result.cpp
   )
 
 nt2_module_add_tests(core.linalg.factorization.unit ${SOURCES})

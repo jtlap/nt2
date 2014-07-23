@@ -10,7 +10,7 @@
 #define NT2_LINALG_DETAILS_LAPACK_HSTRF_HPP_INCLUDED
 #include <nt2/linalg/details/utility/f77_wrapper.hpp>
 #include <nt2/linalg/details/utility/workspace.hpp>
-#include <nt2/include/functions/scalar/max.hpp>
+
 // contrarily to lapack we use sym mtrix in real case ans hermitian in complex case
 // this means that hstrf calls respectively xsytrf ans xhetrf
 //     **  purpose

@@ -17,25 +17,26 @@
 #include <nt2/include/constants/two.hpp>
 #include <nt2/include/functions/rec.hpp>
 #include <nt2/include/functions/ones.hpp>
+#include <nt2/include/functions/eye.hpp>
 #include <nt2/include/functions/isulpequal.hpp>
-#include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/exceptions.hpp>
+#include <nt2/sdk/unit/tests/ulp.hpp>
 
 
 NT2_TEST_CASE_TPL(poly, NT2_REAL_TYPES)
 {
   using nt2::poly;
   using nt2::tag::poly_;
-//  nt2::table<T> n = nt2::eye(2, 2, nt2::meta::as_<T>());
-  nt2::table<T> n = nt2::ones(1, 2,  nt2::meta::as_<T>());
-  nt2::table<T> p = nt2::poly(n);
-  nt2::table<T> pp(nt2::of_size(1, 3));
+  typedef std::complex<T> cT;
+  nt2::table<cT> n = nt2::ones(1, 2,  nt2::meta::as_<cT>());
+  nt2::table<cT> p = nt2::poly(n);
+  nt2::table<cT> pp(nt2::of_size(1, 3));
   pp(1) = pp(3) = T(1); pp(2) = T(-2);
   NT2_DISPLAY(n);
   NT2_DISPLAY(pp);
   NT2_DISPLAY(p);
-  NT2_TEST(nt2::isulpequal(pp, p, 0.5));
+  NT2_TEST_ULP_EQUAL(pp, p, 0.5);
 
 
   T z[] = { 1,   -10,    35,   -50,    24};
@@ -45,6 +46,22 @@ NT2_TEST_CASE_TPL(poly, NT2_REAL_TYPES)
   NT2_DISPLAY(n1);
   NT2_DISPLAY(pp1);
   NT2_DISPLAY(p1);
-  NT2_TEST(nt2::isulpequal(pp1, p1, 0.5));
+  NT2_TEST_ULP_EQUAL(pp1, p1, 0.5);
+
+}
+
+NT2_TEST_CASE_TPL(polym, NT2_REAL_TYPES)
+{
+  using nt2::poly;
+  using nt2::tag::poly_;
+  nt2::table<T> n = nt2::eye(2, 2, nt2::meta::as_<T>()); ;
+  nt2::table<T> p = nt2::poly(n);
+  nt2::table<T> pp(nt2::of_size(1, 3));
+  pp(1) = pp(3) = T(1); pp(2) = T(-2);
+  NT2_DISPLAY(n);
+  NT2_DISPLAY(pp);
+  NT2_DISPLAY(p);
+  NT2_TEST_ULP_EQUAL(pp, p, 0.5);
+
 
 }

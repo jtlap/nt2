@@ -12,20 +12,12 @@
 #include <nt2/options.hpp>
 #include <nt2/include/functor.hpp>
 #include <nt2/sdk/meta/tieable_hierarchy.hpp>
-#include <nt2/linalg/functions/details/schur.hpp>
+#include <nt2/sdk/meta/size_as.hpp>
 
 namespace nt2
 {
   namespace tag
   {
-    namespace factorization
-    {
-      struct schur_ : ext::unspecified_<factorization::schur_>
-      {
-        typedef ext::unspecified_<factorization::schur_> parent;
-      };
-    }
-
     struct schur_ : ext::tieable_<schur_>
     {
       typedef ext::tieable_<schur_>  parent;
@@ -36,43 +28,40 @@ namespace nt2
    * @brief Perform Schur factorization
    *
    * For any given matrix expression, performs a Schur factorization of
-   * said matrix using the specified output layout for the Schurevsky method.
+   * said matrix using the specified output layout for the Schur method.
    *
-   * Contrary to the nt2::factorization::schur function which performs a partial evaluation of
-   * said decomposition, nt2::schur returns a result similar to the Matlab interface,
-   * making it useful for Matlab like usage.
    *
    * @param  xpr  Matrix expression to factorize
    *
    * @return A tuple-like type containing the factorized matrix and an indicator
    * of the success of the factorization
+   *
+   * possible calls are
+   * t =  schur(a);
+   *     if a is complex, the complex schur form is returned in matrix t.
+   *     the complex schur form is upper triangular with the eigenvalues
+   *     of a on the diagonal.
+   *
+   *     if a is real, or has only real elements two different decompositions are available.
+   *     schur(a,real_) has the real eigenvalues on the diagonal and the
+   *     complex eigenvalues in 2-by-2 blocks on the diagonal.
+   *     schur(a,cmplx_) is triangular and is complex.
+   *     schur(a,real_) is the default for real types entry and in this case is equivalent to
+   *     schur(a). For complex types entry the complex form is the default and in this case
+   *     schur(a,cmplx_) is equivalent to schur(a).
+   *
+   * t =  schur(a, real_);   // all a coefficients must contain real values
+   * t =  schur(a, cmplx_);  // t must be able to receive complex elts
+   *
+   * [t, u] = schur(a, ...) also returns the unitary (orthogonal in the real_ case) matrix u
+   *                        such that u*t*transconj(u) ==  a
+   * [t, u, w] = schur(a, ...) returns also the vector w containing the eigenvalues of a (w
+   *                           is mandatorily complex)
+   *
+   *
    **/
   NT2_FUNCTION_IMPLEMENTATION(tag::schur_, schur, 1)
   NT2_FUNCTION_IMPLEMENTATION(tag::schur_, schur, 2)
-
-  namespace factorization
-  {
-    /**
-     * @brief Initialize a Schur factorization
-     *
-     * For any given matrix expression, initialize a Schur factorization of
-     * said matrix using the specified output layout for the Schur method
-     * and return a precomputed factorization object.
-     *
-     * Contrary to the schur function which performs such a factorization and
-     * return a Matlab like output, factorization::schur returns an object
-     * containing the initial evaluation of said factorization. This object can
-     * then be used to fasten other algorithms implementation.
-     *
-     * @param  xpr  Matrix expression to factorize
-     * @param  econ Notify if schur should return an economy size decomposition
-     *
-     * @return A unspecified type containing the precomputed elements of the
-     * Schur factorization.
-     **/
-    NT2_FUNCTION_IMPLEMENTATION(tag::factorization::schur_, schur, 4)
-    NT2_FUNCTION_IMPLEMENTATION_SELF(tag::factorization::schur_, schur, 5)
-  }
 }
 
 namespace nt2 { namespace ext
@@ -81,17 +70,6 @@ namespace nt2 { namespace ext
   struct  size_of<tag::schur_,Domain,N,Expr>
         : meta::size_as<Expr,0>
   {};
-
-  template<class Domain, class Expr>
-  struct  value_type<tag::schur_,Domain,1,Expr>
-        : meta::value_as<Expr,0>
-  {};
-
-  template<class Domain, class Expr>
-  struct  value_type<tag::schur_,Domain,2,Expr>
-  {
-    typedef typename Expr::proto_child1::proto_child0::type type;
-  };
 } }
 
 #endif

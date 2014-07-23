@@ -28,6 +28,7 @@
 #include <nt2/include/functions/colvect.hpp>
 #include <nt2/include/functions/cast.hpp>
 #include <complex>
+#include <nt2/linalg/options.hpp>
 
 namespace nt2{ namespace ext
 {
@@ -51,7 +52,7 @@ namespace nt2{ namespace ext
       typedef nt2::table<cmplx_type, nt2::_2D>       ctab_t;
       size_t n = length(a0);
       ctab_t q, t, r;
-      tie(q, t) = schur(a0, meta::as_<cmplx_type>()); // t is complex schur form.
+      tie(t, q) = schur(a0, nt2::cmplx_); // t is complex schur form.
       compute(n, t, r);
       ctab_t x = nt2::mtimes( nt2::mtimes(q, r), nt2::trans(nt2::conj(q)));
       return nt2::real(x);
@@ -67,7 +68,7 @@ namespace nt2{ namespace ext
       typedef nt2::table<value_type, nt2::_2D>        tab_t;
       size_t n = length(a0);
       tab_t q, t, r;
-      tie(q, t) = schur(a0); // t is complex schur form.
+      tie(t, q) = schur(a0); // t is complex schur form.
       compute(n, t, r);
       return nt2::mtimes( nt2::mtimes(q, r), nt2::trans(nt2::conj(q)));
 

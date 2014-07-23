@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_LINALG_DETAILS_UTILITY_ENVBLOCKSIZE_HPP_INCLUDED
 #define NT2_LINALG_DETAILS_UTILITY_ENVBLOCKSIZE_HPP_INCLUDED
+#include <nt2/linalg/details/utility/f77_wrapper.hpp>
 
 extern "C"
 {

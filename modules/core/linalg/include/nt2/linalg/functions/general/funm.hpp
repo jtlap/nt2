@@ -42,6 +42,7 @@
 #include <nt2/include/functions/extent.hpp>
 #include <nt2/include/functions/issquare.hpp>
 #include <boost/assert.hpp>
+#include <nt2/linalg/options.hpp>
 
 // there are many optimisations/ameliorations to be done
 // -- passing parameters to functor
@@ -107,7 +108,7 @@ namespace nt2
          //u, t and r are complex arrays
          res.resize(extent(a0));
          ctab_t u, t;
-         nt2::tie(u, t) = schur(a0, meta::as_<cplx_type>()); // t is complex schur form.
+         nt2::tie(t, u) = schur(a0, nt2::cmplx_); // t is complex schur form.
          if (isdiagonal(t))
          {
            t = nt2::from_diag(f(nt2::diag_of(t), 0));

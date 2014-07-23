@@ -12,6 +12,7 @@
 #include <nt2/linalg/functions/pascal.hpp>
 #include <nt2/core/container/table/table.hpp>
 #include <nt2/include/functions/colon.hpp>
+#include <nt2/core/container/colon/colon.hpp>
 #include <nt2/include/functions/transpose.hpp>
 #include <nt2/include/functions/rot90.hpp>
 #include <nt2/include/functions/mtimes.hpp>
@@ -186,7 +187,7 @@ namespace nt2 { namespace ext
       }
       else if (k == 2)
       {
-        nt2::table<v_type, _2D> p = nt2::rot90(out, 3);//ALIASING
+        nt2::container::table<v_type, _2D> p = nt2::rot90(out, 3);//ALIASING
         out =  (nt2::is_even(n))? -p: p;
       }
       return out;

@@ -26,6 +26,7 @@
 #include <nt2/include/functions/colon.hpp>
 #include <nt2/include/constants/eps.hpp>
 #include <nt2/include/constants/two.hpp>
+#include <nt2/include/constants/sqrteps.hpp>
 #include <nt2/include/functions/rec.hpp>
 
 #include <nt2/include/functions/linspace.hpp>
