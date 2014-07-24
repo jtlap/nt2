@@ -11,7 +11,6 @@
 
 #include <nt2/sdk/meta/as.hpp>
 
-
 namespace nt2
 {
   namespace tag
@@ -22,12 +21,12 @@ namespace nt2
     struct one_   {};
     struct minf_  {};
   }
+
   nt2::meta::as_<tag::fro_>     const fro_ = {};
   nt2::meta::as_<tag::minf_>    const minf_ = {};
   nt2::meta::as_<tag::inf_>     const inf_ = {};
   nt2::meta::as_<tag::one_>     const one_ = {};
   nt2::meta::as_<tag::two_>     const two_ = {};
 }
-
 
 #endif
