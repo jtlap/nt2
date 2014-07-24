@@ -33,7 +33,7 @@
 #include <nt2/include/functions/frexp.hpp>
 #include <nt2/include/functions/ldexp.hpp>
 #include <nt2/include/functions/exp.hpp>
-#include <nt2/include/functions/norm.hpp>
+#include <nt2/include/functions/mnorm1.hpp>
 #include <nt2/include/functions/fma.hpp>
 #include <nt2/include/functions/isscalar.hpp>
 #include <vector>
@@ -220,7 +220,7 @@ namespace ext
       const btab_t theta = h_t::theta(base_t());
       const itab_t m_vals = h_t::m_vals(base_t());
       tab_t a = a0;
-      base_t norma0 = nt2::norm(a0, 1);
+      base_t norma0 = nt2::mnorm1(a0);
       if(norma0 <= theta(end_))
       {
         // no scaling and squaring is required.

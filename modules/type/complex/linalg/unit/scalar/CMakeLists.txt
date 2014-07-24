@@ -14,7 +14,7 @@ SET( SOURCES
      cond.cpp
      trace.cpp
      rank.cpp
-     normest.cpp
+     mnormest.cpp
    )
 
 nt2_module_add_tests(type.complex.linalg.scalar.unit ${SOURCES})

@@ -13,7 +13,8 @@
 #include <nt2/include/functions/getrf.hpp>
 #include <nt2/include/functions/getri.hpp>
 #include <nt2/include/functions/rec.hpp>
-#include <nt2/include/functions/norm.hpp>
+#include <nt2/include/functions/mnorm.hpp>
+#include <nt2/include/functions/mnorm1.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/functions/issquare.hpp>
@@ -37,7 +38,7 @@ namespace nt2{ namespace ext
 
       nt2::getrf(boost::proto::value(lu), boost::proto::value(ip) );
       nt2::getri(boost::proto::value(lu), boost::proto::value(ip) );
-      return nt2::rec(nt2::norm(a0, 1) * nt2::norm(lu, 1));
+      return nt2::rec(nt2::mnorm1(a0) * nt2::mnorm1(lu));
     }
   };
 
@@ -75,7 +76,7 @@ namespace nt2{ namespace ext
 
       nt2::getrf(boost::proto::value(lu), boost::proto::value(ip) );
       nt2::getri(boost::proto::value(lu), boost::proto::value(ip) );
-        return nt2::rec(nt2::norm(a0, a1)*nt2::norm(lu, a1));
+        return nt2::rec(nt2::mnorm(a0, a1)*nt2::mnorm(lu, a1));
       }
     }
   };

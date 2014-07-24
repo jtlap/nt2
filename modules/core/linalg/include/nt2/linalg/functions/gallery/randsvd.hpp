@@ -21,7 +21,7 @@
 #include <nt2/include/functions/log.hpp>
 #include <nt2/include/functions/rand.hpp>
 #include <nt2/include/functions/randn.hpp>
-#include <nt2/include/functions/norm.hpp>
+#include <nt2/include/functions/mnorm.hpp>
 #include <nt2/include/functions/repnum.hpp>
 #include <nt2/include/functions/qmult.hpp>
 #include <nt2/include/functions/bandred.hpp>
@@ -209,7 +209,7 @@ namespace nt2 { namespace ext
       if (p == 1)
       {
         out = randn(m, n, nt2::meta::as_<value_t>());
-        out =  out/nt2::norm(out);
+        out =  out/nt2::mnorm(out);
         return out;
       }
       tab_t sigma;

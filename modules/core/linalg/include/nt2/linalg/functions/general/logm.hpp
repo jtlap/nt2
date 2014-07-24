@@ -33,7 +33,7 @@
 #include <nt2/include/functions/minusone.hpp>
 #include <nt2/include/functions/mtimes.hpp>
 #include <nt2/include/functions/multiplies.hpp>
-#include <nt2/include/functions/norm.hpp>
+#include <nt2/include/functions/mnorm1.hpp>
 #include <nt2/include/functions/oneplus.hpp>
 #include <nt2/include/functions/schur.hpp>
 #include <nt2/include/functions/size.hpp>
@@ -297,7 +297,7 @@ namespace nt2
         uint32_t m = 0;
         while (true)
         {
-          r_type normdiff = nt2::norm(t-eye(n, meta::as_<value_type>()),1);
+          r_type normdiff = nt2::mnorm1(t-eye(n, meta::as_<value_type>()));
           if (normdiff <= xvals(end_))
           {
             ++p;

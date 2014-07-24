@@ -42,7 +42,7 @@
 #include <nt2/include/functions/max.hpp>
 #include <nt2/include/functions/mean.hpp>
 #include <nt2/include/functions/mtimes.hpp>
-#include <nt2/include/functions/norm.hpp>
+#include <nt2/include/functions/globalasum1.hpp>
 #include <nt2/include/functions/numel.hpp>
 #include <nt2/include/functions/rowvect.hpp>
 #include <nt2/include/functions/size.hpp>
@@ -270,7 +270,7 @@ namespace nt2 { namespace details
         // for the remaining subintervals.  This guards against
         // excessive cancellation of the errors of the remaining
         // subintervals.
-        errbnd_ = nt2::abs(err_ok) + nt2::norm(errsubs, 1);
+        errbnd_ = nt2::abs(err_ok) + nt2::globalasum1(errsubs);
         // Check for nonfinites.
         if (check(f, is_not_finite(q) && is_finite(errbnd_), 3, q)) break; // Infinite or Not-a-Number value encountered.
         if (check(f, errbnd_ <= tol, 0, q)) break;                         // tolerance reached: convergence

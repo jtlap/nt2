@@ -21,6 +21,7 @@
 #include <nt2/include/functions/scalar/shr.hpp>
 #include <nt2/include/functions/scalar/signnz.hpp>
 #include <nt2/include/functions/scalar/sqr.hpp>
+#include <nt2/sdk/meta/as_real.hpp>
 
 #ifndef BOOST_SIMD_NO_INFINITIES
 #include <nt2/include/constants/inf.hpp>
@@ -30,11 +31,12 @@ namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow_absi_, tag::cpu_
                             , (A0)(A1)
-                            , (scalar_< floating_<A0> >)(scalar_< integer_<A1> >)
+                            , (scalar_< unspecified_<A0> >)
+                              (scalar_< integer_<A1> >)
                             )
   {
 
-    typedef A0 result_type;
+    typedef typename meta::as_real<A0>::type result_type;
 
     NT2_FUNCTOR_CALL(2)
     {
@@ -56,10 +58,10 @@ namespace nt2 { namespace ext
 
       while( n )
       {
-        w =sqr( w);
+        w =sqr(w);
         n_oddf = is_odd(n);
         y = y*fma(n_oddf,w,oneminus(n_oddf));
-        n >>=1;
+        n >>= 1;
       }
 
       w = y;

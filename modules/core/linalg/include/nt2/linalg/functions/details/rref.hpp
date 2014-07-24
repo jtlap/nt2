@@ -19,7 +19,7 @@
 #include <nt2/include/functions/ismatrix.hpp>
 #include <nt2/include/functions/max.hpp>
 #include <nt2/include/functions/globalmax.hpp>
-#include <nt2/include/functions/norm.hpp>
+#include <nt2/include/functions/mnorminf.hpp>
 #include <nt2/include/functions/zeros.hpp>
 #include <boost/dispatch/meta/mpl.hpp>
 #include <nt2/core/container/table/table.hpp>
@@ -65,7 +65,7 @@ namespace nt2 { namespace details
       , jb_(of_size(1, n_))
     {
       BOOST_ASSERT_MSG(ismatrix(a_), "input to rref must be matrix");
-      if (tol < Zero<base_t>()) tol = nt2::max(m_,n_)*nt2::Eps<base_t>()*nt2::norm(a_,'I');
+      if (tol < Zero<base_t>()) tol = nt2::max(m_,n_)*nt2::Eps<base_t>()*nt2::mnorminf(a_);
       itype_t i = 1, j = 1;
       itype_t k = 0;
       base_t p;

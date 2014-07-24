@@ -14,7 +14,7 @@
 #include <nt2/include/functions/mtimes.hpp>
 #include <nt2/include/functions/min.hpp>
 #include <nt2/include/functions/orth.hpp>
-#include <nt2/include/functions/norm.hpp>
+#include <nt2/include/functions/mnorm.hpp>
 #include <nt2/include/functions/asin.hpp>
 #include <nt2/include/functions/ofsameheight.hpp>
 #include <nt2/include/constants/one.hpp>
@@ -46,7 +46,7 @@ namespace nt2{ namespace ext
         bb = c;
       }
       // Make sure it's magnitude is less than 1.
-      return  nt2::asin(nt2::min(One<result_type>(),nt2::norm(bb)));
+      return  nt2::asin(nt2::min(One<result_type>(),nt2::mnorm(bb)));
     }
   };
 
