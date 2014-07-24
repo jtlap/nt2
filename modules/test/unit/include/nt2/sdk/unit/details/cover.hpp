@@ -199,7 +199,7 @@ namespace nt2 { namespace details
                                                                                \
     std::vector< f_t > ulps;                                                   \
     double ulpd = 0;                                                           \
-    find_ulp_error(out,ref,ulps,ulpd,N);                                       \
+    find_ulp_error(out,ref,ulps,ulpd,N,details::max_ulps_caller());            \
                                                                                \
     if(ulps.empty())                                                           \
     {                                                                          \
