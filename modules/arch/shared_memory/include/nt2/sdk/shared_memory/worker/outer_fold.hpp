@@ -129,7 +129,11 @@ namespace nt2
             w(out_,in_,neutral_,bop_, begin*ibound, begin * iboundxmbound);
 
             // parallelized part
-            s(vec_w,0,iibound,grain);
+            if(grain < iibound)
+              s(vec_w,0,iibound,grain);
+
+            else if(iibound != 0)
+              vec_w(0,iibound);
 
             // scalar part
             w(iibound,ibound-iibound);

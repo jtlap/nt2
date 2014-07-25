@@ -69,7 +69,8 @@ namespace nt2
 
               if( (size == obound) && (grain < mmbound) )
                s_out = s( w, 0, mmbound, grain);
-              else
+
+              else if (mmbound != 0)
                s_out = w(s_out, 0, mmbound, false);
 
               s_out = w(s_out, mmbound, mbound-mmbound, false);

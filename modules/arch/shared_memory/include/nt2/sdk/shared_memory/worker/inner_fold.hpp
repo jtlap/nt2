@@ -68,8 +68,8 @@ namespace nt2
       std::size_t top_cache_line_size = config::top_cache_line_size(2)/sizeof(value_type);
       std::size_t grain  = top_cache_line_size;
 
-      std::size_t bound  = boost::fusion::at_c<0>(ext);
-      std::size_t ibound = (bound/grain) * grain;
+      std::size_t ibound  = boost::fusion::at_c<0>(ext);
+      std::size_t iibound = (ibound/grain) * grain;
       std::size_t obound = nt2::numel(boost::fusion::pop_front(ext));
 
       nt2::worker<tag::inner_fold_step_,BackEnd,Site,In,Neutral,Bop>
@@ -80,19 +80,19 @@ namespace nt2
 
       nt2::spawner<tag::fold_, BackEnd, target_type> s;
 
-      for(std::size_t j = begin, k=begin*bound; j < begin+size; ++j, k+=bound)
+      for(std::size_t j = begin, k=begin*ibound; j < begin+size; ++j, k+=ibound)
       {
         target_type vec_out = neutral_(nt2::meta::as_<target_type>());
         value_type s_out = neutral_(nt2::meta::as_<value_type>());
 
-        if( (size == obound) && (grain < ibound) )
-           vec_out = s( vec_w, k, ibound, grain );
+        if( (size == obound) && (grain < iibound) )
+           vec_out = s( vec_w, k, iibound, grain );
 
-        else if( ibound != 0 )
-           vec_out = vec_w(vec_out, k, ibound);
+        else if( iibound != 0 )
+           vec_out = vec_w(vec_out, k, iibound);
 
         s_out = uop_( vec_out );
-        s_out = scalar_w(s_out, ibound, bound-ibound);
+        s_out = scalar_w(s_out, iibound, ibound-iibound);
 
         nt2::run(out_, j, s_out);
       }
