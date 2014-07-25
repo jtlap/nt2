@@ -6,8 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 linalg toolbox - norm factorization"
-
 #include <nt2/table.hpp>
 #include <nt2/include/functions/norm.hpp>
 #include <nt2/include/functions/ones.hpp>
@@ -18,9 +16,8 @@
 #include <nt2/include/constants/inf.hpp>
 #include <nt2/include/constants/minf.hpp>
 
-#include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/unit/tests/exceptions.hpp>
+#include <nt2/sdk/unit/tests/ulp.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
 
 NT2_TEST_CASE_TPL(norm, NT2_REAL_TYPES)
@@ -40,17 +37,10 @@ NT2_TEST_CASE_TPL(norm, NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(norm(a, 1), nt2::Ten<T>(), 0);
   NT2_TEST_ULP_EQUAL(norm(a, 2), norm(a), 0);
   NT2_TEST_ULP_EQUAL(norm(a, nt2::Inf<T>()), nt2::Ten<T>(), 0);
-  NT2_TEST_ULP_EQUAL(norm(a, 'I'), nt2::Ten<T>(), 0);
-  NT2_TEST_ULP_EQUAL(norm(a, '1'), nt2::Ten<T>(), 0);
-  NT2_TEST_ULP_EQUAL(norm(a, 'f'), nt2::Ten<T>(), 0);
-  NT2_TEST_ULP_EQUAL(norm(a, "fro"), nt2::Ten<T>(), 0);
+  NT2_TEST_ULP_EQUAL(norm(a, nt2::fro_), nt2::Ten<T>(), 0);
 
   NT2_TEST_ULP_EQUAL(norm(a+a, 1), 2*nt2::Ten<T>(), 0);
   NT2_TEST_ULP_EQUAL(norm(a+a, 2), norm(a+a), 0);
   NT2_TEST_ULP_EQUAL(norm(a+a, nt2::Inf<T>()), 2*nt2::Ten<T>(), 0);
-  NT2_TEST_ULP_EQUAL(norm(a+a, 'I'), 2*nt2::Ten<T>(), 0);
-  NT2_TEST_ULP_EQUAL(norm(a+a, '1'), 2*nt2::Ten<T>(), 0);
-  NT2_TEST_ULP_EQUAL(norm(a+a, 'f'), 2*nt2::Ten<T>(), 0);
-  NT2_TEST_ULP_EQUAL(norm(a+a, "fro"), 2*nt2::Ten<T>(), 0);
-
+  NT2_TEST_ULP_EQUAL(norm(a+a, nt2::fro_), 2*nt2::Ten<T>(), 0);
 }

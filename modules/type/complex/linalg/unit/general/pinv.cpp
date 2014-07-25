@@ -16,6 +16,7 @@
 #include <nt2/include/constants/ten.hpp>
 #include <nt2/include/constants/eps.hpp>
 #include <nt2/include/functions/cond.hpp>
+#include <nt2/include/functions/norm.hpp>
 #include <nt2/include/functions/max.hpp>
 #include <nt2/include/functions/log2.hpp>
 #include <nt2/include/functions/ulpdist.hpp>

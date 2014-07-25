@@ -20,6 +20,7 @@
 #include <nt2/include/functions/diag_of.hpp>
 #include <nt2/include/functions/divides.hpp>
 #include <nt2/include/functions/eye.hpp>
+#include <nt2/include/functions/eyeminus.hpp>
 #include <nt2/include/functions/factorial.hpp>
 #include <nt2/include/functions/from_diag.hpp>
 #include <nt2/include/functions/isdiagonal.hpp>
