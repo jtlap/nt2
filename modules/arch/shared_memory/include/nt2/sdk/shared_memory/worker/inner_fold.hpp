@@ -24,6 +24,7 @@ namespace nt2
   {
     struct inner_fold_step_;
     struct fold_;
+    struct cpu_;
   }
 
   // Inner Fold Step worker
@@ -72,7 +73,10 @@ namespace nt2
       std::size_t obound = nt2::numel(boost::fusion::pop_front(ext));
 
       nt2::worker<tag::inner_fold_step_,BackEnd,Site,In,Neutral,Bop>
-      w(in_,neutral_,bop_);
+      vec_w(in_,neutral_,bop_);
+
+      nt2::worker<tag::inner_fold_step_,BackEnd,tag::cpu_,In,Neutral,Bop>
+      scalar_w(in_,neutral_,bop_);
 
       nt2::spawner<tag::fold_, BackEnd, target_type> s;
 
@@ -82,15 +86,13 @@ namespace nt2
         value_type s_out = neutral_(nt2::meta::as_<value_type>());
 
         if( (size == obound) && (grain < ibound) )
-           vec_out = s( w, k, ibound, grain );
+           vec_out = s( vec_w, k, ibound, grain );
 
         else if( ibound != 0 )
-           vec_out = w(vec_out, k, ibound);
+           vec_out = vec_w(vec_out, k, ibound);
 
         s_out = uop_( vec_out );
-
-        for(std::size_t i = ibound; i != bound; ++i)
-          s_out = bop_(s_out, nt2::run(in_, i+k, meta::as_<value_type>()));
+        s_out = scalar_w(s_out, ibound, bound-ibound);
 
         nt2::run(out_, j, s_out);
       }

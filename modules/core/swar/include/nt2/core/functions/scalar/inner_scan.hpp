@@ -76,15 +76,12 @@ namespace nt2 { namespace ext
       for(std::size_t j = begin, k = begin*ibound; j < size; ++j, k+=ibound)
       {
         value_type res = details::scan_step(
-          neutral(nt2::meta::as_<value_type>())
-         ,out
-         ,in
-         ,bop
-         ,k
-         ,ibound
-         ,1
-         ,false
-         );
+                           neutral(nt2::meta::as_<value_type>())
+                          ,out, in
+                          ,bop
+                          ,k, ibound, 1
+                          ,false
+                          );
         boost::dispatch::ignore_unused(res);
       }
     }

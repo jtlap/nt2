@@ -63,9 +63,7 @@ namespace nt2 { namespace ext
         );
 
         value_type s_out = uop( vec_out );
-
-        for(std::size_t i = ibound; i != bound; ++i)
-          s_out = bop(s_out, nt2::run(in, i+k, meta::as_<value_type>()));
+        s_out = details::fold_step(s_out, in, bop, ibound, bound-ibound, 1);
 
         nt2::run(out, j, s_out);
       }
