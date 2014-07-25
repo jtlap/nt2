@@ -92,7 +92,7 @@ namespace nt2
            vec_out = vec_w(vec_out, k, iibound);
 
         s_out = uop_( vec_out );
-        s_out = scalar_w(s_out, iibound, ibound-iibound);
+        s_out = scalar_w(s_out, k+iibound, ibound-iibound);
 
         nt2::run(out_, j, s_out);
       }

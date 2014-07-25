@@ -67,8 +67,8 @@ namespace nt2
       std::size_t top_cache_line_size = config::top_cache_line_size(2)/sizeof(value_type);
       std::size_t grain  = top_cache_line_size;
 
-      std::size_t bound  = boost::fusion::at_c<0>(ext);
-      std::size_t ibound = (bound/grain) * grain;
+      std::size_t ibound  = boost::fusion::at_c<0>(ext);
+      std::size_t iibound = (ibound/grain) * grain;
       std::size_t obound = nt2::numel(boost::fusion::pop_front(ext));
 
       nt2::worker<tag::inner_scan_step_,BackEnd,Site,Out,In,Neutral,Bop>
@@ -76,21 +76,17 @@ namespace nt2
 
       nt2::spawner<tag::scan_, BackEnd, value_type> s;
 
-      for(std::size_t j = begin, k=begin*bound; j < begin+size; ++j, k+=bound)
+      for(std::size_t j = begin, k=begin*ibound; j < begin+size; ++j, k+=ibound)
       {
         value_type s_out = neutral_(nt2::meta::as_<value_type>());
 
-        if( (size == obound) && (8*grain < ibound) )
-          s_out = s( w, k, ibound, grain );
+        if( (size == obound) && (8*grain < iibound) )
+          s_out = s( w, k, iibound, grain );
 
-        else if( ibound != 0 )
-          s_out = w(s_out, k, ibound, false);
+        else if( iibound != 0 )
+          s_out = w(s_out, k, iibound, false);
 
-        for(std::size_t i = ibound; i != bound; ++i)
-        {
-             s_out = bop_(s_out, nt2::run(in_, i+k, meta::as_<value_type>()));
-             nt2::run(out_, i+k, s_out);
-        }
+        w(s_out, k+iibound, ibound -iibound, false);
       }
     }
 
