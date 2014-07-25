@@ -90,7 +90,11 @@ namespace nt2
              nt2::worker<tag::outer_scan_step_incache_,BackEnd,Site,Out,In,Neutral,Bop>
              w(out_,in_,neutral_,bop_, o_);
 
-             s(w,0,ibound,grain);
+             if( size == obound )
+               s(w,0,ibound,grain);
+
+             else
+               w(0,ibound);
            }
          }
       }

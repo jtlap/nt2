@@ -129,7 +129,7 @@ namespace nt2
             w(out_,in_,neutral_,bop_, begin*ibound, begin * iboundxmbound);
 
             // parallelized part
-            if(grain < iibound)
+            if((size == obound) && (grain < iibound))
               s(vec_w,0,iibound,grain);
 
             else if(iibound != 0)
