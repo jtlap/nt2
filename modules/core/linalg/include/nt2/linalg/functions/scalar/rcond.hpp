@@ -54,7 +54,7 @@ namespace nt2{ namespace ext
     }
   };
 
-/+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::rcond_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::rcond_, tag::cpu_
                             , (A0)(A1)
                             , ((ast_<A0, nt2::container::domain>))
                               (unspecified_<A1>)
