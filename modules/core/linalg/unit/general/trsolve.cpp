@@ -99,7 +99,7 @@ nt2_la_int na = nt2::width(a);
 
 t_t y = nt2::mtimes(nt2::trans(a),b);
 
-nt2::table<T,nt2::upper_triangular_ > r = nt2::qr(a,nt2::no_pivot_);
+nt2::table<T,nt2::upper_triangular_ > r = nt2::qr(a);
 r= nt2::triu( r( _(1,na), _ ) );
 
 y = nt2::trsolve(nt2::trans(r),y);

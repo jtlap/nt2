@@ -233,7 +233,6 @@ namespace nt2 { namespace ext
                    , const nt2::policy<ext::vector_>&
                    ) const
     {
-      std::cout << "vector" << std::endl;
       typedef typename boost::proto::result_of::child_c<A1&,2>::value_type     child;
       typedef typename child::value_type                                     itype_t;
       typedef nt2::memory::container<tag::table_, itype_t, nt2::_2D>      i_semantic;
@@ -260,7 +259,6 @@ namespace nt2 { namespace ext
                    , const nt2::policy<ext::matrix_>&
                    ) const
     {
-      std::cout << "matrix" << std::endl;
       nt2_la_int info;
       nt2::container::table<type_t> work;
       NT2_AS_TERMINAL_INOUT(o_semantic, lu, boost::proto::child_c<0>(a0), work);

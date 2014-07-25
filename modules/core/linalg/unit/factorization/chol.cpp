@@ -14,6 +14,7 @@
 #include <nt2/include/functions/mtimes.hpp>
 #include <nt2/include/functions/pascal.hpp>
 #include <nt2/include/functions/dec.hpp>
+#include <nt2/include/functions/ones.hpp>
 
 #include <nt2/table.hpp>
 #include <nt2/sdk/unit/module.hpp>
