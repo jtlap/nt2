@@ -24,6 +24,7 @@
 #include <nt2/sdk/meta/as_unsigned.hpp>
 #include <nt2/sdk/meta/as_signed.hpp>
 #include <nt2/sdk/meta/adapted_traits.hpp>
+#include <nt2/sdk/meta/is_signed.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -118,7 +119,7 @@ namespace nt2 { namespace ext
   };
 
   template<class Expr, class From, class To>
-  struct casts_intfloat<Expr, From, To, typename boost::enable_if_c< meta::is_integral<To>::value && meta::is_signed<To>::value>::type>
+  struct casts_intfloat<Expr, From, To, typename boost::enable_if< boost::mpl::and_< meta::is_integral<To>, meta::is_signed<To> > >::type>
   {
     typedef typename meta::call<tag::toints_(Expr)>::type result_type;
     BOOST_FORCEINLINE result_type operator()(typename boost::dispatch::meta::as_ref<Expr>::type e) const
@@ -128,7 +129,7 @@ namespace nt2 { namespace ext
   };
 
   template<class Expr, class From, class To>
-  struct casts_intfloat<Expr, From, To, typename boost::enable_if_c< meta::is_integral<To>::value && meta::is_unsigned<To>::value>::type>
+  struct casts_intfloat<Expr, From, To, typename boost::enable_if< boost::mpl::and_< meta::is_integral<To>, meta::is_unsigned<To> > >::type>
   {
     typedef typename meta::call<tag::touints_(Expr)>::type result_type;
     BOOST_FORCEINLINE result_type operator()(typename boost::dispatch::meta::as_ref<Expr>::type e) const
