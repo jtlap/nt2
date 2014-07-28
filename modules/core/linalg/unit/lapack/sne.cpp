@@ -15,6 +15,7 @@
 #include <nt2/include/functions/colon.hpp>
 #include <nt2/include/functions/tri1l.hpp>
 #include <nt2/include/functions/norm.hpp>
+#include <nt2/include/functions/cons.hpp>
 #include <nt2/linalg/details/utility/f77_wrapper.hpp>
 #include <nt2/include/functions/cons.hpp>
 
@@ -37,9 +38,9 @@ NT2_TEST_CASE_TPL(sne, NT2_REAL_TYPES )
   nt2::tie(a,x,r,b)= nt2::llspgen(m,n,q,nr,nt2::meta::as_<T>());
 
   t_t s1 = nt2::sne(a,b);
-  t_t s2 = nt2::linsolve(a,b);
-
-  NT2_TEST_ULP_EQUAL(s1(_(1,n)), s2(_(1,n)), T(300));
+//  t_t s2 = nt2::linsolve(a,b);
+  t_t s2 = nt2::cons<T>(nt2::of_size(n,1), T(1) , T(4), T(9), T(16), T(25), T(36), T(49), T(64), T(81), T(100) );
+  NT2_TEST_ULP_EQUAL( s1(_(1,n)), s2(_(1,n)), T(300)  );
 }
 
 
@@ -88,7 +89,7 @@ NT2_TEST_CASE_TPL(msne, (double) )
   s1( _(7,m+7) , _(5,n+5) ) = nt2::mcsne(    a( _(1,m), _ ) , b( _(1,m) , _) );
   t_t s2 = nt2::linsolve( a( _(1,m), _ ) , b( _(1,m) , _) );
 
-  NT2_TEST_ULP_EQUAL( s1( _(7,n+6) , _(5,8) ) , s2( _(1,n) , _ ), T(100));
+  NT2_TEST_ULP_EQUAL( s1( _(7,n+6) , _(5,8) ) , s2( _(1,n) , _ ), T(200) );
 }
 
 NT2_TEST_CASE_TPL(msne_complex, (double) )
