@@ -57,8 +57,7 @@ macro(nt2_pch name)
          (CMAKE_GENERATOR MATCHES "Ninja" AND CMAKE_VERSION VERSION_EQUAL 2.8.10 OR CMAKE_VERSION VERSION_GREATER 2.8.10) # correct OBJECT_DEPENDS handling requires CMake 2.8.10
     )
 
-    get_target_property(pch_exists pch TYPE)
-    if(pch_exists MATCHES "NOTFOUND$")
+    if(NOT TARGET pch)
       add_custom_target(pch ALL)
     endif()
 

@@ -69,8 +69,7 @@ macro(nt2_preprocess target)
     endforeach()
 
     # Create target "preprocess" if it doesn't already exist, and make it depend on target
-    get_target_property(preprocess_exists preprocess EXCLUDE_FROM_ALL)
-    if(preprocess_exists MATCHES "NOTFOUND$")
+    if(NOT TARGET preprocess)
       add_custom_target(preprocess)
       set_property(TARGET preprocess PROPERTY FOLDER preprocess)
     endif()
