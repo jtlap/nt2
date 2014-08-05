@@ -17,7 +17,6 @@
 #include <nt2/sdk/unit/tests/ulp.hpp>
 #include <nt2/sdk/unit/module.hpp>
 
-
 NT2_TEST_CASE_TPL(norm, NT2_REAL_TYPES)
 {
   using nt2::mnorm;
@@ -68,10 +67,10 @@ NT2_TEST_CASE_TPL(normp, NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(mnorm<-1>(n1),   T(14.899664425751338), 0.5);
 
   // mnorm2
-  NT2_TEST_ULP_EQUAL(mnorm<nt2::tag::two_>(n1),  T(14.031434220244460), 0.5);
-  NT2_TEST_ULP_EQUAL(mnorm<2>(n1),  T(14.031434220244460), 0.5);
-  NT2_TEST_ULP_EQUAL(mnorm<nt2::tag::Two>(n1),  T(14.031434220244460), 0.5);
-  NT2_TEST_ULP_EQUAL(mnorm(n1, nt2::two_),  T(14.031434220244460), 0.5);
+  NT2_TEST_ULP_EQUAL(mnorm<nt2::tag::two_>(n1), T(14.03143422024446174134482),0.5);
+  NT2_TEST_ULP_EQUAL(mnorm<2>(n1), T(14.03143422024446174134482), 0.5);
+  NT2_TEST_ULP_EQUAL(mnorm<nt2::tag::Two>(n1),   T(14.03143422024446174134482), 0.5);
+  NT2_TEST_ULP_EQUAL(mnorm(n1, nt2::two_),   T(14.03143422024446174134482), 0.5);
 
   n1(3, 3) = 1;
   n1(2, 3) = 9;
