@@ -27,8 +27,8 @@ namespace nt2
   template<> struct storage_size_<-1>
   {
     /// INTERNAL ONLY
-    typedef boost::mpl::integral_c<std::size_t,-1>  storage_size_type;
-    typedef nt2::dynamic_                           storage_duration_type;
+    typedef boost::mpl::integral_c<std::size_t,0ULL>  storage_size_type;
+    typedef nt2::dynamic_                             storage_duration_type;
   };
 
   namespace tag

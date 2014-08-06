@@ -162,7 +162,7 @@ namespace nt2
     // Storage Size informations
     //==========================================================================
     typedef boost::mpl::integral_c< std::size_t
-                                  , (static_status ? static_numel : -1)
+                                  , (static_status ? static_numel : 0ULL)
                                   >                           storage_size_type;
 
     typedef typename boost::mpl::if_c < static_status

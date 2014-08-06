@@ -35,7 +35,7 @@ NT2_TEST_CASE( storage_size_concept )
     NT2_TEST( (match_option< nt2::storage_size_<-1> , nt2::tag::storage_size_ >::value) );
     typedef option<nt2::storage_size_<-1> , nt2::tag::storage_size_, some_kind_> opt;
     typedef option<nt2::storage_size_<-1> , nt2::tag::storage_duration_, some_kind_> opt2;
-    NT2_TEST_EQUAL( opt::type::storage_size_type::value, std::size_t(-1) );
+    NT2_TEST_EQUAL( opt::type::storage_size_type::value, 0ULL );
     NT2_TEST_TYPE_IS( opt2::type::storage_duration_type, nt2::dynamic_ );
   }
 
@@ -43,7 +43,7 @@ NT2_TEST_CASE( storage_size_concept )
     NT2_TEST( (match_option< nt2::_1D , nt2::tag::storage_size_ >::value) );
     typedef option<nt2::_1D , nt2::tag::storage_size_, some_kind_> opt;
     typedef option<nt2::_1D , nt2::tag::storage_duration_, some_kind_> opt2;
-    NT2_TEST_EQUAL( opt::type::storage_size_type::value, std::size_t(-1) );
+    NT2_TEST_EQUAL( opt::type::storage_size_type::value, 0ULL );
     NT2_TEST_TYPE_IS( opt2::type::storage_duration_type, nt2::dynamic_ );
   }
 
@@ -51,7 +51,7 @@ NT2_TEST_CASE( storage_size_concept )
     NT2_TEST( (match_option< nt2::_2D , nt2::tag::storage_size_ >::value) );
     typedef option<nt2::_2D , nt2::tag::storage_size_, some_kind_> opt;
     typedef option<nt2::_2D , nt2::tag::storage_duration_, some_kind_> opt2;
-    NT2_TEST_EQUAL( opt::type::storage_size_type::value, std::size_t(-1) );
+    NT2_TEST_EQUAL( opt::type::storage_size_type::value, 0ULL );
     NT2_TEST_TYPE_IS( opt2::type::storage_duration_type, nt2::dynamic_ );
   }
 
@@ -59,7 +59,7 @@ NT2_TEST_CASE( storage_size_concept )
     NT2_TEST( (match_option< nt2::_3D , nt2::tag::storage_size_ >::value) );
     typedef option<nt2::_3D , nt2::tag::storage_size_, some_kind_> opt;
     typedef option<nt2::_3D , nt2::tag::storage_duration_, some_kind_> opt2;
-    NT2_TEST_EQUAL( opt::type::storage_size_type::value, std::size_t(-1) );
+    NT2_TEST_EQUAL( opt::type::storage_size_type::value, 0ULL );
     NT2_TEST_TYPE_IS( opt2::type::storage_duration_type, nt2::dynamic_ );
   }
 
@@ -67,7 +67,7 @@ NT2_TEST_CASE( storage_size_concept )
     NT2_TEST( (match_option< nt2::_4D , nt2::tag::storage_size_ >::value) );
     typedef option<nt2::_4D , nt2::tag::storage_size_, some_kind_> opt;
     typedef option<nt2::_4D , nt2::tag::storage_duration_, some_kind_> opt2;
-    NT2_TEST_EQUAL( opt::type::storage_size_type::value, std::size_t(-1) );
+    NT2_TEST_EQUAL( opt::type::storage_size_type::value, 0ULL );
     NT2_TEST_TYPE_IS( opt2::type::storage_duration_type, nt2::dynamic_ );
   }
 
