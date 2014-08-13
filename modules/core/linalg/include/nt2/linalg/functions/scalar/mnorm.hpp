@@ -182,7 +182,6 @@ namespace nt2 {  namespace ext
     typedef typename meta::as_real<type_t>::type result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const &a0, A1 const&) const
     {
-      typedef typename A1::type itype_t;
       // outside of Inf,  Minf,  One and Two no hope
       BOOST_ASSERT_MSG(nt2::ismatrix(a0), "a0 is not a matrix");
       BOOST_STATIC_ASSERT_MSG((A1::value == 2) ||
