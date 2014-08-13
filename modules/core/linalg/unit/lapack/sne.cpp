@@ -18,12 +18,24 @@
 #include <nt2/include/functions/cons.hpp>
 #include <nt2/linalg/details/utility/f77_wrapper.hpp>
 #include <nt2/include/functions/cons.hpp>
+#include <nt2/include/constants/eps.hpp>
 
 #include <nt2/table.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/ulp.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
+
+struct abs_diff
+{
+  typedef double result_type;
+
+  template<class T>
+  result_type operator()(T const& a, T const& b) const
+  {
+    return std::abs(double(a) - double(b));
+  }
+};
 
 NT2_TEST_CASE_TPL(sne, NT2_REAL_TYPES )
 {
@@ -38,9 +50,9 @@ NT2_TEST_CASE_TPL(sne, NT2_REAL_TYPES )
   nt2::tie(a,x,r,b)= nt2::llspgen(m,n,q,nr,nt2::meta::as_<T>());
 
   t_t s1 = nt2::sne(a,b);
-//  t_t s2 = nt2::linsolve(a,b);
   t_t s2 = nt2::cons<T>(nt2::of_size(n,1), T(1) , T(4), T(9), T(16), T(25), T(36), T(49), T(64), T(81), T(100) );
-  NT2_TEST_ULP_EQUAL( s1(_(1,n)), s2(_(1,n)), T(300)  );
+
+  NT2_TEST_ULP_EQUAL_FN( s1(_(1,n)), s2(_(1,n)), 3000*nt2::Eps<T>(), abs_diff() );
 }
 
 
@@ -57,10 +69,9 @@ NT2_TEST_CASE_TPL(csne, NT2_REAL_TYPES )
   nt2::tie(a,x,r,b)= nt2::llspgen(m,n,q,nr,nt2::meta::as_<T>());
 
   t_t s1 = nt2::csne(a,b);
+  t_t s2 = nt2::cons<T>(nt2::of_size(n,1), T(1) , T(4), T(9), T(16), T(25), T(36), T(49), T(64), T(81), T(100) );
 
-  t_t s2 = nt2::linsolve(a,b);
-
-  NT2_TEST_ULP_EQUAL(s1, s2(_(1,n)), T(100));
+  NT2_TEST_ULP_EQUAL_FN( s1, s2(_(1,n)), 200*nt2::Eps<T>(), abs_diff() );
 }
 
 
@@ -89,7 +100,7 @@ NT2_TEST_CASE_TPL(msne, (double) )
   s1( _(7,m+7) , _(5,n+5) ) = nt2::mcsne(    a( _(1,m), _ ) , b( _(1,m) , _) );
   t_t s2 = nt2::linsolve( a( _(1,m), _ ) , b( _(1,m) , _) );
 
-  NT2_TEST_ULP_EQUAL( s1( _(7,n+6) , _(5,8) ) , s2( _(1,n) , _ ), T(200) );
+  NT2_TEST_ULP_EQUAL_FN( s1( _(7,n+6) , _(5,8) ) , s2( _(1,n) , _ ), 300*nt2::Eps<double>(), abs_diff() );
 }
 
 NT2_TEST_CASE_TPL(msne_complex, (double) )
@@ -111,5 +122,5 @@ NT2_TEST_CASE_TPL(msne_complex, (double) )
   t_t s1 = nt2::mcsne(a,b);
   t_t s2 = nt2::linsolve(a,b);
 
-  NT2_TEST_ULP_EQUAL(s1(_(1,3)), s2(_(1,3)), T(100));
+  NT2_TEST_ULP_EQUAL_FN( s1(_(1,3)), s2(_(1,3)), 300*nt2::Eps<double>(), abs_diff() );
 }
