@@ -26,6 +26,12 @@ namespace nt2 { namespace details
    : boost::mpl::true_
   {
   };
+
+  template<class T>
+  struct is_complex< const std::complex<T> >
+   : boost::mpl::true_
+  {
+  };
 } }
 
 namespace nt2 { namespace meta
