@@ -98,9 +98,12 @@ NT2_TEST_CASE_TPL(msne, (double) )
   t_t s1 = nt2::zeros(m+m,m, nt2::meta::as_<T>());
 
   s1( _(7,m+7) , _(5,n+5) ) = nt2::mcsne(    a( _(1,m), _ ) , b( _(1,m) , _) );
-  t_t s2 = nt2::linsolve( a( _(1,m), _ ) , b( _(1,m) , _) );
+  t_t s2 = nt2::cons<T>(nt2::of_size(n,4), T(1) , T(4), T(9), T(16), T(25), T(36), T(49), T(64), T(81), T(100)
+                                         , T(1) , T(4), T(9), T(16), T(25), T(36), T(49), T(64), T(81), T(100)
+                                         , T(1) , T(4), T(9), T(16), T(25), T(36), T(49), T(64), T(81), T(100)
+                                         , T(1) , T(4), T(9), T(16), T(25), T(36), T(49), T(64), T(81), T(100) );
 
-  NT2_TEST_ULP_EQUAL_FN( s1( _(7,n+6) , _(5,8) ) , s2( _(1,n) , _ ), 300*nt2::Eps<double>(), abs_diff() );
+  NT2_TEST_ULP_EQUAL_FN( s1( _(7,n+6) , _(5,8) ) , s2 , 300*nt2::Eps<double>(), abs_diff() );
 }
 
 NT2_TEST_CASE_TPL(msne_complex, (double) )
