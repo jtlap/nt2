@@ -77,7 +77,7 @@ NT2_TEST_CASE_TPL(null_2, NT2_REAL_TYPES)
   nt2::table<T> tt1(nt2::of_size(12, 10), &t1[0], &t1[10*12]), u1(nt2::ctrans(tt1));
   nt2::table<T> n1 = nt2::null(u1);
 
-  NT2_TEST_EQUAL(nt2::width(n1), 3);
+  NT2_TEST_EQUAL(nt2::width(n1), 3u);
   NT2_TEST_LESSER(mnorm(nt2::mtimes(u1, n1)), numel(u1)*nt2::Eps<T>());
 }
 
