@@ -34,7 +34,7 @@ namespace nt2 { namespace tag
 
     @par Semantic:
 
-    For any flaoting-point values @c a0 , @c a1 of type T:
+    For any floating-point values @c a0 , @c a1 of type T:
 
     @code
     T r = gammainc(a0,a1);
