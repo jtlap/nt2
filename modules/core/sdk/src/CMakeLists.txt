@@ -43,7 +43,8 @@ nt2_module_postconfigure(gather_includes ---ignore details --ignore preprocessed
                                          --out nt2/include/functions/scalar
                         )
 
-nt2_module_postconfigure(gather_includes --name options.hpp
+nt2_module_postconfigure(gather_includes --ignore details --ignore preprocessed
+                                         --name options.hpp
                                          --max 2 nt2
                                          --out nt2
                         )
