@@ -14,6 +14,7 @@
 #include <nt2/sdk/option/option_not_found.hpp>
 #include <nt2/sdk/option/option_term.hpp>
 #include <nt2/sdk/option/option_pack.hpp>
+#include <nt2/sdk/meta/result_of.hpp>
 
 #include <boost/proto/extends.hpp>
 #include <boost/proto/make_expr.hpp>

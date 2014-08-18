@@ -34,7 +34,7 @@ namespace nt2 { namespace ext
     typedef typename dest0_t::value_type                             value_type;
     typedef typename meta::
             call< nt2::tag::
-                  factorization::rref_(child0, value_type, nt2::details::in_place_)
+                  factorization::rref_(child0, value_type, nt2::ext::in_place_)
                 >::type                                             fact_t;
 
     BOOST_FORCEINLINE result_type operator()( A0& a0, A1& a1 ) const
@@ -45,7 +45,7 @@ namespace nt2 { namespace ext
       value_type tol = choice(a0, N0());
 
       // Factorize in place
-      fact_t f = factorization::rref(boost::proto::child_c<0>(a1),tol,in_place_);
+      fact_t f = factorization::rref(boost::proto::child_c<0>(a1),tol,nt2::in_place_);
       decomp(f, a1, N1());
     }
 

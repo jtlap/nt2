@@ -23,8 +23,10 @@ namespace nt2
     struct precise_   : boost::mpl::false_  {};
     struct classic_   : boost::mpl::false_  {};
     struct econ_      : boost::mpl::false_  {};
-    struct lower_      : boost::mpl::false_  {};
-    struct upper_      : boost::mpl::false_  {};
+    struct lower_     : boost::mpl::false_  {};
+    struct upper_     : boost::mpl::false_  {};
+
+    struct in_place_  {};
   }
 
   nt2::policy<ext::pivot_>     const pivot_;
@@ -37,6 +39,7 @@ namespace nt2
   nt2::policy<ext::econ_>      const econ_;
   nt2::policy<ext::lower_>     const lower_;
   nt2::policy<ext::upper_>     const upper_;
+  nt2::policy<ext::in_place_>  const in_place_;
 }
 
 #endif

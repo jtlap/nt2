@@ -32,7 +32,7 @@ namespace nt2 { namespace ext
     typedef typename boost::proto::result_of::child_c<A1&,1>::type  child1;
     typedef typename meta::
             call< nt2::tag::
-                  factorization::geneig_(child0,child1,char,char,char, nt2::details::in_place_)
+                  factorization::geneig_(child0,child1,char,char,char, nt2::ext::in_place_)
                 >::type                                             fact_t;
 
     BOOST_FORCEINLINE result_type operator()( A0& a0, A1& a1 ) const
@@ -45,7 +45,7 @@ namespace nt2 { namespace ext
       boost::proto::child_c<0>(a1) = boost::proto::child_c<0>(a0);
 
       // Factorize in place
-      fact_t f = factorization::geneig(boost::proto::child_c<0>(a1),jobvsl,jobvsr,uplo,in_place_);
+      fact_t f = factorization::geneig(boost::proto::child_c<0>(a1),jobvsl,jobvsr,uplo,nt2::in_place_);
       decomp(f, a1, N1());
     }
 

@@ -10,12 +10,12 @@
 #define NT2_CORE_FUNCTIONS_EXPR_FREQSPACE_HPP_INCLUDED
 
 #include <nt2/core/functions/freqspace.hpp>
+#include <nt2/include/functions/first_index.hpp>
+#include <nt2/include/functions/numel.hpp>
+#include <boost/assert.hpp>
 
 namespace nt2 { namespace ext
 {
-  //============================================================================
-  // freqspace(a0)
-  //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::freqspace_, tag::cpu_
                             , (A0)
                             , ((ast_<A0, nt2::container::domain>))
@@ -25,111 +25,107 @@ namespace nt2 { namespace ext
                       result_of::make_expr< nt2::tag::freqspace_
                                           , container::domain
                                           , _2D
-                                          , A0 const&
                                           , meta::as_<double>
-                                          >::type             result_type;
+                                          , A0
+                                          >::type            result_type;
 
     BOOST_FORCEINLINE result_type operator ()(const A0& a0) const
     {
+      BOOST_ASSERT_MSG( numel(a0) == 2, "freqspace: Invalid index size" );
+
+      std::size_t m = a0(first_index<1>(a0));
+
       return  boost::proto
               ::make_expr < nt2::tag::freqspace_
                           , container::domain
-                          > ( _2D(1,1+a0(begin_)/2)
-                            , boost::cref(a0)
+                          > ( _2D(1,1+m/2)
                             , meta::as_<double>()
+                            , a0
                             );
     }
   };
 
-  //============================================================================
-  // freqspace(a0,whole_)
-  //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::freqspace_, tag::cpu_
                             , (A0)(A1)
                             , ((ast_<A0, nt2::container::domain>))
-                              ((unspecified_<A1>))
+                              (target_< scalar_<floating_<A1> > >)
                             )
   {
     typedef typename  boost::proto::
                       result_of::make_expr< nt2::tag::freqspace_
                                           , container::domain
-                                          , _2D
-                                          , A0 const&
-                                          , meta::as_<A1>
-                                          >::type             result_type;
-
-    BOOST_FORCEINLINE result_type operator ()(const A0& a0, const A1&) const
-    {
-      return  boost::proto
-              ::make_expr < nt2::tag::freqspace_
-                          , container::domain
-                          > ( _2D(1,a0(begin_))
-                            , boost:: cref(a0)
-                            , meta::as_<A1>()
-                            );
-    }
-  };
-
-  //============================================================================
-  // freqspace(a0,as<T>)
-  //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::freqspace_, tag::cpu_
-                            , (A0)(A1)
-                            , ((ast_< A0  , nt2::container::domain>))
-                              ((target_< floating_<A1> >))
-                            )
-  {
-    typedef typename  boost::proto::
-                      result_of::make_expr< nt2::tag::freqspace_
-                                          , container::domain
-                                          , _2D
-                                          , A0 const&
-                                          , meta::as_<A1>
+                                          , _2D, A1, A0
                                           >::type             result_type;
 
     BOOST_FORCEINLINE result_type
     operator ()(const A0& a0,const A1& a1) const
     {
+      BOOST_ASSERT_MSG( numel(a0) == 2, "freqspace: Invalid index size");
+
+      std::size_t m = a0(first_index<1>(a0));
+
       return  boost::proto
               ::make_expr < nt2::tag::freqspace_
                           , container::domain
-                > ( _2D(1,1+a0/2)
-                  , boost::cref(a0)
-                  , a1
-                  );
+                          > ( _2D(1,1+m/2), a1, a0 );
     }
   };
 
-  //============================================================================
-  // freqspace(a0,whole_, as<T>)
-  //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::freqspace_, tag::cpu_
-                            , (A0)(A1)(A2)
-                            , ((ast_< A0 , nt2::container::domain>))
-                              ((target_< unspecified_<A1> > ))
-                              ((target_< floating_<A2> >))
+                            , (A0)(A1)
+                            , ((ast_<A0, nt2::container::domain>))
+                              (unspecified_<A1>)
                             )
   {
     typedef typename  boost::proto::
                       result_of::make_expr< nt2::tag::freqspace_
                                           , container::domain
                                           , _2D
-                                          , A0 const&
-                                          , meta::as_<A2>
-                                          , meta::as_<A1>
+                                          , meta::as_<double>
+                                          , A0, A1
                                           >::type             result_type;
 
-    BOOST_FORCEINLINE result_type
-    operator ()(const A0& a0, const A1&, const A2& a2) const
+    BOOST_FORCEINLINE result_type operator ()(const A0& a0, const A1& a1) const
     {
+      BOOST_ASSERT_MSG( numel(a0) == 2, "freqspace: Invalid index size" );
+
+      std::size_t m = a0(first_index<1>(a0));
+
       return  boost::proto
               ::make_expr < nt2::tag::freqspace_
                           , container::domain
-                          > (  _2D(1,a0)
-                            , cref(a0)
-                            , a2
-                            , meta::as_<A1>()
+                          > ( _2D(1,1+m/2)
+                            , meta::as_<double>()
+                            , a0, a1
                             );
+    }
+  };
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::freqspace_, tag::cpu_
+                            , (A0)(A1)(A2)
+                            , ((ast_< A0 , nt2::container::domain>))
+                              (unspecified_<A1>)
+                              (target_< scalar_<floating_<A2> > >)
+                            )
+  {
+    typedef typename  boost::proto::
+                      result_of::make_expr< nt2::tag::freqspace_
+                                          , container::domain
+                                          , _2D, A2, A0, A1
+                                          >::type             result_type;
+
+
+    BOOST_FORCEINLINE result_type
+    operator ()(const A0& a0, const A1& a1, const A2& a2) const
+    {
+      BOOST_ASSERT_MSG( numel(a0) == 2, "freqspace: Invalid index size");
+
+      std::size_t m = a0(first_index<1>(a0));
+
+      return  boost::proto
+              ::make_expr < nt2::tag::freqspace_
+                          , container::domain
+                          > ( _2D(1,m), a2, a0, a1 );
     }
   };
 } }

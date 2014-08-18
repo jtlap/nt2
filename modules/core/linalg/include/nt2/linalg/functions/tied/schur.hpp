@@ -32,7 +32,7 @@ namespace nt2 { namespace ext
     typedef typename boost::proto::result_of::child_c<A1&,0>::type         out0;
     typedef typename meta::
             call< nt2::tag::
-                  factorization::schur_(out0,char,char,char,nt2::details::in_place_)
+                  factorization::schur_(out0,char,char,char,nt2::ext::in_place_)
                 >::type                                             fact_t;
 
     BOOST_FORCEINLINE result_type operator()( A0& a0, A1& a1 ) const
@@ -45,7 +45,7 @@ namespace nt2 { namespace ext
       boost::proto::child_c<0>(a1) = cast<typename A0::value_type>(boost::proto::child_c<0>(a0));
 
       // Factorize in place
-      fact_t f = factorization::schur(boost::proto::child_c<0>(a1),jobvs,sort,sense,in_place_);
+      fact_t f = factorization::schur(boost::proto::child_c<0>(a1),jobvs,sort,sense,nt2::in_place_);
       decomp(f, a1, N1());
     }
 
