@@ -14,6 +14,7 @@
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/sdk/simd/meta/is_vectorizable.hpp>
 
+
 #ifndef BOOST_SIMD_NO_SIMD
 
 namespace nt2 { namespace ext
@@ -63,7 +64,7 @@ namespace nt2 { namespace ext
         );
 
         value_type s_out = uop( vec_out );
-        s_out = details::fold_step(s_out, in, bop, ibound, bound-ibound, 1);
+        s_out = details::fold_step(s_out, in, bop, k+ibound, bound-ibound, 1);
 
         nt2::run(out, j, s_out);
       }
