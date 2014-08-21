@@ -45,7 +45,11 @@ namespace nt2
        for( std::size_t i=0, i_ = o_ + begin; i<size; ++i, ++i_)
        {
          value_type summary = neutral_(meta::as_<value_type>());
-         summary = details::scan_step(summary, out_, in_, bop_, i_, mbound, ibound, false);
+         summary = details::scan_step( summary
+                                     , out_, in_
+                                     , bop_
+                                     , i_, mbound, ibound
+                                     , false);
        }
     }
 
