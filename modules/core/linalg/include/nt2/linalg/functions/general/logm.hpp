@@ -33,13 +33,14 @@
 #include <nt2/include/functions/minusone.hpp>
 #include <nt2/include/functions/mtimes.hpp>
 #include <nt2/include/functions/multiplies.hpp>
-#include <nt2/include/functions/mnorm1.hpp>
+#include <nt2/include/functions/norm.hpp>
 #include <nt2/include/functions/oneplus.hpp>
 #include <nt2/include/functions/schur.hpp>
 #include <nt2/include/functions/size.hpp>
 #include <nt2/include/functions/sqr.hpp>
 #include <nt2/include/functions/sqrt.hpp>
 #include <nt2/include/functions/symeig.hpp>
+#include <nt2/include/functions/tocomplex.hpp>
 #include <nt2/include/functions/transpose.hpp>
 #include <nt2/include/functions/twopower.hpp>
 #include <nt2/include/functions/zeros.hpp>
@@ -50,6 +51,8 @@
 #include <nt2/core/container/table/table.hpp>
 #include <nt2/sdk/complex/meta/is_complex.hpp>
 #include <boost/assert.hpp>
+#include <nt2/linalg/options.hpp>
+
 
 namespace nt2
 {
@@ -111,7 +114,7 @@ namespace nt2
         //u, t and r are complex arrays
         res.resize(extent(a0));
         ctab_t u, t;
-        nt2::tie(u, t) = schur(a0, meta::as_<cplx_type>()); // t is complex schur form.
+        nt2::tie(t, u) = schur(a0, nt2::cmplx_);// t is complex schur form.
         BOOST_ASSERT_MSG(nt2::globalnone(is_eqz(nt2::diag_of(t))), "a0 has null eigenvalue(s)");
         BOOST_ASSERT_MSG(nt2::globalnone(nt2::logical_and(is_eqz(imag(nt2::diag_of(t))),
                                                           is_lez(real(nt2::diag_of(t))))), "a0 has non positive real eigenvalue(s)");
@@ -297,7 +300,7 @@ namespace nt2
         uint32_t m = 0;
         while (true)
         {
-          r_type normdiff = nt2::mnorm1(t-eye(n, meta::as_<value_type>()));
+          r_type normdiff = nt2::norm(t-eye(n, meta::as_<value_type>()),1);
           if (normdiff <= xvals(end_))
           {
             ++p;
@@ -382,9 +385,8 @@ namespace nt2
 
         BOOST_AUTO_TPL(i,  nt2::_(nt2::One<r_type>(), r_type(n-1)));
         btab_t v = i/nt2::sqrt(nt2::minusone(nt2::sqr(nt2::Two<r_type>()*i)));
-        btab_t d, vv;
-        nt2::tie(vv, d) = nt2::symeig(from_diag(v,-1)+from_diag(v,1));
-        x = nt2::diag_of(d);
+        btab_t vv;
+        nt2::tie(x, vv) = nt2::symeig(from_diag(v,-1)+from_diag(v,1), nt2::vector_);
         w = nt2::Two<r_type>()*nt2::trans(nt2::sqr(vv(1,nt2::_)));
       }
     };

@@ -20,7 +20,6 @@
 #include <nt2/include/functions/diag_of.hpp>
 #include <nt2/include/functions/divides.hpp>
 #include <nt2/include/functions/eye.hpp>
-#include <nt2/include/functions/eyeminus.hpp>
 #include <nt2/include/functions/factorial.hpp>
 #include <nt2/include/functions/from_diag.hpp>
 #include <nt2/include/functions/isdiagonal.hpp>
@@ -31,7 +30,7 @@
 #include <nt2/include/functions/globalmean.hpp>
 #include <nt2/include/functions/mtimes.hpp>
 #include <nt2/include/functions/multiplies.hpp>
-#include <nt2/include/functions/mnorminf.hpp>
+#include <nt2/include/functions/norm.hpp>
 #include <nt2/include/functions/oneplus.hpp>
 #include <nt2/include/functions/ones.hpp>
 #include <nt2/include/functions/schur.hpp>
@@ -43,6 +42,7 @@
 #include <nt2/include/functions/extent.hpp>
 #include <nt2/include/functions/issquare.hpp>
 #include <boost/assert.hpp>
+#include <nt2/linalg/options.hpp>
 
 // there are many optimisations/ameliorations to be done
 // -- passing parameters to functor
@@ -108,7 +108,7 @@ namespace nt2
          //u, t and r are complex arrays
          res.resize(extent(a0));
          ctab_t u, t;
-         nt2::tie(u, t) = schur(a0, meta::as_<cplx_type>()); // t is complex schur form.
+         nt2::tie(t, u) = schur(a0, nt2::cmplx_); // t is complex schur form.
          if (isdiagonal(t))
          {
            t = nt2::from_diag(f(nt2::diag_of(t), 0));
@@ -202,7 +202,7 @@ namespace nt2
         rj = feval(f, lambda,0)*eye(n, meta::as_<cplx_type>());
         btab_t f_deriv_max = zeros(maxterms+n-1,1, meta::as_<r_type>());
         ctab_t nn = t - lambda*eye(n, meta::as_<cplx_type>());
-        r_type mu = mnorminf(linsolve(eyeminus(nt2::abs(triu(t,1))), nt2::ones(n,1, meta::as_<r_type>())));
+        r_type mu = norm(linsolve(nt2::eye(n, meta::as_<r_type>())-nt2::abs(triu(t,1)), nt2::ones(n,1, meta::as_<r_type>())),'I');
         ctab_t p = nn;
         uint32_t max_d = 1;
         for(uint32_t k = 1; k <= maxterms; ++k)
@@ -211,7 +211,7 @@ namespace nt2
           BOOST_ASSERT_MSG(is_finite(fval), "funm infinite derivative");
           ctab_t rj_old = rj;
           rj+= p*fval;
-          r_type  rel_diff = nt2::mnorminf(rj - rj_old)/(tol+mnorminf(rj_old));
+          r_type  rel_diff = nt2::norm(rj - rj_old,'I')/(tol+norm(rj_old,'I'));
           p = mtimes(p, nn)/r_type(oneplus(k));
           if (rel_diff <= tol)
           {
@@ -219,7 +219,7 @@ namespace nt2
             // eigenvalues by maximum of derivatives at eigenvalues.
             for(uint32_t j = max_d; j <=  k+n-1; ++j)
             {
-              f_deriv_max(j) = nt2::mnorminf(f(nt2::diag_of(t),j));
+              f_deriv_max(j) = nt2::norm(f(nt2::diag_of(t),j),'I');
             }
             max_d = k+n;
             r_type omega = nt2::Zero<r_type>();
@@ -227,8 +227,8 @@ namespace nt2
             {
               omega = nt2::max(omega,f_deriv_max(k+j)/nt2::factorial(j));
             }
-            r_type trunc = nt2::mnorminf(p)*mu*omega;
-            if (trunc <= tol*mnorminf(rj))
+            r_type trunc = nt2::norm(p,'I')*mu*omega;
+            if (trunc <= tol*norm(rj,'I'))
             {
               return k+1;
             }
