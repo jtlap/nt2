@@ -6,83 +6,233 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 linalg toolbox - symeig factorization"
-
 #include <nt2/table.hpp>
 #include <nt2/include/functions/zeros.hpp>
 #include <nt2/include/functions/ones.hpp>
-#include <nt2/include/functions/eye.hpp>
 #include <nt2/include/functions/symeig.hpp>
-
+#include <nt2/include/functions/cons.hpp>
+#include <nt2/include/functions/eye.hpp>
+#include <nt2/include/functions/transpose.hpp>
+#include <nt2/include/functions/ctranspose.hpp>
+#include <nt2/include/functions/globalmax.hpp>
+#include <nt2/include/functions/triu.hpp>
+#include <nt2/include/functions/tril.hpp>
+#include <nt2/include/functions/mtimes.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/exceptions.hpp>
+#include <nt2/sdk/unit/tests/basic.hpp>
 
-NT2_TEST_CASE_TPL(symeig_factorization, NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL(symeig_sca, NT2_REAL_TYPES)
 {
-  using nt2::tag::factorization::symeig_;
-
+  using nt2::symeig;
   typedef nt2::table<T> t_t;
-  t_t b =       nt2::ones (4, 4, nt2::meta::as_<T>())
-        + T(10)*nt2::eye  (4, 4, nt2::meta::as_<T>());
-
-  typedef typename nt2::meta::call<symeig_(t_t const&,char, char)>::type result_type;
-
-  result_type res = nt2::factorization::symeig(b, 'V', 'U');
-
-  NT2_DISPLAY(b);
-  NT2_DISPLAY(res.w());
-  NT2_DISPLAY(res.v());
-  std::cout << "res.cond() "<< res.cond() << std::endl;
-  std::cout << "res.rank() "<< res.rank() << std::endl;
-
-  b = nt2::zeros(4, 4, nt2::meta::as_<T>());
-  b(1,1) = 1;
-  NT2_DISPLAY(b);
-  res = nt2::factorization::symeig(b,'V', 'U');
-  NT2_DISPLAY(b);
-
-  NT2_DISPLAY(res.w());
-  NT2_DISPLAY(res.v());
-  std::cout << "res.cond() "<< res.cond() << std::endl;
-  std::cout << "res.rank() "<< res.rank() << std::endl;
-
-  NT2_TEST_ASSERT( nt2::factorization::symeig(nt2::ones(4, 2),'V', 'U') );
+  t_t w =   symeig(T(2));
+  NT2_TEST_ULP_EQUAL(w, T(2), 0);
+  w =   symeig(T(2), nt2::matrix_);
+  NT2_TEST_ULP_EQUAL(w, T(2), 0);
+  w =   symeig(T(2), nt2::matrix_, nt2::lower_);
+  NT2_TEST_ULP_EQUAL(w, T(2), 0);
+//  t_t v;
+//  nt2::tie(w, v) = symeig(T(2), nt2::matrix_);//this does not work
 }
 
-NT2_TEST_CASE_TPL ( symeig_factorization_inplace, NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL(symeig, NT2_REAL_TYPES)
 {
-  using nt2::tag::factorization::symeig_;
-  using nt2::meta::as_;
-
+  using nt2::symeig;
+  using nt2::_;
+  typedef typename nt2::meta::as_integer<T, signed>::type itype_t;
   typedef nt2::table<T> t_t;
+  typedef nt2::table<itype_t> it_t;
   t_t b =       nt2::ones (4, 4, nt2::meta::as_<T>())
         + T(10)*nt2::eye  (4, 4, nt2::meta::as_<T>());
-  NT2_DISPLAY(b);
+  t_t w = symeig(b);
+  t_t sw =  nt2::cons<T>(nt2::of_size(4, 1), T(10), T(10), T(10), T(14));
+  NT2_TEST_ULP_EQUAL(w, sw, 1);
+  nt2::display("w     ", w);
+  nt2::display("b     ", b);
+  w = symeig(b, nt2::matrix_);
+  NT2_TEST_ULP_EQUAL(w, from_diag(sw), 1);
+  w = symeig(b, nt2::vector_);
+  nt2::display("w     ", w);
+  NT2_TEST_ULP_EQUAL(w, sw, 1);
 
-  typedef typename nt2::meta::call
-          <symeig_(t_t&, char, char, as_<nt2::ext::in_place_> const&)>::type ip_t;
+  w = symeig(b, nt2::lower_);
+  NT2_TEST_ULP_EQUAL(w, sw, 1);
 
-  ip_t ires = nt2::factorization::symeig(b,'V','L',nt2::in_place_);
+  w = symeig(b, nt2::matrix_, nt2::lower_);
+  NT2_TEST_ULP_EQUAL(w, from_diag(sw), 1);
+  w = symeig(b, nt2::vector_, nt2::lower_);
+  NT2_TEST_ULP_EQUAL(w, sw, 1);
 
-  NT2_DISPLAY(b);
-  NT2_DISPLAY(ires.w());
-  NT2_DISPLAY(ires.v());
-  std::cout << "ires.cond() "<< ires.cond() << std::endl;
-  std::cout << "ires.rank() "<< ires.rank() << std::endl;
 
-  b = nt2::zeros(4, 4, nt2::meta::as_<T>());
-  b(1,1) = 1;
-  NT2_DISPLAY(b);
-  ires = nt2::factorization::symeig(b,'V', 'U',nt2::in_place_);
+  std::cout << "- 1 -" << std::endl;
+  t_t v;
+  nt2::tie(w, v) = symeig(b);
+  nt2::display("b     ", b);
+  nt2::display("w     ", w);
+  nt2::display("v     ", v);
+  NT2_TEST_ULP_EQUAL(w, from_diag(sw), 1);
+  t_t z =  mtimes(mtimes(v, w), nt2::trans(v));
+  NT2_TEST_ULP_EQUAL(nt2::triu(b), nt2::triu(z), 8);
 
-  NT2_DISPLAY(b);
-  NT2_DISPLAY(ires.w());
-  NT2_DISPLAY(ires.v());
-  std::cout << "ires.cond() "<< ires.cond() << std::endl;
-  std::cout << "ires.rank() "<< ires.rank() << std::endl;
+  std::cout << "- 2 -" << std::endl;
+  nt2::tie(w, v) = symeig(b, nt2::matrix_);
+  nt2::display("b     ", b);
+  nt2::display("w     ", w);
+  nt2::display("v     ", v);
+  z =  mtimes(mtimes(v, w), nt2::trans(v));
+  NT2_TEST_ULP_EQUAL(nt2::triu(b), nt2::triu(z), 8);
 
-  b = nt2::ones(4, 2, nt2::meta::as_<T>());
-  NT2_TEST_ASSERT( nt2::factorization::symeig(b,'V', 'U',nt2::in_place_) );
+  std::cout << "- 3 -" << std::endl;
+  nt2::tie(w, v) = symeig(b, nt2::vector_);
+  nt2::display("b     ", b);
+  nt2::display("w     ", w);
+  nt2::display("v     ", v);
+  z =  mtimes(mtimes(v, nt2::from_diag(w)), nt2::trans(v));
+  NT2_TEST_ULP_EQUAL(nt2::triu(b), nt2::triu(z), 8);
+
+  std::cout << "- 4 -" << std::endl;
+  nt2::tie(w, v) = symeig(nt2::tril(b), nt2::lower_);
+  z =  mtimes(mtimes(v, w), nt2::trans(v));
+  NT2_TEST_ULP_EQUAL(nt2::tril(b), nt2::tril(z), 8);
+
+  std::cout << "- 5 -" << std::endl;
+  nt2::tie(w, v) = symeig(b, nt2::matrix_, nt2::lower_);
+  z =  mtimes(mtimes(v, w), nt2::trans(v));
+  NT2_TEST_ULP_EQUAL(nt2::triu(b), nt2::triu(z), 8);
+
+  std::cout << "- 6 -" << std::endl;
+  nt2::tie(w, v) = symeig(b, nt2::vector_, nt2::lower_);
+  z =  mtimes(mtimes(v, nt2::from_diag(w)), nt2::trans(v));
+  NT2_TEST_ULP_EQUAL(nt2::triu(b), nt2::triu(z), 8);
+
 }
 
+NT2_TEST_CASE_TPL(symeigc, NT2_REAL_TYPES)
+{
+  using nt2::symeig;
+  using nt2::_;
+  typedef std::complex<T> cT;
+  typedef nt2::table<T> t_t;
+  typedef nt2::table<cT> ct_t;
+  ct_t b =       nt2::ones (4, 4, nt2::meta::as_<T>())
+        + T(10)*nt2::eye  (4, 4, nt2::meta::as_<T>());
+  t_t sw =  nt2::cons<T>(nt2::of_size(4, 1), T(10), T(10), T(10), T(14));
+  nt2::display("b     ", b);
+
+  {
+    t_t w = symeig(b);
+   NT2_TEST_ULP_EQUAL(w, sw, 2);
+    nt2::display("w     ", w);
+  }
+
+  {
+    t_t w = symeig(b, nt2::matrix_);
+    NT2_TEST_ULP_EQUAL(w, from_diag(sw), 2);
+  }
+
+  {
+    t_t w = symeig(b, nt2::vector_);
+    nt2::display("w     ", w);
+    NT2_TEST_ULP_EQUAL(w, sw, 2);
+  }
+
+  {
+
+    t_t w = symeig(b, nt2::lower_);
+    NT2_TEST_ULP_EQUAL(w, sw, 2);
+  }
+
+  {
+
+    t_t w = symeig(b, nt2::matrix_, nt2::lower_);
+    NT2_TEST_ULP_EQUAL(w, from_diag(sw), 1);
+    w = symeig(b, nt2::vector_, nt2::lower_);
+    NT2_TEST_ULP_EQUAL(w, sw, 1);
+  }
+
+  {
+    std::cout << "- 1c -" << std::endl;
+    ct_t v;
+    t_t w;
+    nt2::tie(w, v) = symeig(b);
+    nt2::display("w     ", w);
+    nt2::display("v     ", v);
+    NT2_TEST_ULP_EQUAL(w, from_diag(sw), 2);
+    ct_t z =  mtimes(mtimes(v, w), nt2::ctrans(v));
+    NT2_TEST_ULP_EQUAL(nt2::triu(b), nt2::triu(z), 8);
+  }
+
+  {
+    std::cout << "- 2c -" << std::endl;
+    nt2::display("b     ", b);
+    ct_t v;
+    t_t w;
+    nt2::tie(w, v) = symeig(b, nt2::matrix_);
+    nt2::display("w     ", w);
+    nt2::display("v     ", v);
+    ct_t z =  mtimes(mtimes(v, w), nt2::ctrans(v));
+    NT2_TEST_ULP_EQUAL(nt2::triu(b), nt2::triu(z), 8);
+  }
+
+  {
+    std::cout << "- 3c -" << std::endl;
+    ct_t v;
+    t_t w;
+
+    nt2::tie(w, v) = symeig(b, nt2::vector_);
+    nt2::display("w     ", w);
+    nt2::display("v     ", v);
+
+    t_t ww = nt2::from_diag(w);
+    ct_t z =  mtimes(mtimes(v, ww), nt2::ctrans(v));
+    NT2_TEST_ULP_EQUAL(nt2::triu(b), nt2::triu(z), 8);
+  }
+
+  {
+    std::cout << "- 4c -" << std::endl;
+    ct_t v;
+    t_t w;
+
+    nt2::tie(w, v) = symeig(nt2::tril(b), nt2::lower_);
+    ct_t z =  mtimes(mtimes(v, w), nt2::trans(v));
+    NT2_TEST_ULP_EQUAL(nt2::tril(b), nt2::tril(z), 8);
+  }
+
+  {
+    std::cout << "- 5c -" << std::endl;
+    ct_t v;
+    t_t w;
+
+    nt2::tie(w, v) = symeig(b, nt2::matrix_, nt2::lower_);
+    ct_t z =  mtimes(mtimes(v, w), nt2::ctrans(v));
+    NT2_TEST_ULP_EQUAL(nt2::triu(b), nt2::triu(z), 8);
+  }
+
+  {
+    ct_t v;
+    t_t w;
+    nt2::tie(w, v) = symeig(b, nt2::vector_, nt2::lower_);
+    nt2::display("w     ", w);
+    nt2::display("v     ", v);
+    t_t ww = nt2::from_diag(w);
+    nt2::display("ww     ", ww);
+    ct_t z =  mtimes(mtimes(v, ww), nt2::ctrans(v));
+    nt2::display("z     ", z);
+    NT2_TEST_ULP_EQUAL(nt2::tril(b), nt2::tril(z), 8);
+  }
+  {
+    ct_t v;
+    t_t w;
+    nt2::tie(w, v) = symeig(b, nt2::lower_, nt2::vector_);
+    nt2::display("w     ", w);
+    nt2::display("v     ", v);
+    t_t ww = nt2::from_diag(w);
+    nt2::display("ww     ", ww);
+    ct_t z =  mtimes(mtimes(v, ww), nt2::ctrans(v));
+    nt2::display("z     ", z);
+    NT2_TEST_ULP_EQUAL(nt2::tril(b), nt2::tril(z), 8);
+  }
+
+}

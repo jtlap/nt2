@@ -34,7 +34,7 @@ NT2_TEST_CASE_TPL ( symeig, NT2_REAL_TYPES)
   w = nt2::symeig(b);
   NT2_DISPLAY(w);
 
-  nt2::tie(v, d) = nt2::symeig(b);
+  nt2::tie(d, v) = nt2::symeig(b);
   NT2_DISPLAY(v);
   NT2_DISPLAY(d);
   NT2_DISPLAY(b);
@@ -60,7 +60,7 @@ NT2_TEST_CASE_TPL ( symeig_m_test, NT2_REAL_TYPES)
         }
     }
   NT2_DISPLAY(b);
-  nt2::tie(v, d) = nt2::symeig(b);
+  nt2::tie(d, v) = nt2::symeig(b);
   NT2_DISPLAY(v);
   NT2_DISPLAY(d);
   z =  mtimes(mtimes(v, d), nt2::trans(v));

@@ -47,7 +47,7 @@ nt2_la_int p = nt2::gelsy(boost::proto::value(a),boost::proto::value(jpvt)
 nt2_la_int p1 = nt2::gesv(boost::proto::value(a1),boost::proto::value(jpvt1)
                        ,boost::proto::value(b1));
 
-NT2_TEST_ULP_EQUAL(b, b1, T(12) );
+NT2_TEST_ULP_EQUAL(b, b1, T(20) );
 NT2_TEST_EQUAL(p, 0);
 NT2_TEST_EQUAL(p1, 0);
 }

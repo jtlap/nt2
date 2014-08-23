@@ -15,7 +15,7 @@ SET( SOURCES
   mnorminf.cpp
   mnorm1.cpp
   mnormfro.cpp
-  mnormest.cpp
+  normest.cpp
   rank.cpp
   rcond.cpp
   subspace.cpp

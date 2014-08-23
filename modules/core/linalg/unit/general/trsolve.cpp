@@ -99,7 +99,7 @@ nt2_la_int na = nt2::width(a);
 
 t_t y = nt2::mtimes(nt2::trans(a),b);
 
-nt2::table<T,nt2::upper_triangular_ > r = nt2::qr(a,nt2::no_pivot_);
+nt2::table<T,nt2::upper_triangular_ > r = nt2::qr(a);
 r= nt2::triu( r( _(1,na), _ ) );
 
 y = nt2::trsolve(nt2::trans(r),y);
@@ -183,7 +183,7 @@ NT2_TEST_EQUAL( temp(_(3,5)), x);
 }
 
 template<class Expr>
-void test_is_terminal_shared(Expr const&)
+void test_is_terminal_shared(Expr const& expr)
 {
   std::cout << "is_terminal: " << (Expr::proto_arity_c == 0) << std::endl;
   std::cout << "is_terminal_shared: " << nt2::meta::is_terminal_shared<Expr const&>::value << std::endl;
