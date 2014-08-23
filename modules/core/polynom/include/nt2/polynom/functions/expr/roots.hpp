@@ -17,8 +17,7 @@
 #include <nt2/include/functions/rowvect.hpp>
 #include <nt2/include/functions/compan.hpp>
 #include <nt2/include/functions/numel.hpp>
-#include <nt2/include/functions/geneig.hpp>
-#include <nt2/include/functions/eye.hpp>
+#include <nt2/include/functions/nseig.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -47,13 +46,11 @@ namespace nt2 { namespace ext
     typedef A0&                                                     result_type;
     result_type operator()(A0& out, const A1& in) const
     {
+      typedef typename meta::as_complex<value_type>::type ctype_t;
       BOOST_AUTO_TPL(p,  nt2::reduce(nt2::complexify(nt2::rowvect(boost::proto::child_c<0>(in))), nt2::_));
       ptrdiff_t valua = nt2::valuation(p);
       BOOST_AUTO_TPL(cpan, nt2::compan(p(1, nt2::_(nt2::begin_,numel(p)-valua))));
-      BOOST_AUTO_TPL(eigen,
-                     nt2::factorization::geneig(cpan,
-                                                nt2::eye(nt2::size(cpan, 1), nt2::size(cpan, 2), meta::as_<value_type>()),
-                                                'V', 'V', 'S').eigen());
+      BOOST_AUTO_TPL(eigen,nseig(cpan));
       out = eigen;
       out.resize(in.extent());
       return out;

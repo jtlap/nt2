@@ -11,6 +11,8 @@
 #define NT2_CORE_FUNCTIONS_GLOBALNORMP_HPP_INCLUDED
 
 #include <nt2/include/functor.hpp>
+#include <nt2/include/functions/normp.hpp>
+#include <nt2/include/functions/global.hpp>
 
 namespace nt2
 {
@@ -60,5 +62,26 @@ namespace nt2
 
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::globalnormp_, globalnormp, 2)
 }
+
+namespace nt2 { namespace ext
+{
+  /// INTERNAL ONLY
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::globalnormp_, tag::cpu_
+                              , (A0)(A1)
+                              , (unspecified_<A0>)
+                              (scalar_<arithmetic_<A1> > )
+                            )
+  {
+    typedef typename meta::call<tag::global_( nt2::functor<tag::normp_>
+                                            , const A0&
+                                            , const A1&
+                                            )>::type                result_type;
+
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& a1) const
+    {
+       return global(nt2::functor<tag::normp_>(), a0, a1);
+    }
+  };
+} }
 
 #endif
