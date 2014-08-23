@@ -11,16 +11,12 @@
 
 #include <nt2/linalg/functions/sne.hpp>
 #include <nt2/include/functions/width.hpp>
+#include <nt2/include/functions/height.hpp>
 #include <nt2/include/functions/of_size.hpp>
 #include <nt2/include/functions/qr.hpp>
 #include <nt2/include/functions/mtimes.hpp>
 #include <nt2/include/functions/linsolve.hpp>
 #include <nt2/linalg/details/utility/f77_wrapper.hpp>
-#include <nt2/include/functions/trsm.hpp>
-#include <nt2/include/functions/qr.hpp>
-#include <nt2/include/functions/mtimes.hpp>
-#include <nt2/include/functions/transpose.hpp>
-#include <nt2/include/functions/triu.hpp>
 #include <nt2/include/functions/colon.hpp>
 #include <boost/dispatch/meta/terminal_of.hpp>
 #include <nt2/core/container/table/table.hpp>
@@ -44,7 +40,10 @@ namespace nt2{ namespace ext
       NT2_AS_TERMINAL_IN(desired_semantic,b,B);
 
       nt2_la_int na = nt2::width(a);
-      nt2::container::table<ctype_t,nt2::upper_triangular_> r = nt2::qr(a,nt2::no_pivot_);
+      t_t r = nt2::qr(a);
+// =======
+//       nt2::container::table<ctype_t,nt2::upper_triangular_> r = nt2::qr(a,nt2::no_pivot_);
+// >>>>>>> master
       r= nt2::triu( r( _(1,na), _ ) );
 
       t_t x = nt2::mtimes(nt2::trans(a),b);

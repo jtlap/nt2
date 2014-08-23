@@ -12,8 +12,8 @@
 #include <nt2/linalg/functions/gesvd.hpp>
 #include <nt2/include/functions/height.hpp>
 #include <nt2/include/functions/width.hpp>
-#include <nt2/include/functions/of_size.hpp>
 #include <nt2/include/functions/max.hpp>
+#include <nt2/include/functions/of_size.hpp>
 #include <nt2/linalg/details/utility/workspace.hpp>
 #include <nt2/linalg/details/utility/f77_wrapper.hpp>
 
@@ -92,8 +92,12 @@ namespace nt2 { namespace ext
                             , details::query(), &that
                             );
 
-        w.resize_main(5*nt2::max(m, n));
-        nt2::gesvd(a0,s,u,vt,jobu,jobvt,w);
+          w.prepare_main();
+          /// it appears that in some case the query does not provides sufficient value for
+          /// main buffer. Correcting that (the errors appears in the rank test)
+          nt2_la_int wn = 5*nt2::max(m, n);
+          w.resize_main(wn);
+          nt2::gesvd(a0,s,u,vt,jobu,jobvt,w);
 
         return that;
      }
@@ -121,7 +125,9 @@ namespace nt2 { namespace ext
         nt2_la_int  ld = a0.leading_size();
         nt2_la_int ldu = u.leading_size() > 1 ? u.leading_size() : 1 ;
         nt2_la_int ldvt= vt.leading_size() > 1 ? vt.leading_size() : 1 ;
-        nt2_la_int wn = w.main_size();
+        nt2_la_int wn = 5*nt2::max(m, n);
+        w.resize_main(wn);
+
         NT2_F77NAME(dgesvd) ( &jobu,&jobvt,&m, &n, a0.raw(), &ld, s.raw(), u.raw(), &ldu
                             , vt.raw(), &ldvt, w.main()
                             , &wn, &that
@@ -160,8 +166,12 @@ namespace nt2 { namespace ext
                             , details::query(), &that
                             );
 
-        w.resize_main(5*nt2::max(m, n));
-        nt2::gesvd(a0,s,u,vt,jobu,jobvt,w);
+          w.prepare_main();
+          /// it appears that in some case the query does not provides sufficient value for
+          /// main buffer. Correcting that (the errors appears in the rank test)
+          nt2_la_int wn = 5*nt2::max(m, n);
+          w.resize_main(wn);
+          nt2::gesvd(a0,s,u,vt,jobu,jobvt,w);
 
         return that;
      }
@@ -190,7 +200,6 @@ namespace nt2 { namespace ext
         nt2_la_int ldu = u.leading_size() > 1 ? u.leading_size() : 1 ;
         nt2_la_int ldvt= vt.leading_size() > 1 ? vt.leading_size() : 1 ;
         nt2_la_int  wn = w.main_size();
-
         NT2_F77NAME(sgesvd) ( &jobu,&jobvt,&m, &n, a0.raw(), &ld, s.raw(), u.raw(), &ldu
                             , vt.raw(), &ldvt, w.main()
                             , &wn, &that
@@ -329,7 +338,7 @@ namespace nt2 { namespace ext
         nt2_la_int  ld = a0.leading_size();
         nt2_la_int ldu = u.leading_size() > 1 ? u.leading_size() : 1 ;
         nt2_la_int ldvt= vt.leading_size() > 1 ? vt.leading_size() : 1 ;
-        nt2_la_int wn = w.main_size();
+        nt2_la_int  wn = w.main_size();
 
         nt2::container::table<double> rwork(nt2::of_size(5*std::min(m,n),1));
 

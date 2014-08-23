@@ -88,11 +88,17 @@ namespace nt2{ namespace ext
       double cte = anrm*eps*nt2::sqrt( double(na));
       double xnrm, rnrm;
 
+// <<<<<<< HEAD
+//       nt2::container::table<float> sa,sb,sx,sr,sr1(nt2::of_size(na,na));
+//       sa = nt2::cast<float>(a);
+//       sr = nt2::qr(sa);
+// =======
       nt2::container::table<dtype> sa,sx;
       nt2::container::table<ctype_t> e;
       nt2::container::table<dtype,nt2::upper_triangular_> sr,sr1(nt2::of_size(na,na));
       sa = nt2::cast<dtype>(a);
-      sr = nt2::qr(sa,nt2::no_pivot_);
+      sr = nt2::qr(sa);
+//      sr = nt2::qr(sa,nt2::no_pivot_);
 
       size_t size_n = sizeof(dtype)*(na);
 
