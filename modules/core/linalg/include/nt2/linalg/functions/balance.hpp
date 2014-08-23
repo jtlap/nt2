@@ -16,7 +16,7 @@
 #include <nt2/core/container/dsl/size.hpp>
 #include <nt2/sdk/meta/tieable_hierarchy.hpp>
 #include <nt2/core/container/dsl/value_type.hpp>
-#include <nt2/linalg/functions/details/balance.hpp>
+#include <nt2/sdk/meta/as_real.hpp>
 
 namespace nt2
 {
@@ -39,44 +39,38 @@ namespace nt2
   /**
    * @brief Perform Balance factorization
    *
-   * For any given matrix expression, performs a Balance factorization of
-   * said matrix using the specified output layout for the Balance method.
+   * For any given matrix expression a, performs a
+   * balance diagonal scaling to improve eigenvalue accuracy.
    *
-   * Contrary to the nt2::factorization::balance function which performs a partial evaluation of
-   * said decomposition, nt2::balance returns a result similar to the Matlab interface,
-   * making it useful for Matlab like usage.
+   *     tie(t,b) = balance(a) finds a similarity transformation t such
+   *     that b = inv(t)*a*t has, as nearly as possible, approximately equal
+   *     row and column norms.  t is a permutation of a diagonal matrix
+   *     whose elements are integer powers of two so that the balancing
+   *     doesn't introduce any round-off error.
    *
-   * @param  a0  Matrix expression to factorize
+   *     b = balance(a) returns the balanced matrix b.
    *
-   * @return A tuple-like type containing the factorized matrix and an indicator
-   * of the success of the factorization
+   *     tie(s,p,b) = balance(a) returns the scaling vector s and the
+   *     permutation vector p separately.  the transformation t and
+   *     balanced matrix b are obtained from a,s,p by
+   *        t(_,p) = diag(s), b(p,p) = from_diag(1./s)*a*from_diag(s).
+   *
+   *     to scale a without permuting its rows and columns, use
+   *     the syntax balance(a, no_perm_).
+   *     to do nothing(!), use the syntax balance(a, none_).
+   *     (this can be useful to see the impact while retaining the code).
+   *
+   *     tie(s,p,b) = balance(a), [t,b] = balance(a) and b = balance(a)
+   *     are respectively equivalent to
+   *     tie(s,p,b) = balance(a, both_), tie(t,b) = balance(a, both_)
+   *     and b = balance(a, both_).
+   *
+   *     balance uses xgebal and xgebak lapack routines
    **/
+
   NT2_FUNCTION_IMPLEMENTATION(tag::balance_, balance, 1)
   NT2_FUNCTION_IMPLEMENTATION(tag::balance_, balance, 2)
 
-  namespace factorization
-  {
-    /**
-     * @brief Initialize a Balance factorization
-     *
-     * For any given matrix expression, initialize a Balance factorization of
-     * said matrix using the specified output layout for the Balance method
-     * and return a precomputed factorization object.
-     *
-     * Contrary to the balance function which performs such a factorization and
-     * return a Matlab like output, factorization::balance returns an object
-     * containing the initial evaluation of said factorization. This object can
-     * then be used to fasten other algorithms implementation.
-     *
-     * @param  xpr  Matrix expression to factorize
-     * @param  ip   Notify if balance should be performed in-place over xpr
-     *
-     * @return A unspecified type containing the precomputed elements of the
-     * Balance factorization.
-     **/
-    NT2_FUNCTION_IMPLEMENTATION(tag::factorization::balance_, balance, 2)
-    NT2_FUNCTION_IMPLEMENTATION_SELF(tag::factorization::balance_, balance, 3)
-  }
 }
 
 namespace nt2 { namespace ext
@@ -86,10 +80,6 @@ namespace nt2 { namespace ext
         : meta::size_as<Expr,0>
   {};
 
-  template<class Domain, int N, class Expr>
-  struct  value_type<tag::balance_,Domain,N,Expr>
-        : meta::value_as<Expr,0>
-  {};
 } }
 
 #endif

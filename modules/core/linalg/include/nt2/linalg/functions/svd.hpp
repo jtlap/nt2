@@ -28,7 +28,34 @@ namespace nt2
   }
 
   /**
+     s = svd(X)
+     [u,s,v] = svd(x)
+     [u,s,v] = svd(x,0)
+     [u,s,v] = svd(x, econ_)
+     [u,s,tv] = svd(x, lapack_)
 
+     Description
+
+     The svd command computes the matrix singular value decomposition.
+
+     s = svd(x) returns a vector of singular values.
+
+     [u,s,v] = svd(x) produces a diagonal matrix s of the same
+     dimension as x, with nonnegative diagonal elements in decreasing
+     order, and unitary matrices u and v so that x = u*s*v'.
+
+     [u,s,v] = svd(x,0) produces the "economy size" decomposition. if
+     x is m-by-n with m > n, then svd computes only the first n
+     columns of u and s is n-by-n.
+
+     [u,s,v] = svd(x,econ_) also produces the "economy size"
+     decomposition. if x is m-by-n with m >= n, it is equivalent to
+     svd(x,0). for m < n, only the first m columns of v are computed
+     and s is m-by-m.
+
+     [u,s,tv] = svd(x,lapack_) also produces the lapack direct output
+     decomposition. s is a real vector of the singular values and tv is
+     the transconjugate of matrix v.
    **/
   NT2_FUNCTION_IMPLEMENTATION(tag::svd_, svd, 1)
   NT2_FUNCTION_IMPLEMENTATION(tag::svd_, svd, 2)
