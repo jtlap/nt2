@@ -13,6 +13,7 @@
 #include <nt2/core/functions/from_diag.hpp>
 #include <nt2/core/container/dsl.hpp>
 #include <nt2/include/functions/isvector.hpp>
+#include <nt2/include/functions/expand.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -89,6 +90,7 @@ namespace nt2 { namespace ext
                                       );
     }
   };
+
 } }
 
 #endif
