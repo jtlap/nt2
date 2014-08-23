@@ -14,7 +14,6 @@
 #include <nt2/include/functions/ismatrix.hpp>
 #include <nt2/include/functions/norm2.hpp>
 #include <nt2/core/container/dsl.hpp>
-#include <nt2/core/container/colon/colon.hpp>
 #include <nt2/linalg/options.hpp>
 #include <nt2/sdk/meta/as_real.hpp>
 #include <nt2/core/container/dsl/forward.hpp>

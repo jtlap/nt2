@@ -11,15 +11,12 @@
 #include <nt2/linalg/functions/cond.hpp>
 #include <nt2/include/functions/gesvd.hpp>
 #include <nt2/include/functions/inv.hpp>
-#include <nt2/include/functions/is_eqz.hpp>
-#include <nt2/include/functions/mnorm.hpp>
+#include <nt2/include/functions/norm.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/inf.hpp>
 #include <nt2/include/functions/issquare.hpp>
 #include <nt2/include/functions/is_nan.hpp>
 #include <nt2/core/container/table/table.hpp>
-#include <nt2/sdk/meta/as_floating.hpp>
-#include <nt2/sdk/meta/as_real.hpp>
 
 namespace nt2{ namespace ext
 {
@@ -84,10 +81,16 @@ namespace nt2{ namespace ext
                       , "condition number of non square matrix requested"
                       );
 
-        result_type n = nt2::mnorm(a0, a1);
-        if (is_eqz(n)) return  Inf<result_type>();
-        return n*nt2::mnorm(nt2::inv(a0), a1);
-     }
+      if (a1 != 2 && a1 != '2')
+      {
+        result_type n = nt2::norm(a0, a1);
+        return n ? n*nt2::norm(nt2::inv(a0), a1) : Inf<result_type>();
+      }
+      else
+      {
+        return cond(a0);
+      }
+    }
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::cond_, tag::cpu_
