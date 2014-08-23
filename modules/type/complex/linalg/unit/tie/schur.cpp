@@ -38,7 +38,7 @@ NT2_TEST_CASE_TPL ( schurc, NT2_REAL_TYPES)
   t = nt2::schur(b);
   NT2_DISPLAY(t);
 
-  nt2::tie(z, t) = nt2::schur(b);
+  nt2::tie(t, z) = nt2::schur(b);
   NT2_DISPLAY(z);
   NT2_DISPLAY(t);
   ct_t zz =  nt2::mtimes(nt2::mtimes(z, t), nt2::trans(nt2::conj(z)));

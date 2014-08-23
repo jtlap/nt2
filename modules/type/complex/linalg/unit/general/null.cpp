@@ -30,27 +30,26 @@ NT2_TEST_CASE_TPL(null, NT2_REAL_TYPES)
   nt2::table<cT> n = nt2::eye(10, 10, nt2::meta::as_<T>());
   n(3, 5) = cT(2);
   n(4, 4) = cT(0);
-  n(1, 1) = 5*nt2::Eps<T>();
+  n(1, 1) = T(5)*nt2::Eps<cT>();
   nt2::table<cT> nulln = nt2::null(n);
-  nt2::table<cT> nulln1 = nt2::null(n,  T(0.1)*nt2::Eps<T>());
-
-  nt2::table<cT> rn1 = nt2::zeros(10, 1, nt2::meta::as_<T>());
-  rn1(4) = T(-1);
-  nt2::table<cT> rn = nt2::zeros(10, 2, nt2::meta::as_<T>());
-  rn(4, 1) = cT(-1);
-  rn(1, 2) = cT(1);
-  NT2_TEST_ULP_EQUAL(rn, nulln, 3.5);
+  nt2::table<cT> nulln1 = nt2::null(n,  T(100)*nt2::Eps<T>());
+  nt2::table<cT> rn = nt2::zeros(10, 1, nt2::meta::as_<T>());
+  rn(4) = T(-1);
+  NT2_TEST_ULP_EQUAL(rn, nulln, 2.5);
+  nt2::table<cT> rn1 = nt2::zeros(10, 2, nt2::meta::as_<T>());
+  rn1(4, 1) = cT(-1);
+  rn1(1, 2) = cT(1);
   NT2_TEST_ULP_EQUAL(rn1, nulln1, 3.5);
-}
+ }
 
 NT2_TEST_CASE_TPL(null2, NT2_REAL_TYPES)
 {
   typedef typename nt2::meta::as_complex<T>::type  cT;
   using nt2::null;
   using nt2::tag::null_;
-
+  std::cout << std::setprecision(20);
   nt2::table<cT> n = nt2::reshape(nt2::_(T(1), T(16)), 4, 4)+
-  nt2::I<cT>()*nt2::reshape(nt2::_(T(1), T(16)), 4, 4);
+    nt2::I<cT>()*nt2::reshape(nt2::_(T(1), T(16)), 4, 4);
   nt2::table<cT> nulln = nt2::null(n);
   NT2_TEST_LESSER_EQUAL(nt2::norm(nt2::mtimes(nt2::trans(nt2::conj(nulln)), nulln)-nt2::eye(2, nt2::meta::as_<cT>())), T(10)*nt2::Eps<T>());
 }

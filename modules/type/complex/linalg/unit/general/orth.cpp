@@ -81,5 +81,5 @@ NT2_TEST_CASE_TPL(orth2, NT2_REAL_TYPES)
   nt2::table<cT> n = nt2::sqr(nt2::reshape(nt2::_(T(1), T(16)), 4, 4))+
     nt2::I<cT>()*nt2::sqrt(nt2::reshape(nt2::_(T(16), T(-1), T(1)), 4, 4)*T(5));
   nt2::table<cT> orthn = nt2::orth(n);
-  NT2_TEST_LESSER_EQUAL(nt2::norm(nt2::mtimes(orthn, nt2::trans(nt2::conj(orthn)))-nt2::eye(4, nt2::meta::as_<cT>())), T(16)*nt2::Eps<T>());
+  NT2_TEST_LESSER_EQUAL(nt2::norm(nt2::mtimes(orthn, nt2::trans(nt2::conj(orthn)))-nt2::eye(4, nt2::meta::as_<cT>())), T(5)*nt2::Eps<T>());
 }
