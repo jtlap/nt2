@@ -28,7 +28,6 @@ SET( SOURCES
     globalasum1.cpp
     globalasum2.cpp
     globalasump.cpp
-    globalnorm.cpp
     globalnorm2.cpp
     globalnormp.cpp
     globalvar.cpp
