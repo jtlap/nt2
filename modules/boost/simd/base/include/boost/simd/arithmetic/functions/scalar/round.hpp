@@ -13,7 +13,9 @@
 #include <boost/simd/include/functions/scalar/toint.hpp>
 #include <boost/simd/include/functions/scalar/bitwise_or.hpp>
 #include <boost/simd/include/functions/scalar/abs.hpp>
-#include <boost/simd/include/functions/scalar/bitofsign.hpp>
+#include <boost/simd/include/functions/scalar/copysign.hpp>
+#include <boost/simd/include/functions/scalar/seldec.hpp>
+#include <boost/simd/include/functions/scalar/ceil.hpp>
 #include <boost/simd/include/constants/maxflint.hpp>
 #include <boost/simd/include/constants/half.hpp>
 #include <boost/simd/sdk/math.hpp>
@@ -48,8 +50,8 @@ namespace boost { namespace simd { namespace ext
       const result_type v = simd::abs(a0);
       if (!(v <=  Maxflint<result_type>()))
           return a0;
-      const uint32_t d = static_cast<uint32_t>(v+Half<result_type>());
-      return b_or(result_type(d), bitofsign(a0));
+      result_type c =  boost::simd::ceil(v);
+      return copysign(seldec(c-Half<result_type>() > v, c), a0);
 #endif
     }
   };
@@ -66,11 +68,11 @@ namespace boost { namespace simd { namespace ext
 #ifdef BOOST_SIMD_HAS_ROUND
       return ::round(a0);
 #else
-      const result_type v = simd::abs(a0);
-      if (!(v <=  Maxflint<result_type>()))
-          return a0;
-      const uint64_t d = static_cast<uint64_t>(v+Half<result_type>());
-      return b_or(result_type(d), bitofsign(a0));
+       const result_type v = simd::abs(a0);
+       if (!(v <=  Maxflint<result_type>()))
+           return a0;
+      result_type c =  boost::simd::ceil(v);
+      return copysign(seldec(c-Half<result_type>() > v, c), a0);
 #endif
      }
   };
