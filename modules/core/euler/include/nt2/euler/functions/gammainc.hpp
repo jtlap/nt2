@@ -21,35 +21,32 @@ namespace nt2 { namespace tag
      @par Models:
         Hierarchy
    **/
-    struct gammainc_ : ext::elementwise_<gammainc_>
-    {
-      typedef ext::elementwise_<gammainc_> parent;
-    };
+    struct gammainc_ : ext::elementwise_<gammainc_> { typedef ext::elementwise_<gammainc_> parent; };
   }
-
   /*!
-    @brief Incomplete Gamma function
-
-    Computes the incomplete gamma function.
+    Incomplete Gamma function
+    \par Formula
+    \f$ gammainc(x)=\int_0^{a_1} t^{a_0-1}e^{-t}dt\f$
 
     @par Semantic:
 
-    For any floating-point values @c a0 , @c a1 of type T:
+    For every parameters of floating types respectively T0, T1:
 
     @code
-    T r = gammainc(a0,a1);
+    T0 r = gammainc(a0,a1);
     @endcode
 
-    returns the value computed by the formula:
+    returns the computed integral.
 
-    \f$ gammainc(x)=\int_0^{a_1} t^{a_0-1}e^{-t}dt\f
+    @param a0
 
-    @param a0 Lower bound of the incomplete gamma integral
-    @param a1 Upper bound of the incomplete gamma integral
+    @param a1
 
     @return a value of the same type as the parameter
   **/
   NT2_FUNCTION_IMPLEMENTATION(tag::gammainc_, gammainc, 2)
+  NT2_FUNCTION_IMPLEMENTATION(tag::gammainc_, gammainc, 3)
+  NT2_FUNCTION_IMPLEMENTATION(tag::gammainc_, gammainc, 4)
 }
 
 #endif
