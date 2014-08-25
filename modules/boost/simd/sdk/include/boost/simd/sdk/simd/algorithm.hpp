@@ -15,6 +15,7 @@
 #include <boost/simd/include/functions/load.hpp>
 #include <boost/simd/include/functions/splat.hpp>
 #include <boost/simd/memory/align_on.hpp>
+#include <boost/simd/memory/is_aligned.hpp>
 #include <boost/mpl/assert.hpp>
 
 #include <algorithm>
@@ -42,8 +43,16 @@ namespace boost { namespace simd
     for(; begin!=end2; ++begin, ++out)
       *out = f(*begin);
 
-    for(; begin!=end3; begin += N, out += N)
-      simd::aligned_store(f(simd::load<vT>(begin)), out);
+    if(simd::is_aligned(begin, N * sizeof(T)))
+    {
+      for(; begin!=end3; begin += N, out += N)
+        simd::aligned_store(f(simd::aligned_load<vT>(begin)), out);
+    }
+    else
+    {
+      for(; begin!=end3; begin += N, out += N)
+        simd::aligned_store(f(simd::load<vT>(begin)), out);
+    }
 
     // epilogue
     for(; begin!=end; ++begin, ++out)
@@ -74,8 +83,16 @@ namespace boost { namespace simd
     for(; begin1!=end2; ++begin1, ++begin2, ++out)
       *out = f(*begin1, *begin2);
 
-    for(; begin1!=end3; begin1 += N, begin2 += N, out += N)
-      simd::aligned_store(f(simd::load<vT1>(begin1), simd::load<vT2>(begin2)), out);
+    if(simd::is_aligned(begin1, N * sizeof(T1)) && simd::is_aligned(begin2, N * sizeof(T2)))
+    {
+      for(; begin1!=end3; begin1 += N, begin2 += N, out += N)
+        simd::aligned_store(f(simd::aligned_load<vT1>(begin1), simd::aligned_load<vT2>(begin2)), out);
+    }
+    else
+    {
+      for(; begin1!=end3; begin1 += N, begin2 += N, out += N)
+        simd::aligned_store(f(simd::load<vT1>(begin1), simd::load<vT2>(begin2)), out);
+    }
 
     // epilogue
     for(; begin1!=end; ++begin1, ++begin2, ++out)
