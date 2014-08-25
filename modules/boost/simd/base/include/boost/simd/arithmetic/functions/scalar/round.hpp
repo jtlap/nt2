@@ -10,8 +10,6 @@
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_SCALAR_ROUND_HPP_INCLUDED
 
 #include <boost/simd/arithmetic/functions/round.hpp>
-#include <boost/simd/include/functions/scalar/toint.hpp>
-#include <boost/simd/include/functions/scalar/bitwise_or.hpp>
 #include <boost/simd/include/functions/scalar/abs.hpp>
 #include <boost/simd/include/functions/scalar/copysign.hpp>
 #include <boost/simd/include/functions/scalar/seldec.hpp>

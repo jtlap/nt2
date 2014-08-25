@@ -13,15 +13,12 @@
 #include <boost/simd/arithmetic/functions/round.hpp>
 #include <boost/simd/include/functions/simd/copysign.hpp>
 #include <boost/simd/include/functions/simd/seldec.hpp>
-#include <boost/simd/include/functions/simd/is_less.hpp>
+#include <boost/simd/include/functions/simd/is_greater.hpp>
 #include <boost/simd/include/functions/simd/abs.hpp>
-#include <boost/simd/include/functions/simd/plus.hpp>
 #include <boost/simd/include/functions/simd/minus.hpp>
 #include <boost/simd/include/functions/simd/ceil.hpp>
 #include <boost/simd/include/constants/half.hpp>
 #include <boost/dispatch/attributes.hpp>
-#include <iostream>
-#include <iomanip>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -47,7 +44,7 @@ namespace boost { namespace simd { namespace ext
     {
       result_type absa0 = boost::simd::abs(a0);
       result_type c =  boost::simd::ceil(absa0);
-      return copysign(seldec(lt(Half<result_type>()-c, -absa0), c), a0);
+      return copysign(seldec(gt(c-Half<result_type>(), absa0), c), a0);
     }
   };
 } } }
