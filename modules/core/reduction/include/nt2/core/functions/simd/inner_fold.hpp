@@ -20,7 +20,7 @@
 namespace nt2 { namespace ext
 {
   //============================================================================
-  // Partial inner_fold with offset/size
+  // General inner_fold
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION_IF ( nt2::tag::inner_fold_, boost::simd::tag::simd_
                                 , (Out)(In)(Neutral)(Bop)(Uop)
@@ -47,6 +47,7 @@ namespace nt2 { namespace ext
               ) const
     {
       extent_type ext = in.extent();
+      std::size_t obound = nt2::numel(boost::fusion::pop_front(ext));
       static const std::size_t N = boost::simd::meta::cardinal_of<target_type>::value;
       std::size_t bound  = boost::fusion::at_c<0>(ext);
       std::size_t nb_vec = (bound/N);
