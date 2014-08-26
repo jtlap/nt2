@@ -26,7 +26,6 @@ namespace nt2
     @param Out Expression to store result in
     @param In Expression to reduce
     @param Bop Function to apply for binary reduction, first argument is accumulator
-    @param Range Pair containing linear offset and number of element to process
   **/
   namespace details
   {
