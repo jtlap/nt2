@@ -59,7 +59,7 @@ namespace nt2
         // Compute the lower multiple of grain of mbound
         std::size_t mmbound =  (mbound/grain)*grain;
 
-        if( ibound < grain )
+        if( iibound < grain )
         {
           // Instanciate the spawner/worker associated to the mbound dimension
           nt2::spawner<tag::fold_, BackEnd, target_type> s_simd;
@@ -81,7 +81,7 @@ namespace nt2
 
               if( (size == obound) && (grain < mmbound) )
                   vec_out = s_simd( w, 0, mmbound, grain);
-              else
+              else if(mmbound != 0)
                   vec_out = w(vec_out, 0, mmbound);
 
               vec_out = w(vec_out, mmbound, mbound-mmbound);
@@ -101,7 +101,7 @@ namespace nt2
 
               if( (size == obound) && (grain < mmbound) )
                   s_out = s_scalar( w, 0, mmbound, grain);
-              else
+              else if(mmbound != 0)
                   s_out = w(s_out, 0, mmbound);
 
               s_out = w(s_out, mmbound, mbound-mmbound);
