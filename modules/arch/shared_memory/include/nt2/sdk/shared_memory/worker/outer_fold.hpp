@@ -147,8 +147,6 @@ namespace nt2
       Bop const &              bop_;
       Uop const &              uop_;
 
-      nt2::functor<tag::outer_fold_,Site> work;
-
       private:
       worker& operator=(worker const&);
    };

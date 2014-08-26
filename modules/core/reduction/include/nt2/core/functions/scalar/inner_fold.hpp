@@ -38,39 +38,9 @@ namespace nt2 { namespace ext
     {
       extent_type ext = in.extent();
       std::size_t obound = nt2::numel(boost::fusion::pop_front(ext));
-
-      nt2::inner_fold(out,in,neutral,bop,uop,std::make_pair(0,obound));
-    }
-  };
-
-  //============================================================================
-  // Generates inner_fold
-  //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::inner_fold_, tag::cpu_
-                            , (Out)(In)(Neutral)(Bop)(Uop)(Range)
-                            , ((ast_< Out, nt2::container::domain>))
-                              ((ast_< In, nt2::container::domain>))
-                              (unspecified_<Neutral>)
-                              (unspecified_<Bop>)
-                              (unspecified_<Uop>)
-                              (unspecified_<Range>)
-                            )
-  {
-    typedef void                                                               result_type;
-    typedef typename Out::value_type                                            value_type;
-    typedef typename boost::remove_reference<In>::type::extent_type            extent_type;
-
-    BOOST_FORCEINLINE result_type operator()(Out& out, In& in
-                                            , Neutral const& neutral, Bop const& bop, Uop const&
-                                            , Range const& range
-                                            ) const
-    {
-      extent_type ext = in.extent();
       std::size_t ibound  = boost::fusion::at_c<0>(ext);
-      std::size_t begin = range.first;
-      std::size_t size = range.second;
 
-      for(std::size_t j = begin, k = begin*ibound; j < begin+size; ++j, k+=ibound)
+      for(std::size_t j = 0, k = 0; j < obound; ++j, k+=ibound)
       {
           value_type s_out = details::fold_step(
              neutral(nt2::meta::as_<value_type>()), in, bop, k, ibound, 1
@@ -78,10 +48,8 @@ namespace nt2 { namespace ext
 
           nt2::run(out, j, s_out);
       }
-
     }
-
-    };
+  };
 
   } }
 

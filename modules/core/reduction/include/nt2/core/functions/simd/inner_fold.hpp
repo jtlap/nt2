@@ -23,7 +23,7 @@ namespace nt2 { namespace ext
   // Partial inner_fold with offset/size
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION_IF ( nt2::tag::inner_fold_, boost::simd::tag::simd_
-                                , (Out)(In)(Neutral)(Bop)(Uop)(Range)
+                                , (Out)(In)(Neutral)(Bop)(Uop)
                                 , ( boost::simd::meta::
                                     is_vectorizable < typename Out::value_type
                                                     , BOOST_SIMD_DEFAULT_EXTENSION
@@ -34,7 +34,6 @@ namespace nt2 { namespace ext
                                   (unspecified_<Neutral>)
                                   (unspecified_<Bop>)
                                   (unspecified_<Uop>)
-                                  (unspecified_<Range>)
                                 )
   {
     typedef void                                                              result_type;
@@ -45,7 +44,6 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type
     operator()(Out& out, In& in
               , Neutral const& neutral, Bop const& bop, Uop const& uop
-              , Range const& range
               ) const
     {
       extent_type ext = in.extent();
@@ -54,10 +52,7 @@ namespace nt2 { namespace ext
       std::size_t nb_vec = (bound/N);
       std::size_t ibound = nb_vec * N;
 
-      std::size_t begin = range.first;
-      std::size_t size  = range.second;
-
-      for(std::size_t j = begin, k = begin*bound; j != begin+size; ++j, k+=bound)
+      for(std::size_t j = 0, k = 0; j != obound; ++j, k+=bound)
       {
         target_type vec_out = details::fold_step(
           neutral(nt2::meta::as_<target_type>()), in, bop, k, nb_vec, N

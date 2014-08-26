@@ -14,7 +14,6 @@
 #include <nt2/sdk/shared_memory/spawner.hpp>
 #include <nt2/sdk/shared_memory/details/target_type_from_site.hpp>
 
-#include <nt2/include/functor.hpp>
 #include <nt2/sdk/config/cache.hpp>
 
 namespace nt2

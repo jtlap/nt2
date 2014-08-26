@@ -14,7 +14,6 @@
 #include <nt2/core/functions/details/fold_step.hpp>
 #include <nt2/core/functions/details/outer_fold_step.hpp>
 #include <nt2/sdk/shared_memory/details/target_type_from_site.hpp>
-#include <nt2/include/functor.hpp>
 
 namespace nt2
 {

@@ -29,7 +29,7 @@ namespace nt2 { namespace ext
   // Partial outer_fold with offset/size
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION_IF ( nt2::tag::outer_fold_, boost::simd::tag::simd_
-                                , (Out)(In)(Neutral)(Bop)(Uop)(Range)
+                                , (Out)(In)(Neutral)(Bop)(Uop)
                                 , ( boost::simd::meta::
                                     is_vectorizable < typename Out::value_type
                                                     , BOOST_SIMD_DEFAULT_EXTENSION
@@ -40,7 +40,6 @@ namespace nt2 { namespace ext
                                   (unspecified_<Neutral>)
                                   (unspecified_<Bop>)
                                   (unspecified_<Uop>)
-                                  (unspecified_<Range>)
                                 )
   {
     typedef void                                                              result_type;
@@ -52,11 +51,11 @@ namespace nt2 { namespace ext
     operator()( Out& out ,In& in
               , Neutral const& neutral
               , Bop const& bop, Uop const&
-              , Range const& range
               ) const
     {
       extent_type ext = in.extent();
       static const std::size_t N = boost::simd::meta::cardinal_of<target_type>::value;
+      std::size_t obound =  boost::fusion::at_c<2>(ext);
       std::size_t ibound = boost::fusion::at_c<0>(ext);
       std::size_t mbound = boost::fusion::at_c<1>(ext);
       std::size_t iboundxmbound =  ibound * mbound;
@@ -65,11 +64,8 @@ namespace nt2 { namespace ext
       std::size_t cache_bound = (cache_line_size / (sizeof(value_type)*N))*N;
       std::size_t iibound =  boost::simd::align_under(ibound, cache_bound);
 
-      std::size_t begin = range.first;
-      std::size_t size = range.second;
-
-      for(std::size_t o = begin, oout_ = begin*ibound, oin_ = begin * iboundxmbound;
-          o < begin + size;
+      for(std::size_t o = 0, oout_ = 0, oin_ = 0;
+          o < obound;
           ++o, oout_+=ibound, oin_+= iboundxmbound)
       {
         // vectorized part
