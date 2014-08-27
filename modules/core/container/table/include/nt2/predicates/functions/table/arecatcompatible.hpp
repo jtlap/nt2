@@ -14,6 +14,7 @@
 #include <nt2/core/container/dsl/forward.hpp>
 #include <nt2/include/functions/isvectoralong.hpp>
 #include <nt2/include/functions/extent.hpp>
+#include <nt2/include/functions/numel.hpp>
 
 namespace nt2 { namespace ext
 {
