@@ -56,7 +56,7 @@ namespace nt2 { namespace ext
       return eval( a0, boost::mpl::int_<empty_t::value>() );
     }
 
-    BOOST_FORCEINLINE result_type eval(const A0& a0, boost::mpl::int_<0> const&) const
+    BOOST_FORCEINLINE result_type eval(const A0&, boost::mpl::int_<0> const&) const
     {
       return result_type();
     }
