@@ -143,7 +143,7 @@ namespace boost { namespace simd
 
                                        (25.10.2012.) (Domagoj Saric)
     */
-    return ::memalign( size, alignment );
+    return ::memalign( alignment, size );
 
     #else
 
