@@ -41,6 +41,8 @@ namespace nt2
     struct lambda_    : boost::mpl::false_  {};
     struct no_sort_   : boost::mpl::false_  {};
     struct lapack_    : boost::mpl::false_  {};
+
+    struct in_place_  {};
   }
 
   nt2::policy<ext::pivot_>       const pivot_;
@@ -69,6 +71,8 @@ namespace nt2
   nt2::policy<ext::lambda_>      const lambda_;
   nt2::policy<ext::no_sort_>     const no_sort_;
   nt2::policy<ext::lapack_>      const lapack_;
+
+  nt2::policy<ext::in_place_>  const in_place_;
 }
 
 #endif
