@@ -30,7 +30,7 @@ namespace nt2
   namespace details
   {
     template<class Out, class In, class Bop, class Range>
-	inline Out inner_fold_step(Out & out, In& in, Bop const& bop, Range const & range)
+    inline Out inner_fold_step(Out const& out, In& in, Bop const& bop, Range const& range)
     {
       static const std::size_t N = boost::simd::meta::cardinal_of<Out>::value;
       std::size_t begin = range.first;
@@ -38,10 +38,11 @@ namespace nt2
 
       BOOST_ASSERT_MSG( (size % N) == 0, "Range for inner_fold_step not divisible by N");
 
+      Out out2 = out;
       for(std::size_t i = begin; i != begin+size; i+=N)
-       out = bop(out, nt2::run(in, i, meta::as_<Out>()));
+       out2 = bop(out2, nt2::run(in, i, meta::as_<Out>()));
 
-      return out;
+      return out2;
     }
   }
 
