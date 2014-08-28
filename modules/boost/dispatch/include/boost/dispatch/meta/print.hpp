@@ -11,26 +11,37 @@
 
 #include <boost/config.hpp>
 
-#if defined(DOXYGEN_ONLY) || (defined(__GNUC__) && !defined(BOOST_CLANG) && !defined(BOOST_INTEL) && !defined(__CUDACC__))
-
+// Trick for GCC and Clang
+#if (defined(__GNUC__) && !defined(BOOST_INTEL) && !defined(__CUDACC__))
 namespace boost { namespace dispatch { namespace meta
 {
   template<class T>
   struct print
   {
     typedef T type;
-    unsigned : 80;
+    unsigned : sizeof(T)*80;
   };
 } } }
-
+// Trick for MSVC (explicit cast to avoid having multiple warnings)
+// generates both C4305 (/W1) and C4309 (/W2)
+// use explicit casting to only generate C4310 (/W3)
+#elif defined(BOOST_MSVC)
+namespace boost { namespace dispatch { namespace meta
+{
+  template<class T>
+  struct print
+  {
+    typedef T type;
+    static const unsigned char generate_warning = /*(unsigned char)*/(sizeof(T)*300);
+  };
+} } }
+// Otherwise, use boost::mpl::print
 #else
-
 #include <boost/mpl/print.hpp>
 namespace boost { namespace dispatch { namespace meta
 {
   using boost::mpl::print;
 } } }
-
 #endif
 
 #endif
