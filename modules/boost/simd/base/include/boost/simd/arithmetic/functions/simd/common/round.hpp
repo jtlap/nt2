@@ -11,9 +11,12 @@
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_SIMD_COMMON_ROUND_HPP_INCLUDED
 
 #include <boost/simd/arithmetic/functions/round.hpp>
-#include <boost/simd/include/functions/simd/trunc.hpp>
 #include <boost/simd/include/functions/simd/copysign.hpp>
-#include <boost/simd/include/functions/simd/plus.hpp>
+#include <boost/simd/include/functions/simd/seldec.hpp>
+#include <boost/simd/include/functions/simd/is_greater.hpp>
+#include <boost/simd/include/functions/simd/abs.hpp>
+#include <boost/simd/include/functions/simd/minus.hpp>
+#include <boost/simd/include/functions/simd/ceil.hpp>
 #include <boost/simd/include/constants/half.hpp>
 #include <boost/dispatch/attributes.hpp>
 
@@ -39,8 +42,9 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      result_type inc = copysign(Half<result_type>(), a0);
-      return trunc(a0+inc);
+      result_type absa0 = boost::simd::abs(a0);
+      result_type c =  boost::simd::ceil(absa0);
+      return copysign(seldec(gt(c-Half<result_type>(), absa0), c), a0);
     }
   };
 } } }
