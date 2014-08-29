@@ -10,6 +10,10 @@
 #ifndef BOOST_SIMD_MEMORY_DETAILS_POSIX_HPP_INCLUDED
 #define BOOST_SIMD_MEMORY_DETAILS_POSIX_HPP_INCLUDED
 
+#if defined(unix) || defined(__unix__) || defined(__unix)
+#include <unistd.h>
+#endif
+
 // Check if posix_memalign is supported
 #if (     (defined _GNU_SOURCE)                                   \
       ||  ((defined _XOPEN_SOURCE) && (_XOPEN_SOURCE >= 600))     \
