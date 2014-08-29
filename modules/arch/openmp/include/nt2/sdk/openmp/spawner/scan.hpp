@@ -42,6 +42,8 @@ namespace nt2
       boost::exception_ptr exception;
 #endif
 
+      result_type result = w.neutral_(nt2::meta::as_<result_type>());
+
       BOOST_ASSERT_MSG( size % grain == 0, "Reduce size not divisible by grain");
 
       std::ptrdiff_t nblocks  = size/grain;
@@ -110,8 +112,11 @@ namespace nt2
           }
       }
 
+      for(std::ptrdiff_t k=0;k<nblocks;++k)
+      result = w.bop_(result,summaries[k]);
+
       // Call operation
-      return summaries[nblocks-1];
+      return result;
     }
   };
 }
