@@ -64,7 +64,7 @@ namespace nt2
     {}
 
     template<class Out>
-    Out operator()(Out out, std::size_t begin, std::size_t size)
+    Out operator()(Out const & out, std::size_t begin, std::size_t size)
     {
       extent_type ext = in_.extent();
       std::size_t ibound = boost::fusion::at_c<0>(ext);

@@ -29,15 +29,17 @@ namespace nt2
   namespace details
   {
     template<class Out, class In, class Bop>
-    inline Out fold_step(Out out, In& in, Bop const& bop
+    inline Out fold_step(Out const & out, In& in, Bop const& bop
                         ,std::size_t begin
                         ,std::size_t size
                         ,std::size_t step)
     {
-      for(std::size_t i=0, i_ = begin; i < size; i++, i_+=step)
-       out = bop(out, nt2::run(in, i_, meta::as_<Out>()));
+      Out result = out;
 
-      return out;
+      for(std::size_t i=0, i_ = begin; i < size; i++, i_+=step)
+       result = bop(result, nt2::run(in, i_, meta::as_<Out>()));
+
+      return result;
     }
   }
 
