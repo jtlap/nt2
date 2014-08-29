@@ -129,7 +129,7 @@ namespace boost { namespace simd
 
     return result;
 
-    #elif     defined( _GNU_SOURCE ) && !defined( __ANDROID__ )                \
+    #elif     defined( _GNU_SOURCE ) && defined(__linux) && !defined( __ANDROID__ ) \
           && !defined(BOOST_SIMD_MEMORY_NO_BUILTINS)
 
     /*
