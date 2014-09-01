@@ -18,6 +18,10 @@ endif()
 project(NT2)
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake ${CMAKE_MODULE_PATH})
 
+if(${PROJECT_SOURCE_DIR} STREQUAL ${PROJECT_BINARY_DIR})
+  message(STATUS "WARNING: Building in-source, not recommended! You should build in a separate directory.")
+endif()
+
 if(GIT_EXECUTABLE AND NOT EXISTS GIT_EXECUTABLE)
   unset(GIT_EXECUTABLE CACHE)
 endif()
