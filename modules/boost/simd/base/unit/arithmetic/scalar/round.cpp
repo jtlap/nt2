@@ -22,14 +22,16 @@
 #include <boost/simd/include/constants/maxflint.hpp>
 #include <boost/simd/include/constants/half.hpp>
 #include <boost/simd/sdk/config.hpp>
-#include <nt2/include/functions/prev.hpp>
-#include <nt2/include/functions/next.hpp>
+#include <boost/simd/include/functions/prev.hpp>
+#include <boost/simd/include/functions/next.hpp>
 
 NT2_TEST_CASE_TPL ( round_real,  BOOST_SIMD_REAL_TYPES)
 {
 
   using boost::simd::round;
   using boost::simd::tag::round_;
+  using boost::simd::next;
+  using boost::simd::prev;
   typedef typename boost::dispatch::meta::call<round_(T)>::type r_t;
   typedef T wished_r_t;
 
@@ -58,6 +60,13 @@ NT2_TEST_CASE_TPL ( round_real,  BOOST_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(round(T(-1.6)), T(-2));
   NT2_TEST_EQUAL(round(T(-2.5)), T(-3));
   NT2_TEST_EQUAL(round(boost::simd::Half<T>()), boost::simd::One<r_t>());
+  NT2_TEST_EQUAL(round(prev(prev(boost::simd::Half<T>()))),  boost::simd::Zero<T>());
+  NT2_TEST_EQUAL(round(prev(boost::simd::Half<T>())),  boost::simd::Zero<T>());
+  NT2_TEST_EQUAL(round(     boost::simd::Half<T>()) ,  boost::simd::One <T>());
+  NT2_TEST_EQUAL(round(next(boost::simd::Half<T>())),  boost::simd::One <T>());
+  T z = boost::simd::Maxflint < T>()/T(2)+T(1);
+  NT2_TEST_EQUAL(round(z), z);
+
 } // end of test for floating_
 
 NT2_TEST_CASE_TPL ( round_unsigned_int__1_0,  BOOST_SIMD_UNSIGNED_TYPES)
@@ -95,32 +104,3 @@ NT2_TEST_CASE_TPL ( round_signed_int__1_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
 } // end of test for signed_int_
 
 
-
-NT2_TEST_CASE_TPL ( round_double,  (double))
-{
-  using boost::simd::round;
-  using boost::simd::tag::round_;
-  using boost::simd::native;
-  using boost::simd::next;
-  using boost::simd::prev;
-
-  NT2_TEST_EQUAL(round(prev(prev(boost::simd::Half<T>()))),  boost::simd::Zero<T>());
-  NT2_TEST_EQUAL(round(prev(boost::simd::Half<T>())),  boost::simd::Zero<T>());
-  NT2_TEST_EQUAL(round(     boost::simd::Half<T>()) ,  boost::simd::One <T>());
-  NT2_TEST_EQUAL(round(next(boost::simd::Half<T>())),  boost::simd::One <T>());
-  T z = 4503599627370497.0;
-  NT2_TEST_EQUAL(round(z),  z);
-}
-NT2_TEST_CASE_TPL ( round_float,  (float))
-{
-  using boost::simd::round;
-  using boost::simd::tag::round_;
-  using boost::simd::native;
-  using boost::simd::next;
-  using boost::simd::prev;
-
-  NT2_TEST_EQUAL(round(prev(prev(boost::simd::Half<T>()))),  boost::simd::Zero<T>());
-  NT2_TEST_EQUAL(round(prev(boost::simd::Half<T>())),  boost::simd::Zero<T>());
-  NT2_TEST_EQUAL(round(     boost::simd::Half<T>()) ,  boost::simd::One <T>());
-  NT2_TEST_EQUAL(round(next(boost::simd::Half<T>())),  boost::simd::One <T>());
-}
