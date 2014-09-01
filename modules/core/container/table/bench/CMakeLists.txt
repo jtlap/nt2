@@ -21,6 +21,7 @@ SET( SOURCES
   plus.cpp
   subscript.cpp
   sum.cpp
+  sum_outer.cpp
   cumsum.cpp
 #  fluid.cpp
 # List of scalar test files for toolbox fuzzy

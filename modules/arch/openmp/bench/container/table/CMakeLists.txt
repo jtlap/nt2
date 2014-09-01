@@ -13,6 +13,7 @@ SET( SOURCES
   plus.cpp
   small_table.cpp
   sum.cpp
+  sum_outer.cpp
   cumsum.cpp
 # List of scalar test files for toolbox fuzzy
    )
