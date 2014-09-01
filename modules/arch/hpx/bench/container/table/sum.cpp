@@ -32,7 +32,7 @@ struct table_sum
 
   template<typename Setup>
   table_sum ( Setup const& s )
-              : size_(boost::fusion::at_c<1>(s)*boost::fusion::at_c<1>(s))
+              : size_(boost::fusion::at_c<1>(s))
               , dim_(boost::fusion::at_c<0>(s))
               , a0(nt2::_2D ( boost::fusion::at_c<1>(s)
                             , boost::fusion::at_c<1>(s)
