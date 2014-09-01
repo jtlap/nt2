@@ -22,4 +22,12 @@
   #define BOOST_SIMD_CONFIG_SUPPORT_POSIX_MEMALIGN
 #endif
 
+// Mac OS X 10.6+ special case
+#if !defined(BOOST_SIMD_CONFIG_SUPPORT_POSIX_MEMALIGN) && defined(__APPLE__)
+#include <AvailabilityMacros.h>
+#if MAC_OS_X_VERSION_MIN_REQUIRED >= MAC_OS_X_VERSION_10_6
+#define BOOST_SIMD_CONFIG_SUPPORT_POSIX_MEMALIGN
+#endif
+#endif
+
 #endif
