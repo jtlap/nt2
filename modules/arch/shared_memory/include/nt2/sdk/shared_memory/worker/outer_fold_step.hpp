@@ -31,15 +31,20 @@ namespace nt2
     typedef typename Out::value_type                                          value_type;
     typedef typename details::target_type_from_site<Site,value_type>::type    target_type;
 
-    worker(Out & out, In & in, Neutral const & neutral, Bop const & bop
-          ,std::size_t oout, std::size_t oin)
-          :out_(out),in_(in),neutral_(neutral),bop_(bop),oout_(oout),oin_(oin)
+    worker(Out & out, In & in, Neutral const & neutral, Bop const & bop)
+          :out_(out),in_(in),neutral_(neutral),bop_(bop)
     {}
 
     void operator()(std::size_t begin, std::size_t size)
     {
         details::outer_fold_step<target_type,Out,In,Neutral,Bop>
         (out_, in_, neutral_, bop_, begin, size, oout_, oin_);
+    }
+
+    void update(std::size_t oout, std::size_t oin)
+    {
+      oout_ = oout;
+      oin_  = oin;
     }
 
     Out & out_;
@@ -59,8 +64,8 @@ namespace nt2
   {
     typedef typename boost::remove_reference<In>::type::extent_type extent_type;
 
-    worker(In & in, Neutral const & neutral, Bop const & bop, std::size_t o)
-          :in_(in),neutral_(neutral),bop_(bop),o_(o)
+    worker(In & in, Neutral const & neutral, Bop const & bop)
+          :in_(in),neutral_(neutral),bop_(bop)
     {}
 
     template<class Out>
@@ -71,6 +76,13 @@ namespace nt2
 
       return details::fold_step(out, in_, bop_, o_ + begin*ibound, size, ibound);
     };
+
+    void update(std::size_t o)
+    {
+      o_ = o;
+    }
+
+
 
     In & in_;
     Neutral const & neutral_;

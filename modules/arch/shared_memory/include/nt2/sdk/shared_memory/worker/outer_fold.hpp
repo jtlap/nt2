@@ -65,6 +65,9 @@ namespace nt2
           nt2::spawner<tag::fold_, BackEnd, target_type> s_simd;
           nt2::spawner<tag::fold_, BackEnd, value_type> s_scalar;
 
+          nt2::worker<tag::outer_fold_step_outcache_,BackEnd,Site,In,Neutral,Bop>
+          w(in_,neutral_,bop_);
+
           for(std::size_t o = begin, oout_ = begin*ibound, oin_ = begin * iboundxmbound;
               o < begin + size;
               ++o, oout_+=ibound, oin_+= iboundxmbound)
@@ -74,39 +77,37 @@ namespace nt2
                  i < iibound;
                  i+=N, kout_+=N, kin_+=N)
             {
-              nt2::worker<tag::outer_fold_step_outcache_,BackEnd,Site,In,Neutral,Bop>
-              w(in_,neutral_,bop_,kin_);
+              w.update(kin_);
 
-              target_type vec_out = neutral_(nt2::meta::as_<target_type>());
+              target_type result = neutral_(nt2::meta::as_<target_type>());
 
               if( (size == obound) && (grain < mmbound) )
-                  vec_out = s_simd( w, 0, mmbound, grain);
+                  result = s_simd( w, 0, mmbound, grain);
               else if(mmbound != 0)
-                  vec_out = w(vec_out, 0, mmbound);
+                  result = w(result, 0, mmbound);
 
-              vec_out = w(vec_out, mmbound, mbound-mmbound);
+              result = w(result, mmbound, mbound-mmbound);
 
-              nt2::run(out_, kout_,vec_out);
+              nt2::run(out_, kout_, result);
             }
 
             // scalar part
-            for(std::size_t i = iibound, k_ = oout_ + iibound, m_ = oin_ + iibound;
+            for(std::size_t i = iibound, kout_ = oout_ + iibound, kin_ = oin_ + iibound;
                 i < ibound;
-                ++i, ++k_, ++m_)
+                ++i, ++kout_, ++kin_)
             {
-              nt2::worker<tag::outer_fold_step_outcache_,BackEnd,Site,In,Neutral,Bop>
-              w(in_,neutral_,bop_,m_);
+              w.update(kin_);
 
-              value_type s_out = neutral_(nt2::meta::as_<value_type>());
+              value_type result = neutral_(nt2::meta::as_<value_type>());
 
               if( (size == obound) && (grain < mmbound) )
-                  s_out = s_scalar( w, 0, mmbound, grain);
+                  result = s_scalar(w, 0, mmbound, grain);
               else if(mmbound != 0)
-                  s_out = w(s_out, 0, mmbound);
+                  result = w(result, 0, mmbound);
 
-              s_out = w(s_out, mmbound, mbound-mmbound);
+              result = w(result, mmbound, mbound-mmbound);
 
-              nt2::run(out_, k_,s_out);
+              nt2::run(out_, kout_, result);
             }
           }
         }
@@ -116,27 +117,30 @@ namespace nt2
           // Instanciate the spawner/worker associated to the ibound dimension
           nt2::spawner<tag::transform_, BackEnd> s;
 
+          // vectorized worker
+          nt2::worker<tag::outer_fold_step_incache_,BackEnd,Site,Out,In,Neutral,Bop>
+          w1(out_,in_,neutral_,bop_);
+
+          // scalar worker
+          nt2::worker<tag::outer_fold_step_incache_,BackEnd,tag::cpu_,Out,In,Neutral,Bop>
+          w2(out_,in_,neutral_,bop_);
+
           for(std::size_t o = 0, oout_ = begin*ibound, oin_ = begin * iboundxmbound;
               o < size;
               ++o, oout_+=ibound, oin_+= iboundxmbound)
           {
-            // vectorized worker
-            nt2::worker<tag::outer_fold_step_incache_,BackEnd,Site,Out,In,Neutral,Bop>
-            vec_w(out_,in_,neutral_,bop_, begin*ibound, begin * iboundxmbound);
-
-            // scalar worker
-            nt2::worker<tag::outer_fold_step_incache_,BackEnd,tag::cpu_,Out,In,Neutral,Bop>
-            w(out_,in_,neutral_,bop_, begin*ibound, begin * iboundxmbound);
+            w1.update(begin*ibound, begin * iboundxmbound);
+            w2.update(begin*ibound, begin * iboundxmbound);
 
             // parallelized part
             if((size == obound) && (grain < iibound))
-              s(vec_w,0,iibound,grain);
+              s(w1,0,iibound,grain);
 
             else if(iibound != 0)
-              vec_w(0,iibound);
+              w1(0,iibound);
 
             // scalar part
-            w(iibound,ibound-iibound);
+            w2(iibound,ibound-iibound);
           }
         }
       }
