@@ -27,8 +27,14 @@ namespace nt2
   }
 
   /**
-
+     r = chol(a)
+     l = chol(a,lower_)
+     r = chol(a,upper_)
+     [r,p] = chol(a)
+     [l,p] = chol(a,lower_)
+     [r,p] = chol(a,upper_)
    **/
+
   NT2_FUNCTION_IMPLEMENTATION(tag::chol_, chol, 1)
   NT2_FUNCTION_IMPLEMENTATION(tag::chol_, chol, 2)
 }
@@ -40,10 +46,10 @@ namespace nt2 { namespace ext
         : meta::size_as<Expr,0>
   {};
 
-  template<class Domain, int N, class Expr>
-  struct  value_type<tag::chol_,Domain,N,Expr>
-        : meta::value_as<Expr,0>
-  {};
+//   template<class Domain, int N, class Expr>
+//   struct  value_type<tag::chol_,Domain,N,Expr>
+//         : meta::value_as<Expr,0>
+//   {};
 } }
 
 #endif

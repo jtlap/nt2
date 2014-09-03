@@ -186,7 +186,7 @@ namespace nt2 { namespace ext
       }
       else if (k == 2)
       {
-        nt2::table<v_type, _2D> p = nt2::rot90(out, 3);//ALIASING
+        nt2::container::table<v_type, _2D> p = nt2::rot90(out, 3);//ALIASING
         out =  (nt2::is_even(n))? -p: p;
       }
       return out;
