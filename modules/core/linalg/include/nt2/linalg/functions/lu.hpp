@@ -27,17 +27,41 @@ namespace nt2
   }
 
   /**
-    @brief LU matrix factorization
+     y = lu(a)
+     tie(l,u) = lu(a)
+     tie(l,u) = lu(a, raw_)
+     tie(l,u,p) = lu(a)
+     tie(l,u,p) = lu(a,vector_/matrix_)
 
-    The lu function expresses a matrix A as the product of two essentially
-    triangular matrices, one of them a permutation of a lower triangular matrix
-    and the other an upper triangular matrix. The factorization is often called
-    the LU, or sometimes the LR, factorization.
 
-    @param  xpr  Matrix expression to factorize
+     the lu function expresses a matrix a as the product of two
+     essentially triangular matrices, one of them a permutation of a
+     lower triangular matrix and the other an upper triangular
+     matrix. the factorization is often called the LU factorization. a
+     can be rectangular.
 
-    @return A tuple-like type containing the factorized matrix and an indicator
-            of the success of the factorization
+     y = lu(a) returns matrix y that is the output from the lapack
+     dgetrf or zgetrf routine. the permutation matrix p is lost
+
+     tie(y, ls) = lu(a, raw_) returns matrix y that is the output
+     from the lapack dgetrf or zgetrf routine. Care that the
+     permutation vector ls is in lapack swap lines form.
+
+     tie(l,u) = lu(a) returns an upper triangular matrix in u and a
+     permuted lower triangular matrix in l such that a = l*u. return
+     value l is a product of lower triangular and permutation
+     matrices.
+
+     tie(l,u,p) = lu(a) or tie(l,u,p) = lu(a,matrix_) returns an upper
+     triangular matrix in u, a lower triangular matrix l with a unit
+     diagonal, and a permutation matrix p, such that l*u = p*a.
+
+     tie(l,u,ip) = lu(a,vector_) returns the permutation information
+     in a vector of integers ip such that l*u = a(ip, _).
+
+     except raw_ option that does not exist for Matlab the syntax
+     is quite identical as Matlab lu for dense matices.
+
   **/
   NT2_FUNCTION_IMPLEMENTATION(tag::lu_, lu, 1)
   NT2_FUNCTION_IMPLEMENTATION(tag::lu_, lu, 2)
