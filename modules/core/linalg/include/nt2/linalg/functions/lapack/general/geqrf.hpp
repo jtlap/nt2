@@ -10,6 +10,7 @@
 #define NT2_LINALG_FUNCTIONS_LAPACK_GENERAL_GEQRF_HPP_INCLUDED
 
 #include <nt2/linalg/functions/geqrf.hpp>
+#include <nt2/linalg/details/lapack/declare/geqrf.hpp>
 
 #include <nt2/linalg/details/utility/f77_wrapper.hpp>
 #include <nt2/linalg/details/utility/options.hpp>
@@ -18,34 +19,6 @@
 #include <nt2/include/functions/of_size.hpp>
 #include <nt2/include/functions/height.hpp>
 #include <nt2/include/functions/width.hpp>
-
-extern "C"
-{
-  void NT2_F77NAME(dgeqrf)( const nt2_la_int* m     , const nt2_la_int* n
-                          , double* a               , const nt2_la_int* lda
-                          , double* tau             , double* work
-                          , const nt2_la_int* lwork , nt2_la_int* info
-                          );
-
-  void NT2_F77NAME(sgeqrf)( const nt2_la_int* m     , const nt2_la_int* n
-                          , float* a                , const nt2_la_int* lda
-                          , float* tau              , float* work
-                          , const nt2_la_int* lwork , nt2_la_int* info
-                          );
-
-  void NT2_F77NAME(cgeqrf)( const nt2_la_int* m     , const nt2_la_int* n
-                          , nt2_la_complex* a       , const nt2_la_int* lda
-                          , nt2_la_complex* tau     , nt2_la_complex* work
-                          , const nt2_la_int* lwork , nt2_la_int* info
-                          );
-
-  void NT2_F77NAME(zgeqrf)( const nt2_la_int* m     , const nt2_la_int* n
-                          , nt2_la_complex* a       , const nt2_la_int* lda
-                          , nt2_la_complex* tau     , nt2_la_complex* work
-                          , const nt2_la_int* lwork , nt2_la_int* info
-                          );
-}
-
 
 namespace nt2 { namespace ext
 {

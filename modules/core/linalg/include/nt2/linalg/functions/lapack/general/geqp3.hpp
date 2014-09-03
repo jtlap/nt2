@@ -10,6 +10,7 @@
 #define NT2_LINALG_FUNCTIONS_LAPACK_GENERAL_GEQP3_HPP_INCLUDED
 
 #include <nt2/linalg/functions/geqp3.hpp>
+#include <nt2/linalg/details/lapack/declare/geqp3.hpp>
 #include <nt2/linalg/details/utility/f77_wrapper.hpp>
 #include <nt2/linalg/details/utility/options.hpp>
 #include <nt2/linalg/details/utility/workspace.hpp>
@@ -18,40 +19,6 @@
 #include <nt2/include/functions/height.hpp>
 #include <nt2/include/functions/width.hpp>
 #include <nt2/include/functions/zeros.hpp>
-
-extern "C"
-{
-  void NT2_F77NAME(dgeqp3)( const nt2_la_int* m  , const nt2_la_int* n
-                          , double* a            , const nt2_la_int* lda
-                          , nt2_la_int* jpvt     , double* tau
-                          , double* work         , const nt2_la_int* lwork
-                          , nt2_la_int* info
-                          );
-
-  void NT2_F77NAME(sgeqp3)( const nt2_la_int* m  , const nt2_la_int* n
-                          , float* a             , const nt2_la_int* lda
-                          , nt2_la_int* jpvt     , float* tau
-                          , float* work          , const nt2_la_int* lwork
-                          , nt2_la_int* info
-                          );
-
-  void NT2_F77NAME(cgeqp3)( const nt2_la_int* m  , const nt2_la_int* n
-                          , nt2_la_complex* a    , const nt2_la_int* lda
-                          , nt2_la_int* jpvt     , nt2_la_complex* tau
-                          , nt2_la_complex* work , const nt2_la_int* lwork
-                          , float* rwork         , nt2_la_int* info
-                          );
-
-  void NT2_F77NAME(zgeqp3)( const nt2_la_int* m  , const nt2_la_int* n
-                          , nt2_la_complex* a    , const nt2_la_int* lda
-                          , nt2_la_int* jpvt     , nt2_la_complex* tau
-                          , nt2_la_complex* work , const nt2_la_int* lwork
-                          , double* rwork        , nt2_la_int* info
-                          );
-}
-
-
-
 
 namespace nt2 { namespace ext
 {

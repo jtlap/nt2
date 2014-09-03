@@ -92,7 +92,7 @@ namespace nt2{ namespace ext
       nt2::container::table<ctype_t> e;
       nt2::container::table<dtype,nt2::upper_triangular_> sr,sr1(nt2::of_size(na,na));
       sa = nt2::cast<dtype>(a);
-      sr = nt2::qr(sa,nt2::no_pivot_);
+      sr = nt2::qr(sa);
 
       size_t size_n = sizeof(dtype)*(na);
 
