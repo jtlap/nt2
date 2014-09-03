@@ -125,13 +125,13 @@ namespace nt2
           nt2::worker<tag::outer_fold_step_incache_,BackEnd,tag::cpu_,Out,In,Neutral,Bop>
           w2(out_,in_,neutral_,bop_);
 
+          w1.update(begin*ibound, begin * iboundxmbound);
+          w2.update(begin*ibound, begin * iboundxmbound);
+
           for(std::size_t o = 0, oout_ = begin*ibound, oin_ = begin * iboundxmbound;
               o < size;
               ++o, oout_+=ibound, oin_+= iboundxmbound)
           {
-            w1.update(begin*ibound, begin * iboundxmbound);
-            w2.update(begin*ibound, begin * iboundxmbound);
-
             // parallelized part
             if((size == obound) && (grain < iibound))
               s(w1,0,iibound,grain);
