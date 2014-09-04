@@ -15,7 +15,6 @@ SET( SOURCES
 #     symeig_result.cpp
 #     geneig_result.cpp
 #     balance_result.cpp
-     symeig.cpp
      geneig.cpp
 #     balance.cpp
    )
