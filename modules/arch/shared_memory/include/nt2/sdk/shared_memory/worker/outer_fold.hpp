@@ -49,7 +49,7 @@ namespace nt2
         std::size_t obound = boost::fusion::at_c<2>(ext);
         std::size_t iboundxmbound =  ibound * mbound;
 
-        std::size_t cache_line_size = nt2::config::top_cache_line_size(2); // in byte
+        std::size_t cache_line_size = nt2::config::top_cache_line_size(2) / sizeof(value_type);
         std::size_t grain  = cache_line_size;
 
         // Compute the lower multiple of cache_line of ibound
@@ -125,13 +125,13 @@ namespace nt2
           nt2::worker<tag::outer_fold_step_incache_,BackEnd,tag::cpu_,Out,In,Neutral,Bop>
           w2(out_,in_,neutral_,bop_);
 
-          w1.update(begin*ibound, begin * iboundxmbound);
-          w2.update(begin*ibound, begin * iboundxmbound);
-
           for(std::size_t o = 0, oout_ = begin*ibound, oin_ = begin * iboundxmbound;
               o < size;
               ++o, oout_+=ibound, oin_+= iboundxmbound)
           {
+            w1.update(oout_, oin_);
+            w2.update(oout_, oin_);
+
             // parallelized part
             if((size == obound) && (grain < iibound))
               s(w1,0,iibound,grain);
