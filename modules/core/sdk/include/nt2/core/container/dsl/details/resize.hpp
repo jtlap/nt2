@@ -11,11 +11,6 @@
 
 #include <nt2/dsl/functions/terminal.hpp>
 #include <nt2/sdk/meta/is_container.hpp>
-#include <nt2/core/functions/scalar/numel.hpp>
-#include <nt2/core/settings/storage_size.hpp>
-#include <nt2/core/settings/storage_duration.hpp>
-#include <nt2/core/settings/option.hpp>
-#include <nt2/core/settings/size.hpp>
 #include <boost/dispatch/meta/ignore_unused.hpp>
 #include <boost/mpl/assert.hpp>
 #include <boost/assert.hpp>
@@ -53,21 +48,6 @@ namespace nt2 { namespace ext
     template<class Sz>
     BOOST_FORCEINLINE void operator()(Expr& x, Sz const& sz, boost::mpl::true_)
     {
-      #ifndef NDEBUG
-      // Assert that we don't resize out of storage_size if
-      // storage duration is not dynamic_
-      typedef typename meta::option<Expr, tag::storage_size_>::type     ss_t;
-      typedef typename meta::option<Expr, tag::storage_duration_>::type sd_t;
-      typedef boost::is_same< typename sd_t::storage_duration_type
-                            , nt2::dynamic_
-                            >                                   is_dynamic_t;
-      #endif
-
-      BOOST_ASSERT_MSG
-      (  is_dynamic_t::value || nt2::numel(sz) <= ss_t::storage_size_type::value
-      , "Resizing over available storage size"
-      );
-
       boost::proto::value(x).resize(sz);
     }
 
