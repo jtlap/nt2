@@ -36,10 +36,10 @@ namespace nt2 { namespace ext
       extent_type ext = in.extent();
       std::size_t obound = boost::fusion::at_c<2>(ext);
       std::size_t ibound = boost::fusion::at_c<0>(ext);
-      std::size_t top_cache_line_size = config::top_cache_size(2)/sizeof(typename Out::value_type);
+      std::size_t top_cache_line_size = config::top_cache_line_size(2)/sizeof(typename Out::value_type);
       if(!top_cache_line_size) top_cache_line_size = 1u;
 
-      std::size_t grain = top_cache_line_size/gcd(ibound,top_cache_line_size);
+      std::size_t grain = top_cache_line_size;
 
       nt2::worker<tag::outer_fold_,BackEnd,Site,Out,In,Neutral,Bop,Uop>
       w(out, in, neutral, bop, uop);
@@ -48,17 +48,6 @@ namespace nt2 { namespace ext
 
       if( obound > grain ) s(w,0,obound,grain);
       else w(0,obound);
-    }
-
-    private:
-    static std::size_t gcd (std::size_t a, std::size_t b)
-    {
-        while (b) {
-        std::size_t  r = a % b;
-        a = b;
-        b = r;
-        }
-        return a;
     }
   };
 

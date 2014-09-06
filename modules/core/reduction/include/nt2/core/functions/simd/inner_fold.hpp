@@ -10,19 +10,20 @@
 #define NT2_CORE_FUNCTIONS_SIMD_INNER_FOLD_HPP_INCLUDED
 
 #include <nt2/core/functions/inner_fold.hpp>
-#include <nt2/core/functions/details/inner_fold_step.hpp>
+#include <nt2/core/functions/details/fold_step.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/sdk/simd/meta/is_vectorizable.hpp>
+
 
 #ifndef BOOST_SIMD_NO_SIMD
 
 namespace nt2 { namespace ext
 {
   //============================================================================
-  // Partial inner_fold with offset/size
+  // General inner_fold
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION_IF ( nt2::tag::inner_fold_, boost::simd::tag::simd_
-                                , (Out)(In)(Neutral)(Bop)(Uop)(Range)
+                                , (Out)(In)(Neutral)(Bop)(Uop)
                                 , ( boost::simd::meta::
                                     is_vectorizable < typename Out::value_type
                                                     , BOOST_SIMD_DEFAULT_EXTENSION
@@ -33,7 +34,6 @@ namespace nt2 { namespace ext
                                   (unspecified_<Neutral>)
                                   (unspecified_<Bop>)
                                   (unspecified_<Uop>)
-                                  (unspecified_<Range>)
                                 )
   {
     typedef void                                                              result_type;
@@ -44,29 +44,23 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type
     operator()(Out& out, In& in
               , Neutral const& neutral, Bop const& bop, Uop const& uop
-              , Range const& range
               ) const
     {
       extent_type ext = in.extent();
+      std::size_t obound = nt2::numel(boost::fusion::pop_front(ext));
       static const std::size_t N = boost::simd::meta::cardinal_of<target_type>::value;
       std::size_t bound  = boost::fusion::at_c<0>(ext);
-      std::size_t ibound = (boost::fusion::at_c<0>(ext)/N) * N;
-      std::size_t begin = range.first;
-      std::size_t size  = range.second;
+      std::size_t nb_vec = (bound/N);
+      std::size_t ibound = nb_vec * N;
 
-      for(std::size_t j = begin, k = begin*bound; j != begin+size; ++j, k+=bound)
+      for(std::size_t j = 0, k = 0; j != obound; ++j, k+=bound)
       {
-        target_type vec_out = details::inner_fold_step(
-          neutral(nt2::meta::as_<target_type>())
-         ,in
-         ,bop
-         ,std::make_pair(k,ibound)
-         );
+        target_type vec_out = details::fold_step(
+          neutral(nt2::meta::as_<target_type>()), in, bop, k, nb_vec, N
+        );
 
         value_type s_out = uop( vec_out );
-
-        for(std::size_t i = ibound; i != bound; ++i)
-          s_out = bop(s_out, nt2::run(in, i+k, meta::as_<value_type>()));
+        s_out = details::fold_step(s_out, in, bop, k+ibound, bound-ibound, 1);
 
         nt2::run(out, j, s_out);
       }

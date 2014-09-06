@@ -43,7 +43,6 @@ namespace nt2
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::outer_scan_, outer_scan, (A0&)(A1 const&)(A2 const&)(A3 const&)(A4 const&), 5)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::outer_scan_, outer_scan, (A0 const&)(A1&)(A2 const&)(A3 const&)(A4 const&), 5)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::outer_scan_, outer_scan, (A0&)(A1&)(A2 const&)(A3 const&)(A4 const&), 5)
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::outer_scan_, outer_scan, (A0&)(A1&)(A2 const&)(A3 const&)(A4 const&)(A5 const&), 6)
 }
 
 #endif

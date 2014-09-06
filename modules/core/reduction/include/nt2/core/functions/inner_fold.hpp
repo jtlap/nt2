@@ -35,7 +35,6 @@ namespace nt2
     @param a2 Functor to initialize the accumulator with
     @param a3 Function to apply for binary reduction, first argument is accumulator
     @param a4 Function to apply for unary reduction (for SIMD usage)
-    @param a5 Optional pair containing linear offset and number of element to process
   **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::inner_fold_, inner_fold, (A0 const&)(A1 const&)(A2 const&)(A3 const&)(A4 const&), 5)
   /// @overload
@@ -44,7 +43,6 @@ namespace nt2
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::inner_fold_, inner_fold, (A0 const&)(A1&)(A2 const&)(A3 const&)(A4 const&), 5)
   /// @overload
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::inner_fold_, inner_fold, (A0&)(A1&)(A2 const&)(A3 const&)(A4 const&), 5)
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::inner_fold_, inner_fold, (A0&)(A1&)(A2 const&)(A3 const&)(A4 const&)(A5 const&), 6)
 }
 
 #endif

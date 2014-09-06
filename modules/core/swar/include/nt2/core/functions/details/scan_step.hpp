@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_CORE_FUNCTIONS_DETAILS_INNER_SCAN_STEP_HPP_INCLUDED
-#define NT2_CORE_FUNCTIONS_DETAILS_INNER_SCAN_STEP_HPP_INCLUDED
+#ifndef NT2_CORE_FUNCTIONS_DETAILS_SCAN_STEP_HPP_INCLUDED
+#define NT2_CORE_FUNCTIONS_DETAILS_SCAN_STEP_HPP_INCLUDED
 
 /*!
   @file
@@ -26,20 +26,23 @@ namespace nt2
     @param Out Expression to store result in
     @param In Expression to reduce
     @param Bop Function to apply for binary reduction, first argument is accumulator
-    @param Range Pair containing linear offset and number of element to process
   **/
   namespace details
   {
-    template<class Summary, class Out, class In, class Bop,class Range>
-    inline Summary inner_scan_step(Summary summary, Out& out, In& in, Bop const& bop, Range const & range, bool prescan)
+    template<class Summary, class Out, class In, class Bop>
+    inline Summary scan_step( Summary summary
+                            , Out& out, In& in
+                            , Bop const& bop
+                            , std::size_t begin
+                            , std::size_t size
+                            , std::size_t step
+                            , bool prescan
+                            )
     {
-      std::size_t begin = range.first;
-      std::size_t size = range.second;
-
-      for(std::size_t i = begin; i != begin+size; i++)
+      for(std::size_t i = 0, i_ = begin; i<size; i++, i_+=step)
       {
-       summary = bop(summary, nt2::run(in, i, meta::as_<Summary>()));
-       if(!prescan) nt2::run(out, i, summary);
+       summary = bop(summary, nt2::run(in, i_, meta::as_<Summary>()));
+       if(!prescan) nt2::run(out, i_, summary);
       }
 
       return summary;
