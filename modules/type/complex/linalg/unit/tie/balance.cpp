@@ -29,10 +29,13 @@
 #include <boost/dispatch/meta/as.hpp>
 #include <complex>
 
-NT2_TEST_CASE_TPL ( balance_expr, NT2_REAL_TYPES)
+
+NT2_TEST_CASE_TPL ( balance_exprc, NT2_REAL_TYPES)
 {
+  typedef std::complex<T> cT;
   typedef typename nt2::meta::as_integer<T, signed>::type iT;
   typedef nt2::table<T> t_t;
+  typedef nt2::table<cT> ct_t;
   typedef nt2::table<iT> it_t;
 
   T bc[25] =  {
@@ -44,7 +47,7 @@ NT2_TEST_CASE_TPL ( balance_expr, NT2_REAL_TYPES)
   };
 
   int k = 0;
-  t_t a(nt2::of_size(5, 5));
+  ct_t a(nt2::of_size(5, 5));
   for(int i=1; i <= 5; i++)
     {
       for(int j=1; j <= 5; j++)
@@ -53,13 +56,17 @@ NT2_TEST_CASE_TPL ( balance_expr, NT2_REAL_TYPES)
         }
 
     }
-  t_t t, s, b, zz, b1;
+  NT2_DISPLAY(a);
+  ct_t t, b, zz, b1;
+  ct_t s;
   it_t ip;
   b = nt2::balance(a);
   b = nt2::balance(a, nt2::no_perm_);
   b = nt2::balance(a, nt2::perm_);
   b = nt2::balance(a, nt2::both_);
   b = nt2::balance(a, nt2::none_);
+
+
 
   tie(t, b) = nt2::balance(a);
   zz = nt2::mtimes(nt2::mtimes(nt2::inv(t), a), t);
@@ -85,10 +92,10 @@ NT2_TEST_CASE_TPL ( balance_expr, NT2_REAL_TYPES)
   nt2::tie(s, ip, b) = nt2::balance(a, nt2::none_);
   NT2_TEST_ULP_EQUAL(a, b, 10);
   iT n = height(a);
-  NT2_TEST_ULP_EQUAL(s, nt2::ones(n, 1, boost::dispatch::meta::as_<T>()), 0);
+  NT2_TEST_ULP_EQUAL(s, nt2::ones(n, 1, boost::dispatch::meta::as_<cT>()), 0);
   NT2_TEST_ULP_EQUAL(ip, nt2::_(iT(1), n), 0);
 
-  std::cout << "nt2::tie(s, ip, b) = nt2::balance(a);" << std::endl;
+  std::cout << "nt2::balance(a);" << std::endl;
   nt2::tie(s, ip, b) = nt2::balance(a);
   nt2::tie(t, b1) = nt2::balance(a);
   NT2_TEST_ULP_EQUAL(t(nt2::_, ip), from_diag(s), 0);

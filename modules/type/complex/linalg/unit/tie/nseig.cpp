@@ -35,16 +35,18 @@
 NT2_TEST_CASE_TPL(nseig_sca, NT2_REAL_TYPES)
 {
   using nt2::nseig;
-  typedef nt2::table<T> t_t;
-  t_t w =   nseig(T(2));
-  NT2_TEST_ULP_EQUAL(w, T(2), 0);
+  typedef std::complex<T> cT;
+   typedef nt2::table<cT> ct_t;
+  ct_t w =   nseig(cT(2));
+  NT2_TEST_ULP_EQUAL(w, cT(2), 0);
   w =   nseig(T(2), nt2::matrix_);
-  NT2_TEST_ULP_EQUAL(w, T(2), 0);
+  NT2_TEST_ULP_EQUAL(w, cT(2), 0);
   w =   nseig(T(2), nt2::vector_);
-  NT2_TEST_ULP_EQUAL(w, T(2), 0);
+  NT2_TEST_ULP_EQUAL(w, cT(2), 0);
  }
 
-NT2_TEST_CASE_TPL(nseig, NT2_REAL_TYPES)
+
+NT2_TEST_CASE_TPL(nseigc, NT2_REAL_TYPES)
 {
   using nt2::nseig;
   using nt2::mtimes;
@@ -54,22 +56,14 @@ NT2_TEST_CASE_TPL(nseig, NT2_REAL_TYPES)
   typedef nt2::table<T> t_t;
   typedef nt2::table<cT> ct_t;
   typedef nt2::table<itype_t> it_t;
-  t_t b =      nt2::triu(nt2::from_diag(nt2::_(T(1), T(4)))
+  ct_t b =      nt2::triu(nt2::from_diag(nt2::_(T(1), T(4)))
                      + nt2::ones  (4, 4, nt2::meta::as_<T>()));
   //  b(_, 1) = b(_, 3);
   ct_t w, w1;
-  ct_t wr = nt2::_(T(2), T(5));
+
   w = nseig(b);
-  w = nseig(nt2::triu(nt2::from_diag(nt2::_(T(1), T(4)))
-                      + nt2::ones  (4, 4, nt2::meta::as_<T>())));
-  NT2_TEST_EQUAL(w, wr);
-  ct_t z = nt2::ones(8, 1, nt2::meta::as_<T>());
-
-  z(nt2::_(1, 2, 8)) = nseig(b);
-  NT2_TEST_EQUAL(w, z(nt2::_(1, 2, 8)));
-
   ct_t cb = b;
-  NT2_TEST_EQUAL(height(w), height(b));
+
   w1 = nseig(cb);
   NT2_TEST_ULP_EQUAL(w, w1, 2);
   w = nseig(b, nt2::matrix_);
@@ -79,6 +73,7 @@ NT2_TEST_CASE_TPL(nseig, NT2_REAL_TYPES)
 
   w = nseig(b, nt2::matrix_, nt2::balance_);
   w1 = nseig(cb, nt2::matrix_, nt2::balance_);
+  std::cout << "- -1 -" << std::endl;
   NT2_TEST_ULP_EQUAL(w, w1, 2);
 
   ct_t v;
@@ -100,8 +95,7 @@ NT2_TEST_CASE_TPL(nseig, NT2_REAL_TYPES)
 
   nt2::tie(v, w) = nseig(b, nt2::vector_);
   std::cout << "- 4 -" << std::endl;
-  NT2_TEST_ULP_EQUAL(mtimes( v, nt2::from_diag(w)), mtimes(b, v), 8);
-
+  NT2_TEST_ULP_EQUAL(mtimes( v, nt2::from_diag(w)), mtimes(cb, v), 8);
 
   nt2::tie(v, w) = nseig(cb, nt2::vector_);
   std::cout << "- 5 -" << std::endl;
@@ -168,5 +162,5 @@ NT2_TEST_CASE_TPL(nseig, NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(mtimes(v, w), mtimes(cb, v), 8);
   std::cout << "- 23 -" << std::endl;
   NT2_TEST_ULP_EQUAL(mtimes(vl, ctrans(w)), mtimes(ctrans(cb), vl), 8);
-
 }
+
