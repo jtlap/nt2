@@ -204,13 +204,7 @@ namespace nt2 { namespace ext
                          , 0, &ldvr
                          , wk.main(), &wn
                          , &info);
-      //       w =  tocomplex(wr, wi); //why this cannot be done here
       combine_eigens(wr, wi, w);
-//       w.resize(of_size(n, 1));
-//       for(int i=0; i < n; ++i)
-//       {
-//         w.raw()[i] = std::complex<float>(wr.raw()[i], wi.raw()[i]);
-//       }
       return info;
     }
   };
@@ -247,13 +241,7 @@ namespace nt2 { namespace ext
                          , 0, &ldvr
                          , wk.main(), &wn
                          , &info);
-      //       w =  tocomplex(wr, wi); //why this cannot be done here
       combine_eigens(wr, wi, w);
-//       w.resize(of_size(n, 1));
-//       for(int i=0; i < n; ++i)
-//       {
-//         w.raw()[i] = std::complex<float>(wr.raw()[i], wi.raw()[i]);
-//       }
       return info;
     }
   };
