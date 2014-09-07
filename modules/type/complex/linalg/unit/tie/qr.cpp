@@ -24,27 +24,26 @@
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/tests/exceptions.hpp>
 
-
-NT2_TEST_CASE_TPL ( direct_qr, NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( direct_qrc, NT2_REAL_TYPES)
 {
   using nt2::_;
   using nt2::meta::as_;
-
+  typedef std::complex<T> cT;
   int i[3] = {4, 4, 5};
   int j[3] = {4, 5, 4};
   for(int k = 0; k < 3; ++k)
   {
-    nt2::table<T> x, q, r, p, ux, u, tau;
-    nt2::table<T> b = nt2::ones(i[k], j[k], as_<T>());
-    b(2, 3) = T(10);
+    nt2::table<cT> x, q, r, p, ux, u, tau;
+    nt2::table<cT> b = nt2::ones(i[k], j[k], as_<cT>());
+    b(2, 3) = cT(10, 10);
     nt2::table<nt2_la_int> ip;
 
     /// Interface tests
     /// x = qr(b, upper_)
-      NT2_DISPLAY(b);
-      r = nt2::qr(b, nt2::upper_);
-      NT2_DISPLAY(b);
-      NT2_DISPLAY(r);
+       NT2_DISPLAY(b);
+       r = nt2::qr(b, nt2::upper_);
+       NT2_DISPLAY(b);
+       NT2_DISPLAY(r);
 
       // x = qr(b)
       NT2_DISPLAY(b);
