@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_IEEE_FUNCTIONS_CONTAINER_FREXP_HPP_INCLUDED
-#define NT2_IEEE_FUNCTIONS_CONTAINER_FREXP_HPP_INCLUDED
+#ifndef NT2_IEEE_FUNCTIONS_CONTAINER_MODF_HPP_INCLUDED
+#define NT2_IEEE_FUNCTIONS_CONTAINER_MODF_HPP_INCLUDED
 #include <nt2/ieee/functions/modf.hpp>
 #include <nt2/include/functions/tie.hpp>
 #include <nt2/core/container/dsl.hpp>
