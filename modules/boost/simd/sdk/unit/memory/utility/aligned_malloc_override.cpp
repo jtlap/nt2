@@ -21,7 +21,7 @@
 #include <cstdlib>
 
 static bool         had_malloc, had_free, had_realloc;
-static std::size_t  malloc_size, realloc_size;
+static std::size_t  malloc_sz, realloc_size;
 
 namespace boost { namespace simd
 {
@@ -33,8 +33,8 @@ namespace boost { namespace simd
 
   BOOST_DISPATCH_NOTHROW BOOST_SIMD_MALLOC void* custom_malloc_fn(std::size_t sz)
   {
-    had_malloc  = true;
-    malloc_size = sz;
+    had_malloc = true;
+    malloc_sz  = sz;
     return std::malloc(sz);
   }
 
@@ -51,7 +51,7 @@ void reset_status()
   had_free     = false;
   had_malloc   = false;
   had_realloc  = false;
-  malloc_size  = 0;
+  malloc_sz    = 0;
   realloc_size = 0;
 }
 
@@ -70,7 +70,7 @@ NT2_TEST_CASE(aligned_malloc)
   NT2_TEST( is_aligned(ptr = static_cast<char*>(aligned_malloc(5,8)),8) );
 
   NT2_TEST( had_malloc );
-  NT2_TEST_GREATER_EQUAL( malloc_size, 5u );
+  NT2_TEST_GREATER_EQUAL( malloc_sz, 5u );
 
   for(int i=0;i<5;++i) ptr[i] = 10*i;
   for(int i=0;i<5;++i) NT2_TEST_EQUAL(ptr[i],10*i);
