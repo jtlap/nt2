@@ -22,6 +22,8 @@
 
 #if !defined(__APPLE__)
 #include <malloc.h>
+#else
+#include <malloc/malloc.h>
 #endif
 
 namespace boost { namespace simd

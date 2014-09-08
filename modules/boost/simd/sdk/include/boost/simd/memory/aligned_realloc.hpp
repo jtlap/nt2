@@ -27,6 +27,8 @@
 
 #if !defined(__APPLE__)
 #include <malloc.h>
+#else
+#include <malloc/malloc.h>
 #endif
 
 #ifndef BOOST_SIMD_REALLOC_SHRINK_THRESHOLD
