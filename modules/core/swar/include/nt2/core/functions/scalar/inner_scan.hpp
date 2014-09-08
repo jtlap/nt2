@@ -35,7 +35,7 @@ namespace nt2 { namespace ext
     typedef typename In::extent_type                                          extent_type;
 
     BOOST_FORCEINLINE result_type
-    operator()(Out& out, In& in, Neutral const& neutral, Bop const& bop, Uop const& uop) const
+    operator()(Out& out, In& in, Neutral const& neutral, Bop const& bop, Uop const&) const
     {
       extent_type ext = in.extent();
       std::size_t obound = nt2::numel(boost::fusion::pop_front(ext));
