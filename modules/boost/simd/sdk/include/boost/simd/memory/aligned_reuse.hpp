@@ -130,6 +130,8 @@ namespace boost { namespace simd
     #ifdef __ANDROID__
     // https://groups.google.com/forum/?fromgroups=#!topic/android-ndk/VCEUpMfSh_o
     std::size_t const oldSize( ::dlmalloc_usable_size( ptr ) );
+    #elif defined(__APPLE__)
+    std::size_t const oldSize( ::malloc_size( ptr ) );
     #else
     std::size_t const oldSize( ::malloc_usable_size( ptr ) );
     #endif

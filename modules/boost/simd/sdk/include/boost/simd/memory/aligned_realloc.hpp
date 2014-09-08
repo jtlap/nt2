@@ -184,9 +184,11 @@ namespace boost { namespace simd
       return 0;
     }
 
-    #if defined(__ANDROID__) && !defined(BOOST_SIMD_MEMORY_NO_BUILTINS)
+    #if defined(__ANDROID__)
     // https://groups.google.com/forum/?fromgroups=#!topic/android-ndk/VCEUpMfSh_o
     std::size_t const oldSize( ::dlmalloc_usable_size( ptr ) );
+    #elif defined(__APPLE__)
+    std::size_t const oldSize( ::malloc_size( ptr ) );
     #else
     std::size_t const oldSize( ::malloc_usable_size( ptr ) );
     #endif
