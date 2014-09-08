@@ -97,7 +97,7 @@ namespace boost { namespace simd
     ::_aligned_free( static_cast<std::size_t*>(ptr)-1 );
 
     #elif (     defined( BOOST_SIMD_CONFIG_SUPPORT_POSIX_MEMALIGN )                                \
-            ||  (defined( _GNU_SOURCE ) && && defined(__linux) && !defined( __ANDROID__ ))         \
+            ||  (defined( _GNU_SOURCE ) && defined(__linux) && !defined( __ANDROID__ ))            \
           )                                                                                        \
         && !defined(BOOST_SIMD_MEMORY_NO_BUILTINS)
 
