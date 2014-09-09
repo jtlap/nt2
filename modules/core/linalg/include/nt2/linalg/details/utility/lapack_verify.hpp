@@ -25,13 +25,6 @@ namespace nt2
   }                                                                 \
   /**/
 
-#define NT2_LAPACK_VERIFY_TAG(info, tag)                            \
-  {                                                                 \
-    nt2_la_int info_ = info;                                        \
-    BOOST_ASSERT_MSG(info_ == 0, BOOST_PP_CAT(tag,                  \
-                                     "lapack info is not zero"));   \
-  }                                                                 \
-  /**/
 }
 
 #endif

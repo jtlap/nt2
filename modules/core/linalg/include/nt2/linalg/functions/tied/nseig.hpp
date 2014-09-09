@@ -144,7 +144,7 @@ namespace nt2 { namespace ext
       nt2::container::table<type_t> work;
       NT2_AS_TERMINAL_INOUT(desired_semantic, a, boost::proto::child_c<0>(a0), work);
       nt2::container::table <ctype_t, _2D > w(of_size(height(a), 1));
-      NT2_LAPACK_VERIFYnt2::geev_w( boost::proto::value(a)
+      NT2_LAPACK_VERIFY(nt2::geev_w( boost::proto::value(a)
                                   , boost::proto::value(w)
                                   ));
       boost::proto::child_c<0>(a1) = from_diag(w); //from_diag doesnt support aliasing currently
