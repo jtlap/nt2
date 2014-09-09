@@ -24,7 +24,7 @@
 #include <nt2/include/functions/real.hpp>
 #include <nt2/include/functions/resize.hpp>
 #include <nt2/include/functions/tie.hpp>
-#include <nt2/linalg/details/utility/lapack_assert.hpp>
+#include <nt2/linalg/details/utility/lapack_verify.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/sdk/meta/as_real.hpp>
 #include <nt2/linalg/options.hpp>
@@ -129,7 +129,7 @@ namespace nt2 { namespace ext
                        "matrix to balance must be square");
       nt2_la_int ilo, ihi;
       nt2::container::table<rtype_t> scale(of_size(height(a), 1));
-      lapack_assert(gebal(boost::proto::value(a)
+      NT2_LAPACK_VERIFY(gebal(boost::proto::value(a)
                        , boost::proto::value(scale)
                        , ilo, ihi, 'P'));
       boost::proto::child_c<0>(a1) = a;
@@ -147,7 +147,7 @@ namespace nt2 { namespace ext
                        "matrix to balance must be square");
       nt2_la_int ilo, ihi;
       nt2::container::table<rtype_t> scale(of_size(height(a), 1));
-      lapack_assert(gebal( boost::proto::value(a)
+      NT2_LAPACK_VERIFY(gebal( boost::proto::value(a)
                          , boost::proto::value(scale)
                          , ilo, ihi, 'S'));
       boost::proto::child_c<0>(a1) = a;
@@ -164,7 +164,7 @@ namespace nt2 { namespace ext
       BOOST_ASSERT_MSG(issquare(a), "matrix to balance must be square");
       nt2_la_int ilo, ihi;
       nt2::container::table<rtype_t> scale(of_size(height(a), 1));
-      lapack_assert(gebal(boost::proto::value(a)
+      NT2_LAPACK_VERIFY(gebal(boost::proto::value(a)
                          , boost::proto::value(scale)
                          , ilo, ihi, 'B'));
       boost::proto::child_c<0>(a1) = a;
@@ -223,12 +223,13 @@ namespace nt2 { namespace ext
       nt2_la_int ilo, ihi;
       nt2_la_int n = height(a);
       nt2::container::table<rtype_t> scale(of_size(n, 1));
-      lapack_assert(gebal(boost::proto::value(a)
-                       , boost::proto::value(scale)
-                       , ilo, ihi, job));
+      NT2_LAPACK_VERIFY(gebal(boost::proto::value(a)
+                             , boost::proto::value(scale)
+                             , ilo, ihi, job));
       t = nt2::eye(n, n, meta::as_<type_t>());
-      lapack_assert(gebak(boost::proto::value(t),
-                          boost::proto::value(scale), ilo, ihi,  job, 'R'));
+      NT2_LAPACK_VERIFY(gebak(boost::proto::value(t)
+                             , boost::proto::value(scale)
+                             , ilo, ihi,  job, 'R'));
       boost::proto::child_c<0>(a1) = t;
       boost::proto::child_c<1>(a1) = a;
     }
@@ -316,12 +317,13 @@ namespace nt2 { namespace ext
       nt2_la_int ilo, ihi;
       nt2_la_int n = height(a);
       nt2::container::table<rtype_t> scale(of_size(n, 1));
-      lapack_assert(gebal(boost::proto::value(a)
-                       , boost::proto::value(scale)
-                       , ilo, ihi, job));
+      NT2_LAPACK_VERIFY(gebal(boost::proto::value(a)
+                             , boost::proto::value(scale)
+                             , ilo, ihi, job));
       nt2::container::table<type_t> t = nt2::eye(n, n, meta::as_<type_t>());
-      lapack_assert(gebak(boost::proto::value(t),
-                          boost::proto::value(scale), ilo, ihi,  job, 'R'));
+      NT2_LAPACK_VERIFY(gebak(boost::proto::value(t)
+                             , boost::proto::value(scale)
+                             , ilo, ihi,  job, 'R'));
       extract_ips(ips, s, t);
       boost::proto::child_c<0>(a1) = s;
       boost::proto::child_c<1>(a1) = ips;
