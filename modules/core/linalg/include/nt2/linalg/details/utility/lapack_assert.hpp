@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_LINALG_DETAILS_UTILITY_ASSERT_HPP_INCLUDED
-#define NT2_LINALG_DETAILS_UTILITY_ASSERT_HPP_INCLUDED
+#ifndef NT2_LINALG_DETAILS_UTILITY_LAPACK_ASSERT_HPP_INCLUDED
+#define NT2_LINALG_DETAILS_UTILITY_LAPACK_ASSERT_HPP_INCLUDED
 
 #include <boost/assert.hpp>
 #include <boost/dispatch/meta/ignore_unused.hpp>
