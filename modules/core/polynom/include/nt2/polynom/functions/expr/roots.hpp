@@ -50,9 +50,7 @@ namespace nt2 { namespace ext
       BOOST_AUTO_TPL(p,  nt2::reduce(nt2::complexify(nt2::rowvect(boost::proto::child_c<0>(in))), nt2::_));
       ptrdiff_t valua = nt2::valuation(p);
       BOOST_AUTO_TPL(cpan, nt2::compan(p(1, nt2::_(nt2::begin_,numel(p)-valua))));
-      BOOST_AUTO_TPL(eigen,nseig(cpan));
-      out = eigen;
-      out.resize(in.extent());
+      out = nseig(cpan);
       return out;
     }
   };

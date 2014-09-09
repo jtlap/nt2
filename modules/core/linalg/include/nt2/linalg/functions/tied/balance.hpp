@@ -24,7 +24,6 @@
 #include <nt2/include/functions/real.hpp>
 #include <nt2/include/functions/resize.hpp>
 #include <nt2/include/functions/tie.hpp>
-#include <nt2/include/functions/value.hpp>
 #include <nt2/linalg/details/utility/lapack_assert.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/sdk/meta/as_real.hpp>
