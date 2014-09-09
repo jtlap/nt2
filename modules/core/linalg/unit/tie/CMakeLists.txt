@@ -9,6 +9,7 @@
 
 SET( SOURCES
      balance.cpp
+     nseig.cpp
      lsq_lse_solve.cpp
      planerot.cpp
      qrdelete.cpp

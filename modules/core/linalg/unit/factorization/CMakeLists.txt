@@ -8,8 +8,6 @@
 ##############################################################################
 
 SET( SOURCES
-  balance.cpp
-  balance_result.cpp
   chol.cpp
   geneig.cpp
   geneig_result.cpp
