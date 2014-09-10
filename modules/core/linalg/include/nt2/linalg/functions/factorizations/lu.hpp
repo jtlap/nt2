@@ -10,26 +10,43 @@
 #define NT2_LINALG_FUNCTIONS_FACTORIZATIONS_LU_HPP_INCLUDED
 
 #include <nt2/linalg/functions/lu.hpp>
+#include <boost/dispatch/attributes.hpp>
 #include <nt2/include/functions/assign.hpp>
 #include <nt2/include/functions/eye.hpp>
-#include <nt2/include/functions/tie.hpp>
+#include <nt2/include/functions/function.hpp>
 #include <nt2/include/functions/getrf.hpp>
+#include <nt2/include/functions/height.hpp>
+#include <nt2/include/functions/min.hpp>
+#include <nt2/include/functions/numel.hpp>
+#include <nt2/include/functions/of_size.hpp>
+#include <nt2/include/functions/resize.hpp>
+#include <nt2/include/functions/tie.hpp>
 #include <nt2/include/functions/triu.hpp>
 #include <nt2/include/functions/tri1l.hpp>
-#include <nt2/core/container/colon/colon.hpp>
 #include <nt2/include/functions/width.hpp>
-#include <nt2/include/functions/function.hpp>
-#include <nt2/include/functions/numel.hpp>
-#include <nt2/include/functions/height.hpp>
+#include <nt2/core/container/colon/colon.hpp>
 #include <nt2/core/container/table/table.hpp>
 #include <nt2/core/container/dsl/as_terminal.hpp>
-#include <nt2/linalg/details/utility/lapack_assert.hpp>
-#include <nt2/linalg/options.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/sdk/error/warning.hpp>
+#include <nt2/linalg/options.hpp>
 #include <boost/dispatch/meta/terminal_of.hpp>
 #include <boost/dispatch/meta/ignore_unused.hpp>
-#include <boost/assert.hpp>
+#include <algorithm>
+
+///Utilitary macro
+/// INTERNAL ONLY undef at the end of the file
+#define CHECK_LAPACK_LU_SUCCESS(info)                        \
+  {                                                          \
+    nt2_la_int info_ = info;                                 \
+    NT2_WARNING(info_ <= 0                                   \
+               , "LU factorization has been completed, "     \
+                "but input matrix is exactly singular. "     \
+                "Division by zero will occur if it is used " \
+                "to solve a system of equations."            \
+               );                                            \
+  }                                                          \
+  /**/
 
 namespace nt2 { namespace ext
 {
@@ -177,11 +194,12 @@ namespace nt2 { namespace ext
                    , const nt2::policy<ext::raw_>&
                    ) const
     {
-      NT2_AS_TERMINAL_INOUT(o_semantic, lu, boost::proto::child_c<0>(a0), boost::proto::child_c<0>(a1));
+      NT2_AS_TERMINAL_INOUT(o_semantic
+                           , lu, boost::proto::child_c<0>(a0)
+                           , boost::proto::child_c<0>(a1));
       nt2::container::table<nt2_la_int> ls(of_size(dim(lu), 1));
-      nt2_la_int info = nt2::getrf( boost::proto::value(lu)
-                                  , boost::proto::value(ls));
-      check_success(info);
+      CHECK_LAPACK_LU_SUCCESS((nt2::getrf( boost::proto::value(lu)
+                                         , boost::proto::value(ls))));
       boost::proto::child_c<0>(a1) = lu;
     }
 
@@ -193,13 +211,15 @@ namespace nt2 { namespace ext
                    ) const
     {
       typedef nt2::memory::container<tag::table_, nt2_la_int, nt2::_2D> i_semantic;
-      NT2_AS_TERMINAL_INOUT(o_semantic, lu, boost::proto::child_c<0>(a0),  boost::proto::child_c<0>(a1));
-      NT2_AS_TERMINAL_OUT(i_semantic, ls, boost::proto::child_c<1>(a1));
+      NT2_AS_TERMINAL_INOUT(o_semantic
+                           , lu, boost::proto::child_c<0>(a0)
+                           ,  boost::proto::child_c<0>(a1));
+      NT2_AS_TERMINAL_OUT(i_semantic, ls
+                         , boost::proto::child_c<1>(a1));
 
       ls.resize(of_size(dim(lu), 1));
-      nt2_la_int info = nt2::getrf( boost::proto::value(lu)
-                                  , boost::proto::value(ls));
-      check_success(info);
+      CHECK_LAPACK_LU_SUCCESS(nt2::getrf( boost::proto::value(lu)
+                                        , boost::proto::value(ls)));
       boost::proto::child_c<0>(a1) = lu;
       boost::proto::child_c<1>(a1) = ls;
     }
@@ -215,14 +235,17 @@ namespace nt2 { namespace ext
     {
       typedef nt2::memory::container<tag::table_, nt2_la_int, nt2::_2D> i_semantic;
       nt2_la_int info;
-      NT2_AS_TERMINAL_INOUT(o_semantic, lu, boost::proto::child_c<0>(a0), boost::proto::child_c<1>(a1));
-      NT2_AS_TERMINAL_OUT  (o_semantic, l,  boost::proto::child_c<0>(a1));
-      NT2_AS_TERMINAL_OUT  (o_semantic, u,  boost::proto::child_c<1>(a1));
+      NT2_AS_TERMINAL_INOUT(o_semantic, lu
+                           , boost::proto::child_c<0>(a0)
+                           , boost::proto::child_c<1>(a1));
+      NT2_AS_TERMINAL_OUT  (o_semantic, l
+                           ,  boost::proto::child_c<0>(a1));
+      NT2_AS_TERMINAL_OUT  (o_semantic, u
+                           ,  boost::proto::child_c<1>(a1));
       std::size_t d  = dim(lu);
       nt2::container::table<nt2_la_int> ls(of_size(d, 1));
-      info = nt2::getrf( boost::proto::value(lu)
-                       , boost::proto::value(ls));
-      check_success(info);
+      CHECK_LAPACK_LU_SUCCESS(nt2::getrf( boost::proto::value(lu)
+                                               , boost::proto::value(ls)));
       nt2::container::table<nt2_la_int> ip;
       construct_ip(ls, ip, height(lu));
       boost::proto::child_c<0>(a1) = nt2::tri1l(lu(nt2::_, nt2::_(1, d) ) )(ip, nt2::_);
@@ -240,15 +263,19 @@ namespace nt2 { namespace ext
       typedef typename child::value_type                                     itype_t;
       typedef nt2::memory::container<tag::table_, itype_t, nt2::_2D>      i_semantic;
       nt2_la_int info;
-      NT2_AS_TERMINAL_INOUT(o_semantic, lu, boost::proto::child_c<0>(a0), boost::proto::child_c<1>(a1));
-      NT2_AS_TERMINAL_OUT  (o_semantic, l,  boost::proto::child_c<0>(a1));
-      NT2_AS_TERMINAL_OUT  (o_semantic, u,  boost::proto::child_c<1>(a1));
-      NT2_AS_TERMINAL_OUT  (i_semantic, ip, boost::proto::child_c<2>(a1));
+      NT2_AS_TERMINAL_INOUT(o_semantic, lu
+                           , boost::proto::child_c<0>(a0)
+                           , boost::proto::child_c<1>(a1));
+      NT2_AS_TERMINAL_OUT  (o_semantic, l
+                           ,  boost::proto::child_c<0>(a1));
+      NT2_AS_TERMINAL_OUT  (o_semantic, u
+                           ,  boost::proto::child_c<1>(a1));
+      NT2_AS_TERMINAL_OUT  (i_semantic, ip
+                           , boost::proto::child_c<2>(a1));
       std::size_t d  = dim(lu);
       nt2::container::table<nt2_la_int> ls(of_size(d, 1));
-      info = nt2::getrf( boost::proto::value(lu)
-                       , boost::proto::value(ls));
-      check_success(info);
+      CHECK_LAPACK_LU_SUCCESS(nt2::getrf( boost::proto::value(lu)
+                                               , boost::proto::value(ls)));
       construct_ip(ls, ip, height(lu));
       boost::proto::child_c<0>(a1) = nt2::tri1l(lu(nt2::_, nt2::_(1, d) ) );
       boost::proto::child_c<1>(a1) = nt2::triu(lu( nt2::_(1, d), nt2::_) );
@@ -264,15 +291,18 @@ namespace nt2 { namespace ext
     {
       nt2_la_int info;
       nt2::container::table<type_t> work;
-      NT2_AS_TERMINAL_INOUT(o_semantic, lu, boost::proto::child_c<0>(a0), work);
-      NT2_AS_TERMINAL_OUT  (o_semantic, l,  boost::proto::child_c<0>(a1));
-      NT2_AS_TERMINAL_OUT  (o_semantic, u,  boost::proto::child_c<1>(a1));
-      NT2_AS_TERMINAL_OUT  (o_semantic, p,  boost::proto::child_c<2>(a1));
+      NT2_AS_TERMINAL_INOUT(o_semantic, lu
+                           , boost::proto::child_c<0>(a0), work);
+      NT2_AS_TERMINAL_OUT  (o_semantic, l
+                           ,  boost::proto::child_c<0>(a1));
+      NT2_AS_TERMINAL_OUT  (o_semantic, u
+                           ,  boost::proto::child_c<1>(a1));
+      NT2_AS_TERMINAL_OUT  (o_semantic, p
+                           ,  boost::proto::child_c<2>(a1));
       std::size_t d  = dim(lu);
       nt2::container::table<nt2_la_int> ls(of_size(d, 1)), ip;
-      info = nt2::getrf( boost::proto::value(lu)
-                       , boost::proto::value(ls));
-      check_success(info);
+      CHECK_LAPACK_LU_SUCCESS(nt2::getrf( boost::proto::value(lu)
+                                               , boost::proto::value(ls)));
       construct_ip(ls, ip, height(lu));
       boost::proto::child_c<1>(a1) = nt2::triu(lu( nt2::_(1, d), nt2::_) );
       boost::proto::child_c<0>(a1) = nt2::tri1l(lu(nt2::_, nt2::_(1, d) ) );
@@ -282,21 +312,11 @@ namespace nt2 { namespace ext
     ////////////////////////////////////////////////////////////////////////////
     // some utilitaries
     ////////////////////////////////////////////////////////////////////////////
-    /// INTERNAL ONLY
-    void check_success(nt2_la_int lapack_info) const
-    {
-      boost::dispatch::ignore_unused(lapack_info);
-      NT2_WARNING ( lapack_info <= 0
-                  , "LU factorization has been completed, but U is exactly "
-                    "singular. Division by zero will occur if it is used to "
-                    "solve a system of equations."
-                  );
-    }
-    /// INTERNAL ONLY - Size of L/U
+   /// INTERNAL ONLY - Size of L/U
     template<typename W>
     BOOST_FORCEINLINE std::size_t dim(W const& work) const
     {
-      return std::min(nt2::height(work),nt2::width(work));
+      return nt2::min(nt2::height(work),nt2::width(work));
     }
 
     /// INTERNAL ONLY
@@ -314,5 +334,7 @@ namespace nt2 { namespace ext
     }
   };
 } }
+
+#undef CHECK_LAPACK_LU_SUCCESS
 
 #endif
