@@ -16,7 +16,11 @@ include(nt2.info)
 ################################################################################
 # Add Extra warning level
 ################################################################################
-option(NT2_EXTRA_WARNINGS "Enable/disable extra warnings" OFF)
+if(NT2_COMPILER_GCC_LIKE)
+  option(NT2_EXTRA_WARNINGS "Enable/disable extra warnings" ON)
+else()
+  option(NT2_EXTRA_WARNINGS "Enable/disable extra warnings" OFF)
+endif()
 
 if(NT2_EXTRA_WARNINGS)
   message(STATUS "[nt2] extra warnings enabled")
