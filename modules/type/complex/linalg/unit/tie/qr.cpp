@@ -39,78 +39,47 @@ NT2_TEST_CASE_TPL ( direct_qrc, NT2_REAL_TYPES)
     nt2::table<nt2_la_int> ip;
 
     /// Interface tests
-    /// x = qr(b, upper_)
-       NT2_DISPLAY(b);
-       r = nt2::qr(b, nt2::upper_);
-       NT2_DISPLAY(b);
-       NT2_DISPLAY(r);
+    /// Interface tests
+      std::cout << "b " << i[k] << "X" << j[k] << ", r = qr(b, upper_)" << std::endl;
+      r = nt2::qr(b, nt2::upper_);
 
-      // x = qr(b)
-      NT2_DISPLAY(b);
+      std::cout << "b " << i[k] << "X" << j[k] << ", x = qr(b)" << std::endl;
       x = nt2::qr(b);
-      NT2_DISPLAY(b);
-      NT2_DISPLAY(x);
+      NT2_TEST_ULP_EQUAL( triu(x), r, T(200));
 
-      // x = qr(b, raw_)
-      NT2_DISPLAY(b);
-      x = nt2::qr(b);
-      NT2_DISPLAY(b);
-      NT2_DISPLAY(x);
+      std::cout << "b " << i[k] << "X" << j[k] << ",  x = qr(b, raw_)" << std::endl;
+      x = nt2::qr(b), nt2::raw_;
+      NT2_TEST_ULP_EQUAL( triu(x), r, T(200));
 
-      // x = qr(b, 0)
-      NT2_DISPLAY(b);
+      std::cout << "b " << i[k] << "X" << j[k] << ",  x = qr(b, 0)" << std::endl;
       x = nt2::qr(b, 0);
-      NT2_DISPLAY(b);
-      NT2_DISPLAY(x);
+      NT2_TEST_ULP_EQUAL( triu(x), r, T(200));
 
-      // x = qr(b, nt2::econ_)
-      NT2_DISPLAY(b);
+      std::cout << "b " << i[k] << "X" << j[k] << ",  x = qr(b, nt2::econ_)" << std::endl;
       x = nt2::qr(b, nt2::econ_);
-      NT2_DISPLAY(b);
-      NT2_DISPLAY(x);
+      NT2_TEST_ULP_EQUAL( triu(x), r, T(200));
 
-      // tie(x, tau)= nt2::qr(b, nt2::raw_);
+      std::cout << "b " << i[k] << "X" << j[k] << ",  tie(x, tau)= nt2::qr(b, nt2::raw_);" << std::endl;
       tie(x, tau)= nt2::qr(b, nt2::raw_);
-      NT2_DISPLAY(b);
-      NT2_DISPLAY(triu(x));
-      NT2_DISPLAY(x);
-      NT2_DISPLAY(tau);
+      NT2_TEST_ULP_EQUAL( triu(x), r, T(200));
 
-      // tie(x, tau, ip)= nt2::qr(b, nt2::raw_);
+      std::cout << "b " << i[k] << "X" << j[k] << ",  tie(x, tau, ip)= nt2::qr(b, nt2::raw_);" << std::endl;
       tie(x, tau, ip)= nt2::qr(b, nt2::raw_);
-      NT2_DISPLAY(x);
-      NT2_DISPLAY(tau);
-      NT2_DISPLAY(ip);
 
-      // tie(q, r)= nt2::qr(b, nt2::matrix_);
+      std::cout << "b " << i[k] << "X" << j[k] << ",  tie(q, r)= nt2::qr(b, nt2::matrix_);" << std::endl;
       tie(q, r)= nt2::qr(b, nt2::matrix_);
-      NT2_DISPLAY(b);
-      NT2_DISPLAY(q);
-      NT2_DISPLAY(r);
       NT2_TEST_ULP_EQUAL( b, nt2::mtimes(q, r), T(200));
 
-      // tie(q, r, ip)= nt2::qr(b, nt2::vector_);
+      std::cout << "b " << i[k] << "X" << j[k] << ",  tie(q, r, ip)= nt2::qr(b, nt2::vector_);" << std::endl;
       tie(q, r, ip)= nt2::qr(b, nt2::vector_);
-      NT2_DISPLAY(b);
-      NT2_DISPLAY(q);
-      NT2_DISPLAY(r);
-      NT2_DISPLAY(ip);
       NT2_TEST_ULP_EQUAL( b(nt2::_, ip), nt2::mtimes(q, r), T(200));
 
-      //  tie(q, r, p)= nt2::qr(b, nt2::matrix_);
+      std::cout << "b " << i[k] << "X" << j[k] << ",   tie(q, r, p)= nt2::qr(b, nt2::matrix_);" << std::endl;
       tie(q, r, p)= nt2::qr(b, nt2::matrix_);
-      NT2_DISPLAY(b);
-      NT2_DISPLAY(q);
-      NT2_DISPLAY(r);
-      NT2_DISPLAY(p);
       NT2_TEST_ULP_EQUAL( mtimes(b, p), nt2::mtimes(q, r), T(200));
 
-      // tie(q, r)= nt2::qr(b, nt2::econ_);
+      std::cout << "b " << i[k] << "X" << j[k] << ",  tie(q, r)= nt2::qr(b, nt2::econ_);" << std::endl;
       tie(q, r)= nt2::qr(b, nt2::econ_);
-      NT2_DISPLAY(b);
-      NT2_DISPLAY(q);
-      NT2_DISPLAY(r);
       NT2_TEST_ULP_EQUAL( b, nt2::mtimes(q, r), T(200));
-
   }
 }
