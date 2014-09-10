@@ -267,7 +267,6 @@ namespace nt2 { namespace ext
                    ) const
     {
       NT2_AS_TERMINAL_INOUT(o_semantic, a, boost::proto::child_c<0>(a0), boost::proto::child_c<1>(a1));
-      NT2_AS_TERMINAL_OUT  (o_semantic, t, boost::proto::child_c<0>(a1));
       nt2_la_int n = height(a);
       BOOST_ASSERT_MSG(issquare(a), "matrix to balance must be square");
       boost::proto::child_c<0>(a1) = nt2::eye(n, n, meta::as_<type_t>());

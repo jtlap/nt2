@@ -176,9 +176,7 @@ t_t b = nt2::cons<cT>(nt2::of_size(3,1)
                     ,cT(1,0),cT(2,0),cT(5,0));
 t_t x = nt2::ones(nt2::of_size(3,1),nt2::meta::as_<cT>());
 t_t x1(b);
-T rcond,rcond1,anorm;
-char norm = '1';
-
+T rcond,rcond1;
 
 // X = linsolve(A,B)
 x = nt2::linsolve(a+a,b,precise_);
@@ -257,9 +255,7 @@ t_t b = nt2::cons<cT>(nt2::of_size(3,1)
                     ,cT(1,0),cT(2,0),cT(5,0));
 t_t x = nt2::ones(nt2::of_size(3,1),nt2::meta::as_<T>());
 t_t x1(b);
-T rcond,rcond1,anorm;
-char norm = '1';
-
+T rcond,rcond1;
 
 // X = linsolve(A,B)
 
