@@ -62,10 +62,13 @@ namespace nt2
      [q,r,e] = qr(a,0) produces an economy-size decomposition in which
      e is a permutation vector, so that a(:,e) = q*r.
 
-     r = qr(a, upper_) return the upper triangular matix r
+     r = qr(a, upper_) return the upper triangular matrix r
 
-     x = qr(a) and x = qr(a,0) and x = qr(a,raw_) return a matrix x
+     x = qr(a) and x = qr(a,0) and x = qr(a,econ_) and x = qr(a,raw_) return a matrix x
      such that triu(x) is the upper triangular factor r.
+
+      [x, tau] = nt2::qr(b, nt2::raw_) or  [x, tau, ip] = nt2::qr(b, nt2::raw_)
+      produces the direct lapack ouputs
    **/
   NT2_FUNCTION_IMPLEMENTATION(tag::qr_, qr, 1)
   NT2_FUNCTION_IMPLEMENTATION(tag::qr_, qr, 2)

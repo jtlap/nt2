@@ -25,7 +25,7 @@
 #include <nt2/include/functions/triu.hpp>
 #include <nt2/include/functions/width.hpp>
 #include <nt2/include/functions/zeros.hpp>
-#include <nt2/linalg/details/utility/lapack_assert.hpp>
+#include <nt2/linalg/details/utility/lapack_verify.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/core/container/dsl/as_terminal.hpp>
 #include <nt2/core/container/colon/colon.hpp>
@@ -165,8 +165,8 @@ namespace nt2 { namespace ext
     {
       NT2_AS_TERMINAL_INOUT(o_semantic, r, boost::proto::child_c<0>(a0), boost::proto::child_c<0>(a1));
       nt2::container::table<type_t> tau(of_size(height(r), 1));
-      lapack_assert(nt2::geqrf( boost::proto::value(r)
-                              , boost::proto::value(tau)));
+      NT2_LAPACK_VERIFY(nt2::geqrf( boost::proto::value(r)
+                                  , boost::proto::value(tau)));
       boost::proto::child_c<0>(a1) = r;
     }
 
@@ -179,8 +179,8 @@ namespace nt2 { namespace ext
        nt2::container::table<type_t> work;
        NT2_AS_TERMINAL_INOUT(o_semantic, r, boost::proto::child_c<0>(a0), work);
        nt2::container::table<type_t> tau(of_size(height(r), 1));
-       lapack_assert(nt2::geqrf( boost::proto::value(r)
-                               , boost::proto::value(tau)));
+       NT2_LAPACK_VERIFY(nt2::geqrf( boost::proto::value(r)
+                                   , boost::proto::value(tau)));
        boost::proto::child_c<0>(a1) = triu(r);
     }
 
@@ -212,8 +212,8 @@ namespace nt2 { namespace ext
       NT2_AS_TERMINAL_INOUT(o_semantic, x, boost::proto::child_c<0>(a0), boost::proto::child_c<0>(a1));
       NT2_AS_TERMINAL_OUT(o_semantic, tau, boost::proto::child_c<1>(a1));
       tau.resize(of_size(dim(x), 1));
-      lapack_assert(nt2::geqrf( boost::proto::value(x)
-                              , boost::proto::value(tau)));
+      NT2_LAPACK_VERIFY(nt2::geqrf( boost::proto::value(x)
+                                  , boost::proto::value(tau)));
       boost::proto::child_c<0>(a1) = x;
       boost::proto::child_c<1>(a1) = tau;
     }
@@ -231,9 +231,9 @@ namespace nt2 { namespace ext
       NT2_AS_TERMINAL_OUT(i_semantic,  ip, boost::proto::child_c<2>(a1));
       tau.resize(of_size(dim(x), 1));
       ip = nt2::zeros(nt2::width(x),1,nt2::meta::as_<nt2_la_int>());
-      lapack_assert(nt2::geqp3( boost::proto::value(x)
-                              , boost::proto::value(ip)
-                              , boost::proto::value(tau)));
+      NT2_LAPACK_VERIFY(nt2::geqp3( boost::proto::value(x)
+                                  , boost::proto::value(ip)
+                                  , boost::proto::value(tau)));
       boost::proto::child_c<0>(a1) = x;
       boost::proto::child_c<1>(a1) = tau;
       boost::proto::child_c<2>(a1) = ip;
