@@ -14,7 +14,6 @@
 #include <nt2/sdk/meta/value_as.hpp>
 #include <nt2/core/container/dsl/size.hpp>
 #include <nt2/sdk/meta/tieable_hierarchy.hpp>
-#include <nt2/core/container/dsl/value_type.hpp>
 
 namespace nt2
 {
@@ -27,12 +26,30 @@ namespace nt2
   }
 
   /**
+     @brief Cholevski factorization of an hermitian
+     (symetric in the real case) positive definite matrix.
+
      r = chol(a)
      l = chol(a,lower_)
      r = chol(a,upper_)
      [r,p] = chol(a)
      [l,p] = chol(a,lower_)
      [r,p] = chol(a,upper_)
+
+     The three first calls assert if a is not positive definite.
+     The three last call return a (p-1)X(p-1) matrix where p is
+     the dimension of the smallest minor of a which is not positive
+     definite and which give the factor of the preeceding minor.
+
+     upper_ (resp. lower_) indicates that only the upper (resp. lower)
+     part of the a storage are referenced. Default is upper_.
+     This also means that the  hermitianity (symetry in the real case)
+     of the matrix is never tested.
+
+     The options tags are in nt2 namespace.
+
+     If the factorization is completed  a = trans(r) * r or
+     a = l*trans(l) according to the option chosen.
    **/
 
   NT2_FUNCTION_IMPLEMENTATION(tag::chol_, chol, 1)
@@ -45,11 +62,6 @@ namespace nt2 { namespace ext
   struct  size_of<tag::chol_,Domain,N,Expr>
         : meta::size_as<Expr,0>
   {};
-
-//   template<class Domain, int N, class Expr>
-//   struct  value_type<tag::chol_,Domain,N,Expr>
-//         : meta::value_as<Expr,0>
-//   {};
 } }
 
 #endif

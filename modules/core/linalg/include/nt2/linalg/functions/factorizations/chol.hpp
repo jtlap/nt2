@@ -15,12 +15,11 @@
 #include <nt2/include/functions/tie.hpp>
 #include <nt2/include/functions/triu.hpp>
 #include <nt2/include/functions/tril.hpp>
-#include <nt2/include/functions/value.hpp>
-#include <nt2/core/container/table/table.hpp>
 #include <nt2/linalg/details/utility/f77_wrapper.hpp>
-#include <nt2/linalg/details/utility/lapack_assert.hpp>
+#include <nt2/linalg/details/utility/lapack_verify.hpp>
 #include <nt2/linalg/options.hpp>
 #include <nt2/core/container/dsl/as_terminal.hpp>
+#include <nt2/core/container/table/table.hpp>
 #include <nt2/core/container/colon/colon.hpp>
 #include <boost/assert.hpp>
 #include <boost/dispatch/attributes.hpp>
@@ -40,7 +39,7 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type operator()(const A0& a0) const
     {
       BOOST_ASSERT_MSG(is_gtz(a0), "Matrix must be positive definite");
-      return a0;
+      return  nt2::sqrt(a0);
     }
   };
 
@@ -55,7 +54,7 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type operator()(const A0& a0, const A1&) const
     {
       BOOST_ASSERT_MSG(is_gtz(a0), "Matrix must be positive definite");
-      return a0;
+      return nt2::sqrt(a0);
     }
   };
 
@@ -94,9 +93,7 @@ namespace nt2 { namespace ext
       NT2_AS_TERMINAL_INOUT(o_semantic, a
                            , boost::proto::child_c<0>(a0)
                            , boost::proto::child_c<0>(a1));
-
-      lapack_assert(nt2::potrf(boost::proto::value(a),'U'));
-
+      NT2_LAPACK_VERIFY(nt2::potrf(boost::proto::value(a),'U'));
       boost::proto::child_c<0>(a1) = nt2::triu(a);
     }
 
@@ -108,8 +105,8 @@ namespace nt2 { namespace ext
               ) const
     {
       eval( a0, a1, N0(), N1()
-                , boost::proto::value(boost::proto::child_c<1>(a0))
-                );
+          , boost::proto::value(boost::proto::child_c<1>(a0))
+          );
     }
 
     //==========================================================================
@@ -123,9 +120,7 @@ namespace nt2 { namespace ext
       NT2_AS_TERMINAL_INOUT(o_semantic, a
                            , boost::proto::child_c<0>(a0)
                            , boost::proto::child_c<0>(a1));
-
-      lapack_assert(nt2::potrf(boost::proto::value(a),'L'));
-
+      NT2_LAPACK_VERIFY(nt2::potrf(boost::proto::value(a),'L'));
       boost::proto::child_c<0>(a1) = nt2::tril(a);
     }
 
@@ -152,17 +147,15 @@ namespace nt2 { namespace ext
       NT2_AS_TERMINAL_INOUT(o_semantic, a
                            , boost::proto::child_c<0>(a0)
                            , boost::proto::child_c<0>(a1));
-
       nt2_la_int info = nt2::potrf(boost::proto::value(a),'U');
       BOOST_ASSERT_MSG(info >= 0, "invalid parameter in potrf call");
       if (info == 0)
-      {
         boost::proto::child_c<0>(a1) = nt2::triu(a);
-      }
       else
       {
         boost::proto::child_c<0>(a1) = nt2::triu(a(nt2::_(1, info-1), nt2::_(1, info-1)));
       }
+
       boost::proto::child_c<1>(a1) = info;
     }
 
@@ -189,7 +182,6 @@ namespace nt2 { namespace ext
       NT2_AS_TERMINAL_INOUT(o_semantic, a
                            , boost::proto::child_c<0>(a0)
                            , boost::proto::child_c<0>(a1));
-
       nt2_la_int info = nt2::potrf(boost::proto::value(a),'L');
       BOOST_ASSERT_MSG(info >= 0, "invalid parameter in potrf call");
       if (info == 0)
