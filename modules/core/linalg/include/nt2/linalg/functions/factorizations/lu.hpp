@@ -26,6 +26,7 @@
 #include <nt2/core/container/colon/colon.hpp>
 #include <nt2/core/container/table/table.hpp>
 #include <nt2/core/container/dsl/as_terminal.hpp>
+#include <nt2/core/container/dsl/assign_swap.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/sdk/error/warning.hpp>
 #include <nt2/linalg/options.hpp>
@@ -220,8 +221,8 @@ namespace nt2 { namespace ext
       ls.resize(of_size(dim(lu), 1));
       CHECK_LAPACK_LU_SUCCESS(nt2::getrf( boost::proto::value(lu)
                                         , boost::proto::value(ls)));
-      boost::proto::child_c<0>(a1) = lu;
-      boost::proto::child_c<1>(a1) = ls;
+      assign_swap(boost::proto::child_c<0>(a1), lu);
+      assign_swap(boost::proto::child_c<1>(a1), ls);
     }
 
     ///////////////////////////////////////////////////////////////////////////////
@@ -241,7 +242,7 @@ namespace nt2 { namespace ext
                            ,  boost::proto::child_c<0>(a1));
       NT2_AS_TERMINAL_OUT  (o_semantic, u
                            ,  boost::proto::child_c<1>(a1));
-      std::size_t d  = dim(lu);
+      std::size_t d = dim(lu);
       nt2::container::table<nt2_la_int> ls(of_size(d, 1));
       CHECK_LAPACK_LU_SUCCESS(nt2::getrf( boost::proto::value(lu)
                                                , boost::proto::value(ls)));
@@ -278,7 +279,7 @@ namespace nt2 { namespace ext
       construct_ip(ls, ip, height(lu));
       boost::proto::child_c<0>(a1) = nt2::tri1l(lu(nt2::_, nt2::_(1, d) ) );
       boost::proto::child_c<1>(a1) = nt2::triu(lu( nt2::_(1, d), nt2::_) );
-      boost::proto::child_c<2>(a1) = ip;
+      assign_swap(boost::proto::child_c<2>(a1), ip);
     }
 
     ///////////////////////////////////////////////////////////////////////////////
