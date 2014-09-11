@@ -28,13 +28,13 @@ NT2_TEST_CASE_TPL ( lu_lapack_output, NT2_REAL_TYPES)
 {
   using nt2::_;
   using nt2::meta::as_;
-
-  nt2::table<T> y, l, u, p;
+  typedef std::complex<T> cT;
+  nt2::table<cT> y, l, u, p;
   nt2::table<nt2_la_int> sp;
   nt2::table<int> ip;
-  nt2::table<T> a = nt2::trans(nt2::reshape(nt2::_(T(1), T(9)), 3, 3));
+  nt2::table<cT> a = nt2::trans(nt2::reshape(nt2::_(T(1), T(9)), 3, 3));
   a(3, 3) = 0;
-  nt2::table<T> b = a(nt2::_, nt2::cons(3, 2, 1));
+  nt2::table<cT> b = a(nt2::_, nt2::cons(3, 2, 1));
   a = b;
   y =  nt2::lu(a);
   nt2::tie(y, sp) = nt2::lu(a, nt2::raw_);
@@ -42,46 +42,66 @@ NT2_TEST_CASE_TPL ( lu_lapack_output, NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL( (nt2::mtimes(l, u)), a, 0.5 );
   nt2::tie(l, u, ip) = nt2::lu(a, nt2::vector_);
   nt2::tie(l, u, p) = nt2::lu(a, nt2::matrix_);
-  NT2_TEST_ULP_EQUAL( (nt2::mtimes(p, a)), (nt2::mtimes(l, u)), 0.5 );
-
-
+  NT2_TEST_ULP_EQUAL( (nt2::mtimes(p, a)), (nt2::mtimes(l, u)), 0.5           );
 }
 
-NT2_TEST_CASE_TPL ( square_lu, NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( square_lu_complex, NT2_REAL_TYPES)
 {
   using nt2::_;
   using nt2::meta::as_;
 
-  nt2::table<T> lu, l, u, p;
-  nt2::table<T> a = nt2::ones(4, 4, as_<T>()) + T(10)*nt2::eye(4, 4, as_<T>());
-  nt2::table<T> b = a(nt2::_, nt2::cons(4, 3, 2, 1));
-  a = b;
+  typedef std::complex<T>          cT;
+  nt2::table<cT> lu, l, u;
+  nt2::table<T> p;
+  nt2::table<cT> a = nt2::ones(4, 4, as_<cT>()) + T(10)*nt2::eye(4, 4, as_<cT>());
+
   /// Interface tests
   lu = nt2::lu(a);
 
   lu = nt2::lu(a) - a;
   nt2::tie(lu) = nt2::lu(a);
-  lu = nt2::zeros(4, 4, nt2::meta::as_<T>());
+  lu = nt2::zeros(4, 4, nt2::meta::as_<cT>());
   nt2::tie(lu(_(2,3),_(2,3))) = nt2::lu( a(_(1,2),_(1,2)) );
 
   std::cout << " [L,U] = LU(A) <=> A = L*U" << std::endl;
   nt2::tie(l, u) = nt2::lu(a);
   NT2_TEST_ULP_EQUAL( (nt2::mtimes(l, u)), a, 0.5 );
 
-
-  lu = nt2::lu(b);
-  nt2::tie(l, u) = nt2::lu(b);
-
-  std::cout << " [L,U, P] = LU(A) <=> P*A = L*U" << std::endl;
+  std::cout << " [L,U,P] = LU(A) <=> P*A = L*U" << std::endl;
   nt2::tie(l, u, p) = nt2::lu(a);
-  NT2_TEST_EQUAL    ( p                  , (nt2::fliplr(nt2::eye(4, nt2::meta::as_<T>()))) );
+  NT2_TEST_EQUAL    ( p                  , (nt2::eye(4, nt2::meta::as_<T>())) );
   NT2_TEST_ULP_EQUAL( (nt2::mtimes(p, a)), (nt2::mtimes(l, u)), 0.5           );
+}
 
-  std::cout << " [L,U,IP] = LU(A) <=> A(IP, _)= L*U" << std::endl;
-  nt2::table<int> ip;
-  nt2::tie(l, u, ip) = nt2::lu(a, nt2::vector_);
-  NT2_TEST_ULP_EQUAL( a(ip, nt2::_), (nt2::mtimes(l, u)), 0.5           );
+NT2_TEST_CASE_TPL ( non_square_lu, NT2_REAL_TYPES)
+{
+  using nt2::_;
+  using nt2::meta::as_;
 
+  nt2::table<T> lu, l, u, p;
+  nt2::table<T> a = nt2::ones(4, 7, as_<T>()) + T(10)*nt2::eye(4, 7, as_<T>());
+  NT2_DISPLAY(a);
+
+  /// Interface tests
+  lu = nt2::lu(a);
+
+  lu = nt2::lu(a) - a;
+  nt2::tie(lu) = nt2::lu(a);
+
+  lu = nt2::zeros(4, 7, nt2::meta::as_<T>());
+  nt2::tie(lu(_(2,3),_(2,5))) = nt2::lu( a(_(1,2),_(1,4)) );
+
+  std::cout << " [L,U] = LU(A) <=> A = L*U" << std::endl;
+  nt2::tie(l, u) = nt2::lu(a);
+  NT2_TEST_ULP_EQUAL( (nt2::mtimes(l, u)), a, 0.5 );
+
+  nt2::tie(l, u) = nt2::lu(trans(a));
+  NT2_TEST_ULP_EQUAL( (nt2::mtimes(l, u)), trans(a), 0.5 );
+
+  std::cout << " [L,U,P] = LU(A) <=> P*A = L*U" << std::endl;
+  nt2::tie(l, u, p) = nt2::lu(a);
+  NT2_TEST_EQUAL    ( p                  , (nt2::eye(4, nt2::meta::as_<T>())) );
+  NT2_TEST_ULP_EQUAL( (nt2::mtimes(p, a)), (nt2::mtimes(l, u)), 0.5           );
 }
 
 NT2_TEST_CASE_TPL(singular_lu, NT2_REAL_TYPES )
