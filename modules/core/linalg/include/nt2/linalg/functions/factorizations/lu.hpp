@@ -10,7 +10,6 @@
 #define NT2_LINALG_FUNCTIONS_FACTORIZATIONS_LU_HPP_INCLUDED
 
 #include <nt2/linalg/functions/lu.hpp>
-#include <boost/dispatch/attributes.hpp>
 #include <nt2/include/functions/assign.hpp>
 #include <nt2/include/functions/eye.hpp>
 #include <nt2/include/functions/function.hpp>
@@ -30,6 +29,7 @@
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/sdk/error/warning.hpp>
 #include <nt2/linalg/options.hpp>
+#include <boost/dispatch/attributes.hpp>
 #include <boost/dispatch/meta/terminal_of.hpp>
 #include <boost/dispatch/meta/ignore_unused.hpp>
 #include <algorithm>
@@ -224,7 +224,6 @@ namespace nt2 { namespace ext
       boost::proto::child_c<1>(a1) = ls;
     }
 
-
     ///////////////////////////////////////////////////////////////////////////////
     /// INTERNAL ONLY: 1i 2o T other from raw_
     template < class T >
@@ -282,7 +281,7 @@ namespace nt2 { namespace ext
       boost::proto::child_c<2>(a1) = ip;
     }
 
-   ///////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////
     /// INTERNAL ONLY: 2i 3o
     BOOST_FORCEINLINE
     void eval2_3 ( A0& a0, A1& a1
@@ -312,7 +311,7 @@ namespace nt2 { namespace ext
     ////////////////////////////////////////////////////////////////////////////
     // some utilitaries
     ////////////////////////////////////////////////////////////////////////////
-   /// INTERNAL ONLY - Size of L/U
+    /// INTERNAL ONLY - Size of L/U
     template<typename W>
     BOOST_FORCEINLINE std::size_t dim(W const& work) const
     {
@@ -321,7 +320,7 @@ namespace nt2 { namespace ext
 
     /// INTERNAL ONLY
     /// construct permutation vector from lapack swap vector
-      template < class T1, class T2>
+    template < class T1, class T2>
     BOOST_FORCEINLINE
     void construct_ip(T1& ls, T2& ips, size_t h) const
     {
