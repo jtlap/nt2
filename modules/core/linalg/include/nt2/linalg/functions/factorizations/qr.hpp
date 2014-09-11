@@ -28,6 +28,7 @@
 #include <nt2/linalg/details/utility/lapack_verify.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/core/container/dsl/as_terminal.hpp>
+#include <nt2/core/container/dsl/assign_swap.hpp>
 #include <nt2/core/container/colon/colon.hpp>
 #include <nt2/linalg/options.hpp>
 
@@ -167,7 +168,7 @@ namespace nt2 { namespace ext
       nt2::container::table<type_t> tau(of_size(height(r), 1));
       NT2_LAPACK_VERIFY(nt2::geqrf( boost::proto::value(r)
                                   , boost::proto::value(tau)));
-      boost::proto::child_c<0>(a1) = r;
+      assign_swap(boost::proto::child_c<0>(a1), r);
     }
 
     /// INTERNAL ONLY: 2i 1o upper_
@@ -214,8 +215,8 @@ namespace nt2 { namespace ext
       tau.resize(of_size(dim(x), 1));
       NT2_LAPACK_VERIFY(nt2::geqrf( boost::proto::value(x)
                                   , boost::proto::value(tau)));
-      boost::proto::child_c<0>(a1) = x;
-      boost::proto::child_c<1>(a1) = tau;
+      assign_swap(boost::proto::child_c<0>(a1), x);
+      assign_swap(boost::proto::child_c<1>(a1), tau);
     }
 
     ///////////////////////////////////////////////////////////////////////////////
@@ -234,9 +235,9 @@ namespace nt2 { namespace ext
       NT2_LAPACK_VERIFY(nt2::geqp3( boost::proto::value(x)
                                   , boost::proto::value(ip)
                                   , boost::proto::value(tau)));
-      boost::proto::child_c<0>(a1) = x;
-      boost::proto::child_c<1>(a1) = tau;
-      boost::proto::child_c<2>(a1) = ip;
+      assign_swap(boost::proto::child_c<0>(a1), x);
+      assign_swap(boost::proto::child_c<1>(a1), tau);
+      assign_swap(boost::proto::child_c<2>(a1), ip);
     }
 
 
@@ -254,8 +255,8 @@ namespace nt2 { namespace ext
       nt2::container::table<type_t>     tau;
       tie(x, tau) = qr(r, nt2::raw_);
       extract_qr(x, tau, r, T());
-      boost::proto::child_c<0>(a1) = x;
-      boost::proto::child_c<1>(a1) = r;
+      assign_swap(boost::proto::child_c<0>(a1), x);
+      assign_swap(boost::proto::child_c<1>(a1), r);
     }
 
 
@@ -288,9 +289,9 @@ namespace nt2 { namespace ext
       tie(x, tau, ip) = qr(r, nt2::raw_);
 
       extract_qr(x, tau, r, nt2::policy<ext::econ_>());
-      boost::proto::child_c<0>(a1) = x;
-      boost::proto::child_c<1>(a1) = r;
-      boost::proto::child_c<2>(a1) = ip;
+      assign_swap(boost::proto::child_c<0>(a1), x);
+      assign_swap(boost::proto::child_c<1>(a1), r);
+      assign_swap(boost::proto::child_c<2>(a1), ip);
     }
 
      ///////////////////////////////////////////////////////////////////////////////
@@ -309,8 +310,8 @@ namespace nt2 { namespace ext
       tie(x, tau, ip) = qr(r, nt2::raw_);
 
       extract_qr(x, tau, r, nt2::policy<ext::econ_>());
-      boost::proto::child_c<0>(a1) = x;
-      boost::proto::child_c<1>(a1) = r;
+      assign_swap(boost::proto::child_c<0>(a1), x);
+      assign_swap(boost::proto::child_c<1>(a1), r);
       boost::proto::child_c<2>(a1) = eye(numel(ip), nt2::meta::as_<type_t>())(nt2::_, ip);
     }
 
