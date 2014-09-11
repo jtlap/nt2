@@ -168,7 +168,7 @@ namespace nt2 { namespace ext
       nt2::container::table<type_t> tau(of_size(height(r), 1));
       NT2_LAPACK_VERIFY(nt2::geqrf( boost::proto::value(r)
                                   , boost::proto::value(tau)));
-      assign_swap(boost::proto::child_c<0>(a1), r);
+      boost::proto::child_c<0>(a1) = r;
     }
 
     /// INTERNAL ONLY: 2i 1o upper_

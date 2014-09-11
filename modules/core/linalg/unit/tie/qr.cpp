@@ -41,7 +41,7 @@ NT2_TEST_CASE_TPL ( direct_qr, NT2_REAL_TYPES)
     /// Interface tests
       std::cout << "b " << i[k] << "X" << j[k] << ", r = qr(b, upper_)" << std::endl;
       r = nt2::qr(b, nt2::upper_);
-
+      nt2::table<T> r1 =  nt2::qr(b)-r;
       std::cout << "b " << i[k] << "X" << j[k] << ", x = qr(b)" << std::endl;
       x = nt2::qr(b);
       NT2_TEST_ULP_EQUAL( triu(x), r, T(200));
