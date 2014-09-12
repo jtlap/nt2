@@ -292,7 +292,6 @@ namespace nt2 { namespace ext
        nt2_la_int ldvl = vl.leading_size();
        nt2_la_int ldvr = vr.leading_size();
        nt2_la_int wn = wk.main_need();
-       nt2_la_int wint = wk.reals_need();
        wk.resize_main(wn);
        wk.resize_reals(2*n);
        w.resize(of_size(n, 1));
