@@ -15,7 +15,6 @@
 #include <nt2/sdk/meta/value_as.hpp>
 #include <nt2/core/container/dsl/size.hpp>
 #include <nt2/sdk/meta/tieable_hierarchy.hpp>
-#include <nt2/core/container/dsl/value_type.hpp>
 
 namespace nt2
 {
@@ -50,11 +49,9 @@ namespace nt2
     lower_/upper_ determines which part of the supposed symetric/hermitian input will
     be accessed (default is upper_), the other part being never referenced.
 
-    For instance symeig(a,lower_) and  symeig(tril(a),lower_) leads to the same result.
+    For instance symeig(a,lower_) and  symeig(tril(a),lower_) lead to the same result.
 
-
-
-    Note : with 3 inputs the 2 options can be in reverse order
+    Note : with 3 inputs the 2 options can be given in reverse order
    **/
   NT2_FUNCTION_IMPLEMENTATION(tag::symeig_, symeig, 1)
   NT2_FUNCTION_IMPLEMENTATION(tag::symeig_, symeig, 2)

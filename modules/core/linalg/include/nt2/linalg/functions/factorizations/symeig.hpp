@@ -14,18 +14,17 @@
 #include <nt2/core/container/table/table.hpp>
 #include <nt2/include/functions/from_diag.hpp>
 #include <nt2/include/functions/height.hpp>
-#include <nt2/include/functions/real.hpp>
 #include <nt2/include/functions/hsev_w.hpp>
 #include <nt2/include/functions/hsev_wu.hpp>
 #include <nt2/include/functions/of_size.hpp>
+#include <nt2/include/functions/real.hpp>
 #include <nt2/include/functions/resize.hpp>
 #include <nt2/include/functions/tie.hpp>
-#include <nt2/include/functions/value.hpp>
 #include <nt2/sdk/meta/as_real.hpp>
 #include <nt2/linalg/options.hpp>
-#include <nt2/linalg/details/utility/lapack_assert.hpp>
+#include <nt2/linalg/details/utility/lapack_verify.hpp>
+#include <nt2/core/container/dsl/assign_swap.hpp>
 #include <nt2/core/container/dsl/as_terminal.hpp>
-
 
 namespace nt2 { namespace ext
 {
@@ -192,12 +191,14 @@ namespace nt2 { namespace ext
                  ) const
     {
       nt2::container::table<type_t> work;
-      NT2_AS_TERMINAL_INOUT(o_semantic, a, boost::proto::child_c<0>(a0), work);
-      NT2_AS_TERMINAL_OUT  (r_semantic, w, boost::proto::child_c<0>(a1));
+      NT2_AS_TERMINAL_INOUT(o_semantic, a
+                           , boost::proto::child_c<0>(a0), work);
+      NT2_AS_TERMINAL_OUT  (r_semantic, w
+                           , boost::proto::child_c<0>(a1));
       w.resize(nt2::of_size(height(a), 1));
-      lapack_assert(nt2::hsev_w( boost::proto::value(a)
-                               , boost::proto::value(w)
-                               , 'L'));
+      NT2_LAPACK_VERIFY(nt2::hsev_w( boost::proto::value(a)
+                                   , boost::proto::value(w)
+                                   , 'L'));
       boost::proto::child_c<0>(a1) = w;
     }
 
@@ -208,12 +209,14 @@ namespace nt2 { namespace ext
                  ) const
     {
       nt2::container::table<type_t> work;
-      NT2_AS_TERMINAL_INOUT(o_semantic, a, boost::proto::child_c<0>(a0), work);
-      NT2_AS_TERMINAL_OUT  (r_semantic, w, boost::proto::child_c<0>(a1));
+      NT2_AS_TERMINAL_INOUT(o_semantic, a
+                           , boost::proto::child_c<0>(a0), work);
+      NT2_AS_TERMINAL_OUT  (r_semantic, w
+                           , boost::proto::child_c<0>(a1));
       w.resize(nt2::of_size(height(a), 1));
-      lapack_assert(nt2::hsev_w( boost::proto::value(a)
-                               , boost::proto::value(w)
-                               , 'U'));
+      NT2_LAPACK_VERIFY(nt2::hsev_w( boost::proto::value(a)
+                                   , boost::proto::value(w)
+                                   , 'U'));
       boost::proto::child_c<0>(a1) = w;
     }
 
@@ -224,11 +227,12 @@ namespace nt2 { namespace ext
                  ) const
     {
       nt2::container::table<type_t> work;
-      NT2_AS_TERMINAL_INOUT(o_semantic, a, boost::proto::child_c<0>(a0), work);
+      NT2_AS_TERMINAL_INOUT(o_semantic, a
+                           , boost::proto::child_c<0>(a0), work);
       nt2::container::table<rtype_t> w(of_size(height(a), 1));
-      lapack_assert(nt2::hsev_w( boost::proto::value(a)
-                               , boost::proto::value(w)
-                               , 'L'));
+      NT2_LAPACK_VERIFY(nt2::hsev_w( boost::proto::value(a)
+                                   , boost::proto::value(w)
+                                   , 'L'));
       boost::proto::child_c<0>(a1) = from_diag(w);
     }
 
@@ -239,11 +243,12 @@ namespace nt2 { namespace ext
                  ) const
     {
       nt2::container::table<type_t> work;
-      NT2_AS_TERMINAL_INOUT(o_semantic, a, boost::proto::child_c<0>(a0), work);
+      NT2_AS_TERMINAL_INOUT(o_semantic, a
+                           , boost::proto::child_c<0>(a0), work);
       nt2::container::table<rtype_t> w(of_size(height(a), 1));
-      lapack_assert(nt2::hsev_w( boost::proto::value(a)
-                               , boost::proto::value(w)
-                               , 'U'));
+      NT2_LAPACK_VERIFY(nt2::hsev_w( boost::proto::value(a)
+                                   , boost::proto::value(w)
+                                   , 'U'));
       boost::proto::child_c<0>(a1) = from_diag(w);
     }
 
@@ -277,13 +282,15 @@ namespace nt2 { namespace ext
                  , nt2::policy<ext::matrix_>
                  ) const
     {
-      NT2_AS_TERMINAL_INOUT(o_semantic, u, boost::proto::child_c<0>(a0), boost::proto::child_c<1>(a1));
+      NT2_AS_TERMINAL_INOUT(o_semantic, u
+                           , boost::proto::child_c<0>(a0)
+                           , boost::proto::child_c<1>(a1));
       nt2::container::table<rtype_t> w(of_size(height(u), 1));
-      lapack_assert(nt2::hsev_wu( boost::proto::value(u)
-                                , boost::proto::value(w)
-                                , 'U'));
+      NT2_LAPACK_VERIFY(nt2::hsev_wu( boost::proto::value(u)
+                                    , boost::proto::value(w)
+                                    , 'U'));
       boost::proto::child_c<0>(a1) = from_diag(w);
-      boost::proto::child_c<1>(a1) = u;
+      assign_swap(boost::proto::child_c<1>(a1), u);
     }
 
     BOOST_FORCEINLINE
@@ -291,14 +298,16 @@ namespace nt2 { namespace ext
                  , nt2::policy<ext::vector_>
                  ) const
     {
-      NT2_AS_TERMINAL_INOUT(o_semantic, u, boost::proto::child_c<0>(a0), boost::proto::child_c<1>(a1));
+      NT2_AS_TERMINAL_INOUT(o_semantic, u
+                           , boost::proto::child_c<0>(a0)
+                           , boost::proto::child_c<1>(a1));
       NT2_AS_TERMINAL_OUT  (r_semantic, w, boost::proto::child_c<0>(a1));
       w.resize(nt2::of_size(height(u), 1));
-      lapack_assert(nt2::hsev_wu( boost::proto::value(u)
-                                , boost::proto::value(w)
-                                , 'U'));
-      boost::proto::child_c<0>(a1) = w;
-      boost::proto::child_c<1>(a1) = u;
+      NT2_LAPACK_VERIFY(nt2::hsev_wu( boost::proto::value(u)
+                                    , boost::proto::value(w)
+                                    , 'U'));
+      assign_swap(boost::proto::child_c<0>(a1), w);
+      assign_swap(boost::proto::child_c<1>(a1), u);
     }
 
     BOOST_FORCEINLINE
@@ -343,13 +352,15 @@ namespace nt2 { namespace ext
                  , nt2::policy<ext::lower_>
                  ) const
     {
-      NT2_AS_TERMINAL_INOUT(o_semantic, u, boost::proto::child_c<0>(a0), boost::proto::child_c<1>(a1));
+      NT2_AS_TERMINAL_INOUT(o_semantic, u
+                           , boost::proto::child_c<0>(a0)
+                           , boost::proto::child_c<1>(a1));
       nt2::container::table<rtype_t> w(of_size(height(u), 1));
-      lapack_assert(nt2::hsev_wu( boost::proto::value(u)
-                                , boost::proto::value(w)
-                                , 'L'));
+      NT2_LAPACK_VERIFY(nt2::hsev_wu( boost::proto::value(u)
+                                    , boost::proto::value(w)
+                                    , 'L'));
       boost::proto::child_c<0>(a1) = from_diag(w);
-      boost::proto::child_c<1>(a1) = u;
+      assign_swap(boost::proto::child_c<1>(a1), u);
     }
 
     BOOST_FORCEINLINE
@@ -358,13 +369,15 @@ namespace nt2 { namespace ext
                  , nt2::policy<ext::upper_>
                  ) const
     {
-      NT2_AS_TERMINAL_INOUT(o_semantic, u, boost::proto::child_c<0>(a0), boost::proto::child_c<1>(a1));
+      NT2_AS_TERMINAL_INOUT(o_semantic, u
+                           , boost::proto::child_c<0>(a0)
+                           , boost::proto::child_c<1>(a1));
       nt2::container::table<rtype_t> w(of_size(height(u), 1));
-      lapack_assert(nt2::hsev_wu( boost::proto::value(u)
-                                , boost::proto::value(w)
-                                , 'U'));
+      NT2_LAPACK_VERIFY(nt2::hsev_wu( boost::proto::value(u)
+                                    , boost::proto::value(w)
+                                    , 'U'));
       boost::proto::child_c<0>(a1) = from_diag(w);
-      boost::proto::child_c<1>(a1) = u;
+      assign_swap(boost::proto::child_c<1>(a1), u);
     }
 
     BOOST_FORCEINLINE
@@ -373,14 +386,17 @@ namespace nt2 { namespace ext
                  , nt2::policy<ext::upper_>
                  ) const
     {
-      NT2_AS_TERMINAL_INOUT(o_semantic, u, boost::proto::child_c<0>(a0), boost::proto::child_c<1>(a1));
-      NT2_AS_TERMINAL_OUT  (r_semantic, w, boost::proto::child_c<0>(a1));
+      NT2_AS_TERMINAL_INOUT(o_semantic, u
+                           , boost::proto::child_c<0>(a0)
+                           , boost::proto::child_c<1>(a1));
+      NT2_AS_TERMINAL_OUT  (r_semantic, w
+                           , boost::proto::child_c<0>(a1));
       w.resize(of_size(height(u), 1));
-      lapack_assert(nt2::hsev_wu( boost::proto::value(u)
-                                , boost::proto::value(w)
-                                , 'U'));
-      boost::proto::child_c<0>(a1) = w;
-      boost::proto::child_c<1>(a1) = u;
+      NT2_LAPACK_VERIFY(nt2::hsev_wu( boost::proto::value(u)
+                                    , boost::proto::value(w)
+                                    , 'U'));
+      assign_swap(boost::proto::child_c<0>(a1), w);
+      assign_swap(boost::proto::child_c<1>(a1), u);
     }
 
     BOOST_FORCEINLINE
@@ -389,40 +405,43 @@ namespace nt2 { namespace ext
                  , nt2::policy<ext::lower_>
                  ) const
     {
-      NT2_AS_TERMINAL_INOUT(o_semantic, u, boost::proto::child_c<0>(a0), boost::proto::child_c<1>(a1));
-      NT2_AS_TERMINAL_OUT  (r_semantic, w, boost::proto::child_c<0>(a1));
+      NT2_AS_TERMINAL_INOUT(o_semantic, u
+                           , boost::proto::child_c<0>(a0)
+                           , boost::proto::child_c<1>(a1));
+      NT2_AS_TERMINAL_OUT  (r_semantic, w
+                           , boost::proto::child_c<0>(a1));
       w.resize(of_size(height(u), 1));
-      lapack_assert(nt2::hsev_wu( boost::proto::value(u)
-                                , boost::proto::value(w)
-                                , 'L'));
-      boost::proto::child_c<0>(a1) = w;
-      boost::proto::child_c<1>(a1) = u;
+      NT2_LAPACK_VERIFY(nt2::hsev_wu( boost::proto::value(u)
+                                    , boost::proto::value(w)
+                                    , 'L'));
+      assign_swap(boost::proto::child_c<0>(a1), w);
+      assign_swap(boost::proto::child_c<1>(a1), u);
     }
 
-#define NT2_MORE_OPTIONS(PARAM, OPT1, OPT2)          \
-    BOOST_FORCEINLINE                                \
-      void eval##PARAM( A0& a0, A1& a1               \
-                      , nt2::policy<ext::OPT1>       \
-                      , nt2::policy<ext::OPT2>       \
-                      ) const                        \
-    {                                                \
-      eval##PARAM(a0, a1                             \
-                 , nt2::policy<ext::OPT2>()          \
-                 , nt2::policy<ext::OPT1>()          \
-                 );                                  \
-    }                                                \
+#define MORE_OPTIONS(PARAM, OPT1, OPT2)        \
+    BOOST_FORCEINLINE                          \
+      void eval##PARAM( A0& a0, A1& a1         \
+                      , nt2::policy<ext::OPT1> \
+                      , nt2::policy<ext::OPT2> \
+                      ) const                  \
+    {                                          \
+      eval##PARAM(a0, a1                       \
+                 , nt2::policy<ext::OPT2>()    \
+                 , nt2::policy<ext::OPT1>()    \
+                 );                            \
+    }                                          \
     /**/
 
-    NT2_MORE_OPTIONS(2_3, lower_, vector_)
-    NT2_MORE_OPTIONS(2_3, upper_, vector_)
-    NT2_MORE_OPTIONS(2_3, lower_, matrix_)
-    NT2_MORE_OPTIONS(2_3, upper_, matrix_)
-    NT2_MORE_OPTIONS(1_3, lower_, vector_)
-    NT2_MORE_OPTIONS(1_3, upper_, vector_)
-    NT2_MORE_OPTIONS(1_3, lower_, matrix_)
-    NT2_MORE_OPTIONS(1_3, upper_, matrix_)
+    MORE_OPTIONS(2_3, lower_, vector_)
+    MORE_OPTIONS(2_3, upper_, vector_)
+    MORE_OPTIONS(2_3, lower_, matrix_)
+    MORE_OPTIONS(2_3, upper_, matrix_)
+    MORE_OPTIONS(1_3, lower_, vector_)
+    MORE_OPTIONS(1_3, upper_, vector_)
+    MORE_OPTIONS(1_3, lower_, matrix_)
+    MORE_OPTIONS(1_3, upper_, matrix_)
 
-#undef  NT2_MORE_OPTIONS
+#undef MORE_OPTIONS
   };
 } }
 
