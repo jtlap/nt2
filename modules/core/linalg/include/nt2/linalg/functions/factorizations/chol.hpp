@@ -152,10 +152,7 @@ namespace nt2 { namespace ext
       if (info == 0)
         boost::proto::child_c<0>(a1) = nt2::triu(a);
       else
-      {
         boost::proto::child_c<0>(a1) = nt2::triu(a(nt2::_(1, info-1), nt2::_(1, info-1)));
-      }
-
       boost::proto::child_c<1>(a1) = info;
     }
 
