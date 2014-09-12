@@ -49,7 +49,6 @@ NT2_TEST_CASE_TPL(nseig, NT2_REAL_TYPES)
   using nt2::nseig;
   using nt2::mtimes;
   using nt2::_;
-  typedef typename nt2::meta::as_integer<T, signed>::type itype_t;
   typedef std::complex<T> cT;
   typedef nt2::table<T> t_t;
   typedef nt2::table<cT> ct_t;
