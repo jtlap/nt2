@@ -274,9 +274,9 @@ namespace nt2 { namespace memory
      * \param y Second \c container to swap, the first being *this
      **/
     //==========================================================================
-    BOOST_FORCEINLINE void swap(container_shared_ref& y)
+    BOOST_FORCEINLINE void swap(container_shared_ref const& y) const
     {
-      boost::swap(*this, y);
+      base_->swap(*y.base_);
     }
 
     template<typename Kind2, typename S2>
