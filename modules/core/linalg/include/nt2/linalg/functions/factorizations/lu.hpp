@@ -201,7 +201,7 @@ namespace nt2 { namespace ext
       nt2::container::table<nt2_la_int> ls(of_size(dim(lu), 1));
       CHECK_LAPACK_LU_SUCCESS((nt2::getrf( boost::proto::value(lu)
                                          , boost::proto::value(ls))));
-      boost::proto::child_c<0>(a1) = lu;
+      assign_swap(boost::proto::child_c<0>(a1), lu);
     }
 
     ///////////////////////////////////////////////////////////////////////////////
