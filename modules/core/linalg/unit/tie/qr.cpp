@@ -47,7 +47,7 @@ NT2_TEST_CASE_TPL ( direct_qr, NT2_REAL_TYPES)
       NT2_TEST_ULP_EQUAL( triu(x), r, T(200));
 
       std::cout << "b " << i[k] << "X" << j[k] << ",  x = qr(b, raw_)" << std::endl;
-      x = nt2::qr(b), nt2::raw_;
+      x = nt2::qr(b, nt2::raw_);
       NT2_TEST_ULP_EQUAL( triu(x), r, T(200));
 
       std::cout << "b " << i[k] << "X" << j[k] << ",  x = qr(b, 0)" << std::endl;
@@ -102,7 +102,7 @@ NT2_TEST_CASE_TPL ( qr2, NT2_REAL_TYPES)
     NT2_TEST_ULP_EQUAL( triu(x(_(1, 2, 8), _)), r, T(200));
 
     std::cout << " x = qr(b, raw_)" << std::endl;
-    x(_(1, 2, 8), _) = nt2::qr(b), nt2::raw_;
+    x(_(1, 2, 8), _) = nt2::qr(b, nt2::raw_);
     NT2_TEST_ULP_EQUAL( triu(x(_(1, 2, 8), _)), r, T(200));
 
     std::cout << " x = qr(b, 0)" << std::endl;
