@@ -199,7 +199,7 @@ namespace nt2 { namespace ext
       NT2_LAPACK_VERIFY(nt2::hsev_w( boost::proto::value(a)
                                    , boost::proto::value(w)
                                    , 'L'));
-      boost::proto::child_c<0>(a1) = w;
+      assign_swap(boost::proto::child_c<0>(a1), w);
     }
 
     BOOST_FORCEINLINE
@@ -217,7 +217,7 @@ namespace nt2 { namespace ext
       NT2_LAPACK_VERIFY(nt2::hsev_w( boost::proto::value(a)
                                    , boost::proto::value(w)
                                    , 'U'));
-      boost::proto::child_c<0>(a1) = w;
+      assign_swap(boost::proto::child_c<0>(a1), w);
     }
 
     BOOST_FORCEINLINE
