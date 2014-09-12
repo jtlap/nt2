@@ -1,5 +1,5 @@
 //==============================================================================
-//         Copyright 2014 - Jean-Thierry Lapresté
+//         Copyright 2014 - Jean-Thierry LaprestÃ©
 //         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
 //
 //          Distributed under the Boost Software License, Version 1.0.
