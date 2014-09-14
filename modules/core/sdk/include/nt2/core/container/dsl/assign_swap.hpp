@@ -13,6 +13,7 @@
 #include <nt2/sdk/memory/forward/container.hpp>
 #include <nt2/sdk/meta/is_container.hpp>
 #include <boost/mpl/and.hpp>
+#include <boost/type_traits/is_same.hpp>
 #include <boost/utility/enable_if.hpp>
 
 namespace nt2 { namespace container
@@ -21,6 +22,7 @@ namespace nt2 { namespace container
   typename boost::enable_if<
     boost::mpl::and_< meta::is_container_terminal<A0>
                     , meta::is_container_terminal<A1>
+                    , boost::is_same<typename A0::value_type, typename A1::value_type>
                     >
   >::type
   assign_swap(A0& a0, A1& a1)
@@ -32,6 +34,7 @@ namespace nt2 { namespace container
   typename boost::disable_if<
     boost::mpl::and_< meta::is_container_terminal<A0>
                     , meta::is_container_terminal<A1>
+                    , boost::is_same<typename A0::value_type, typename A1::value_type>
                     >
   >::type
   assign_swap(A0& a0, A1& a1)
