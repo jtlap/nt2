@@ -48,7 +48,7 @@ NT2_TEST_CASE_TPL ( direct_qrc, NT2_REAL_TYPES)
       NT2_TEST_ULP_EQUAL( triu(x), r, T(200));
 
       std::cout << "b " << i[k] << "X" << j[k] << ",  x = qr(b, raw_)" << std::endl;
-      x = nt2::qr(b), nt2::raw_;
+      x = nt2::qr(b, nt2::raw_);
       NT2_TEST_ULP_EQUAL( triu(x), r, T(200));
 
       std::cout << "b " << i[k] << "X" << j[k] << ",  x = qr(b, 0)" << std::endl;
@@ -82,4 +82,18 @@ NT2_TEST_CASE_TPL ( direct_qrc, NT2_REAL_TYPES)
       tie(q, r)= nt2::qr(b, nt2::econ_);
       NT2_TEST_ULP_EQUAL( b, nt2::mtimes(q, r), T(200));
   }
+}
+
+NT2_TEST_CASE_TPL ( qr_real_to_c, NT2_REAL_TYPES)
+{
+
+  using nt2::_;
+  using nt2::meta::as_;
+  typedef std::complex<T> cT;
+  nt2::table<cT> x, r;
+  nt2::table<T> b = nt2::ones(4, 4, as_<T>());
+  b(2, 3) = T(10);
+  x = nt2::qr(b);
+  r = nt2::qr(b, nt2::upper_);
+  NT2_TEST_ULP_EQUAL( triu(x), r, T(200));
 }
