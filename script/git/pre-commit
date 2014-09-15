@@ -65,7 +65,7 @@ fi
 no_newline=
 for i in `git diff --cached --name-only`
 do
-  if [ -e $i ] && [ $(tail -n 1 $i | wc -l | tr -d ' ') != 1 ]
+  if [ -e "$i" ] && [ $(tail -n 1 "$i" | wc -l | tr -d ' ') != 1 ]
   then
     no_newline=$no_newline$i$'\n'
   fi
@@ -82,6 +82,47 @@ with 'git commit --no-verify'
 Incriminated files:
 END
   for i in $no_newline
+  do
+    echo $i
+  done
+  exit 1
+fi
+
+if git diff --cached | grep -P '^\+.*[^\x00-\xBF\xC2-\xF4]' > /dev/null
+then
+cat<<END;
+error: non-UTF-8 characters were found in staged changes, which is against
+the NT2 coding standards.
+
+If you *really* know what you are doing, you can force this commit
+with 'git commit --no-verify'
+
+Incriminated changes:
+END
+  GREP_COLOR='1;37;41' grep -PH $color_option '[^\x00-\xBF\xC2-\xF4]' `git diff --cached --name-only`
+  exit 1
+fi
+
+no_utf8=
+for i in `git diff --cached --name-only`
+do
+  if [ -e "$i" ] && grep -qI $'\xEF\xBB\xBF' "$i"
+  then
+    no_utf8=$no_utf8$i$'\n'
+  fi
+done
+if [ "$no_utf8" != "" ]
+then
+cat<<END;
+error: UTF-8 BOM found in a file, which is against
+the NT2 coding standards.
+
+If you *really* know what you are doing, you can force this commit
+with 'git commit --no-verify'
+
+Incriminated files:
+END
+  for i in $no_utf8
   do
     echo $i
   done
