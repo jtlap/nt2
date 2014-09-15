@@ -10,29 +10,23 @@
 #define NT2_LINALG_FUNCTIONS_FACTORIZATIONS_GENEIG_HPP_INCLUDED
 
 #include <nt2/linalg/functions/geneig.hpp>
-#include <nt2/core/container/table/table.hpp>
+#include <nt2/include/functions/divides.hpp>
 #include <nt2/include/functions/ggev_w.hpp>
 #include <nt2/include/functions/ggev_wvr.hpp>
 #include <nt2/include/functions/ggev_wvrvl.hpp>
-
 #include <nt2/include/functions/height.hpp>
-#include <nt2/include/functions/divides.hpp>
-#include <nt2/include/functions/tocomplex.hpp>
 #include <nt2/include/functions/from_diag.hpp>
 #include <nt2/include/functions/of_size.hpp>
+#include <nt2/include/functions/resize.hpp>
 #include <nt2/include/functions/tie.hpp>
-#include <nt2/include/functions/value.hpp>
-#include <nt2/sdk/meta/as_real.hpp>
-#include <nt2/sdk/complex/meta/is_complex.hpp>
-#include <nt2/linalg/options.hpp>
-#include <boost/dispatch/attributes.hpp>
-#include <boost/assert.hpp>
-#include <boost/mpl/bool.hpp>
-#include <iostream>
-#include <nt2/core/container/table/table.hpp>
 #include <nt2/linalg/details/utility/lapack_verify.hpp>
+#include <nt2/linalg/options.hpp>
+#include <nt2/core/container/table/table.hpp>
 #include <nt2/core/container/dsl/assign_swap.hpp>
 #include <nt2/core/container/dsl/as_terminal.hpp>
+#include <nt2/sdk/meta/as_real.hpp>
+#include <boost/dispatch/attributes.hpp>
+#include <boost/assert.hpp>
 
 namespace nt2 { namespace ext
 {
