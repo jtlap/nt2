@@ -81,17 +81,14 @@ NT2_TEST_CASE_TPL(cholnd, NT2_REAL_TYPES )
 
   t_t a = nt2::pascal(5, nt2::meta::as_<T>());
   a(5, 5) = nt2::dec(a(5, 5));
-  NT2_DISPLAY(a);
   int p;
   nt2::tie(l,p) = nt2::chol(a,lower_);
   NT2_TEST_EQUAL(p,5);
-  NT2_DISPLAY(l);
   NT2_TEST_ULP_EQUAL(a(nt2::_(1, 4), nt2::_(1, 4)), nt2::mtimes(l(nt2::_(1, 4), nt2::_(1, 4)),nt2::trans(l(nt2::_(1, 4), nt2::_(1, 4)))), T(20) );
 
   t_t r;
   nt2::tie(r,p) = nt2::chol(a,upper_);
   NT2_TEST_EQUAL(p,5);
-  NT2_DISPLAY(l);
   NT2_TEST_ULP_EQUAL(a(nt2::_(1, 4), nt2::_(1, 4)), nt2::mtimes(nt2::trans(r(nt2::_(1, 4), nt2::_(1, 4))),r(nt2::_(1, 4), nt2::_(1, 4))), T(20) );
 }
 
@@ -157,11 +154,9 @@ NT2_TEST_CASE_TPL(cholnd_sub, NT2_REAL_TYPES )
 
   t_t a = nt2::pascal(5, nt2::meta::as_<T>());
   a(5, 5) = nt2::dec(a(5, 5));
-  NT2_DISPLAY(a);
   int p;
   nt2::tie(l(_(1, 2, 8),_(1, 4)) ,p) = nt2::chol(a,lower_);
   NT2_TEST_EQUAL(p,5);
-  NT2_DISPLAY(l);
   NT2_TEST_ULP_EQUAL(a(nt2::_(1, 4), nt2::_(1, 4)),
                      nt2::mtimes(l(nt2::_(1, 2, 8), nt2::_(1, 4)),
                                  nt2::trans(l(nt2::_(1, 2, 8), nt2::_(1, 4)))), T(20) );
@@ -169,7 +164,7 @@ NT2_TEST_CASE_TPL(cholnd_sub, NT2_REAL_TYPES )
 
   nt2::tie(r(_(1, 2, 8),_(1, 4)),p) = nt2::chol(a,upper_);
   NT2_TEST_EQUAL(p,5);
-  NT2_DISPLAY(r);
+
   NT2_TEST_ULP_EQUAL(a(nt2::_(1, 4), nt2::_(1, 4)),
                      nt2::mtimes(nt2::trans(r(nt2::_(1, 2, 8), nt2::_(1, 4))),
                                  r(nt2::_(1, 2, 8), nt2::_(1, 4))), T(20) );
