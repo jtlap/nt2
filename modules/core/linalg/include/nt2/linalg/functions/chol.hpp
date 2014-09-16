@@ -40,7 +40,7 @@ namespace nt2
      The three first calls assert if a is not positive definite.
      The three last call return a (p-1)X(p-1) matrix where p is
      the dimension of the smallest minor of a which is not positive
-     definite and which give the factor of the preeceding minor.
+     definite. Then r (resp. l) gives the factor of the preeceding minor.
 
      upper_ (resp. lower_) indicates that only the upper (resp. lower)
      part of the a storage are referenced. Default is upper_.
@@ -49,8 +49,8 @@ namespace nt2
 
      The options tags are in nt2 namespace.
 
-     If the factorization is completed  a = trans(r)*r or
-     a = l*trans(l) according to the option chosen.
+     If the factorization is completed  a = ctrans(r)*r or
+     a = l*ctrans(l) according to the option chosen.
    **/
 
   NT2_FUNCTION_IMPLEMENTATION(tag::chol_, chol, 1)

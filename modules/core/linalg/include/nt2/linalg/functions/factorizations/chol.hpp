@@ -196,7 +196,8 @@ namespace nt2 { namespace ext
               , nt2::policy<ext::upper_> const&
               ) const
     {
-      eval(a0,a1,boost::mpl::long_<1>(),N0());
+      eval(a0,a1,
+           boost::mpl::long_<1>(),N0());
     }
   };
 } }
