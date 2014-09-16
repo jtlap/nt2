@@ -24,7 +24,6 @@ NT2_TEST_CASE_TPL(complex, BOOST_SIMD_REAL_TYPES)
   using std::complex;
   using nt2::value;
   using nt2::tag::value_;
-  typedef typename std::complex<T> cT;
 
   NT2_TEST_TYPE_IS( typename boost::dispatch::meta
                     ::call<value_(complex<T> const&)>::type
