@@ -8,7 +8,7 @@
 ##############################################################################
 
 SET( SOURCES
-#     chol.cpp
+     chol.cpp
      lu.cpp
 #     qr.cpp
      schur_result.cpp
