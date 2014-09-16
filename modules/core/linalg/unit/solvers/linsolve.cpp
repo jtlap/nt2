@@ -92,8 +92,6 @@ t_t x = nt2::ones(nt2::of_size(3,1),nt2::meta::as_<cT>());
 t_t x1(b);
 
 T rcond,rcond1;
-char norm = '1';
-
 
 // X = linsolve(A,B)
 x = nt2::linsolve(a+a,b,fast_);

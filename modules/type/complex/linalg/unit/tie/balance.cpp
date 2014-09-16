@@ -34,7 +34,6 @@ NT2_TEST_CASE_TPL ( balance_exprc, NT2_REAL_TYPES)
 {
   typedef std::complex<T> cT;
   typedef typename nt2::meta::as_integer<T, signed>::type iT;
-  typedef nt2::table<T> t_t;
   typedef nt2::table<cT> ct_t;
   typedef nt2::table<iT> it_t;
 
