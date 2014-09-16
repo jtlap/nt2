@@ -1,6 +1,7 @@
 //==============================================================================
-//         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2014 - Jean-Thierry Lapresté
+//         Copyright 2003 - 2013   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2013   LRI    UMR 8623 CNRS/Univ Paris Sud XI
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -10,7 +11,6 @@
 #define NT2_LINALG_FUNCTIONS_FACTORIZATIONS_LU_HPP_INCLUDED
 
 #include <nt2/linalg/functions/lu.hpp>
-#include <nt2/include/functions/assign.hpp>
 #include <nt2/include/functions/eye.hpp>
 #include <nt2/include/functions/function.hpp>
 #include <nt2/include/functions/getrf.hpp>
@@ -31,12 +31,10 @@
 #include <nt2/sdk/error/warning.hpp>
 #include <nt2/linalg/options.hpp>
 #include <boost/dispatch/attributes.hpp>
-#include <boost/dispatch/meta/terminal_of.hpp>
-#include <boost/dispatch/meta/ignore_unused.hpp>
 #include <algorithm>
 
 ///Utilitary macro
-/// INTERNAL ONLY undef at the end of the file
+/// INTERNAL ONLY undefined at end of file
 #define CHECK_LAPACK_LU_SUCCESS(info)                        \
   {                                                          \
     nt2_la_int info_ = info;                                 \
@@ -67,6 +65,22 @@ namespace nt2 { namespace ext
     }
   };
 
+  //============================================================================
+  //lu Scalar
+  //============================================================================
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::lu_, tag::cpu_
+                            , (A0)(A1)
+                            , (scalar_<unspecified_<A0> >)
+                              (unspecified_<A1>)
+                            )
+  {
+    typedef A0 result_type;
+
+    BOOST_FORCEINLINE result_type operator()(const A0& a0, const A1&) const
+    {
+      return a0;
+    }
+  };
 
   //============================================================================
   //lu
@@ -89,7 +103,7 @@ namespace nt2 { namespace ext
     typedef typename child0::value_type                                      type_t;
     typedef typename meta::as_real<type_t>::type                            rtype_t;
     typedef typename meta::as_integer<rtype_t>::type                        itype_t;
-    typedef nt2::memory::container<tag::table_,  type_t, nt2::_2D>       o_semantic;
+    typedef nt2::memory::container<tag::table_, type_t, nt2::_2D>        o_semantic;
 
     BOOST_FORCEINLINE result_type operator()( A0& a0, A1& a1 ) const
     {
@@ -214,7 +228,7 @@ namespace nt2 { namespace ext
       typedef nt2::memory::container<tag::table_, nt2_la_int, nt2::_2D> i_semantic;
       NT2_AS_TERMINAL_INOUT(o_semantic
                            , lu, boost::proto::child_c<0>(a0)
-                           ,  boost::proto::child_c<0>(a1));
+                           , boost::proto::child_c<0>(a1));
       NT2_AS_TERMINAL_OUT(i_semantic, ls
                          , boost::proto::child_c<1>(a1));
 
@@ -233,19 +247,17 @@ namespace nt2 { namespace ext
                    , const T &
                    ) const
     {
-      typedef nt2::memory::container<tag::table_, nt2_la_int, nt2::_2D> i_semantic;
-      nt2_la_int info;
       NT2_AS_TERMINAL_INOUT(o_semantic, lu
                            , boost::proto::child_c<0>(a0)
                            , boost::proto::child_c<1>(a1));
       NT2_AS_TERMINAL_OUT  (o_semantic, l
-                           ,  boost::proto::child_c<0>(a1));
+                           , boost::proto::child_c<0>(a1));
       NT2_AS_TERMINAL_OUT  (o_semantic, u
-                           ,  boost::proto::child_c<1>(a1));
+                           , boost::proto::child_c<1>(a1));
       std::size_t d = dim(lu);
       nt2::container::table<nt2_la_int> ls(of_size(d, 1));
       CHECK_LAPACK_LU_SUCCESS(nt2::getrf( boost::proto::value(lu)
-                                               , boost::proto::value(ls)));
+                                        , boost::proto::value(ls)));
       nt2::container::table<nt2_la_int> ip;
       construct_ip(ls, ip, height(lu));
       boost::proto::child_c<0>(a1) = nt2::tri1l(lu(nt2::_, nt2::_(1, d) ) )(ip, nt2::_);
@@ -262,7 +274,6 @@ namespace nt2 { namespace ext
       typedef typename boost::proto::result_of::child_c<A1&,2>::value_type     child;
       typedef typename child::value_type                                     itype_t;
       typedef nt2::memory::container<tag::table_, itype_t, nt2::_2D>      i_semantic;
-      nt2_la_int info;
       NT2_AS_TERMINAL_INOUT(o_semantic, lu
                            , boost::proto::child_c<0>(a0)
                            , boost::proto::child_c<1>(a1));
@@ -275,7 +286,7 @@ namespace nt2 { namespace ext
       std::size_t d  = dim(lu);
       nt2::container::table<nt2_la_int> ls(of_size(d, 1));
       CHECK_LAPACK_LU_SUCCESS(nt2::getrf( boost::proto::value(lu)
-                                               , boost::proto::value(ls)));
+                                        , boost::proto::value(ls)));
       construct_ip(ls, ip, height(lu));
       boost::proto::child_c<0>(a1) = nt2::tri1l(lu(nt2::_, nt2::_(1, d) ) );
       boost::proto::child_c<1>(a1) = nt2::triu(lu( nt2::_(1, d), nt2::_) );
@@ -289,7 +300,6 @@ namespace nt2 { namespace ext
                    , const nt2::policy<ext::matrix_>&
                    ) const
     {
-      nt2_la_int info;
       nt2::container::table<type_t> work;
       NT2_AS_TERMINAL_INOUT(o_semantic, lu
                            , boost::proto::child_c<0>(a0), work);
@@ -302,7 +312,7 @@ namespace nt2 { namespace ext
       std::size_t d  = dim(lu);
       nt2::container::table<nt2_la_int> ls(of_size(d, 1)), ip;
       CHECK_LAPACK_LU_SUCCESS(nt2::getrf( boost::proto::value(lu)
-                                               , boost::proto::value(ls)));
+                                        , boost::proto::value(ls)));
       construct_ip(ls, ip, height(lu));
       boost::proto::child_c<1>(a1) = nt2::triu(lu( nt2::_(1, d), nt2::_) );
       boost::proto::child_c<0>(a1) = nt2::tri1l(lu(nt2::_, nt2::_(1, d) ) );

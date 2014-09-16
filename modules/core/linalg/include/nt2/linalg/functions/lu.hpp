@@ -1,6 +1,7 @@
 //==============================================================================
-//         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2014 - Jean-Thierry Lapresté
+//         Copyright 2003 - 2013   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2013   LRI    UMR 8623 CNRS/Univ Paris Sud XI
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -37,15 +38,15 @@ namespace nt2
      the lu function expresses a matrix a as the product of two
      essentially triangular matrices, one of them a permutation of a
      lower triangular matrix and the other an upper triangular
-     matrix. the factorization is often called the LU factorization. a
-     can be rectangular.
+     matrix. the factorization is often called the LU factorization.
+     Input matrix a can be rectangular.
 
-     y = lu(a) returns matrix y that is the output from the lapack
-     dgetrf or zgetrf routine. the permutation matrix p is lost
+     y = lu(a) returns matrix y that is the direct first output from
+     the LAPACK  d/sgetrf or z/cgetrf routines. the permutation matrix p is lost.
 
      tie(y, ls) = lu(a, raw_) returns matrix y that is the output
-     from the lapack dgetrf or zgetrf routine. Care that the
-     permutation vector ls is in lapack swap lines form.
+     from the LAPACK d/sgetrf or z/cgetrf routines. Care that the
+     permutation vector ls is in Lapack Swap lines form.
 
      tie(l,u) = lu(a) returns an upper triangular matrix in u and a
      permuted lower triangular matrix in l such that a = l*u. return
@@ -60,7 +61,7 @@ namespace nt2
      in a vector of integers ip such that l*u = a(ip, _).
 
      except raw_ option that does not exist for Matlab the syntax
-     is quite identical as Matlab lu for dense matices.
+     is quite identical as defined by Matlab lu for dense matrices.
 
   **/
   NT2_FUNCTION_IMPLEMENTATION(tag::lu_, lu, 1)
@@ -74,10 +75,10 @@ namespace nt2 { namespace ext
         : meta::size_as<Expr,0>
   {};
 
-  template<class Domain, int N, class Expr>
-  struct  value_type<tag::lu_,Domain,N,Expr>
-        : meta::value_as<Expr,0>
-  {};
+//   template<class Domain, int N, class Expr>
+//   struct  value_type<tag::lu_,Domain,N,Expr>
+//         : meta::value_as<Expr,0>
+//   {};
 } }
 
 #endif
