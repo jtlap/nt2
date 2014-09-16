@@ -51,7 +51,6 @@ namespace nt2 { namespace ext
       nt2_la_int lda  = nt2::max(a.leading_size(), One<size_t>());
       nt2_la_int ldvr = 1;
       nt2_la_int ldvl = 1;
-      nt2_la_int liwork = -1;
       NT2_F77NAME(dgeev) ( &jobvl, &jobvr
                          , &n
                          , 0 /*a*/, &lda
@@ -86,7 +85,6 @@ namespace nt2 { namespace ext
       nt2_la_int lda  = nt2::max(a.leading_size(), One<size_t>());
       nt2_la_int ldvr = 1;
       nt2_la_int ldvl = 1;
-      nt2_la_int liwork = -1;
       NT2_F77NAME(sgeev) ( &jobvl, &jobvr
                          , &n
                          , 0 /*a*/, &lda
@@ -121,7 +119,6 @@ namespace nt2 { namespace ext
       nt2_la_int lda  = nt2::max(a.leading_size(), One<size_t>());
       nt2_la_int ldvl = 1;
       nt2_la_int ldvr = 1;
-      nt2_la_int liwork = -1;
       NT2_F77NAME(cgeev) ( &jobvl, &jobvr
                          , &n
                          , 0 /*a*/, &lda
@@ -157,7 +154,6 @@ namespace nt2 { namespace ext
       nt2_la_int lda  = nt2::max(a.leading_size(), One<size_t>());
       nt2_la_int ldvl = 1;
       nt2_la_int ldvr = 1;
-      nt2_la_int liwork = -1;
       NT2_F77NAME(zgeev) ( &jobvl, &jobvr
                          , &n
                          , 0 /*a*/, &lda
@@ -270,7 +266,6 @@ namespace nt2 { namespace ext
        nt2_la_int ldvl = 1;
        nt2_la_int ldvr = 1;
        nt2_la_int wn = wk.main_need();
-       nt2_la_int wint = wk.reals_need();
        wk.resize_main(wn);
        wk.resize_reals(2*n);
        w.resize(of_size(n, 1));

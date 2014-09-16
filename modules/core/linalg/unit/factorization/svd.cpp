@@ -67,7 +67,6 @@ NT2_TEST_CASE_TPL(svdc, NT2_REAL_TYPES )
   typedef std::complex<T>         cT;
   typedef nt2::table<cT>          t_t;
   typedef nt2::table<T>          t_rt;
-  typedef nt2::table<nt2_la_int>  t_i;
 
   t_t a0 = nt2::cons<cT>(nt2::of_size(3,3),cT(1,0),cT(1,0),cT(10,0),cT(1,0),cT(10,0)
                         ,cT(1,0),cT(10,0),cT(1,0),cT(1,0));

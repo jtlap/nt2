@@ -10,6 +10,7 @@
 #define NT2_LINALG_FUNCTIONS_LAPACK_FUNCTIONS_GQR_HPP_INCLUDED
 
 #include <nt2/linalg/functions/gqr.hpp>
+#include <nt2/linalg/details/lapack/declare/gqr.hpp>
 #include <nt2/include/functions/xerbla.hpp>
 #include <nt2/linalg/details/utility/f77_wrapper.hpp>
 #include <nt2/linalg/details/utility/options.hpp>
@@ -18,38 +19,6 @@
 #include <nt2/include/functions/of_size.hpp>
 #include <nt2/include/functions/height.hpp>
 #include <nt2/include/functions/width.hpp>
-
-extern "C"
-{
-  void NT2_F77NAME(dorgqr)( const nt2_la_int* m     , const nt2_la_int* n
-                          , const nt2_la_int* k     , double* a
-                          , const nt2_la_int* lda   , const double* tau
-                          , double* work            , const nt2_la_int* lwork
-                          , nt2_la_int* info
-                          );
-
-  void NT2_F77NAME(sorgqr)( const nt2_la_int* m     , const nt2_la_int* n
-                          , const nt2_la_int* k     , float* a
-                          , const nt2_la_int* lda   , const float* tau
-                          , float* work             , const nt2_la_int* lwork
-                          , nt2_la_int* info
-                          );
-
-  void NT2_F77NAME(cungqr)( const nt2_la_int* m     , const nt2_la_int* n
-                          , const nt2_la_int* k     , nt2_la_complex* a
-                          , const nt2_la_int* lda   , const nt2_la_complex* tau
-                          , nt2_la_complex* work    , const nt2_la_int* lwork
-                          , nt2_la_int* info
-                          );
-
-  void NT2_F77NAME(zungqr)( const nt2_la_int* m     , const nt2_la_int* n
-                          , const nt2_la_int* k     , nt2_la_complex* a
-                          , const nt2_la_int* lda   , const nt2_la_complex* tau
-                          , nt2_la_complex* work    , const nt2_la_int* lwork
-                          , nt2_la_int* info
-                          );
-}
-
 
 namespace nt2 { namespace ext
 {

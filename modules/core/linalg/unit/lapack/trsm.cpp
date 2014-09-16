@@ -25,7 +25,6 @@ NT2_TEST_CASE_TPL(trsm, NT2_REAL_TYPES )
 
 
 typedef nt2::table<T>         t_t;
-typedef nt2::table<nt2_la_int>         t_i;
 
 t_t a = nt2::cons<T>(nt2::of_size(3,3),2,1,1,1,1,1,1,1,2);
 t_t b = nt2::cons<T>(nt2::of_size(3,1),1,2,5);

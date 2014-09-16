@@ -45,7 +45,7 @@ namespace nt2{ namespace ext
 
       t_t x;
       nt2::container::table<ctype_t,nt2::upper_triangular_> e,r;
-      r = nt2::qr(a,nt2::no_pivot_);
+      r = nt2::qr(a);
       r= nt2::triu( r( _(1,na), _ ) );
 
       x= nt2::mtimes(nt2::trans(a),b);

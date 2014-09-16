@@ -44,7 +44,7 @@ namespace nt2{ namespace ext
       NT2_AS_TERMINAL_IN(desired_semantic,b,B);
 
       nt2_la_int na = nt2::width(a);
-      nt2::container::table<ctype_t,nt2::upper_triangular_> r = nt2::qr(a,nt2::no_pivot_);
+      nt2::container::table<ctype_t,nt2::upper_triangular_> r = nt2::qr(a);
       r= nt2::triu( r( _(1,na), _ ) );
 
       t_t x = nt2::mtimes(nt2::trans(a),b);

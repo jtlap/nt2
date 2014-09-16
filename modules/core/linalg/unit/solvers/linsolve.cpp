@@ -91,7 +91,7 @@ t_t b = nt2::cons<cT>(nt2::of_size(3,1)
 t_t x = nt2::ones(nt2::of_size(3,1),nt2::meta::as_<cT>());
 t_t x1(b);
 
-T rcond,rcond1,anorm;
+T rcond,rcond1;
 char norm = '1';
 
 
@@ -105,7 +105,6 @@ NT2_TEST_ULP_EQUAL( x , x1 , T(10));
 nt2::tie(x,rcond) = nt2::linsolve(a,b);
 
 t_t lu = nt2::lu(a);
-anorm = nt2::lange(boost::proto::value(a), norm);
 
 nt2_la_int p = nt2::gesvx(boost::proto::value(a),boost::proto::value(b)
                         ,boost::proto::value(x),rcond1);
@@ -176,9 +175,7 @@ t_t b = nt2::cons<cT>(nt2::of_size(3,1)
                     ,cT(1,0),cT(2,0),cT(5,0));
 t_t x = nt2::ones(nt2::of_size(3,1),nt2::meta::as_<cT>());
 t_t x1(b);
-T rcond,rcond1,anorm;
-char norm = '1';
-
+T rcond,rcond1;
 
 // X = linsolve(A,B)
 x = nt2::linsolve(a+a,b,precise_);
@@ -257,9 +254,7 @@ t_t b = nt2::cons<cT>(nt2::of_size(3,1)
                     ,cT(1,0),cT(2,0),cT(5,0));
 t_t x = nt2::ones(nt2::of_size(3,1),nt2::meta::as_<T>());
 t_t x1(b);
-T rcond,rcond1,anorm;
-char norm = '1';
-
+T rcond,rcond1;
 
 // X = linsolve(A,B)
 
@@ -834,7 +829,6 @@ NT2_TEST_CASE_TPL(linsolve_trsm, NT2_REAL_TYPES )
   using nt2::_;
 
 typedef nt2::table<T>         t_t;
-typedef nt2::table<nt2_la_int>         t_i;
 
 t_t a = nt2::cons<T>(nt2::of_size(3,3),2,1,1,1,1,1,1,1,2);
 t_t b = nt2::cons<T>(nt2::of_size(3,1),1,2,5);

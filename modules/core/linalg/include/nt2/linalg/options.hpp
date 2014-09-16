@@ -15,8 +15,6 @@ namespace nt2
 {
   namespace ext
   {
-    struct pivot_     : boost::mpl::true_   {};
-    struct no_pivot_  : boost::mpl::false_  {};
     struct matrix_    : boost::mpl::true_   {}; //used in lu, qr, geneig, nseig, symeig
     struct vector_    : boost::mpl::false_  {}; //used in lu, qr, geneig, nseig, symeig
     struct fast_      : boost::mpl::false_  {}; //used in linsolve
@@ -42,8 +40,6 @@ namespace nt2
     struct in_place_  {};
   }
 
-  nt2::policy<ext::pivot_>       const pivot_;
-  nt2::policy<ext::no_pivot_>    const no_pivot_;
   nt2::policy<ext::matrix_>      const matrix_;
   nt2::policy<ext::vector_>      const vector_;
   nt2::policy<ext::fast_>        const fast_;

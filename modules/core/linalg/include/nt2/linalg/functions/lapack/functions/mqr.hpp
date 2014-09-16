@@ -10,7 +10,7 @@
 #define NT2_LINALG_FUNCTIONS_LAPACK_FUNCTIONS_MQR_HPP_INCLUDED
 
 #include <nt2/linalg/functions/mqr.hpp>
-
+#include <nt2/linalg/details/lapack/declare/mqr.hpp>
 #include <nt2/dsl/functions/terminal.hpp>
 #include <nt2/core/numeric_class.hpp>
 #include <nt2/linalg/details/utility/f77_wrapper.hpp>
@@ -21,46 +21,6 @@
 #include <nt2/include/functions/height.hpp>
 #include <nt2/include/functions/width.hpp>
 #include <nt2/include/functions/eye.hpp>
-
-extern "C"
-{
-  void NT2_F77NAME(dormqr)( const char* side        , const char* trans
-                          , const nt2_la_int* m     , const nt2_la_int* n
-                          , const nt2_la_int* k     , const double* a
-                          , const nt2_la_int* lda   , const double* tau
-                          , double* c               , const nt2_la_int* ldc
-                          , double* work            , const nt2_la_int* lwork
-                          , nt2_la_int* info
-                          );
-
-  void NT2_F77NAME(sormqr)( const char* side        , const char* trans
-                          , const nt2_la_int* m     , const nt2_la_int* n
-                          , const nt2_la_int* k     , const float* a
-                          , const nt2_la_int* lda   , const float* tau
-                          , float* c                , const nt2_la_int* ldc
-                          , float* work             , const nt2_la_int* lwork
-                          , nt2_la_int* info
-                          );
-
-  void NT2_F77NAME(cunmqr)( const char* side        , const char* trans
-                          , const nt2_la_int* m     , const nt2_la_int* n
-                          , const nt2_la_int* k     , const nt2_la_complex* a
-                          , const nt2_la_int* lda   , const nt2_la_complex* tau
-                          , nt2_la_complex* c       , const nt2_la_int* ldc
-                          , nt2_la_complex* work    , const nt2_la_int* lwork
-                          , nt2_la_int* info
-                          );
-
-  void NT2_F77NAME(zunmqr)( const char* side        , const char* trans
-                          , const nt2_la_int* m     , const nt2_la_int* n
-                          , const nt2_la_int* k     , const nt2_la_complex* a
-                          , const nt2_la_int* lda   , const nt2_la_complex* tau
-                          , nt2_la_complex* c       , const nt2_la_int* ldc
-                          , nt2_la_complex* work    , const nt2_la_int* lwork
-                          , nt2_la_int* info
-                          );
-}
-
 
 namespace nt2 { namespace ext
 {
