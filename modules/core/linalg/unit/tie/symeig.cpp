@@ -57,7 +57,7 @@ NT2_TEST_CASE_TPL ( symeig_m_test, NT2_REAL_TYPES)
     }
   nt2::tie(d, v) = nt2::symeig(b);
   z =  mtimes(mtimes(v, d), nt2::trans(v));
-  NT2_TEST(isulpequal(nt2::triu(z), nt2::triu(b), T(16.0)));
+  NT2_TEST_ULP_EQUAL(nt2::triu(z), nt2::triu(b), T(16.0));
 }
 
 
@@ -86,5 +86,5 @@ NT2_TEST_CASE_TPL ( symeig_sub, NT2_REAL_TYPES)
 
   nt2::tie(d(_(1, 2, 6), _), v(_(1, 2, 6), _)) = nt2::symeig(b);
   z =  mtimes(mtimes(v(_(1,2,6), _), d(_(1,2,6), _)), nt2::trans(v(_(1,2,6), _)));
-  NT2_TEST(isulpequal(nt2::triu(z), nt2::triu(b), T(16.0)));
+  NT2_TEST_ULP_EQUAL(nt2::triu(z), nt2::triu(b), T(16.0));
 }

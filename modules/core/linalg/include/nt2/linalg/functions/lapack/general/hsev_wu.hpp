@@ -10,42 +10,13 @@
 #define NT2_LINALG_FUNCTIONS_LAPACK_GENERAL_HSEV_WU_HPP_INCLUDED
 
 #include <nt2/linalg/functions/hsev_wu.hpp>
+#include <nt2/linalg/details/lapack/declare/hsev.hpp>
 #include <nt2/include/functions/width.hpp>
 #include <nt2/include/functions/height.hpp>
 #include <nt2/linalg/details/utility/workspace.hpp>
 #include <nt2/linalg/details/utility/f77_wrapper.hpp>
 #include <boost/dispatch/attributes.hpp>
 #include <boost/assert.hpp>
-
-extern "C"
-{
-  void NT2_F77NAME(cheev)( const char* jobz      , const char* uplo
-                          , const nt2_la_int* n  , nt2_la_complex* a
-                          , const nt2_la_int* lda, float* w
-                          , nt2_la_complex* work , const nt2_la_int* lwork
-                          , float* rwork         , nt2_la_int* info);
-
-  void NT2_F77NAME(zheev)( const char* jobz      , const char* uplo
-                          , const nt2_la_int* n  , nt2_la_complex* a
-                          , const nt2_la_int* lda, double* w
-                          , nt2_la_complex* work , const nt2_la_int* lwork
-                          , double* rwork        , nt2_la_int* info);
-
-
-  void NT2_F77NAME(dsyev)(const char* jobz       , const char* uplo
-                         , const nt2_la_int* n   , double* a
-                         , const nt2_la_int* lda , double* w
-                         , double* work          , const nt2_la_int* lwork
-                         , nt2_la_int* info);
-
-  void NT2_F77NAME(ssyev)(const char* jobz       , const char* uplo
-                         , const nt2_la_int* n   , float* a
-                         , const nt2_la_int* lda , float* w
-                         , float* work          , const nt2_la_int* lwork
-                         , nt2_la_int* info);
-
-}
-
 
 namespace nt2 { namespace ext
 {
