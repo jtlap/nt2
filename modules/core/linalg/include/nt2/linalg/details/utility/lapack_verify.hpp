@@ -22,6 +22,7 @@ namespace nt2
   {                                                                 \
     nt2_la_int info_ = info;                                        \
     BOOST_ASSERT_MSG(info_ == 0, "lapack info is not zero");        \
+    boost::dispatch::ignore_unused(info_);                          \
   }                                                                 \
   /**/
 
