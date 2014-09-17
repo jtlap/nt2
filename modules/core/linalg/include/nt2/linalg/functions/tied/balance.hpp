@@ -92,6 +92,7 @@ namespace nt2 { namespace ext
 
     BOOST_FORCEINLINE result_type operator()( A0& a0, A1& a1 ) const
     {
+      std::cout << type_id<r_semantic>() << std::endl;
       eval(a0, a1, N0(), N1());
     }
   private:
@@ -306,8 +307,8 @@ namespace nt2 { namespace ext
     void eval3_2 ( A0& a0, A1& a1, char job) const
     {
       typedef typename boost::proto::result_of::child_c<A1&,1>::value_type child1;
-      typedef typename child1::value_type                                 itype_t;
-      typedef nt2::memory::container<tag::table_, itype_t, nt2::_2D>   i_semantic;
+      typedef typename child1::value_type                                 itype1_t;
+      typedef nt2::memory::container<tag::table_, itype1_t, nt2::_2D>   i_semantic;
       NT2_AS_TERMINAL_INOUT(o_semantic, a,   boost::proto::child_c<0>(a0), boost::proto::child_c<2>(a1));
       NT2_AS_TERMINAL_OUT  (i_semantic, ips, boost::proto::child_c<1>(a1));
       NT2_AS_TERMINAL_OUT  (o_semantic, s,   boost::proto::child_c<0>(a1));
