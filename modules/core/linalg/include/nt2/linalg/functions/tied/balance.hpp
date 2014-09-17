@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_LINALG_FUNCTIONS_FACTORIZATIONS_BALANCE_HPP_INCLUDED
-#define NT2_LINALG_FUNCTIONS_FACTORIZATIONS_BALANCE_HPP_INCLUDED
+#ifndef NT2_LINALG_FUNCTIONS_TIED_BALANCE_HPP_INCLUDED
+#define NT2_LINALG_FUNCTIONS_TIED_BALANCE_HPP_INCLUDED
 
 #include <nt2/linalg/functions/balance.hpp>
 
@@ -92,7 +92,6 @@ namespace nt2 { namespace ext
 
     BOOST_FORCEINLINE result_type operator()( A0& a0, A1& a1 ) const
     {
-      std::cout << type_id<r_semantic>() << std::endl;
       eval(a0, a1, N0(), N1());
     }
   private:
