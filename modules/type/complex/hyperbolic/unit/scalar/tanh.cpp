@@ -23,7 +23,6 @@ NT2_TEST_CASE_TPL ( tanh_real__1_0, NT2_REAL_TYPES)
   using nt2::tanh;
   using nt2::tag::tanh_;
   typedef std::complex<T> cT;
-  typedef cT r_t;
 
   {
     const int N = 2;

@@ -31,7 +31,6 @@ NT2_TEST_CASE_TPL ( tan, NT2_SIMD_REAL_TYPES)
   using boost::simd::native;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef std::complex<T>                cT;
-  typedef native<T,ext_t>                vT;
   typedef native<cT,ext_t>              vcT;
   typedef typename nt2::meta::call<tan_(vcT)>::type r_t;
 

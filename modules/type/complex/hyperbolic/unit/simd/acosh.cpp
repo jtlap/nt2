@@ -34,7 +34,6 @@ NT2_TEST_CASE_TPL ( acosh_real__1_0, NT2_SIMD_REAL_TYPES)
   typedef std::complex<T>                cT;
   typedef native<T,ext_t>                vT;
   typedef native<cT,ext_t>              cvT;
-  typedef typename nt2::meta::call<acosh_(cvT)>::type r_t;
 
 
   // specific values tests
