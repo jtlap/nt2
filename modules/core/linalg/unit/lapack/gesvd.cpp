@@ -31,7 +31,6 @@ NT2_TEST_CASE_TPL(gesvd, NT2_REAL_TYPES )
   using nt2::_;
 
   typedef nt2::table<T>           t_t;
-  typedef nt2::table<nt2_la_int>  t_i;
 
   t_t a0 = nt2::rand(10,10,nt2::meta::as_<T>());
   t_t a(a0);
@@ -59,7 +58,6 @@ NT2_TEST_CASE_TPL(gesvdc, NT2_REAL_TYPES )
 
   typedef std::complex<T>         cT;
   typedef nt2::table<cT>          t_t;
-  typedef nt2::table<nt2_la_int>  t_i;
 
   t_t a0 = nt2::ones(10, 10, nt2::meta::as_<cT>())
           +nt2::eye(10, 10, nt2::meta::as_<cT>());

@@ -29,7 +29,6 @@
 NT2_TEST_CASE_TPL(geneig2, NT2_REAL_TYPES)
 {
   using nt2::tag::factorization::geneig_;
-  typedef typename nt2::meta::as_integer<T, signed>::type itype_t;
   typedef std::complex<T> cT;
   typedef nt2::table<cT, nt2::_2D > ct_t;
 //  typedef nt2::table<T, nt2::_2D> t_t;

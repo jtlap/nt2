@@ -27,7 +27,6 @@
 
 NT2_TEST_CASE_TPL ( schurc, NT2_REAL_TYPES)
 {
-  typedef nt2::table<T> table_t;
   typedef std::complex<T> cT;
   typedef nt2::table<cT, nt2::_2D> ct_t;
   ct_t b = nt2::ones(4, 4, nt2::meta::as_<cT>())
