@@ -53,6 +53,7 @@ namespace nt2 { namespace ext
     template<class Sz>
     BOOST_FORCEINLINE void operator()(Expr& x, Sz const& sz, boost::mpl::true_)
     {
+      #ifndef NDEBUG
       // Assert that we don't resize out of storage_size if
       // storage duration is not dynamic_
       typedef typename meta::option<Expr, tag::storage_size_>::type     ss_t;
@@ -60,6 +61,7 @@ namespace nt2 { namespace ext
       typedef boost::is_same< typename sd_t::storage_duration_type
                             , nt2::dynamic_
                             >                                   is_dynamic_t;
+      #endif
 
       BOOST_ASSERT_MSG
       (  is_dynamic_t::value || nt2::numel(sz) <= ss_t::storage_size_type::value
