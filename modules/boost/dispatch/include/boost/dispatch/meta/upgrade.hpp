@@ -21,36 +21,34 @@
 #include <boost/dispatch/meta/primitive_of.hpp>
 #include <boost/dispatch/meta/make_integer.hpp>
 #include <boost/dispatch/meta/make_floating.hpp>
-#include <boost/mpl/apply.hpp>
+#include <boost/dispatch/meta/strip.hpp>
+#include <boost/fusion/include/is_sequence.hpp>
+#include <boost/fusion/include/transform.hpp>
+#include <boost/fusion/include/as_vector.hpp>
 #include <boost/mpl/eval_if.hpp>
 #include <boost/type_traits/is_void.hpp>
+#include <boost/type_traits/is_floating_point.hpp>
+#include <boost/type_traits/is_integral.hpp>
+#include <boost/utility/enable_if.hpp>
 
 namespace boost { namespace dispatch { namespace meta
 {
-  template<class T,class Sign = void> struct  upgrade;
+  template<class T,class Sign = void>
+  struct upgrade;
 } } }
 
-namespace boost { namespace dispatch { namespace ext
+namespace boost { namespace dispatch { namespace details
 {
-  template<typename Type, typename Sign, typename Enable = void>
-  struct upgrade
-  {
-    typedef typename meta::factory_of<Type>::type    lambda;
-    typedef typename meta::primitive_of<Type>::type  base;
-    typedef typename meta::upgrade<base,Sign>::type  up;
-    typedef typename mpl::apply1<lambda, up>::type   type;
-  };
+  template<class T, class Sign, class Lambda, class Enable = void>
+  struct upgrade_impl;
 
-  template<typename T, typename Sign>
-  struct upgrade< T, Sign
-                , typename enable_if<typename is_integral<T>::type>::type
-                >
+  template<class T, class Sign, class Lambda>
+  struct upgrade_impl< T, Sign, Lambda
+                     , typename enable_if< boost::is_integral<T> >::type
+                     >
   {
-    typedef typename meta::factory_of<T>::type    lambda;
-    typedef typename meta::primitive_of<T>::type  base;
-
     BOOST_STATIC_CONSTANT ( std::size_t
-                          , size = (sizeof(base) < 8) ? sizeof(base)*2 : 8
+                          , size = (sizeof(T) < 8) ? sizeof(T)*2 : 8
                           );
 
     typedef typename mpl::eval_if < is_void<Sign>
@@ -59,22 +57,44 @@ namespace boost { namespace dispatch { namespace ext
                                   >::type         sign;
 
     typedef typename
-            meta::make_integer<size,sign,lambda>::type type;
+            meta::make_integer<size,sign,Lambda>::type type;
   };
 
-  template<typename T, typename Sign>
-  struct upgrade< T, Sign
-                , typename enable_if<typename is_floating_point<T>::type>::type
-                >
+  template<class T, class Sign, class Lambda>
+  struct upgrade_impl< T, Sign, Lambda
+                     , typename enable_if< boost::is_floating_point<T> >::type
+                     >
   {
-    typedef typename meta::factory_of<T>::type    lambda;
-    typedef typename meta::primitive_of<T>::type  base;
-
     BOOST_STATIC_CONSTANT ( std::size_t
-                          , size = (sizeof(base) < 8) ? sizeof(base)*2 : 8
+                          , size = (sizeof(T) < 8) ? sizeof(T)*2 : 8
                           );
 
-    typedef typename meta::make_floating<size,lambda>::type  type;
+    typedef typename meta::make_floating<size,Lambda>::type  type;
+  };
+
+  template<class Sign>
+  struct upgrade_fusion
+  {
+    template<class Sig>
+    struct result;
+
+    template<class This, class X>
+    struct result<This(X)>
+         : meta::upgrade<typename meta::strip<X>::type, Sign>
+    {
+    };
+  };
+
+  template<class T, class Sign, class Lambda>
+  struct upgrade_impl< T, Sign, Lambda
+                     , typename enable_if< boost::fusion::traits::is_sequence<T> >::type
+                     >
+       : Lambda::template apply< typename boost::fusion::result_of::
+                                 as_vector< typename boost::fusion::result_of::
+                                            transform<T, upgrade_fusion<Sign> >::type
+                                          >::type
+                               >
+  {
   };
 } } }
 
@@ -85,7 +105,12 @@ namespace boost { namespace dispatch { namespace meta
   // with an optional sign change
   //////////////////////////////////////////////////////////////////////////////
   template<class T,class Sign>
-  struct  upgrade : ext::upgrade<T, Sign > {};
+  struct upgrade
+  {
+    typedef typename meta::factory_of<T>::type  lambda;
+    typedef typename meta::primitive_of<T>::type  base;
+    typedef typename details::upgrade_impl<base, Sign, lambda>::type type;
+  };
 
   template<class T, class Sign>
   struct upgrade<T&,Sign> : upgrade<T,Sign> {};

@@ -13,6 +13,7 @@
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
+#include <nt2/sdk/unit/tests/type_expr.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Test that upgrade is correct for middle-sized types
@@ -75,3 +76,13 @@ NT2_TEST_CASE(upgrade_sizeof_8)
   NT2_TEST( (is_same<upgrade<nt2::uint64_t,unsigned        >::type,nt2::uint64_t>::value ));
 }
 
+NT2_TEST_CASE(upgrade_fusion)
+{
+  using boost::dispatch::meta::upgrade;
+  using boost::mpl::_;
+
+  typedef std::pair<nt2::int32_t, float> T;
+
+  T a0;
+  NT2_TEST_EXPR_TYPE( a0,  upgrade<_>, (boost::fusion::vector2<nt2::int64_t, double>) );
+}

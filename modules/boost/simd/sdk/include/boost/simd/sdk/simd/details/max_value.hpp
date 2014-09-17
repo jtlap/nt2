@@ -12,6 +12,7 @@
 
 #include <boost/dispatch/meta/strip.hpp>
 #include <boost/fusion/include/fold.hpp>
+#include <boost/fusion/include/is_sequence.hpp>
 #include <boost/mpl/greater.hpp>
 #include <boost/mpl/if.hpp>
 #include <boost/mpl/apply.hpp>
@@ -52,6 +53,19 @@ namespace boost { namespace simd { namespace details
              >
   {
   };
+
+  template<class T, class F, bool IsSequence = boost::fusion::traits::is_sequence<T>::value >
+  struct max_value_noseq
+  {
+    typedef T type;
+  };
+
+  template<class T, class F>
+  struct max_value_noseq<T, F, true>
+       : max_value<T, F>
+  {
+  };
+
 } } }
 
 #endif

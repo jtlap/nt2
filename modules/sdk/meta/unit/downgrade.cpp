@@ -13,6 +13,7 @@
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
+#include <nt2/sdk/unit/tests/type_expr.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Test that downgrade is correct for middle-sized types
@@ -75,3 +76,13 @@ NT2_TEST_CASE(downgrade_sizeof_1)
   NT2_TEST( (is_same<downgrade<nt2::uint8_t ,signed                >::type,nt2::int8_t>::value         ));
 }
 
+NT2_TEST_CASE(downgrade_fusion)
+{
+  using boost::dispatch::meta::downgrade;
+  using boost::mpl::_;
+
+  typedef std::pair<nt2::int32_t, double> T;
+
+  T a0;
+  NT2_TEST_EXPR_TYPE( a0,  downgrade<_>, (boost::fusion::vector2<nt2::int16_t, float>) );
+}
