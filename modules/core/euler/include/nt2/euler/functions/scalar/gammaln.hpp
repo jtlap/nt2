@@ -33,7 +33,6 @@
 #include <nt2/include/functions/scalar/sin.hpp>
 #include <nt2/include/functions/scalar/sinpi.hpp>
 #include <nt2/include/functions/scalar/sqr.hpp>
-#include <nt2/sdk/meta/as_integer.hpp>
 
 namespace nt2 { namespace ext
 {
