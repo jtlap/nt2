@@ -102,7 +102,6 @@ namespace nt2 { namespace ext
     typedef typename boost::proto::result_of::child_c<A0&,0>::value_type     child0;
     typedef typename child0::value_type                                      type_t;
     typedef typename meta::as_real<type_t>::type                            rtype_t;
-    typedef typename meta::as_integer<rtype_t>::type                        itype_t;
     typedef nt2::memory::container<tag::table_, type_t, nt2::_2D>        o_semantic;
 
     BOOST_FORCEINLINE result_type operator()( A0& a0, A1& a1 ) const
@@ -250,11 +249,7 @@ namespace nt2 { namespace ext
       NT2_AS_TERMINAL_INOUT(o_semantic, lu
                            , boost::proto::child_c<0>(a0)
                            , boost::proto::child_c<1>(a1));
-      NT2_AS_TERMINAL_OUT  (o_semantic, l
-                           , boost::proto::child_c<0>(a1));
-      NT2_AS_TERMINAL_OUT  (o_semantic, u
-                           , boost::proto::child_c<1>(a1));
-      std::size_t d = dim(lu);
+      std::size_t d  = dim(lu);
       nt2::container::table<nt2_la_int> ls(of_size(d, 1));
       CHECK_LAPACK_LU_SUCCESS(nt2::getrf( boost::proto::value(lu)
                                         , boost::proto::value(ls)));
@@ -273,23 +268,18 @@ namespace nt2 { namespace ext
     {
       typedef typename boost::proto::result_of::child_c<A1&,2>::value_type     child;
       typedef typename child::value_type                                     itype_t;
-      typedef nt2::memory::container<tag::table_, itype_t, nt2::_2D>      i_semantic;
       NT2_AS_TERMINAL_INOUT(o_semantic, lu
                            , boost::proto::child_c<0>(a0)
                            , boost::proto::child_c<1>(a1));
-      NT2_AS_TERMINAL_OUT  (o_semantic, l
-                           ,  boost::proto::child_c<0>(a1));
-      NT2_AS_TERMINAL_OUT  (o_semantic, u
-                           ,  boost::proto::child_c<1>(a1));
-      NT2_AS_TERMINAL_OUT  (i_semantic, ip
-                           , boost::proto::child_c<2>(a1));
       std::size_t d  = dim(lu);
       nt2::container::table<nt2_la_int> ls(of_size(d, 1));
       CHECK_LAPACK_LU_SUCCESS(nt2::getrf( boost::proto::value(lu)
                                         , boost::proto::value(ls)));
+      table<itype_t> ip;
       construct_ip(ls, ip, height(lu));
       boost::proto::child_c<0>(a1) = nt2::tri1l(lu(nt2::_, nt2::_(1, d) ) );
       boost::proto::child_c<1>(a1) = nt2::triu(lu( nt2::_(1, d), nt2::_) );
+      inverse(ip);
       assign_swap(boost::proto::child_c<2>(a1), ip);
     }
 
@@ -303,12 +293,6 @@ namespace nt2 { namespace ext
       nt2::container::table<type_t> work;
       NT2_AS_TERMINAL_INOUT(o_semantic, lu
                            , boost::proto::child_c<0>(a0), work);
-      NT2_AS_TERMINAL_OUT  (o_semantic, l
-                           ,  boost::proto::child_c<0>(a1));
-      NT2_AS_TERMINAL_OUT  (o_semantic, u
-                           ,  boost::proto::child_c<1>(a1));
-      NT2_AS_TERMINAL_OUT  (o_semantic, p
-                           ,  boost::proto::child_c<2>(a1));
       std::size_t d  = dim(lu);
       nt2::container::table<nt2_la_int> ls(of_size(d, 1)), ip;
       CHECK_LAPACK_LU_SUCCESS(nt2::getrf( boost::proto::value(lu)
@@ -316,7 +300,7 @@ namespace nt2 { namespace ext
       construct_ip(ls, ip, height(lu));
       boost::proto::child_c<1>(a1) = nt2::triu(lu( nt2::_(1, d), nt2::_) );
       boost::proto::child_c<0>(a1) = nt2::tri1l(lu(nt2::_, nt2::_(1, d) ) );
-      boost::proto::child_c<2>(a1) = eye(d, nt2::meta::as_<rtype_t>())(nt2::_, ip);
+      boost::proto::child_c<2>(a1) = eye(height(lu), nt2::meta::as_<rtype_t>())(nt2::_, ip);
     }
 
     ////////////////////////////////////////////////////////////////////////////
@@ -342,7 +326,17 @@ namespace nt2 { namespace ext
         std::swap(ips(i), ips(ls(i)));
       }
     }
+
+    template < class T1>
+    BOOST_FORCEINLINE
+    void inverse(T1& ip) const
+    {
+      T1 inv(of_size(1, numel(ip)));
+      inv(ip) =  nt2::_(nt2_la_int(1), nt2_la_int(numel(ip)));
+      assign_swap(ip, inv);
+    }
   };
+
 } }
 
 #undef CHECK_LAPACK_LU_SUCCESS
