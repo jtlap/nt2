@@ -13,7 +13,9 @@
 #include <boost/simd/sdk/simd/pack.hpp>
 #include <boost/simd/sdk/simd/meta/is_vectorizable.hpp>
 #include <boost/dispatch/meta/upgrade.hpp>
+#include <boost/fusion/adapted/std_pair.hpp>
 #include <boost/type_traits/is_same.hpp>
+
 #include <nt2/sdk/unit/tests/type_expr.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/unit/module.hpp>

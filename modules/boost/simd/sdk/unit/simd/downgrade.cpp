@@ -12,15 +12,12 @@
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/dispatch/meta/downgrade.hpp>
-#include <nt2/sdk/unit/tests/type_expr.hpp>
 #include <boost/simd/sdk/meta/is_downgradable.hpp>
-
-#include <nt2/sdk/unit/tests/basic.hpp>
-#include <nt2/sdk/unit/module.hpp>
-
 #include <boost/fusion/adapted/std_pair.hpp>
 
-#include <nt2/sdk/meta/display_type.hpp>
+#include <nt2/sdk/unit/tests/type_expr.hpp>
+#include <nt2/sdk/unit/tests/basic.hpp>
+#include <nt2/sdk/unit/module.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Test that downgrade is correct for SIMD types
