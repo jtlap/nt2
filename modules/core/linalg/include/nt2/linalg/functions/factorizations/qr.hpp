@@ -35,6 +35,38 @@
 namespace nt2 { namespace ext
 {
   //============================================================================
+  //QR Scalar
+  //============================================================================
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::qr_, tag::cpu_
+                            , (A0)
+                            , (scalar_<unspecified_<A0> >)
+                            )
+  {
+    typedef A0 result_type;
+
+    BOOST_FORCEINLINE result_type operator()(const A0& a0) const
+    {
+      return a0;
+    }
+  };
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::qr_, tag::cpu_
+                            , (A0)(A1)
+                            , (scalar_<unspecified_<A0> >)
+                              (unspecified_<A1>)
+                            )
+  {
+    typedef A0 result_type;
+
+    BOOST_FORCEINLINE result_type operator()(const A0& a0, const A1&) const
+    {
+      return a0;
+    }
+  };
+
+
+
+  //============================================================================
   //[Q,R] = QR(A)
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::qr_, tag::cpu_
@@ -130,7 +162,8 @@ namespace nt2 { namespace ext
               ) const
     {
       //1_2 means  1 input 2 outputs
-      eval2_2(a0, a1, boost::proto::value(boost::proto::child_c<1>(a0)));
+      eval2_2(a0, a1
+             , boost::proto::value(boost::proto::child_c<1>(a0)));
     }
 
     /// INTERNAL ONLY - [q, r, e] = qr(a, vector_/matrix_)
@@ -158,20 +191,21 @@ namespace nt2 { namespace ext
     ///////////////////////////////////////////////////////////////////////////////
 
     ///////////////////////////////////////////////////////////////////////////////
-    /// INTERNAL ONLY: 1i 1o raw_
+    /// INTERNAL ONLY: 1i 1o: x  = qr(a)
     BOOST_FORCEINLINE
     void eval1_1 ( A0& a0, A1& a1
                    , const nt2::policy<ext::raw_>&
                    ) const
     {
-      NT2_AS_TERMINAL_INOUT(o_semantic, r, boost::proto::child_c<0>(a0), boost::proto::child_c<0>(a1));
-      nt2::container::table<type_t> tau(of_size(height(r), 1));
+      NT2_AS_TERMINAL_INOUT(o_semantic, r
+                           , boost::proto::child_c<0>(a0), boost::proto::child_c<0>(a1));
+      o_semantic tau(of_size(height(r), 1));
       NT2_LAPACK_VERIFY(nt2::geqrf( boost::proto::value(r)
-                                  , boost::proto::value(tau)));
+                                  , tau));
       assign_swap(boost::proto::child_c<0>(a1), r);
     }
 
-    /// INTERNAL ONLY: 2i 1o raw_
+    /// INTERNAL ONLY: 2i 1o raw_: x  = qr(a, raw_)
     BOOST_FORCEINLINE
     void eval2_1 ( A0& a0, A1& a1
                    , const nt2::policy<ext::raw_>&
@@ -180,21 +214,22 @@ namespace nt2 { namespace ext
       eval1_1(a0, a1, nt2::policy<ext::raw_>());
     }
 
-    /// INTERNAL ONLY: 2i 1o upper_
+    /// INTERNAL ONLY: 2i 1o upper_: x  = qr(a, upper_)
     BOOST_FORCEINLINE
     void eval2_1 ( A0& a0, A1& a1
                    , const nt2::policy<ext::upper_>&
                    ) const
     {
        nt2::container::table<type_t> work;
-       NT2_AS_TERMINAL_INOUT(o_semantic, r, boost::proto::child_c<0>(a0), work);
-       nt2::container::table<type_t> tau(of_size(height(r), 1));
+       NT2_AS_TERMINAL_INOUT(o_semantic
+                            , r, boost::proto::child_c<0>(a0), work);
+       o_semantic tau(of_size(height(r), 1));
        NT2_LAPACK_VERIFY(nt2::geqrf( boost::proto::value(r)
-                                   , boost::proto::value(tau)));
+                                   ,tau));
        boost::proto::child_c<0>(a1) = triu(r);
     }
 
-    /// INTERNAL ONLY: 2i 1o econ_
+    /// INTERNAL ONLY: 2i 1o econ_: x  = qr(a, econ_)
     BOOST_FORCEINLINE
     void eval2_1 ( A0& a0, A1& a1
                    , const nt2::policy<ext::econ_>&
@@ -203,7 +238,7 @@ namespace nt2 { namespace ext
       eval1_1(a0, a1, nt2::policy<ext::raw_>());
     }
 
-    /// INTERNAL ONLY: 2i 1o 0
+    /// INTERNAL ONLY: 2i 1o 0: x  = qr(a, 0)
     BOOST_FORCEINLINE
     void eval2_1 ( A0& a0, A1& a1
                    , const int&
@@ -213,14 +248,16 @@ namespace nt2 { namespace ext
     }
 
     ///////////////////////////////////////////////////////////////////////////////
-    /// INTERNAL ONLY: 2i 2o raw_
+    /// INTERNAL ONLY: 2i 2o raw_: tie(x, tau) = qr(a, raw_)
     BOOST_FORCEINLINE
     void eval2_2 ( A0& a0, A1& a1
                    , const nt2::policy<ext::raw_>&
                    ) const
     {
-      NT2_AS_TERMINAL_INOUT(o_semantic, x, boost::proto::child_c<0>(a0), boost::proto::child_c<0>(a1));
-      NT2_AS_TERMINAL_OUT(o_semantic, tau, boost::proto::child_c<1>(a1));
+      NT2_AS_TERMINAL_INOUT(o_semantic, x
+                           , boost::proto::child_c<0>(a0), boost::proto::child_c<0>(a1));
+      NT2_AS_TERMINAL_OUT(o_semantic, tau
+                         , boost::proto::child_c<1>(a1));
       tau.resize(of_size(dim(x), 1));
       NT2_LAPACK_VERIFY(nt2::geqrf( boost::proto::value(x)
                                   , boost::proto::value(tau)));
@@ -228,17 +265,21 @@ namespace nt2 { namespace ext
       assign_swap(boost::proto::child_c<1>(a1), tau);
     }
 
+
     ///////////////////////////////////////////////////////////////////////////////
-    /// INTERNAL ONLY: 2i 3o raw_
+    /// INTERNAL ONLY: 2i 3o raw_: tie(x, tau, ip) = qr(a, nt2::raw_)
     BOOST_FORCEINLINE
     void eval2_3 ( A0& a0, A1& a1
                    , const nt2::policy<ext::raw_>&
                    ) const
     {
       nt2::container::table<type_t> work;
-      NT2_AS_TERMINAL_INOUT(o_semantic, x, boost::proto::child_c<0>(a0), boost::proto::child_c<0>(a1));
-      NT2_AS_TERMINAL_OUT(o_semantic, tau, boost::proto::child_c<1>(a1));
-      NT2_AS_TERMINAL_OUT(i_semantic,  ip, boost::proto::child_c<2>(a1));
+      NT2_AS_TERMINAL_INOUT(o_semantic, x
+                           , boost::proto::child_c<0>(a0), boost::proto::child_c<0>(a1));
+      NT2_AS_TERMINAL_OUT(o_semantic, tau
+                         , boost::proto::child_c<1>(a1));
+      NT2_AS_TERMINAL_OUT(i_semantic,  ip
+                         , boost::proto::child_c<2>(a1));
       tau.resize(of_size(dim(x), 1));
       ip = nt2::zeros(nt2::width(x),1,nt2::meta::as_<nt2_la_int>());
       NT2_LAPACK_VERIFY(nt2::geqp3( boost::proto::value(x)
@@ -251,7 +292,8 @@ namespace nt2 { namespace ext
 
 
     ///////////////////////////////////////////////////////////////////////////////
-    /// INTERNAL ONLY: 2i 2o matrix_/econ_
+    /// INTERNAL ONLY: 2i 2o matrix_/econ_: tie(q, r) = qr(a, matrix_) or
+    /// tie(q, r) = qr(a, econ_), only extracting phases differ
     template < class T >
     BOOST_FORCEINLINE
     void eval2_2 ( A0& a0, A1& a1
@@ -259,42 +301,53 @@ namespace nt2 { namespace ext
                  ) const
     {
       nt2::container::table<type_t> work;
-      NT2_AS_TERMINAL_INOUT(o_semantic, r, boost::proto::child_c<0>(a0), work);
-      NT2_AS_TERMINAL_OUT  (o_semantic, x, boost::proto::child_c<0>(a1));
+      NT2_AS_TERMINAL_INOUT(o_semantic
+                           , r, boost::proto::child_c<0>(a0), work);
+      NT2_AS_TERMINAL_OUT  (o_semantic
+                           , x, boost::proto::child_c<0>(a1));
       nt2::container::table<type_t>     tau;
       tie(x, tau) = qr(r, nt2::raw_);
-      extract_qr(x, tau, r, T());
+      extract_qr(x, tau, r, T()); // extract raw or econ
       assign_swap(boost::proto::child_c<0>(a1), x);
       assign_swap(boost::proto::child_c<1>(a1), r);
     }
 
-
+    ///////////////////////////////////////////////////////////////////////////////
+    /// INTERNAL ONLY: 2i 2o vector_: tie(q, r) = qr(a, vector_)
+    /// this is identical to  tie(q, r) = qr(a, matrix_)  ot  tie(q, r) = qr(a)
     BOOST_FORCEINLINE
     void eval2_2 ( A0& a0, A1& a1
                    , const nt2::policy<ext::vector_>&
                    ) const
     {
-      eval2_2(a0, a1,  nt2::policy<ext::matrix_>());
+      eval2_2(a0, a1,  nt2::policy<ext::matrix_>()); //with 2 outputs vector_ is useless
     }
 
+    ///////////////////////////////////////////////////////////////////////////////
+    /// INTERNAL ONLY: 2i 2o vector_: tie(q, r) = qr(a, 0)
     BOOST_FORCEINLINE
     void eval2_2 ( A0& a0, A1& a1
                    , const int &
                    ) const
     {
-      eval2_2(a0, a1, nt2::policy<ext::econ_>());
+      eval2_2(a0, a1, nt2::policy<ext::econ_>()); // 0 and econ_ are equivalent
     }
 
+    ///////////////////////////////////////////////////////////////////////////////
+    /// INTERNAL ONLY: 2i 3o vector_: tie(q, r, ip) = qr(a, econ_)
     BOOST_FORCEINLINE
     void eval2_3 ( A0& a0, A1& a1
-                   , const nt2::policy<ext::vector_>&
+                   , const nt2::policy<ext::econ_>&
                    ) const
     {
       nt2::container::table<type_t> work;
-      NT2_AS_TERMINAL_INOUT(o_semantic, r, boost::proto::child_c<0>(a0), work);
-      NT2_AS_TERMINAL_OUT  (o_semantic, x, boost::proto::child_c<0>(a1));
-      NT2_AS_TERMINAL_OUT  (i_semantic, ip, boost::proto::child_c<2>(a1));
-      nt2::container::table<type_t>     tau;
+      NT2_AS_TERMINAL_INOUT(o_semantic, r
+                           , boost::proto::child_c<0>(a0), work);
+      NT2_AS_TERMINAL_OUT  (o_semantic, x
+                           , boost::proto::child_c<0>(a1));
+      NT2_AS_TERMINAL_OUT  (i_semantic, ip
+                           , boost::proto::child_c<2>(a1));
+      nt2::container::table<type_t> tau;
       tie(x, tau, ip) = qr(r, nt2::raw_);
 
       extract_qr(x, tau, r, nt2::policy<ext::econ_>());
@@ -303,22 +356,56 @@ namespace nt2 { namespace ext
       assign_swap(boost::proto::child_c<2>(a1), ip);
     }
 
+    ///////////////////////////////////////////////////////////////////////////////
+    /// INTERNAL ONLY: 2i 3o vector_: tie(q, r, ip) = qr(a, 0)
+    BOOST_FORCEINLINE
+    void eval2_3 ( A0& a0, A1& a1
+                   , const int &
+                   ) const
+    {
+      eval2_3(a0, a1,  nt2::policy<ext::econ_>()); // 0 and econ_ are equivalent
+    }
+
+    ///////////////////////////////////////////////////////////////////////////////
+    /// INTERNAL ONLY: 2i 3o vector_: tie(q, r, ip) = qr(a, vector_)
+    BOOST_FORCEINLINE
+    void eval2_3 ( A0& a0, A1& a1
+                   , const nt2::policy<ext::vector_>&
+                   ) const
+    {
+      nt2::container::table<type_t> work;
+      NT2_AS_TERMINAL_INOUT(o_semantic, r
+                           , boost::proto::child_c<0>(a0), work);
+      NT2_AS_TERMINAL_OUT  (o_semantic, x
+                           , boost::proto::child_c<0>(a1));
+      NT2_AS_TERMINAL_OUT  (i_semantic, ip
+                           , boost::proto::child_c<2>(a1));
+      nt2::container::table<type_t>     tau;
+      tie(x, tau, ip) = qr(r, nt2::raw_);
+
+      extract_qr(x, tau, r, nt2::policy<ext::raw_>());
+      assign_swap(boost::proto::child_c<0>(a1), x);
+      assign_swap(boost::proto::child_c<1>(a1), r);
+      assign_swap(boost::proto::child_c<2>(a1), ip);
+    }
+
      ///////////////////////////////////////////////////////////////////////////////
-    /// INTERNAL ONLY: 2i 3o matrix_
+    /// INTERNAL ONLY: 2i 3o matrix_: tie(q, r, p) = qr(a, matrix_)
     BOOST_FORCEINLINE
     void eval2_3 ( A0& a0, A1& a1
                    , const nt2::policy<ext::matrix_>&
                    ) const
     {
       nt2::container::table<type_t> work;
-      NT2_AS_TERMINAL_INOUT(o_semantic, r, boost::proto::child_c<0>(a0), work);
-      NT2_AS_TERMINAL_OUT  (o_semantic, x, boost::proto::child_c<0>(a1));
-      NT2_AS_TERMINAL_OUT  (o_semantic, e, boost::proto::child_c<2>(a1));
+      NT2_AS_TERMINAL_INOUT(o_semantic, r
+                           , boost::proto::child_c<0>(a0), work);
+      NT2_AS_TERMINAL_OUT  (o_semantic, x
+                           , boost::proto::child_c<0>(a1));
       nt2::container::table<type_t>     tau;
       nt2::container::table<nt2_la_int>  ip;
       tie(x, tau, ip) = qr(r, nt2::raw_);
 
-      extract_qr(x, tau, r, nt2::policy<ext::econ_>());
+      extract_qr(x, tau, r, nt2::policy<ext::raw_>());
       assign_swap(boost::proto::child_c<0>(a1), x);
       assign_swap(boost::proto::child_c<1>(a1), r);
       boost::proto::child_c<2>(a1) = eye(numel(ip), nt2::meta::as_<type_t>())(nt2::_, ip);
@@ -335,12 +422,12 @@ namespace nt2 { namespace ext
     {
       nt2_la_int  m  = nt2::height(xq);
       nt2_la_int  n  = nt2::width(xq);
-      typedef typename XQ::value_type type_t;
+      typedef typename XQ::value_type xqtype_t;
       r = nt2::triu(xq);
 
       if (m>n)
       {
-        nt2::container::table<type_t> complete_q = nt2::eye(m,m, nt2::meta::as_<type_t>());
+        nt2::container::table<xqtype_t> complete_q = nt2::eye(m,m, nt2::meta::as_<xqtype_t>());
         nt2::mqr( boost::proto::value(xq)
                 , boost::proto::value(tau)
                 , boost::proto::value(complete_q) );
@@ -351,7 +438,7 @@ namespace nt2 { namespace ext
         if(m < n)
         {
           /// TODO: Remove when aliasing works
-          nt2::container::table<type_t> local(xq);
+          nt2::container::table<xqtype_t> local(xq);
           xq = nt2::expand(local,nt2::of_size(m,m));
         }
         nt2::gqr( boost::proto::value(xq)
@@ -367,7 +454,7 @@ namespace nt2 { namespace ext
     {
       nt2_la_int  m  = nt2::height(xq);
       nt2_la_int  n  = nt2::width(xq);
-      typedef typename XQ::value_type type_t;
+      typedef typename XQ::value_type xqtype_t;
 
       // economy mode
       r = nt2::triu(xq(_(1,nt2::min(n, m)), _) );
@@ -375,7 +462,7 @@ namespace nt2 { namespace ext
       if(m < n)
       {
         /// TODO: Remove when aliasing works
-        nt2::container::table<type_t> local(xq);
+        nt2::container::table<xqtype_t> local(xq);
         xq = nt2::expand(local,nt2::of_size(m,m));
       }
 
