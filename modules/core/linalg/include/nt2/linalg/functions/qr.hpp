@@ -52,12 +52,12 @@ namespace nt2
      n, only the first n columns of q and the first n rows of r are
      computed. if m<=n, this is the same as tie(q,r) = qr(a).
 
-     tie(q,r,e) = qr(a) or tie(q,r,e) = qr(a,'matrix') produces unitary q,
+     tie(q,r,e) = qr(a) or tie(q,r,e) = qr(a,matrix_) produces unitary q,
      upper triangular r and a permutation matrix e so that a*e =
      q*r. the column permutation matrix e is chosen so that abs(diag(r)) is
      decreasing.
 
-     tie(q,r,e) = qr(a,'vector') returns the permutation information as a
+     tie(q,r,e) = qr(a,vector_) returns the permutation information as a
      vector instead of a matrix. that is, e is a row vector of integral values
      such that a(:,e) = q*r.
 
@@ -69,10 +69,10 @@ namespace nt2
      x = qr(a) and x = qr(a,0) and x = qr(a,raw_) return a matrix x
      such that triu(x) is the upper triangular factor r.
 
-      x = nt2::qr(b, nt2::raw_) or tie(x, tau) = nt2::qr(b, nt2::raw_) or
-      tie(x, tau, ip) = nt2::qr(b, nt2::raw_)  produces the direct lapack ouputs
+    x = nt2::qr(b, nt2::raw_) or tie(x, tau) = nt2::qr(b, nt2::raw_) or
+    tie(x, tau, ip) = nt2::qr(b, nt2::raw_)  produces the direct lapack ouputs
 
-      option 0 which is for Matlab compatibility can be replaced by econ_
+    option 0 which is for Matlab compatibility can be replaced by econ_
    **/
   NT2_FUNCTION_IMPLEMENTATION(tag::qr_, qr, 1)
   NT2_FUNCTION_IMPLEMENTATION(tag::qr_, qr, 2)
