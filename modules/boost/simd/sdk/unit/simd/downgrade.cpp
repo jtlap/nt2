@@ -18,6 +18,10 @@
 #include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/unit/module.hpp>
 
+#include <boost/fusion/adapted/std_pair.hpp>
+
+#include <nt2/sdk/meta/display_type.hpp>
+
 ////////////////////////////////////////////////////////////////////////////////
 // Test that downgrade is correct for SIMD types
 ////////////////////////////////////////////////////////////////////////////////
@@ -98,4 +102,36 @@ NT2_TEST_CASE_TPL(downgrade_logical_pack, BOOST_SIMD_SIMD_TYPES)
 
   pack_t a0;
   NT2_TEST_EXPR_TYPE( a0, downgrade<_>, pack< logical<base_t> > );
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// Test that downgrade is correct for complex fusion cases
+////////////////////////////////////////////////////////////////////////////////
+template<int N>
+struct downgrade_at
+{
+  template<class X>
+  struct apply
+  {
+    typedef typename boost::dispatch::meta::downgrade<X>::type upgraded;
+    typedef typename boost::fusion::result_of::value_at_c<upgraded, N>::type type;
+  };
+};
+
+NT2_TEST_CASE(downgrade_fusion)
+{
+  using boost::simd::native;
+  using boost::dispatch::meta::downgrade;
+  using boost::mpl::_;
+
+  typedef std::pair<nt2::int64_t, double> T;
+
+  typedef native<T, BOOST_SIMD_DEFAULT_EXTENSION> vT;
+  typedef native<nt2::int64_t, BOOST_SIMD_DEFAULT_EXTENSION> vT0;
+  typedef native<double, BOOST_SIMD_DEFAULT_EXTENSION> vT1;
+
+  vT va0;
+  //NT2_TEST_EXPR_TYPE( va0,  upgrade<_>, int ); // for debug purposes
+  NT2_TEST_EXPR_TYPE( va0, downgrade_at<0>, downgrade<vT0>::type );
+  NT2_TEST_EXPR_TYPE( va0, downgrade_at<1>, downgrade<vT1>::type );
 }
