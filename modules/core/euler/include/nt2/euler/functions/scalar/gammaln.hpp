@@ -45,7 +45,6 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename meta::as_integer<A0>::type iA0;
       if ((a0 > Maxgammaln<A0>()) || nt2::is_eqz(a0) ) return nt2::Inf<A0>();
       A0 x = a0;
       A0 q = nt2::abs(x);
@@ -128,7 +127,6 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       if ((a0 == nt2::Inf<A0>()) || nt2::is_eqz(a0) ) return nt2::Inf<A0>();
-      typedef typename meta::as_integer<A0>::type iA0;
       A0 x = a0;
       A0 q = nt2::abs(x);
       if(x > Maxgammaln<A0>()) return Inf<A0>();
