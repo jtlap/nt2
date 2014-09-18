@@ -41,7 +41,7 @@ template<typename T> struct qr3_2_nt2
 
   void operator()()
   {
-    nt2::tie(Q,R,P) = nt2::qr(input,0);
+    nt2::tie(Q,R,P) = nt2::qr(input, nt2::matrix_);
   }
 
   friend std::ostream& operator<<(std::ostream& os, qr3_2_nt2<T> const& p)
