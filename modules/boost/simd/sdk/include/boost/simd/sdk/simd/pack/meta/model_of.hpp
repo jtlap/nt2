@@ -30,7 +30,7 @@ namespace boost { namespace dispatch { namespace meta
         typedef typename boost::dispatch::meta::primitive_of< typename simd::details::max_value_noseq<X, mpl::sizeof_<mpl::_> >::type>::type XX;
 
         typedef boost::simd::pack< X
-                                 , sizeof(boost::simd::pack<TT, N>) / sizeof(XX)
+                                 , sizeof(typename boost::simd::pack<TT, N>::data_type::native_type) / sizeof(XX)
                                  > type;
       };
     };

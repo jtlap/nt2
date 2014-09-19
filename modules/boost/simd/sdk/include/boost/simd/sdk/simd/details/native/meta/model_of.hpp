@@ -11,6 +11,7 @@
 
 #include <boost/simd/sdk/simd/native_fwd.hpp>
 #include <boost/simd/sdk/simd/meta/vector_of.hpp>
+#include <boost/simd/sdk/simd/meta/as_simd.hpp>
 #include <boost/dispatch/meta/model_of.hpp>
 #include <boost/dispatch/meta/primitive_of.hpp>
 #include <boost/simd/sdk/simd/details/max_value.hpp>
@@ -29,7 +30,7 @@ namespace boost { namespace dispatch { namespace meta
         typedef typename boost::dispatch::meta::primitive_of< typename simd::details::max_value_noseq<X, mpl::sizeof_<mpl::_> >::type>::type XX;
 
         typedef typename simd::meta::vector_of< X
-                                              , sizeof(simd::native<TT,Ext>) / sizeof(XX)
+                                              , sizeof(typename simd::meta::as_simd<TT,Ext>::type) / sizeof(XX)
                                               >::type type;
       };
     };
