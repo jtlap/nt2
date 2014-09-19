@@ -25,147 +25,251 @@
 #include <nt2/sdk/unit/tests/exceptions.hpp>
 
 
-
-NT2_TEST_CASE_TPL(chol, NT2_REAL_TYPES )
+NT2_TEST_CASE_TPL(chol_no_1i, NT2_REAL_TYPES )
 {
   using nt2::_;
-  using nt2::lower_;
-  using nt2::upper_;
-
-  typedef nt2::table<T>           t_t;
-
-  t_t r,l;
-  int info;
-  nt2::table<T,nt2::positive_definite_>
-      a = nt2::cons<T>(nt2::of_size(3,3),2,-1,0,-1,2,-1,0,-1,2);
-
-
-  // R = CHOL(A)
-  r = nt2::chol(a);
-  NT2_TEST_ULP_EQUAL(a, nt2::mtimes(nt2::trans(r),r), T(20) );
-
-  // R = CHOL(A,upper_)
-  r = nt2::chol(a,upper_);
-  NT2_TEST_ULP_EQUAL(a, nt2::mtimes(nt2::trans(r),r), T(20) );
-
-  // R = CHOL(A,lower_)
-  nt2::tie(l,info) = nt2::chol(a,lower_);
-  NT2_TEST_ULP_EQUAL(a, nt2::mtimes(l,nt2::trans(l)), T(20) );
-
-  // [R,P] = CHOL(A)
-  nt2::tie(r,info) = nt2::chol(a);
-  NT2_TEST_EQUAL(info,0);
-  NT2_TEST_ULP_EQUAL(a, nt2::mtimes(nt2::trans(r),r), T(20) );
-
-  // [R,P] = CHOL(A,upper_)
-  nt2::tie(r,info) = nt2::chol(a);
-  NT2_TEST_EQUAL(info,0);
-  NT2_TEST_ULP_EQUAL(a, nt2::mtimes(nt2::trans(r),r), T(20) );
-
-  // [R,P] = CHOL(A,lower_)
-  nt2::tie(l,info) = nt2::chol(a,lower_);
-  NT2_TEST_EQUAL(info,0);
-  NT2_TEST_ULP_EQUAL(a, nt2::mtimes(l,nt2::trans(l)), T(20) );
-}
-
-NT2_TEST_CASE_TPL(cholnd, NT2_REAL_TYPES )
-{
-  // testing when matrix is positive but not definite
-  using nt2::_;
-  using nt2::lower_;
-  using nt2::upper_;
-
-  typedef nt2::table<T>           t_t;
-
-  t_t l;
-
-  t_t a = nt2::pascal(5, nt2::meta::as_<T>());
-  a(5, 5) = nt2::dec(a(5, 5));
   int p;
-  nt2::tie(l,p) = nt2::chol(a,lower_);
-  NT2_TEST_EQUAL(p,5);
-  NT2_TEST_ULP_EQUAL(a(nt2::_(1, 4), nt2::_(1, 4)), nt2::mtimes(l(nt2::_(1, 4), nt2::_(1, 4)),nt2::trans(l(nt2::_(1, 4), nt2::_(1, 4)))), T(20) );
-
-  t_t r;
-  nt2::tie(r,p) = nt2::chol(a,upper_);
-  NT2_TEST_EQUAL(p,5);
-  NT2_TEST_ULP_EQUAL(a(nt2::_(1, 4), nt2::_(1, 4)), nt2::mtimes(nt2::trans(r(nt2::_(1, 4), nt2::_(1, 4))),r(nt2::_(1, 4), nt2::_(1, 4))), T(20) );
-}
-
-NT2_TEST_CASE_TPL(chol_sub, NT2_REAL_TYPES )
-{
-  using nt2::_;
-  using nt2::lower_;
-  using nt2::upper_;
-  using nt2::meta::as_;
-  using nt2::ones;
-
-  typedef nt2::table<T>           t_t;
-
-  t_t r = nt2::ones(6, 3, as_<T>());
-  t_t l = r;
-  int info;
   nt2::table<T,nt2::positive_definite_>
-      a = nt2::cons<T>(nt2::of_size(3,3),2,-1,0,-1,2,-1,0,-1,2);
+    a = nt2::cons<T>(nt2::of_size(3,3),2,-1,0,-1,2,-1,0,-1,2);
+  nt2::table<T> u;
 
+  std::cout << " u = chol(a) " << std::endl;
+  u = nt2::chol(a);
+  NT2_TEST_ULP_EQUAL(a , nt2::mtimes(nt2::trans(u),u), T(20) );
 
-  // R = CHOL(A)
-  r(_(1, 2, 6), _) = nt2::chol(a);
-  NT2_TEST_ULP_EQUAL(a, nt2::mtimes(nt2::trans(r(_(1, 2, 6), _)),r(_(1, 2, 6), _)), T(20) );
-
-  // R = CHOL(A,upper_)
-  r(_(1, 2, 6), _) = nt2::chol(a,upper_);
-  NT2_TEST_ULP_EQUAL(a, nt2::mtimes(nt2::trans(r(_(1, 2, 6), _)),r(_(1, 2, 6), _)), T(20) );
-
-  // R = CHOL(A,lower_)
-  nt2::tie(l(_(1, 2, 6), _),info) = nt2::chol(a,lower_);
-  NT2_TEST_ULP_EQUAL(a, nt2::mtimes(l(_(1, 2, 6), _),nt2::trans(l(_(1, 2, 6), _))), T(20) );
-
-  // [R,P] = CHOL(A)
-  nt2::tie(r(_(1, 2, 6), _),info) = nt2::chol(a);
-  NT2_TEST_EQUAL(info,0);
-  NT2_TEST_ULP_EQUAL(a, nt2::mtimes(nt2::trans(r(_(1, 2, 6), _)),r(_(1, 2, 6), _)), T(20) );
-
-  // [R,P] = CHOL(A,upper_)
-  nt2::tie(r(_(1, 2, 6), _),info) = nt2::chol(a);
-  NT2_TEST_EQUAL(info,0);
-  NT2_TEST_ULP_EQUAL(a, nt2::mtimes(nt2::trans(r(_(1, 2, 6), _)),r(_(1, 2, 6), _)), T(20) );
-
-  // [R,P] = CHOL(A,lower_)
-  nt2::tie(l(_(1, 2, 6), _),info) = nt2::chol(a,lower_);
-  NT2_TEST_EQUAL(info,0);
-  NT2_TEST_ULP_EQUAL(a, nt2::mtimes(l(_(1, 2, 6), _),nt2::trans(l(_(1, 2, 6), _))), T(20) );
+  std::cout << " tie(u,p) = chol(a) " << std::endl;
+  nt2::tie(u,p) = nt2::chol(a);
+  NT2_TEST_EQUAL(p,0);
+  NT2_TEST_ULP_EQUAL(a , nt2::mtimes(nt2::trans(u),u), T(20) );
 }
 
-NT2_TEST_CASE_TPL(cholnd_sub, NT2_REAL_TYPES )
+
+NT2_TEST_CASE_TPL(chol_no_2i, NT2_REAL_TYPES )
 {
-  // testing when matrix is positive but not definite. Caution of the size for sub-matrices
   using nt2::_;
-  using nt2::lower_;
-  using nt2::upper_;
-  using nt2::meta::as_;
-  using nt2::ones;
-
-  typedef nt2::table<T>           t_t;
-
-  t_t r = nt2::ones(10, 5, as_<T>());
-  t_t l = r;
-
-
-  t_t a = nt2::pascal(5, nt2::meta::as_<T>());
-  a(5, 5) = nt2::dec(a(5, 5));
   int p;
-  nt2::tie(l(_(1, 2, 8),_(1, 4)) ,p) = nt2::chol(a,lower_);
-  NT2_TEST_EQUAL(p,5);
-  NT2_TEST_ULP_EQUAL(a(nt2::_(1, 4), nt2::_(1, 4)),
-                     nt2::mtimes(l(nt2::_(1, 2, 8), nt2::_(1, 4)),
-                                 nt2::trans(l(nt2::_(1, 2, 8), nt2::_(1, 4)))), T(20) );
+  nt2::table<T,nt2::positive_definite_>
+    a = nt2::cons<T>(nt2::of_size(3,3),2,-1,0,-1,2,-1,0,-1,2);
+  nt2::table<T> u, l, u1;
 
+  std::cout << " u = chol(a, nt2::upper_) " << std::endl;
+  u = nt2::chol(a, nt2::upper_);
+  NT2_TEST_ULP_EQUAL(a , nt2::mtimes(nt2::trans(u),u), T(20) );
 
-  nt2::tie(r(_(1, 2, 8),_(1, 4)),p) = nt2::chol(a,upper_);
-  NT2_TEST_EQUAL(p,5);
+  std::cout << " tie(l,p) = chol(a, lower_) " << std::endl;
+  nt2::tie(l,p) = nt2::chol(a, nt2::lower_);
+  NT2_TEST_EQUAL(p,0);
+  NT2_TEST_ULP_EQUAL(a, nt2::mtimes(l, nt2::trans(l)), T(20) );
 
-  NT2_TEST_ULP_EQUAL(a(nt2::_(1, 4), nt2::_(1, 4)),
-                     nt2::mtimes(nt2::trans(r(nt2::_(1, 2, 8), nt2::_(1, 4))),
-                                 r(nt2::_(1, 2, 8), nt2::_(1, 4))), T(20) );
+  std::cout << " tie(u,p) = chol(a, raw_) " << std::endl;
+  nt2::tie(u,p) = nt2::chol(a, nt2::raw_);
+  u1 =  triu(u);
+
+  NT2_TEST_EQUAL(p,0);
+  NT2_TEST_ULP_EQUAL(a, nt2::mtimes(nt2::trans(u1),u1), T(20) );
 }
+
+
+NT2_TEST_CASE_TPL(chol_no_3i, NT2_REAL_TYPES )
+{
+  using nt2::_;
+  int p;
+  nt2::table<T,nt2::positive_definite_>
+    a = nt2::cons<T>(nt2::of_size(3,3),2,-1,0,-1,2,-1,0,-1,2);
+  nt2::table<T> u, l, u1, l1;
+
+  std::cout << " tie(u,p) = chol(a, raw_, upper_) " << std::endl;
+  nt2::tie(u,p) = nt2::chol(a, nt2::raw_, nt2::upper_);
+  u1 =  triu(u);
+  NT2_TEST_EQUAL(p,0);
+  NT2_TEST_ULP_EQUAL(a, nt2::mtimes(nt2::trans(u1),u1), T(20) );
+
+  std::cout << " tie(l,p) = chol(a, raw_, lower_) " << std::endl;
+  nt2::tie(l,p) = nt2::chol(a, nt2::raw_, nt2::lower_);
+  l1 =  tril(l);
+  NT2_TEST_EQUAL(p,0);
+  NT2_TEST_ULP_EQUAL(a, nt2::mtimes(l1, nt2::trans(l1)), T(20) );
+
+  std::cout << " tie(u,p) = chol(a, upper_, raw_) " << std::endl;
+  nt2::tie(u,p) = nt2::chol(a, nt2::upper_, nt2::raw_);
+  u1 =  triu(u);
+  NT2_TEST_EQUAL(p,0);
+  NT2_TEST_ULP_EQUAL(a, nt2::mtimes(nt2::trans(u1),u1), T(20) );
+
+  std::cout << " tie(l,p) = chol(a, lower_, raw_) " << std::endl;
+  nt2::tie(l,p) = nt2::chol(a, nt2::lower_, nt2::raw_);
+  l1 =  tril(l);
+  NT2_TEST_EQUAL(p,0);
+  NT2_TEST_ULP_EQUAL(a, nt2::mtimes(l1, nt2::trans(l1)), T(20) );
+}
+
+NT2_TEST_CASE_TPL(chol_no_1i_nondef, NT2_REAL_TYPES )
+{
+  using nt2::_;
+  int p;
+  nt2::table<T> a = nt2::pascal(5, nt2::meta::as_<T>());
+  a(5, 5) = nt2::dec(a(5, 5));
+
+  nt2::table<T> u;
+
+  std::cout << " u = chol(a) " << std::endl;
+  NT2_TEST_ASSERT(u = nt2::chol(a));
+
+  std::cout << " tie(u,p) = chol(a) " << std::endl;
+  nt2::tie(u,p) = nt2::chol(a);
+  NT2_TEST_EQUAL(p,5);
+  NT2_TEST_ULP_EQUAL(a(_(1, 4),_(1, 4)), nt2::mtimes(nt2::trans(u),u), T(20) );
+}
+
+
+NT2_TEST_CASE_TPL(chol_no_2i_nondef, NT2_REAL_TYPES )
+{
+  using nt2::_;
+  int p;
+  nt2::table<T> a = nt2::pascal(5, nt2::meta::as_<T>());
+  a(5, 5) = nt2::dec(a(5, 5));
+
+  nt2::table<T> u, l, u1;
+
+  std::cout << " u = chol(a, nt2::upper_) " << std::endl;
+  NT2_TEST_ASSERT(u = nt2::chol(a, nt2::upper_));
+
+  std::cout << " l = chol(a, nt2::lower_) " << std::endl;
+  NT2_TEST_ASSERT(l = nt2::chol(a, nt2::lower_));
+
+  std::cout << " tie(l,p) = chol(a, lower_) " << std::endl;
+  nt2::tie(l,p) = nt2::chol(a, nt2::lower_);
+  NT2_TEST_EQUAL(p,5);
+  NT2_TEST_ULP_EQUAL(a(_(1, 4),_(1, 4)), nt2::mtimes(l, nt2::trans(l)), T(20) );
+
+  std::cout << " tie(u,p) = chol(a, raw_) " << std::endl;
+  nt2::tie(u,p) = nt2::chol(a, nt2::raw_);
+  u1 =  triu(u(_(1, 4),_(1, 4)));
+
+  NT2_TEST_EQUAL(p,5);
+  NT2_TEST_ULP_EQUAL(a(_(1, 4),_(1, 4)), nt2::mtimes(nt2::trans(u1),u1), T(20) );
+}
+
+
+NT2_TEST_CASE_TPL(chol_no_3i_nondef, NT2_REAL_TYPES )
+{
+  using nt2::_;
+  int p;
+  nt2::table<T> a = nt2::pascal(5, nt2::meta::as_<T>());
+  a(5, 5) = nt2::dec(a(5, 5));
+
+  nt2::table<T> u, l, u1, l1;
+
+  std::cout << " tie(u,p) = chol(a, raw_, upper_) " << std::endl;
+  nt2::tie(u,p) = nt2::chol(a, nt2::raw_, nt2::upper_);
+  u1 =  triu(u);
+  NT2_TEST_EQUAL(p,5);
+  NT2_TEST_ULP_EQUAL(a, nt2::mtimes(nt2::trans(u1),u1), T(20) );
+
+  std::cout << " tie(l,p) = chol(a, raw_, lower_) " << std::endl;
+  nt2::tie(l,p) = nt2::chol(a, nt2::raw_, nt2::lower_);
+  l1 =  tril(l(_(1, 4),_(1, 4)));
+  NT2_TEST_EQUAL(p,5);
+  NT2_TEST_ULP_EQUAL(a(_(1, 4),_(1, 4)), nt2::mtimes(l1, nt2::trans(l1)), T(20) );
+
+  std::cout << " tie(u,p) = chol(a, upper_, raw_) " << std::endl;
+  nt2::tie(u,p) = nt2::chol(a, nt2::upper_, nt2::raw_);
+  u1 =  triu(u);
+  NT2_TEST_EQUAL(p,5);
+  NT2_TEST_ULP_EQUAL(a, nt2::mtimes(nt2::trans(u1),u1), T(20) );
+
+  std::cout << " tie(l,p) = chol(a, lower_, raw_) " << std::endl;
+  nt2::tie(l,p) = nt2::chol(a, nt2::lower_, nt2::raw_);
+  l1 =  tril(l(_(1, 4),_(1, 4)));
+  NT2_TEST_EQUAL(p,5);
+  NT2_TEST_ULP_EQUAL(a(_(1, 4),_(1, 4)), nt2::mtimes(l1, nt2::trans(l1)), T(20) );
+}
+
+
+
+NT2_TEST_CASE_TPL(chol_no_1i_sub, NT2_REAL_TYPES )
+{
+  using nt2::_;
+  using nt2::meta::as_;
+  int p;
+  nt2::table<T,nt2::positive_definite_>
+    a = nt2::cons<T>(nt2::of_size(3,3),2,-1,0,-1,2,-1,0,-1,2);
+  nt2::table<T> u =  nt2::ones(6, 3, as_<T>());
+
+  std::cout << " u(_(1, 2, 6), _) = chol(a) " << std::endl;
+  u(_(1, 2, 6), _) = nt2::chol(a);
+  NT2_TEST_ULP_EQUAL(a , nt2::mtimes(nt2::trans(u(_(1, 2, 6), _)),u(_(1, 2, 6), _)), T(20) );
+
+  std::cout << " tie(u(_(1, 2, 6), _),p) = chol(a) " << std::endl;
+  nt2::tie(u(_(1, 2, 6), _),p) = nt2::chol(a);
+  NT2_TEST_EQUAL(p,0);
+  NT2_TEST_ULP_EQUAL(a , nt2::mtimes(nt2::trans(u(_(1, 2, 6), _)),u(_(1, 2, 6), _)), T(20) );
+}
+
+
+NT2_TEST_CASE_TPL(chol_no_2i_sub, NT2_REAL_TYPES )
+{
+  using nt2::_;
+  using nt2::meta::as_;
+  int p;
+  nt2::table<T,nt2::positive_definite_>
+    a = nt2::cons<T>(nt2::of_size(3,3),2,-1,0,-1,2,-1,0,-1,2);
+  nt2::table<T> u, l, u1;
+  u = nt2::ones(6, 3, as_<T>());
+  l = nt2::ones(6, 3, as_<T>());
+
+  std::cout << " u(_(1, 2, 6), _) = chol(a, nt2::upper_) " << std::endl;
+  u(_(1, 2, 6), _) = nt2::chol(a, nt2::upper_);
+  NT2_TEST_ULP_EQUAL(a , nt2::mtimes(nt2::trans(u(_(1, 2, 6), _)),u(_(1, 2, 6), _)), T(20) );
+
+  std::cout << " tie(l,p) = chol(a, lower_) " << std::endl;
+  nt2::tie(l(_(1, 2, 6), _),p) = nt2::chol(a, nt2::lower_);
+  NT2_TEST_EQUAL(p,0);
+  NT2_TEST_ULP_EQUAL(a, nt2::mtimes(l(_(1, 2, 6), _), nt2::trans(l(_(1, 2, 6), _))), T(20) );
+
+  std::cout << " tie(u,p) = chol(a, raw_) " << std::endl;
+  nt2::tie(u(_(1, 2, 6), _),p) = nt2::chol(a, nt2::raw_);
+  u1 =  triu(u(_(1, 2, 6), _));
+
+  NT2_TEST_EQUAL(p,0);
+  NT2_TEST_ULP_EQUAL(a, nt2::mtimes(nt2::trans(u1),u1), T(20) );
+}
+
+
+NT2_TEST_CASE_TPL(chol_no_3i_sub, NT2_REAL_TYPES )
+{
+  using nt2::_;
+  using nt2::meta::as_;
+  int p;
+  nt2::table<T,nt2::positive_definite_>
+    a = nt2::cons<T>(nt2::of_size(3,3),2,-1,0,-1,2,-1,0,-1,2);
+  nt2::table<T> u, l, u1, l1;
+  u = nt2::ones(6, 3, as_<T>());
+  l = nt2::ones(6, 3, as_<T>());
+
+  std::cout << " tie(u(_(1, 2, 6), _),p) = chol(a, raw_, upper_) " << std::endl;
+  nt2::tie(u(_(1, 2, 6), _),p) = nt2::chol(a, nt2::raw_, nt2::upper_);
+  u1 =  triu(u(_(1, 2, 6), _));
+  NT2_TEST_EQUAL(p,0);
+  NT2_TEST_ULP_EQUAL(a, nt2::mtimes(nt2::trans(u1),u1), T(20) );
+
+  std::cout << " tie(l(_(1, 2, 6), _),p) = chol(a, raw_, lower_) " << std::endl;
+  nt2::tie(l(_(1, 2, 6), _),p) = nt2::chol(a, nt2::raw_, nt2::lower_);
+  l1 =  tril(l(_(1, 2, 6), _));
+  NT2_TEST_EQUAL(p,0);
+  NT2_TEST_ULP_EQUAL(a, nt2::mtimes(l1, nt2::trans(l1)), T(20) );
+
+  std::cout << " tie(u(_(1, 2, 6), _),p) = chol(a, upper_, raw_) " << std::endl;
+  nt2::tie(u(_(1, 2, 6), _),p) = nt2::chol(a, nt2::upper_, nt2::raw_);
+  u1 =  triu(u(_(1, 2, 6), _));
+  NT2_TEST_EQUAL(p,0);
+  NT2_TEST_ULP_EQUAL(a, nt2::mtimes(nt2::trans(u1),u1), T(20) );
+
+  std::cout << " tie(l(_(1, 2, 6), _),p) = chol(a, lower_, raw_) " << std::endl;
+  nt2::tie(l(_(1, 2, 6), _),p) = nt2::chol(a, nt2::lower_, nt2::raw_);
+  l1 =  tril(l(_(1, 2, 6), _));
+  NT2_TEST_EQUAL(p,0);
+  NT2_TEST_ULP_EQUAL(a, nt2::mtimes(l1, nt2::trans(l1)), T(20) );
+
+}
+

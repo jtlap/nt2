@@ -58,6 +58,21 @@ namespace nt2 { namespace ext
     }
   };
 
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::chol_, tag::cpu_
+                            , (A0)(A1)(A2)
+                            , (scalar_<unspecified_<A0> >)
+                              (unspecified_<A1>)
+                              (unspecified_<A2>)
+                            )
+  {
+    typedef typename nt2::meta::as_real<A0>::type result_type;
+
+    BOOST_FORCEINLINE result_type operator()(const A0& a0, const A1&, const A2&) const
+    {
+      BOOST_ASSERT_MSG(is_gtz(a0), "Matrix must be positive definite");
+      return nt2::sqrt(a0);
+    }
+  };
   //============================================================================
   //Cholesky factorization
   //============================================================================
@@ -133,12 +148,12 @@ namespace nt2 { namespace ext
               , nt2::policy<ext::upper_> const&
               ) const
     {
-      eval(a0,a1,N1(),N1());
+      eval(a0,a1,boost::mpl::long_<1>(),N1());
     }
 
 
     //==========================================================================
-    /// INTERNAL ONLY - R,P = chol(A)
+    /// INTERNAL ONLY - [R,P] = chol(A)
     BOOST_FORCEINLINE
     void eval ( A0& a0 , A1& a1
               , boost::mpl::long_<1> const& , boost::mpl::long_<2> const&
@@ -164,8 +179,21 @@ namespace nt2 { namespace ext
               ) const
     {
       eval( a0, a1, N0(), N1()
-                , boost::proto::value(boost::proto::child_c<1>(a0))
-                );
+          , boost::proto::value(boost::proto::child_c<1>(a0))
+          );
+    }
+
+    //==========================================================================
+    /// INTERNAL ONLY - L = chol(A, raw_,lower_/upper_)
+    BOOST_FORCEINLINE
+    void eval ( A0& a0 , A1& a1
+              , boost::mpl::long_<3> const& , boost::mpl::long_<2> const&
+              ) const
+    {
+      eval( a0, a1, N0(), N1()
+          , boost::proto::value(boost::proto::child_c<1>(a0))
+          , boost::proto::value(boost::proto::child_c<2>(a0))
+          );
     }
 
     //==========================================================================
@@ -197,8 +225,85 @@ namespace nt2 { namespace ext
               ) const
     {
       eval(a0,a1,
-           boost::mpl::long_<1>(),N0());
+           boost::mpl::long_<1>(),N1());
     }
+
+    //==========================================================================
+    /// INTERNAL ONLY - [L,P] = chol(A,raw_)
+    BOOST_FORCEINLINE
+    void eval ( A0& a0 , A1& a1
+              , boost::mpl::long_<2> const& , boost::mpl::long_<2> const&
+              , nt2::policy<ext::raw_> const&
+              ) const
+    {
+      NT2_AS_TERMINAL_INOUT(o_semantic, a
+                           , boost::proto::child_c<0>(a0)
+                           , boost::proto::child_c<0>(a1));
+      nt2_la_int info = nt2::potrf(boost::proto::value(a),'U');
+      BOOST_ASSERT_MSG(info >= 0, "invalid parameter in potrf call");
+      assign_swap( boost::proto::child_c<0>(a1), a);
+      boost::proto::child_c<1>(a1) = info;
+    }
+
+    //==========================================================================
+    /// INTERNAL ONLY - [L,P] = chol(A,raw_,lower_)
+    BOOST_FORCEINLINE
+    void eval ( A0& a0 , A1& a1
+              , boost::mpl::long_<3> const& , boost::mpl::long_<2> const&
+              , nt2::policy<ext::raw_> const&
+              , nt2::policy<ext::lower_> const&
+              ) const
+    {
+      NT2_AS_TERMINAL_INOUT(o_semantic, a
+                           , boost::proto::child_c<0>(a0)
+                           , boost::proto::child_c<0>(a1));
+      nt2_la_int info = nt2::potrf(boost::proto::value(a),'L');
+      BOOST_ASSERT_MSG(info >= 0, "invalid parameter in potrf call");
+      assign_swap( boost::proto::child_c<0>(a1), a);
+      boost::proto::child_c<1>(a1) =  info;
+    }
+
+    //==========================================================================
+    /// INTERNAL ONLY - [L,P] = chol(A,raw_,upper_)
+    BOOST_FORCEINLINE
+    void eval ( A0& a0 , A1& a1
+              , boost::mpl::long_<3> const& , boost::mpl::long_<2> const&
+              , nt2::policy<ext::raw_> const&
+              , nt2::policy<ext::upper_> const&
+              ) const
+    {
+      eval(a0, a1
+          , boost::mpl::long_<2>(), N1(), nt2::policy<ext::raw_>());
+    }
+
+    //==========================================================================
+    /// INTERNAL ONLY - [L,P] = chol(A,upper_,raw_)
+    BOOST_FORCEINLINE
+    void eval ( A0& a0 , A1& a1
+              , boost::mpl::long_<3> const& , boost::mpl::long_<2> const&
+              , nt2::policy<ext::upper_> const&
+              , nt2::policy<ext::raw_> const&
+              ) const
+    {
+      eval(a0, a1
+          , boost::mpl::long_<2>(), N1(), nt2::policy<ext::raw_>());
+    }
+
+    //==========================================================================
+    /// INTERNAL ONLY - [L,P] = chol(A,lower_,raw_)
+    BOOST_FORCEINLINE
+    void eval ( A0& a0 , A1& a1
+              , boost::mpl::long_<3> const& , boost::mpl::long_<2> const&
+              , nt2::policy<ext::lower_> const&
+              , nt2::policy<ext::raw_> const&
+              ) const
+    {
+      eval(a0, a1
+          , boost::mpl::long_<3>(),  boost::mpl::long_<2>()
+          , nt2::policy<ext::raw_>(), nt2::policy<ext::lower_>());
+    }
+
+
   };
 } }
 
