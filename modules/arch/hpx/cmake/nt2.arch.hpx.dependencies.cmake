@@ -74,7 +74,7 @@ if(NOT Boost_USE_STATIC_LIBS)
 endif()
 
 if(NT2_COMPILER_GCC_LIKE)
-  set(NT2_ARCH.HPX_COMPILE_FLAGS "${NT2_ARCH.HPX_COMPILE_FLAGS} -fexceptions -std=c++0x -include hpx/config.hpp -lboost_program_options -lboost_serialization -lboost_thread -lboost_filesystem -lboost_system")
+  set(NT2_ARCH.HPX_COMPILE_FLAGS "${NT2_ARCH.HPX_COMPILE_FLAGS} -fexceptions -std=c++0x -include hpx/config.hpp")
 elseif(MSVC)
   set(NT2_ARCH.HPX_COMPILE_FLAGS "${NT2_ARCH.HPX_COMPILE_FLAGS} /FIhpx/config.hpp /FIwinsock2.h")
 endif()
@@ -87,7 +87,7 @@ endif()
 set( NT2_ARCH.HPX_DEPENDENCIES_LIBRARIES ${HPX_LIBRARY} ${HPX_INIT_LIBRARY} ${HPX_SERIALIZATION_LIBRARY} )
 
 foreach(lib PROGRAM_OPTIONS THREAD SYSTEM SERIALIZATION FILESYSTEM)
-  list(APPEND NT2_ARCH.HPX_DEPENDENCIES_LIBRARIES debug ${Boost_${lib}_LIBRARY_DEBUG} optimized ${Boost_${lib}_LIBRARY_RELEASE})
+  list(APPEND NT2_ARCH.HPX_DEPENDENCIES_LIBRARIES ${Boost_${lib}_LIBRARY_RELEASE})
 endforeach()
 
 set( NT2_ARCH.HPX_DEPENDENCIES_EXTRA
