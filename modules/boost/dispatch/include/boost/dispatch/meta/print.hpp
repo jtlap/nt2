@@ -15,7 +15,7 @@
 #if (defined(__GNUC__) && !defined(BOOST_INTEL) && !defined(__CUDACC__))
 namespace boost { namespace dispatch { namespace meta
 {
-  template<class T>
+  template<class T, int N = 0>
   struct print
   {
     typedef T type;
@@ -28,7 +28,7 @@ namespace boost { namespace dispatch { namespace meta
 #elif defined(BOOST_MSVC)
 namespace boost { namespace dispatch { namespace meta
 {
-  template<class T>
+  template<class T, int N = 0>
   struct print
   {
     typedef T type;
@@ -40,7 +40,8 @@ namespace boost { namespace dispatch { namespace meta
 #include <boost/mpl/print.hpp>
 namespace boost { namespace dispatch { namespace meta
 {
-  using boost::mpl::print;
+  template<class T, int N = 0>
+  struct print : boost::mpl::print<T> {};
 } } }
 #endif
 
