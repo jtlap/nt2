@@ -148,7 +148,8 @@ namespace boost { namespace dispatch { namespace meta
   {
     typedef typename meta::factory_of<T>::type  lambda;
     typedef typename meta::primitive_of<T>::type  base;
-    typedef typename details::downgrade_impl<base, Sign, lambda>::type type;
+    typedef typename meta::strip<base>::type  stripped;
+    typedef typename details::downgrade_impl<stripped, Sign, lambda>::type type;
   };
 
   template<class T, class Sign>
