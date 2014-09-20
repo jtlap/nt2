@@ -11,7 +11,6 @@
 
 #include <nt2/include/functions/symeig.hpp>
 #include <boost/dispatch/attributes.hpp>
-#include <nt2/core/container/table/table.hpp>
 #include <nt2/include/functions/from_diag.hpp>
 #include <nt2/include/functions/height.hpp>
 #include <nt2/include/functions/hsev_w.hpp>
@@ -25,6 +24,7 @@
 #include <nt2/linalg/details/utility/lapack_verify.hpp>
 #include <nt2/core/container/dsl/assign_swap.hpp>
 #include <nt2/core/container/dsl/as_terminal.hpp>
+#include <nt2/core/container/table/table.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -116,7 +116,7 @@ namespace nt2 { namespace ext
     }
 
     //==========================================================================
-    /// INTERNAL ONLY - W = SYMEIG(A, matrix_/vector_/upper_/lower_)
+    /// INTERNAL ONLY - W = SYMEIG(A, matrix_/vector_/upper_/lower_/raw_)
     // returns eigenvalues as a vector
     BOOST_FORCEINLINE
     void eval ( A0& a0, A1& a1
@@ -131,6 +131,16 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE
     void eval1_2 ( A0& a0, A1& a1
                     , nt2::policy<ext::vector_>
+                   ) const
+    {
+      eval1_3(a0, a1
+             , nt2::policy<ext::vector_>()
+             , nt2::policy<ext::upper_>());
+    }
+
+    BOOST_FORCEINLINE
+    void eval1_2 ( A0& a0, A1& a1
+                    , nt2::policy<ext::raw_>
                    ) const
     {
       eval1_3(a0, a1
@@ -245,16 +255,35 @@ namespace nt2 { namespace ext
       nt2::container::table<type_t> work;
       NT2_AS_TERMINAL_INOUT(o_semantic, a
                            , boost::proto::child_c<0>(a0), work);
-      nt2::container::table<rtype_t> w(of_size(height(a), 1));
+      nt2::container::table<rtype_t>  w(of_size(height(a), 1));
       NT2_LAPACK_VERIFY(nt2::hsev_w( boost::proto::value(a)
                                    , boost::proto::value(w)
                                    , 'U'));
       boost::proto::child_c<0>(a1) = from_diag(w);
     }
 
+    BOOST_FORCEINLINE
+    void eval1_3 ( A0& a0, A1& a1
+                 , nt2::policy<ext::raw_>
+                 , nt2::policy<ext::upper_>
+                 ) const
+    {
+      eval1_3(a0, a1
+             , nt2::policy<ext::vector_>(), nt2::policy<ext::upper_>());
+    }
+
+    BOOST_FORCEINLINE
+    void eval1_3 ( A0& a0, A1& a1
+                 , nt2::policy<ext::raw_>
+                 , nt2::policy<ext::lower_>
+                 ) const
+    {
+      eval1_3(a0, a1
+             , nt2::policy<ext::vector_>(), nt2::policy<ext::lower_>());
+    }
 
     //==========================================================================
-    /// INTERNAL ONLY - [W, V]= SYMEIG(A, matrix_/vector_/upper_/lower_)
+    /// INTERNAL ONLY - [W, V]= SYMEIG(A, matrix_/vector_/upper_/lower_/raw_)
     BOOST_FORCEINLINE
     void eval ( A0& a0, A1& a1
               , boost::mpl::long_<2> const&
@@ -308,6 +337,14 @@ namespace nt2 { namespace ext
                                     , 'U'));
       assign_swap(boost::proto::child_c<0>(a1), w);
       assign_swap(boost::proto::child_c<1>(a1), u);
+    }
+
+    BOOST_FORCEINLINE
+    void eval2_2 ( A0& a0, A1& a1
+                 , nt2::policy<ext::raw_>
+                 ) const
+    {
+      eval2_2(a0, a1, nt2::policy<ext::vector_>());
     }
 
     BOOST_FORCEINLINE
@@ -401,6 +438,26 @@ namespace nt2 { namespace ext
 
     BOOST_FORCEINLINE
     void eval2_3 ( A0& a0, A1& a1
+                 , nt2::policy<ext::raw_>
+                 , nt2::policy<ext::upper_>
+                 ) const
+    {
+      eval2_3(a0, a1
+             , nt2::policy<ext::vector_>(), nt2::policy<ext::upper_>());
+    }
+
+    BOOST_FORCEINLINE
+    void eval2_3 ( A0& a0, A1& a1
+                 , nt2::policy<ext::raw_>
+                 , nt2::policy<ext::lower_>
+                 ) const
+    {
+      eval2_3(a0, a1
+             , nt2::policy<ext::vector_>(), nt2::policy<ext::lower_>());
+    }
+
+    BOOST_FORCEINLINE
+    void eval2_3 ( A0& a0, A1& a1
                  , nt2::policy<ext::vector_>
                  , nt2::policy<ext::lower_>
                  ) const
@@ -432,12 +489,16 @@ namespace nt2 { namespace ext
     }                                          \
     /**/
 
+    MORE_OPTIONS(2_3, lower_, raw_)
+    MORE_OPTIONS(2_3, upper_, raw_)
     MORE_OPTIONS(2_3, lower_, vector_)
     MORE_OPTIONS(2_3, upper_, vector_)
     MORE_OPTIONS(2_3, lower_, matrix_)
     MORE_OPTIONS(2_3, upper_, matrix_)
     MORE_OPTIONS(1_3, lower_, vector_)
     MORE_OPTIONS(1_3, upper_, vector_)
+    MORE_OPTIONS(1_3, lower_, raw_)
+    MORE_OPTIONS(1_3, upper_, raw_)
     MORE_OPTIONS(1_3, lower_, matrix_)
     MORE_OPTIONS(1_3, upper_, matrix_)
 

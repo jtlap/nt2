@@ -30,25 +30,35 @@ namespace nt2
     hermitian complex input.
 
     symeig can be called:
-    w = symeig(a)
+    w = symeig(a) or  w = symeig(a, raw_)
     w = symeig(a, matrix_/vector_/lower_/upper_)
-    w = symeig(a, matrix_/vector_,  lower_, upper)
-    [w, v] = symeig(a)
-    [w, v] = symeig(a, matrix_/vector_/lower_/upper)
-    [w, v] = symeig(a, matrix_/vector_,  lower_, upper)
+    w = symeig(a, matrix_/vector_,  lower_, upper_)
+    tie(w, v) = symeig(a)
+    tie(w, v) = symeig(a, matrix_/vector_/lower_/upper_)
+    tie(w, v) = symeig(a, matrix_/vector_,  lower_/upper_)
+    tie(w, v) = symeig(a, raw_)
+    tie(w, v) = symeig(a, raw_)
+    tie(w, v) = symeig(a, raw_, lower_/upper_)
 
-    w will contain the eigenvalues which are real in vector_ or diagonal matrix_ form.
+    w will contain the eigenvalues (which are real) in vector_ or diagonal matrix_ form.
     w is always real.
     With 2 outputs default is matrix_
     With 1 output  default is vector_
 
-    v will contain the eigenvectors in a matrix of element of the same type as the input
-    v is always complex
+    v will contain the eigenvectors in a matrix of element
+    of the same type as the input elements
 
     lower_/upper_ determines which part of the supposed symetric/hermitian input will
     be accessed (default is upper_), the other part being never referenced.
 
     For instance symeig(a,lower_) and  symeig(tril(a),lower_) lead to the same result.
+
+    with raw_ the matrices returned are the direct lapack result:
+      w a vector of real eigenvalues
+      v a matrix of eigenvectors
+    In all raw_ calls raw_ is equivalent to vector_.
+    The rationale for raw_ here is only to make obvious what are the most direct
+    (so a priori efficient) calls.
 
     Note : with 3 inputs the 2 options can be given in reverse order
    **/
