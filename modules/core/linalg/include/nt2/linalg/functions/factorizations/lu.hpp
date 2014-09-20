@@ -275,7 +275,7 @@ namespace nt2 { namespace ext
       nt2::container::table<nt2_la_int> ls(of_size(d, 1));
       CHECK_LAPACK_LU_SUCCESS(nt2::getrf( boost::proto::value(lu)
                                         , boost::proto::value(ls)));
-      table<itype_t> ip;
+      nt2::container::table<itype_t> ip;
       construct_ip(ls, ip, height(lu));
       boost::proto::child_c<0>(a1) = nt2::tri1l(lu(nt2::_, nt2::_(1, d) ) );
       boost::proto::child_c<1>(a1) = nt2::triu(lu( nt2::_(1, d), nt2::_) );
