@@ -222,69 +222,69 @@ NT2_TEST_CASE_TPL ( symeig_no_2i_sub, NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(w(_(1, 2, 8)), dd(_(1, 2, 8)), 10.0);
  }
 
-// NT2_TEST_CASE_TPL ( symeig_no_3i_sub, NT2_REAL_TYPES)
-// {
-//   using nt2::meta::as_;
-//   using nt2::_;
-//   typedef nt2::table<T> table_t;
-//   table_t w, v, d, dd, ww,
-//     b = nt2::ones(4, 4, nt2::meta::as_<T>())
-//     + T(10)*nt2::eye(4, 4, nt2::meta::as_<T>());
-//   w = nt2::ones(1, 8, as_<T>());
-//   ww = nt2::ones(8, 4, as_<T>());
-//   d = nt2::ones(8, 4, as_<T>());
-//   dd = nt2::ones(1, 8, as_<T>());
-//   v = nt2::ones(8, 4, as_<T>());
+NT2_TEST_CASE_TPL ( symeig_no_3i_sub, NT2_REAL_TYPES)
+{
+  using nt2::meta::as_;
+  using nt2::_;
+  typedef nt2::table<T> table_t;
+  table_t w, v, d, dd, ww,
+    b = nt2::ones(4, 4, nt2::meta::as_<T>())
+    + T(10)*nt2::eye(4, 4, nt2::meta::as_<T>());
+  w = nt2::ones(1, 8, as_<T>());
+  ww = nt2::ones(8, 4, as_<T>());
+  d = nt2::ones(8, 4, as_<T>());
+  dd = nt2::ones(1, 8, as_<T>());
+  v = nt2::ones(8, 4, as_<T>());
 
-//   std::cout << "31 nt2::tie(d(_(1, 2, 8), _), v(_(1, 2, 8), _)) = nt2::symeig(b, nt2::matrix_, nt2::upper_);" << std::endl;
-//   nt2::tie(d(_(1, 2, 8), _), v(_(1, 2, 8), _)) = nt2::symeig(b, nt2::upper_);
-//   NT2_TEST_ULP_EQUAL(b, nt2::mtimes(v(_(1, 2, 8), _), nt2::mtimes(d(_(1, 2, 8), _), nt2::trans(v(_(1, 2, 8), _)))), 10.0);
+  std::cout << "31 nt2::tie(d(_(1, 2, 8), _), v(_(1, 2, 8), _)) = nt2::symeig(b, nt2::matrix_, nt2::upper_);" << std::endl;
+  nt2::tie(d(_(1, 2, 8), _), v(_(1, 2, 8), _)) = nt2::symeig(b, nt2::upper_);
+  NT2_TEST_ULP_EQUAL(b, nt2::mtimes(v(_(1, 2, 8), _), nt2::mtimes(d(_(1, 2, 8), _), nt2::trans(v(_(1, 2, 8), _)))), 10.0);
 
-//   std::cout << "32 ww(_(1, 2, 8), _) = nt2::symeig(b, nt2::matrix_, nt2::upper_);" << std::endl;
-//   ww(_(1, 2, 8), _) = nt2::symeig(b, nt2::matrix_, nt2::upper_);
-//   NT2_TEST_ULP_EQUAL(ww(_(1, 2, 8), _), d(_(1, 2, 8), _), 10.0);
-
-
-//   std::cout << "33 nt2::tie(dd(_(1, 2, 8)), v(_(1, 2, 8), _)) = nt2::symeig(b, nt2::vector_, nt2::upper_);" << std::endl;
-//   nt2::tie(dd(_(1, 2, 8)), v(_(1, 2, 8), _)) = nt2::symeig(b, nt2::vector_, nt2::upper_);
-//   NT2_TEST_ULP_EQUAL(b, nt2::mtimes(v(_(1, 2, 8), _), nt2::mtimes(nt2::from_diag(dd(_(1, 2, 8))), nt2::trans(v(_(1, 2, 8), _)))), 10.0);
-
-//   std::cout << "34 w(_(1, 2, 8)) = nt2::symeig(b, nt2::vector_, nt2::upper_);" << std::endl;
-//   w(_(1, 2, 8)) = nt2::symeig(b, nt2::vector_, nt2::upper_);
-//   NT2_TEST_ULP_EQUAL(w(_(1, 2, 8)), dd(_(1, 2, 8)), 10.0);
-
-//   std::cout << "35 nt2::tie(d(_(1, 2, 8), _), v(_(1, 2, 8), _)) = nt2::symeig(b, nt2::matrix_, nt2::lower_);" << std::endl;
-//   nt2::tie(d(_(1, 2, 8), _), v(_(1, 2, 8), _)) = nt2::symeig(b, nt2::matrix_, nt2::lower_);
-//   NT2_TEST_ULP_EQUAL(b, nt2::mtimes(v(_(1, 2, 8), _), nt2::mtimes(d(_(1, 2, 8), _), nt2::trans(v(_(1, 2, 8), _)))), 10.0);
-
-//   std::cout << "36 ww(_(1, 2, 8), _) = nt2::symeig(b, nt2::matrix_, nt2::lower_);" << std::endl;
-//   ww(_(1, 2, 8), _) = nt2::symeig(b, nt2::matrix_, nt2::lower_);
-//   NT2_TEST_ULP_EQUAL(ww(_(1, 2, 8), _), d(_(1, 2, 8), _), 10.0);
+  std::cout << "32 ww(_(1, 2, 8), _) = nt2::symeig(b, nt2::matrix_, nt2::upper_);" << std::endl;
+  ww(_(1, 2, 8), _) = nt2::symeig(b, nt2::matrix_, nt2::upper_);
+  NT2_TEST_ULP_EQUAL(ww(_(1, 2, 8), _), d(_(1, 2, 8), _), 10.0);
 
 
-//   std::cout << "37 nt2::tie(dd(_(1, 2, 8)), v(_(1, 2, 8), _)) = nt2::symeig(b, nt2::vector_, nt2::lower_);" << std::endl;
-//   nt2::tie(dd(_(1, 2, 8)), v(_(1, 2, 8), _)) = nt2::symeig(b, nt2::vector_, nt2::lower_);
-//   NT2_TEST_ULP_EQUAL(b, nt2::mtimes(v(_(1, 2, 8), _), nt2::mtimes(nt2::from_diag(dd(_(1, 2, 8))), nt2::trans(v(_(1, 2, 8), _)))), 10.0);
+  std::cout << "33 nt2::tie(dd(_(1, 2, 8)), v(_(1, 2, 8), _)) = nt2::symeig(b, nt2::vector_, nt2::upper_);" << std::endl;
+  nt2::tie(dd(_(1, 2, 8)), v(_(1, 2, 8), _)) = nt2::symeig(b, nt2::vector_, nt2::upper_);
+  NT2_TEST_ULP_EQUAL(b, nt2::mtimes(v(_(1, 2, 8), _), nt2::mtimes(nt2::from_diag(dd(_(1, 2, 8))), nt2::trans(v(_(1, 2, 8), _)))), 10.0);
 
-//   std::cout << "38 w(_(1, 2, 8)) = nt2::symeig(b, nt2::vector_, nt2::lower_);" << std::endl;
-//   w(_(1, 2, 8)) = nt2::symeig(b, nt2::vector_, nt2::lower_);
-//   NT2_TEST_ULP_EQUAL(w(_(1, 2, 8)), dd(_(1, 2, 8)), 10.0);
+  std::cout << "34 w(_(1, 2, 8)) = nt2::symeig(b, nt2::vector_, nt2::upper_);" << std::endl;
+  w(_(1, 2, 8)) = nt2::symeig(b, nt2::vector_, nt2::upper_);
+  NT2_TEST_ULP_EQUAL(w(_(1, 2, 8)), dd(_(1, 2, 8)), 10.0);
 
-//   std::cout << "39 nt2::tie(d, v) = nt2::symeig(b, nt2::raw_, nt2::lower_);" << std::endl;
-//   nt2::tie(dd(_(1, 2, 8)), v(_(1, 2, 8), _)) = nt2::symeig(b, nt2::raw_, nt2::lower_);
-//   NT2_TEST_ULP_EQUAL(b, nt2::mtimes(v(_(1, 2, 8), _), nt2::mtimes(nt2::from_diag(dd(_(1, 2, 8))), nt2::trans(v(_(1, 2, 8), _)))), 10.0);
+  std::cout << "35 nt2::tie(d(_(1, 2, 8), _), v(_(1, 2, 8), _)) = nt2::symeig(b, nt2::matrix_, nt2::lower_);" << std::endl;
+  nt2::tie(d(_(1, 2, 8), _), v(_(1, 2, 8), _)) = nt2::symeig(b, nt2::matrix_, nt2::lower_);
+  NT2_TEST_ULP_EQUAL(b, nt2::mtimes(v(_(1, 2, 8), _), nt2::mtimes(d(_(1, 2, 8), _), nt2::trans(v(_(1, 2, 8), _)))), 10.0);
 
-//   std::cout << "310 w(_(1, 2, 8)) = nt2::symeig(b, nt2::raw_, nt2::lower_);" << std::endl;
-//   w(_(1, 2, 8)) = nt2::symeig(b, nt2::raw_, nt2::lower_);
-//   NT2_TEST_ULP_EQUAL(w(_(1, 2, 8)), dd(_(1, 2, 8)), 10.0);
+  std::cout << "36 ww(_(1, 2, 8), _) = nt2::symeig(b, nt2::matrix_, nt2::lower_);" << std::endl;
+  ww(_(1, 2, 8), _) = nt2::symeig(b, nt2::matrix_, nt2::lower_);
+  NT2_TEST_ULP_EQUAL(ww(_(1, 2, 8), _), d(_(1, 2, 8), _), 10.0);
 
-//   std::cout << "311 nt2::tie(dd(_(1, 2, 8)), v(_(1, 2, 8), _)) = nt2::symeig(b, nt2::raw_, nt2::upper_);" << std::endl;
-//   nt2::tie(dd(_(1, 2, 8)), v(_(1, 2, 8), _)) = nt2::symeig(b, nt2::raw_, nt2::upper_);
-//   NT2_TEST_ULP_EQUAL(b, nt2::mtimes(v(_(1, 2, 8), _), nt2::mtimes(nt2::from_diag(dd(_(1, 2, 8))), nt2::trans(v(_(1, 2, 8), _)))), 10.0);
 
-//   std::cout << "312 w(_(1, 2, 8)) = nt2::symeig(b, nt2::raw_, nt2::upper_);" << std::endl;
-//   w(_(1, 2, 8)) = nt2::symeig(b, nt2::raw_, nt2::upper_);
-//   NT2_TEST_ULP_EQUAL(w(_(1, 2, 8)), dd(_(1, 2, 8)), 10.0);
-// }
+  std::cout << "37 nt2::tie(dd(_(1, 2, 8)), v(_(1, 2, 8), _)) = nt2::symeig(b, nt2::vector_, nt2::lower_);" << std::endl;
+  nt2::tie(dd(_(1, 2, 8)), v(_(1, 2, 8), _)) = nt2::symeig(b, nt2::vector_, nt2::lower_);
+  NT2_TEST_ULP_EQUAL(b, nt2::mtimes(v(_(1, 2, 8), _), nt2::mtimes(nt2::from_diag(dd(_(1, 2, 8))), nt2::trans(v(_(1, 2, 8), _)))), 10.0);
+
+  std::cout << "38 w(_(1, 2, 8)) = nt2::symeig(b, nt2::vector_, nt2::lower_);" << std::endl;
+  w(_(1, 2, 8)) = nt2::symeig(b, nt2::vector_, nt2::lower_);
+  NT2_TEST_ULP_EQUAL(w(_(1, 2, 8)), dd(_(1, 2, 8)), 10.0);
+
+  std::cout << "39 nt2::tie(d, v) = nt2::symeig(b, nt2::raw_, nt2::lower_);" << std::endl;
+  nt2::tie(dd(_(1, 2, 8)), v(_(1, 2, 8), _)) = nt2::symeig(b, nt2::raw_, nt2::lower_);
+  NT2_TEST_ULP_EQUAL(b, nt2::mtimes(v(_(1, 2, 8), _), nt2::mtimes(nt2::from_diag(dd(_(1, 2, 8))), nt2::trans(v(_(1, 2, 8), _)))), 10.0);
+
+  std::cout << "310 w(_(1, 2, 8)) = nt2::symeig(b, nt2::raw_, nt2::lower_);" << std::endl;
+  w(_(1, 2, 8)) = nt2::symeig(b, nt2::raw_, nt2::lower_);
+  NT2_TEST_ULP_EQUAL(w(_(1, 2, 8)), dd(_(1, 2, 8)), 10.0);
+
+  std::cout << "311 nt2::tie(dd(_(1, 2, 8)), v(_(1, 2, 8), _)) = nt2::symeig(b, nt2::raw_, nt2::upper_);" << std::endl;
+  nt2::tie(dd(_(1, 2, 8)), v(_(1, 2, 8), _)) = nt2::symeig(b, nt2::raw_, nt2::upper_);
+  NT2_TEST_ULP_EQUAL(b, nt2::mtimes(v(_(1, 2, 8), _), nt2::mtimes(nt2::from_diag(dd(_(1, 2, 8))), nt2::trans(v(_(1, 2, 8), _)))), 10.0);
+
+  std::cout << "312 w(_(1, 2, 8)) = nt2::symeig(b, nt2::raw_, nt2::upper_);" << std::endl;
+  w(_(1, 2, 8)) = nt2::symeig(b, nt2::raw_, nt2::upper_);
+  NT2_TEST_ULP_EQUAL(w(_(1, 2, 8)), dd(_(1, 2, 8)), 10.0);
+}
 
 
