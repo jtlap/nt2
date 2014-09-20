@@ -11,7 +11,6 @@ SET( SOURCES
      chol.cpp
      lu.cpp
 #     qr.cpp
-     schur_result.cpp
 #     symeig_result.cpp
 #     geneig_result.cpp
 #     balance_result.cpp

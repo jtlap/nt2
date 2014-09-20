@@ -16,7 +16,6 @@ SET( SOURCES
 #     lu.cpp
 #     qr.cpp
 #     svd.cpp
-  schur.cpp
 #     rref.cpp
 #     planerot.cpp
 #     linsolve.cpp
