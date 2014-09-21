@@ -111,7 +111,7 @@ namespace nt2
         //u, t and r are complex arrays
         res.resize(extent(a0));
         ctab_t u, t;
-        nt2::tie(u, t) = schur(a0, meta::as_<cplx_type>()); // t is complex schur form.
+        nt2::tie(u, t) = schur(a0, nt2::cmplx_);
         BOOST_ASSERT_MSG(nt2::globalnone(is_eqz(nt2::diag_of(t))), "a0 has null eigenvalue(s)");
         BOOST_ASSERT_MSG(nt2::globalnone(nt2::logical_and(is_eqz(imag(nt2::diag_of(t))),
                                                           is_lez(real(nt2::diag_of(t))))), "a0 has non positive real eigenvalue(s)");

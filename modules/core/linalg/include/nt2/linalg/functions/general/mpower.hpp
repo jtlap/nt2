@@ -122,7 +122,7 @@ namespace nt2 { namespace ext
       r_type m = nt2::trunc(b);
       r_type f = b-m;
       ct_type q, t;
-      nt2::tie(q, t) = schur(a, meta::as_<cplx_type>()); // t is complex schur form.
+      nt2::tie(q, t) = schur(a, nt2::cmplx_);
       if(isdiagonal(t))
       {
         t = nt2::from_diag(nt2::pow(diag_of(t), m));

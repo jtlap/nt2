@@ -50,7 +50,7 @@ NT2_TEST_CASE_TPL(logm1, NT2_REAL_TYPES)//distinct eigenvalues
   NT2_TEST_ULP_EQUAL(r, logmn1, 5);
  }
 
-NT2_TEST_CASE_TPL(logm2, (float))//NT2_REAL_TYPES)//double eigenvalue
+NT2_TEST_CASE_TPL(logm2, NT2_REAL_TYPES)//double eigenvalue
 {
   using nt2::logm;
   using nt2::tag::logm_;
@@ -73,7 +73,7 @@ NT2_TEST_CASE_TPL(logm2, (float))//NT2_REAL_TYPES)//double eigenvalue
  }
 
 
-NT2_TEST_CASE_TPL(logm3, (float))//NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL(logm3, NT2_REAL_TYPES)
 {
   using nt2::logm;
   using nt2::tag::logm_;
@@ -90,7 +90,7 @@ NT2_TEST_CASE_TPL(logm3, (float))//NT2_REAL_TYPES)
 }
 
 
-NT2_TEST_CASE_TPL(logm4, (float))//NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL(logm4, NT2_REAL_TYPES)
 {
   using nt2::logm;
   using nt2::tag::logm_;
