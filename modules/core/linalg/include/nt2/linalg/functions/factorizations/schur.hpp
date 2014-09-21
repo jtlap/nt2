@@ -1,4 +1,5 @@
 //==============================================================================
+//         Copyright 2014 - Jean-Thierry Lapresté
 //         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
 //         Copyright 2009 - 2013   LRI    UMR 8623 CNRS/Univ Paris Sud XI
 //
@@ -8,6 +9,7 @@
 //==============================================================================
 #ifndef NT2_LINALG_FUNCTIONS_FACTORIZATIONS_SCHUR_HPP_INCLUDED
 #define NT2_LINALG_FUNCTIONS_FACTORIZATIONS_SCHUR_HPP_INCLUDED
+
 
 #include <nt2/include/functions/schur.hpp>
 #include <boost/dispatch/attributes.hpp>
@@ -22,7 +24,7 @@
 #include <nt2/include/functions/real.hpp>
 #include <nt2/include/functions/resize.hpp>
 #include <nt2/include/functions/tie.hpp>
-#include <nt2/include/functions/value.hpp>
+#include <nt2/include/functions/issquare.hpp>
 #include <nt2/sdk/meta/as_real.hpp>
 #include <nt2/sdk/complex/meta/is_complex.hpp>
 #include <nt2/linalg/options.hpp>
@@ -119,6 +121,7 @@ namespace nt2 { namespace ext
 
     BOOST_FORCEINLINE result_type operator()( A0& a0, A1& a1 ) const
     {
+      BOOST_ASSERT_MSG(issquare(boost::proto::child_c<0>(a0)),"first input must be square");
       eval(a0, a1, N0(), N1());
     }
   private:
@@ -178,10 +181,13 @@ namespace nt2 { namespace ext
                  ) const
     {
       nt2::container::table<type_t> work;
-      NT2_AS_TERMINAL_INOUT(o_semantic, t, boost::proto::child_c<0>(a0), work);
-      NT2_AS_TERMINAL_OUT  (c_semantic, w, boost::proto::child_c<0>(a1));
+      NT2_AS_TERMINAL_INOUT(o_semantic, t
+                           , boost::proto::child_c<0>(a0), work);
+      NT2_AS_TERMINAL_OUT  (c_semantic, w
+                           , boost::proto::child_c<0>(a1));
       NT2_LAPACK_VERIFY( nt2::geesxw(boost::proto::value(t),
                                      boost::proto::value(w)));
+      w.resize(of_size(height(t), 1));
       assign_swap(boost::proto::child_c<0>(a1), w);
    }
 
@@ -261,7 +267,7 @@ namespace nt2 { namespace ext
                  ) const
     {
       BOOST_ASSERT_MSG(isreal(boost::proto::child_c<0>(a0)),
-                       "all input matrix element are to be real to support "
+                       "all input matrix elements are to be real to support "
                        "'real_' option with complex type input");
       NT2_AS_TERMINAL_INOUT(r_semantic, t
                            , real(boost::proto::child_c<0>(a0)), boost::proto::child_c<1>(a1));
@@ -323,7 +329,7 @@ namespace nt2 { namespace ext
 
     }
     //==========================================================================
-    /// INTERNAL ONLY - [U, T, W]= SCHUR(A)
+    /// INTERNAL ONLY - [U, T, W]= SCHUR(A, real_/complex_)
     BOOST_FORCEINLINE
     void eval ( A0& a0, A1& a1
               , boost::mpl::long_<2> const&
@@ -341,9 +347,52 @@ namespace nt2 { namespace ext
                  , nt2::policy<ext::cmplx_>
                  ) const
     {
-      eval(a0, a1, boost::mpl::long_<1>, boost::mpl::long_<3>());
+      std::cout << "icitte" << std::endl;
+      NT2_AS_TERMINAL_INOUT(c_semantic, t
+                           , boost::proto::child_c<0>(a0), boost::proto::child_c<1>(a1));
+      NT2_AS_TERMINAL_OUT  (c_semantic, u
+                           , boost::proto::child_c<0>(a1));
+      NT2_AS_TERMINAL_OUT  (c_semantic, w
+                           , boost::proto::child_c<2>(a1));
+      size_t n = nt2::height(t);
+      u.resize(of_size(n, n));
+      w.resize(of_size(n, 1));
+      NT2_LAPACK_VERIFY(nt2::geesx( boost::proto::value(t)
+                                  , boost::proto::value(w)
+                                  , boost::proto::value(u)
+                                  ));
+      assign_swap(boost::proto::child_c<0>(a1), u);
+      assign_swap(boost::proto::child_c<1>(a1), t);
+      assign_swap(boost::proto::child_c<2>(a1), w);
     }
 
+    //==========================================================================
+    /// INTERNAL ONLY
+    BOOST_FORCEINLINE
+    void eval3_2 ( A0& a0, A1& a1
+                 , nt2::policy<ext::real_>
+                 ) const
+    {
+      BOOST_ASSERT_MSG(isreal(boost::proto::child_c<0>(a0)),
+                       "all input matrix elements are to be real to support "
+                       "'real_' option with complex type input");
+      NT2_AS_TERMINAL_INOUT(r_semantic, t
+                           , real(boost::proto::child_c<0>(a0)), boost::proto::child_c<1>(a1));
+      NT2_AS_TERMINAL_OUT  (r_semantic, u
+                           , boost::proto::child_c<0>(a1));
+      NT2_AS_TERMINAL_OUT  (c_semantic, w
+                           , boost::proto::child_c<2>(a1));
+      size_t n = nt2::height(t);
+      u.resize(of_size(n, n));
+      w.resize(of_size(n, 1));
+      NT2_LAPACK_VERIFY(nt2::geesx( boost::proto::value(t)
+                                  , boost::proto::value(w)
+                                  , boost::proto::value(u)
+                                  ));
+      assign_swap(boost::proto::child_c<0>(a1), u);
+      assign_swap(boost::proto::child_c<1>(a1), t);
+      assign_swap(boost::proto::child_c<2>(a1), w);
+    }
   };
 
 
