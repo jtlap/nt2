@@ -126,6 +126,9 @@ namespace boost { namespace dispatch { namespace details
          : meta::downgrade<typename meta::strip<X>::type, Sign>
     {
     };
+
+    template<class X>
+    typename meta::downgrade<X>::type operator()(X const&) const;
   };
 
   template<class T, class Sign, class Lambda>

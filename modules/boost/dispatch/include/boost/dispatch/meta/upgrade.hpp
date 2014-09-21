@@ -83,6 +83,9 @@ namespace boost { namespace dispatch { namespace details
          : meta::upgrade<typename meta::strip<X>::type, Sign>
     {
     };
+
+    template<class X>
+    typename meta::upgrade<X>::type operator()(X const&) const;
   };
 
   template<class T, class Sign, class Lambda>
