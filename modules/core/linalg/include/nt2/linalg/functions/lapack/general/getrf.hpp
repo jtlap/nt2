@@ -10,7 +10,7 @@
 #define NT2_LINALG_FUNCTIONS_LAPACK_GENERAL_GETRF_HPP_INCLUDED
 
 #include <nt2/linalg/functions/getrf.hpp>
-
+#include <nt2/linalg/details/lapack/declare/getrf.hpp>
 #include <nt2/linalg/details/utility/f77_wrapper.hpp>
 
 #include <nt2/include/functions/of_size.hpp>
@@ -18,27 +18,6 @@
 #include <nt2/include/functions/width.hpp>
 
 #include <nt2/sdk/complex/meta/is_complex.hpp>
-
-extern "C"
-{
-  void NT2_F77NAME(dgetrf)( const nt2_la_int* m , const nt2_la_int* n
-                          , double* a           , const nt2_la_int* lda
-                          , nt2_la_int* ipiv    , nt2_la_int* info
-                          );
-
-  void NT2_F77NAME(sgetrf)( const nt2_la_int* m , const nt2_la_int* n
-                          , float* a            , const nt2_la_int* lda
-                          , nt2_la_int* ipiv    , nt2_la_int* info
-                          );
-  void NT2_F77NAME(cgetrf)( const nt2_la_int* m , const nt2_la_int* n
-                          , nt2_la_complex* a   , const nt2_la_int* lda
-                          , nt2_la_int* ipiv    , nt2_la_int* info
-                          );
-  void NT2_F77NAME(zgetrf)( const nt2_la_int* m , const nt2_la_int* n
-                          , nt2_la_complex* a   , const nt2_la_int* lda
-                          , nt2_la_int* ipiv    , nt2_la_int* info
-                          );
-}
 
 namespace nt2 { namespace ext
 {

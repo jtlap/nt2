@@ -31,14 +31,15 @@ NT2_TEST_CASE_TPL ( lu_no_1i,  NT2_REAL_TYPES)
 {
   using nt2::_;
   using nt2::meta::as_;
+  typedef std::complex<T> cT;
 
   int i[3] = {4, 4, 5};
   int j[3] = {4, 5, 4};
   for(int k = 0; k < 3; ++k)
   {
-    nt2::table<T> l, u, p, lu;
+    nt2::table<cT> l, u, p, lu;
     nt2::table<nt2_la_int> ip;
-    nt2::table<T> b = nt2::reshape(nt2::_(T(1), T(i[k]*j[k])), i[k], j[k]);
+    nt2::table<cT> b = nt2::reshape(nt2::_(T(1), T(i[k]*j[k])), i[k], j[k]);
     size_t d = std::min(i[k], j[k]);
     b(_(1, d), _(1, d))+= nt2::from_diag(_(T(1001), T(1000+d)));
 
@@ -64,13 +65,14 @@ NT2_TEST_CASE_TPL ( lu_no_1i_sub,  NT2_REAL_TYPES)
 {
   using nt2::_;
   using nt2::meta::as_;
+  typedef std::complex<T> cT;
 
-  nt2::table<T> l, u, p, lu;
+  nt2::table<cT> l, u, p, lu;
   l =  nt2::ones(4, 8, as_<T>());
   u =  nt2::ones(4, 8, as_<T>());
   p =  nt2::ones(4, 8, as_<T>());
   lu=  nt2::ones(4, 8, as_<T>());
-  nt2::table<T> b = nt2::reshape(nt2::_(T(1), T(16)), 4, 4)+ nt2::from_diag(_(T(1001), T(1004)));
+  nt2::table<cT> b = nt2::reshape(nt2::_(T(1), T(16)), 4, 4)+ nt2::from_diag(_(T(1001), T(1004)));
 
   std::cout <<  ",  tie(l(_, _(1, 2, 8)), u(_, _(1, 2, 8)))= nt2::qr(b);" << std::endl;
   nt2::tie(l(_, _(1, 2, 8)), u(_, _(1, 2, 8))) = nt2::lu(b);
@@ -93,14 +95,15 @@ NT2_TEST_CASE_TPL ( luno_2i, NT2_REAL_TYPES)
 {
   using nt2::_;
   using nt2::meta::as_;
+  typedef std::complex<T> cT;
 
   int i[3] = {4, 4, 5};
   int j[3] = {4, 5, 4};
   for(int k = 0; k < 3; ++k)
   {
-    nt2::table<T> l, u, p, lu;
+    nt2::table<cT> l, u, p, lu;
     nt2::table<nt2_la_int> ip, ls;
-    nt2::table<T> b = nt2::reshape(nt2::_(T(1), T(i[k]*j[k])), i[k], j[k]);
+    nt2::table<cT> b = nt2::reshape(nt2::_(T(1), T(i[k]*j[k])), i[k], j[k]);
     size_t d = std::min(i[k], j[k]);
     b(_(1, d), _(1, d))+= nt2::from_diag(_(T(1001), T(1000+d)));
 
@@ -125,13 +128,14 @@ NT2_TEST_CASE_TPL ( luno_2i_sub, NT2_REAL_TYPES)
 {
   using nt2::_;
   using nt2::meta::as_;
+  typedef std::complex<T> cT;
 
-  nt2::table<T> l, u, p, lu;
+  nt2::table<cT> l, u, p, lu;
   l =  nt2::ones(4, 8, as_<T>());
   u =  nt2::ones(4, 8, as_<T>());
   p =  nt2::ones(4, 8, as_<T>());
   lu=  nt2::ones(4, 8, as_<T>());
-  nt2::table<T> b = nt2::reshape(nt2::_(T(1), T(16)), 4, 4)+ nt2::from_diag(_(T(1001), T(1004)));
+  nt2::table<cT> b = nt2::reshape(nt2::_(T(1), T(16)), 4, 4)+ nt2::from_diag(_(T(1001), T(1004)));
   nt2::table<nt2_la_int> ip, ls;
   ip =  nt2::ones(1, 8, as_<nt2_la_int>());
   ls =  nt2::ones(1, 8, as_<nt2_la_int>());
@@ -156,9 +160,10 @@ NT2_TEST_CASE_TPL(singular_lu, NT2_REAL_TYPES )
 {
   using nt2::_;
   using nt2::meta::as_;
+  typedef std::complex<T> cT;
 
-  nt2::table<T> lu;
-  nt2::table<T> a = nt2::ones(4, 4, as_<T>()) + T(10)*nt2::eye(4, 4, as_<T>());
+  nt2::table<cT> lu;
+  nt2::table<cT> a = nt2::ones(4, 4, as_<T>()) + T(10)*nt2::eye(4, 4, as_<T>());
 
   // Make it singular
   a(2,nt2::_) = T(0);
