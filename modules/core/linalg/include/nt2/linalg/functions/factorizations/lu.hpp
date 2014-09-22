@@ -31,6 +31,7 @@
 #include <nt2/sdk/error/warning.hpp>
 #include <nt2/linalg/options.hpp>
 #include <boost/dispatch/attributes.hpp>
+#include <boost/dispatch/meta/ignore_unused.hpp>
 #include <algorithm>
 
 ///Utilitary macro
@@ -38,6 +39,7 @@
 #define CHECK_LAPACK_LU_SUCCESS(info)                        \
   {                                                          \
     nt2_la_int info_ = info;                                 \
+    boost::dispatch::ignore_unused(info_);                   \
     NT2_WARNING(info_ <= 0                                   \
                , "LU factorization has been completed, "     \
                 "but input matrix is exactly singular. "     \
