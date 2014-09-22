@@ -9,6 +9,7 @@
 #ifndef NT2_LINALG_FUNCTIONS_FACTORIZATIONS_CHOL_HPP_INCLUDED
 #define NT2_LINALG_FUNCTIONS_FACTORIZATIONS_CHOL_HPP_INCLUDED
 
+#include <nt2/linalg/functions/lu.hpp>
 #include <nt2/include/functions/qr.hpp>
 #include <nt2/include/functions/is_gtz.hpp>
 #include <nt2/include/functions/potrf.hpp>
