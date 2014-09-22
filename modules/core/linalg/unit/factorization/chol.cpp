@@ -162,9 +162,9 @@ NT2_TEST_CASE_TPL(chol_no_3i_nondef, NT2_REAL_TYPES )
 
   std::cout << " tie(u,p) = chol(a, raw_, upper_) " << std::endl;
   nt2::tie(u,p) = nt2::chol(a, nt2::raw_, nt2::upper_);
-  u1 =  triu(u);
+  u1 =  triu(u(_(1, 4),_(1, 4)));
   NT2_TEST_EQUAL(p,5);
-  NT2_TEST_ULP_EQUAL(a, nt2::mtimes(nt2::trans(u1),u1), T(20) );
+  NT2_TEST_ULP_EQUAL(a(_(1, 4),_(1, 4)), nt2::mtimes(nt2::trans(u1),u1), T(20) );
 
   std::cout << " tie(l,p) = chol(a, raw_, lower_) " << std::endl;
   nt2::tie(l,p) = nt2::chol(a, nt2::raw_, nt2::lower_);
@@ -174,9 +174,9 @@ NT2_TEST_CASE_TPL(chol_no_3i_nondef, NT2_REAL_TYPES )
 
   std::cout << " tie(u,p) = chol(a, upper_, raw_) " << std::endl;
   nt2::tie(u,p) = nt2::chol(a, nt2::upper_, nt2::raw_);
-  u1 =  triu(u);
+  u1 =  triu(u(_(1, 4),_(1, 4)));
   NT2_TEST_EQUAL(p,5);
-  NT2_TEST_ULP_EQUAL(a, nt2::mtimes(nt2::trans(u1),u1), T(20) );
+  NT2_TEST_ULP_EQUAL(a(_(1, 4),_(1, 4)), nt2::mtimes(nt2::trans(u1),u1), T(20) );
 
   std::cout << " tie(l,p) = chol(a, lower_, raw_) " << std::endl;
   nt2::tie(l,p) = nt2::chol(a, nt2::lower_, nt2::raw_);
