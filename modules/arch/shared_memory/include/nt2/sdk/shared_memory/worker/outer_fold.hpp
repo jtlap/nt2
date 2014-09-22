@@ -25,7 +25,6 @@ namespace nt2
     struct outer_fold_step_outcache_;
     struct outer_fold_step_incache_;
     struct fold_;
-    struct cpu_;
   }
 
   // Outer Fold worker
