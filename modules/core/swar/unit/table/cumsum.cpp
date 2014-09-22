@@ -13,17 +13,9 @@
 #include <nt2/include/functions/cumsum.hpp>
 #include <nt2/include/functions/reshape.hpp>
 #include <nt2/include/functions/colon.hpp>
-#include <nt2/include/functions/isequal.hpp>
-
-#include <nt2/include/functions/ones.hpp>
-#include <nt2/include/constants/two.hpp>
-#include <nt2/include/constants/zero.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
-#include <nt2/sdk/unit/tests/type_expr.hpp>
-#include <nt2/sdk/unit/tests/exceptions.hpp>
 
 NT2_TEST_CASE( cumsum_inner )
 {
@@ -49,7 +41,7 @@ NT2_TEST_CASE( cumsum_inner )
             T(28),   T(57),   T(87)
           };
   table<T, nt2::shared_> c(of_size(3, 5, 2), nt2::share(&r[0], r + sizeof r/sizeof *r));
-  NT2_TEST( isequal(b, c) );
+  NT2_TEST_EQUAL(b, c);
 }
 
 NT2_TEST_CASE( cumsum_outer )
@@ -76,5 +68,5 @@ NT2_TEST_CASE( cumsum_outer )
             T(110),   T(115),   T(120)
           };
   table<T, nt2::shared_> c(of_size(3, 5, 2), nt2::share(&r[0], r + sizeof r/sizeof *r));
-  NT2_TEST( isequal(b, c) );
+  NT2_TEST_EQUAL(b, c);
 }

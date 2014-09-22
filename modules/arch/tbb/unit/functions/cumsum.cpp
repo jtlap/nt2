@@ -38,7 +38,6 @@ NT2_TEST_CASE( cumsum_inner )
 
   std::size_t M = 16;
   std::size_t N = 3;
-  std::size_t size = M*N;
 
   table<T> a = reshape(_(T(0), T(M*N-1)), M,N);
   table<T> b = cumsum(a);
