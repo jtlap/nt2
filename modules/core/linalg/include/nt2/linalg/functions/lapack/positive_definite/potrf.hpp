@@ -10,32 +10,10 @@
 #define NT2_LINALG_FUNCTIONS_LAPACK_POSITIVE_DEFINITE_POTRF_HPP_INCLUDED
 
 #include <nt2/linalg/functions/potrf.hpp>
+#include <nt2/linalg/details/lapack/declare/potrf.hpp>
 #include <nt2/linalg/details/utility/f77_wrapper.hpp>
 #include <nt2/include/functions/height.hpp>
 #include <nt2/include/functions/width.hpp>
-
-extern "C"
-{
-  void NT2_F77NAME(dpotrf)( const char* uplo     , const nt2_la_int* n
-                          , double* a            , const nt2_la_int* lda
-                          , nt2_la_int* info
-                          );
-
-  void NT2_F77NAME(spotrf)( const char* uplo     , const nt2_la_int* n
-                          , float* a             , const nt2_la_int* lda
-                          , nt2_la_int* info
-                          );
-
-  void NT2_F77NAME(cpotrf)( const char* uplo     , const nt2_la_int* n
-                          , nt2_la_complex* a    , const nt2_la_int* lda
-                          , nt2_la_int* info
-                          );
-
-  void NT2_F77NAME(zpotrf)( const char* uplo     , const nt2_la_int* n
-                          , nt2_la_complex* a    , const nt2_la_int* lda
-                          , nt2_la_int* info
-                          );
-}
 
 namespace nt2 { namespace ext
 {
