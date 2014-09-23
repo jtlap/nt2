@@ -48,9 +48,6 @@ namespace nt2 { namespace ext
     {
       bool ltza0 = is_ltz(a0);
       if( (ltza0 && !is_flint(a1)) ) return Nan<A0>();
-      #ifndef BOOST_SIMD_NO_INVALIDS
-      if(is_nan(a0) || is_nan(a1)) return Nan<A0>();
-      #endif
       A0 z = pow_abs(a0, a1);
       return  (ltza0 && nt2::is_odd(a1)) ? -z : z;
     }
