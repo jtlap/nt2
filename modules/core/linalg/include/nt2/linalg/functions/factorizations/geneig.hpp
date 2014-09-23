@@ -477,6 +477,7 @@ namespace nt2 { namespace ext
       //from_diag doesnt support aliasing currently
     }
 
+
     /// INTERNAL ONLY: 3o 3i
     template < class T > BOOST_FORCEINLINE
     void eval3_3 ( A0& a0, A1& a1
@@ -644,7 +645,6 @@ namespace nt2 { namespace ext
                  , T const &
                  ) const
     {
-//      BOOST_ASSERT_MSG(false, "unknown option, or not suited to 4 ouputs");
       eval4_3(a0, a1
              , boost::proto::value(boost::proto::child_c<2>(a0)));
     }

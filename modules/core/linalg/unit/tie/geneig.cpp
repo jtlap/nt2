@@ -28,14 +28,16 @@
 NT2_TEST_CASE_TPL(geneig_sca, NT2_REAL_TYPES)
 {
   using nt2::geneig;
-  typedef nt2::table<T> t_t;
-  t_t w =   geneig(T(2), T(2));
-  NT2_TEST_ULP_EQUAL(w, T(1), 0);
+  typedef std::complex<T> cT;
+  typedef nt2::table<cT> ct_t;
+  ct_t w =   geneig(T(2), T(2));
+  NT2_TEST_ULP_EQUAL(w, cT(1), 0);
   w =   geneig(T(2),T(2), nt2::matrix_);
-  NT2_TEST_ULP_EQUAL(w, T(1), 0);
+  NT2_TEST_ULP_EQUAL(w, cT(1), 0);
   w =   geneig(T(2),T(2), nt2::vector_);
-  NT2_TEST_ULP_EQUAL(w, T(1), 0);
- }
+  NT2_TEST_ULP_EQUAL(w, cT(1), 0);
+}
+
 
 
 NT2_TEST_CASE_TPL(geneig_1o_ni, NT2_REAL_TYPES)
@@ -194,6 +196,7 @@ NT2_TEST_CASE_TPL(geneig_1o_ni_sub, NT2_REAL_TYPES)
   using nt2::meta::as_;
   typedef std::complex<T> cT;
   typedef nt2::table<T> t_t;
+
   typedef nt2::table<cT> ct_t;
   t_t a =  nt2::cons(nt2::of_size(2, 2), nt2::Sqrt_2o_2<T>(), T(0), T(0), T(1));
   t_t b =  nt2::cons(nt2::of_size(2, 2), T(0), -nt2::Sqrt_2o_2<T>(), T(1), T(0));
