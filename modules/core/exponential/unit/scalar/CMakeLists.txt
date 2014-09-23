@@ -22,7 +22,6 @@ SET( SOURCES
   logspace_add.cpp
   nthroot.cpp
   pow.cpp
-  pow_absi.cpp
   pow_abs.cpp
   pow2.cpp
   realpow.cpp

@@ -26,7 +26,6 @@ they are supported for real and complex inputs
 [[[funcref nt2::nthroot         `nthroot         `]][ nth root                                       ]]
 [[[funcref nt2::pow2            `pow2            `]][ two power and scaling                          ]]
 [[[funcref nt2::pow_abs         `pow_abs         `]][ power of absolute value                        ]]
-[[[funcref nt2::pow_absi        `pow_absi        `]][ power of absolute value of integer             ]]
 [[[funcref nt2::pow             `pow             `]][ power                                          ]]
 [[[funcref nt2::reallog         `reallog         `]][ natural logarithm restricted to positive reals ]]
 [[[funcref nt2::realpow         `realpow         `]][ power restricted to positive reals             ]]

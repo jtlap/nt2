@@ -28,7 +28,6 @@
 #include <nt2/include/functions/is_eqz.hpp>
 #include <nt2/include/functions/ldexp.hpp>
 #include <nt2/include/functions/pow2.hpp>
-#include <nt2/include/functions/pow_absi.hpp>
 #include <nt2/include/functions/sqr.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/sdk/meta/as_real.hpp>
@@ -50,7 +49,6 @@ namespace nt2 { namespace ext
                               (scalar_< floating_<A1> >)
                             )
   {
-
     typedef A0 result_type;
 
     NT2_FUNCTOR_CALL(2)
@@ -114,20 +112,6 @@ namespace nt2 { namespace ext
     {
       // Find a multiple of 1/16 that is within 1/16 of x.
       return Oneo_16<A0>()*floor(Sixteen<A0>()*x);
-    }
-  };
-
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow_abs_, tag::cpu_
-                            , (A0)(A1)
-                            , (scalar_< unspecified_<A0> >)(scalar_< integer_<A1> >)
-                            )
-  {
-
-    typedef typename meta::as_real<A0>::type result_type;
-
-    NT2_FUNCTOR_CALL(2)
-    {
-      return pow_absi(a0, a1);
     }
   };
 } }

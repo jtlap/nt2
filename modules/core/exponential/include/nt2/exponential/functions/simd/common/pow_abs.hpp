@@ -40,11 +40,10 @@
 #include <nt2/include/functions/simd/oneplus.hpp>
 #include <nt2/include/functions/simd/plus.hpp>
 #include <nt2/include/functions/simd/pow2.hpp>
-#include <nt2/include/functions/simd/pow_absi.hpp>
 #include <nt2/include/functions/simd/rec.hpp>
 #include <nt2/include/functions/simd/selinc.hpp>
 #include <nt2/include/functions/simd/selsub.hpp>
-#include <nt2/include/functions/simd/shr.hpp>
+#include <nt2/include/functions/simd/shift_right.hpp>
 #include <nt2/include/functions/simd/signnz.hpp>
 #include <nt2/include/functions/simd/sqr.hpp>
 #include <nt2/include/functions/simd/tofloat.hpp>
@@ -52,7 +51,6 @@
 #include <nt2/include/functions/simd/unary_minus.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/sdk/meta/as_logical.hpp>
-
 #include <boost/simd/sdk/config.hpp>
 
 #ifndef BOOST_SIMD_NO_INFINITIES
@@ -141,59 +139,26 @@ namespace nt2 { namespace ext
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow_abs_, tag::cpu_
                             , (A0)(A1)(X)
-                            , ((simd_<floating_<A0>,X>))
+                            , ((simd_<arithmetic_<A0>,X>))
                               ((simd_<integer_<A1>,X>))
                             )
   {
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(2)
-   {
-      typedef result_type r_type;
-      r_type x = nt2::abs(a0);
-      A1 sign_n = signnz( a1 );
-      A1 n = nt2::abs(a1);
-      r_type n_oddf = if_else_zero(is_odd(n), One<r_type>());
-      r_type nf = n_oddf;
-      r_type y = fma(n_oddf,x,oneminus(n_oddf));
-      r_type w = x;
-      n = shri(n,1);
-      while( nt2::any(n) )
+    {
+      A0 base = a0;
+      A1 exp = a1;
+
+      result_type result = One<result_type>();
+      while(nt2::any(exp))
       {
-        w =sqr(w);
-        n_oddf = if_else_zero(is_odd(n), One<r_type>());
-        y = y*fma(n_oddf,w,oneminus(n_oddf));
-        n = shri(n,1);
+        result *= if_else(is_odd(exp), base, One<result_type>());
+        exp >>= 1;
+        base = sqr(base);
       }
 
-      w = y;
-      y = fma(nf, w, (oneminus(nf))*y);
-
-      w = rec(y);
-      x = tofloat(shri(oneplus(sign_n),1));  // 1 if positive, else 0
-      A0 r =  fma(x,y,oneminus(x)*w);
-      #ifndef BOOST_SIMD_NO_NANS
-      r =  if_else(is_nan(a0), a0, r);
-      #endif
-      #ifndef BOOST_SIMD_NO_INFINITIES
-      r =  if_else(l_and(is_inf(a0), is_ltz(a1)), b_and(r, Mzero<A0>()), r);
-      #endif
-      return r;
-    }
-  };
-
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow_abs_, tag::cpu_
-                            , (A0)(A1)(X)
-                            , ((simd_<floating_<A0>,X>))
-                              (scalar_< integer_<A1> >)
-                            )
-  {
-
-    typedef A0 result_type;
-
-    NT2_FUNCTOR_CALL(2)
-    {
-      return pow_absi(a0, a1);
-    }
+      return result;
+     }
   };
 } }
 
