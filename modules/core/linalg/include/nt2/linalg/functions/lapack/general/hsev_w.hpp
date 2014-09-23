@@ -157,6 +157,7 @@ namespace nt2 { namespace ext
         NT2_F77NAME(cheev) (&jobz, &uplo, &n, 0, &lda, 0, wk.main(), details::query(), wk.reals(), &info);
 
         wk.prepare_main();
+        wk.resize_reals(std::max(3*n-2, 1));
         info = nt2::hsev_w(a, w, uplo, wk);
 
         return info;
@@ -217,6 +218,7 @@ namespace nt2 { namespace ext
                            , &info);
 
         wk.prepare_main();
+        wk.resize_reals(std::max(3*n-2, 1));
         info = nt2::hsev_w(a, w, uplo, wk);
 
         return info;
@@ -233,7 +235,6 @@ namespace nt2 { namespace ext
                             )
   {
      typedef nt2_la_int result_type;
-
 
      BOOST_FORCEINLINE result_type operator()( A0& a, A1& w, C0 uplo, WK& wk) const
      {
