@@ -11,13 +11,12 @@ SET( SOURCES
   balance.cpp
   nseig.cpp
   qr.cpp
+  symeig.cpp
 #     chol.cpp
 #     lu.cpp
 #     qr.cpp
 #     svd.cpp
   schur.cpp
-#     symeig.cpp
-#     balance.cpp
 #     rref.cpp
 #     planerot.cpp
 #     linsolve.cpp
