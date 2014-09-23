@@ -46,6 +46,23 @@ NT2_TEST_CASE( swap_different_table )
   NT2_TEST_EQUAL( y, ox);
 }
 
+NT2_TEST_CASE( swap_different_layour )
+{
+  nt2::table<float>           x(nt2::of_size(3,5)), ox;
+  nt2::table<float, nt2::of_size_<3,5> >  y,oy;
+
+  for(std::size_t i=1;i<=numel(x);++i) x(i) = 1.f+i;
+  for(std::size_t i=1;i<=numel(y);++i) y(i) = 2.f*i;
+
+  ox = x;
+  oy = y;
+
+  nt2::swap(x,y);
+
+  NT2_TEST_EQUAL( x, oy);
+  NT2_TEST_EQUAL( y, ox);
+}
+
 NT2_TEST_CASE( swap_sub_table )
 {
   using nt2::_;
