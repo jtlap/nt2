@@ -30,7 +30,7 @@
 #include <nt2/linalg/options.hpp>
 #include <nt2/linalg/details/utility/lapack_verify.hpp>
 #include <nt2/core/container/dsl/as_terminal.hpp>
-#include <nt2/core/container/dsl/assign_swap.hpp>
+#include <nt2/core/utility/assign_swap.hpp>
 #include <boost/assert.hpp>
 #include <boost/mpl/bool.hpp>
 #include <boost/mpl/if.hpp>

@@ -26,7 +26,7 @@
 #include <nt2/core/container/colon/colon.hpp>
 #include <nt2/core/container/table/table.hpp>
 #include <nt2/core/container/dsl/as_terminal.hpp>
-#include <nt2/core/container/dsl/assign_swap.hpp>
+#include <nt2/core/utility/assign_swap.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/sdk/error/warning.hpp>
 #include <nt2/linalg/options.hpp>
