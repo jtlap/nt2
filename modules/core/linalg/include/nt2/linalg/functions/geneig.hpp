@@ -42,22 +42,22 @@ namespace nt2
      The possible calls are
 
      1) w = geneig(a, b{, opt1});
-     2) tie(alpha, beta) = geneig(a, b, opt1, {opt2});
-     3) tie(vr, w) = geneig(a, b{, opt1, {opt2});
-     4) tie(vr, alpha, beta) = geneig(a, b, opt1, {opt2});
+     2) tie(alpha, beta) = geneig(a, b, alphabeta_, {opt2});
+     3) tie(vr, w) = geneig(a, b{, opt1, {opt2}});
+     4) tie(vr, alpha, beta) = geneig(a, b, alphabeta_, {opt2});
      5) tie(vr, w, vl) = geneig(a{, opt1, {opt2}});
      6) tie(vr, alpha, beta, vl) = geneig(a, b{, opt1, {opt2}});
 
      You have to include nt2/linalg/options.hpp if you use any options
-     opt1 can be nt2::matrix_, nt2::vector_, alphabeta_ or lambda_
+     opt1 can be nt2::matrix_, nt2::vector_ or alphabeta_
 
-     matrix_ and vector_ specify if w (or alpha and beta) is to be returned as a
-     diagonal matrix or a colon vector.
+     matrix_ and vector_ specify if w (or alpha and beta) is (are) to be returned as
+     diagonal matrix or colon vector.
      For call 1 vector_ is the default,  for the others matrix_ is the default.
      For call 2 alphabeta_ option as option one is required as no option is call 3)
 
      alphabeta_ option is used to require the alpha beta form of eigenvalues
-     the alpha/beta (option lambda_) form being the default
+     the alpha/beta form being the default
 
      Algorithms
      geneig is performed using xggev LAPACK routines.
