@@ -41,7 +41,7 @@ namespace nt2 { namespace tag
     is similar to:
 
     @code
-    T0 r = pow(x, abs(y));
+    T0 r = pow(abs(x), y);
     @endcode
 
     @see @funcref{pow}, @funcref{abs}
