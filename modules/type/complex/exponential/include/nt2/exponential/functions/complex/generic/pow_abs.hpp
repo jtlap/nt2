@@ -13,8 +13,6 @@
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/exp.hpp>
 #include <nt2/include/functions/log.hpp>
-#include <nt2/include/functions/log.hpp>
-#include <nt2/include/functions/exp.hpp>
 #include <nt2/include/functions/real.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
@@ -23,20 +21,7 @@ namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow_abs_, tag::cpu_
                             , (A0)(A1)
-                            , (generic_< complex_<floating_<A0> > >)
-                              (generic_< complex_<floating_<A1> > >)
-                            )
-  {
-    typedef typename meta::as_complex<A0>::type result_type;
-    NT2_FUNCTOR_CALL(2)
-    {
-      return exp(a1*log(nt2::abs(a0)));
-    }
-  };
-
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow_abs_, tag::cpu_
-                            , (A0)(A1)
-                            , (generic_< floating_<A0> >)
+                            , (generic_< unspecified_<A0> >)
                               (generic_< complex_<floating_<A1> > >)
                             )
   {
@@ -50,7 +35,7 @@ namespace nt2 { namespace ext
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow_abs_, tag::cpu_
                             , (A0)(A1)
                             , (generic_< complex_<floating_<A0> > >)
-                              (generic_< floating_<A1> >)
+                              (generic_< arithmetic_<A1> >)
                             )
   {
     typedef typename meta::as_real<A0>::type result_type;
