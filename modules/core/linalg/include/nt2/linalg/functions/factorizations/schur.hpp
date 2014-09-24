@@ -36,7 +36,6 @@
 #include <boost/mpl/if.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/meta/strip.hpp>
-#include <iostream>
 
 namespace nt2 { namespace ext
 {
@@ -72,8 +71,6 @@ namespace nt2 { namespace ext
 
     BOOST_FORCEINLINE result_type operator()(const A0& a0, const A1&) const
     {
-//      std::cout << "result_type " << type_id < result_type>() << std::endl;
-//      std::cout << "opt_t       " << type_id < opt_t>()       << std::endl;
       return eval(a0, opt_t());
     }
   private :
@@ -347,7 +344,6 @@ namespace nt2 { namespace ext
                  , nt2::policy<ext::cmplx_>
                  ) const
     {
-      std::cout << "icitte" << std::endl;
       NT2_AS_TERMINAL_INOUT(c_semantic, t
                            , boost::proto::child_c<0>(a0), boost::proto::child_c<1>(a1));
       NT2_AS_TERMINAL_OUT  (c_semantic, u
