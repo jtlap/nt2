@@ -234,23 +234,21 @@
 // >                   could also be caused by underflow due to scaling.
 // > \endverbatim
 
-typedef nt2_la_int selectall_t(void*) ;
-typedef nt2_la_int selectall2_t(const void*, const void*);
 extern "C"
 {
-  void NT2_F77NAME(cgeesx)(const char* jobvs, const char* sort, selectall_t* select, const char* sense,
+  void NT2_F77NAME(cgeesx)(const char* jobvs, const char* sort, nt2::details::selectall_t* select, const char* sense,
                            const nt2_la_int* n, nt2_la_complex* a, const nt2_la_int* lda, nt2_la_int* sdim, nt2_la_complex* w,
                            const nt2_la_complex* vs, const nt2_la_int* ldvs, float* rconde, float* rcondv, nt2_la_complex* work,
                            const nt2_la_int* lwork, float* rwork, nt2_la_int* bwork, nt2_la_int* info);
-  void NT2_F77NAME(sgeesx)(const char* jobvs, const char* sort, selectall2_t* selectall , const char* sense,
+  void NT2_F77NAME(sgeesx)(const char* jobvs, const char* sort, nt2::details::selectall2_t* selectall, const char* sense,
                            const nt2_la_int* n, float* a, const nt2_la_int* lda, nt2_la_int* sdim, float* wr, float* wi,
                            const float* vs, const nt2_la_int* ldvs, float* rconde, float* rcondv, float* work,
                            const nt2_la_int* lwork, nt2_la_int* iwork, const nt2_la_int* liwork, nt2_la_int* bwork, nt2_la_int* info);
-  void NT2_F77NAME(zgeesx)(const char* jobvs, const char* sort, selectall_t* select , const char* sense,
+  void NT2_F77NAME(zgeesx)(const char* jobvs, const char* sort, nt2::details::selectall_t* select, const char* sense,
                            const nt2_la_int* n, nt2_la_complex* a, const nt2_la_int* lda, nt2_la_int* sdim, nt2_la_complex* w,
                            const nt2_la_complex* vs, const nt2_la_int* ldvs, double* rconde, double* rcondv, nt2_la_complex* work,
                            const nt2_la_int* lwork, double* rwork, nt2_la_int* bwork, nt2_la_int* info);
-  void NT2_F77NAME(dgeesx)(const char* jobvs, const char* sort, selectall2_t*select , const char* sense,
+  void NT2_F77NAME(dgeesx)(const char* jobvs, const char* sort, nt2::details::selectall2_t* select, const char* sense,
                            const nt2_la_int* n, double* a, const nt2_la_int* lda, nt2_la_int* sdim, double* wr, double* wi,
                            const double* vs, const nt2_la_int* ldvs, double* rconde, double* rcondv, double* work,
                            const nt2_la_int* lwork, nt2_la_int* iwork, const nt2_la_int* liwork, nt2_la_int* bwork, nt2_la_int* info);
