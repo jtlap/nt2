@@ -10,12 +10,14 @@
 #define NT2_EXPONENTIAL_FUNCTIONS_GENERIC_POW_HPP_INCLUDED
 
 #include <nt2/exponential/functions/pow.hpp>
-#include <nt2/include/functions/simd/pow_abs.hpp>
 #include <nt2/include/functions/simd/rec.hpp>
 #include <nt2/include/functions/simd/unary_minus.hpp>
 #include <nt2/include/functions/simd/if_else.hpp>
 #include <nt2/include/functions/simd/is_ltz.hpp>
+#include <nt2/include/functions/simd/multiplies.hpp>
+#include <nt2/include/functions/scalar/is_odd.hpp>
 #include <nt2/sdk/meta/as_logical.hpp>
+#include <nt2/sdk/meta/as_unsigned.hpp>
 #include <boost/simd/operator/functions/details/assert_utils.hpp>
 #include <boost/assert.hpp>
 
@@ -31,7 +33,19 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-      return pow_abs(a0, a1);
+      A0 base = a0;
+      A1 exp = a1;
+
+      result_type result = One<result_type>();
+      while(exp)
+      {
+        if(is_odd(exp))
+            result *= base;
+        exp >>= 1;
+        base = sqr(base);
+      }
+
+      return result;
     }
   };
 
@@ -46,7 +60,9 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE NT2_FUNCTOR_CALL(2)
     {
       BOOST_ASSERT_MSG( boost::simd::assert_all(a1 >= 0), "integral pow with signed exponent" );
-      return pow_abs(a0, a1);
+
+      typedef typename meta::as_unsigned<A1>::type utype;
+      return pow(a0, bitwise_cast<utype>(a1));
     }
   };
 
@@ -61,8 +77,9 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
+      typedef typename meta::as_unsigned<A1>::type utype;
       typename meta::as_logical<A1>::type ltza1 = is_ltz(a1);
-      result_type p = pow_abs(a0, if_else(ltza1, -a1, a1));
+      result_type p = pow(a0, bitwise_cast<utype>(if_else(ltza1, -a1, a1)));
       return if_else(ltza1, rec(p), p);
     }
   };

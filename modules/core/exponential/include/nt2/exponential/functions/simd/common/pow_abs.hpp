@@ -19,7 +19,6 @@
 #include <nt2/include/constants/powlowlim.hpp>
 #include <nt2/include/constants/sixteen.hpp>
 #include <nt2/include/functions/simd/abs.hpp>
-#include <nt2/include/functions/simd/any.hpp>
 #include <nt2/include/functions/simd/divides.hpp>
 #include <nt2/include/functions/simd/fma.hpp>
 #include <nt2/include/functions/simd/frexp.hpp>
@@ -40,7 +39,6 @@
 #include <nt2/include/functions/simd/oneplus.hpp>
 #include <nt2/include/functions/simd/plus.hpp>
 #include <nt2/include/functions/simd/pow2.hpp>
-#include <nt2/include/functions/simd/rec.hpp>
 #include <nt2/include/functions/simd/selinc.hpp>
 #include <nt2/include/functions/simd/selsub.hpp>
 #include <nt2/include/functions/simd/shift_right.hpp>
@@ -60,10 +58,6 @@
 #include <nt2/include/functions/simd/is_equal.hpp>
 #include <nt2/include/functions/simd/is_inf.hpp>
 #include <nt2/include/functions/simd/is_ltz.hpp>
-#endif
-
-#ifndef BOOST_SIMD_NO_NANS
-#include <nt2/include/functions/simd/is_nan.hpp>
 #endif
 
 namespace nt2 { namespace ext
@@ -135,30 +129,6 @@ namespace nt2 { namespace ext
       // Find a multiple of 1/16 that is within 1/16 of x.
       return Oneo_16<A0>()*floor(Sixteen<A0>()*x);
     }
-  };
-
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow_abs_, tag::cpu_
-                            , (A0)(A1)(X)
-                            , ((simd_<arithmetic_<A0>,X>))
-                              ((simd_<integer_<A1>,X>))
-                            )
-  {
-    typedef A0 result_type;
-    NT2_FUNCTOR_CALL(2)
-    {
-      A0 base = a0;
-      A1 exp = a1;
-
-      result_type result = One<result_type>();
-      while(nt2::any(exp))
-      {
-        result *= if_else(is_odd(exp), base, One<result_type>());
-        exp >>= 1;
-        base = sqr(base);
-      }
-
-      return result;
-     }
   };
 } }
 
