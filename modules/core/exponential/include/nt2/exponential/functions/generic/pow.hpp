@@ -11,8 +11,7 @@
 
 #include <nt2/exponential/functions/pow.hpp>
 #include <nt2/include/functions/simd/rec.hpp>
-#include <nt2/include/functions/simd/unary_minus.hpp>
-#include <nt2/include/functions/simd/if_else.hpp>
+#include <nt2/include/functions/simd/negif.hpp>
 #include <nt2/include/functions/simd/is_ltz.hpp>
 #include <nt2/include/functions/simd/multiplies.hpp>
 #include <nt2/include/functions/simd/bitwise_cast.hpp>
@@ -82,7 +81,7 @@ namespace nt2 { namespace ext
     {
       typedef typename meta::as_unsigned<A1>::type utype;
       typename meta::as_logical<A1>::type ltza1 = is_ltz(a1);
-      result_type p = pow(a0, bitwise_cast<utype>(if_else(ltza1, -a1, a1)));
+      result_type p = pow(a0, bitwise_cast<utype>(negif(ltza1, a1)));
       return if_else(ltza1, rec(p), p);
     }
   };
