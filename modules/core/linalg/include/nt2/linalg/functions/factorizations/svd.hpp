@@ -10,22 +10,21 @@
 #define NT2_LINALG_FUNCTIONS_FACTORIZATIONS_SVD_HPP_INCLUDED
 
 #include <nt2/linalg/functions/svd.hpp>
+#include <nt2/include/functions/ctranspose.hpp>
+#include <nt2/include/functions/expand.hpp>
+#include <nt2/include/functions/from_diag.hpp>
 #include <nt2/include/functions/gesvd.hpp>
 #include <nt2/include/functions/gesvd_w.hpp>
-#include <nt2/core/container/table/table.hpp>
-#include <nt2/include/functions/expand.hpp>
 #include <nt2/include/functions/height.hpp>
-#include <nt2/include/functions/from_diag.hpp>
 #include <nt2/include/functions/of_size.hpp>
 #include <nt2/include/functions/resize.hpp>
 #include <nt2/include/functions/tie.hpp>
-#include <nt2/include/functions/ctranspose.hpp>
 #include <nt2/include/functions/width.hpp>
 #include <nt2/core/container/table/table.hpp>
 #include <nt2/core/container/dsl/as_terminal.hpp>
 #include <nt2/core/container/colon/colon.hpp>
-#include <nt2/core/container/table/table.hpp>
 #include <nt2/linalg/details/utility/lapack_verify.hpp>
+#include <nt2/core/container/dsl/assign_swap.hpp>
 #include <nt2/linalg/options.hpp>
 #include <nt2/sdk/meta/as_real.hpp>
 
