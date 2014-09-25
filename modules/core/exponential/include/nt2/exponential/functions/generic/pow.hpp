@@ -16,6 +16,7 @@
 #include <nt2/include/functions/simd/is_ltz.hpp>
 #include <nt2/include/functions/simd/multiplies.hpp>
 #include <nt2/include/functions/simd/bitwise_cast.hpp>
+#include <nt2/include/functions/simd/sqr.hpp>
 #include <nt2/include/functions/scalar/is_odd.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <nt2/sdk/meta/as_logical.hpp>
