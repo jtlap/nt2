@@ -51,6 +51,7 @@ namespace nt2 { namespace ext
                             );
 
         w.prepare_main();
+        w.resize_main(5*nt2::max(m, n));
         nt2::gesvd(a0,s,u,vt,jobu,jobvt,w);
 
         return that;
@@ -119,6 +120,7 @@ namespace nt2 { namespace ext
                             );
 
         w.prepare_main();
+        w.resize_main(5*nt2::max(m, n));
         nt2::gesvd(a0,s,u,vt,jobu,jobvt,w);
 
         return that;
@@ -189,6 +191,7 @@ namespace nt2 { namespace ext
                             );
 
         w.prepare_main();
+        w.resize_main(5*nt2::max(m, n));
         w.resize_reals(5*std::min(m, n));
         nt2::gesvd(a0,s,u,vt,jobu,jobvt,w);
 
@@ -257,6 +260,7 @@ namespace nt2 { namespace ext
                             , details::query(), 0, &that
                             );
         w.prepare_main();
+        w.resize_main(5*nt2::max(m, n));
         w.resize_reals(5*std::min(m, n));
         nt2::gesvd(a0,s,u,vt,jobu,jobvt,w);
 
