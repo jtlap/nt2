@@ -10,6 +10,7 @@
 SET( SOURCES
      chol.cpp
      lu.cpp
+     svd.cpp
 #     qr.cpp
 #     balance.cpp
    )
