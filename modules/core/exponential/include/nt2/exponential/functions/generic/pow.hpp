@@ -15,7 +15,9 @@
 #include <nt2/include/functions/simd/if_else.hpp>
 #include <nt2/include/functions/simd/is_ltz.hpp>
 #include <nt2/include/functions/simd/multiplies.hpp>
+#include <nt2/include/functions/simd/bitwise_cast.hpp>
 #include <nt2/include/functions/scalar/is_odd.hpp>
+#include <nt2/include/constants/one.hpp>
 #include <nt2/sdk/meta/as_logical.hpp>
 #include <nt2/sdk/meta/as_unsigned.hpp>
 #include <boost/simd/operator/functions/details/assert_utils.hpp>
