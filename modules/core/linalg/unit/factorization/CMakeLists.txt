@@ -9,7 +9,6 @@
 
 SET( SOURCES
   chol.cpp
-  geneig.cpp
   lu.cpp
   schur.cpp
   svd.cpp

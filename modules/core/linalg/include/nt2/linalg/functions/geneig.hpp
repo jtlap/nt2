@@ -16,32 +16,12 @@
 #include <nt2/core/container/dsl/size.hpp>
 #include <nt2/sdk/meta/tieable_hierarchy.hpp>
 #include <nt2/core/container/dsl/value_type.hpp>
-#include <nt2/linalg/functions/details/geneig.hpp>
-
-////////////////////////////////////////////////////////////////////////////////
-// Construct the class choosing the computation model :
-// float,  double or complex < float >  or complex < double > and a matrix or
-// matrix expression as:
-//                     geneig<table < double > >s(a, b)
-//
-// then you can extract v, w and using the accessors v(), w() to
-// obtain 2 matrices such that up to rounding errors :
-//                     a*s.v() = s.w()*b*s.v()
-////////////////////////////////////////////////////////////////////////////////
-
+#include <nt2/linalg/functions/geneig.hpp>
 
 namespace nt2
 {
   namespace tag
   {
-    namespace factorization
-    {
-      struct geneig_ : ext::unspecified_<factorization::geneig_>
-      {
-        typedef ext::unspecified_<factorization::geneig_> parent;
-      };
-    }
-
     struct geneig_ : ext::tieable_<geneig_>
     {
       typedef ext::tieable_<geneig_>  parent;
@@ -49,63 +29,54 @@ namespace nt2
   }
 
   /**
-   * @brief Perform Geneig factorization
-   *
-   * For any given matrix expression, performs a Geneig factorization of
-   * said matrix using the specified output layout for the Geneig method.
-   *
-   * Contrary to the nt2::factorization::geneig function which performs a partial evaluation of
-   * said decomposition, nt2::geneig returns a result similar to the Matlab interface,
-   * making it useful for Matlab like usage.
-   *
-   * @param  xpr  Matrix expression to factorize
-   *
-   * @return A tuple-like type containing the factorized matrix and an indicator
-   * of the success of the factorization
+     geneig (for generalized eigen problem
+     solve a*vr =  b*x*w  and ctrans(vl)*a*beta = ctrans(vl)*b*alpha
+     for right (vr) and left (vl) eigenvectors
+     and eigenvalues w =  alpha/beta.
+     lambda is usually represented as the pair (alpha,beta), as
+     there is a reasonable interpretation for beta=0, and even for both
+     being zero.
+
+     The outputs are to be complex except beta which is real if a and b are.
+
+     The possible calls are
+
+     1) w = geneig(a, b{, opt1});
+     2) tie(alpha, beta) = geneig(a, b, alphabeta_, {opt2});
+     3) tie(vr, w) = geneig(a, b{, opt1, {opt2}});
+     4) tie(vr, alpha, beta) = geneig(a, b, alphabeta_, {opt2});
+     5) tie(vr, w, vl) = geneig(a{, opt1, {opt2}});
+     6) tie(vr, alpha, beta, vl) = geneig(a, b{, opt1, {opt2}});
+
+     You have to include nt2/linalg/options.hpp if you use any options
+     opt1 can be nt2::matrix_, nt2::vector_ or alphabeta_
+
+     matrix_ and vector_ specify if w (or alpha and beta) is (are) to be returned as
+     diagonal matrix or colon vector.
+     For call 1 vector_ is the default,  for the others matrix_ is the default.
+     For call 2 alphabeta_ option as option one is required as no option is call 3)
+
+     alphabeta_ option is used to require the alpha beta form of eigenvalues
+     the alpha/beta form being the default
+
+     Algorithms
+     geneig is performed using xggev LAPACK routines.
+
    **/
   NT2_FUNCTION_IMPLEMENTATION(tag::geneig_, geneig, 1)
   NT2_FUNCTION_IMPLEMENTATION(tag::geneig_, geneig, 2)
+  NT2_FUNCTION_IMPLEMENTATION(tag::geneig_, geneig, 3)
+  NT2_FUNCTION_IMPLEMENTATION(tag::geneig_, geneig, 4)
 
 
-  namespace factorization
-  {
-    /**
-     * @brief Initialize a Geneig factorization
-     *
-     * For any given matrix expression, initialize a Geneig factorization of
-     * said matrix using the specified output layout for the Geneig method
-     * and return a precomputed factorization object.
-     *
-     * Contrary to the geneig function which performs such a factorization and
-     * return a Matlab like output, factorization::geneig returns an object
-     * containing the initial evaluation of said factorization. This object can
-     * then be used to fasten other algorithms implementation.
-     *
-     * @param  xpr  Matrix expression to factorize
-     *
-     * @return A unspecified type containing the precomputed elements of the
-     * Lu factorization.
-     **/
-    NT2_FUNCTION_IMPLEMENTATION(tag::factorization::geneig_, geneig, 4)
-    NT2_FUNCTION_IMPLEMENTATION_SELF(tag::factorization::geneig_, geneig, 5)
-  }
-}
+ }
 
 namespace nt2 { namespace ext
 {
-  template<class Domain, int N, class Expr>
+ template<class Domain, int N, class Expr>
   struct  size_of<tag::geneig_,Domain,N,Expr>
-  {
-    typedef _2D result_type;
-
-    BOOST_FORCEINLINE result_type operator()(Expr& e) const
-    {
-      result_type sizee;
-      sizee[0] = 1;
-      sizee[1] = numel(boost::proto::child_c<0>(e));
-      return sizee;
-    }
-  };
+        : meta::size_as<Expr,0>
+  {};
 
   template<class Domain, int N, class Expr>
   struct  value_type<tag::geneig_,Domain,N,Expr>
