@@ -26,7 +26,6 @@
 #include <nt2/core/container/dsl/as_terminal.hpp>
 #include <nt2/sdk/meta/as_real.hpp>
 #include <boost/dispatch/attributes.hpp>
-#include <boost/assert.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -189,16 +188,6 @@ namespace nt2 { namespace ext
       //currently from_diag doesnt support aliasing
     }
 
-    template < class T > BOOST_FORCEINLINE
-    void eval1_3 ( A0& a0, A1& a1
-                 , T const &
-                 ) const
-    {
-      BOOST_ASSERT_MSG(false
-                      , "unknown option or not enough"
-                       "outputs to support the option");
-    }
-
     //==========================================================================
     /// INTERNAL ONLY - [alpha, beta] = GENEIG(A, B, alphabeta_) or
     ///                 [vr, w]       = GENEIG(A, B, matrix_/vector_)
@@ -295,15 +284,6 @@ namespace nt2 { namespace ext
       //from_diag doesnt support aliasing currently
     }
 
-    /// INTERNAL ONLY: 2o 3i
-    template < class T > BOOST_FORCEINLINE
-    void eval2_3 ( A0& a0, A1& a1
-                 , T const &
-                 ) const
-    {
-      BOOST_ASSERT_MSG(false, "unknown option");
-    }
-
     //==========================================================================
     /// INTERNAL ONLY - [alpha, beta] = GENEIG(A, B, alphabeta_, matrix_/vectors)
     BOOST_FORCEINLINE
@@ -348,16 +328,6 @@ namespace nt2 { namespace ext
       boost::proto::child_c<0>(a1) = from_diag(alpha);
       boost::proto::child_c<1>(a1) = from_diag(beta);
     }
-
-    /// INTERNAL ONLY: 2o 4i
-    template < class T > BOOST_FORCEINLINE
-    void eval2_4 ( A0& a0, A1& a1
-                 , T const &
-                 ) const
-    {
-      BOOST_ASSERT_MSG(false, "unknown or not fit option");
-    }
-
 
     //==========================================================================
     /// INTERNAL ONLY - [vr, w, vl] = GENEIG(A, B)
@@ -475,16 +445,6 @@ namespace nt2 { namespace ext
       assign_swap(boost::proto::child_c<0>(a1), vr);
       assign_swap(boost::proto::child_c<2>(a1), vl);
       //from_diag doesnt support aliasing currently
-    }
-
-
-    /// INTERNAL ONLY: 3o 3i
-    template < class T > BOOST_FORCEINLINE
-    void eval3_3 ( A0& a0, A1& a1
-                 , T const &
-                 ) const
-    {
-      BOOST_ASSERT_MSG(false, "unknown option");
     }
 
    //==========================================================================
