@@ -49,7 +49,7 @@ namespace nt2{ namespace ext
     NT2_FUNCTOR_CALL(2)
     {
       base_type s = svd(a0);
-      rtype_t epsi =  (epsi < 0) ?  nt2::length(a0)*nt2::eps(s(1)): epsi;
+      rtype_t epsi =  (a1 < 0) ?  nt2::length(a0)*nt2::eps(s(1)): a1;
       return  size_t(inbtrue(gt(s, epsi)));
     }
   };
