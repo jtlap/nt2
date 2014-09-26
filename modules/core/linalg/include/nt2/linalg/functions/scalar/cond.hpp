@@ -9,7 +9,7 @@
 #ifndef NT2_LINALG_FUNCTIONS_SCALAR_COND_HPP_INCLUDED
 #define NT2_LINALG_FUNCTIONS_SCALAR_COND_HPP_INCLUDED
 #include <nt2/linalg/functions/cond.hpp>
-#include <nt2/include/functions/gesvd.hpp>
+#include <nt2/include/functions/svd.hpp>
 #include <nt2/include/functions/inv.hpp>
 #include <nt2/include/functions/is_eqz.hpp>
 #include <nt2/include/functions/mnorm.hpp>
@@ -31,27 +31,13 @@ namespace nt2{ namespace ext
     typedef typename A0::value_type type_t;
     typedef typename meta::as_real<type_t>::type rtype_t;
     typedef typename meta::as_floating<rtype_t>::type result_type;
-    typedef typename meta::option<typename A0::settings_type,nt2::tag::shape_>::type shape;
-    typedef nt2::container::table<type_t>  entry_type;
-    typedef nt2::container::table<type_t,shape>  matrix_type;
     typedef nt2::container::table<rtype_t>  base_type;
 
     NT2_FUNCTOR_CALL(1)
     {
       BOOST_ASSERT_MSG(issquare(a0), "cond for non square matrix");
-      entry_type u,v;
-      base_type s;
-      matrix_type work(a0);
-
-      nt2_la_int  m  = nt2::height(work);
-      nt2_la_int  n  = nt2::width(work);
-
-      s.resize(nt2::of_size(std::min(m,n), 1));
-
-      nt2::gesvd( boost::proto::value(work), boost::proto::value(s)
-                , boost::proto::value(u), boost::proto::value(v),'N','N');
-
-      rtype_t r =  s(1)/s(nt2::min(m,n));
+      base_type s = svd(a0);
+      rtype_t r =  s(1)/s(nt2::end_);
       return is_nan(r) ? Inf<rtype_t>() : r;
     }
   };

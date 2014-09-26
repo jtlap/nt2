@@ -10,10 +10,11 @@
 #define NT2_LINALG_FUNCTIONS_GENERAL_PINV_HPP_INCLUDED
 
 #include <nt2/linalg/functions/pinv.hpp>
-#include <nt2/include/functions/gesvd.hpp>
+#include <nt2/include/functions/svd.hpp>
 #include <nt2/include/functions/assign.hpp>
 #include <nt2/include/functions/length.hpp>
 #include <nt2/include/functions/from_diag.hpp>
+#include <nt2/include/functions/ctranspose.hpp>
 #include <nt2/include/functions/if_else.hpp>
 #include <nt2/include/functions/gt.hpp>
 #include <nt2/include/functions/rec.hpp>
@@ -41,27 +42,18 @@ namespace nt2{ namespace ext
 
     result_type operator()(A0& out, const A1& in) const
     {
-      entry_type u,v;
+      entry_type u,tv;
       base_type s;
 
       out.resize(in.extent());
       rtype_t tol = choice(in, N());
       out = boost::proto::child_c<0>(in);
 
-
-      nt2_la_int  m  = nt2::height(out);
-      nt2_la_int  n  = nt2::width(out);
-
-      s.resize(nt2::of_size(std::min(m,n), 1));
-      v.resize(nt2::of_size(n,n));
-      u.resize(nt2::of_size(m,m));
-
-      nt2::gesvd(boost::proto::value(out),boost::proto::value(s)
-                ,boost::proto::value(u), boost::proto::value(v),'A','A');
+      nt2::tie(u, s, tv) = svd(out, nt2::raw_);
 
       rtype_t epsi = (tol <0  ? nt2::eps(s(1)) : tol)*length(out);
       entry_type w1 = nt2::if_else( nt2::gt(s, epsi), nt2::rec(s), nt2::Zero<rtype_t>());
-      out = mtimes(trans(conj(v)), mtimes(from_diag(w1), trans(conj(u))));
+      out = mtimes(ctrans(tv), mtimes(from_diag(w1), ctrans(u)));
 
       return out;
     }

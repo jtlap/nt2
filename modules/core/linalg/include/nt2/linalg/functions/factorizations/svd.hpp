@@ -23,8 +23,8 @@
 #include <nt2/core/container/table/table.hpp>
 #include <nt2/core/container/dsl/as_terminal.hpp>
 #include <nt2/core/container/colon/colon.hpp>
-#include <nt2/linalg/details/utility/lapack_verify.hpp>
 #include <nt2/core/container/dsl/assign_swap.hpp>
+#include <nt2/linalg/details/utility/lapack_verify.hpp>
 #include <nt2/linalg/options.hpp>
 #include <nt2/sdk/meta/as_real.hpp>
 
@@ -347,7 +347,6 @@ namespace nt2 { namespace ext
       assign_swap(boost::proto::child_c<2>(a1), vt);
       assign_swap(boost::proto::child_c<0>(a1), u);
     }
-
   };
 } }
 
