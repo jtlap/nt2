@@ -91,7 +91,6 @@ NT2_TEST_CASE_TPL ( divfix_s2,   BOOST_SIMD_SIMD_INT_CONVERT_TYPES)
   using boost::simd::native;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef native<T,ext_t>                  vT;
-  typedef typename boost::dispatch::meta::call<divfix_(vT,vT)>::type r_t;
   typedef typename boost::dispatch::meta::as_floating<T>::type f_t;
   T mf = boost::simd::Maxflint<f_t>();
   T tz = mf+T(1);
