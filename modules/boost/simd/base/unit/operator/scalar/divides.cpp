@@ -30,7 +30,6 @@ NT2_TEST_CASE_TPL ( divides_real,  BOOST_SIMD_REAL_TYPES)
   using boost::simd::divides;
   using boost::simd::tag::divides_;
   typedef typename boost::dispatch::meta::call<divides_(T,T)>::type r_t;
-  typedef T wished_r_t;
 
   // return type conformity test
   NT2_TEST_TYPE_IS(r_t, T);
@@ -50,7 +49,6 @@ NT2_TEST_CASE_TPL ( divides_integer,  BOOST_SIMD_INTEGRAL_TYPES)
   using boost::simd::divides;
   using boost::simd::tag::divides_;
   typedef typename boost::dispatch::meta::call<divides_(T,T)>::type r_t;
-  typedef T wished_r_t;
 
   // return type conformity test
   NT2_TEST_TYPE_IS(r_t, T);

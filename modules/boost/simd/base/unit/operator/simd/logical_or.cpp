@@ -49,7 +49,6 @@ NT2_TEST_CASE_TPL ( logical_or_real,  BOOST_SIMD_SIMD_REAL_TYPES)
   using boost::simd::native;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef native<T,ext_t>                  vT;
-  typedef native< boost::simd::logical<T>, ext_t> vlT;
   typedef typename boost::dispatch::meta::call<logical_or_(vT,vT)>::type r_t;
 
   // specific values tests

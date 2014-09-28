@@ -30,7 +30,6 @@ NT2_TEST_CASE_TPL ( comma_real,  BOOST_SIMD_REAL_TYPES)
   using boost::simd::comma;
   using boost::simd::tag::comma_;
   typedef typename boost::dispatch::meta::call<comma_(T,T)>::type r_t;
-  typedef T wished_r_t;
 
   // return type conformity test
   NT2_TEST_TYPE_IS(r_t, T);

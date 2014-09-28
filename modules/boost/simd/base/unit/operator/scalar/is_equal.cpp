@@ -31,10 +31,7 @@ NT2_TEST_CASE_TPL ( is_equal_integer,  BOOST_SIMD_INTEGRAL_TYPES)
 
   using boost::simd::is_equal;
   using boost::simd::tag::is_equal_;
-  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef typename boost::dispatch::meta::call<is_equal_(T,T)>::type r_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   typedef boost::simd::logical<T> wished_r_t;
 
   // return type conformity test
