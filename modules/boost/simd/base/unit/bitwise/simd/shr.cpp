@@ -31,7 +31,6 @@ NT2_TEST_CASE_TPL ( shr_ui_1,  BOOST_SIMD_SIMD_UNSIGNED_TYPES)
   typedef BOOST_SIMD_DEFAULT_EXTENSION                          ext_t;
   typedef native<T,ext_t>                                          vT;
   typedef typename boost::dispatch::meta::as_integer<T>::type      iT;
-  typedef native<iT,ext_t>                                        ivT;
   typedef typename boost::dispatch::meta::call<shr_(vT,iT)>::type r_t;
 
   // specific values tests
@@ -50,7 +49,6 @@ NT2_TEST_CASE_TPL ( shr_si_1,  BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPES)
   typedef BOOST_SIMD_DEFAULT_EXTENSION                          ext_t;
   typedef native<T,ext_t>                                          vT;
   typedef typename boost::dispatch::meta::as_integer<T>::type      iT;
-  typedef native<iT,ext_t>                                        ivT;
   typedef typename boost::dispatch::meta::call<shr_(vT,iT)>::type r_t;
 
   // specific values tests
