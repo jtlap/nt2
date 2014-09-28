@@ -36,7 +36,6 @@ NT2_TEST_CASE_TPL(is_not_less_real, BOOST_SIMD_SIMD_REAL_TYPES)
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef native<T,ext_t>                  vT;
   typedef typename boost::dispatch::meta::call<is_not_less_(vT,vT)>::type r_t;
-  typedef boost::simd::logical<T> wished_r_t;
 
   // specific values tests
 #ifndef BOOST_SIMD_NO_INVALIDS
@@ -61,7 +60,6 @@ NT2_TEST_CASE_TPL(is_not_less_ui, BOOST_SIMD_SIMD_UNSIGNED_TYPES)
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef native<T,ext_t>                  vT;
   typedef typename boost::dispatch::meta::call<is_not_less_(vT,vT)>::type r_t;
-  typedef boost::simd::logical<vT> wished_r_t;
 
   // specific values tests
   NT2_TEST_EQUAL(is_not_less(boost::simd::One<vT>(), boost::simd::One<vT>()), boost::simd::True<r_t>());
@@ -77,7 +75,6 @@ NT2_TEST_CASE_TPL(is_not_less_si, BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPES)
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef native<T,ext_t>                  vT;
   typedef typename boost::dispatch::meta::call<is_not_less_(vT,vT)>::type r_t;
-  typedef boost::simd::logical<vT> wished_r_t;
 
   // specific values tests
   NT2_TEST_EQUAL(is_not_less(boost::simd::Mone<vT>(), boost::simd::Mone<vT>()), boost::simd::True<r_t>());

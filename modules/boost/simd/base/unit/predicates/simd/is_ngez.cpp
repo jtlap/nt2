@@ -38,7 +38,6 @@ NT2_TEST_CASE_TPL(is_ngez_real, BOOST_SIMD_SIMD_REAL_TYPES)
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef native<T,ext_t>                  vT;
   typedef typename boost::dispatch::meta::call<is_ngez_(vT)>::type r_t;
-  typedef boost::simd::logical<T> wished_r_t;
 
   // specific values tests
 #ifndef BOOST_SIMD_NO_INVALIDS
@@ -63,7 +62,6 @@ NT2_TEST_CASE_TPL(is_ngez_ui, BOOST_SIMD_SIMD_UNSIGNED_TYPES)
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef native<T,ext_t>                  vT;
   typedef typename boost::dispatch::meta::call<is_ngez_(vT)>::type r_t;
-  typedef boost::simd::logical<vT> wished_r_t;
 
   // specific values tests
   NT2_TEST_EQUAL(is_ngez(boost::simd::One<vT>()), boost::simd::False<r_t>());
@@ -79,7 +77,6 @@ NT2_TEST_CASE_TPL(is_ngez_si, BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPES)
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef native<T,ext_t>                  vT;
   typedef typename boost::dispatch::meta::call<is_ngez_(vT)>::type r_t;
-  typedef boost::simd::logical<vT> wished_r_t;
 
   // specific values tests
   NT2_TEST_EQUAL(is_ngez(boost::simd::Mone<vT>()), boost::simd::True<r_t>());
