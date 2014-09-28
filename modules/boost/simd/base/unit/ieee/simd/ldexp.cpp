@@ -49,8 +49,6 @@ NT2_TEST_CASE_TPL ( ldexp_real,  BOOST_SIMD_SIMD_REAL_TYPES)
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef native<iT,ext_t>                                   ivT;
   typedef typename boost::dispatch::meta::call<ldexp_(vT,ivT)>::type r_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
-
 
 #ifndef BOOST_SIMD_NO_INVALIDS
   NT2_TEST_EQUAL(ldexp(boost::simd::Inf<vT>(),  Two<ivT>()), boost::simd::Inf<r_t>());
