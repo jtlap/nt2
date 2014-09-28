@@ -76,7 +76,6 @@ NT2_TEST_CASE_TPL(downgrade_pack, BOOST_SIMD_SIMD_TYPES)
   using boost::dispatch::meta::downgrade;
   using boost::mpl::_;
 
-  typedef BOOST_SIMD_DEFAULT_EXTENSION      ext_t;
   typedef pack<T>                           pack_t;
   typedef typename downgrade<T>::type       base_t;
 
@@ -94,7 +93,6 @@ NT2_TEST_CASE_TPL(downgrade_logical_pack, BOOST_SIMD_SIMD_TYPES)
   using boost::dispatch::meta::downgrade;
   using boost::mpl::_;
 
-  typedef BOOST_SIMD_DEFAULT_EXTENSION      ext_t;
   typedef pack< logical<T> >                pack_t;
   typedef typename downgrade<T>::type       base_t;
 

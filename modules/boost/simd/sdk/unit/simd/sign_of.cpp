@@ -58,7 +58,6 @@ NT2_TEST_CASE_TPL(sign_of_simd, BOOST_SIMD_SIMD_TYPES)
   using boost::dispatch::meta::sign_of;
   using boost::mpl::_;
 
-  typedef BOOST_SIMD_DEFAULT_EXTENSION      ext_t;
   typedef pack<T>                          pack_t;
 
   pack_t a0;
@@ -76,7 +75,6 @@ NT2_TEST_CASE_TPL(sign_of_logical_simd, BOOST_SIMD_SIMD_TYPES)
   using boost::dispatch::meta::sign_of;
   using boost::mpl::_;
 
-  typedef BOOST_SIMD_DEFAULT_EXTENSION      ext_t;
   typedef pack< logical<T> >                pack_t;
 
   pack_t a0;

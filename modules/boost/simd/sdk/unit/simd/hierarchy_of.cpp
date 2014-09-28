@@ -114,7 +114,6 @@ NT2_TEST_CASE(pack_category)
   using boost::mpl::_;
 
   typedef BOOST_SIMD_DEFAULT_EXTENSION   ext_t;
-  typedef boost::simd::domain            domain_;
   typedef boost::simd::tag::terminal_    tag_;
   typedef boost::mpl::long_<0>           arity_;
 

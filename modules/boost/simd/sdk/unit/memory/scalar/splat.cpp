@@ -20,7 +20,6 @@ NT2_TEST_CASE_TPL ( splat, BOOST_SIMD_TYPES)
 {
   using boost::simd::splat;
   using boost::simd::tag::splat_;
-  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
 
   // return type conformity test
   NT2_TEST_TYPE_IS( (typename boost::dispatch::meta

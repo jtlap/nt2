@@ -92,7 +92,6 @@ NT2_TEST_CASE_TPL(upgrade_pack, BOOST_SIMD_SIMD_TYPES)
   using boost::dispatch::meta::upgrade;
   using boost::mpl::_;
 
-  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef pack<T>                       pack_t;
   typedef typename upgrade<T>::type     base_t;
 
@@ -110,7 +109,6 @@ NT2_TEST_CASE_TPL(upgrade_logical_pack, BOOST_SIMD_SIMD_TYPES)
   using boost::dispatch::meta::upgrade;
   using boost::mpl::_;
 
-  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef pack< logical<T> >            pack_t;
   typedef typename upgrade<T>::type     base_t;
 

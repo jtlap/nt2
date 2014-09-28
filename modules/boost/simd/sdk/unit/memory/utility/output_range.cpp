@@ -79,7 +79,7 @@ NT2_TEST_CASE_TPL(iteration, BOOST_SIMD_TYPES)
   std::vector<T>  ref (4*ps);
   std::vector<T>  data(4*ps);
 
-  typedef typename std::vector<T>::iterator it_t;
+//  typedef typename std::vector<T>::iterator it_t;
 //  boost::iterator_range<output_iterator<it_t> > r = output_range(data);
 
   for(std::size_t i=0;i<data.size();i++)
