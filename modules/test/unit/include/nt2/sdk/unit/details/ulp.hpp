@@ -11,7 +11,6 @@
 #define NT2_SDK_UNIT_DETAILS_ULP_HPP_INCLUDED
 
 #include <nt2/sdk/unit/config.hpp>
-#include <nt2/include/functions/value.hpp>
 #include <nt2/sdk/unit/details/is_sequence.hpp>
 #include <nt2/sdk/unit/details/smallest_type.hpp>
 #include <nt2/sdk/unit/details/eval.hpp>
@@ -104,12 +103,8 @@ namespace nt2 { namespace details
               , F const& distance_fn
               ) const
     {
-      double d = distance_fn ( nt2::details::smallest_a( nt2::value(a)
-                                                       , nt2::value(b)
-                                                       )
-                             , nt2::details::smallest_b( nt2::value(a)
-                                                       , nt2::value(b)
-                                                       )
+      double d = distance_fn ( nt2::details::smallest_a(a,b)
+                             , nt2::details::smallest_b(a,b)
                              );
       if(!(d <= max_ulpd) )
       {

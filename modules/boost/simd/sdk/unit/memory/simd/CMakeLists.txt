@@ -22,7 +22,6 @@ SET( SOURCES
   splat.cpp
   store.cpp
   stream.cpp
-  value.cpp
   )
 
 nt2_module_add_tests(boost.simd.sdk.memory.simd.unit ${SOURCES})

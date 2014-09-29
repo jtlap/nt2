@@ -20,7 +20,6 @@
 #include <nt2/include/functions/gqr.hpp>
 #include <nt2/include/functions/min.hpp>
 #include <nt2/include/functions/mqr.hpp>
-#include <nt2/include/functions/value.hpp>
 #include <nt2/include/functions/tie.hpp>
 #include <nt2/include/functions/triu.hpp>
 #include <nt2/include/functions/width.hpp>
