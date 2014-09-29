@@ -31,7 +31,7 @@ namespace nt2 { namespace ext
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::gesv_, nt2::tag::magma_<site>
                             , (A0)(S0)(A1)(S1)(A2)(S2)(site)
                             , ((container_<nt2::tag::table_,  double_<A0>, S0 >))
-                              ((container_<nt2::tag::table_,  double_<A1>, S1 >))
+                              ((container_<nt2::tag::table_,  integer_<A1>, S1 >))
                               ((container_<nt2::tag::table_,  double_<A2>, S2 >))
                             )
   {
@@ -46,7 +46,6 @@ namespace nt2 { namespace ext
         nt2_la_int  ldb = a2.leading_size();
 
         a1.resize(nt2::of_size(n,1));
-
         magma_dgesv(n,nhrs,a0.raw(),lda,a1.raw(),a2.raw(),ldb,&that);
 
         return that;
@@ -56,7 +55,7 @@ namespace nt2 { namespace ext
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::gesv_, nt2::tag::magma_<site>
                             , (A0)(S0)(A1)(S1)(A2)(S2)(site)
                             , ((container_<nt2::tag::table_,  single_<A0>, S0 >))
-                              ((container_<nt2::tag::table_,  single_<A1>, S1 >))
+                              ((container_<nt2::tag::table_,  integer_<A1>, S1 >))
                               ((container_<nt2::tag::table_,  single_<A2>, S2 >))
                             )
   {

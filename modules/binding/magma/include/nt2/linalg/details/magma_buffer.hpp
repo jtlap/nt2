@@ -13,6 +13,7 @@
 #include <cublas.h>
 #include <cstddef>
 #include <boost/throw_exception.hpp>
+#include <boost/assert.hpp>
 #include <new>
 
 namespace nt2 { namespace details
@@ -52,6 +53,8 @@ namespace nt2 { namespace details
                                           , host    , h
                                           , gpu_ptr_, h
                                           );
+
+        BOOST_ASSERT_MSG( e == CUBLAS_STATUS_SUCCESS , "Error in cublasSetMatrix");
       }
     }
 

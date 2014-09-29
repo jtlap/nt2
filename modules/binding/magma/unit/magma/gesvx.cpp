@@ -30,7 +30,6 @@ NT2_TEST_CASE_TPL(svx, NT2_REAL_TYPES )
 using nt2::_;
 
 typedef nt2::table<T>         t_t;
-typedef nt2::table<nt2_la_int>       t_i;
 
 T rcond = 1;
 
@@ -43,7 +42,7 @@ nt2_la_int p = 5;
 p = nt2::gesvx( boost::proto::value(a),boost::proto::value(b)
             , boost::proto::value(x), rcond );
 
-NT2_TEST_EQUAL(p,0);
+NT2_TEST_EQUAL(T(p),T(0) );
 NT2_TEST_ULP_EQUAL(s,x, T(10));
 }
 
@@ -53,8 +52,8 @@ NT2_TEST_CASE_TPL(svx1, NT2_REAL_TYPES )
 {
 using nt2::_;
 
-typedef nt2::table<T>         t_t;
-typedef nt2::table<nt2_la_int>         t_i;
+typedef nt2::table<T>          t_t;
+typedef nt2::table<nt2_la_int> t_i;
 
 T rcond = 1;
 
@@ -79,7 +78,8 @@ nt2_la_int iter= nt2::gesvx( boost::proto::value(a),boost::proto::value(b)
 
 
 NT2_TEST_ULP_EQUAL(x , x1, T(1000000) );
-
+NT2_TEST_EQUAL(iter>=0?true:false,true);
+NT2_TEST_EQUAL(T(p),T(0));
 }
 
 
@@ -108,8 +108,7 @@ nt2_la_int p = 5;
 p = nt2::gesvx( boost::proto::value(a),boost::proto::value(b)
             , boost::proto::value(x), rcond );
 
-NT2_TEST_EQUAL(p,0);
 NT2_TEST_ULP_EQUAL(s,x, T(100));
-
+NT2_TEST_EQUAL(T(p),T(0));
 
 }
