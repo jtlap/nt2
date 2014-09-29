@@ -100,7 +100,7 @@ namespace nt2 { namespace ext
                          );
     }
   private :
-    static inline A0 large_negative(A0 q)
+    static inline A0 large_negative(const A0& q)
     {
       A0 w = gammaln(q);
       A0 p = nt2::floor(q);
