@@ -20,5 +20,4 @@ SET ( NT2_CORE.REDUCTION_DEPENDENCIES_EXTRA
       sdk.config
       sdk.functor
       sdk.meta
-      type.complex.sdk
     )
