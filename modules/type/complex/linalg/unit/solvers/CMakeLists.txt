@@ -8,10 +8,6 @@
 ##############################################################################
 
 SET( SOURCES
-  chol_result_solve.cpp
-#  svd_solve.cpp
-#  lsq_lse_result_solve.cpp
-#  lsq_lse_solve.cpp
    )
 
 nt2_module_add_tests(type.complex.linalg.solvers.unit ${SOURCES})
