@@ -136,25 +136,25 @@ namespace boost { namespace simd
     BOOST_FORCEINLINE bool
     operator!=(soa_iterator_base const& other) const
     {
-      return !(*this == other);
+      return !(this->operator==(other));
     }
 
     BOOST_FORCEINLINE bool
     operator>(soa_iterator_base const& other) const
     {
-      return other < *this;
+      return other.operator<(*this);
     }
 
     BOOST_FORCEINLINE bool
     operator<=(soa_iterator_base const& other) const
     {
-      return !(other < *this);
+      return !(other.operator<(*this));
     }
 
     BOOST_FORCEINLINE bool
     operator>=(soa_iterator_base const& other) const
     {
-      return !(*this < other);
+      return !(this->operator<(other));
     }
 
     T& data;
@@ -228,7 +228,7 @@ namespace boost { namespace simd
     BOOST_FORCEINLINE iterator&
     operator-=(difference_type i)
     {
-      *this += -i;
+      this->operator+=(-i);
       return *this;
     }
 
@@ -236,20 +236,20 @@ namespace boost { namespace simd
     operator+(difference_type i) const
     {
       iterator tmp = *this;
-      return tmp += i;
+      return tmp.operator+=(i);
     }
 
     BOOST_FORCEINLINE iterator
     operator-(difference_type i) const
     {
       iterator tmp = *this;
-      return tmp -= i;
+      return tmp.operator-=(i);
     }
 
     BOOST_FORCEINLINE reference
     operator[](difference_type i) const
     {
-      return *(*this + i);
+      return *(this->operator+(i));
     }
   };
 
@@ -326,7 +326,7 @@ namespace boost { namespace simd
     BOOST_FORCEINLINE const_iterator&
     operator-=(difference_type i)
     {
-      *this += -i;
+      this->operator+=(-i);
       return *this;
     }
 
@@ -334,20 +334,20 @@ namespace boost { namespace simd
     operator+(difference_type i) const
     {
       const_iterator tmp = *this;
-      return tmp += i;
+      return tmp.operator+=(i);
     }
 
     BOOST_FORCEINLINE const_iterator
     operator-(difference_type i) const
     {
       const_iterator tmp = *this;
-      return tmp -= i;
+      return tmp.operator-=(i);
     }
 
     BOOST_FORCEINLINE const_reference
     operator[](difference_type i) const
     {
-      return *(*this + i);
+      return *(this->operator+(i));
     }
   };
 
