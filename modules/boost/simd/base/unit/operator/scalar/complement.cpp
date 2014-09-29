@@ -31,7 +31,6 @@ NT2_TEST_CASE_TPL ( complement_real,  BOOST_SIMD_REAL_TYPES)
   using boost::simd::complement;
   using boost::simd::tag::complement_;
   typedef typename boost::dispatch::meta::call<complement_(T)>::type r_t;
-  typedef T wished_r_t;
 
   // return type conformity test
   NT2_TEST_TYPE_IS(r_t, T);
@@ -48,7 +47,6 @@ NT2_TEST_CASE_TPL ( complement_integer,  BOOST_SIMD_INTEGRAL_TYPES)
   using boost::simd::complement;
   using boost::simd::tag::complement_;
   typedef typename boost::dispatch::meta::call<complement_(T)>::type r_t;
-  typedef T wished_r_t;
 
   // return type conformity test
   NT2_TEST_TYPE_IS(r_t, T);

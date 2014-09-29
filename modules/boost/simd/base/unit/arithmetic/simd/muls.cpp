@@ -32,7 +32,6 @@ NT2_TEST_CASE_TPL ( muls_signed_int,  BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPES)
   using boost::simd::native;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef native<T,ext_t>                  vT;
-  typedef typename boost::dispatch::meta::call<muls_(vT,vT)>::type r_t;
 
   // specific values tests
   NT2_TEST_EQUAL(muls(boost::simd::Mone<vT>(), boost::simd::Mone<vT>()), boost::simd::One<vT>());
@@ -74,7 +73,6 @@ NT2_TEST_CASE(muls_special)
   NT2_TEST_EQUAL(muls(splat<vT1>(-5165), splat<vT1>(23258)), Valmin<vT1>());
 #endif
 
-  typedef int T2;
   typedef boost::simd::native<int, BOOST_SIMD_DEFAULT_EXTENSION> vT2;
   NT2_TEST_EQUAL(muls(splat<vT2>(-1306766858), splat<vT2>(1550772331)), Valmin<vT2>());
   NT2_TEST_EQUAL(muls(splat<vT2>(1467238299), splat<vT2>(-900961598)), Valmin<vT2>());

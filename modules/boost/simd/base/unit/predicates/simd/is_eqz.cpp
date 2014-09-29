@@ -37,7 +37,6 @@ NT2_TEST_CASE_TPL(is_eqz_real, BOOST_SIMD_SIMD_REAL_TYPES)
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef native<T,ext_t>                  vT;
   typedef typename boost::dispatch::meta::call<is_eqz_(vT)>::type r_t;
-  typedef boost::simd::logical<T> wished_r_t;
 
   // specific values tests
 #ifndef BOOST_SIMD_NO_INVALIDS

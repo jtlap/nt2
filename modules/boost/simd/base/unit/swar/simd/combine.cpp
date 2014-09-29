@@ -134,7 +134,6 @@ NT2_TEST_CASE_TPL_MPL ( combine_pack
   using boost::simd::pack;
   using boost::simd::tag::combine_;
 
-  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef pack<T>                       wT;
   typedef pack<T,wT::static_size/2>     vT;
 

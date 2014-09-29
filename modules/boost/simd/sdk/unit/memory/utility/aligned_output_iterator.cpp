@@ -55,8 +55,6 @@ NT2_TEST_CASE_TPL(aligned_constraint, BOOST_SIMD_TYPES)
 
   std::vector<T, allocator<T> > data(pack<T>::static_size*3);
 
-  typedef typename std::vector<T, allocator<T> >::iterator it_t;
-
   NT2_TEST_ASSERT( aligned_output_begin(data.begin()+1) );
   NT2_TEST_ASSERT( aligned_output_end(data.end()-1) );
 }

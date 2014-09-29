@@ -38,8 +38,6 @@ NT2_TEST_CASE_TPL ( predecessor_real_1,  BOOST_SIMD_SIMD_REAL_TYPES)
   using boost::simd::native;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef native<T,ext_t>                  vT;
-  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
-  typedef native<iT,ext_t>                                   ivT;
   typedef typename boost::dispatch::meta::call<predecessor_(vT)>::type r_t;
 
   // specific values tests

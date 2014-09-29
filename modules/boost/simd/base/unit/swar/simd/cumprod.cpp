@@ -41,7 +41,6 @@ NT2_TEST_CASE_TPL ( cumprod_real,  BOOST_SIMD_SIMD_REAL_TYPES)
   using boost::simd::native;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef native<T,ext_t>                  vT;
-  typedef typename boost::dispatch::meta::call<cumprod_(vT)>::type r_t;
 
   // specific values tests
 #ifndef BOOST_SIMD_NO_INVALIDS
@@ -63,7 +62,6 @@ NT2_TEST_CASE_TPL ( cumprod_signed_int__1_0,  BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TY
   using boost::simd::native;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef native<T,ext_t>                  vT;
-  typedef typename boost::dispatch::meta::call<cumprod_(vT)>::type r_t;
 
   // specific values tests
   NT2_TEST_EQUAL(cumprod(boost::simd::Mone<vT>()),byhands(boost::simd::Mone<vT>()) );
@@ -79,7 +77,6 @@ NT2_TEST_CASE_TPL ( cumprod_unsigned_int__1_0,  BOOST_SIMD_SIMD_UNSIGNED_TYPES)
   using boost::simd::native;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef native<T,ext_t>                  vT;
-  typedef typename boost::dispatch::meta::call<cumprod_(vT)>::type r_t;
 
   // specific values tests
   NT2_TEST_EQUAL(cumprod(boost::simd::One<vT>()) ,byhands(boost::simd::One<vT>())  );

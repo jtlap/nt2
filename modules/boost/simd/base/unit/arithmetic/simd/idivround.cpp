@@ -34,8 +34,6 @@ NT2_TEST_CASE_TPL ( idivround_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   using boost::simd::native;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef native<T,ext_t>                  vT;
-  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
-  typedef native<iT,ext_t>                                   ivT;
   typedef typename boost::dispatch::meta::call<idivround_(vT,vT)>::type r_t;
 
   // specific values tests
@@ -53,11 +51,7 @@ NT2_TEST_CASE_TPL ( idivround_unsigned_int__2_0,  BOOST_SIMD_SIMD_UNSIGNED_TYPES
   using boost::simd::idivround;
   using boost::simd::tag::idivround_;
   using boost::simd::native;
-  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef native<T,ext_t>                  vT;
-  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef typename boost::dispatch::meta::call<idivround_(T,T)>::type r_t;
-  typedef native<iT,ext_t>                                   ivT;
 
   NT2_TEST_ULP_EQUAL(idivround(boost::simd::Five<T>(),boost::simd::Three<T>()), boost::simd::Two<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(idivround(boost::simd::Four<T>(),boost::simd::Three<T>()), boost::simd::One<r_t>(), 0);
@@ -71,11 +65,7 @@ NT2_TEST_CASE_TPL ( idivround_signed_int__2_0,  BOOST_SIMD_SIMD_INTEGRAL_SIGNED_
   using boost::simd::idivround;
   using boost::simd::tag::idivround_;
   using boost::simd::native;
-  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef native<T,ext_t>                  vT;
-  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef typename boost::dispatch::meta::call<idivround_(T,T)>::type r_t;
-  typedef native<iT,ext_t>                                   ivT;
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(idivround(boost::simd::Five<T>(),boost::simd::Three<T>()), boost::simd::Two<r_t>(), 0);

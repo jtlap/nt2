@@ -104,8 +104,9 @@ namespace boost { namespace simd { namespace ext
     {
       BOOST_ASSERT_MSG(assert_good_shift<A0>(a1), "shift_right sse2 uint8: a shift is out of range");
       typedef native<int_t, boost::simd::tag::sse_> gen_type;
-      result_type const Mask1 = bitwise_cast<result_type>(boost::simd::integral_constant<gen_type, 0x00ff00ff>());
-      result_type const Mask2 = bitwise_cast<result_type>(boost::simd::integral_constant<gen_type, 0xff00ff00>());
+      result_type const Mask1 = bitwise_cast<result_type>(boost::simd::integral_constant<gen_type, int_t(0x00ff00ff)>());
+      result_type const Mask2 = bitwise_cast<result_type>(boost::simd::integral_constant<gen_type, int_t(0xff00ff00)>());
+
       result_type tmp  = b_and(a0, Mask1);
       result_type tmp1 = _mm_srli_epi16(tmp, int(a1));
       tmp1 = b_and(tmp1, Mask1);

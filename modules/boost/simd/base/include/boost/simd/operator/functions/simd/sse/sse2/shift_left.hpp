@@ -36,15 +36,13 @@ namespace boost { namespace simd { namespace ext
       typedef simd::native<int_t,boost::simd::tag::sse_> gen_type;
       BOOST_ASSERT_MSG(assert_good_shift<A0>(a1), "shift_left sse2: a shift is out of range");
       result_type const
-      Mask1 = bitwise_cast<result_type>( boost::simd::integral_constant< gen_type
-                                                      , 0x00ff00ff00ff00ffll
-                                                      >()
-                                    );
+      Mask1 = bitwise_cast<result_type>( boost::simd::integral_constant
+                                           < gen_type, int_t(0x00ff00ff00ff00ffll)>()
+                                       );
       result_type const
-      Mask2 = bitwise_cast<result_type>( boost::simd::integral_constant < gen_type
-                                                        , 0xff00ff00ff00ff00ll
-                                                        >()
-                                    );
+      Mask2 = bitwise_cast<result_type>( boost::simd::integral_constant
+                                           < gen_type, int_t(0xff00ff00ff00ff00ll)>()
+                                       );
       result_type tmp  = b_and(a0, Mask1);
       result_type tmp1 = _mm_slli_epi16(tmp, int(a1));
       tmp1 = b_and(tmp1, Mask1);

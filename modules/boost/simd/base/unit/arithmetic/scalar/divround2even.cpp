@@ -46,7 +46,6 @@ NT2_TEST_CASE_TPL ( divround2even_unsigned_int,  BOOST_SIMD_UNSIGNED_TYPES)
 
   using boost::simd::divround2even;
   using boost::simd::tag::divround2even_;
-  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef typename boost::dispatch::meta::call<divround2even_(T,T)>::type r_t;
   typedef T wished_r_t;
 

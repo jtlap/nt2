@@ -37,7 +37,6 @@ NT2_TEST_CASE_TPL(is_flint_real, BOOST_SIMD_SIMD_REAL_TYPES)
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef native<T,ext_t>                  vT;
   typedef typename boost::dispatch::meta::call<is_flint_(vT)>::type r_t;
-  typedef boost::simd::logical<T> wished_r_t;
 
   // specific values tests
 #ifndef BOOST_SIMD_NO_INVALIDS
@@ -62,7 +61,6 @@ NT2_TEST_CASE_TPL(is_flint_ui, BOOST_SIMD_SIMD_UNSIGNED_TYPES)
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef native<T,ext_t>                  vT;
   typedef typename boost::dispatch::meta::call<is_flint_(vT)>::type r_t;
-  typedef boost::simd::logical<vT> wished_r_t;
 
   // specific values tests
   NT2_TEST_EQUAL(is_flint(boost::simd::One<vT>()), boost::simd::True<r_t>());

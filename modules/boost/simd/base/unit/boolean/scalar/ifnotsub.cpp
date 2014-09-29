@@ -50,10 +50,7 @@ NT2_TEST_CASE_TPL ( ifnotsub_integer__3_0,  BOOST_SIMD_INTEGRAL_TYPES)
   using boost::simd::ifnotsub;
   using boost::simd::tag::ifnotsub_;
   using boost::simd::logical;
-  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef typename boost::dispatch::meta::call<ifnotsub_(logical<T>,T,T)>::type r_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   typedef T wished_r_t;
 
 

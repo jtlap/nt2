@@ -23,7 +23,6 @@ NT2_TEST_CASE_TPL ( touint_real,  BOOST_SIMD_SIMD_TYPES)
   using boost::simd::native;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef native<T,ext_t>            vT;
-  typedef typename boost::dispatch::meta::as_integer<vT>::type ivT;
   typedef typename boost::dispatch::meta::call<touint_(vT)>::type r_t;
 
   // specific values tests
