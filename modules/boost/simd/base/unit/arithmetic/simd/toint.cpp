@@ -25,7 +25,6 @@ NT2_TEST_CASE_TPL ( toint_real,  BOOST_SIMD_SIMD_REAL_TYPES)
   using boost::simd::native;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef native<T,ext_t>      vT;
-  typedef typename boost::dispatch::meta::as_integer<vT>::type ivT;
   typedef typename boost::dispatch::meta::call<toint_(vT)>::type r_t;
 
   // specific values tests
@@ -41,7 +40,6 @@ NT2_TEST_CASE_TPL ( toint_unsigned_int,  BOOST_SIMD_SIMD_UNSIGNED_TYPES)
   using boost::simd::native;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef native<T,ext_t>                    vT;
-  typedef typename boost::dispatch::meta::as_integer<vT>::type ivT;
   typedef typename boost::dispatch::meta::call<toint_(vT)>::type r_t;
 
 
@@ -57,7 +55,6 @@ NT2_TEST_CASE_TPL ( toint_signed_int,  BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPES)
   using boost::simd::native;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef native<T,ext_t>                  vT;
-  typedef typename boost::dispatch::meta::as_integer<vT>::type ivT;
   typedef typename boost::dispatch::meta::call<toint_(vT)>::type r_t;
 
   // specific values tests

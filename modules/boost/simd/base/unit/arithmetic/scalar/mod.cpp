@@ -46,7 +46,6 @@ NT2_TEST_CASE_TPL ( mod_unsigned_int,  BOOST_SIMD_UNSIGNED_TYPES)
   using boost::simd::mod;
   using boost::simd::tag::mod_;
   typedef typename boost::dispatch::meta::call<mod_(T,T)>::type r_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::common_type<T,T>::type wished_r_t;
 
 
@@ -64,7 +63,6 @@ NT2_TEST_CASE_TPL ( mod_signed_int,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
   using boost::simd::mod;
   using boost::simd::tag::mod_;
   typedef typename boost::dispatch::meta::call<mod_(T,T)>::type r_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::common_type<T,T>::type wished_r_t;
 
 
