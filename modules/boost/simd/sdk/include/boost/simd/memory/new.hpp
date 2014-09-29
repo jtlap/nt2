@@ -27,6 +27,16 @@
 #define BOOST_SIMD_MEMORY_BAD_ALLOC() throw(std::bad_alloc)
 #endif
 
+/*
+  Avoid Clang warning
+  warning: replacement function 'operator new' cannot be declared 'inline'
+*/
+#ifdef __GNUC__
+#define BOOST_SIMD_MEMORY_USED __attribute__((used))
+#else
+#define BOOST_SIMD_MEMORY_USED
+#endif
+
 /*!
   @brief Aligned new operator for single object
 
@@ -39,7 +49,7 @@
 
   @return A pointer referencing a newly allocated aligned memory block
 **/
-BOOST_FORCEINLINE BOOST_SIMD_MALLOC void*
+BOOST_FORCEINLINE BOOST_SIMD_MEMORY_USED BOOST_SIMD_MALLOC void*
 operator new(std::size_t sz, const std::nothrow_t& throw_status) throw()
 {
   return boost::simd::allocate(sz, throw_status);
@@ -56,7 +66,7 @@ operator new(std::size_t sz, const std::nothrow_t& throw_status) throw()
 
   @return A pointer referencing a newly allocated aligned memory block
 **/
-BOOST_FORCEINLINE BOOST_SIMD_MALLOC void*
+BOOST_FORCEINLINE BOOST_SIMD_MEMORY_USED BOOST_SIMD_MALLOC void*
 operator new(std::size_t sz) BOOST_SIMD_MEMORY_BAD_ALLOC()
 {
   return boost::simd::allocate(sz);
@@ -74,7 +84,7 @@ operator new(std::size_t sz) BOOST_SIMD_MEMORY_BAD_ALLOC()
 
   @return A pointer referencing a newly allocated aligned memory block
 **/
-inline BOOST_SIMD_MALLOC void*
+inline BOOST_SIMD_MEMORY_USED BOOST_SIMD_MALLOC void*
 operator new( std::size_t sz, std::size_t align
             , const std::nothrow_t& throw_status
             ) throw()
@@ -94,7 +104,7 @@ operator new( std::size_t sz, std::size_t align
 
   @return A pointer referencing a newly allocated aligned memory block
 **/
-inline BOOST_SIMD_MALLOC void*
+inline BOOST_SIMD_MEMORY_USED BOOST_SIMD_MALLOC void*
 operator new(std::size_t sz, std::size_t align) BOOST_SIMD_MEMORY_BAD_ALLOC()
 {
   return boost::simd::allocate(sz, align);
@@ -112,7 +122,7 @@ operator new(std::size_t sz, std::size_t align) BOOST_SIMD_MEMORY_BAD_ALLOC()
 
   @return A pointer referencing a newly allocated aligned memory block
 **/
-BOOST_FORCEINLINE BOOST_SIMD_MALLOC void*
+BOOST_FORCEINLINE BOOST_SIMD_MEMORY_USED BOOST_SIMD_MALLOC void*
 operator new[](std::size_t sz, const std::nothrow_t& throw_status) throw()
 {
   return boost::simd::allocate(sz, throw_status);
@@ -129,7 +139,7 @@ operator new[](std::size_t sz, const std::nothrow_t& throw_status) throw()
 
   @return A pointer referencing a newly allocated aligned memory block
 **/
-BOOST_FORCEINLINE BOOST_SIMD_MALLOC void*
+BOOST_FORCEINLINE BOOST_SIMD_MEMORY_USED BOOST_SIMD_MALLOC void*
 operator new[](std::size_t sz) BOOST_SIMD_MEMORY_BAD_ALLOC()
 {
   return boost::simd::allocate(sz);
@@ -147,7 +157,7 @@ operator new[](std::size_t sz) BOOST_SIMD_MEMORY_BAD_ALLOC()
 
   @return A pointer referencing a newly allocated aligned memory block
 **/
-inline BOOST_SIMD_MALLOC void*
+inline BOOST_SIMD_MEMORY_USED BOOST_SIMD_MALLOC void*
 operator new[]( std::size_t sz, std::size_t align
               , const std::nothrow_t& throw_status
               ) throw()
@@ -167,7 +177,7 @@ operator new[]( std::size_t sz, std::size_t align
 
   @return A pointer referencing a newly allocated aligned memory block
 **/
-inline BOOST_SIMD_MALLOC void*
+inline BOOST_SIMD_MEMORY_USED BOOST_SIMD_MALLOC void*
 operator new[](std::size_t sz, std::size_t align) BOOST_SIMD_MEMORY_BAD_ALLOC()
 {
   return boost::simd::allocate(sz,align);
@@ -178,7 +188,8 @@ operator new[](std::size_t sz, std::size_t align) BOOST_SIMD_MEMORY_BAD_ALLOC()
 
   @param m Pointer referencing the memory block to free
 **/
-BOOST_FORCEINLINE void operator delete(void* m)  throw()
+BOOST_FORCEINLINE BOOST_SIMD_MEMORY_USED
+void operator delete(void* m)  throw()
 {
   boost::simd::deallocate(m);
 }
@@ -188,23 +199,27 @@ BOOST_FORCEINLINE void operator delete(void* m)  throw()
 
   @param m Pointer referencing the memory block to free
 **/
-BOOST_FORCEINLINE void operator delete[](void* m) throw()
+BOOST_FORCEINLINE BOOST_SIMD_MEMORY_USED
+void operator delete[](void* m) throw()
 {
   boost::simd::deallocate(m);
 }
 
 /// @overload
-BOOST_FORCEINLINE void operator delete(void* m, const std::nothrow_t&) throw()
+BOOST_FORCEINLINE BOOST_SIMD_MEMORY_USED
+void operator delete(void* m, const std::nothrow_t&) throw()
 {
   boost::simd::deallocate(m);
 }
 
 /// @overload
-BOOST_FORCEINLINE void operator delete[](void* m, const std::nothrow_t&) throw()
+BOOST_FORCEINLINE BOOST_SIMD_MEMORY_USED
+void operator delete[](void* m, const std::nothrow_t&) throw()
 {
   boost::simd::deallocate(m);
 }
 
+#undef BOOST_SIMD_MEMORY_USED
 #undef BOOST_SIMD_MEMORY_BAD_ALLOC
 
 #endif
