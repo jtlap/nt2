@@ -9,8 +9,6 @@
 
 SET ( SOURCES
       linsolve.cpp
-      chol_result_solve.cpp
-      lsq_lse_solve.cpp
     )
 
 nt2_module_add_tests(core.linalg.solvers.unit ${SOURCES})

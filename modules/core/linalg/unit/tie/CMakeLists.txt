@@ -13,7 +13,6 @@ SET( SOURCES
      nseig.cpp
      qr.cpp
      symeig.cpp
-     lsq_lse_solve.cpp
      planerot.cpp
      qrdelete.cpp
      qrinsert.cpp
