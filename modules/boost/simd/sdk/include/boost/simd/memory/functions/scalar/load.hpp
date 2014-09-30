@@ -179,7 +179,7 @@ namespace boost { namespace simd { namespace ext
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::load_
                                       , tag::cpu_
                                       , (A0)(A1)(A2)
-                                      , (mpl::not_< simd::meta::is_native<typename A2::type> >)
+                                      , (mpl::not_< simd::meta::is_native<typename A1::type> >)
                                       , (iterator_< fusion_sequence_<A0> >)
                                         (target_< fusion_sequence_<A1> >)
                                         (scalar_< integer_<A2> >)
