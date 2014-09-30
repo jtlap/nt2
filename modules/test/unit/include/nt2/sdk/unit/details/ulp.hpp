@@ -15,6 +15,7 @@
 #include <nt2/sdk/unit/details/smallest_type.hpp>
 #include <nt2/sdk/unit/details/eval.hpp>
 #include <nt2/sdk/unit/stats.hpp>
+#include <nt2/sdk/meta/type_id.hpp>
 
 #include <boost/dispatch/attributes.hpp>
 #include <boost/dispatch/meta/as_unsigned.hpp>
@@ -55,19 +56,31 @@ namespace nt2 { namespace details
                 , std::size_t size, double N, bool ok
                 );
 
-  /// Default implementation of max_ulps forward to generic ulpdist
-  template<class T>
-  BOOST_FORCEINLINE double max_ulps(T const& a, T const& b)
-  {
-    typedef typename boost::dispatch::meta::as_unsigned<T>::type u_t;
-    return (a<b) ? u_t(b-a) : u_t(a-b);
-  }
 
   /// Precompiled implementation max_ulps on double
   NT2_TEST_UNIT_DECL double max_ulps(double a, double b);
 
   /// Precompiled implementation max_ulps on float
   NT2_TEST_UNIT_DECL double max_ulps(float  a, float  b);
+
+  template<class T> BOOST_FORCEINLINE
+  double max_ulps(T const& a, T const& b, boost::mpl::true_ const&)
+  {
+    typedef typename boost::dispatch::meta::as_unsigned<T>::type u_t;
+    return (a<b) ? u_t(b-a) : u_t(a-b);
+  }
+
+  template<class T> BOOST_FORCEINLINE
+  double max_ulps(T const& a, T const& b, boost::mpl::false_ const&)
+  {
+    return max_ulps(a.value(), b.value() );
+  }
+  /// Default implementation of max_ulps forward to generic ulpdist
+  template<class T>
+  BOOST_FORCEINLINE double max_ulps(T const& a, T const& b)
+  {
+    return max_ulps(a,b, boost::mpl::bool_<boost::is_integral<T>::value>() );
+  }
 
   struct max_ulps_caller
   {
@@ -104,6 +117,7 @@ namespace nt2 { namespace details
       double d = distance_fn ( nt2::details::smallest_a(a,b)
                              , nt2::details::smallest_b(a,b)
                              );
+
       if(!(d <= max_ulpd) )
       {
         typename VF::value_type f = { a, b, d, i };
