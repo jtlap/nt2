@@ -15,6 +15,11 @@
 #include <boost/simd/include/functions/simd/multiplies.hpp>
 #include <boost/dispatch/attributes.hpp>
 
+#ifdef BOOST_MSVC
+  #pragma warning(push)
+  #pragma warning(disable: 4146) // unary minus applied to unsigned
+#endif
+
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::fnma_, tag::cpu_
@@ -33,5 +38,9 @@ namespace boost { namespace simd { namespace ext
     }
   };
 } } }
+
+#ifdef BOOST_MSVC
+  #pragma warning(pop)
+#endif
 
 #endif
