@@ -93,14 +93,15 @@ set(NT2_MODULES_BLACKLIST "" CACHE STRING "Modules that should not be loaded")
 ################################################################################
 # If no explicit modules are set, we use all modules we can find
 ################################################################################
+set(NT2_MODULES_ALL)
+file(GLOB files RELATIVE ${PROJECT_SOURCE_DIR}/modules ${PROJECT_SOURCE_DIR}/modules/*/)
+foreach(file ${files})
+  if(IS_DIRECTORY ${PROJECT_SOURCE_DIR}/modules/${file})
+    list(APPEND NT2_MODULES_ALL ${file})
+  endif()
+endforeach()
 if(NOT NT2_MODULES)
-  set(NT2_MODULES)
-  file(GLOB files RELATIVE ${PROJECT_SOURCE_DIR}/modules ${PROJECT_SOURCE_DIR}/modules/*/)
-  foreach(file ${files})
-    if(IS_DIRECTORY ${PROJECT_SOURCE_DIR}/modules/${file})
-      list(APPEND NT2_MODULES ${file})
-    endif()
-  endforeach()
+  set(NT2_MODULES ${NT2_MODULES_ALL})
 endif()
 nt2_expand_submodules(NT2_MODULES)
 nt2_remove_blacklisted(NT2_MODULES)
@@ -128,7 +129,7 @@ endif()
 ################################################################################
 # Set include directories
 ################################################################################
-foreach(module ${NT2_MODULES})
+foreach(module ${NT2_MODULES_ALL})
   string(REPLACE "." "/" module_path ${module})
   include_directories(${PROJECT_SOURCE_DIR}/modules/${module_path}/include)
 endforeach()
