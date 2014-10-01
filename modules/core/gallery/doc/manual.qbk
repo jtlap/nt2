@@ -1,0 +1,9 @@
+[gallery Toolbox
+  [quickbook 1.5]
+]
+
+[section Overview]
+This module provides implementation of various linear algebra solvertest matrices.
+[endsect]
+
+[xinclude reference.xml]
