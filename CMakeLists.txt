@@ -100,11 +100,14 @@ foreach(file ${files})
     list(APPEND NT2_MODULES_ALL ${file})
   endif()
 endforeach()
+nt2_expand_submodules(NT2_MODULES_ALL)
+nt2_remove_blacklisted(NT2_MODULES_ALL)
 if(NOT NT2_MODULES)
   set(NT2_MODULES ${NT2_MODULES_ALL})
+else()
+  nt2_expand_submodules(NT2_MODULES)
+  nt2_remove_blacklisted(NT2_MODULES)
 endif()
-nt2_expand_submodules(NT2_MODULES)
-nt2_remove_blacklisted(NT2_MODULES)
 
 ################################################################################
 # Download extra modules
@@ -124,6 +127,8 @@ nt2_remove_blacklisted(NT2_MODULES_EXTRA)
 if(NT2_MODULES_EXTRA)
   list(APPEND NT2_MODULES ${NT2_MODULES_EXTRA})
   list(REMOVE_DUPLICATES NT2_MODULES)
+  list(APPEND NT2_MODULES_ALL ${NT2_MODULES_EXTRA})
+  list(REMOVE_DUPLICATES NT2_MODULES_ALL)
 endif()
 
 ################################################################################
