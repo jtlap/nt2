@@ -1,8 +1,8 @@
 //==============================================================================
-//         Copyright T(2003) - T(2012)   LASMEA UMR T(6602) CNRS/Univ. Clermont II
-//         Copyright T(2009) - T(2012)   LRI    UMR T(8623) CNRS/Univ Paris Sud XI
+//         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
 //
-//          Distributed under the Boost Software License, Version T(1.0).
+//          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
