@@ -87,7 +87,7 @@ namespace nt2 { namespace ext
     }
 
   private :
-    static inline A0 large_negative(A0 q)
+    static inline A0 large_negative(const A0& q)
     {
       A0 st =  nt2::stirling(q);
       A0 p = nt2::floor(q);

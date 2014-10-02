@@ -164,7 +164,7 @@ namespace nt2 { namespace details
                                        )
                                       )>(x);
     }
-    static BOOST_FORCEINLINE A0 twomio16(iA0 i)
+    static BOOST_FORCEINLINE A0 twomio16(const iA0& i)
     {
       /* 2^(-i/16), IEEE precision */
       static const boost::array < sA0, 17> A = {{
