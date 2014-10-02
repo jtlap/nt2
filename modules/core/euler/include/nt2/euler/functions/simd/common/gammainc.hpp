@@ -60,7 +60,7 @@ namespace nt2 { namespace ext
 
       std::size_t nb = nt2::inbtrue(test);
 
-      if (nb)
+      if(nb)
       {
         x =  nt2::max ( nt2::fma( nt2::sqrt(amax/a)
                                 , x-(a-nt2::Third<A0>())
@@ -76,7 +76,8 @@ namespace nt2 { namespace ext
       std::size_t nbt = 0u;
       test = nt2::lt(x, nt2::oneplus(a));
 
-      if((nb = boost::simd::inbtrue(test)))
+      nb = boost::simd::inbtrue(test);
+      if(nb)
       {
         res = nt2::if_else(test, lower_gammainc(x, a, test), res);
         nbt+= nb;
