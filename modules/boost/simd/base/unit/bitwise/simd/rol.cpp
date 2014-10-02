@@ -47,11 +47,11 @@ NT2_TEST_CASE_TPL ( rol_integer, BOOST_SIMD_SIMD_INTEGRAL_TYPES)
 
   // Test for error in rotation counts
   ivT one_small = One<ivT>();
-  one_small[0]  = -1;
+  one_small[0]  = iT(-1);
   NT2_TEST_ASSERT(rol(One<vT>(), one_small) );
 
   ivT one_big  = One<ivT>();
-  one_big[1]   = w+1;
+  one_big[1]   = iT(w+1);
   NT2_TEST_ASSERT(rol(One<vT>(), one_big)   );
 }
 
