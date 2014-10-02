@@ -18,6 +18,7 @@ SET ( NT2_CORE.CONTAINER.TABLE_DEPENDENCIES_EXTRA
       core.sdk
       core.swar
       sdk.meta
+      type.complex.sdk
     )
 
 
