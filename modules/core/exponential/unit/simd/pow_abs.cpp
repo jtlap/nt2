@@ -25,6 +25,7 @@
 #include <nt2/include/constants/inf.hpp>
 #include <nt2/include/constants/minf.hpp>
 #include <nt2/include/constants/nan.hpp>
+#include <nt2/include/constants/half.hpp>
 
 NT2_TEST_CASE_TPL ( pow_abs,  NT2_SIMD_REAL_TYPES)
 {

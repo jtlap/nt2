@@ -18,6 +18,7 @@
 #include <nt2/include/constants/half.hpp>
 #include <nt2/include/constants/inf.hpp>
 #include <nt2/include/constants/minf.hpp>
+#include <nt2/include/constants/nan.hpp>
 
 #include <boost/fusion/include/vector_tie.hpp>
 
