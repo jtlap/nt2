@@ -47,6 +47,12 @@ nt2_doc_boostbook(doc)
 nt2_doc_html(${NT2_BINARY_DIR}/doc doc)
 add_custom_target(doc
                   COMMAND ${CMAKE_COMMAND}
+                  -E copy           ${BOOSTBOOK_SRC_DIR}/boostbook.css
+                                    ${NT2_BINARY_DIR}/doc/html/boostbook.css
+                  COMMAND ${CMAKE_COMMAND}
+                  -E copy_directory ${BOOSTBOOK_SRC_DIR}/images
+                                    ${NT2_BINARY_DIR}/doc/html/images
+                  COMMAND ${CMAKE_COMMAND}
                   -E copy_directory ${NT2_SOURCE_ROOT}/doc/html
                                     ${NT2_BINARY_DIR}/doc/html
                   DEPENDS ${NT2_BINARY_DIR}/doc/html/index.html

@@ -20,3 +20,4 @@ INPUT                 += ../include/nt2/euler/constants
 FULL_PATH_NAMES        = NO
 INHERIT_DOCS           = NO
 RECURSIVE              = NO
+EXTRA_PACKAGES         = amssymb

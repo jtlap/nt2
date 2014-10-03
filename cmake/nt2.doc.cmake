@@ -18,6 +18,7 @@ find_program(XSLTPROC_EXECUTABLE xsltproc)
 find_program(QUICKBOOK_EXECUTABLE quickbook ${BOOST_ROOT}/dist/bin)
 find_path(BOOSTBOOK_XSL_DIR docbook.xsl ${BOOST_ROOT}/tools/boostbook/xsl)
 find_path(BOOSTBOOK_DTD_DIR boostbook.dtd ${BOOST_ROOT}/tools/boostbook/dtd)
+find_path(BOOSTBOOK_SRC_DIR boostbook.css ${BOOST_ROOT}/doc/src)
 find_path(DOCBOOK_XSL_DIR catalog.xml /usr/share/xml/docbook/stylesheet/docbook-xsl)
 find_path(DOCBOOK_DTD_DIR docbookx.dtd /usr/share/xml/docbook/schema/dtd/4.2)
 
@@ -31,7 +32,8 @@ endif()
 foreach(arg NT2_SOURCE_ROOT NT2_BINARY_DIR
             DOXYGEN_EXECUTABLE DOXYGEN_DOT_EXECUTABLE
             XSLTPROC_EXECUTABLE QUICKBOOK_EXECUTABLE
-            BOOSTBOOK_XSL_DIR BOOSTBOOK_DTD_DIR DOCBOOK_XSL_DIR DOCBOOK_DTD_DIR
+            BOOSTBOOK_XSL_DIR BOOSTBOOK_DTD_DIR BOOSTBOOK_SRC_DIR
+            DOCBOOK_XSL_DIR DOCBOOK_DTD_DIR
             CMakeParseArguments_FOUND
        )
   if(NOT ${arg})
@@ -306,6 +308,12 @@ macro(nt2_module_doc module)
     nt2_doc_boostbook(${output_file_base})
     nt2_doc_html(${NT2_BINARY_DIR}/doc ${output_file_base})
     add_custom_target(doc
+                      COMMAND ${CMAKE_COMMAND}
+                      -E copy           ${BOOSTBOOK_SRC_DIR}/boostbook.css
+                                        ${NT2_BINARY_DIR}/doc/html/boostbook.css
+                      COMMAND ${CMAKE_COMMAND}
+                      -E copy_directory ${BOOSTBOOK_SRC_DIR}/images
+                                        ${NT2_BINARY_DIR}/doc/html/images
                       COMMAND ${CMAKE_COMMAND}
                       -E copy_directory ${NT2_SOURCE_ROOT}/doc/html
                                         ${NT2_BINARY_DIR}/doc/html
