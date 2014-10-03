@@ -43,6 +43,8 @@ if(MSVC)
   set(NT2_FLAGS_BENCH "/DNDEBUG /MD /D_SECURE_SCL=0 /GL /Oxt /wd4530")
 
 elseif(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+  # C++11 required
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
   # Strict aliasing disabled due to GCC bug #50800
   # -D_GLIBCXX_DEBUG=1 not used because of incompatibilities with libraries
   if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUXX)
@@ -55,6 +57,8 @@ elseif(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUXX OR CMAKE_CXX_COMPILER_
   set(NT2_FLAGS_BENCH "-DNDEBUG -O3 -fomit-frame-pointer -fno-exceptions")
 
 elseif(CMAKE_CXX_COMPILER_ID MATCHES "Intel")
+  # C++11 required
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
   if(UNIX)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fp-model precise")
     set(NT2_FLAGS_TEST "${NT2_FLAGS_TEST} -O2")
