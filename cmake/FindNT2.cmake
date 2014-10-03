@@ -246,6 +246,10 @@ macro(nt2_find_module_dependencies _COMPONENT)
     set(NT2_${_COMPONENT_U}_DEPENDENCIES_FOUND 1)
   endif()
 
+  if(NT2_IGNORE_DEPENDENCIES)
+    set(NT2_${_COMPONENT_U}_DEPENDENCIES_FOUND 1)
+  endif()
+
 endmacro()
 
 # little helper for nt2_find_modules
