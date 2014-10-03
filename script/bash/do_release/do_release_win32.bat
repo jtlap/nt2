@@ -10,7 +10,7 @@ rmdir /S /Q install nt2_msvc
 mkdir install\nt2
 
 mkdir nt2_msvc && cd nt2_msvc
-cmake "%NT2_SOURCE_ROOT%" -G Ninja -DCMAKE_INSTALL_PREFIX=../install/nt2 -DNT2_MODULES_BLACKLIST="%BLACKLISTED%"
+cmake "%NT2_SOURCE_ROOT%" -G Ninja -DCMAKE_INSTALL_PREFIX=../install/nt2 -DNT2_WITH_TESTS=0 -DNT2_IGNORE_DEPENDENCIES=1 -DNT2_MODULES_BLACKLIST="%BLACKLISTED%"
 ninja
 xcopy /S /I ..\nt2\doc\html doc\html
 ninja package

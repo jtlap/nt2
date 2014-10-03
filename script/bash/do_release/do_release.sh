@@ -11,7 +11,7 @@ mkdir -p install/nt2
 mkdir -p install/boost-simd
 
 mkdir nt2 && cd nt2
-cmake $NT2_SOURCE_ROOT -G Ninja -DCMAKE_INSTALL_PREFIX=../install/nt2 -DNT2_INSTALL_SHARE_DIR:STRING=. -DNT2_MODULES_BLACKLIST="$BLACKLISTED"
+cmake $NT2_SOURCE_ROOT -G Ninja -DCMAKE_INSTALL_PREFIX=../install/nt2 -DNT2_INSTALL_SHARE_DIR:STRING=. -DNT2_WITH_TESTS=0 -DNT2_IGNORE_DEPENDENCIES=1 -DNT2_MODULES_BLACKLIST="$BLACKLISTED"
 ninja
 ninja -j1 doc && ninja -j1 doc
 ninja install
@@ -22,7 +22,7 @@ tar -zcf ../nt2-$VERSION-$BUILDNAME.tgz nt2
 cd ..
 
 mkdir boost-simd && cd boost-simd
-cmake $NT2_SOURCE_ROOT -G Ninja -DCMAKE_INSTALL_PREFIX=../install/boost-simd -DNT2_INSTALL_SHARE_DIR:STRING=. -DNT2_MODULES="boost.simd" -DNT2_DOC_MAIN="boost.simd_doc" -DNT2_MODULES_BLACKLIST="$BLACKLISTED"
+cmake $NT2_SOURCE_ROOT -G Ninja -DCMAKE_INSTALL_PREFIX=../install/boost-simd -DNT2_INSTALL_SHARE_DIR:STRING=. -DNT2_WITH_TESTS=0 -DNT2_IGNORE_DEPENDENCIES=1 -DNT2_MODULES="boost.simd" -DNT2_DOC_MAIN="boost.simd_doc" -DNT2_MODULES_BLACKLIST="$BLACKLISTED"
 ninja
 ninja -j1 doc && ninja -j1 doc
 ninja install
