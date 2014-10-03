@@ -88,7 +88,7 @@ END
   exit 1
 fi
 
-if git diff --cached | grep -P '^\+.*[^\x00-\xBF\xC2-\xF4]' > /dev/null
+if git diff --cached | grep -E $'^\+.*[^\x01-\xBF\xC2-\xF4]' > /dev/null
 then
 cat<<END;
 error: non-UTF-8 characters were found in staged changes, which is against
@@ -99,7 +99,7 @@ with 'git commit --no-verify'
 
 Incriminated changes:
 END
-  GREP_COLOR='1;37;41' grep -PH $color_option '[^\x00-\xBF\xC2-\xF4]' `git diff --cached --name-only`
+  GREP_COLOR='1;37;41' grep -EH $color_option $'[^\x01-\xBF\xC2-\xF4]' `git diff --cached --name-only`
   exit 1
 fi
 
