@@ -44,7 +44,12 @@ if(MSVC)
 
 elseif(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   # C++11 required
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
+  if(MINGW)
+    # somehow without that MinGW stops declaring Microsoft-specific CRT functions
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++0x")
+  else()
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
+  endif()
   # Strict aliasing disabled due to GCC bug #50800
   # -D_GLIBCXX_DEBUG=1 not used because of incompatibilities with libraries
   if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUXX)
