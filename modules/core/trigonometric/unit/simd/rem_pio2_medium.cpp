@@ -31,7 +31,6 @@ NT2_TEST_CASE_TPL ( rem_pio2_medium_real__1_0,  NT2_SIMD_REAL_TYPES)
   typedef typename nt2::meta::as_integer<T>::type           iT;
   typedef native<T,BOOST_SIMD_DEFAULT_EXTENSION>            vT;
   typedef native<iT,BOOST_SIMD_DEFAULT_EXTENSION>          viT;
-  typedef std::pair<viT, vT>  r_t;
 
   {
     vT r1;
