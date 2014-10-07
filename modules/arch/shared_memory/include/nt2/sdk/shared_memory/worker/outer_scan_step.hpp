@@ -12,7 +12,6 @@
 
 #include <nt2/sdk/shared_memory/worker.hpp>
 #include <nt2/core/functions/details/scan_step.hpp>
-#include <nt2/sdk/shared_memory/details/target_type_from_site.hpp>
 #include <nt2/include/functor.hpp>
 #include <cstdio>
 
