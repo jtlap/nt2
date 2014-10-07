@@ -17,20 +17,6 @@ namespace nt2
 {
   namespace details
   {
-   template<class value_type>
-   struct is_value_type_vectorizable
-   {
-
-    typedef typename
-    boost::mpl::if_ <
-                      boost::simd::meta::is_vectorizable<
-                        value_type
-                       ,BOOST_SIMD_DEFAULT_EXTENSION
-                       >
-                    , boost::mpl::bool_<true>
-                    , boost::mpl::bool_<false>
-                  >::type type;
-   };
 
    template<class Site, class value_type, class condition>
    struct target_type_from_site;
