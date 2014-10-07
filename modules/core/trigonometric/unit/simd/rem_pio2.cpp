@@ -33,8 +33,6 @@ NT2_TEST_CASE_TPL ( rem_pio2_real__1_0,  NT2_SIMD_REAL_TYPES)
   typedef native<T,ext_t>                        n_t;
   typedef n_t                                     vT;
   typedef typename nt2::meta::call<rem_pio2_(vT)>::type r_t;
-  typedef typename nt2::meta::call<rem_pio2_(T)>::type sr_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
 
   // specific values tests
   typedef typename boost::fusion::result_of::value_at_c<r_t,0>::type r_t0;

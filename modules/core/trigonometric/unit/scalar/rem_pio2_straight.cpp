@@ -26,7 +26,6 @@ NT2_TEST_CASE_TPL ( rem_pio2_straight_real__1_0,  NT2_REAL_TYPES)
   using nt2::rem_pio2_straight;
   using nt2::tag::rem_pio2_straight_;
   typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef std::pair<iT, T>  r_t;
 
 
   NT2_TEST_TYPE_IS( (typename boost::dispatch::meta::call<rem_pio2_straight_(T)>::type)
