@@ -37,7 +37,6 @@ NT2_TEST_CASE_TPL( complexify1, NT2_REAL_TYPES )
 }
 NT2_TEST_CASE_TPL( complexify2, NT2_REAL_TYPES )
 {
-  typedef typename nt2::meta::as_complex<T>::type cT;
   nt2::table<T>   a0 = nt2::ones(3, 3, nt2::meta::as_<T>());
   NT2_TEST_EQUAL(a0, real(complexify(a0)));
   NT2_TEST_EQUAL(complexify(a0), complexify(complexify(a0)));
