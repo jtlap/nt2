@@ -58,7 +58,6 @@ template<class S, class Z> void test_squeeze(S const& old_s, Z const& new_s)
 
 NT2_TEST_CASE( squeeze_3D )
 {
-  typedef std::complex<double> cT;
   test_squeeze( nt2::of_size(1,3,3) , nt2::of_size(3,3) );
   test_squeeze( nt2::of_size(3,1,3) , nt2::of_size(3,3) );
   test_squeeze( nt2::of_size(3,3,1) , nt2::of_size(3,3) );
