@@ -38,8 +38,7 @@ NT2_TEST_CASE_TPL ( ulpdist_real,  NT2_SIMD_REAL_TYPES)
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef native<T,ext_t>                  vT;
   typedef native<cT,ext_t>                vcT;
-  typedef typename nt2::dry<T>             dT;
-  typedef native<dT,ext_t>                vdT;
+
   typedef typename nt2::meta::call<ulpdist_(vcT, vcT)>::type r_t;
 
   // return type conformity test
