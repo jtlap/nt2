@@ -18,27 +18,25 @@ namespace nt2
   namespace details
   {
 
-   template<class Site, class value_type, class condition>
+   template<class Site, class Value, bool Condition = boost::simd::meta::is_vectorizable<Value, BOOST_SIMD_DEFAULT_EXTENSION>::value>
    struct target_type_from_site;
 
-
-   template<class Site, class value_type>
-   struct target_type_from_site< Site, value_type, boost::mpl::bool_<true> >
+   template<class Site, class Value>
+   struct target_type_from_site<Site, Value, true>
    {
-    typedef typename
-    boost::simd::native<value_type,BOOST_SIMD_DEFAULT_EXTENSION>::type type;
+    typedef boost::simd::native<Value, BOOST_SIMD_DEFAULT_EXTENSION> type;
    };
 
-   template<class Site, class value_type>
-   struct target_type_from_site< Site, value_type, boost::mpl::bool_<false> >
+   template<class Site, class Value>
+   struct target_type_from_site<Site, Value, false>
    {
-    typedef value_type type;
+    typedef Value type;
    };
 
-   template<class value_type>
-   struct target_type_from_site<tag::cpu_,value_type, boost::mpl::bool_<true> >
+   template<class Value>
+   struct target_type_from_site<tag::cpu_, Value, true>
    {
-     typedef value_type type;
+     typedef Value type;
    };
 
   }

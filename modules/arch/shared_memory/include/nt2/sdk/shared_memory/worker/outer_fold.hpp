@@ -33,15 +33,7 @@ namespace nt2
   {
       typedef typename boost::remove_reference<In>::type::extent_type           extent_type;
       typedef typename Out::value_type                                          value_type;
-      typedef typename boost::simd::meta::is_vectorizable<
-                         value_type
-                        ,BOOST_SIMD_DEFAULT_EXTENSION
-                        >::type                                                 condition_type;
-      typedef typename details::target_type_from_site<
-                          Site
-                         ,value_type
-                         ,condition_type
-                         >::type                                                target_type;
+      typedef typename details::target_type_from_site<Site, value_type>::type   target_type;
 
       worker(Out& out, In& in, Neutral const& n, Bop const& bop, Uop const& uop)
       : out_(out), in_(in), neutral_(n), bop_(bop), uop_(uop)
