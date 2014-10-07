@@ -29,11 +29,9 @@ NT2_TEST_CASE_TPL( ifnotinc_floating, BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using nt2::ifnotinc;
   using nt2::tag::ifnotinc_;
-  typedef typename std::complex<T> cT;
   using boost::simd::native;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef native<T,ext_t>                  vT;
-  typedef native<cT,ext_t>                vcT;
 
   // specific values tests
   NT2_TEST_EQUAL(ifnotinc(nt2::Zero<vT>(), nt2::Mone<vT>()), nt2::Zero<vT>());

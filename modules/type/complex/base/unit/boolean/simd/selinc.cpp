@@ -32,16 +32,15 @@ NT2_TEST_CASE_TPL( selinc_floating, BOOST_SIMD_SIMD_REAL_TYPES)
   typedef typename std::complex<T> cT;
   using boost::simd::native;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef native<T,ext_t>                  vT;
   typedef native<cT,ext_t>                vcT;
 
   // specific values tests
-  NT2_TEST_EQUAL(selinc(nt2::One<vT>(), nt2::Mone<vT>()), nt2::Zero<vT>());
-  NT2_TEST_EQUAL(selinc(nt2::One<vT>(), nt2::One<vT>()), nt2::Two<vT>());
-  NT2_TEST_EQUAL(selinc(nt2::One<vT>(), nt2::Valmax<vT>()), nt2::Valmax<vT>());
-  NT2_TEST_EQUAL(selinc(nt2::One<vT>(), nt2::Zero<vT>()), nt2::One<vT>());
-  NT2_TEST_EQUAL(selinc(nt2::Zero<vT>(), nt2::Mone<vT>()), nt2::Mone<vT>());
-  NT2_TEST_EQUAL(selinc(nt2::Zero<vT>(), nt2::Zero<vT>()), nt2::Zero<vT>());
-  NT2_TEST_EQUAL(selinc(nt2::Zero<vT>(), nt2::Valmax<vT>()), nt2::Valmax<vT>());
-  NT2_TEST_EQUAL(selinc(nt2::Zero<vT>(), nt2::Zero<vT>()), nt2::Zero<vT>());
+  NT2_TEST_EQUAL(selinc(nt2::One<vcT>(), nt2::Mone<vcT>()), nt2::Zero<vcT>());
+  NT2_TEST_EQUAL(selinc(nt2::One<vcT>(), nt2::One<vcT>()), nt2::Two<vcT>());
+  NT2_TEST_EQUAL(selinc(nt2::One<vcT>(), nt2::Valmax<vcT>()), nt2::Valmax<vcT>());
+  NT2_TEST_EQUAL(selinc(nt2::One<vcT>(), nt2::Zero<vcT>()), nt2::One<vcT>());
+  NT2_TEST_EQUAL(selinc(nt2::Zero<vcT>(), nt2::Mone<vcT>()), nt2::Mone<vcT>());
+  NT2_TEST_EQUAL(selinc(nt2::Zero<vcT>(), nt2::Zero<vcT>()), nt2::Zero<vcT>());
+  NT2_TEST_EQUAL(selinc(nt2::Zero<vcT>(), nt2::Valmax<vcT>()), nt2::Valmax<vcT>());
+  NT2_TEST_EQUAL(selinc(nt2::Zero<vcT>(), nt2::Zero<vcT>()), nt2::Zero<vcT>());
 }
