@@ -76,7 +76,6 @@ NT2_TEST_CASE_TPL ( cospi_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
   using nt2::cospi;
   using nt2::tag::cospi_;
   typedef typename nt2::meta::call<cospi_(T)>::type r_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename boost::dispatch::meta::as_floating<T>::type wished_r_t;
 
   // return type conformity test
