@@ -15,7 +15,6 @@
 #include <boost/simd/memory/functions/details/char_helper.hpp>
 #include <boost/simd/memory/functions/details/check_ptr.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
-#include <boost/simd/sdk/meta/scalar_of.hpp>
 #include <boost/simd/meta/is_pointing_to.hpp>
 #include <iterator>
 
@@ -88,8 +87,6 @@ namespace boost { namespace simd { namespace ext
     // Non-periodic case
     BOOST_FORCEINLINE result_type eval(A0 a0, boost::mpl::false_ const&) const
     {
-      typedef typename meta::scalar_of<result_type>::type scalar_type;
-
       // Load aligned sources
       result_type a  = simd::aligned_load<result_type>(a0-unalignment);
       result_type b  = simd::aligned_load<result_type>(a0-unalignment,cardinal);
