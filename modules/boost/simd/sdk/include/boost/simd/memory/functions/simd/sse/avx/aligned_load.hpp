@@ -259,7 +259,7 @@ namespace boost { namespace simd { namespace ext
     static const std::size_t cardinal    = meta::cardinal_of<result_type>::value;
     static const align_t     unalignment = A3::value % cardinal;
 
-    typedef typename boost::mpl::if_c < unalignment
+    typedef typename boost::mpl::if_c < unalignment != 0
                                       , boost::simd::tag::load_
                                       , boost::simd::tag::aligned_load_
                                       >::type           func_t;
