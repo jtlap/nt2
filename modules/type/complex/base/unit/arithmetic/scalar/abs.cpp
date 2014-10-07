@@ -67,7 +67,6 @@ NT2_TEST_CASE_TPL(abs_dry,  BOOST_SIMD_REAL_TYPES)
 {
   using nt2::abs;
   using nt2::tag::abs_;
-  typedef typename std::complex<T> cT;
   typedef typename nt2::dry<T> dT;
   typedef typename boost::dispatch::meta::call<abs_(dT)>::type r_t;
 
