@@ -27,7 +27,6 @@ NT2_TEST_CASE_TPL ( enumerate, BOOST_SIMD_SIMD_TYPES)
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef std::complex<T> cT;
   typedef native<cT,ext_t> vT;
-  typedef typename boost::dispatch::meta::call<enumerate_(cT, as_<vT> )>::type r_t;
 
   for(std::size_t i=0; i < vT::static_size;++i)
     NT2_TEST_EQUAL(enumerate<vT>(cT(10,5))[i], cT(i+10,5));
