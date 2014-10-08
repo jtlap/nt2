@@ -43,6 +43,8 @@ namespace nt2 { namespace ext
       std::size_t bound  = boost::fusion::at_c<0>(ext);
       std::size_t obound = nt2::numel(boost::fusion::pop_front(ext));
       std::size_t top_cache_line_size = config::top_cache_line_size(2)/sizeof(value_type);
+      if(!top_cache_line_size) top_cache_line_size = 1u;
+
       std::size_t grain = top_cache_line_size;
 
       nt2::worker<tag::inner_scan_,BackEnd,Site,Out,In,Neutral,Bop>
