@@ -8,14 +8,6 @@
 //==============================================================================
 #ifndef NT2_INTEGRATION_ORDER_HPP_INCLUDED
 #define NT2_INTEGRATION_ORDER_HPP_INCLUDED
-#include <nt2/include/functions/horzcat.hpp>
-#include <nt2/include/functions/sort.hpp>
-#include <nt2/include/functions/rowvect.hpp>
-#include <nt2/include/functions/numel.hpp>
-#include <nt2/include/functions/logical_and.hpp>
-#include <nt2/include/functions/is_greater.hpp>
-#include <nt2/include/functions/is_less.hpp>
-#include <nt2/core/container/table/table.hpp>
 
 namespace nt2
 {
@@ -26,8 +18,6 @@ namespace nt2
     inline bool order_points(W&, bool sort = false)
     {
       bool reverse = false;
-       typedef typename W::value_type r_type;
-       typedef typename container::table<r_type> tab_t;
        if (sort)
        {
 //Thist is not in use for now, but may be in othr integration processes not yet implanted
