@@ -1,8 +1,11 @@
 #!/bin/bash
 
+export LANG=C
+export LC_CTYPE=C
+
 IFS=$'\n'
 color_option=''
-if grep --help | grep -q -e --color
+if grep --help 2>&1 | grep -q -e --color
 then
   color_option='--color=auto'
 fi
@@ -20,7 +23,7 @@ Incriminated changes:
 END
   for i in `git diff --cached --name-only`
   do
-    LANG=C git blame $i \
+    git blame $i \
   | sed 's@[0-9a-f]\{1,\} (Not Committed Yet [0-9]\{4\}-[0-9]\{2\}-[0-9]\{2\} \{1,\}[0-9]\{2\}:[0-9]\{2\}:[0-9]\{2\} \{1,\}[+-][0-9]\{1,4\} \{1,\}\([0-9]\{1,\}\)) \(.*\)@'$i':\1: \2@g;tx;d;:x' \
   | GREP_COLOR='1;37;41' grep -F $'\t' $color_option
   done
@@ -40,7 +43,7 @@ Incriminated changes:
 END
   for i in `git diff --cached --name-only`
   do
-    LANG=C git blame $i \
+    git blame $i \
   | sed 's@[0-9a-f]\{1,\} (Not Committed Yet [0-9]\{4\}-[0-9]\{2\}-[0-9]\{2\} \{1,\}[0-9]\{2\}:[0-9]\{2\}:[0-9]\{2\} \{1,\}[+-][0-9]\{1,4\} \{1,\}\([0-9]\{1,\}\)) \(.*\)@'$i':\1: \2@g;tx;d;:x' \
   | grep -v -E '^[^:]*:[^:]+: $' | GREP_COLOR='1;37;41' grep -E ' +$' $color_option
   done
