@@ -14,7 +14,7 @@
 
 extern "C"
 {
-  void xerbla(char* /*srname*/, int* info, int /*len*/)
+  inline void xerbla(char* /*srname*/, int* info, int /*len*/)
   {
     boost::dispatch::ignore_unused(info);
     BOOST_ASSERT_MSG(*info <= 0, "Error in BLAS/LAPACK kernel call parameters");
