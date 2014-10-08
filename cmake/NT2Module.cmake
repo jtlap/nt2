@@ -397,6 +397,7 @@ macro(nt2_module_add_library libname)
     set_property(TARGET ${target} PROPERTY VERSION ${NT2_VERSION_MAJOR}.${NT2_VERSION_MINOR}.${NT2_VERSION_PATCH})
     set_property(TARGET ${target} PROPERTY SOVERSION ${NT2_VERSION_MAJOR})
     set_property(TARGET ${target} PROPERTY FOLDER lib)
+    set_property(TARGET ${target} PROPERTY MACOSX_RPATH ON)
 
     set(FLAGS "-D${macro_name}_SOURCE")
     if(TARGET_SUPPORTS_SHARED_LIBS AND NOT ${target} MATCHES "_static(_d)?$")
