@@ -18,7 +18,7 @@ NT2_TEST_CASE_TPL(vector, BOOST_SIMD_TYPES)
 {
   using boost::simd::is_aligned;
 
-  typedef std::allocator<float> base;
+  typedef std::allocator<T> base;
   typedef boost::simd::allocator_adaptor<base> alloc;
   std::vector<T, alloc > p(5);
 
@@ -31,7 +31,7 @@ NT2_TEST_CASE_TPL(vector_n, BOOST_SIMD_TYPES)
 {
   using boost::simd::is_aligned;
 
-  typedef std::allocator<float> base;
+  typedef std::allocator<T> base;
   typedef boost::simd::allocator_adaptor<base,4> alloc;
   std::vector<T, alloc > p(5);
 
