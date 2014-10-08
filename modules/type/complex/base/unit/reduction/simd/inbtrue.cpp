@@ -35,7 +35,6 @@ NT2_TEST_CASE_TPL ( inbtrue_real__1_0,  NT2_SIMD_REAL_TYPES)
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef native<std::complex<T> ,ext_t>            vcT;
   typedef native<T ,ext_t>                          vT;
-  typedef typename nt2::meta::call<inbtrue_(vcT)>::type r_t;
 
   vT r =  nt2::enumerate<vT>();
   vT i =  nt2::enumerate<vT>();

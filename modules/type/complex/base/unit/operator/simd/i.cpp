@@ -30,8 +30,6 @@ NT2_TEST_CASE_TPL ( abs_cplx,  NT2_SIMD_REAL_TYPES)
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef native<T,ext_t>                  vT;
   typedef native<cT,ext_t>                vcT;
-  typedef typename nt2::dry<T>             dT;
-  typedef native<dT,ext_t>                vdT;
 
   // specific values tests
     NT2_TEST_EQUAL(nt2::I<vcT>(),  vcT(nt2::Zero<vT>(),nt2::One<vT>()));

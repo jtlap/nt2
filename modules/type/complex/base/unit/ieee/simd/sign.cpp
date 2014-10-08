@@ -37,10 +37,8 @@ NT2_TEST_CASE_TPL ( sign_real, NT2_SIMD_REAL_TYPES)
   typedef typename std::complex<T> cT;
   using boost::simd::native;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef native<T,ext_t>                  vT;
   typedef native<cT,ext_t>                vcT;
-  typedef typename nt2::dry<T>             dT;
-  typedef native<dT,ext_t>                vdT;
+
   typedef typename nt2::meta::call<sign_(vcT)>::type r_t;
 
   // return type conformity test

@@ -36,7 +36,6 @@ NT2_TEST_CASE_TPL_MPL ( combine_native
   typedef BOOST_SIMD_DEFAULT_EXTENSION                    ext_t;
   typedef std::complex<T>                                 cT;
   typedef native<cT,ext_t>                                wT;
-  typedef native<T,ext_t>                                 uT;
   typedef typename vector_of<cT, wT::static_size/2>::type vT;
 
   typedef typename boost::dispatch::meta::call<combine_(vT, vT)>::type rT;

@@ -33,10 +33,7 @@ NT2_TEST_CASE_TPL ( pow3,  NT2_SIMD_REAL_TYPES)
   typedef typename std::complex<T> cT;
   using boost::simd::native;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef native<T,ext_t>                  vT;
   typedef native<cT,ext_t>                vcT;
-  typedef typename nt2::dry<T>             dT;
-  typedef native<dT,ext_t>                vdT;
 
   nt2::table<T> a = nt2::ones(3, 3, nt2::meta::as_<T>());
   nt2::table<T> b = nt2::ones(3, 3, nt2::meta::as_<T>());
@@ -54,10 +51,7 @@ NT2_TEST_CASE_TPL ( pow4,  NT2_SIMD_REAL_TYPES)
   typedef typename std::complex<T> cT;
   using boost::simd::native;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef native<T,ext_t>                  vT;
   typedef native<cT,ext_t>                vcT;
-  typedef typename nt2::dry<T>             dT;
-  typedef native<dT,ext_t>                vdT;
   nt2::table<cT> a = nt2::ones(1, 3, nt2::meta::as_<T>());
   for(int i=1; i <= 3; i++) a(i) =  cT(i, i);
   nt2::table<cT> b = nt2::ones(1, 3, nt2::meta::as_<T>());

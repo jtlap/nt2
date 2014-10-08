@@ -42,8 +42,6 @@ NT2_TEST_CASE_TPL ( expipi_real,  NT2_SIMD_REAL_TYPES)
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef native<T,ext_t>                  vT;
   typedef native<cT,ext_t>                vcT;
-  typedef typename nt2::dry<T>             dT;
-  typedef native<dT,ext_t>                vdT;
   NT2_TEST_TYPE_IS( typename nt2::meta::call<expipi_(vcT)>::type, vcT );
 
   // specific values tests

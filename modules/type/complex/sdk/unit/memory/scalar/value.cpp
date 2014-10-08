@@ -38,7 +38,6 @@ NT2_TEST_CASE_TPL(dry, BOOST_SIMD_REAL_TYPES)
   using nt2::dry;
   using nt2::value;
   using nt2::tag::value_;
-  typedef typename std::complex<T> cT;
 
   NT2_TEST_TYPE_IS( typename boost::dispatch::meta
                     ::call<value_(dry<T>)>::type

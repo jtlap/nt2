@@ -38,7 +38,6 @@ NT2_TEST_CASE_TPL ( is_imag_real,  NT2_SIMD_REAL_TYPES)
   typedef typename std::complex<T> cT;
   using boost::simd::native;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef native<T,ext_t>                  vT;
   typedef native<cT,ext_t>                vcT;
   typedef typename nt2::meta::as_logical<vcT>::type vlT;
   typedef typename boost::dispatch::meta::call<is_imag_(vcT)>::type r_t;
