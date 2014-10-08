@@ -250,7 +250,6 @@ NT2_TEST_CASE_TPL( quadgk_functor_fina_infb, NT2_REAL_TYPES )
   using nt2::quadgk;
   using nt2::options;
   using nt2::integration::output;
-  typedef typename nt2::meta::as_complex<T>::type cT;
 
   BOOST_AUTO_TPL(res, (quadgk(m(), T(0), nt2::Inf<T>())));
   NT2_TEST(res.successful);
@@ -260,7 +259,6 @@ NT2_TEST_CASE_TPL( quadgk_functor_infa_finb, NT2_REAL_TYPES )
   using nt2::quadgk;
   using nt2::options;
   using nt2::integration::output;
-  typedef typename nt2::meta::as_complex<T>::type cT;
 
   BOOST_AUTO_TPL(res, (quadgk(n(), nt2::Minf<T>(), T(0))));
   NT2_TEST(res.successful);
@@ -270,7 +268,6 @@ NT2_TEST_CASE_TPL( quadgk_functor_infa_infb, NT2_REAL_TYPES )
   using nt2::quadgk;
   using nt2::options;
   using nt2::integration::output;
-  typedef typename nt2::meta::as_complex<T>::type cT;
 
   BOOST_AUTO_TPL(res, (quadgk(o(), nt2::Minf<T>(), nt2::Inf<T>())));
   NT2_TEST(res.successful);
@@ -281,7 +278,6 @@ NT2_TEST_CASE_TPL( quadgk_functor_r, NT2_REAL_TYPES )
   using nt2::quadgk;
   using nt2::options;
   using nt2::integration::output;
-  typedef typename nt2::meta::as_complex<T>::type cT;
   BOOST_AUTO_TPL(res, (quadgk(f1(), T(0), nt2::Pi<T>()))); //, options [nt2::range::waypoints_ = nt2::linspace(T(0), T(1), 5)])));
   NT2_TEST(res.successful);
 }
@@ -290,7 +286,6 @@ NT2_TEST_CASE_TPL( quadgk_cplx_out, NT2_REAL_TYPES )
   using nt2::quadgk;
   using nt2::options;
   using nt2::integration::output;
-  typedef typename nt2::meta::as_complex<T>::type cT;
   typedef nt2::table<T> tab_t;
   tab_t x =  nt2::linspace(-nt2::Pio_2<T>(), nt2::Pio_2<T>(), 2);
   BOOST_AUTO_TPL(res, (quadgk(h(), nt2::Pio_2<T>(), -nt2::Pio_2<T>())));
