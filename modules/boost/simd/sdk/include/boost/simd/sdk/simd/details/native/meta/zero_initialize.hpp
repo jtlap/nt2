@@ -19,7 +19,7 @@ namespace boost { namespace simd { namespace meta
   {
     static BOOST_FORCEINLINE native<T, X> call()
     {
-      typename native<T, X>::native_type n = {};
+      typename native<T, X>::native_type n = typename native<T, X>::native_type();
       return native<T, X>(n);
     }
   };
