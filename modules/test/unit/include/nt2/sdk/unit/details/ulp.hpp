@@ -43,11 +43,9 @@ namespace nt2 { namespace details
   template<typename T>
   T safe_max(T a, T b)
   {
-    if(a != a) return a;
-    if(b != b) return b;
-
-    return std::max(a,b);
+    return a < b ? b : ( (b != b) ? b : a );
   }
+
   /// ULP test is a success
   NT2_TEST_UNIT_DECL void ulp_pass(const char* desc, double ulpd, double N);
 
