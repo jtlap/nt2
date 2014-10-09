@@ -17,6 +17,7 @@
 #include <boost/fusion/include/at.hpp>
 #include <boost/detail/workaround.hpp>
 #include <algorithm>
+#include <iterator>
 
 namespace nt2 { namespace details
 {
