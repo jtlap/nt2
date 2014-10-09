@@ -78,8 +78,11 @@ namespace
         static unsigned int const maximum_allowed_real_nt2_ulpd      = 1290;
 #endif
 
-        static unsigned int const maximum_allowed_complex_apple_ulpd = 1290;
-        static unsigned int const maximum_allowed_real_apple_ulpd    =  770;
+#ifdef __APPLE__
+      static unsigned int const maximum_allowed_complex_apple_ulpd = 1290;
+      static unsigned int const maximum_allowed_real_apple_ulpd    =  770;
+#endif
+
     } // namespace constants
 
     static std::size_t const N = constants::test_dft_size;
