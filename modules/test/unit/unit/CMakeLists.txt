@@ -17,6 +17,7 @@ SET( SOURCES
      is_equal.cpp
      max_ulp.cpp
      pass_fail.cpp
+     safe_max.cpp
    )
 
 nt2_module_add_tests(test.unit.unit ${SOURCES})
