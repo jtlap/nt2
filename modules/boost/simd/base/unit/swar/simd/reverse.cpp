@@ -32,8 +32,8 @@ NT2_TEST_CASE_TPL ( reverse, BOOST_SIMD_SIMD_TYPES)
 
   for(std::size_t i=0; i < vT::static_size;++i)
   {
-    origin[i]   = i;
-    reversed[i] = vT::static_size-1-i;
+    origin[i]   = T(i);
+    reversed[i] = T(vT::static_size-1-i);
   }
 
   origin[0] = reversed[vT::static_size-1] = boost::simd::Signmask<T>();

@@ -36,7 +36,7 @@ NT2_TEST_CASE_TPL ( splatted_minimum, BOOST_SIMD_SIMD_TYPES)
 
   for(std::size_t k=0;k<n;++k)
   {
-    for(std::size_t i=0;i<n;++i) data[i] = 3*(i+1);
+    for(std::size_t i=0;i<n;++i) data[i] = T(3*(i+1));
     data[k] = T(1);
 
     vT vn = boost::simd::load<vT>(&data[0]);

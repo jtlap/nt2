@@ -48,7 +48,7 @@ NT2_TEST_CASE_TPL( all_reduce, BOOST_SIMD_SIMD_TYPES )
   static const std::size_t n = vT::static_size;
   T data[n];
 
-  for(std::size_t i=0;i<n;++i) data[i] = i+1;
+  for(std::size_t i=0;i<n;++i) data[i] = T(i+1);
 
   vT vn = boost::simd::load<vT>(&data[0]);
   NT2_TEST_EQUAL(all_reduce<plus_>(vn), splat<vT>( n*(n+1)/2 ) );

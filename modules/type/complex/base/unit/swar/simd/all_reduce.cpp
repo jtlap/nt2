@@ -42,7 +42,7 @@ NT2_TEST_CASE_TPL ( all_reduce_cplx, NT2_SIMD_REAL_TYPES)
   static const std::size_t n = vT::static_size;
   T data[n];
 
-  for(std::size_t i=0;i<n;++i) data[i] = i+1;
+  for(std::size_t i=0;i<n;++i) data[i] = T(i+1);
 
   vT  v = boost::simd::load<vT>(&data[0]);
   vcT vn(v,2.*v);
@@ -71,7 +71,7 @@ NT2_TEST_CASE_TPL ( all_reduce_dry, NT2_SIMD_REAL_TYPES)
   static const std::size_t n = vT::static_size;
   T data[n];
 
-  for(std::size_t i=0;i<n;++i) data[i] = i+1;
+  for(std::size_t i=0;i<n;++i) data[i] = T(i+1);
 
   vT  v = boost::simd::load<vT>(&data[0]);
   vcT vn(v);
