@@ -1906,7 +1906,7 @@ namespace detail
         //...zzz...still radix-2...:
 
         typedef          Vector             vector_t;
-        typedef typename Vector::value_type scalar_t;
+//        typedef typename Vector::value_type scalar_t; //unused
 
     /* "text book" version
         scalar_t r0( real_in[ 0 ] );
@@ -2065,7 +2065,7 @@ namespace detail
     )
     {
         typedef          Vector             vector_t;
-        typedef typename Vector::value_type scalar_t;
+//        typedef typename Vector::value_type scalar_t; // unused
 
         //...zzz...no separate bit reversing/scrambling pass experimenting...
         unsigned int const idx0( 0 );
