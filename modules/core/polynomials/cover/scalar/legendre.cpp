@@ -48,15 +48,12 @@ NT2_TEST_CASE_TPL ( legendre_real__2_0,  NT2_REAL_TYPES)
   // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl;
-  double ulpd;
-  ulpd=0.0;
 
   // random verifications
   static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
     NT2_CREATE_BUF(tab_a0,iT, NR, iT(0), iT(10));
     NT2_CREATE_BUF(tab_a1,T, NR, T(-1), T(1));
-    double ulp0, ulpd ; ulpd=ulp0=0.0;
     iT a0;
     T a1;
     for(nt2::uint32_t j =0; j < NR; ++j )
@@ -66,9 +63,7 @@ NT2_TEST_CASE_TPL ( legendre_real__2_0,  NT2_REAL_TYPES)
                   << ", a1 = "<< u_t(a1 = tab_a1[j])
                   << std::endl;
         NT2_TEST_ULP_EQUAL( nt2::legendre(a0,a1),nt2::boost_math::legendre_p(a0,a1),100);
-        ulp0=nt2::max(ulpd,ulp0);
      }
-     std::cout << "max ulp found is: " << ulp0 << std::endl;
    }
 } // end of test for floating_
 

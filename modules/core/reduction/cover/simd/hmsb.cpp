@@ -71,14 +71,11 @@ NT2_TEST_CASE_TPL ( hmsb_real__1_0,  NT2_SIMD_REAL_TYPES)
   typedef typename nt2::meta::call<hmsb_(vT)>::type r_t;
   typedef typename nt2::meta::call<hmsb_(T)>::type sr_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
 
   // random verifications
   static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
     NT2_CREATE_BUF(tab_a0,T, NR, T(-1e30), T(1e30));
-    double ulp0, ulpd ; ulpd=ulp0=0.0;
     for(nt2::uint32_t j = 0; j < NR;j+=cardinal_of<n_t>::value)
       {
         vT a0 = aligned_load<vT>(&tab_a0[0],j);
@@ -114,22 +111,19 @@ NT2_TEST_CASE_TPL ( hmsb_signed_int__1_0,  NT2_SIMD_INTEGRAL_SIGNED_TYPES)
   typedef typename nt2::meta::call<hmsb_(vT)>::type r_t;
   typedef typename nt2::meta::call<hmsb_(T)>::type sr_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
 
   // random verifications
   static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
     NT2_CREATE_BUF(tab_a0,T, NR, nt2::Valmin<T>(), nt2::Valmax<T>());
-    double ulp0, ulpd ; ulpd=ulp0=0.0;
     for(nt2::uint32_t j = 0; j < NR;j+=cardinal_of<n_t>::value)
       {
         vT a0 = aligned_load<vT>(&tab_a0[0],j);
         r_t v = nt2::hmsb(a0);
         nt2::int32_t z = 0;
         nt2::uint32_t N = cardinal_of<n_t>::value;
-  std::cout << "a0 " << a0 <<  " -> ";
-  pb(v, N);
+        std::cout << "a0 " << a0 <<  " -> ";
+        pb(v, N);
         for(nt2::uint32_t i = 0; i< N; ++i)
         {
           z |= nt2::bits(a0[i]) >> (sizeof(iT)*CHAR_BIT - 1) << i; //(N-i-1);
@@ -157,8 +151,6 @@ NT2_TEST_CASE_TPL ( hmsb_unsigned_int__1_0,  NT2_SIMD_UNSIGNED_TYPES)
   typedef typename nt2::meta::call<hmsb_(vT)>::type r_t;
   typedef typename nt2::meta::call<hmsb_(T)>::type sr_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
 
   // random verifications
   static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
