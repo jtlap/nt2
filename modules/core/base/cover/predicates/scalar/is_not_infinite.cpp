@@ -48,14 +48,11 @@ NT2_TEST_CASE_TPL ( is_not_infinite_real__1_0,  NT2_REAL_TYPES)
   // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl;
-  double ulpd;
-  ulpd=0.0;
 
   // random verifications
   static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
     NT2_CREATE_BUF(tab_a0,T, NR, T(-10000), T(10000));
-    double ulp0, ulpd ; ulpd=ulp0=0.0;
     T a0;
     for(nt2::uint32_t j =0; j < NR; ++j )
       {
@@ -83,14 +80,11 @@ NT2_TEST_CASE_TPL ( is_not_infinite_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
   // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl;
-  double ulpd;
-  ulpd=0.0;
 
   // random verifications
   static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
     NT2_CREATE_BUF(tab_a0,T, NR, T(-10000), T(10000));
-    double ulp0, ulpd ; ulpd=ulp0=0.0;
     T a0;
     for(nt2::uint32_t j =0; j < NR; ++j )
       {
@@ -118,14 +112,11 @@ NT2_TEST_CASE_TPL ( is_not_infinite_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
   // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl;
-  double ulpd;
-  ulpd=0.0;
 
   // random verifications
   static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
     NT2_CREATE_BUF(tab_a0,T, NR, T(0), T(10000));
-    double ulp0, ulpd ; ulpd=ulp0=0.0;
     T a0;
     for(nt2::uint32_t j =0; j < NR; ++j )
       {
