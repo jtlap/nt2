@@ -51,15 +51,12 @@ NT2_TEST_CASE_TPL ( group_groupable__2_0,  NT2_SIMD_GROUPABLE_TYPES)
   typedef native<iT,ext_t>                       ivT;
   typedef typename nt2::meta::call<group_(vT,vT)>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
 
   // random verifications
   static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
     NT2_CREATE_BUF(tab_a0,T, NR, 0, 100);
     NT2_CREATE_BUF(tab_a1,T, NR, 0, 100);
-    double ulp0, ulpd ; ulpd=ulp0=0.0;
     for(nt2::uint32_t j = 0; j < NR;j+=cardinal_of<n_t>::value)
       {
         vT a0 = aligned_load<vT>(&tab_a0[0],j);

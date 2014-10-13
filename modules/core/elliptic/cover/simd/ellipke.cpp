@@ -41,7 +41,7 @@ template < class T > struct ellipk1
   {
     typedef typename nt2::meta::scalar_of<T>::type sT;
     T a1 = nt2::Zero<T>();
-    T a0 = nt2::ellipke(x, nt2::Eps<sT>(), a1);
+    nt2::ellipke(x, nt2::Eps<sT>(), a1);
     return a1;
   }
 };
