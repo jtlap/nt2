@@ -52,7 +52,7 @@ NT2_TEST_CASE_TPL(sne, NT2_REAL_TYPES )
   t_t s1 = nt2::sne(a,b);
   t_t s2 = nt2::cons<T>(nt2::of_size(n,1), T(1) , T(4), T(9), T(16), T(25), T(36), T(49), T(64), T(81), T(100) );
 
-  NT2_TEST_ULP_EQUAL_FN( s1(_(1,n)), s2(_(1,n)), 3500*nt2::Eps<T>(), abs_diff() );
+  NT2_TEST_ULP_EQUAL_FN( s1(_(1,n)), s2(_(1,n)), 4500*nt2::Eps<T>(), abs_diff() );
 }
 
 
