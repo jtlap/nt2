@@ -9,6 +9,7 @@
 
 SET( SOURCES
       norm.cpp
+      trans44.cpp
    )
 
 nt2_module_add_tests(core.linalg.scalar.bench ${SOURCES})
