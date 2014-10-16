@@ -19,19 +19,23 @@ namespace nt2
   struct BOOST_SIMD_MAY_ALIAS dry
   {
     typedef T type;
-    T value;
+    T value_;
 
     dry() {}
-    explicit dry(T const& value_) : value(value_)
+    explicit dry(T const& v) : value_(v)
     {
     }
-    operator T () const {return value; }
-    operator T&()       {return value; }
-    bool operator == (const dry<T>&a) const{return value == a.value; }
-    bool operator != (const dry<T>&a) const{return value != a.value; }
+    operator T () const {return value_; }
+    operator T&()       {return value_; }
 
-    T&       operator()()       { return value; }
-    T const& operator()() const { return value; }
+    T  value() const  { return value_; }
+    T& value()        { return value_; }
+
+    bool operator == (const dry<T>&a) const{return value_ == a.value_; }
+    bool operator != (const dry<T>&a) const{return value_ != a.value_; }
+
+    T&       operator()()       { return value_; }
+    T const& operator()() const { return value_; }
   };
     ////////////////////////////////////////////////////////////////////////////
   // Stream insertion for dry<T>
