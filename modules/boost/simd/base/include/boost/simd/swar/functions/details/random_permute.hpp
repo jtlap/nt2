@@ -9,17 +9,32 @@
 #ifndef BOOST_SIMD_SWAR_FUNCTIONS_DETAILS_RANDOM_PERMUTE_HPP_INCLUDED
 #define BOOST_SIMD_SWAR_FUNCTIONS_DETAILS_RANDOM_PERMUTE_HPP_INCLUDED
 
-#include <boost/mpl/at.hpp>
+#include <boost/dispatch/meta/as.hpp>
+#include <type_traits>
 
-namespace boost{ namespace simd{ namespace details
+namespace boost { namespace simd { namespace details
 {
-  template<class IndexMap>
+  template<int... IndexMap>
   struct random_permute
   {
-    template<class Index, class Cardinal>
-    struct apply : mpl::at<IndexMap,Index>
+    template<int N, int... I> struct nth_t;
+
+    template<int I0, int... In>
+    struct nth_t<0, I0, In...> : std::integral_constant<int,I0>
+    {};
+
+    template<int N, int I0, int... In>
+    struct nth_t<N, I0, In...> : nth_t<N-1, In...>::type
+    {};
+
+    template<typename Index, typename Cardinal>
+    struct apply : nth_t<Index::value,IndexMap...>
     {};
   };
+
+  template<int... IndexMap>
+  using random_permute_t = boost::dispatch::meta
+                                ::as_<details::random_permute<IndexMap...>>;
 } } }
 
 #endif
