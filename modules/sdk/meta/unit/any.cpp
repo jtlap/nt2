@@ -6,8 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2::meta::any"
-
 #include <nt2/sdk/meta/any.hpp>
 #include <boost/mpl/vector.hpp>
 #include <boost/mpl/placeholders.hpp>
