@@ -12,10 +12,8 @@
 
 #include <nt2/sdk/unit/io.hpp>
 #include <nt2/sdk/unit/stats.hpp>
-#include <nt2/sdk/unit/details/cover.hpp>
-#include <nt2/sdk/unit/details/prng.hpp>
 #include <nt2/include/functor.hpp>
-#include <boost/simd/memory/allocator.hpp>
+#include <nt2/sdk/unit/details/cover.hpp>
 #include <boost/dispatch/preprocessor/once.hpp>
 #include <vector>
 #include <string>
@@ -24,22 +22,6 @@
 #if !defined(NT2_NB_RANDOM_TEST)
 #define NT2_NB_RANDOM_TEST 128
 #endif
-
-/// INTERNAL ONLY TO REMOVE LATER
-#define NT2_CREATE_BUF(Name,Type,Size,Min,Max)                                 \
-std::vector<Type,boost::simd::allocator<Type> > Name(Size);                    \
-nt2::roll( Name, Min, Max )                                                    \
-/**/
-
-/// INTERNAL ONLY TO REMOVE LATER
-#define NT2_CREATE_LOGICAL_BUF(Name,Type,Size)                                 \
-std::vector<Type,boost::simd::allocator<Type> > Name(Size);                    \
-do                                                                             \
-{                                                                              \
-  for(std::size_t i=0;i<Name.size();++i) Name[i] = Type(rand() % 2);           \
-} BOOST_DISPATCH_ONCE                                                          \
-/**/
-
 
 /*!
   @brief Perform precision coverage test on arbitrary function
@@ -57,14 +39,13 @@ do                                                                             \
 #define NT2_COVER_FN_ULP_EQUAL(FUNC, INPUTS, REF, N)                           \
 do                                                                             \
 {                                                                              \
-  std::string desc = NT2_COVER_TEST_NAME(FUNC,INPUTS);                         \
+  std::string desc = nt2::details::                                            \
+                    cover_test_name(FUNC, NT2_ENUM_REFERENCES(INPUTS));        \
+                                                                               \
   nt2::unit::test_count()++;                                                   \
-  ::nt2::details::test_cover_ulp( desc.c_str()                                 \
-                                ,__FILE__,__LINE__                             \
-                                , FUNC, (REF)                                  \
-                                , NT2_COVER_TYPES_LIST(INPUTS)()               \
-                                , N                                            \
-                                , NT2_COVER_VALUES_LIST(INPUTS)                \
+  ::nt2::details::test_cover_ulp( desc.c_str(),__FILE__,__LINE__               \
+                                , FUNC, (REF), N                               \
+                                , NT2_ENUM_REFERENCES(INPUTS)                  \
                                 );                                             \
 } BOOST_DISPATCH_ONCE                                                          \
 /**/
@@ -83,6 +64,17 @@ do                                                                             \
   @param N      Maximum ULP tolerance
 **/
 #define NT2_COVER_ULP_EQUAL(TAG, INPUTS, REF, N)                               \
-NT2_COVER_FN_ULP_EQUAL(nt2::functor<TAG>(), INPUTS, REF, N)                    \
+do                                                                             \
+{                                                                              \
+  std::string desc = nt2::details::                                            \
+                    cover_test_name(TAG(), NT2_ENUM_REFERENCES(INPUTS));       \
+                                                                               \
+  nt2::unit::test_count()++;                                                   \
+  ::nt2::details::test_cover_ulp( desc.c_str(),__FILE__,__LINE__               \
+                                , nt2::functor<TAG>(), (REF), N                \
+                                , NT2_ENUM_REFERENCES(INPUTS)                  \
+                                );                                             \
+} BOOST_DISPATCH_ONCE                                                          \
 /**/
+
 #endif

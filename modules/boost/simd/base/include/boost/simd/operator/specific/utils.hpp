@@ -26,8 +26,19 @@ namespace boost { namespace simd { namespace ext
   #define BOOST_DISPATCH_FOLD_1(z,n,t) t
   #define BOOST_DISPATCH_FOLD(n, prefix, postfix, m, d) BOOST_PP_REPEAT(BOOST_PP_DEC(n), BOOST_DISPATCH_FOLD_0, (prefix, postfix, m, d)) BOOST_PP_COMMA_IF(BOOST_PP_DEC(n)) m(BOOST_PP_DEC(n),BOOST_PP_DEC(n),d) BOOST_PP_REPEAT(BOOST_PP_DEC(n), BOOST_DISPATCH_FOLD_1, postfix)
 
-  template<std::size_t N, std::size_t M>
+  template<std::size_t... Card>
   struct cardinal_common;
+
+  template<std::size_t C1, std::size_t C2, std::size_t... C>
+  struct  cardinal_common<C1,C2,C...>
+        : cardinal_common< cardinal_common<C1,C2>::value,C...>
+  {};
+
+  template<std::size_t N>
+  struct cardinal_common<N>
+  {
+    static const std::size_t value = N;
+  };
 
   template<>
   struct cardinal_common<1, 1>

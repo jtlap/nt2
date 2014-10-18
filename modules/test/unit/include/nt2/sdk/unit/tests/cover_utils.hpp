@@ -15,20 +15,17 @@
 
 namespace nt2
 {
+  template<typename S> S downgrade_upper()
+  {
+    typedef typename nt2::meta::downgrade<S>::type dtype;
+    return nt2::Valmax<dtype>();
+  }
 
-template < class S > S downgrade_upper()
-{
-  typedef typename nt2::meta::downgrade<S>::type dtype;
-  return nt2::Valmax<dtype>();
+  template<typename S> S downgrade_lower()
+  {
+    typedef typename nt2::meta::downgrade<S>::type dtype;
+    return nt2::Valmin<dtype>();
+  }
 }
-
-template < class S > S downgrade_lower()
-{
-  typedef typename nt2::meta::downgrade<S>::type dtype;
-  return nt2::Valmin<dtype>();
-}
-
-}
-
 
 #endif
