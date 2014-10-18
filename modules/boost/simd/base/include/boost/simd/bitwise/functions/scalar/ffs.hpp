@@ -33,7 +33,7 @@ namespace boost { namespace simd { namespace ext
       return __builtin_ffsll(t1);
     #elif defined BOOST_MSVC && defined _WIN64
       unsigned long index;
-      if(_BitScanForward64(&index, uint64_t(a0)))
+      if(_BitScanForward64(&index, uint64_t(t1)))
         return index+1;
       return 0;
     #elif defined BOOST_MSVC
