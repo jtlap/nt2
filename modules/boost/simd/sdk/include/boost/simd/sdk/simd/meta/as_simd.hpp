@@ -58,7 +58,8 @@ namespace boost { namespace simd { namespace meta
   /**/
 
 // GCC bug with 64-bit integer types on i686
-#if defined(BOOST_SIMD_COMPILER_GCC) && defined(BOOST_SIMD_ARCH_X86) && !defined(BOOST_SIMD_ARCH_X86_64)
+// Also affects GCC 4.8.x on x86-64
+#if defined(BOOST_SIMD_COMPILER_GCC) && defined(BOOST_SIMD_ARCH_X86) && ((__GNUC_MAJOR__ == 4 && __GNUC_MINOR__ == 8) || !defined(BOOST_SIMD_ARCH_X86_64))
   #define M1(z,n,t) BOOST_PP_SEQ_FOR_EACH(M0, n, BOOST_SIMD_SPLITABLE_TYPES(double))
 #else
   #define M1(z,n,t) BOOST_PP_SEQ_FOR_EACH(M0, n, BOOST_SIMD_TYPES)
