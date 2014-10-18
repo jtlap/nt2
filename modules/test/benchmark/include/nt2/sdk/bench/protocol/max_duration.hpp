@@ -1,7 +1,6 @@
-#ifndef BOOST_PP_IS_ITERATING
 //==============================================================================
-//         Copyright 2009 - 2013 LRI    UMR 8623 CNRS/Univ Paris Sud XI
-//         Copyright 2012 - 2013 MetaScale SAS
+//         Copyright 2009 - 2014 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2012 - 2014 NumScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -10,78 +9,21 @@
 #ifndef NT2_SDK_BENCH_PROTOCOL_MAX_DURATION_HPP_INCLUDED
 #define NT2_SDK_BENCH_PROTOCOL_MAX_DURATION_HPP_INCLUDED
 
-#include <nt2/sdk/bench/details/display_metric.hpp>
-#include <nt2/sdk/bench/details/measure.hpp>
 #include <nt2/sdk/bench/setup/fixed.hpp>
 #include <nt2/sdk/bench/protocol.hpp>
-#include <boost/fusion/include/vector.hpp>
-#include <boost/fusion/include/make_vector.hpp>
-
-#include <boost/preprocessor/repetition/repeat.hpp>
-#include <boost/preprocessor/repetition/enum_binary_params.hpp>
-#include <boost/preprocessor/repetition/enum.hpp>
-#include <boost/preprocessor/iteration/iterate.hpp>
 
 namespace nt2 { namespace bench
 {
-#if defined(DOXYGEN_ONLY)
-
   /*!
 
   **/
-  template< typename Experiment, typename Metrics...>
-  struct max_duration : protocol<Experiment,Metrics...>
+  template< typename Experiment, typename... Metrics>
+  struct max_duration : protocol<Metrics...>
   {
-    max_duration( double d, const Metrics& m... );
-                                  inline void run();
-    template<typename Workbench>  inline void run(Workbench w);
-  };
+    typedef protocol<Metrics...> parent;
 
-  /*!
-
-  **/
-  template< typename Experiment, typename Metrics...>
-  void run_during ( double duration, Metrics const& m...);
-
-  /*!
-
-  **/
-  template< typename Experiment, typename Workbench, typename Metrics...>
-  void run_during_with(double duration, Workbench const& w, Metrics const& m...);
-
-#else
-  template< typename Experiment
-          , typename M0       , typename M1 = void, typename M2 = void
-          , typename M3 = void, typename M4 = void, typename M5 = void
-          , typename M6 = void, typename M7 = void, typename M8 = void
-          , typename M9 = void
-          >
-  struct max_duration;
-
-  #define BOOST_PP_ITERATION_PARAMS_1 (3,(1,10,"nt2/sdk/bench/protocol/max_duration.hpp"))
-  #include BOOST_PP_ITERATE()
-
-#endif
-} }
-
-#endif
-
-#else
-
-  #define N BOOST_PP_ITERATION()
-
-  template<typename Experiment, BOOST_PP_ENUM_PARAMS(N, typename M)>
-  struct  max_duration
-  #if (N < 10)
-  <Experiment,BOOST_PP_ENUM_PARAMS(N,M)>
-  #endif
-        : protocol<BOOST_PP_ENUM_PARAMS(N,M)>
-  {
-    typedef protocol<BOOST_PP_ENUM_PARAMS(N,M)> parent;
-    typedef typename parent::metrics_type       metrics_type;
-
-    max_duration( double d, BOOST_PP_ENUM_BINARY_PARAMS(N,const M, & m) )
-                : parent(metrics_type(BOOST_PP_ENUM_PARAMS(N,m))), duration_(d)
+    max_duration( double d, Metrics const&... m )
+                : parent(m...), duration_(d)
     {}
 
     inline void run() { run(fixed(0)); }
@@ -113,29 +55,25 @@ namespace nt2 { namespace bench
     double  duration_;
   };
 
-  template< typename Experiment, BOOST_PP_ENUM_PARAMS(N, typename M)>
-  void run_during ( double duration
-                  , BOOST_PP_ENUM_BINARY_PARAMS(N, const M, & m)
-                  )
-  {
-    max_duration<Experiment,BOOST_PP_ENUM_PARAMS(N, M)>
-    that(duration,BOOST_PP_ENUM_PARAMS(N,m));
+  /*!
 
+  **/
+  template< typename Experiment, typename... Metrics>
+  void run_during ( double duration, Metrics const&... m)
+  {
+    max_duration<Experiment,Metrics...> that(duration,m...);
     that.run();
   }
-  template< typename Experiment, typename Workbench
-          , BOOST_PP_ENUM_PARAMS(N, typename M)
-          >
-  void run_during_with( double duration, Workbench const& w
-                      , BOOST_PP_ENUM_BINARY_PARAMS(N, const M, & m)
-                      )
-  {
-    max_duration<Experiment,BOOST_PP_ENUM_PARAMS(N, M)>
-    that(duration,BOOST_PP_ENUM_PARAMS(N,m));
 
+  /*!
+
+  **/
+  template< typename Experiment, typename Workbench, typename... Metrics>
+  void run_during_with(double duration, Workbench const& w, Metrics const&... m)
+  {
+    max_duration<Experiment,Metrics...> that(duration,m...);
     that.run(w);
   }
-
-  #undef N
+} }
 
 #endif
