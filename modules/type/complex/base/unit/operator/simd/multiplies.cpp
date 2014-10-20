@@ -51,7 +51,7 @@ NT2_TEST_CASE_TPL ( multiplies_real,  NT2_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(nt2::multiplies(nt2::Zero<vdT>(), nt2::Zero<vcT>()), nt2::Zero<vcT>());
   NT2_TEST_EQUAL(nt2::multiplies(nt2::Zero<vdT>(), nt2::One <vcT>()), nt2::Zero<vcT>());
   NT2_TEST_EQUAL(nt2::multiplies(nt2::One<vdT>(),  nt2::One <vcT>()), nt2::One<vcT>());
-  NT2_TEST_EQUAL(nt2::multiplies(nt2::One<vdT>(),nt2::Zero<vcT>()), nt2::Zero<vdT>());
+  NT2_TEST_EQUAL(nt2::multiplies(nt2::One<vdT>(),nt2::Zero<vcT>()), nt2::Zero<vcT>());
   NT2_TEST_EQUAL(nt2::multiplies(nt2::Zero<vdT>(), nt2::Zero<vdT>()),nt2::Zero<vdT>());
   NT2_TEST_EQUAL(nt2::multiplies(nt2::Zero<vdT>(),  nt2::One<vdT>()),  nt2::Zero<vdT>());
   NT2_TEST_EQUAL(nt2::multiplies(nt2::One<vdT>(),   nt2::One<vdT>()),  nt2::One<vdT>());
