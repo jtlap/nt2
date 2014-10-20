@@ -68,12 +68,12 @@ namespace nt2 { namespace details
   template<typename W, typename... V>
   inline std::string cover_typename(W const&, V const&... v)
   {
-    return nt2::type_id<W::type>() + ", " + cover_typename(v...);
+    return nt2::type_id<typename W::type>() + ", " + cover_typename(v...);
   }
 
   template<typename W> inline std::string cover_typename(W const&)
   {
-    return nt2::type_id<W::type>();
+    return nt2::type_id<typename W::type>();
   }
 
   // Display error result
