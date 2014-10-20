@@ -12,7 +12,6 @@
 #include <boost/simd/sdk/config/types.hpp>
 #include <boost/simd/sdk/simd/meta/as_simd.hpp>
 #include <boost/simd/sdk/simd/meta/biggest_integer.hpp>
-#include <boost/simd/sdk/simd/meta/extension_of.hpp>
 #include <boost/simd/sdk/simd/meta/is_simd_specific.hpp>
 #include <boost/simd/sdk/meta/is_logical.hpp>
 #include <boost/simd/sdk/meta/as_arithmetic.hpp>
@@ -132,42 +131,6 @@ namespace boost { namespace simd { namespace meta
     typedef boost::simd::uint32_t type;
   };
   #endif
-
-  //////////////////////////////////////////////////////////////////////////////
-  // For a given SIMD register type, return the associated SIMD extension tag
-  //////////////////////////////////////////////////////////////////////////////
-  template<class X>
-  struct extension_of<__vector float          ,X> { typedef tag::vmx_ type; };
-  template<class X>
-  struct extension_of<__vector unsigned int   ,X> { typedef tag::vmx_ type; };
-  template<class X>
-  struct extension_of<__vector unsigned short ,X> { typedef tag::vmx_ type; };
-  template<class X>
-  struct extension_of<__vector unsigned char  ,X> { typedef tag::vmx_ type; };
-  template<class X>
-  struct extension_of<__vector signed int     ,X> { typedef tag::vmx_ type; };
-  template<class X>
-  struct extension_of<__vector signed short   ,X> { typedef tag::vmx_ type; };
-  template<class X>
-  struct extension_of<__vector signed char    ,X> { typedef tag::vmx_ type; };
-  template<class X>
-  struct extension_of<__vector __bool int     ,X> { typedef tag::vmx_ type; };
-  template<class X>
-  struct extension_of<__vector __bool short   ,X> { typedef tag::vmx_ type; };
-  template<class X>
-  struct extension_of<__vector __bool char    ,X> { typedef tag::vmx_ type; };
-
-  #ifdef BOOST_SIMD_HAS_VSX_SUPPORT
-  template<class X>
-  struct extension_of<__vector double         ,X> { typedef tag::vmx_ type; };
-  template<class X>
-  struct extension_of<__vector unsigned long  ,X> { typedef tag::vmx_ type; };
-  template<class X>
-  struct extension_of<__vector signed long    ,X> { typedef tag::vmx_ type; };
-  template<class X>
-  struct extension_of<__vector __bool long    ,X> { typedef tag::vmx_ type; };
-  #endif
-
 } } }
 
 #endif

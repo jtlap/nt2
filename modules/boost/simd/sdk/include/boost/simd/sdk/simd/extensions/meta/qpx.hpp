@@ -11,7 +11,6 @@
 #define BOOST_SIMD_SDK_SIMD_EXTENSIONS_META_QPX_HPP_INCLUDED
 
 #include <boost/simd/sdk/simd/meta/as_simd.hpp>
-#include <boost/simd/sdk/simd/meta/extension_of.hpp>
 #include <boost/simd/sdk/simd/meta/is_simd_specific.hpp>
 #include <boost/simd/sdk/simd/meta/is_logical_mask.hpp>
 #include <boost/simd/sdk/simd/extensions/meta/tags.hpp>
@@ -41,9 +40,6 @@ namespace boost { namespace simd { namespace meta
        : boost::mpl::false_
   {
   };
-
-  template<>
-  struct extension_of<vector4double> { typedef tag::qpx_ type; };
 } } }
 
 #endif
