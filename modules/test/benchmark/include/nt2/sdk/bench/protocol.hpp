@@ -12,6 +12,7 @@
 #include <nt2/sdk/bench/details/display_metric.hpp>
 #include <nt2/sdk/bench/details/measure.hpp>
 #include <boost/fusion/include/for_each.hpp>
+#include <boost/fusion/include/vector.hpp>
 
 namespace nt2 { namespace details
 {
