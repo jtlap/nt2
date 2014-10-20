@@ -28,7 +28,9 @@
 // Helpers that strips each element of a sequence
 #define BOOST_DISPATCH_TYPE_TPL(z,n,t) BOOST_DISPATCH_PP_STRIP(BOOST_PP_SEQ_ELEM(n,t))
 #define BOOST_DISPATCH_TYPE(z,n,t) class BOOST_DISPATCH_PP_STRIP(BOOST_PP_SEQ_ELEM(n,t))
-#define BOOST_DISPATCH_ARG(z,n,t) , BOOST_DISPATCH_PP_STRIP(BOOST_PP_SEQ_ELEM(n,t)) const
+
+// XXXMathias: 'const' prevents using TPPs
+#define BOOST_DISPATCH_ARG(z,n,t) , BOOST_DISPATCH_PP_STRIP(BOOST_PP_SEQ_ELEM(n,t)) /*const*/
 #define BOOST_DISPATCH_TAG(z,n,t) BOOST_DISPATCH_PP_STRIP(BOOST_PP_SEQ_ELEM(n,t))
 
 // Namespace-related helpers
@@ -66,12 +68,12 @@ namespace boost { namespace dispatch { namespace meta                          \
           >                                                                    \
   BOOST_DISPATCH_FORCE_INLINE                                                  \
   BOOST_DISPATCH_PP_STRIP(Ret)                                                 \
-  dispatching( BOOST_DISPATCH_PP_STRIP(Tag), BOOST_DISPATCH_PP_STRIP(Site)     \
+  dispatching( adl_helper                                                      \
+             , BOOST_DISPATCH_PP_STRIP(Tag), BOOST_DISPATCH_PP_STRIP(Site)     \
                BOOST_PP_REPEAT( BOOST_PP_SEQ_SIZE(Seq)                         \
                               , BOOST_DISPATCH_ARG                             \
                               , Seq                                            \
                             )                                                  \
-            , adl_helper = adl_helper()                                        \
             )                                                                  \
   {                                                                            \
     return BOOST_DISPATCH_PP_STRIP(Ret)();                                     \
@@ -106,12 +108,12 @@ namespace boost { namespace dispatch { namespace meta                          \
           >                                                                    \
   BOOST_DISPATCH_FORCE_INLINE                                                  \
   BOOST_DISPATCH_PP_STRIP(Ret)                                                 \
-  dispatching( BOOST_DISPATCH_PP_STRIP(Tag), BOOST_DISPATCH_PP_STRIP(Site)     \
+  dispatching( adl_helper                                                      \
+             , BOOST_DISPATCH_PP_STRIP(Tag), BOOST_DISPATCH_PP_STRIP(Site)     \
                BOOST_PP_REPEAT( BOOST_PP_SEQ_SIZE(Seq)                         \
                               , BOOST_DISPATCH_ARG                             \
                               , Seq                                            \
                               )                                                \
-            , adl_helper = adl_helper()                                        \
             )                                                                  \
   {                                                                            \
     return BOOST_DISPATCH_PP_STRIP(Ret)();                                     \
@@ -149,12 +151,12 @@ namespace boost { namespace dispatch { namespace meta                          \
   typename boost::enable_if< BOOST_DISPATCH_PP_STRIP(Cond)                     \
                            , BOOST_DISPATCH_PP_STRIP(Ret)                      \
                            >::type                                             \
-  dispatching( BOOST_DISPATCH_PP_STRIP(Tag), BOOST_DISPATCH_PP_STRIP(Site)     \
+  dispatching( adl_helper                                                      \
+             , BOOST_DISPATCH_PP_STRIP(Tag), BOOST_DISPATCH_PP_STRIP(Site)     \
                BOOST_PP_REPEAT( BOOST_PP_SEQ_SIZE(Seq)                         \
                               , BOOST_DISPATCH_ARG                             \
                               , Seq                                            \
                               )                                                \
-            , adl_helper = adl_helper()                                        \
             )                                                                  \
   {                                                                            \
     return BOOST_DISPATCH_PP_STRIP(Ret)();                                     \
@@ -193,12 +195,12 @@ namespace boost { namespace dispatch { namespace meta                          \
   typename boost::enable_if< BOOST_DISPATCH_PP_STRIP(Cond)                     \
                            , BOOST_DISPATCH_PP_STRIP(Ret)                      \
                            >::type                                             \
-  dispatching( BOOST_DISPATCH_PP_STRIP(Tag), BOOST_DISPATCH_PP_STRIP(Site)     \
+  dispatching( adl_helper                                                      \
+             , BOOST_DISPATCH_PP_STRIP(Tag), BOOST_DISPATCH_PP_STRIP(Site)     \
                BOOST_PP_REPEAT( BOOST_PP_SEQ_SIZE(Seq)                         \
                               , BOOST_DISPATCH_ARG                             \
                               , Seq                                            \
                               )                                                \
-            , adl_helper = adl_helper()                                        \
             )                                                                  \
   {                                                                            \
     return BOOST_DISPATCH_PP_STRIP(Ret)();                                     \
