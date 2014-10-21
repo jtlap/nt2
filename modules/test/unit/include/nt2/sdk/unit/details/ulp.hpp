@@ -63,6 +63,11 @@ namespace nt2 { namespace details
   /// Precompiled implementation max_ulps on float
   NT2_TEST_UNIT_DECL double max_ulps(float  a, float  b);
 
+  BOOST_FORCEINLINE double max_ulps(bool a, bool b)
+  {
+    return a==b ? 0 : 1;
+  }
+
   template<class T> BOOST_FORCEINLINE
   double max_ulps(T const& a, T const& b, boost::mpl::true_ const&)
   {
@@ -75,12 +80,14 @@ namespace nt2 { namespace details
   {
     return max_ulps(a.value(), b.value() );
   }
+
   /// Default implementation of max_ulps forward to generic ulpdist
   template<class T>
   BOOST_FORCEINLINE double max_ulps(T const& a, T const& b)
   {
     return max_ulps(a,b, boost::mpl::bool_<boost::is_integral<T>::value>() );
   }
+
 
   struct max_ulps_caller
   {
