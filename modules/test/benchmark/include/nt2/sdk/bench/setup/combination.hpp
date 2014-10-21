@@ -41,9 +41,9 @@ namespace nt2 { namespace bench
       }
     };
 
-    typedef typename decltype ( boost::fusion::
-                                transform(std::declval<data_type>(),do_value())
-                              )                                     result_type;
+    typedef decltype ( boost::fusion::
+                       transform(std::declval<data_type>(),do_value())
+                     )                                     result_type;
 
     BOOST_FORCEINLINE combination_ ( Data const&... d) : steps_(d...) {}
 
