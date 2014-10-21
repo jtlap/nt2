@@ -15,6 +15,7 @@
 #include <nt2/sdk/unit/details/ulp.hpp>
 #include <nt2/sdk/unit/details/prng.hpp>
 #include <nt2/sdk/unit/details/eval.hpp>
+#include <nt2/sdk/meta/strip.hpp>
 #include <nt2/sdk/meta/type_id.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
 #include <nt2/include/functions/load.hpp>
@@ -141,7 +142,7 @@ namespace nt2 { namespace details
       int ii = static_cast<int>((ff.index/c)*c);
       if(ii > ib)
       {
-        typedef decltype( f( v.load(0)... ) ) r_t;
+        typedef typename meta::strip<decltype( f( v.load(0)... ) )>::type r_t;
 
         std::cout << std::setprecision(20)
                   << "    {";
