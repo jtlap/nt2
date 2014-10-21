@@ -56,7 +56,7 @@ namespace nt2 { namespace bench
 
   **/
   template< typename Experiment, typename... Metrics>
-  void run_over( double duration, Metrics const&... m)
+  void run_over( std::size_t iteration, Metrics const&... m)
   {
     max_iteration<Experiment,Metrics...> that(iteration,m...);
     that.run();
@@ -66,7 +66,7 @@ namespace nt2 { namespace bench
 
   **/
   template< typename Experiment, typename Workbench, typename... Metrics>
-  void run_over_with(double duration, Workbench const& w, Metrics const&... m)
+  void run_over_with(std::size_t iteration, Workbench const& w, Metrics const&... m)
   {
     max_iteration<Experiment,Metrics...> that(iteration,m...);
     that.run(w);
