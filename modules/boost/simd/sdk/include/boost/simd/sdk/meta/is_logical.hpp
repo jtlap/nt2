@@ -10,6 +10,7 @@
 #define BOOST_SIMD_SDK_META_IS_LOGICAL_HPP_INCLUDED
 
 #include <boost/mpl/bool.hpp>
+#include <boost/simd/sdk/simd/native_fwd.hpp>
 
 namespace boost { namespace simd
 {
