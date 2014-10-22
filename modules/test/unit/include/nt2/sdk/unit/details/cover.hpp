@@ -28,6 +28,7 @@
 #include <string>
 #include <iomanip>
 #include <iostream>
+#include <cstddef>
 
 /// INTERNAL ONLY TO REMOVE LATER
 #define NT2_CREATE_BUF(Name,Type,Size,Min,Max)                                 \
@@ -40,7 +41,7 @@ nt2::roll( Name, Min, Max )                                                    \
 std::vector<Type,boost::simd::allocator<Type> > Name(Size);                    \
 do                                                                             \
 {                                                                              \
-  for(int i=0;i<Name.size();++i) Name[i] = Type(rand() % 2);                   \
+  for(std::size_t i=0;i<Name.size();++i) Name[i] = Type(rand() % 2);           \
 } BOOST_DISPATCH_ONCE                                                          \
 /**/
 
