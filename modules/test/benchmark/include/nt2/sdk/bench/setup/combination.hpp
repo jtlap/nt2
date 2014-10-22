@@ -13,6 +13,7 @@
 #include <boost/fusion/include/for_each.hpp>
 #include <boost/fusion/include/vector.hpp>
 #include <boost/fusion/include/fold.hpp>
+#include <boost/dispatch/meta/strip.hpp>
 #include <boost/dispatch/attributes.hpp>
 
 namespace nt2 { namespace bench
@@ -34,8 +35,17 @@ namespace nt2 { namespace bench
 
     struct do_value
     {
+      template<typename Sig> struct result;
+
+      template<typename This, typename T>
+      struct result<This(T)>
+      {
+        typedef typename boost::dispatch::meta
+                                        ::strip<T>::type::result_type type;
+      };
+
       template<typename T>
-      BOOST_FORCEINLINE auto operator()(T& t) const -> decltype(t())
+      BOOST_FORCEINLINE result_type operator()(T& t) const
       {
         return t();
       }
@@ -65,6 +75,8 @@ namespace nt2 { namespace bench
 
     struct do_done
     {
+      typedef bool result_type;
+
       template<typename T>
       BOOST_FORCEINLINE bool operator()(bool s, const T& t) const
       {
