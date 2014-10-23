@@ -45,7 +45,8 @@ namespace nt2 { namespace bench
       };
 
       template<typename T>
-      BOOST_FORCEINLINE result_type operator()(T& t) const
+      BOOST_FORCEINLINE
+      typename result<do_value(T&)>::type operator()(T& t) const
       {
         return t();
       }
