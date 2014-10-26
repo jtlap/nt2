@@ -14,6 +14,7 @@
 #include <boost/simd/include/functions/fma.hpp>
 #include <boost/simd/include/functions/multiplies.hpp>
 #include <boost/simd/include/functions/plus.hpp>
+#include <boost/simd/include/functions/fma.hpp>
 #include <boost/simd/include/functions/repeat_upper_half.hpp>
 #include <boost/simd/include/functions/repeat_lower_half.hpp>
 #include <boost/simd/include/functions/deinterleave_first.hpp>
@@ -51,8 +52,10 @@ namespace boost { namespace simd {
       {
         static const size_t F = (2*(I-1))%(N);
         static const size_t G = (I-1)/(N/2);
-        r+= repeat_lower_half(a[I-1])*details::di<F>(b[G],b[G+2]);
-        r+= repeat_upper_half(a[I-1])*details::di<F+1>(b[G],b[G+2]);
+        r = fma(repeat_lower_half(a[I-1]), details::di<F>(b[G],b[G+2])
+               , fma(repeat_upper_half(a[I-1]), details::di<F+1>(b[G],b[G+2])
+                   , r)
+               );
         do_compute<N, I-1, A, B, R>()(a, b, r);
       }
     };
