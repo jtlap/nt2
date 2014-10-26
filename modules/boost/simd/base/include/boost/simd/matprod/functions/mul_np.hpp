@@ -46,7 +46,7 @@ namespace boost { namespace simd
     r = mul_np(a, b)              is equivalent to r = a*b
     mul_np(a, b, r)               is equivalent to r += a*b
     mul_np(alpha, a, b, r)        is equivalent to r += alpha*a*b
-    mul_np(alpha, a, b, beta, r ) is equivalent to r = beta*r+ alpha*a*b
+    mul_np(alpha, a, b, beta, r ) is equivalent to r = beta*r+alpha*a*b
 
     @param a a boost::array of N simd vectors where N is the cardinal of an simd vector
 
