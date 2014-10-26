@@ -17,6 +17,9 @@
 #include <boost/simd/include/functions/simd/minus.hpp>
 #include <boost/simd/include/functions/simd/if_else_zero.hpp>
 #include <boost/simd/include/functions/simd/if_zero_else.hpp>
+#ifdef __INTEL_COMPILER
+#include <boost/simd/include/functions/simd/if_else.hpp>
+#endif
 #include <boost/simd/include/constants/maxexponent.hpp>
 #include <boost/simd/include/constants/nbmantissabits.hpp>
 #include <boost/simd/include/constants/zero.hpp>
@@ -50,7 +53,11 @@ namespace boost { namespace simd { namespace ext
       typedef typename meta::scalar_of<A0>::type             s_type;
       const int nmb= int(Nbmantissabits<s_type>());
       const result_type x = shri(exponentbits(a0), nmb);
-      return if_zero_else( is_invalid(a0), x-if_else_zero(a0, Maxexponent<A0>()));
+      #ifdef __INTEL_COMPILER
+      return if_zero_else( is_invalid(a0), x-if_else(a0, Maxexponent<A0>(), Zero<result_type>()));
+      #else
+      return if_zero_else( is_invalid(a0), x-if_else_zero(a0, Maxexponent<A0>());
+      #endif
     }
   };
 } } }
