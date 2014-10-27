@@ -65,9 +65,9 @@ namespace boost { namespace dispatch { namespace meta
 
     typedef decltype
     ( dispatching ( adl_helper()
-                  , (typename meta::hierarchy_of<Tag>::type())
-                  , (typename meta::hierarchy_of<Site>::type())
-                  , typename meta::hierarchy_of<A>::type()...
+                  , hierarchy_of_t<Tag>()
+                  , hierarchy_of_t<Site>()
+                  , hierarchy_of_t<A>()...
                   )
     ) type;
   };

@@ -66,6 +66,9 @@ namespace meta
   template<class T, class Origin>
   struct  hierarchy_of<T const, Origin>
         : hierarchy_of<T, typename remove_reference<Origin>::type> {};
+
+  template<class T>
+  using hierarchy_of_t = typename hierarchy_of<T>::type;
 } } }
 
 #include <boost/dispatch/meta/details/hierarchy_of.hpp>
