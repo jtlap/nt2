@@ -56,6 +56,8 @@ namespace boost { namespace simd
   **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::mul_hn_, mul_hn, 2 )
   //@overload
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::mul_hn_, mul_hn, 3 )
+  //@overload
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::mul_hn_, mul_hn,(A0 const&)(A1 const&)(A2 &),3)
   //@overload
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::mul_hn_, mul_hn,(A0 const&)(A1 const&)(A2 const&)(A3 &),4)
