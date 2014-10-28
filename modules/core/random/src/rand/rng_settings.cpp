@@ -19,7 +19,7 @@ namespace nt2
   }
 
   NT2_CORE_RANDOM_DECL
-  rng_settings::rng_settings(randstream_* g,int s)  : generator_(g)
+  rng_settings::rng_settings(randstream_* g, uint32_t s)  : generator_(g)
   {
     seed(s);
   }
@@ -39,7 +39,7 @@ namespace nt2
     return *this;
   };
 
-  NT2_CORE_RANDOM_DECL void rng_settings::seed(int s)
+  NT2_CORE_RANDOM_DECL void rng_settings::seed(uint32_t s)
   {
     seed_ = s;
     generator_->seed(seed_);
@@ -51,3 +51,4 @@ namespace nt2
     generator_->seed(seed_);
   }
 }
+
