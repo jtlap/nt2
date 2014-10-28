@@ -1908,9 +1908,10 @@ namespace detail
         //...zzz...still radix-2...:
 
         typedef          Vector             vector_t;
-        typedef typename Vector::value_type scalar_t;
 
     /* "text book" version
+        typedef typename Vector::value_type scalar_t;
+
         scalar_t r0( real_in[ 0 ] );
         scalar_t r1( real_in[ 1 ] );
         scalar_t r2( real_in[ 2 ] );
@@ -2067,7 +2068,6 @@ namespace detail
     )
     {
         typedef          Vector             vector_t;
-        typedef typename Vector::value_type scalar_t;
 
         //...zzz...no separate bit reversing/scrambling pass experimenting...
         unsigned int const idx0( 0 );
@@ -2076,6 +2076,7 @@ namespace detail
         unsigned int const idx3( 3 );
 
     #if !defined( BOOST_SIMD_DETECTED )
+        typedef typename Vector::value_type scalar_t;
 
         scalar_t r0( real_in[ idx0 ] ); scalar_t i0( imag_in[ idx0 ] );
         scalar_t r1( real_in[ idx1 ] ); scalar_t i1( imag_in[ idx1 ] );
