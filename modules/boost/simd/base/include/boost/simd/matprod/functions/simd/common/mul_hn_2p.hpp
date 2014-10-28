@@ -1,4 +1,5 @@
 //==============================================================================
+//         Copyright 2014               Jean-Thierry Lapreste
 //         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
 //         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
 //
@@ -107,6 +108,7 @@ namespace ext
 
     BOOST_FORCEINLINE  result_type operator()(const A& a, const B & b) const
     {
+      static_assert((P::value/4)*4 == P::value, "B size must be divisble by 4");
       result_type r;
       details::do_unroll_no_add<P::value, A, B, result_type>()(a, b, r);
       return r;
@@ -115,12 +117,13 @@ namespace ext
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::mul_hn_2p_
                                     , boost::simd::tag::cpu_
-                                    , (A)(B)(R)(X)(P)(Q)
+                                    , (A)(B)(R)(X)(P)
                                     , ((array_<simd_<floating_<A>,X>
                                        , boost::mpl::size_t<boost::simd::meta::cardinal_of<typename A::value_type>::value>>
                                        ))
                                       ((array_<simd_<floating_<B>,X>, P>))
-                                      ((array_<simd_<floating_<R>,X>, Q>))
+                                      ((array_<simd_<floating_<R>,X>, boost::mpl::size_t<P::value/4>>
+                                       ))
                                     )
 
   {
@@ -129,19 +132,20 @@ namespace ext
 
     BOOST_FORCEINLINE  result_type operator()(const A& a, const B & b, R & r) const
     {
+      static_assert((P::value/4)*4 == P::value, "B size must be divisble by 4");
       details::do_unroll<P::value, A, B, R>()(a, b, r);
     }
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::mul_hn_2p_
                                     , boost::simd::tag::cpu_
-                                    , (ALPHA)(A)(B)(R)(X)(P)(Q)
+                                    , (ALPHA)(A)(B)(R)(X)(P)
                                     , (scalar_<arithmetic_<ALPHA>>)
                                       ((array_<simd_<floating_<A>,X>
                                        , boost::mpl::size_t<boost::simd::meta::cardinal_of<typename A::value_type>::value>>
                                        ))
                                       ((array_<simd_<floating_<B>,X>, P>))
-                                      ((array_<simd_<floating_<R>,X>, Q>))
+                                      ((array_<simd_<floating_<R>,X>, boost::mpl::size_t<P::value/4>>))
                                     )
 
   {
@@ -152,20 +156,21 @@ namespace ext
     BOOST_FORCEINLINE  result_type operator()(const ALPHA& alpha, const A& a, const B & b
                                              , R & r) const
     {
+      static_assert((P::value/4)*4 == P::value, "B size must be divisble by 4");
       details::do_unroll_scale<P::value, ALPHA, A, B, R>()(stype(alpha), a, b, r);
     }
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::mul_hn_2p_
                                     , boost::simd::tag::cpu_
-                                    , (ALPHA)(A)(B)(BETA)(R)(X)(P)(Q)
+                                    , (ALPHA)(A)(B)(BETA)(R)(X)(P)
                                     , (scalar_<arithmetic_<ALPHA>>)
                                       ((array_<simd_<floating_<A>,X>
                                        , boost::mpl::size_t<boost::simd::meta::cardinal_of<typename A::value_type>::value>>
                                        ))
                                       ((array_<simd_<floating_<B>,X>, P>))
                                       (scalar_<arithmetic_<BETA>>)
-                                      ((array_<simd_<floating_<R>,X>, Q>))
+                                      ((array_<simd_<floating_<R>,X>, boost::mpl::size_t<P::value/4>>))
                                     )
 
   {
@@ -177,7 +182,8 @@ namespace ext
                                              , const BETA& beta, R & r) const
     {
 
-      details::do_scale<Q::value, R, stype>()(r, stype(beta));
+      static_assert((P::value/4)*4 == P::value, "B size must be divisble by 4");
+      details::do_scale<P::value/4, R, stype>()(r, stype(beta));
       details::do_unroll_scale<P::value, ALPHA, A, B, R>()(stype(alpha), a, b, r);
     }
   };
