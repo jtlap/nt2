@@ -965,7 +965,9 @@ namespace detail
 
     private:
         vector_t           * BOOST_DISPATCH_RESTRICT gp_pointers_   [ gp_registers_to_use                  ];
+    #ifdef BOOST_SIMD_HAS_EXTRA_GP_REGISTERS
         extra_vector_ptr_t                           extra_pointers_[ total_pointers - gp_registers_to_use ];
+    #endif
         boost::simd::details::extra_integer_register counter_;
 #endif // NT2_FFT_USE_INDEXED_BUTTERFLY_LOOP
     }; // inplace_separated_context_t
