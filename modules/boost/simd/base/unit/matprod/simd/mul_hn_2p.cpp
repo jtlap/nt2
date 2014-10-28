@@ -34,7 +34,7 @@ void  mul(const A &a, const B& b, R& r, size_t card)
   size_t W2 = 2*2;
   for(size_t c=0; c < W2 ; c++)
   {
-    for(size_t l=0; l < H2 ; l++)
+    for(size_t l=0; l < H1 ; l++)
     {
       r.ta[l+H1*c] = 0;
       for(size_t k=0; k <W1 ; k++)
@@ -90,7 +90,6 @@ NT2_TEST_CASE_TPL ( mul_hn_2p,BOOST_SIMD_SIMD_REAL_TYPES)
   {
     a.ta[i] = T(i+1);
   }
-  std::cout << "a " << a.va << std::endl;
 
   union trick8
   {
@@ -100,11 +99,10 @@ NT2_TEST_CASE_TPL ( mul_hn_2p,BOOST_SIMD_SIMD_REAL_TYPES)
   };
   trick8 b;
 
-  for(size_t i=0; i <card*4*2 ; i++)
+  for(size_t i=0; i <card*8 ; i++)
   {
     b.ta[i] = T(i+1);
   }
-  std::cout << "b1 " << b.va << std::endl;
 
   union trick2
   {
@@ -114,22 +112,13 @@ NT2_TEST_CASE_TPL ( mul_hn_2p,BOOST_SIMD_SIMD_REAL_TYPES)
   };
 
    trick2 ref;
-  boost::array<vT, 4*2 > bb = b.va;
   boost::array<vT, card > aa = a.va;
-
-  std::cout << "b2 " << b.va << std::endl;
+  boost::array<vT, 8 > bb = b.va;
   mul(a, b, ref, card);
-  std::cout << "b3 " << b.va << std::endl;
-  std::cout << "bb " << bb << std::endl;
-
-  std::cout << "ref " << ref.va  << std::endl;
 
   boost::array<vT, 2> res = ref.va;
   boost::array<vT, 2> r = mul_hn_2p(aa, bb);
   boost::array<vT, 2> v = ref.va;
-  std::cout << "r   " << r << std::endl;
-  std::cout << "ref " << ref.va  << std::endl;
-  std::cout << "v   " << v       << std::endl;
   NT2_TEST_EQUAL(r, res);
 
   r = v;
