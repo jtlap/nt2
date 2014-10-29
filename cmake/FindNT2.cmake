@@ -246,10 +246,6 @@ macro(nt2_find_module_dependencies _COMPONENT)
     set(NT2_${_COMPONENT_U}_DEPENDENCIES_FOUND 1)
   endif()
 
-  if(NT2_IGNORE_DEPENDENCIES)
-    set(NT2_${_COMPONENT_U}_DEPENDENCIES_FOUND 1)
-  endif()
-
 endmacro()
 
 # little helper for nt2_find_modules
@@ -328,9 +324,13 @@ function(nt2_find_modules)
       set(NT2_LIBRARIES ${NT2_${COMPONENT_U}_LIBRARIES} ${NT2_LIBRARIES})
       nt2_lib_remove_duplicates(NT2_LIBRARIES)
 
+      set(NT2_COMPILE_FLAGS_OLD ${NT2_COMPILE_FLAGS})
+      set(NT2_LINK_FLAGS_OLD ${NT2_LINK_FLAGS})
       set(NT2_COMPILE_FLAGS "${NT2_${COMPONENT_U}_COMPILE_FLAGS} ${NT2_COMPILE_FLAGS}")
       set(NT2_LINK_FLAGS "${NT2_${COMPONENT_U}_LINK_FLAGS} ${NT2_LINK_FLAGS}")
       nt2_str_remove_duplicates(NT2_COMPILE_FLAGS NT2_LINK_FLAGS)
+      set(NT2_COMPILE_FLAGS ${NT2_COMPILE_FLAGS_OLD})
+      set(NT2_LINK_FLAGS ${NT2_LINK_FLAGS_OLD})
     elseif(NT2_FIND_COMPONENTS)
       set(NT2_FOUND 0)
     endif()
