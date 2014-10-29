@@ -11,6 +11,7 @@
 
 #include <boost/simd/arithmetic/functions/abs.hpp>
 #include <boost/simd/sdk/math.hpp>
+#include <boost/dispatch/meta/as_unsigned.hpp>
 #include <boost/dispatch/attributes.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -24,7 +25,9 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      A0 mask = a0 >> (sizeof(result_type)*8 - 1);
+      typedef typename dispatch::meta::as_unsigned<A0>::type utype;
+
+      utype mask = a0 >> (sizeof(result_type)*8 - 1);
       return (a0 + mask) ^ mask;
     }
   };
