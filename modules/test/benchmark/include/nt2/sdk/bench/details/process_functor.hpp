@@ -17,6 +17,7 @@
 #include <nt2/sdk/meta/scalar_of.hpp>
 #include <boost/simd/memory/allocator.hpp>
 #include <boost/dispatch/functor/preprocessor/dispatch.hpp>
+#include <boost/dispatch/meta/strip.hpp>
 #include <nt2/include/functions/aligned_load.hpp>
 #include <nt2/include/functions/aligned_store.hpp>
 #include <boost/fusion/include/at_c.hpp>
@@ -94,8 +95,10 @@ namespace nt2 { namespace details
     BOOST_PP_REPEAT(N,M0,~)
 
     // Result type
-    typedef typename boost::dispatch::meta
-            ::result_of<Function(BOOST_PP_ENUM_PARAMS(N,Arg))>::type   out_t;
+    typedef typename boost::dispatch::meta::
+            strip< typename boost::dispatch::meta::
+                   result_of<Function(BOOST_PP_ENUM_PARAMS(N,Arg))>::type
+                 >::type                  out_t;
     typedef boost::simd::allocator<out_t> alloc_out;
 
     // How many stuff to process
