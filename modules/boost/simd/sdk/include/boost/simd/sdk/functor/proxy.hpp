@@ -14,6 +14,7 @@
 #include <boost/dispatch/meta/unproxy.hpp>
 #include <boost/dispatch/functor/functor.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
+#include <boost/dispatch/functor/meta/make_functor.hpp>
 #include <boost/type_traits/remove_reference.hpp>
 
 #include <boost/dispatch/details/parameters.hpp>
