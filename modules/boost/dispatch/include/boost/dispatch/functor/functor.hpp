@@ -21,17 +21,13 @@
  * and specialize polymorphic functors.
  */
 
-#include <boost/config.hpp>
-#include <boost/type_traits/common_type.hpp>
-#include <boost/dispatch/meta/as_floating.hpp>
 #include <boost/dispatch/meta/as_ref.hpp>
 #include <boost/dispatch/functor/forward.hpp>
-#include <boost/dispatch/functor/details/call.hpp>
 #include <boost/dispatch/functor/details/dispatch.hpp>
-#include <boost/dispatch/functor/meta/make_functor.hpp>
-#include <boost/dispatch/functor/preprocessor/dispatch.hpp>
-#include <boost/dispatch/functor/meta/call.hpp>
+#include <boost/dispatch/meta/hierarchy_of.hpp>
+#include <boost/dispatch/details/auto_decltype.hpp>
 #include <boost/dispatch/attributes.hpp>
+#include <boost/utility/declval.hpp>
 
 namespace boost { namespace dispatch
 {
@@ -56,22 +52,21 @@ namespace boost { namespace dispatch
    * \see make_functor
    */
   //============================================================================
-  template<class Tag, class EvalContext> struct functor
+  template<class Tag, class EvalContext>
+  struct functor
   {
     typedef Tag         tag_type;
     typedef EvalContext context_type;
 
-    template<class Sig> struct result;
+    /*! For compatibility with result_of protocol */
+    template<class Sig>
+    struct result;
 
     template<class This, class... Args>
     struct result<This(Args...)>
-      : meta::
-        result_of< typename meta::
-                   dispatch_call< Tag(typename meta::as_ref<Args>::type...)
-                                , EvalContext
-                                >::type(typename meta::as_ref<Args>::type...)
-                 >
-    {};
+    {
+      typedef decltype( boost::declval<This>()(boost::declval<Args>()...) ) type;
+    };
 
     //==========================================================================
     /*!
@@ -83,17 +78,13 @@ namespace boost { namespace dispatch
      * \return The result of the calculation of function \c Tag
      */
     //==========================================================================
-    template<class... Args> BOOST_FORCEINLINE
-    typename result<functor(typename meta::as_ref<Args>::type...)>::type
-    operator()( Args&& ...args ) const
-    {
-      return typename meta::
-             dispatch_call< Tag(typename meta::as_ref<Args>::type...)
-                          , EvalContext
-                          >::type()
-             ( static_cast<typename meta::as_ref<Args>::type>(args)... );
-    }
-
+    template<class... Args>
+    BOOST_FORCEINLINE
+    BOOST_AUTO_DECLTYPE operator()( Args&& ...args ) const
+    BOOST_AUTO_DECLTYPE_BODY(
+      dispatching(meta::adl_helper(), meta::hierarchy_of_t<Tag>(), meta::hierarchy_of_t<EvalContext>(), meta::hierarchy_of_t<Args>()...)
+                 (static_cast<typename meta::as_ref<Args>::type>(args)...)
+    )
   };
 } }
 

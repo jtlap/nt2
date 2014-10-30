@@ -10,7 +10,8 @@
 #define BOOST_SIMD_SDK_SIMD_DETAILS_OPERATORS_HPP_INCLUDED
 
 #include <boost/simd/sdk/simd/meta/is_native.hpp>
-#include <boost/dispatch/functor/functor.hpp>
+#include <boost/dispatch/functor/meta/make_functor.hpp>
+#include <boost/dispatch/functor/meta/call.hpp>
 #include <boost/dispatch/meta/sfinae_enable_if.hpp>
 #include <boost/type_traits/is_fundamental.hpp>
 #include <boost/preprocessor/cat.hpp>

@@ -16,31 +16,15 @@
 
 #include <boost/dispatch/functor/forward.hpp>
 #include <boost/dispatch/functor/details/dispatch.hpp>
-#include <boost/dispatch/meta/result_of.hpp>
+#include <boost/dispatch/details/auto_decltype.hpp>
 #include <boost/dispatch/attributes.hpp>
 #include <boost/preprocessor/repetition/enum.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
+#include <boost/preprocessor/repetition/repeat.hpp>
 #include <boost/preprocessor/seq/elem.hpp>
 #include <boost/preprocessor/seq/size.hpp>
 #include <boost/preprocessor/cat.hpp>
-
-#if !defined(DOXYGEN_ONLY)
-#define BOOST_DISPATCH_FUNCTION_RETURN_TYPE(Tag,Args)                          \
-typename boost::dispatch::meta::result_of< typename boost::dispatch::meta::    \
-  dispatch_call< Tag( BOOST_PP_ENUM( BOOST_PP_SEQ_SIZE(Args)                   \
-                                   , BOOST_DISPATCH_FN_ARGS                    \
-                                   , Args                                      \
-                                   )                                           \
-                    )                                                          \
-               >::type                                                         \
-  ( BOOST_PP_ENUM(BOOST_PP_SEQ_SIZE(Args), BOOST_DISPATCH_FN_ARGS, Args) )     \
->::type                                                                        \
-/**/
-#else
-#define BOOST_DISPATCH_FUNCTION_RETURN_TYPE(Tag,Args) details::unspecified     \
-/**/
-#endif
 
 /*!
   @brief Generate dispatch-based function prototype
@@ -69,12 +53,8 @@ typename boost::dispatch::meta::result_of< typename boost::dispatch::meta::    \
 #define BOOST_DISPATCH_FUNCTION_INTERFACE(Tag, Name, N)                        \
 template<BOOST_PP_ENUM_PARAMS(N,class A)>                                      \
 BOOST_FORCEINLINE                                                              \
-typename boost::dispatch::meta::result_of< typename boost::dispatch::meta::    \
-  dispatch_call< Tag( BOOST_PP_ENUM_BINARY_PARAMS(N, A, const& a) )            \
-              >::type                                                          \
-  ( BOOST_PP_ENUM_BINARY_PARAMS(N, A, const& a) )                              \
->::type                                                                        \
-Name( BOOST_PP_ENUM_BINARY_PARAMS(N, A, const& a) )                            \
+BOOST_AUTO_DECLTYPE Name( BOOST_PP_ENUM_BINARY_PARAMS(N, A, const& a) )        \
+BOOST_AUTO_DECLTYPE_HEADER( BOOST_DISPATCH_FUNCTION_BODY_(Tag, N) )            \
 /**/
 
 /*!
@@ -98,11 +78,22 @@ Name( BOOST_PP_ENUM_BINARY_PARAMS(N, A, const& a) )                            \
   return typename boost::dispatch::make_functor<tag::plus_, A0>::type()(a0,a1);
   @endcode
 **/
-#define BOOST_DISPATCH_FUNCTION_BODY(Tag, N)                                   \
-return typename boost::dispatch::meta::                                        \
-       dispatch_call< Tag( BOOST_PP_ENUM_BINARY_PARAMS(N, A, const& a) )       \
-                     >::type()                                                 \
-(BOOST_PP_ENUM_PARAMS(N, a));                                                  \
+#define BOOST_DISPATCH_FUNCTION_BODY(Tag, N)                                                       \
+return BOOST_DISPATCH_FUNCTION_BODY_(Tag, N);                                                      \
+/**/
+
+/// INTERNAL ONLY
+#define BOOST_DISPATCH_FUNCTION_BODY_(Tag, N)                                                      \
+BOOST_DISPATCH_FUNCTION_BODY_TPL_(Tag, BOOST_PP_REPEAT(N, BOOST_DISPATCH_FN_ARGS_TYPES, ~), N)     \
+/**/
+
+/// INTERNAL ONLY
+#define BOOST_DISPATCH_FUNCTION_BODY_TPL_(Tag, Args, N)                                            \
+dispatching( boost::dispatch::meta::adl_helper(), Tag()                                            \
+           , boost::dispatch::default_site_t<A0>()                                                 \
+           , BOOST_PP_ENUM( BOOST_PP_SEQ_SIZE(Args), BOOST_DISPATCH_FN_ARGS_HIER, Args )           \
+           )                                                                                       \
+           (BOOST_PP_ENUM_PARAMS(BOOST_PP_SEQ_SIZE(Args), a))                                      \
 /**/
 
 /*!
@@ -153,6 +144,9 @@ BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(                                    \
 /// INTERNAL ONLY
 #define BOOST_DISPATCH_FN_ARGS(z,n,t) BOOST_PP_SEQ_ELEM(n,t) a##n
 
+/// INTERNAL ONLY
+#define BOOST_DISPATCH_FN_ARGS_HIER(z,n,t) boost::dispatch::meta::hierarchy_of_t<BOOST_PP_SEQ_ELEM(n,t)>()
+
 /*!
   @brief Generate custom dispatch-based function implementation
 
@@ -189,21 +183,11 @@ BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(                                    \
   @see BOOST_DISPATCH_FUNCTION_IMPLEMENTATION
   @see BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_SELF
 **/
-#define BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(Tag, Name, Args, N)         \
-template<BOOST_PP_ENUM_PARAMS(N, class A)>                                     \
-BOOST_FORCEINLINE                                                              \
-BOOST_DISPATCH_FUNCTION_RETURN_TYPE(Tag,Args)                                  \
-Name( BOOST_PP_ENUM(BOOST_PP_SEQ_SIZE(Args), BOOST_DISPATCH_FN_ARGS, Args) )   \
-{                                                                              \
-  return typename boost::dispatch::meta::                                      \
-         dispatch_call< Tag( BOOST_PP_ENUM( BOOST_PP_SEQ_SIZE(Args)            \
-                                          , BOOST_DISPATCH_FN_ARGS             \
-                                          , Args                               \
-                                          )                                    \
-                           )                                                   \
-                      >::type()                                                \
-  (BOOST_PP_ENUM_PARAMS(BOOST_PP_SEQ_SIZE(Args), a));                          \
-}                                                                              \
+#define BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(Tag, Name, Args, N)                             \
+template<BOOST_PP_ENUM_PARAMS(N, class A)>                                                         \
+BOOST_FORCEINLINE                                                                                  \
+BOOST_AUTO_DECLTYPE Name( BOOST_PP_ENUM(BOOST_PP_SEQ_SIZE(Args), BOOST_DISPATCH_FN_ARGS, Args) )   \
+BOOST_AUTO_DECLTYPE_BODY(BOOST_DISPATCH_FUNCTION_BODY_TPL_(Tag, Args, N))                          \
 /**/
 
 /// INTERNAL ONLY

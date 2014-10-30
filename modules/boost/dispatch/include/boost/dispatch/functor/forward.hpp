@@ -44,6 +44,9 @@ namespace boost { namespace dispatch
     typedef typename default_site_impl<Tag, value>::type type;
   };
 
+  template<class T>
+  using default_site_t = typename default_site<T>::type;
+
   template< class Tag
           , class EvalContext = typename default_site<Tag>::type
           >
