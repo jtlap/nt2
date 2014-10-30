@@ -27,7 +27,7 @@ if(MSVC AND (MSVC_VERSION EQUAL 1800 OR MSVC_VERSION GREATER 1800))
 endif()
 
 # Clang: enable sanitizers
-if(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+if(CMAKE_CXX_COMPILER_ID MATCHES "Clang" AND NOT APPLE)
   set(NT2_FLAGS_TEST "${NT2_FLAGS_TEST} -fsanitize=undefined -fno-sanitize-recover")
   set(NT2_FLAGS_TEST_LINK "${NT2_FLAGS_TEST_LINK} -fsanitize=undefined -fno-sanitize-recover")
 endif()
