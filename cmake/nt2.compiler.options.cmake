@@ -26,11 +26,13 @@ if(MSVC AND (MSVC_VERSION EQUAL 1800 OR MSVC_VERSION GREATER 1800))
   set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /FS")
 endif()
 
-# Clang: enable sanitizers
+# Enable sanitizers for tests
 if(CMAKE_CXX_COMPILER_ID MATCHES "Clang" AND NOT APPLE)
-  set(SANITIZE_FLAGS "-fsanitize=address,undefined-trap -fno-sanitize=float-cast-overflow,float-divide-by-zero -fno-sanitize-recover")
+  set(SANITIZE_FLAGS "-fsanitize=address,undefined-trap -fno-sanitize=float-cast-overflow,float-divide-by-zero,shift -fno-sanitize-recover")
   set(NT2_FLAGS_TEST "${NT2_FLAGS_TEST} ${SANITIZE_FLAGS}")
   set(NT2_FLAGS_TEST_LINK "${NT2_FLAGS_TEST_LINK} ${SANITIZE_FLAGS}")
+elseif(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUXX)
+  set(NT2_FLAGS_TEST "${NT2_FLAGS_TEST} -ftrapv")
 endif()
 
 set(NT2_FLAGS_TEST "${NT2_FLAGS_TEST} -DBOOST_ENABLE_ASSERT_HANDLER -DNT2_ENABLE_WARNING_HANDLER")
