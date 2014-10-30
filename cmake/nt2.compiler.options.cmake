@@ -28,8 +28,9 @@ endif()
 
 # Clang: enable sanitizers
 if(CMAKE_CXX_COMPILER_ID MATCHES "Clang" AND NOT APPLE)
-  set(NT2_FLAGS_TEST "${NT2_FLAGS_TEST} -fsanitize=undefined -fno-sanitize-recover")
-  set(NT2_FLAGS_TEST_LINK "${NT2_FLAGS_TEST_LINK} -fsanitize=undefined -fno-sanitize-recover")
+  set(SANITIZE_FLAGS "-fsanitize=address,undefined-trap -fno-sanitize=float-cast-overflow,float-divide-by-zero -fno-sanitize-recover")
+  set(NT2_FLAGS_TEST "${NT2_FLAGS_TEST} ${SANITIZE_FLAGS}")
+  set(NT2_FLAGS_TEST_LINK "${NT2_FLAGS_TEST_LINK} ${SANITIZE_FLAGS}")
 endif()
 
 set(NT2_FLAGS_TEST "${NT2_FLAGS_TEST} -DBOOST_ENABLE_ASSERT_HANDLER -DNT2_ENABLE_WARNING_HANDLER")
