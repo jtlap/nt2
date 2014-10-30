@@ -233,9 +233,9 @@ NT2_TEST_CASE( test )
             vDSP_fft_zip( fft_instance, &complex_data, 1, boost::static_log2<N>::value, FFT_INVERSE );
             vDSP_destroy_fftsetup( fft_instance );
 
-            T const norm( static_cast<T>( 1 ) / N );
-            scale( real_data, norm );
-            scale( imag_data, norm );
+            T const norm2( static_cast<T>( 1 ) / N );
+            scale( real_data, norm2 );
+            scale( imag_data, norm2 );
 
             NT2_FFT_ANALYZE_VALUES( real_data, original_real_data, constants::maximum_allowed_complex_apple_ulpd, "apple complex real data"      );
             NT2_FFT_ANALYZE_VALUES( imag_data, original_imag_data, constants::maximum_allowed_complex_apple_ulpd, "apple complex imaginary data" );
@@ -276,8 +276,8 @@ NT2_TEST_CASE( test )
             vDSP_ztoc    ( &split_real_data, 1, reinterpret_cast<DSPComplex *>( &real_time_data2[ 0 ] ), 2, N / 2 );
             vDSP_destroy_fftsetup( fft_instance );
 
-            T const norm( static_cast<T>( 1 ) / ( 2 * N ) );
-            scale( real_time_data2, norm );
+            T const norm2( static_cast<T>( 1 ) / ( 2 * N ) );
+            scale( real_time_data2, norm2 );
 
             NT2_FFT_ANALYZE_VALUES( real_time_data, real_time_data2, constants::maximum_allowed_real_apple_ulpd, "apple real data" );
         }
