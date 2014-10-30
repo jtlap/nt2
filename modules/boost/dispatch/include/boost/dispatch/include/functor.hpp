@@ -12,6 +12,7 @@
 #include <boost/dispatch/functor/functor.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <boost/dispatch/functor/meta/make_functor.hpp>
+#include <boost/dispatch/meta/as_floating.hpp>
 #include <boost/type_traits/common_type.hpp>
 #include <boost/dispatch/functor/preprocessor/function.hpp>
 #include <boost/dispatch/functor/preprocessor/call.hpp>
