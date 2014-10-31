@@ -9,6 +9,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_SIMD_COMMON_TOFLOAT_HPP_INCLUDED
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_SIMD_COMMON_TOFLOAT_HPP_INCLUDED
+
 #include <boost/simd/arithmetic/functions/tofloat.hpp>
 #include <boost/dispatch/attributes.hpp>
 
@@ -21,13 +22,7 @@ namespace boost { namespace simd { namespace ext
   {
     typedef A0 result_type;
 
-    BOOST_FORCEINLINE
-    #ifdef BOOST_PROTO_STRICT_RESULT_OF
-    result_type
-    #else
-    A0 const&
-    #endif
-    operator()(A0 const& a0) const
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
     {
       return a0;
     }
