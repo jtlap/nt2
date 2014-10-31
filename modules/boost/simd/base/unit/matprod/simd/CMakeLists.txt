@@ -12,7 +12,7 @@ SET( SOURCES
   mul_np.cpp
   mul_hn.cpp
   mul_hn_2p.cpp
-  clang_pb.cpp
+  transn.cpp
   )
 
 nt2_module_add_tests(boost.simd.base.matprod.simd.unit ${SOURCES})
