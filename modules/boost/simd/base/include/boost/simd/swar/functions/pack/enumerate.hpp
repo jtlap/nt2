@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef BOOST_SIMD_SWAR_FUNCTIONS_SIMD_PACK_ENUMERATE_HPP_INCLUDED
-#define BOOST_SIMD_SWAR_FUNCTIONS_SIMD_PACK_ENUMERATE_HPP_INCLUDED
+#ifndef BOOST_SIMD_SWAR_FUNCTIONS_PACK_ENUMERATE_HPP_INCLUDED
+#define BOOST_SIMD_SWAR_FUNCTIONS_PACK_ENUMERATE_HPP_INCLUDED
 
 #include <boost/simd/swar/functions/enumerate.hpp>
 #include <boost/simd/sdk/functor/preprocessor/call.hpp>
