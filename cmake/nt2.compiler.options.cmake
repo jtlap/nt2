@@ -30,7 +30,7 @@ endif()
 if(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   # Apple Clang seems to only support the undefined-trap/trap-on-error combo
   if(APPLE)
-    set(NT2_FLAGS_TEST "${NT2_FLAGS_TEST} -fsanitize=undefined-trap -fsanitize-undefined-trap-on-error")
+    set(NT2_FLAGS_TEST "${NT2_FLAGS_TEST} -fsanitize=undefined-trap -fno-sanitize=float-cast-overflow,float-divide-by-zero,shift -fsanitize-undefined-trap-on-error")
   else()
     set(SANITIZE_FLAGS "-fsanitize=address,undefined-trap -fno-sanitize=float-cast-overflow,float-divide-by-zero,shift -fno-sanitize-recover")
     set(NT2_FLAGS_TEST "${NT2_FLAGS_TEST} ${SANITIZE_FLAGS}")
