@@ -10,6 +10,7 @@
 #define BOOST_SIMD_MEMORY_FUNCTIONS_PACK_SPLAT_HPP_INCLUDED
 
 #include <boost/simd/include/functions/splat.hpp>
+#include <boost/simd/sdk/simd/pack/forward.hpp>
 #include <boost/proto/make_expr.hpp>
 #include <boost/proto/traits.hpp>
 

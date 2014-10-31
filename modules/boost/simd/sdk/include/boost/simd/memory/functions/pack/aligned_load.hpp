@@ -10,6 +10,7 @@
 #define BOOST_SIMD_MEMORY_FUNCTIONS_PACK_ALIGNED_LOAD_HPP_INCLUDED
 
 #include <boost/simd/include/functions/aligned_load.hpp>
+#include <boost/simd/memory/iterator_category.hpp>
 #include <boost/simd/sdk/functor/preprocessor/call.hpp>
 #include <boost/simd/sdk/simd/pack/forward.hpp>
 #include <boost/simd/sdk/simd/category.hpp>
