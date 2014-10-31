@@ -9,8 +9,10 @@
 
 include(nt2.boost)
 
-if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-  # C++11 required
+if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUXX
+   OR CMAKE_CXX_COMPILER_ID MATCHES "Clang"
+   OR (CMAKE_CXX_COMPILER_ID MATCHES "Intel" AND UNIX)
+  )
   if(MINGW)
     # somehow without that MinGW stops declaring Microsoft-specific CRT functions
     set(NT2_BOOST.DISPATCH_DEPENDENCIES_COMPILE_FLAGS "-std=gnu++0x")

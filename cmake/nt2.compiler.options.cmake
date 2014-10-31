@@ -71,8 +71,6 @@ elseif(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUXX OR CMAKE_CXX_COMPILER_
   set(NT2_FLAGS_BENCH "-DNDEBUG -O3 -fomit-frame-pointer -fno-exceptions")
 
 elseif(CMAKE_CXX_COMPILER_ID MATCHES "Intel")
-  # C++11 required
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
   if(UNIX)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fp-model precise")
     set(NT2_FLAGS_TEST "${NT2_FLAGS_TEST} -O2")
