@@ -24,7 +24,6 @@
 #include <boost/mpl/int.hpp>
 #include <boost/static_assert.hpp>
 #include <boost/dispatch/meta/strip.hpp>
-#include <iostream>
 #include <utility>
 
 //  Algorithm used (unrolled)
@@ -37,14 +36,12 @@
 //             r1[2*I  ] = interleave_first(a[I], a[I+N/2]);
 //             r1[2*I+1] = interleave_second(a[I], a[I+N/2]);
 //           }
-//           std::cout << r1 << std::endl;
 //         }
 //         else
 //         {
 //           result_type r2;
 //           for(int I=N/2-1; I >= 0 ; --I)
 //           {
-//             std::cout << "I2 " << I << std::endl;
 //             r2[2*I  ] = interleave_first(r[I],  r[I+N/2]);
 //             r2[2*I+1] = interleave_second(r[I],  r[I+N/2]);
 //           }
@@ -57,15 +54,11 @@ namespace boost { namespace simd {
 
   namespace details
   {
-// //     constexpr unsigned Log2(unsigned n, unsigned p = 0) {
-// //       return (n <= 1) ? p : Log2(n / 2, p + 1);
-// //     }
-    template < size_t N, class A, class R, size_t I> struct  do_interleave //< N, 2, A, R, I >
+    template < size_t N, class A, class R, size_t I> struct  do_interleave
     {
 
       BOOST_FORCEINLINE void operator()( A const& in,  R& out)
       {
-        std::cout << "I1 " << I << std::endl;
         out[2*I-2] = interleave_first(in[I-1], in[I+N/2-1]);
         out[2*I-1] = interleave_second(in[I-1], in[I+N/2-1]);
         do_interleave <N, A, R, I-1>()(in, out);
