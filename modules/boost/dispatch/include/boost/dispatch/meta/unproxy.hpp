@@ -16,6 +16,8 @@
 
 #include <boost/fusion/include/copy.hpp>
 #include <boost/dispatch/meta/proxy.hpp>
+#include <boost/type_traits/remove_reference.hpp>
+#include <boost/type_traits/add_rvalue_reference.hpp>
 
 namespace boost { namespace dispatch
 {
@@ -29,9 +31,10 @@ namespace boost { namespace dispatch
     {
       template<class U> struct value_ { typedef typename U::value_type type; };
 
-      typedef typename mpl::eval_if < is_proxy<T>
-                                    , value_<T>
-                                    , mpl::identity<T&>
+      typedef typename boost::remove_reference<T>::type sT;
+      typedef typename mpl::eval_if < is_proxy<sT>
+                                    , value_<sT>
+                                    , mpl::identity<typename boost::add_rvalue_reference<T>::type>
                                     >::type         type;
     };
   }
@@ -45,15 +48,9 @@ namespace boost { namespace dispatch
     @param t Value to unproxify
   **/
   template<class T>
-  BOOST_FORCEINLINE typename meta::unproxy<T const>::type unproxy(T const& t)
+  BOOST_FORCEINLINE typename meta::unproxy<T&&>::type unproxy(T&& t)
   {
-    return t;
-  }
-
-  template<class T>
-  BOOST_FORCEINLINE typename meta::unproxy<T>::type unproxy(T& t)
-  {
-    return t;
+    return static_cast<typename meta::unproxy<T&&>::type>(t);
   }
 } }
 

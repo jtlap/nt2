@@ -35,7 +35,7 @@ namespace boost { namespace simd { namespace ext
                                     , (proxy_<A0>)
                                     )
   {
-    typedef typename dispatch::meta::unproxy<A0>::type              b0_t;
+    typedef typename dispatch::meta::unproxy<A0 const&>::type              b0_t;
     typedef typename dispatch::meta::call<Func(b0_t const&)>::type  result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
@@ -51,7 +51,7 @@ namespace boost { namespace simd { namespace ext
   /**/
   #define M2(z,n,t)                                                           \
   typedef typename boost::dispatch::meta::                                    \
-          unproxy< typename boost::remove_reference<_A##n>::type >::type      \
+          unproxy< _A##n >::type                                              \
   b##n##_t;                                                                   \
   /**/
   #define M3(z,n,t) b##n##_t
@@ -83,8 +83,8 @@ namespace boost { namespace simd { namespace ext
                                                                               \
     template<BOOST_PP_ENUM_PARAMS(n, class _A)>                               \
     BOOST_FORCEINLINE                                                         \
-    typename result<implement(BOOST_PP_ENUM_BINARY_PARAMS(n, _A, & BOOST_PP_INTERCEPT))>::type \
-    operator()(BOOST_PP_ENUM_BINARY_PARAMS(n, _A, & a)) const                 \
+    typename result<implement(BOOST_PP_ENUM_BINARY_PARAMS(n, _A, && BOOST_PP_INTERCEPT))>::type \
+    operator()(BOOST_PP_ENUM_BINARY_PARAMS(n, _A, && a)) const                \
     {                                                                         \
       typename dispatch::make_functor<Func, _A0>::type callee;                \
       return callee ( BOOST_PP_ENUM(n,M4,~) );                                \

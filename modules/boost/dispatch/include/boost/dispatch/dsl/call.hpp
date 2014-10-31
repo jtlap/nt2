@@ -12,17 +12,16 @@
 ////////////////////////////////////////////////////////////////////////////////
 // This file generate basic EDSL expression wrapper over any nt2 function
 ////////////////////////////////////////////////////////////////////////////////
-#include <boost/proto/make_expr.hpp>
-#include <boost/type_traits/is_base_of.hpp>
-#include <boost/mpl/and.hpp>
-#include <boost/mpl/not.hpp>
+#include <boost/dispatch/include/functor.hpp>
+#include <boost/dispatch/functor/meta/hierarchy.hpp>
+#include <boost/dispatch/functor/preprocessor/dispatch.hpp>
+#include <boost/dispatch/dsl/category.hpp>
 #include <boost/dispatch/meta/any.hpp>
 #include <boost/dispatch/meta/as_ref.hpp>
-#include <boost/dispatch/dsl/category.hpp>
-#include <boost/dispatch/functor/functor.hpp>
-#include <boost/dispatch/functor/meta/call.hpp>
-#include <boost/dispatch/functor/meta/hierarchy.hpp>
-#include <boost/dispatch/functor/preprocessor/call.hpp>
+#include <boost/proto/make_expr.hpp>
+#include <boost/mpl/and.hpp>
+#include <boost/mpl/not.hpp>
+#include <boost/type_traits/remove_reference.hpp>
 
 namespace boost { namespace dispatch { namespace tag
 {
@@ -90,12 +89,12 @@ namespace boost { namespace dispatch { namespace meta
     };
     template<class... A>
     BOOST_FORCEINLINE
-    typename result<implement(A&...)>::type
-    operator()(A&... a) const
+    typename result<implement(A&&...)>::type
+    operator()(A&&... a) const
     {
       return boost::proto::
       make_expr< typename meta::proto_tag<Func>::type >
-               ( boost::reference_wrapper<A>(a)... );
+               ( boost::reference_wrapper< typename boost::remove_reference< typename meta::as_ref<A>::type >::type >(a)... );
     }
   };
 } } }
