@@ -10,6 +10,7 @@
 #define BOOST_SIMD_MEMORY_FUNCTIONS_PACK_MAKE_HPP_INCLUDED
 
 #include <boost/simd/include/functions/make.hpp>
+#include <boost/simd/sdk/simd/pack/forward.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/simd/sdk/simd/preprocessor/repeat.hpp>
 

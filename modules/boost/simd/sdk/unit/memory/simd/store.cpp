@@ -9,6 +9,7 @@
 //==============================================================================
 #include <boost/simd/include/functions/store.hpp>
 #include <boost/simd/include/functions/load.hpp>
+#include <boost/simd/include/functions/insert.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/sdk/simd/pack.hpp>

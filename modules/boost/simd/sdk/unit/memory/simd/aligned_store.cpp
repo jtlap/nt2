@@ -13,6 +13,7 @@
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/sdk/simd/io.hpp>
 #include <boost/simd/include/functions/aligned_load.hpp>
+#include <boost/simd/include/functions/insert.hpp>
 #include <boost/simd/preprocessor/stack_buffer.hpp>
 #include <boost/fusion/include/at_c.hpp>
 #include <boost/fusion/include/make_vector.hpp>
