@@ -27,12 +27,20 @@ if(MSVC AND (MSVC_VERSION EQUAL 1800 OR MSVC_VERSION GREATER 1800))
 endif()
 
 # Enable sanitizers for tests
-if(CMAKE_CXX_COMPILER_ID MATCHES "Clang" AND NOT APPLE)
-  set(SANITIZE_FLAGS "-fsanitize=address,undefined-trap -fno-sanitize=float-cast-overflow,float-divide-by-zero,shift -fno-sanitize-recover")
-  set(NT2_FLAGS_TEST "${NT2_FLAGS_TEST} ${SANITIZE_FLAGS}")
-  set(NT2_FLAGS_TEST_LINK "${NT2_FLAGS_TEST_LINK} ${SANITIZE_FLAGS}")
-elseif(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUXX)
-  set(NT2_FLAGS_TEST "${NT2_FLAGS_TEST} -ftrapv")
+if(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+  # Apple Clang seems to only support the undefined-trap/trap-on-error combo
+  if(APPLE)
+    set(NT2_FLAGS_TEST "${NT2_FLAGS_TEST} -fsanitize=undefined-trap -fsanitize-undefined-trap-on-error")
+  else()
+    set(SANITIZE_FLAGS "-fsanitize=address,undefined-trap -fno-sanitize=float-cast-overflow,float-divide-by-zero,shift -fno-sanitize-recover")
+    set(NT2_FLAGS_TEST "${NT2_FLAGS_TEST} ${SANITIZE_FLAGS}")
+    set(NT2_FLAGS_TEST_LINK "${NT2_FLAGS_TEST_LINK} ${SANITIZE_FLAGS}")
+  endif()
+elseif(CMAKE_COMPILER_IS_GNUXX)
+  # Causes weird dependency on softfloat runtime on PowerPC
+  if(NOT CMAKE_SYSTEM_PROCESSOR MATCHES "powerpc|ppc")
+    set(NT2_FLAGS_TEST "${NT2_FLAGS_TEST} -ftrapv")
+  endif()
 endif()
 
 set(NT2_FLAGS_TEST "${NT2_FLAGS_TEST} -DBOOST_ENABLE_ASSERT_HANDLER -DNT2_ENABLE_WARNING_HANDLER")
