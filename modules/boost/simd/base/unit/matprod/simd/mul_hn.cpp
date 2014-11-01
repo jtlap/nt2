@@ -34,7 +34,7 @@ void  mul(const A &a, const B& b, R& r, size_t card)
   size_t W2 = 2;
   for(size_t c=0; c < W2 ; c++)
   {
-    for(size_t l=0; l < H2 ; l++)
+    for(size_t l=0; l < H1 ; l++)
     {
       r.ta[l+H1*c] = 0;
       for(size_t k=0; k <W1 ; k++)
