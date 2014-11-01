@@ -10,6 +10,7 @@
 SET( SOURCES
   mul_n1.cpp
   mul_np.cpp
+  mul_ntp.cpp
   tmul_np.cpp
   mul_hn.cpp
   mul_hn_2p.cpp
