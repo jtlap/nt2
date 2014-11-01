@@ -10,10 +10,10 @@
 #define BOOST_DISPATCH_FUNCTOR_PREPROCESSOR_CALL_HPP_INCLUDED
 
 #include <boost/dispatch/functor/preprocessor/dispatch.hpp>
-#include <boost/dispatch/details/auto_decltype.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum.hpp>
+#include <boost/preprocessor/repetition/repeat.hpp>
 
 //==============================================================================
 /*!
@@ -57,8 +57,17 @@ BOOST_DISPATCH_RETURNS_ARGS(N,Args,Args, Body)                                 \
 /**/
 
 #define BOOST_DISPATCH_RETURNS_ARGS(N, Args, Call, Body)                       \
-BOOST_FORCEINLINE auto operator()Call const                                    \
-BOOST_AUTO_DECLTYPE_BODY(Body)                                                 \
+struct dispatch_returns_impl                                                   \
+{                                                                              \
+  BOOST_PP_REPEAT(N, BOOST_DISPATCH_RETURNS_, (N, Args))                       \
+  typedef decltype(Body) result_type;                                          \
+};                                                                             \
+typedef typename dispatch_returns_impl::result_type result_type;               \
+BOOST_FORCEINLINE result_type operator()Call const { return Body; }            \
+/**/
+
+#define BOOST_DISPATCH_RETURNS_(z, n, Args)                                    \
+static BOOST_PP_ARRAY_ELEM(n, Args);                                           \
 /**/
 
 //==============================================================================
