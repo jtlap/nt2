@@ -14,7 +14,7 @@
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/simd/sdk/simd/preprocessor/repeat.hpp>
 #include <boost/simd/sdk/meta/scalar_of.hpp>
-#include <boost/dispatch/meta/semantic_of.hpp>
+#include <boost/dispatch/dsl/semantic_of.hpp>
 
 // make forces evaluation due to arity limitations
 namespace boost { namespace simd { namespace ext
