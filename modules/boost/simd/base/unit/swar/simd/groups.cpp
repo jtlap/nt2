@@ -70,8 +70,6 @@ NT2_TEST_CASE_TPL ( groups_groupsable__2_0, BOOST_SIMD_SIMD_GROUPABLE_TYPES)
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef native<T,ext_t>                        n_t;
   typedef n_t                                     vT;
-  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
-  typedef native<iT,ext_t>                       ivT;
   typedef typename boost::dispatch::meta::call<groups_(vT,vT)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
 
@@ -101,8 +99,6 @@ NT2_TEST_CASE_TPL ( groups_groupsable__2_1,  BOOST_SIMD_SIMD_GROUPABLE_TYPES)
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef native<T,ext_t>                        n_t;
   typedef n_t                                     vT;
-  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
-  typedef native<iT,ext_t>                       ivT;
   typedef typename boost::dispatch::meta::call<groups_(vT,vT)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
 
@@ -132,10 +128,6 @@ NT2_TEST_CASE_TPL ( groups_groupsable__3_1,  BOOST_SIMD_SIMD_GROUPABLE_TYPES)
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef native<T,ext_t>                        n_t;
   typedef n_t                                     vT;
-  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
-  typedef native<iT,ext_t>                       ivT;
-  typedef typename boost::dispatch::meta::call<groups_(vT,vT)>::type r_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
 
   // specific values tests
 
@@ -163,10 +155,6 @@ NT2_TEST_CASE_TPL ( groups_groupsable__4_1,  (int32_t))
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef native<T,ext_t>                        n_t;
   typedef n_t                                     vT;
-  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
-  typedef native<iT,ext_t>                       ivT;
-  typedef typename boost::dispatch::meta::call<groups_(vT,vT)>::type r_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
 
   // specific values tests
 

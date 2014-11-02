@@ -28,7 +28,6 @@ NT2_TEST_CASE_TPL ( ifnotinc_signed_int,  BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPES)
 
   using boost::simd::ifnotinc;
   using boost::simd::tag::ifnotinc_;
-  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
 
   // specific values tests
   NT2_TEST_EQUAL(ifnotinc(boost::simd::Zero<vT>(), boost::simd::Mone<vT>()), boost::simd::Zero<vT>());

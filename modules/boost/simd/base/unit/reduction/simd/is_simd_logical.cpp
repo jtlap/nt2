@@ -27,9 +27,7 @@ NT2_TEST_CASE_TPL ( is_simd_logical_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   typedef native<T,ext_t>                        n_t;
   typedef n_t                                     vT;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
-  typedef native<iT,ext_t>                       ivT;
   typedef typename boost::dispatch::meta::call<is_simd_logical_(vT)>::type r_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   typedef boost::simd::logical<T> vsr_t;
 
   // specific values tests
