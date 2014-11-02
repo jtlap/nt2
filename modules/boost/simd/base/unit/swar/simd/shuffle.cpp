@@ -119,7 +119,6 @@ NT2_TEST_CASE_TPL( shuffle_index8, BOOST_SIMD_SIMD_TYPES)
   using boost::simd::shuffle;
   using boost::simd::native;
   using boost::simd::meta::vector_of;
-  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef typename vector_of<T,8>::type    vT;
 
   vT origin, reference;

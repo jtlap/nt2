@@ -33,7 +33,6 @@ NT2_TEST_CASE_TPL ( ifnotadd_real,  BOOST_SIMD_SIMD_REAL_TYPES)
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef native<T,ext_t>                  vT;
   typedef native<logical<T> ,ext_t>              vlT;
-  typedef typename boost::dispatch::meta::call<ifnotadd_(vlT,vT,vT)>::type r_t;
 
   // specific values tests
   NT2_TEST_EQUAL(ifnotadd(boost::simd::True<vlT>(),boost::simd::One<vT>(),boost::simd::Two<vT>()), boost::simd::One<vT>());

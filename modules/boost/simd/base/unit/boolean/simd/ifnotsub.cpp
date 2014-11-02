@@ -51,7 +51,6 @@ NT2_TEST_CASE_TPL ( ifnotsub_signed_int,  BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPES)
   using boost::simd::native;
   using boost::simd::logical;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef typename boost::dispatch::meta::upgrade<T>::type   u_t;
   typedef native<T,ext_t>                                vT;
   typedef native<logical<T> ,ext_t>              vlT;
 
