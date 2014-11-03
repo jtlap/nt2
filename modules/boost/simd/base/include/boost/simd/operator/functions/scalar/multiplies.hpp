@@ -11,6 +11,7 @@
 
 #include <boost/simd/operator/functions/multiplies.hpp>
 #include <boost/dispatch/attributes.hpp>
+#include <boost/simd/sdk/meta/is_upgradable.hpp>
 #include <boost/mpl/times.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -24,6 +25,17 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
 
     BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(2) { return a0 * a1; }
+  };
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::multiplies_, tag::cpu_
+                                    , (A0)
+                                    , (scalar_< uint16_<A0> >)
+                                      (scalar_< uint16_<A0> >)
+                                    )
+  {
+    typedef A0 result_type;
+    typedef typename dispatch::meta::upgrade<A0>::type utype;
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(2) { return A0(utype(a0) * utype(a1)); }
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::multiplies_, tag::cpu_

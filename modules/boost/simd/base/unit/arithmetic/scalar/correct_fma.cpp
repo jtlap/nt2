@@ -25,7 +25,19 @@
 #include <boost/simd/include/functions/oneplus.hpp>
 #include <boost/simd/sdk/config.hpp>
 
-NT2_TEST_CASE_TPL ( correct_fma_real,  BOOST_SIMD_REAL_TYPES)
+// NT2_TEST_CASE( short_pb_with clang)
+// {
+//   typedef unsigned int T;
+//   T a = T(-2);
+//   T b = T(-2);
+//   std::cout  << "  a "<< a << "  b " << b << std::endl;
+//   T d =  a+b;
+//   std::cout  << "  d "<< d << std::endl;
+//   T c =  a*b;
+//   std::cout  << "  c "<< c << std::endl;
+// }
+
+  NT2_TEST_CASE_TPL ( correct_fma_real,  BOOST_SIMD_REAL_TYPES)
 {
 
   using boost::simd::correct_fma;

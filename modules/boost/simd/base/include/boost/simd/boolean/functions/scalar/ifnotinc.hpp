@@ -11,6 +11,7 @@
 #define BOOST_SIMD_BOOLEAN_FUNCTIONS_SCALAR_IFNOTINC_HPP_INCLUDED
 
 #include <boost/simd/boolean/functions/ifnotinc.hpp>
+#include <boost/simd/include/functions/scalar/inc.hpp>
 #include <boost/dispatch/attributes.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -24,7 +25,7 @@ namespace boost { namespace simd { namespace ext
     typedef A1 result_type;
     BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      return a0 ? a1 :a1+A1(1);
+      return a0 ? a1 : inc(a1);
     }
   };
 } } }

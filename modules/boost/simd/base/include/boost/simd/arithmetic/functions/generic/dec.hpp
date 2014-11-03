@@ -12,8 +12,10 @@
 
 #include <boost/simd/arithmetic/functions/dec.hpp>
 #include <boost/simd/include/functions/simd/minus.hpp>
+#include <boost/simd/include/functions/bitwise_cast.hpp>
 #include <boost/simd/include/constants/one.hpp>
 #include <boost/dispatch/attributes.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -27,6 +29,20 @@ namespace boost { namespace simd { namespace ext
     BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL(1)
     {
       return a0-One<result_type>();
+    }
+  };
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::dec_, tag::cpu_
+                                   , (A0)
+                                   , ((generic_< int_<A0> >))
+                                   )
+  {
+    typedef A0 result_type;
+    typedef typename dispatch::meta::as_integer<A0, unsigned>::type utype;
+
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL(1)
+    {
+      return bitwise_cast<A0>(dec(bitwise_cast<utype>(a0)));
     }
   };
 } } }

@@ -56,18 +56,21 @@ NT2_TEST_CASE_TPL ( toints_real,  BOOST_SIMD_SIMD_REAL_TYPES)
 
   vT v = boost::simd::One<vT>();
   r_t iv = boost::simd::One<r_t>();
-  int N = sizeof(T)*8-1;
+  int N = sizeof(T)*8-2;
   for(int i=0; i < N ; i++)
   {
+    std::cout << "i " << i << std::endl;
     NT2_TEST_EQUAL(toints(v), iv);
     NT2_TEST_EQUAL(toints(-v), -iv);
-    v *= boost::simd::Two<vT>();
-    iv *= boost::simd::Two<r_t>();
+    v = multiplies(v, boost::simd::Two<vT>());
+    std::cout << "v " << v << std::endl;
+    iv= multiplies(iv, boost::simd::Two<r_t>());
+    std::cout << "iv " << iv << std::endl;
   }
-  NT2_TEST_EQUAL(toints(boost::simd::ldexp(boost::simd::One<vT>(), N)), boost::simd::Valmax<r_t>());
   NT2_TEST_EQUAL(toints(boost::simd::ldexp(boost::simd::One<vT>(), N+1)), boost::simd::Valmax<r_t>());
-  NT2_TEST_EQUAL(toints(-boost::simd::ldexp(boost::simd::One<vT>(), N)), boost::simd::Valmin<r_t>());
+  NT2_TEST_EQUAL(toints(boost::simd::ldexp(boost::simd::One<vT>(), N+2)), boost::simd::Valmax<r_t>());
   NT2_TEST_EQUAL(toints(-boost::simd::ldexp(boost::simd::One<vT>(), N+1)), boost::simd::Valmin<r_t>());
+  NT2_TEST_EQUAL(toints(-boost::simd::ldexp(boost::simd::One<vT>(), N+2)), boost::simd::Valmin<r_t>());
 }
 
 NT2_TEST_CASE_TPL ( toints_real2,   BOOST_SIMD_SIMD_REAL_TYPES)
@@ -87,6 +90,7 @@ NT2_TEST_CASE_TPL ( toints_real2,   BOOST_SIMD_SIMD_REAL_TYPES)
 
   for(std::size_t j = 0; j < NR; j+=boost::simd::meta::cardinal_of<vT>::value)
   {
+    std::cout << "j " << j << std::endl;
     vT   a =  boost::simd::load<vT>(&data[0],j);
     ivT ia =  boost::simd::load<ivT>(&idat[0],j);
     NT2_TEST_EQUAL(toints(a), ia);

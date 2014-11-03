@@ -15,9 +15,13 @@
 #include <boost/simd/include/functions/scalar/ldexp.hpp>
 #include <boost/simd/include/functions/scalar/max.hpp>
 #include <boost/simd/include/functions/scalar/exponent.hpp>
+#include <boost/simd/include/functions/scalar/sign.hpp>
+#include <boost/simd/include/functions/scalar/bitwise_cast.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/dispatch/attributes.hpp>
-
+#include <boost/dispatch/meta/as_integer.hpp>
+#include <boost/dispatch/meta/upgrade.hpp>
+#include <iostream>
 namespace boost { namespace simd { namespace ext
 {
 
@@ -73,6 +77,23 @@ namespace boost { namespace simd { namespace ext
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::correct_fma_, tag::cpu_
                                    , (A0)
+                                   , (scalar_< int_<A0> >)
+                                     (scalar_< int_<A0> >)
+                                     (scalar_< int_<A0> >)
+                                   )
+  {
+    typedef A0 result_type;
+
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(3)
+    {
+      typedef typename dispatch::meta::as_integer<A0, unsigned>::type utype;
+      typedef typename dispatch::meta::upgrade<utype>::type uutype;
+      return A0(uutype(utype(a0))*uutype(utype(a1))+uutype(utype(a2)));
+    }
+  };
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::correct_fma_, tag::cpu_
+                                   , (A0)
                                    , (scalar_< integer_<A0> >)
                                      (scalar_< integer_<A0> >)
                                      (scalar_< integer_<A0> >)
@@ -82,11 +103,9 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(3)
     {
-     return a0*a1+a2;
+      return a0*a1+a2;
     }
   };
-
-
 } } }
 
 

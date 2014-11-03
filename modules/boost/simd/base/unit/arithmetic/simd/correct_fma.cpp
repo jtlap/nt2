@@ -59,7 +59,7 @@ NT2_TEST_CASE_TPL ( correct_fma_si,  BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPES)
   NT2_TEST_EQUAL(correct_fma(boost::simd::Mone<vT>(), boost::simd::Mone<vT>(), boost::simd::Mone<vT>()), boost::simd::Zero<vT>());
   NT2_TEST_EQUAL(correct_fma(boost::simd::One<vT>(), boost::simd::One<vT>(), boost::simd::One<vT>()), boost::simd::Two<vT>());
   NT2_TEST_EQUAL(correct_fma(boost::simd::Zero<vT>(), boost::simd::Zero<vT>(), boost::simd::Zero<vT>()), boost::simd::Zero<vT>());
-  NT2_TEST_EQUAL(correct_fma(boost::simd::Valmax<vT>(), boost::simd::Two<vT>(),  boost::simd::oneplus(boost::simd::Valmin<T>())), boost::simd::Valmax<vT>());
+  NT2_TEST_EQUAL(correct_fma(boost::simd::Valmax<vT>(), boost::simd::Two<vT>(),  boost::simd::oneplus(boost::simd::Valmin<vT>())), boost::simd::Valmax<vT>());
 } // end of test for floating_
 
 NT2_TEST_CASE_TPL ( correct_fma_ui,  BOOST_SIMD_SIMD_UNSIGNED_TYPES)

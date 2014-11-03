@@ -37,6 +37,23 @@ namespace boost { namespace simd { namespace ext
      return -a2 - a0*a1;
     }
   };
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::fnma_, tag::cpu_
+                                    , (A0)
+                                    , (generic_< uint16_<A0> >)
+                                      (generic_< uint16_<A0> >)
+                                      (generic_< uint16_<A0> >)
+                                    )
+  {
+    typedef A0 result_type;
+
+    BOOST_FORCEINLINE
+    result_type operator()(A0 const& a0, A0 const& a1, A0 const& a2) const
+    {
+      return  -a2 - a0*a1;
+    }
+  };
+
 } } }
 
 #ifdef BOOST_MSVC

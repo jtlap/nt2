@@ -11,6 +11,7 @@
 #define BOOST_SIMD_BOOLEAN_FUNCTIONS_SCALAR_IFNOTDEC_HPP_INCLUDED
 
 #include <boost/simd/boolean/functions/ifnotdec.hpp>
+#include <boost/simd/include/functions/scalar/dec.hpp>
 #include <boost/dispatch/attributes.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -24,7 +25,7 @@ namespace boost { namespace simd { namespace ext
     typedef A1 result_type;
     BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      return a0 ? a1 :a1-A1(1);
+      return a0 ? a1 : dec(a1);
     }
   };
 } } }
