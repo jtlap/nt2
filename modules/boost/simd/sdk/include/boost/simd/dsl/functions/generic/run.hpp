@@ -131,7 +131,7 @@ namespace boost { namespace simd { namespace ext
                  ( a0 )
     )
 
-    typedef decltype( boost::declval<implement>()(boost::declval<A0>()) ) result_type;
+    typedef decltype( boost::declval<implement const&>()(boost::declval<A0&>()) ) result_type;
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::run_, tag::cpu_
@@ -152,7 +152,7 @@ namespace boost { namespace simd { namespace ext
                  ( a0, state, data )
     )
 
-    typedef decltype( boost::declval<implement>()(boost::declval<A0>(), boost::declval<State const>(), boost::declval<Data const>()) ) result_type;
+    typedef decltype( boost::declval<implement const&>()(boost::declval<A0&>(), boost::declval<State const&>(), boost::declval<Data const&>()) ) result_type;
   };
 } } }
 
@@ -175,7 +175,7 @@ namespace boost { namespace simd { namespace ext
                  ( BOOST_PP_ENUM(n, M0, MIDENTITY) )
     )
 
-    typedef decltype( boost::declval<implement>()(boost::declval<Expr>()) ) result_type;
+    typedef decltype( boost::declval<implement const&>()(boost::declval<Expr&>()) ) result_type;
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::run_, tag::cpu_
@@ -194,7 +194,7 @@ namespace boost { namespace simd { namespace ext
                  ( BOOST_PP_ENUM(n, M0d, MIDENTITY) )
     )
 
-    typedef decltype( boost::declval<implement>()(boost::declval<Expr>(), boost::declval<State const>(), boost::declval<Data const>()) ) result_type;
+    typedef decltype( boost::declval<implement const&>()(boost::declval<Expr&>(), boost::declval<State const&>(), boost::declval<Data const&>()) ) result_type;
   };
 
 #undef n
