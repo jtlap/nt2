@@ -30,7 +30,10 @@ NT2_TEST_CASE_TPL ( is_prime_real__1_0,  NT2_REAL_TYPES)
   nt2::table<bT> ba(nt2::of_size(1, 30));
 
   for(int i=0; i < 30; i++) ba(i+1) = nt2::is_nez(aa[i]);
-  NT2_DISPLAY( is_prime(a));
+//  NT2_DISPLAY( is_prime(a)); // this is an error with clang
+  // home/jt/DevC++/nt2_300a/build/clang++/unit/core.combinatorial.expr.is_prime.unit:0x59db02: runtime error:
+  //  load of value 4294967294, which is not a valid value for type 'std::_Ios_Fmtflags'
+
   nt2::table<bT> p = is_prime(a);
   NT2_TEST_EQUAL(p, ba);
 
