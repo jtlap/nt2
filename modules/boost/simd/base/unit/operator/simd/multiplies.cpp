@@ -66,15 +66,14 @@ NT2_TEST_CASE_TPL ( multiplies_integer, BOOST_SIMD_SIMD_INTEGRAL_TYPES)
 
   nt2::roll(v,T(0),Sqrtvalmax<T>());
   nt2::roll(w,T(0),Sqrtvalmax<T>());
-
   for(std::size_t i=0;i<vT::static_size;++i)
-    v[i] *= i%2 ? T(-1) : T(1);
+    v[i] = multiplies(v[i], i%2 ? T(-1) : T(1));
 
   for(std::size_t i=0;i<vT::static_size/2;++i)
-    w[i] *= T(-1);
+    w[i] = multiplies(w[i],T(-1));
 
   for(std::size_t i=0;i<vT::static_size;++i)
-    ref[i] = v[i] * w[i];
+    ref[i] = multiplies(v[i], w[i]);
 
   // specific values tests
   NT2_TEST_EQUAL(multiplies(boost::simd::One<vT>(), boost::simd::One<vT>()), boost::simd::One<r_t>());

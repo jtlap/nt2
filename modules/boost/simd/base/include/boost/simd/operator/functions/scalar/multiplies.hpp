@@ -11,6 +11,7 @@
 
 #include <boost/simd/operator/functions/multiplies.hpp>
 #include <boost/dispatch/attributes.hpp>
+#include <boost/dispatch/meta/upgrade.hpp>
 #include <boost/mpl/times.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -24,6 +25,24 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
 
     BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(2) { return a0 * a1; }
+  };
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::multiplies_, tag::cpu_
+                                    , (A0)
+                                    , (scalar_< uint16_<A0> >)
+                                      (scalar_< uint16_<A0> >)
+                                    )
+  {
+    // this is a workaround a clang pb (and perhaps has to be ifdefed).
+    // When multiplying two unsigned short clang internally promote to int
+    // then a product as 65535*65535 of two short is not wrapped but produces
+    // a signed integer overflow.
+    // Note that the problem does not occur for unsigned int an unsigned long
+    // nor for unsigned char
+    // utype here is always uint32_t
+    typedef A0 result_type;
+    typedef typename dispatch::meta::upgrade<A0>::type utype;
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(2) { return A0(utype(a0) * utype(a1)); }
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::multiplies_, tag::cpu_
