@@ -14,9 +14,13 @@
 #include <boost/simd/include/functions/scalar/two_prod.hpp>
 #include <boost/simd/include/functions/scalar/ldexp.hpp>
 #include <boost/simd/include/functions/scalar/max.hpp>
+#include <boost/simd/include/functions/scalar/multiplies.hpp>
 #include <boost/simd/include/functions/scalar/exponent.hpp>
+#include <boost/simd/include/functions/scalar/sign.hpp>
+#include <boost/simd/include/functions/scalar/bitwise_cast.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/dispatch/attributes.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -73,6 +77,30 @@ namespace boost { namespace simd { namespace ext
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::correct_fma_, tag::cpu_
                                    , (A0)
+                                   , (scalar_< int_<A0> >)
+                                     (scalar_< int_<A0> >)
+                                     (scalar_< int_<A0> >)
+                                   )
+  {
+    typedef A0 result_type;
+
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(3)
+    {
+      // correct fma has to ensure "no intermediate overflow".
+      // This is done in the case of signed integers by transtyping to unsigned type
+      // to prerform the computations in a guaranted wraping environment
+      // as signed integer oveflow in C++ produces "undefined results"
+      // (unsigned produces modulo wraping)
+      // (this is mandatory for clang), and then transtyping back.
+      // use of multiplies is necessary to avoid a clang bug.
+      typedef typename dispatch::meta::as_integer<A0, unsigned>::type utype;
+      return A0(multiplies(utype(a0), utype(a1))+utype(a2));
+    }
+  };
+
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::correct_fma_, tag::cpu_
+                                   , (A0)
                                    , (scalar_< integer_<A0> >)
                                      (scalar_< integer_<A0> >)
                                      (scalar_< integer_<A0> >)
@@ -82,11 +110,9 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(3)
     {
-     return a0*a1+a2;
+      return a0*a1+a2;
     }
   };
-
-
 } } }
 
 
