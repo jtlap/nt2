@@ -27,6 +27,26 @@ namespace boost { namespace simd { namespace ext
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::multiplies_, tag::cpu_
+                                    , (A0)
+                                    , (scalar_< uint16_<A0> >)
+                                      (scalar_< uint16_<A0> >)
+                                    )
+  {
+    /* When multiplying two unsigned chars or two unsigned shorts, promotion to int occurs.
+     * Therefore 65535*65535 (2^32) of two unsigned short produces a signed integer overflow, which is UB.
+     * We want unsigned multiplication of two integers to be well-defined regardless of size, hence this special case.
+     *
+     * The problem could also occur for unsigned char but it is assumed that 'int' is 32-bit, and therefore
+     * large enough to contain 2^16 even in signed.
+     */
+    typedef A0 result_type;
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    {
+      return A0((unsigned int)a0 * (unsigned int)a1);
+    }
+  };
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::multiplies_, tag::cpu_
                                     , (A0)(A1)
                                     , (mpl_integral_< scalar_< arithmetic_<A0> > >)
                                       (mpl_integral_< scalar_< arithmetic_<A1> > >)
