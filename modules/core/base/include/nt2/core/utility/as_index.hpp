@@ -99,7 +99,7 @@ namespace nt2 { namespace result_of
 namespace nt2
 {
   template<class Size,class Position>
-  typename result_of::as_index<Size,Position>::type
+  BOOST_FORCEINLINE typename result_of::as_index<Size,Position>::type
   as_index(Size const& sz, Position const& p)
   {
     return result_of::as_index<Size,Position>()(sz,p);
