@@ -21,6 +21,7 @@
 #include <nt2/include/functions/scalar/ndims.hpp>
 #include <nt2/sdk/memory/adapted/container.hpp>
 #include <nt2/sdk/memory/composite_buffer.hpp>
+#include <boost/dispatch/meta/ignore_unused.hpp>
 #include <boost/fusion/include/is_sequence.hpp>
 #include <boost/mpl/at.hpp>
 #include <boost/assert.hpp>
@@ -435,6 +436,7 @@ namespace nt2 { namespace memory
       BOOST_ASSERT_MSG( szs == extent_type()
                       , "Statically sized container can't be resized dynamically"
                       );
+      boost::dispatch::ignore_unused(szs);
     }
 
     private:
