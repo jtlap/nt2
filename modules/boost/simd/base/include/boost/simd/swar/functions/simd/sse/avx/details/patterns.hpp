@@ -87,6 +87,28 @@ namespace boost { namespace simd { namespace ext
       return bitwise_cast<T>(i_t(_mm256_movehdup_ps( bitwise_cast<i_t>(a0) )));
     }
   };
+
+  template<typename Permutation>
+  struct avx_matcher::match8<0,8,1,9,4,12,5,13,Permutation>
+  {
+    template<typename T, typename P>
+    static BOOST_FORCEINLINE T process(T const& a0, T const& a1, P const&)
+    {
+      typedef typename boost::dispatch::meta::as_floating<T>::type i_t;
+      return bitwise_cast<T>(i_t(_mm256_unpacklo_ps( bitwise_cast<i_t>(a0), bitwise_cast<i_t>(a1) )));
+    }
+  };
+
+  template<typename Permutation>
+  struct avx_matcher::match8<2,10,3,11,6,14,7,15,Permutation>
+  {
+    template<typename T, typename P>
+    static BOOST_FORCEINLINE T process(T const& a0, T const& a1, P const&)
+    {
+      typedef typename boost::dispatch::meta::as_floating<T>::type i_t;
+      return bitwise_cast<T>(i_t(_mm256_unpackhi_ps( bitwise_cast<i_t>(a0), bitwise_cast<i_t>(a1) )));
+    }
+  };
 } } }
 
 #endif
