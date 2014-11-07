@@ -76,7 +76,7 @@ namespace boost { namespace simd { namespace ext
   #define BOOST_PP_VALUE 1
   #include BOOST_PP_ASSIGN_SLOT(2)
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::map_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( map_, tag::cpu_
                             , (Func)BOOST_PP_REPEAT(n, M4, ~)
                             , (unspecified_<Func>)BOOST_PP_REPEAT(n,M1,~)
                             )

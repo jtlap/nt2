@@ -69,7 +69,7 @@ namespace boost { namespace simd { namespace ext
 #else
   #define n BOOST_PP_ITERATION()
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::map_
+  BOOST_DISPATCH_IMPLEMENT          ( map_
                                     , boost::simd::tag::avx_
                                     , (Func)BOOST_PP_REPEAT(n, M2, ~)
                                     , (unspecified_<Func>)
