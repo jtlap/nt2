@@ -9,15 +9,52 @@
 #ifndef BOOST_SIMD_DSL_FUNCTIONS_RUN_HPP_INCLUDED
 #define BOOST_SIMD_DSL_FUNCTIONS_RUN_HPP_INCLUDED
 
-#include <boost/dispatch/functor/preprocessor/function.hpp>
-#include <boost/simd/sdk/functor/hierarchy.hpp>
+#include <boost/simd/include/functor.hpp>
 
 namespace boost { namespace simd
 {
   namespace tag
   {
-    struct run_ : dispatch::tag::formal_ { typedef dispatch::tag::formal_ parent; };
-    struct run_assign_ : dispatch::tag::formal_ { typedef dispatch::tag::formal_ parent; };
+    struct run_;
+    struct run_assign_;
+  }
+  namespace ext
+  {
+  template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::run_, Site> dispatching_run_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::run_, Site>();
+    }
+    template<class... Args>
+    struct impl_run_;
+
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::run_assign_, Site> dispatching_run_assign_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::run_assign_, Site>();
+    }
+    template<class... Args>
+    struct impl_run_assign_;
+  }
+  namespace tag
+  {
+    struct run_ : dispatch::tag::formal_
+    {
+      typedef dispatch::tag::formal_ parent;
+
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatching(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_run_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
+    };
+
+    struct run_assign_ : dispatch::tag::formal_
+    {
+      typedef dispatch::tag::formal_ parent;
+
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatching(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_run_assign_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
+    };
   }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::run_, run, (A0 const&), 1)

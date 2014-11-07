@@ -33,7 +33,7 @@
 namespace boost { namespace simd { namespace details
 {
   template<class Sig>
-  struct MAP_FALLBACK;
+  struct MAP_FALLBACK {};
 } } }
 #define BOOST_SIMD_MAP_LOG(Sig) typedef typename boost::dispatch::meta::print< boost::simd::details::MAP_FALLBACK<Sig> >::type _;
 #else
@@ -139,7 +139,7 @@ namespace boost { namespace simd { namespace ext
   template<class Tag, BOOST_PP_ENUM_PARAMS(n, class A), class SResult>
   struct BOOST_PP_CAT(map_impl, n)<Tag, BOOST_PP_ENUM_PARAMS(n, A), SResult, typename boost::dispatch::meta::enable_if_type<typename SResult::type>::type>
   {
-    BOOST_SIMD_MAP_LOG(Tag)
+    BOOST_SIMD_MAP_LOG(Tag(BOOST_PP_ENUM_PARAMS(n, A)))
 
     typedef typename boost::dispatch::meta::
             call<tag::map_( boost::dispatch::functor<Tag>
@@ -172,9 +172,10 @@ namespace boost { namespace simd { namespace ext
   {
   };
 
-  BOOST_SIMD_REGISTER_DISPATCH_TO_IF( elementwise_<Tag> , tag::formal_
+  BOOST_DISPATCH_REGISTER_G_TO_IF   ( elementwise_<Tag> , tag::formal_
                                     , (Tag)BOOST_PP_REPEAT(n,M0,~)
-                                    , (mpl::not_< any <  mpl::or_
+                                    , (mpl::not_< boost::dispatch::meta::
+                                                  any <  mpl::or_
                                                          < boost::proto::
                                                            is_expr<mpl::_>
                                                          , boost::dispatch::

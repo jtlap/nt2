@@ -45,6 +45,10 @@ struct TAG : boost::simd::ext::pure_constant_<TAG>                          \
   typedef TYPE default_type;                                                \
   template<class T, class D=void> struct apply                              \
     : boost::simd::meta::int_c<typename T::type,typename T::type(INT)> {};  \
+                                                                            \
+  template<class... Args>                                                   \
+  static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatching(Args&&... args)  \
+  BOOST_AUTO_DECLTYPE_BODY( BOOST_PP_CAT(dispatching_, TAG)( ext::adl_helper(), static_cast<Args&&>(args)... ) ) \
 };                                                                          \
 template<class T, class D>                                                  \
 struct  TAG::apply<boost::dispatch::meta::single_<T>,D>                     \

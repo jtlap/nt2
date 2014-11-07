@@ -82,8 +82,8 @@ namespace boost { namespace dispatch
     BOOST_FORCEINLINE
     BOOST_AUTO_DECLTYPE operator()( Args&& ...args ) const
     BOOST_AUTO_DECLTYPE_BODY(
-      dispatching(meta::adl_helper(), meta::hierarchy_of_t<Tag>(), meta::hierarchy_of_t<EvalContext>(), meta::hierarchy_of_t<Args>()...)
-                 (static_cast<typename meta::as_ref<Args>::type>(args)...)
+      meta::hierarchy_of_t<Tag>::dispatching(meta::hierarchy_of_t<EvalContext>(), meta::hierarchy_of_t<Args>()...)
+                                            (static_cast<typename meta::as_ref<Args>::type>(args)...)
     )
   };
 } }

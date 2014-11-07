@@ -9,15 +9,52 @@
 #ifndef BOOST_SIMD_DSL_FUNCTIONS_SCHEDULE_HPP_INCLUDED
 #define BOOST_SIMD_DSL_FUNCTIONS_SCHEDULE_HPP_INCLUDED
 
-#include <boost/dispatch/functor/preprocessor/function.hpp>
-#include <boost/simd/sdk/functor/hierarchy.hpp>
+#include <boost/simd/include/functor.hpp>
 
 namespace boost { namespace simd
 {
   namespace tag
   {
-    struct schedule_ : dispatch::tag::formal_ { typedef dispatch::tag::formal_ parent; };
-    struct schedule_assign_ : dispatch::tag::formal_ { typedef dispatch::tag::formal_ parent; };
+    struct schedule_;
+    struct schedule_assign_;
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::schedule_, Site> dispatching_schedule_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::schedule_, Site>();
+    }
+    template<class... Args>
+    struct impl_schedule_;
+
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::schedule_assign_, Site> dispatching_schedule_assign_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::schedule_assign_, Site>();
+    }
+    template<class... Args>
+    struct impl_schedule_assign_;
+  }
+  namespace tag
+  {
+    struct schedule_ : dispatch::tag::formal_
+    {
+      typedef dispatch::tag::formal_ parent;
+
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatching(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_schedule_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
+    };
+
+    struct schedule_assign_ : dispatch::tag::formal_
+    {
+      typedef dispatch::tag::formal_ parent;
+
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatching(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_schedule_assign_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
+    };
   }
 
   // Tree + function + top mark

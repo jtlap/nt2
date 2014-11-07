@@ -9,18 +9,37 @@
 #ifndef BOOST_SIMD_DSL_FUNCTIONS_TERMINAL_HPP_INCLUDED
 #define BOOST_SIMD_DSL_FUNCTIONS_TERMINAL_HPP_INCLUDED
 
-#include <boost/dispatch/functor/preprocessor/function.hpp>
+#include <boost/simd/include/functor.hpp>
 #include <boost/dispatch/dsl/call.hpp>
-#include <boost/simd/sdk/simd/category.hpp>
-#include <boost/simd/sdk/functor/hierarchy.hpp>
 #include <boost/proto/tags.hpp>
 
 namespace boost { namespace simd
 {
   namespace tag
   {
-    struct terminal_    : ext::elementwise_<terminal_> { typedef ext::elementwise_<terminal_> parent; };
-    struct dereference_ : terminal_{ typedef terminal_ parent; };
+    struct terminal_;
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::terminal_, Site> dispatching_terminal_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::terminal_, Site>();
+    }
+    template<class... Args>
+    struct impl_terminal_;
+  }
+  namespace tag
+  {
+    struct terminal_ : ext::elementwise_<terminal_>
+    {
+      typedef ext::elementwise_<terminal_> parent;
+
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatching(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_terminal_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
+
+    };
   }
 
   template<class Expr>
@@ -54,17 +73,6 @@ namespace boost { namespace dispatch { namespace meta
   struct is_formal<boost::simd::tag::terminal_>
    : mpl::true_
   {
-  };
-
-  template<>
-  struct hierarchy_of<boost::proto::tag::dereference>
-  {
-    typedef boost::simd::tag::dereference_ type;
-  };
-  template<>
-  struct proto_tag<boost::simd::tag::dereference_>
-  {
-    typedef boost::proto::tag::dereference type;
   };
 } } }
 

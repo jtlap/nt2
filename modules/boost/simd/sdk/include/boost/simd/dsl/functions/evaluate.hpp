@@ -9,12 +9,11 @@
 #ifndef BOOST_SIMD_DSL_FUNCTIONS_EVALUATE_HPP_INCLUDED
 #define BOOST_SIMD_DSL_FUNCTIONS_EVALUATE_HPP_INCLUDED
 
-#include <boost/dispatch/functor/preprocessor/function.hpp>
-#include <boost/simd/sdk/functor/hierarchy.hpp>
+#include <boost/simd/include/functor.hpp>
 
 namespace boost { namespace simd
 {
-  namespace tag { struct evaluate_ : dispatch::tag::formal_ { typedef dispatch::tag::formal_ parent; }; }
+  namespace tag { struct evaluate_; } namespace ext { template<class Site, class... H> BOOST_FORCEINLINE generic_dispatcher<tag::evaluate_, Site> dispatching_evaluate_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...) {   return generic_dispatcher<tag::evaluate_, Site>(); } template<class... Args> struct impl_evaluate_; } namespace tag { struct evaluate_ : dispatch::tag::formal_ { typedef dispatch::tag::formal_ parent;   template<class... Args>   static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatching(Args&&... args)   BOOST_AUTO_DECLTYPE_BODY( dispatching_evaluate_( ext::adl_helper(), static_cast<Args&&>(args)... ) ) }; }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::evaluate_, evaluate, 1)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::evaluate_, evaluate, (A0&), 1)

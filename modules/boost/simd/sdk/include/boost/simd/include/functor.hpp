@@ -17,4 +17,44 @@
 #include <boost/simd/sdk/functor/preprocessor/function.hpp>
 #include <boost/simd/sdk/functor/preprocessor/call.hpp>
 
+namespace boost { namespace dispatch
+{
+  template<class Tag, class Site>
+  struct generic_dispatcher
+  {
+    template<class... Args>
+    BOOST_FORCEINLINE
+    BOOST_AUTO_DECLTYPE operator()(Args&&... args) const
+    BOOST_AUTO_DECLTYPE_BODY(
+      dispatching(meta::adl_helper(), Tag(), boost::dispatch::default_site_t<Site>(), boost::dispatch::meta::hierarchy_of_t<Args>()...)(args...)
+    )
+  };
+} }
+
+namespace boost { namespace simd { namespace ext
+{
+  struct adl_helper {};
+
+  template<class Tag, class Site, class... Args>
+  BOOST_FORCEINLINE boost::dispatch::generic_dispatcher<Tag, Site>
+  dispatching(adl_helper, unknown_<Tag>, unknown_<Site>, unknown_<Args>...)
+  {
+    return boost::dispatch::generic_dispatcher<Tag, Site>();
+  }
+} } }
+
+namespace boost { namespace simd
+{
+  template<class Tag, class Site>
+  struct generic_dispatcher
+  {
+    template<class... Args>
+    BOOST_FORCEINLINE
+    BOOST_AUTO_DECLTYPE operator()(Args&&... args) const
+    BOOST_AUTO_DECLTYPE_BODY(
+      dispatching(ext::adl_helper(), Tag(), boost::dispatch::default_site_t<Site>(), boost::dispatch::meta::hierarchy_of_t<Args>()...)(args...)
+    )
+  };
+} }
+
 #endif

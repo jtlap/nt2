@@ -59,7 +59,7 @@ namespace meta
 ////////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_REGISTER_TO_IF( (boost)(dispatch)(meta), unspecified_<Func>
+  BOOST_DISPATCH_REGISTER_G_TO_IF( unspecified_<Func>
                                , tag::formal_
                                , (Func)(...A)
                                , (mpl::and_< mpl::not_< is_formal<Func> >

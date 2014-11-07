@@ -17,4 +17,30 @@
 #include <nt2/sdk/functor/site.hpp>
 #include <nt2/sdk/simd/category.hpp>
 
+namespace nt2 { namespace ext
+{
+  struct adl_helper {};
+
+  template<class Tag, class Site, class... Args>
+  BOOST_FORCEINLINE boost::simd::generic_dispatcher<Tag, Site>
+  dispatching(adl_helper, unknown_<Tag>, unknown_<Site>, unknown_<Args>...)
+  {
+    return boost::simd::generic_dispatcher<Tag, Site>();
+  }
+} }
+
+namespace nt2
+{
+  template<class Tag, class Site>
+  struct generic_dispatcher
+  {
+    template<class... Args>
+    BOOST_FORCEINLINE
+    BOOST_AUTO_DECLTYPE operator()(Args&&... args) const
+    BOOST_AUTO_DECLTYPE_BODY(
+      dispatching(ext::adl_helper(), Tag(), boost::dispatch::default_site_t<Site>(), boost::dispatch::meta::hierarchy_of_t<Args>()...)(args...)
+    )
+  };
+}
+
 #endif

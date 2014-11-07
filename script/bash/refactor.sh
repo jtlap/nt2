@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# TODO
+# typedef if_else_ select_
+# existing uses of BOOST_DISPATCH_REGISTER
+# at least inf/minf/valmin not modified
+
 function perl-sed() {
   perl -p -0777 -i -e "$@"
 }
@@ -23,10 +28,10 @@ do
   #tag = \6
   #parent = \9
   #contenu = $12
-  perl-sed 's/namespace tag(\s*){(\s*)(.*?)?(\s*)struct(\s*)([a-zA-Z0-9_]+)(\s*):(\s*)([^\n\}]+)(\s*)({(\s*)([^{}]+?|(?11))(\s*)});(\s*)}(\s*)/namespace tag\1\{\2struct \6;\1\}\1namespace ext\1\{\2template<class... H>\2BOOST_FORCEINLINE generic_dispatcher<tag::\6, sizeof...(H)> dispatching_\6(adl_helper, boost::dispatch::meta::unspecified_<H>...)\2\{\2  return generic_dispatcher<tag::\6, sizeof...(H)>();\2\}\2template<class... Args>\2struct impl_\6;\1\}\1namespace tag\1\{\2\3\4struct\5\6\7:\8\9$10\{$12$13$14  template<class... Args>$14  static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatching(Args&&... args)$14  BOOST_AUTO_DECLTYPE_BODY( dispatching_\6( ext::adl_helper(), static_cast<Args&&>(args)... ) )$14\};$15\}$16/gs' "$i"
+  perl-sed 's/namespace tag(\s*){(\s*)(.*?)?(\s*)struct(\s*)([a-zA-Z0-9_]+)(\s*):(\s*)([^\n\}]+)(\s*)({(\s*)([^{}]+?|(?11))(\s*)});(\s*)}(\s*)/namespace tag\1\{\2struct \6;\1\}\1namespace ext\1\{\2template<class Site, class... H>\2BOOST_FORCEINLINE generic_dispatcher<tag::\6, Site> dispatching_\6(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)\2\{\2  return generic_dispatcher<tag::\6, Site>();\2\}\2template<class... Args>\2struct impl_\6;\1\}\1namespace tag\1\{\2\3\4struct\5\6\7:\8\9$10\{$12$13$14  template<class... Args>$14  static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatching(Args&&... args)$14  BOOST_AUTO_DECLTYPE_BODY( dispatching_\6( ext::adl_helper(), static_cast<Args&&>(args)... ) )$14\};$15\}$16/gs' "$i"
 
   #tag = \6
-  perl-sed 's/namespace tag(\s*){(\s*)(.*?)?(\s*)BOOST_SIMD_CONSTANT_REGISTER\((\s*)([a-zA-Z0-9_]+)(\s*),([^)]+)\)(\s*)}(\s*)/namespace tag\1\{\2struct \6;\1\}\1namespace ext\1\{\2template<class... H>\2BOOST_FORCEINLINE generic_dispatcher<tag::\6, sizeof...(H)> dispatching_\6(adl_helper, boost::dispatch::meta::unspecified_<H>...)\2\{\2  return generic_dispatcher<tag::\6, sizeof...(H)>();\2\}\2template<class... Args>\2struct impl_\6;\1\}\1namespace tag\1\{\2\3\4BOOST_SIMD_CONSTANT_REGISTER(\5\6\7,\8)\9\}$10/gs' "$i"
+  perl-sed 's/namespace tag(\s*){(\s*)(.*?)?(\s*)BOOST_SIMD_CONSTANT_REGISTER\((\s*)([a-zA-Z0-9_]+)(\s*),([^)]+)\)(\s*)}(\s*)/namespace tag\1\{\2struct \6;\1\}\1namespace ext\1\{\2template<class Site, class... H>\2BOOST_FORCEINLINE generic_dispatcher<tag::\6, Site> dispatching_\6(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)\2\{\2  return generic_dispatcher<tag::\6, Site>();\2\}\2template<class... Args>\2struct impl_\6;\1\}\1namespace tag\1\{\2\3\4BOOST_SIMD_CONSTANT_REGISTER(\5\6\7,\8)\9\}$10/gs' "$i"
 
 done
 
