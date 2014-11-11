@@ -36,7 +36,7 @@ namespace boost { namespace simd
       typedef ext::elementwise_<terminal_> parent;
 
       template<class... Args>
-      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatching(Args&&... args)
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
       BOOST_AUTO_DECLTYPE_BODY( dispatching_terminal_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
 
     };

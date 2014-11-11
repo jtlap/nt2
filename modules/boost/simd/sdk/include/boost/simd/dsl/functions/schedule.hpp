@@ -43,7 +43,7 @@ namespace boost { namespace simd
       typedef dispatch::tag::formal_ parent;
 
       template<class... Args>
-      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatching(Args&&... args)
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
       BOOST_AUTO_DECLTYPE_BODY( dispatching_schedule_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
 
@@ -52,7 +52,7 @@ namespace boost { namespace simd
       typedef dispatch::tag::formal_ parent;
 
       template<class... Args>
-      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatching(Args&&... args)
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
       BOOST_AUTO_DECLTYPE_BODY( dispatching_schedule_assign_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
   }

@@ -18,19 +18,19 @@ echo "$functions" | while read i
 do
   echo "$i"
 
-  if ! grep -q -F 'static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatching(Args&&... args)' "$i"
+  if ! grep -q -F 'static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)' "$i"
   then
     #tag = \7
     #parent = $10
     #contenu = $14
-    perl-sed 's/namespace tag(\s*){(\s*)(.*?)?(\s*)(template\s*<[^>]+>\s*)struct(\s*)(?!apply)([a-zA-Z0-9_]+)(\s*):(\s*)([^\n\}]+)(\s*)({(\s*)((?:[^{}]|(?12))*?)(\s*)});/namespace tag\1\{\2\3\4\5struct\6\7\8:\9$10$11\{$13$14$15  template<class... Args>$15  static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatching(Args&&... args)$15  BOOST_AUTO_DECLTYPE_BODY( dispatching( ext::adl_helper(), \7(), static_cast<Args&&>(args)... ) )$15\};/gs' "$i"
+    perl-sed 's/namespace tag(\s*){(\s*)(.*?)?(\s*)(template\s*<[^>]+>\s*)struct(\s*)(?!apply)([a-zA-Z0-9_]+)(\s*):(\s*)([^\n\}]+)(\s*)({(\s*)((?:[^{}]|(?12))*?)(\s*)});/namespace tag\1\{\2\3\4\5struct\6\7\8:\9$10$11\{$13$14$15  template<class... Args>$15  static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispath(Args&&... args)$15  BOOST_AUTO_DECLTYPE_BODY( dispatching( ext::adl_helper(), \7(), static_cast<Args&&>(args)... ) )$15\};/gs' "$i"
   fi
-  if ! grep -q -F 'static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatching(Args&&... args)' "$i"
+  if ! grep -q -F 'static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)' "$i"
   then
     #tag = \6
     #parent = \9
     #contenu = $12
-    perl-sed 's/namespace tag(\s*){(\s*)(.*?)?(\s*)struct(\s*)(?!apply)([a-zA-Z0-9_]+)(\s*):(\s*)([^\n{}]+)(\s*)({(\s*)((?:[^{}]|(?11))*?)(\s*)});/namespace tag\1\{\2struct \6;\1\}\1namespace ext\1\{\2template<class Site, class... H>\2BOOST_FORCEINLINE generic_dispatcher<tag::\6, Site> dispatching_\6(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)\2\{\2  return generic_dispatcher<tag::\6, Site>();\2\}\2template<class... Args>\2struct impl_\6;\1\}\1namespace tag\1\{\2\3\4struct\5\6\7:\8\9$10\{$12$13$14  template<class... Args>$14  static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatching(Args&&... args)$14  BOOST_AUTO_DECLTYPE_BODY( dispatching_\6( ext::adl_helper(), static_cast<Args&&>(args)... ) )$14\};/gs' "$i"
+    perl-sed 's/namespace tag(\s*){(\s*)(.*?)?(\s*)struct(\s*)(?!apply)([a-zA-Z0-9_]+)(\s*):(\s*)([^\n{}]+)(\s*)({(\s*)((?:[^{}]|(?11))*?)(\s*)});/namespace tag\1\{\2struct \6;\1\}\1namespace ext\1\{\2template<class Site, class... H>\2BOOST_FORCEINLINE generic_dispatcher<tag::\6, Site> dispatching_\6(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)\2\{\2  return generic_dispatcher<tag::\6, Site>();\2\}\2template<class... Args>\2struct impl_\6;\1\}\1namespace tag\1\{\2\3\4struct\5\6\7:\8\9$10\{$12$13$14  template<class... Args>$14  static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)$14  BOOST_AUTO_DECLTYPE_BODY( dispatching_\6( ext::adl_helper(), static_cast<Args&&>(args)... ) )$14\};/gs' "$i"
   fi
   if ! grep -q -F generic_dispatcher "$i"
   then

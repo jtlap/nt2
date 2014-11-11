@@ -89,10 +89,10 @@ BOOST_DISPATCH_FUNCTION_BODY_TPL_(Tag, BOOST_PP_REPEAT(N, BOOST_DISPATCH_FN_ARGS
 
 /// INTERNAL ONLY
 #define BOOST_DISPATCH_FUNCTION_BODY_TPL_(Tag, Args, N)                                            \
-Tag::dispatching( boost::dispatch::default_site_t<A0>()                                            \
-                , BOOST_PP_ENUM( BOOST_PP_SEQ_SIZE(Args), BOOST_DISPATCH_FN_ARGS_HIER, Args )      \
-                )                                                                                  \
-                (BOOST_PP_ENUM_PARAMS(BOOST_PP_SEQ_SIZE(Args), a))                                 \
+Tag::dispatch( boost::dispatch::default_site_t<A0>()                                               \
+             , BOOST_PP_ENUM( BOOST_PP_SEQ_SIZE(Args), BOOST_DISPATCH_FN_ARGS_HIER, Args )         \
+             )                                                                                     \
+             (BOOST_PP_ENUM_PARAMS(BOOST_PP_SEQ_SIZE(Args), a))                                    \
 /**/
 
 /*!

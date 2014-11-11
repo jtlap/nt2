@@ -47,7 +47,7 @@ struct TAG : boost::simd::ext::pure_constant_<TAG>                          \
     : boost::simd::meta::int_c<typename T::type,typename T::type(INT)> {};  \
                                                                             \
   template<class... Args>                                                   \
-  static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatching(Args&&... args)  \
+  static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)     \
   BOOST_AUTO_DECLTYPE_BODY( BOOST_PP_CAT(dispatching_, TAG)( ext::adl_helper(), static_cast<Args&&>(args)... ) ) \
 };                                                                          \
 template<class T, class D>                                                  \
