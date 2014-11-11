@@ -51,7 +51,6 @@ NT2_TEST_CASE_TPL ( negif_signed_int,  BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPES)
   typedef native<T,ext_t>                        n_t;
   typedef n_t                                     vT;
   typedef native< logical<T>, ext_t>             vlT;
-  typedef typename boost::dispatch::meta::call<negif_(vlT,vT)>::type r_t;
 
   // specific values tests
   NT2_TEST_EQUAL(negif(boost::simd::False<vlT>(),boost::simd::One<vT>()), boost::simd::One<vT>());

@@ -23,7 +23,6 @@ NT2_TEST_CASE_TPL ( is_included_integer__2_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef native<T,ext_t>                        n_t;
   typedef n_t                                     vT;
-  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef typename boost::dispatch::meta::call<is_included_(vT,vT)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
 
