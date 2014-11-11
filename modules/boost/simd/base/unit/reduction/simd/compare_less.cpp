@@ -25,7 +25,6 @@ NT2_TEST_CASE_TPL ( compare_less_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef native<T,ext_t>                        n_t;
   typedef n_t                                     vT;
-  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef typename boost::dispatch::meta::call<compare_less_(vT,vT)>::type r_t;
 
   // specific values tests
@@ -45,7 +44,6 @@ NT2_TEST_CASE_TPL ( compare_less_integer__2_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef native<T,ext_t>                        n_t;
   typedef n_t                                     vT;
-  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef typename boost::dispatch::meta::call<compare_less_(vT,vT)>::type r_t;
 
   // specific values tests
