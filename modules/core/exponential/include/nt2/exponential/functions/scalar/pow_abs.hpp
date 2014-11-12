@@ -29,6 +29,7 @@
 #include <nt2/include/functions/ldexp.hpp>
 #include <nt2/include/functions/pow2.hpp>
 #include <nt2/include/functions/sqr.hpp>
+#include <nt2/include/constants/minf.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/sdk/meta/as_real.hpp>
 
