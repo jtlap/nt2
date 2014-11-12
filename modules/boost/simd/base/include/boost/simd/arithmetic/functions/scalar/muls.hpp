@@ -61,7 +61,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       typedef typename dispatch::meta::upgrade<A0>::type uptype;
-      return A0(saturate<A0>(static_cast<uptype>(a0)*static_cast<uptype>(a1)));
+      return A0(saturate<A0>(multiplies(static_cast<uptype>(a0), static_cast<uptype>(a1))));
     }
   };
 
