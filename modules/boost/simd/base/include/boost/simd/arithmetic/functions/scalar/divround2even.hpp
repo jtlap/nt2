@@ -45,7 +45,7 @@ namespace boost { namespace simd { namespace ext
           if ((rx2 == aa1) && is_even(q)) --q;
           ++q;
         }
-        return copysign(result_type(q), a0*a1);
+        return copysign(result_type(q), a0^a1);
       }
       else
         return ((a0>0) ? Valmax<result_type>() : Valmin<result_type>());

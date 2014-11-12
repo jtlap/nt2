@@ -38,7 +38,7 @@ namespace boost { namespace simd { namespace ext
         result_type q = aa0/aa1;
         result_type r = aa0-q*aa1;
         if ((r!= 0) && (r-is_odd(aa1) >= (aa1 >> 1))) ++q;
-        return copysign(q, a0*a1);
+        return copysign(q, a0^a1);
       }
       else
         return ((a0>0) ? Valmax<result_type>() : Valmin<result_type>());
