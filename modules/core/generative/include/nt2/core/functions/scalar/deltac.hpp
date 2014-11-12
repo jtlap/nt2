@@ -17,7 +17,6 @@
 
 namespace nt2 { namespace ext
 {
-  /// INTERNAL ONLY
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::deltac_, tag::cpu_
                             , (A0)(A1)(D1)(D2)(T)
                             , (scalar_<integer_<A0> >)
@@ -27,28 +26,13 @@ namespace nt2 { namespace ext
                               (target_<scalar_< unspecified_<T> > > )
                             )
   {
-    typedef meta::constant_<nt2::meta::delta_<0>,typename T::type>  constant_t;
-    typedef meta::as_<typename constant_t::base_type>               target_t;
-    typedef typename  boost::proto::result_of
-                    ::make_expr < nt2::tag::deltac_, container::domain
-                                , _2D, constant_t, target_t
-                                >::type                             result_type;
-
-    BOOST_FORCEINLINE
-    result_type operator()( A0 const& i, A1 const& j
-                          , D1 const& d1, D2 const& d2, T const&
-                          ) const
-    {
-      return  boost::proto::make_expr < nt2::tag::deltac_
-                                      , container::domain
-                                      > ( _2D(d1,d2)
-                                        , constant_t(i, j)
-                                        , target_t()
-                                        );
-    }
+    BOOST_DISPATCH_RETURNS_ARGS ( 5
+                                , ( A0 i, A1 j, D1 d1, D2 d2, T const& t)
+                                , ( A0 i, A1 j, D1 d1, D2 d2, T const&)
+                                , (nt2::deltac(i, j, nt2::as_size(d1,d2), T()))
+                                )
   };
 
-  /// INTERNAL ONLY
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::deltac_, tag::cpu_
                             , (A0)(A1)(D1)(T)
                             , (scalar_<integer_<A0> >)
@@ -57,26 +41,13 @@ namespace nt2 { namespace ext
                               (target_<scalar_< unspecified_<T> > > )
                             )
   {
-    typedef meta::constant_<nt2::meta::delta_<0>,typename T::type>  constant_t;
-    typedef meta::as_<typename constant_t::base_type>               target_t;
-    typedef typename  boost::proto::result_of
-                    ::make_expr < nt2::tag::deltac_, container::domain
-                                , _2D, constant_t, target_t
-                                >::type                             result_type;
-
-    BOOST_FORCEINLINE result_type operator()(A0 const& i, A1 const& j,
-                                             D1 const& d1, T const& ) const
-    {
-      return  boost::proto::make_expr < nt2::tag::deltac_
-                                      , container::domain
-                                      > ( _2D(d1,d1)
-                                        , constant_t(i, j)
-                                        , target_t()
-                                        );
-    }
+    BOOST_DISPATCH_RETURNS_ARGS ( 4
+                                , ( A0 i, A1 j, D1 d1, T const& t)
+                                , ( A0 i, A1 j, D1 d1, T const&)
+                                , (nt2::deltac(i, j, nt2::as_size(d1), T()))
+                                )
   };
 
-/// INTERNAL ONLY
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::deltac_, tag::cpu_
                             , (A0)(A1)(FS)(T)
                             , (scalar_<integer_<A0> >)
@@ -85,24 +56,21 @@ namespace nt2 { namespace ext
                               (target_<scalar_< unspecified_<T> > > )
                             )
   {
-    typedef typename boost::remove_const<FS>::type                  size_type;
     typedef meta::constant_<nt2::meta::delta_<0>,typename T::type>  constant_t;
     typedef meta::as_<typename constant_t::base_type>               target_t;
-    typedef typename  boost::proto::result_of
-                    ::make_expr < nt2::tag::deltac_, container::domain
-                                , size_type, constant_t, target_t
-                                >::type                             result_type;
 
-    BOOST_FORCEINLINE result_type operator()(A0 const& i, A1 const& j,
-                                             FS const& fs, T const& ) const
-    {
-      return  boost::proto::make_expr < nt2::tag::deltac_
-                                      , container::domain
-                                      > ( fs
-                                        , constant_t(i, j)
-                                        , target_t()
-                                        );
-    }
+    BOOST_DISPATCH_RETURNS_ARGS ( 4
+                                , ( A0 i, A1 j, FS const& sz, T const& t)
+                                , ( A0 i, A1 j, FS const& sz, T const& )
+                                , ( boost::proto
+                                         ::make_expr< nt2::tag::deltac_
+                                                    , container::domain
+                                                    > ( sz
+                                                      , constant_t(i, j)
+                                                      , target_t()
+                                                      )
+                                  )
+                                )
   };
 } }
 
