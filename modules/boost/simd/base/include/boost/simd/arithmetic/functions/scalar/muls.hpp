@@ -16,6 +16,7 @@
 #include <boost/simd/include/functions/scalar/bitofsign.hpp>
 #include <boost/simd/include/functions/scalar/bitwise_xor.hpp>
 #include <boost/simd/include/functions/scalar/saturate.hpp>
+#include <boost/simd/include/functions/scalar/multiplies.hpp>
 #include <boost/simd/include/constants/valmin.hpp>
 #include <boost/simd/include/constants/valmax.hpp>
 #include <boost/simd/include/constants/zero.hpp>
