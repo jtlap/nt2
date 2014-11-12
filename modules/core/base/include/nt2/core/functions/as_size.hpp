@@ -15,7 +15,6 @@
 #include <nt2/include/functions/of_size.hpp>
 #include <nt2/include/functions/first_index.hpp>
 #include <nt2/sdk/meta/hierarchy_of.hpp>
-#include <boost/dispatch/details/auto_decltype.hpp>
 #include <boost/assert.hpp>
 
 namespace nt2
