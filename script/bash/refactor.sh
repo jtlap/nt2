@@ -23,7 +23,7 @@ do
     #tag = \7
     #parent = $10
     #contenu = $14
-    perl-sed 's/namespace tag(\s*){(\s*)(.*?)?(\s*)(template\s*<[^>]+>\s*)struct(\s*)(?!apply)([a-zA-Z0-9_]+)(\s*):(\s*)([^\n\}]+)(\s*)({(\s*)((?:[^{}]|(?12))*?)(\s*)});/namespace tag\1\{\2\3\4\5struct\6\7\8:\9$10$11\{$13$14$15  template<class... Args>$15  static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispath(Args&&... args)$15  BOOST_AUTO_DECLTYPE_BODY( dispatching( ext::adl_helper(), \7(), static_cast<Args&&>(args)... ) )$15\};/gs' "$i"
+    perl-sed 's/namespace tag(\s*){(\s*)(.*?)?(\s*)(template\s*<[^>]+>\s*)struct(\s*)(?!apply)([a-zA-Z0-9_]+)(\s*):(\s*)([^\n\}]+)(\s*)({(\s*)((?:[^{}]|(?12))*?)(\s*)});/namespace tag\1\{\2\3\4\5struct\6\7\8:\9$10$11\{$13$14$15  template<class... Args>$15  static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)$15  BOOST_AUTO_DECLTYPE_BODY( dispatching( ext::adl_helper(), \7(), static_cast<Args&&>(args)... ) )$15\};/gs' "$i"
   fi
   if ! grep -q -F 'static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)' "$i"
   then
