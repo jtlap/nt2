@@ -9,7 +9,7 @@
 #ifndef NT2_INCLUDE_FUNCTOR_HPP_INCLUDED
 #define NT2_INCLUDE_FUNCTOR_HPP_INCLUDED
 
-#include <boost/dispatch/include/functor.hpp>
+#include <boost/simd/include/functor.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/functor/preprocessor/call.hpp>
 #include <nt2/sdk/functor/preprocessor/dispatch.hpp>

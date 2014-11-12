@@ -31,6 +31,7 @@ namespace ext
   //============================================================================
   using boost::dispatch::meta::generic_;
   using boost::dispatch::meta::scalar_;
+  using boost::dispatch::meta::unknown_;
   using boost::dispatch::meta::unspecified_;
   using boost::dispatch::meta::fundamental_;
   using boost::dispatch::meta::bool_;
