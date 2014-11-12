@@ -23,7 +23,10 @@ namespace boost { namespace simd { namespace ext
   {
     typedef A0 result_type;
 
-    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL(1) { return a0*a0; }
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL(1)
+    {
+      return multiplies(a0, a0);
+    }
   };
 } } }
 
