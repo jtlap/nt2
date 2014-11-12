@@ -56,6 +56,21 @@ namespace boost { namespace simd { namespace details
           >
   {};
 
+  template<typename P, std::size_t C>
+  struct  avx_perm2_mask_c
+  {
+    static const int high = details::permuted<P,(C/2),C>::value;
+    static const int low  = details::permuted<P,    0,C>::value;
+    static const int hbit = (high == -1) ? 0x80 : (high/(C/2) << 4);
+    static const int lbit = (low  == -1) ? 0x08 : low/(C/2);
+    static const int value = lbit | hbit;
+  };
+
+  template<typename P, std::size_t C>
+  struct  avx_perm2_mask
+        : boost::mpl::int_< avx_perm2_mask_c<P,C>::value >
+  {};
+
   //============================================================================
   // Markup for AVX topology
   //============================================================================
@@ -64,6 +79,7 @@ namespace boost { namespace simd { namespace details
   typedef boost::mpl::int_<8>   r_zero_;
   typedef boost::mpl::int_<16>  l_zero_;
   typedef boost::mpl::int_<32>  blend_;
+  typedef boost::mpl::int_<64>  perm_;
 
   //============================================================================
   // Check if a permutation follows AVX shuffle restriction in a way or another
@@ -106,11 +122,21 @@ namespace boost { namespace simd { namespace details
     static const bool blend_shf  =   !(direct_shf | swap_shf | dupe_shf)
                                 && ((p0==0 || p0==4)  &&  (p1==1 || p1==5)
                                 &&  (p2==2 || p2==6)  &&  (p3==3 || p3==7));
+
+    // Check for permute2f18_pd(a1,a0) calls
+    static const bool perm2_shf = !(direct_shf | swap_shf | dupe_shf | blend_shf)
+                              &&  (   ( p0==0  && p1==1) || ( p0==2  && p1==3)
+                                  ||  ( p0==4  && p1==5) || ( p0==6  && p1==7)
+                                  )
+                              &&  (   ( p2==0  && p3==1) || ( p2==2  && p3==3)
+                                  ||  ( p2==4  && p3==5) || ( p2==6  && p3==7)
+                                  );
+
     // Compute topology mask
     typedef boost::mpl::int_< int(direct_shf)
                             + int(swap_shf  )*2 + int(dupe_shf  )*4
                             + int(r_zero_shf)*8 + int(l_zero_shf)*16
-                            + int(blend_shf)*32
+                            + int(blend_shf)*32 + int(perm2_shf)*64
                             > type;
   };
 
@@ -155,10 +181,26 @@ namespace boost { namespace simd { namespace details
                                 &&  (p2 < 4  && p3 < 4  && p2 >=0 && p3 >= 0)
                                 &&  (p4 == p0+4 && p5 == p1+4)
                                 &&  (p6 == p2+4 && p7 == p3+4);
+
+    // Check for permute2f18_ps(a1,a0) calls
+    static const bool perm2_shf = (( p0==0  && p1==1  && p2==2  && p3==3)
+                                || ( p0==4  && p1==5  && p2==6  && p3==7)
+                                || ( p0==8  && p1==9  && p2==10 && p3==11)
+                                || ( p0==12 && p1==13 && p2==14 && p3==15)
+                                || ( p0==-1 && p1==-1 && p2==-1 && p3==-1)
+                                  )
+                              &&  (( p4==0  && p5==1  && p6==2  && p7==3)
+                                || ( p4==4  && p5==5  && p6==6  && p7==7)
+                                || ( p4==8  && p5==9  && p6==10 && p7==11)
+                                || ( p4==12 && p5==13 && p6==14 && p7==15)
+                                || ( p4==-1 && p5==-1 && p6==-1 && p7==-1)
+                                  );
+
     // Compute topology mask
     typedef boost::mpl::int_< int(direct_shf)
                             + int(swap_shf  )*2 + int(dupe_shf  )*4
                             + int(r_zero_shf)*8 + int(l_zero_shf)*16
+                            + int(perm2_shf)*64
                             > type;
   };
 

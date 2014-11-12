@@ -68,6 +68,32 @@ namespace boost { namespace simd { namespace ext
       return call(Zero<T>(),a0,p,details::direct_());
     }
 
+    // perm2_ use permute2f128 for block based permutation
+    template<typename T, typename P>
+    BOOST_FORCEINLINE static T call ( T const& a0, P const& p
+                                    , details::perm_ const&
+                                    )
+    {
+      typename boost::is_integral<typename T::value_type>::type selector_;
+      return perm2(a0,p,selector_);
+    }
+
+    template<typename T, typename P>
+    BOOST_FORCEINLINE static T perm2( T const& a0, P const&
+                                    , boost::mpl::false_ const&
+                                    )
+    {
+      return _mm256_permute2f128_pd(a0,a0,(details::avx_perm2_mask<P,4>::value));
+    }
+
+    template<typename T, typename P>
+    BOOST_FORCEINLINE static T perm2( T const& a0, P const&
+                                    , boost::mpl::true_ const&
+                                    )
+    {
+      return _mm256_permute2f128_si256(a0,a0,(details::avx_perm2_mask<P,4>::value));
+    }
+
     // Mixed just use regular hand made permutation
     template<typename T, typename P>
     BOOST_FORCEINLINE static T call ( T const& a0, P const& p
@@ -102,9 +128,9 @@ namespace boost { namespace simd { namespace ext
       typedef typename dispatch::meta::as_floating<T>::type f_t;
 
       return bitwise_cast<T>( f_t(_mm256_blend_pd ( bitwise_cast<f_t>(a0)
-                                                    , bitwise_cast<f_t>(a1)
-                                                    , (details::avx_blend_mask<P,4>::value)
-                                                    )
+                                                  , bitwise_cast<f_t>(a1)
+                                                  , (details::avx_blend_mask<P,4>::value)
+                                                  )
                                  )
                             );
     }
@@ -132,6 +158,32 @@ namespace boost { namespace simd { namespace ext
                                     )
     {
       return call(a1,a0,p,details::direct_());
+    }
+
+    // permute2f128_* calls
+    template<typename T, typename P>
+    BOOST_FORCEINLINE static T call ( T const& a0, T const& a1, P const& p
+                                    , details::perm_ const&
+                                    )
+    {
+      typename boost::is_integral<typename T::value_type>::type selector_;
+      return perm2(a0,a1,p,selector_);
+    }
+
+    template<typename T, typename P>
+    BOOST_FORCEINLINE static T perm2( T const& a0, T const& a1, P const&
+                                    , boost::mpl::false_ const&
+                                    )
+    {
+      return _mm256_permute2f128_pd(a0,a1,(details::avx_perm2_mask<P,4>::value));
+    }
+
+    template<typename T, typename P>
+    BOOST_FORCEINLINE static T perm2( T const& a0, T const& a1, P const&
+                                    , boost::mpl::true_ const&
+                                    )
+    {
+      return _mm256_permute2f128_si256(a0,a1,(details::avx_perm2_mask<P,4>::value));
     }
   };
 
@@ -171,7 +223,33 @@ namespace boost { namespace simd { namespace ext
       return call(Zero<T>(),a0,p,details::direct_());
     }
 
-    // Two arguments duplicate
+    // perm2_ use permute2f128 for block based permutation
+    template<typename T, typename P>
+    BOOST_FORCEINLINE static T call ( T const& a0, P const& p
+                                    , details::perm_ const&
+                                    )
+    {
+      typename boost::is_integral<typename T::value_type>::type selector_;
+      return perm2(a0,p,selector_);
+    }
+
+    template<typename T, typename P>
+    BOOST_FORCEINLINE static T perm2( T const& a0, P const&
+                                    , boost::mpl::false_ const&
+                                    )
+    {
+      return _mm256_permute2f128_ps(a0,a0,(details::avx_perm2_mask<P,8>::value));
+    }
+
+    template<typename T, typename P>
+    BOOST_FORCEINLINE static T perm2( T const& a0, P const&
+                                    , boost::mpl::true_ const&
+                                    )
+    {
+      return _mm256_permute2f128_si256(a0,a0,(details::avx_perm2_mask<P,8>::value));
+    }
+
+    // Two arguments mixed
     template<typename T, typename P>
     BOOST_FORCEINLINE static T call ( T const& a0, P const& p
                                     , details::mixed_ const&
@@ -212,6 +290,32 @@ namespace boost { namespace simd { namespace ext
       return call(a1,a0,p,details::direct_());
     }
 
+    // Two arguments using permute2f128
+    template<typename T, typename P>
+    BOOST_FORCEINLINE static T call ( T const& a0, T const& a1, P const& p
+                                    , details::perm_ const&
+                                    )
+    {
+      typename boost::is_integral<typename T::value_type>::type selector_;
+      return perm2(a0,a1,p,selector_);
+    }
+
+    template<typename T, typename P>
+    BOOST_FORCEINLINE static T perm2( T const& a0, T const& a1, P const&
+                                    , boost::mpl::false_ const&
+                                    )
+    {
+      return _mm256_permute2f128_ps(a0,a1,(details::avx_perm2_mask<P,8>::value));
+    }
+
+    template<typename T, typename P>
+    BOOST_FORCEINLINE static T perm2( T const& a0, T const& a1, P const&
+                                    , boost::mpl::true_ const&
+                                    )
+    {
+      return _mm256_permute2f128_si256(a0,a1,(details::avx_perm2_mask<P,8>::value));
+    }
+
     // Two arguments mixed
     template<typename T, typename P>
     BOOST_FORCEINLINE static T call ( T const& a0, T const& a1, P const& p
@@ -221,8 +325,6 @@ namespace boost { namespace simd { namespace ext
       return details::default_permutation<8>::call(a0,a1,p);
     }
   };
-
 } } }
-
 
 #endif

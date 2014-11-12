@@ -182,6 +182,16 @@ NT2_TEST_CASE_TPL( sse2_style_shuffle, BOOST_SIMD_SIMD_TYPES)
 
 NT2_TEST_CASE_TPL( avx_style_shuffle, BOOST_SIMD_SIMD_TYPES)
 {
+  // perm2 based
+  binary_shuffle<T, 0, 1, 4, 5>();
+  unary_shuffle <T, 2, 3, 0, 1>();
+  binary_shuffle<T, 2, 3, 0, 1>();
+  binary_shuffle<T, 2, 3, 6, 7>();
+  binary_shuffle<T, 4, 5, 0, 1>();
+  binary_shuffle<T, 6, 7, 0, 1>();
+  binary_shuffle<T, 6, 7, 2, 3>();
+  binary_shuffle<T, 6, 7, 4, 5>();
+
   unary_shuffle <T, 0, 0, 2, 2>();
   binary_shuffle<T, 0, 0, 2, 2>();
   binary_shuffle<T, 4, 4, 6, 6>();

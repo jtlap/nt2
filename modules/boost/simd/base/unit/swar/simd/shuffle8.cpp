@@ -179,6 +179,30 @@ NT2_TEST_CASE_TPL( repeat_shuffle, BOOST_SIMD_SIMD_TYPES)
 
 NT2_TEST_CASE_TPL( avx_shuffle, BOOST_SIMD_SIMD_TYPES)
 {
+  // perm2f128
+  unary_shuffle <T,0, 1, 2, 3,-1,-1,-1,-1>();
+  binary_shuffle<T,0, 1, 2, 3,-1,-1,-1,-1>();
+  binary_shuffle<T,0, 1, 2, 3, 8, 9,10,11>();
+  binary_shuffle<T,0, 1, 2, 3,12,13,14,15>();
+
+  unary_shuffle <T, 4, 5, 6, 7, 0, 1, 2, 3>();
+  binary_shuffle<T, 4, 5, 6, 7, 0, 1, 2, 3>();
+  binary_shuffle<T, 4, 5, 6, 7,12,13,14,15>();
+
+  binary_shuffle<T, 8, 9,10,11, 0, 1, 2, 3>();
+  binary_shuffle<T, 8, 9,10,11, 4, 5, 6, 7>();
+
+  binary_shuffle<T,12,13,14,15, 0, 1, 2, 3>();
+  binary_shuffle<T,12,13,14,15, 4, 5, 6, 7>();
+  binary_shuffle<T,12,13,14,15, 8, 9,10,11>();
+
+  unary_shuffle <T,-1,-1,-1,-1, 0, 1, 2, 3>();
+  binary_shuffle<T,-1,-1,-1,-1, 0, 1, 2, 3>();
+  unary_shuffle <T,-1,-1,-1,-1, 4, 5, 6, 7>();
+  binary_shuffle<T,-1,-1,-1,-1, 4, 5, 6, 7>();
+  binary_shuffle<T,-1,-1,-1,-1, 8, 9,10,11>();
+  binary_shuffle<T,-1,-1,-1,-1,12,13,14,15>();
+
   // move{h/l}
   unary_shuffle <T, 0, 0, 2, 2, 4, 4, 6, 6>();
   binary_shuffle<T, 0, 0, 2, 2, 4, 4, 6, 6>();
