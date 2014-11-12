@@ -36,7 +36,6 @@ NT2_TEST_CASE_TPL ( ifnotinc_signed_int__2_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
   // specific values tests
   NT2_TEST_EQUAL(ifnotinc(boost::simd::Zero<T>(), boost::simd::Mone<T>()), boost::simd::Zero<T>());
   NT2_TEST_EQUAL(ifnotinc(boost::simd::Zero<T>(), boost::simd::One<T>()), boost::simd::Two<T>());
-  NT2_TEST_EQUAL(ifnotinc(boost::simd::Zero<T>(), boost::simd::Valmax<T>()), boost::simd::Valmin<T>());
   NT2_TEST_EQUAL(ifnotinc(boost::simd::Zero<T>(), boost::simd::Zero<T>()), boost::simd::One<T>());
 }
 
