@@ -98,11 +98,9 @@ namespace boost { namespace simd { namespace ext
     {
       // correct fma has to ensure "no intermediate overflow".
       // This is done in the case of signed integers by transtyping to unsigned type
-      // to prerform the computations in a guaranted wraping environment
-      // as signed integer oveflow in C++ produces "undefined results"
-      // (unsigned produces modulo wraping)
-      // (this is mandatory for clang), and then transtyping back.
-      return bitwise_cast<A0>(bitwise_cast<utype>(a0)*bitwise_cast<utype>(a1)+bitwise_cast<utype>(a2));
+      // to perform the computations in a guaranteed 2-complement environment
+      // since signed integer oveflow in C++ produces "undefined results"
+      return bitwise_cast<A0>(correct_fma(bitwise_cast<utype>(a0), bitwise_cast<utype>(a1), bitwise_cast<utype>(a2)));
     }
   };
 
@@ -114,10 +112,9 @@ namespace boost { namespace simd { namespace ext
                                     )
   {
     typedef A0 result_type;
-    typedef typename dispatch::meta::as_integer<A0, unsigned>::type utype;
     BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(3)
     {
-      return  a0*a1+a2;
+      return a0*a1+a2;
     }
   };
 } } }
