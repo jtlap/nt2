@@ -35,7 +35,6 @@ NT2_TEST_CASE_TPL ( dec_signed_int,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
   // specific values tests
   NT2_TEST_EQUAL(dec(boost::simd::Mone<T>()), boost::simd::Mtwo<T>());
   NT2_TEST_EQUAL(dec(boost::simd::One<T>()), boost::simd::Zero<T>());
-  NT2_TEST_EQUAL(dec(boost::simd::Valmin<T>()), boost::simd::Valmax<T>());
   NT2_TEST_EQUAL(dec(boost::simd::Zero<T>()), boost::simd::Mone<T>());
 }
 
