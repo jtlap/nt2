@@ -12,6 +12,7 @@
 
 #include <boost/simd/arithmetic/functions/correct_fma.hpp>
 #include <boost/simd/include/functions/simd/multiplies.hpp>
+#include <boost/simd/include/functions/simd/bitwise_cast.hpp>
 #include <boost/simd/include/functions/simd/plus.hpp>
 #include <boost/simd/include/functions/simd/split.hpp>
 #include <boost/simd/include/functions/simd/group.hpp>
@@ -84,12 +85,30 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::correct_fma_, tag::cpu_
+                                    , (A0)(X)
+                                    , ((simd_< int_<A0>,X >))
+                                      ((simd_< int_<A0>,X >))
+                                      ((simd_< int_<A0>,X >))
+                                    )
+  {
+    typedef A0 result_type;
+    typedef typename dispatch::meta::as_integer<A0, unsigned>::type utype;
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(3)
+    {
+      // correct fma has to ensure "no intermediate overflow".
+      // This is done in the case of signed integers by transtyping to unsigned type
+      // to perform the computations in a guaranteed 2-complement environment
+      // since signed integer oveflow in C++ produces "undefined results"
+      return bitwise_cast<A0>(correct_fma(bitwise_cast<utype>(a0), bitwise_cast<utype>(a1), bitwise_cast<utype>(a2)));
+    }
+  };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::correct_fma_, tag::cpu_
                                     , (A0)(X)
-                                    , ((simd_< integer_<A0>,X >))
-                                      ((simd_< integer_<A0>,X >))
-                                      ((simd_< integer_<A0>,X >))
+                                    , ((simd_< uint_<A0>,X >))
+                                      ((simd_< uint_<A0>,X >))
+                                      ((simd_< uint_<A0>,X >))
                                     )
   {
     typedef A0 result_type;
