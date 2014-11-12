@@ -22,7 +22,6 @@
 #include <boost/assert.hpp>
 #include <climits>
 #include <ostream>
-#include <ios>
 
 namespace boost { namespace simd
 {
@@ -95,7 +94,7 @@ namespace boost { namespace simd
   BOOST_FORCEINLINE
   std::ostream& operator<<(std::ostream& os, logical<T> const& v )
   {
-    return os << std::boolalpha << bool(v) << std::noboolalpha;
+    return os << (v ? "true" : "false");
   }
 } }
 
