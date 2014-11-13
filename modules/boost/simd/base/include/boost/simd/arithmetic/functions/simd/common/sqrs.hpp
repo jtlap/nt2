@@ -19,9 +19,11 @@
 #include <boost/simd/include/constants/sqrtvalmax.hpp>
 #include <boost/dispatch/attributes.hpp>
 
-#if defined(__has_feature) && __has_feature(address_sanitizer)
+#ifdef __has_feature
+#if __has_feature(address_sanitizer)
 #include <boost/simd/include/functions/simd/bitwise_cast.hpp>
 #include <boost/dispatch/meta/as_unsigned.hpp>
+#endif
 #endif
 
 namespace boost { namespace simd { namespace ext
@@ -35,10 +37,15 @@ namespace boost { namespace simd { namespace ext
     BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL(1)
     {
 // workaround for UBSan
-#if defined(__has_feature) && __has_feature(address_sanitizer)
+#ifdef __has_feature
+#if __has_feature(address_sanitizer)
       typedef typename boost::dispatch::meta::as_unsigned<A0>::type utype;
       return if_else(gt(abss(a0), boost::simd::Sqrtvalmax<result_type>()),
         boost::simd::Valmax<result_type>(), bitwise_cast<A0>(sqr(bitwise_cast<utype>(a0))));
+#else
+      return if_else(gt(abss(a0), boost::simd::Sqrtvalmax<result_type>()),
+                     boost::simd::Valmax<result_type>(), sqr(a0));
+#endif
 #else
       return if_else(gt(abss(a0), boost::simd::Sqrtvalmax<result_type>()),
                      boost::simd::Valmax<result_type>(), sqr(a0));
