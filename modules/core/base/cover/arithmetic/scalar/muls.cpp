@@ -54,7 +54,7 @@ NT2_TEST_CASE_TPL ( muls_real__1_0_2,  NT2_INTEGRAL_SIGNED_TYPES)
   static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   std::vector<T> in1(NR), in2(NR);
   std::vector<r_t> ref(NR);
-  nt2::roll(in1, -nt2::Valmin<T>(), -nt2::Sqrtvalmax<T>());
+  nt2::roll(in1, (nt2::Valmin<T>()+1), -nt2::Sqrtvalmax<T>());
   nt2::roll(in2, nt2::Sqrtvalmax<T>()+1, nt2::Valmax<T>());
   for(nt2::uint32_t i=0; i < NR ; ++i)
   {

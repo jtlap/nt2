@@ -95,7 +95,7 @@ NT2_TEST_CASE_TPL ( cumsum_signed_int__1_0,  NT2_SIMD_INTEGRAL_SIGNED_TYPES)
   // random verifications
   static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
-    NT2_CREATE_BUF(tab_a0,T, NR, nt2::Valmin<T>(), nt2::Valmax<T>());
+    NT2_CREATE_BUF(tab_a0,T, NR, nt2::Valmin<T>()/T(cardinal_of<n_t>::value), nt2::Valmax<T>()/T(cardinal_of<n_t>::value));
     for(nt2::uint32_t j = 0; j < NR;j+=cardinal_of<n_t>::value)
       {
         vT a0 = aligned_load<vT>(&tab_a0[0],j);
