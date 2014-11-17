@@ -38,6 +38,9 @@ do
     perl-sed 's/namespace tag(\s*){(\s*)(.*?)?(\s*)BOOST_SIMD_CONSTANT_REGISTER\((\s*)([a-zA-Z0-9_]+)(\s*),([^)]+)\)/namespace tag\1\{\2struct \6;\1\}\1namespace ext\1\{\2template<class Site, class... H>\2BOOST_FORCEINLINE generic_dispatcher<tag::\6, Site> dispatching_\6(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)\2\{\2  return generic_dispatcher<tag::\6, Site>();\2\}\2template<class... Args>\2struct impl_\6;\1\}\1namespace tag\1\{\2\3\4BOOST_SIMD_CONSTANT_REGISTER(\5\6\7,\8)/gs' "$i"
   fi
 
+  # replace tag::formal_ by ext::abstract_<X>
+  perl-sed 's/namespace tag(\s*){(\s*)(.*?)?(\s*)(template\s*<[^>]+>\s*)?struct(\s*)(?!apply)([a-zA-Z0-9_]+)(\s*):(\s*)(?:boost::)?(?:dispatch::)?(?:tag::)?formal_(\s*){(.*?)typedef (.*?) parent;/namespace tag\1\{\2\3\4\5struct\6\7\8:\9ext::abstract_<\7>$10\{$11typedef ext::abstract_<\7> parent;/gs' "$i"
+
 done
 
 echo "function specializations"

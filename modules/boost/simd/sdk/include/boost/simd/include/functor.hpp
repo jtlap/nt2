@@ -26,7 +26,7 @@ namespace boost { namespace dispatch
     BOOST_FORCEINLINE
     BOOST_AUTO_DECLTYPE operator()(Args&&... args) const
     BOOST_AUTO_DECLTYPE_BODY(
-      dispatching(meta::adl_helper(), Tag(), boost::dispatch::default_site_t<Site>(), boost::dispatch::meta::hierarchy_of_t<Args>()...)(args...)
+      dispatching(meta::adl_helper(), Tag(), boost::dispatch::default_site_t<Site>(), boost::dispatch::meta::hierarchy_of_t<Args>()...)(static_cast<Args&&>(args)...)
     )
   };
 } }
@@ -52,7 +52,7 @@ namespace boost { namespace simd
     BOOST_FORCEINLINE
     BOOST_AUTO_DECLTYPE operator()(Args&&... args) const
     BOOST_AUTO_DECLTYPE_BODY(
-      dispatching(ext::adl_helper(), Tag(), boost::dispatch::default_site_t<Site>(), boost::dispatch::meta::hierarchy_of_t<Args>()...)(args...)
+      dispatching(ext::adl_helper(), Tag(), boost::dispatch::default_site_t<Site>(), boost::dispatch::meta::hierarchy_of_t<Args>()...)(static_cast<Args&&>(args)...)
     )
   };
 } }
