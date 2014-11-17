@@ -45,6 +45,12 @@ namespace boost { namespace dispatch { namespace meta
     typedef unspecified_<T> parent;
   };
 
+  template<class T>
+  struct elementwise_ : unspecified_<T>
+  {
+    typedef unspecified_<T> parent;
+  };
+
   template<class T, class Op, class Neutral>
   struct reduction_ : unspecified_<T>
   {
