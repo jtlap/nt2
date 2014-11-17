@@ -22,10 +22,10 @@ namespace nt2 { namespace ext
   struct adl_helper {};
 
   template<class Tag, class Site, class... Args>
-  BOOST_FORCEINLINE boost::dispatch::functor<Tag, Site>
+  BOOST_FORCEINLINE boost::dispatch::functor< Tag, boost::dispatch::default_site_t<Site> >
   dispatching(adl_helper, unknown_<Tag>, unknown_<Site>, unknown_<Args>...)
   {
-    return boost::dispatch::functor<Tag, Site>();
+    return boost::dispatch::functor< Tag, boost::dispatch::default_site_t<Site> >();
   }
 } }
 
