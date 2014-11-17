@@ -17,7 +17,11 @@
     the trailing return type in C++14.
 */
 
-#if defined(BOOST_NO_CXX14_RETURN_TYPE_DEDUCTION) || defined(BOOST_NO_CXX14_DECLTYPE_AUTO) || BOOST_VERSION < 105800
+#if 0 // useful for debugging with GCC 4.7+
+#define BOOST_AUTO_DECLTYPE auto
+#define BOOST_AUTO_DECLTYPE_HEADER(body)
+#define BOOST_AUTO_DECLTYPE_BODY(body) { return body; }
+#elif defined(BOOST_NO_CXX14_RETURN_TYPE_DEDUCTION) || defined(BOOST_NO_CXX14_DECLTYPE_AUTO) || BOOST_VERSION < 105800
 #define BOOST_AUTO_DECLTYPE auto
 #define BOOST_AUTO_DECLTYPE_HEADER(body) -> decltype(body)
 #define BOOST_AUTO_DECLTYPE_BODY(body) -> decltype(body) { return body; }
