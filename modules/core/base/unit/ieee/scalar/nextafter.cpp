@@ -35,10 +35,7 @@ NT2_TEST_CASE_TPL ( nextafter_float_2_0,  (float))
 
   using nt2::nextafter;
   using nt2::tag::nextafter_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<nextafter_(T,T)>::type r_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef T wished_r_t;
 
 
@@ -54,10 +51,7 @@ NT2_TEST_CASE_TPL ( nextafter_double_2_0,  (double))
 
   using nt2::nextafter;
   using nt2::tag::nextafter_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<nextafter_(T,T)>::type r_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef T wished_r_t;
 
 
@@ -73,10 +67,7 @@ NT2_TEST_CASE_TPL ( nextafter_signed_int__2_0,  NT2_INTEGRAL_SIGNED_TYPES)
 
   using nt2::nextafter;
   using nt2::tag::nextafter_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<nextafter_(T,T)>::type r_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef T wished_r_t;
 
 
@@ -92,10 +83,7 @@ NT2_TEST_CASE_TPL ( nextafter_unsigned_int__2_0,  NT2_UNSIGNED_TYPES)
 
   using nt2::nextafter;
   using nt2::tag::nextafter_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<nextafter_(T,T)>::type r_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef T wished_r_t;
 
 
