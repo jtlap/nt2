@@ -74,6 +74,7 @@ namespace nt2 { namespace ext
       , "Source range is larger than destination container."
       );
       boost::dispatch::ignore_unused(a1);
+      boost::dispatch::ignore_unused(range_size);
 
       a0.clear();
       a0.insert(a0.begin(), a2, a3);
