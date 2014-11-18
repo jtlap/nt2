@@ -42,13 +42,9 @@ NT2_TEST_CASE_TPL ( compare_equal_real__2_0,  NT2_SIMD_REAL_TYPES)
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef typename nt2::meta::upgrade<T>::type   u_t;
   typedef native<T,ext_t>                        n_t;
   typedef n_t                                     vT;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef native<iT,ext_t>                       ivT;
   typedef typename nt2::meta::call<compare_equal_(vT,vT)>::type r_t;
-  typedef typename nt2::meta::call<compare_equal_(T,T)>::type sr_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
 
 
@@ -68,13 +64,9 @@ NT2_TEST_CASE_TPL ( compare_equal_integer__2_0,  NT2_SIMD_INTEGRAL_TYPES)
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef typename nt2::meta::upgrade<T>::type   u_t;
   typedef native<T,ext_t>                        n_t;
   typedef n_t                                     vT;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef native<iT,ext_t>                       ivT;
   typedef typename nt2::meta::call<compare_equal_(vT,vT)>::type r_t;
-  typedef typename nt2::meta::call<compare_equal_(T,T)>::type sr_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
 
 
