@@ -66,7 +66,6 @@ NT2_TEST_CASE_TPL( split_one_output, BOOST_SIMD_SIMD_TYPES )
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef native<T,ext_t>             vT;
 
-  typedef typename boost::dispatch::meta::upgrade<vT>::type uvT;
 
   typedef typename boost::simd::meta::
           vector_of< typename boost::dispatch::meta::
