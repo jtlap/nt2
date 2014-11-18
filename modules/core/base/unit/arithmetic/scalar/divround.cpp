@@ -61,7 +61,6 @@ NT2_TEST_CASE_TPL ( divround_unsigned_int__2_0,  NT2_UNSIGNED_TYPES)
 
   using nt2::divround;
   using nt2::tag::divround_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<divround_(T,T)>::type r_t;
   typedef T wished_r_t;
 

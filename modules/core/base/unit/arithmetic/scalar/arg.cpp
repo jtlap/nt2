@@ -35,10 +35,7 @@ NT2_TEST_CASE_TPL ( arg_real__1_0,  NT2_REAL_TYPES)
 
   using nt2::arg;
   using nt2::tag::arg_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<arg_(T)>::type r_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename boost::dispatch::meta::as_floating<T>::type wished_r_t;
 
 

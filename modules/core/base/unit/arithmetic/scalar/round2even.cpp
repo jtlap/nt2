@@ -35,10 +35,7 @@ NT2_TEST_CASE_TPL ( round2even_real__1_0,  NT2_REAL_TYPES)
 
   using nt2::round2even;
   using nt2::tag::round2even_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<round2even_(T)>::type r_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef T wished_r_t;
 
 
@@ -68,10 +65,7 @@ NT2_TEST_CASE_TPL ( round2even_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
 
   using nt2::round2even;
   using nt2::tag::round2even_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<round2even_(T)>::type r_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef T wished_r_t;
 
 
@@ -91,10 +85,7 @@ NT2_TEST_CASE_TPL ( round2even_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
 
   using nt2::round2even;
   using nt2::tag::round2even_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<round2even_(T)>::type r_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef T wished_r_t;
 
 

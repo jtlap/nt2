@@ -41,7 +41,6 @@ NT2_TEST_CASE_TPL ( idivide_real__2_0,  NT2_REAL_TYPES)
 
   using nt2::idivide;
   using nt2::tag::idivide_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
   typedef T r_t;
 
   // specific values tests

@@ -41,16 +41,8 @@ NT2_TEST_CASE_TPL ( fma_real__3_0,  NT2_SIMD_REAL_TYPES)
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef typename nt2::meta::upgrade<T>::type   u_t;
   typedef native<T,ext_t>                        n_t;
   typedef n_t                                     vT;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef native<iT,ext_t>                       ivT;
-  typedef typename nt2::meta::call<fma_(vT,vT,vT)>::type r_t;
-  typedef typename nt2::meta::call<fma_(T,T,T)>::type sr_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-
-
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(fma(nt2::Inf<vT>(), nt2::Inf<vT>(), nt2::Inf<vT>())[0], nt2::Inf<T>(), 0);

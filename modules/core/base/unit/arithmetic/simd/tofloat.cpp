@@ -62,7 +62,6 @@ NT2_TEST_CASE_TPL ( tofloat_int_convert__1_0,  NT2_SIMD_INT_CONVERT_TYPES)
   typedef native<fT,ext_t>                       fvT;
   typedef typename boost::dispatch::meta::strip<typename boost::dispatch::meta::call<tofloat_(vT)>::type>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type sr_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
 
   NT2_TEST_TYPE_IS(r_t, fvT);
 
@@ -88,7 +87,6 @@ NT2_TEST_CASE_TPL ( tofloat_uint_convert__1_0,  NT2_SIMD_UINT_CONVERT_TYPES)
   typedef native<fT,ext_t>                       fvT;
   typedef typename boost::dispatch::meta::strip<typename boost::dispatch::meta::call<tofloat_(vT)>::type>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type sr_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
 
   NT2_TEST_TYPE_IS(r_t, fvT);
 
