@@ -41,10 +41,7 @@ NT2_TEST_CASE_TPL ( predecessor_real__1_0,  NT2_REAL_TYPES)
 
   using nt2::predecessor;
   using nt2::tag::predecessor_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<predecessor_(T)>::type r_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef T wished_r_t;
 
 
@@ -69,10 +66,7 @@ NT2_TEST_CASE_TPL ( predecessor_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
 
   using nt2::predecessor;
   using nt2::tag::predecessor_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<predecessor_(T)>::type r_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef T wished_r_t;
 
 
@@ -93,10 +87,7 @@ NT2_TEST_CASE_TPL ( predecessor_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
 
   using nt2::predecessor;
   using nt2::tag::predecessor_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<predecessor_(T)>::type r_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef T wished_r_t;
 
 
@@ -121,8 +112,6 @@ NT2_TEST_CASE_TPL ( predecessor_real__2_1,  NT2_REAL_TYPES)
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<predecessor_(T,iT)>::type r_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef T wished_r_t;
 
 
@@ -141,8 +130,6 @@ NT2_TEST_CASE_TPL ( predecessor_unsigned_int__2_1,  NT2_UNSIGNED_TYPES)
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<predecessor_(T,iT)>::type r_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef T wished_r_t;
 
 
@@ -161,8 +148,6 @@ NT2_TEST_CASE_TPL ( predecessor_signed_int__2_1,  NT2_INTEGRAL_SIGNED_TYPES)
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<predecessor_(T,iT)>::type r_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef T wished_r_t;
 
 

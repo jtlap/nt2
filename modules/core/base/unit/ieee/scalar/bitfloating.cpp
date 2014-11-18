@@ -37,10 +37,7 @@ NT2_TEST_CASE_TPL ( bitfloating_int_convert__1_0,  NT2_INT_CONVERT_TYPES)
 
   using nt2::bitfloating;
   using nt2::tag::bitfloating_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<bitfloating_(T)>::type r_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename nt2::meta::as_floating<T>::type wished_r_t;
 
 
@@ -56,10 +53,7 @@ NT2_TEST_CASE_TPL ( bitfloating_uint_convert__1_0,  NT2_UINT_CONVERT_TYPES)
 
   using nt2::bitfloating;
   using nt2::tag::bitfloating_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<bitfloating_(T)>::type r_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename nt2::meta::as_floating<T>::type wished_r_t;
 
 

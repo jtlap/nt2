@@ -39,10 +39,7 @@ NT2_TEST_CASE_TPL ( exponentbits_real__1_0,  NT2_REAL_TYPES)
 
   using nt2::exponentbits;
   using nt2::tag::exponentbits_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<exponentbits_(T)>::type r_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename nt2::meta::as_integer<T, signed>::type wished_r_t;
 
 
