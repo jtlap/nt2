@@ -33,7 +33,6 @@ NT2_TEST_CASE_TPL ( round_real__1_0,  NT2_REAL_TYPES)
 
   using nt2::round;
   using nt2::tag::round_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<round_(T)>::type r_t;
   typedef T wished_r_t;
 
@@ -60,7 +59,6 @@ NT2_TEST_CASE_TPL ( round_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
 
   using nt2::round;
   using nt2::tag::round_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<round_(T)>::type r_t;
   typedef T wished_r_t;
 
@@ -78,7 +76,6 @@ NT2_TEST_CASE_TPL ( round_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
 
   using nt2::round;
   using nt2::tag::round_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<round_(T)>::type r_t;
   typedef T wished_r_t;
 

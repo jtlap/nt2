@@ -60,7 +60,6 @@ NT2_TEST_CASE_TPL ( touints_real2,   BOOST_SIMD_SIMD_REAL_TYPES)
   using boost::simd::native;
   typedef BOOST_SIMD_DEFAULT_EXTENSION                                ext_t;
   typedef native<T,ext_t>                                                vT;
-  typedef typename boost::dispatch::meta::call<touints_(vT)>::type      r_t;
   typedef typename boost::dispatch::meta::call<touints_(T)>::type        iT;
   typedef native<iT,ext_t>                                              ivT;
 

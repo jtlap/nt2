@@ -35,10 +35,7 @@ NT2_TEST_CASE_TPL ( sqr_real__1_0,  NT2_REAL_TYPES)
 
   using nt2::sqr;
   using nt2::tag::sqr_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<sqr_(T)>::type r_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename boost::common_type<T,T>::type wished_r_t;
 
 
@@ -62,10 +59,7 @@ NT2_TEST_CASE_TPL ( sqr_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
 
   using nt2::sqr;
   using nt2::tag::sqr_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<sqr_(T)>::type r_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename boost::common_type<T,T>::type wished_r_t;
 
 
@@ -85,10 +79,7 @@ NT2_TEST_CASE_TPL ( sqr_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
 
   using nt2::sqr;
   using nt2::tag::sqr_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<sqr_(T)>::type r_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename boost::common_type<T,T>::type wished_r_t;
 
 
