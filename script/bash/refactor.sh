@@ -7,11 +7,17 @@ function perl-sed() {
   perl -p -0777 -i -e "$@"
 }
 
-# files that define functions
-functions=$(find . -regextype posix-egrep -regex '.*/(functions|constants)/[^/]+\.hpp' | grep -Ev 'include/(functions|constants|nt2/cuda)')
+if [ "$#" -lt 1 ]
+then
+  # files that define functions
+  functions=$(find . -regextype posix-egrep -regex '.*/(functions|constants)/[^/]+\.hpp' | grep -Ev 'include/(functions|constants|nt2/cuda)')
 
-# files that can add specializations to functions
-specializations=$(find . -not -regex '.*/preprocessor/.*' -name '*.hpp' -o -name '*.cpp')
+  # files that can add specializations to functions
+  specializations=$(find . -not -regex '.*/preprocessor/.*' -name '*.hpp' -o -name '*.cpp')
+else
+  functions=$(for i in "$@"; do echo "$i"; done)
+  specializations=$(for i in "$@"; do echo "$i"; done)
+fi
 
 echo "function definitions"
 echo "$functions" | while read i
