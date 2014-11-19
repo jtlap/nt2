@@ -19,7 +19,7 @@
 #include <hpx/hpx_init.hpp>
 #endif
 
-#if defined(DNT2_USE_MAGMA)
+#if defined(NT2_USE_MAGMA)
 #include <magma.h>
 #endif
 
