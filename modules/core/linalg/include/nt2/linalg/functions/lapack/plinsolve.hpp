@@ -16,6 +16,7 @@
 #include <nt2/include/functions/posvx.hpp>
 #include <nt2/include/functions/of_size.hpp>
 #include <nt2/include/functions/resize.hpp>
+#include <nt2/include/functions/zeros.hpp>
 #include <nt2/linalg/options.hpp>
 #include <nt2/linalg/functions/details/eval_linsolve.hpp>
 #include <nt2/sdk/meta/settings_of.hpp>
@@ -92,7 +93,8 @@ namespace nt2 { namespace ext
               , nt2::symmetric_ const&) const
     {
       type_t rcond;
-      nt2::container::table<nt2_la_int> piv(nt2::of_size(a0.leading_size(),1));
+      nt2::container::table<nt2_la_int> piv = nt2::zeros(a0.leading_size(), 1
+                                            , nt2::meta::as_<nt2_la_int>() );
       boost::proto::child_c<0>(a2).resize(nt2::of_size(a0.leading_size(),1));
       NT2_AS_TERMINAL_IN(desired_semantic1,a,a0);
       NT2_AS_TERMINAL_IN(desired_semantic,b,a1);

@@ -115,7 +115,7 @@ namespace nt2 { namespace ext
     {
       NT2_AS_TERMINAL_INOUT(desired_semantic,b,a1,boost::proto::child_c<0>(a2) );
       matrix_type entry(a0);
-
+      piv.resize(nt2::of_size(a0.leading_size(),1));
       nt2::sysv( boost::proto::value(entry),boost::proto::value(piv)
               , boost::proto::value(b));
     }
