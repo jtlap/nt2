@@ -36,7 +36,6 @@ NT2_TEST_CASE_TPL ( all_real__1_0,  NT2_SIMD_REAL_TYPES)
   typedef n_t                                     vT;
   typedef typename nt2::meta::call<all_(T)>::type sr_t;
 
-
   // specific values tests
   NT2_TEST_EQUAL(nt2::all(nt2::Inf<vT>()), nt2::True<sr_t>());
   NT2_TEST_EQUAL(nt2::all(nt2::Minf<vT>()), nt2::True<sr_t>());

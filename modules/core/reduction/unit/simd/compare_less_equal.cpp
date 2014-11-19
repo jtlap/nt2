@@ -57,7 +57,6 @@ NT2_TEST_CASE_TPL ( compare_less_equal_signed_int__2_0,  NT2_SIMD_INTEGRAL_SIGNE
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef native<T,ext_t>                        n_t;
   typedef n_t                                     vT;
-  typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<compare_less_equal_(vT,vT)>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
 

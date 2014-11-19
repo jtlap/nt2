@@ -56,7 +56,6 @@ NT2_TEST_CASE_TPL ( any_integer__1_0,  NT2_SIMD_INTEGRAL_TYPES)
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef native<T,ext_t>                        n_t;
   typedef n_t                                     vT;
-  typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<any_(vT)>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
 
