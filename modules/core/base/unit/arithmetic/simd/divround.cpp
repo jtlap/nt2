@@ -37,11 +37,7 @@ NT2_TEST_CASE_TPL ( divround_real__2_0,  NT2_SIMD_REAL_TYPES)
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef native<T,ext_t>                        n_t;
   typedef n_t                                     vT;
-  typedef typename nt2::meta::call<divround_(vT,vT)>::type r_t;
   typedef typename nt2::meta::call<divround_(T,T)>::type sr_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-
-
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(divround(nt2::Five<vT>(),nt2::Three<vT>())[0], nt2::Two<sr_t>(), 0);

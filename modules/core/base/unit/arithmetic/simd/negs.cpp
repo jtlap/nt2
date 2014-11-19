@@ -66,10 +66,6 @@ NT2_TEST_CASE_TPL ( negs_signed_int__1_0,  NT2_SIMD_INTEGRAL_SIGNED_TYPES)
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef native<T,ext_t>                        n_t;
   typedef n_t                                     vT;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<negs_(vT)>::type r_t;
-
-
 
   // specific values tests
   NT2_TEST_EQUAL(negs(nt2::splat<vT>(100))[0], T(-100));
