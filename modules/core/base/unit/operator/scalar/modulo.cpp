@@ -35,10 +35,7 @@ NT2_TEST_CASE_TPL ( modulo_signed_int__2_0,  NT2_INTEGRAL_SIGNED_TYPES)
 
   using nt2::modulo;
   using nt2::tag::modulo_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<modulo_(T,T)>::type r_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef r_t wished_r_t;
 
 
@@ -60,10 +57,7 @@ NT2_TEST_CASE_TPL ( modulo_unsigned_int__2_0,  NT2_UNSIGNED_TYPES)
 
   using nt2::modulo;
   using nt2::tag::modulo_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<modulo_(T,T)>::type r_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef r_t wished_r_t;
 
 

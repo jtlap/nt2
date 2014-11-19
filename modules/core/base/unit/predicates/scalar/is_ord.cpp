@@ -37,10 +37,7 @@ NT2_TEST_CASE_TPL ( is_ord_real__2_0,  NT2_REAL_TYPES)
 
   using nt2::is_ord;
   using nt2::tag::is_ord_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<is_ord_(T,T)>::type r_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename nt2::meta::as_logical<T>::type wished_r_t;
 
 
@@ -66,10 +63,7 @@ NT2_TEST_CASE_TPL ( is_ord_signed_int__2_0,  NT2_INTEGRAL_SIGNED_TYPES)
 
   using nt2::is_ord;
   using nt2::tag::is_ord_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<is_ord_(T,T)>::type r_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename nt2::meta::as_logical<T>::type wished_r_t;
 
 
@@ -89,10 +83,7 @@ NT2_TEST_CASE_TPL ( is_ord_unsigned_int__2_0,  NT2_UNSIGNED_TYPES)
 
   using nt2::is_ord;
   using nt2::tag::is_ord_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<is_ord_(T,T)>::type r_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename nt2::meta::as_logical<T>::type wished_r_t;
 
 

@@ -37,10 +37,7 @@ NT2_TEST_CASE_TPL ( majority_real__3_0,  NT2_REAL_TYPES)
 
   using nt2::majority;
   using nt2::tag::majority_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<majority_(T,T,T)>::type r_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename nt2::meta::as_logical<T>::type wished_r_t;
 
 
@@ -66,10 +63,7 @@ NT2_TEST_CASE_TPL ( majority_signed_int__3_0,  NT2_INTEGRAL_SIGNED_TYPES)
 
   using nt2::majority;
   using nt2::tag::majority_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<majority_(T,T,T)>::type r_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename nt2::meta::as_logical<T>::type wished_r_t;
 
 
@@ -89,10 +83,7 @@ NT2_TEST_CASE_TPL ( majority_unsigned_int__3_0,  NT2_UNSIGNED_TYPES)
 
   using nt2::majority;
   using nt2::tag::majority_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<majority_(T,T,T)>::type r_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename nt2::meta::as_logical<T>::type wished_r_t;
 
 
