@@ -37,10 +37,7 @@ NT2_TEST_CASE_TPL ( is_not_equal_with_equal_nans_real__2_0,  NT2_REAL_TYPES)
 
   using nt2::is_not_equal_with_equal_nans;
   using nt2::tag::is_not_equal_with_equal_nans_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<is_not_equal_with_equal_nans_(T,T)>::type r_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename nt2::meta::as_logical<T>::type wished_r_t;
 
 
@@ -66,10 +63,7 @@ NT2_TEST_CASE_TPL ( is_not_equal_with_equal_nans_signed_int__2_0,  NT2_INTEGRAL_
 
   using nt2::is_not_equal_with_equal_nans;
   using nt2::tag::is_not_equal_with_equal_nans_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<is_not_equal_with_equal_nans_(T,T)>::type r_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename nt2::meta::as_logical<T>::type wished_r_t;
 
 
@@ -89,10 +83,7 @@ NT2_TEST_CASE_TPL ( is_not_equal_with_equal_nans_unsigned_int__2_0,  NT2_UNSIGNE
 
   using nt2::is_not_equal_with_equal_nans;
   using nt2::tag::is_not_equal_with_equal_nans_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<is_not_equal_with_equal_nans_(T,T)>::type r_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename nt2::meta::as_logical<T>::type wished_r_t;
 
 

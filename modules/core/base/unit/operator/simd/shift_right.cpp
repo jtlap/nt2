@@ -85,7 +85,6 @@ NT2_TEST_CASE_TPL ( shift_right_unsigned_int__2_0_i,  BOOST_SIMD_SIMD_UNSIGNED_T
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef native<T,ext_t>               vT;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
-  typedef native<iT,ext_t>                       ivT;
   typedef typename boost::dispatch::meta::call<shift_right_(vT,iT)>::type r_t;
 
   // specific values tests
@@ -105,7 +104,6 @@ NT2_TEST_CASE_TPL ( shift_right_signed_int__2_0_i,  BOOST_SIMD_SIMD_INTEGRAL_SIG
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef native<T,ext_t>               vT;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
-  typedef native<iT,ext_t>                       ivT;
   typedef typename boost::dispatch::meta::call<shift_right_(vT,iT)>::type r_t;
 
   // specific values tests

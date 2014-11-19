@@ -35,10 +35,7 @@ NT2_TEST_CASE_TPL ( unary_minus_real__1_0,  NT2_REAL_TYPES)
 
   using nt2::unary_minus;
   using nt2::tag::unary_minus_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<unary_minus_(T)>::type r_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef r_t wished_r_t;
 
 
@@ -61,10 +58,7 @@ NT2_TEST_CASE_TPL ( unary_minus_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
 
   using nt2::unary_minus;
   using nt2::tag::unary_minus_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<unary_minus_(T)>::type r_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef r_t wished_r_t;
 
 
