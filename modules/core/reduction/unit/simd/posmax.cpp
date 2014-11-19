@@ -44,8 +44,6 @@ NT2_TEST_CASE_TPL ( posmax_real__1_0,  NT2_SIMD_REAL_TYPES)
   typedef n_t                                     vT;
   typedef typename nt2::meta::call<posmax_(T)>::type sr_t;
 
-
-
   // specific values tests
   NT2_TEST_ULP_EQUAL(posmax(nt2::Inf<vT>()), nt2::Zero<sr_t>(), 0);
   NT2_TEST_ULP_EQUAL(posmax(nt2::Minf<vT>()), nt2::Zero<sr_t>(), 0);
