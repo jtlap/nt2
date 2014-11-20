@@ -41,11 +41,8 @@ NT2_TEST_CASE_TPL ( firstbitset_float_1_0,  NT2_SIMD_REAL_TYPES)
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef typename boost::dispatch::meta::upgrade<T>::type   u_t;
   typedef native<T,ext_t>                        n_t;
   typedef n_t                                     vT;
-  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
-  typedef native<iT,ext_t>                       ivT;
   typedef typename boost::dispatch::meta::call<firstbitset_(vT)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
@@ -65,14 +62,9 @@ NT2_TEST_CASE_TPL ( firstbitset_signed_int__1_0,  NT2_SIMD_INTEGRAL_SIGNED_TYPES
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef typename nt2::meta::upgrade<T>::type   u_t;
   typedef native<T,ext_t>                        n_t;
   typedef n_t                                     vT;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef native<iT,ext_t>                       ivT;
-  typedef typename nt2::meta::call<firstbitset_(vT)>::type r_t;
   typedef typename nt2::meta::call<firstbitset_(T)>::type sr_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
 
   // specific values tests
   NT2_TEST_EQUAL(firstbitset(nt2::One<vT>())[0], nt2::One<sr_t>());
@@ -87,14 +79,9 @@ NT2_TEST_CASE_TPL ( firstbitset_unsigned_int__1_0,  NT2_SIMD_UNSIGNED_TYPES)
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef typename nt2::meta::upgrade<T>::type   u_t;
   typedef native<T,ext_t>                        n_t;
   typedef n_t                                     vT;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef native<iT,ext_t>                       ivT;
-  typedef typename nt2::meta::call<firstbitset_(vT)>::type r_t;
   typedef typename nt2::meta::call<firstbitset_(T)>::type sr_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
 
   // specific values tests
   NT2_TEST_EQUAL(firstbitset(nt2::One<vT>())[0], nt2::One<sr_t>());

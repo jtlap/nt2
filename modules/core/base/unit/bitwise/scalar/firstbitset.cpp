@@ -35,10 +35,7 @@ NT2_TEST_CASE_TPL ( firstbitset_float_1_0,  (float))
 
   using nt2::firstbitset;
   using nt2::tag::firstbitset_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<firstbitset_(T)>::type r_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename nt2::meta::as_integer<T, unsigned>::type wished_r_t;
 
 
@@ -61,10 +58,7 @@ NT2_TEST_CASE_TPL ( firstbitset_double_1_0,  (double))
 
   using nt2::firstbitset;
   using nt2::tag::firstbitset_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<firstbitset_(T)>::type r_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename nt2::meta::as_integer<T, unsigned>::type wished_r_t;
 
 
@@ -87,10 +81,7 @@ NT2_TEST_CASE_TPL ( firstbitset_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
 
   using nt2::firstbitset;
   using nt2::tag::firstbitset_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<firstbitset_(T)>::type r_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename nt2::meta::as_integer<T, unsigned>::type wished_r_t;
 
 
@@ -111,10 +102,7 @@ NT2_TEST_CASE_TPL ( firstbitset_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
 
   using nt2::firstbitset;
   using nt2::tag::firstbitset_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<firstbitset_(T)>::type r_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename nt2::meta::as_integer<T, unsigned>::type wished_r_t;
 
 
