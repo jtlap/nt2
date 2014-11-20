@@ -40,8 +40,6 @@ NT2_TEST_CASE_TPL ( shr_unsigned_int__2_0,  NT2_UNSIGNED_TYPES)
   typedef T r_type;
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<shr_(T,iT)>::type r_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef T wished_r_t;
 
 

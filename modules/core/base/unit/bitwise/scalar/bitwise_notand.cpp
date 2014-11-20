@@ -35,10 +35,7 @@ NT2_TEST_CASE_TPL ( bitwise_notand_real__2_0,  NT2_REAL_TYPES)
 
   using nt2::bitwise_notand;
   using nt2::tag::bitwise_notand_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<bitwise_notand_(T,T)>::type r_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef T wished_r_t;
 
 
@@ -61,10 +58,7 @@ NT2_TEST_CASE_TPL ( bitwise_notand_integer__2_0,  NT2_INTEGRAL_TYPES)
 
   using nt2::bitwise_notand;
   using nt2::tag::bitwise_notand_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<bitwise_notand_(T,T)>::type r_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef T wished_r_t;
 
 
