@@ -35,7 +35,23 @@ namespace nt2
     struct pplus_ : ext::elementwise_<pplus_>
     {
      typedef ext::elementwise_<pplus_> parent;
+
+     template<class... Args>
+     static BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+     BOOST_AUTO_DECLTYPE_BODY( dispatching_pplus_(ext::adl_helper(), args...) )
     };
+  }
+
+  namespace ext
+  {
+    template<class Site, class... H>
+    boost::dispatch::generic_dispatcher<tag::pplus_, Site> dispatching_pplus_(ext::adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return boost::dispatch::generic_dispatcher<tag::pplus_, Site>();
+    }
+
+    template<class... Args>
+    struct impl_pplus_;
   }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::pplus_, pplus, (A0&)(A1&), 2)
@@ -45,7 +61,7 @@ namespace nt2
 
   namespace ext
   {
-    NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pplus_, tag::cpu_, (A0)
+    BOOST_DISPATCH_IMPLEMENT  ( pplus_, tag::cpu_, (A0)
                               , (scalar_< unspecified_<A0> >)
                                 (scalar_< unspecified_<A0> >)
                               )

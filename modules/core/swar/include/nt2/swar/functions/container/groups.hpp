@@ -24,11 +24,11 @@ namespace nt2 { namespace ext
   // groups
   NT2_FUNCTOR_IMPLEMENTATION_IF( nt2::tag::run_, tag::cpu_
                             , (A0)(State)(Data)(X)
-                            , (mpl::and_<
-                                mpl::less< mpl::sizeof_<typename A0::value_type>
-                                         , mpl::sizeof_<typename boost::proto::result_of::child_c<A0&, 0>::value_type::value_type>
+                            , (boost::mpl::and_<
+                                boost::mpl::less< boost::mpl::sizeof_<typename A0::value_type>
+                                         , boost::mpl::sizeof_<typename boost::proto::result_of::child_c<A0&, 0>::value_type::value_type>
                                          >
-                              , simd::meta::is_vectorizable<typename boost::proto::result_of::child_c<A0&, 0>::value_type::value_type, X>
+                              , boost::simd::meta::is_vectorizable<typename boost::proto::result_of::child_c<A0&, 0>::value_type::value_type, X>
                               >)
                             , ((node_<A0, nt2::tag::groups_, boost::mpl::long_<1>, nt2::container::domain>))
                               (generic_< integer_<State> >)
@@ -36,14 +36,14 @@ namespace nt2 { namespace ext
                             )
   {
     typedef typename Data::type rvec;
-    typedef typename meta::upgrade<rvec>::type vec;
+    typedef typename boost::dispatch::meta::upgrade<rvec>::type vec;
     typedef rvec result_type;
 
     result_type operator()(A0& a0, State const& p, Data const&) const
     {
       vec v0, v1;
-      v0 = run(boost::proto::child_c<0>(a0), p, meta::as_<vec>());
-      v1 = run(boost::proto::child_c<0>(a0), p+meta::cardinal_of<vec>::value, meta::as_<vec>());
+      v0 = nt2::run(boost::proto::child_c<0>(a0), p, meta::as_<vec>());
+      v1 = nt2::run(boost::proto::child_c<0>(a0), p+meta::cardinal_of<vec>::value, meta::as_<vec>());
 
       return nt2::groups(v0, v1);
     }

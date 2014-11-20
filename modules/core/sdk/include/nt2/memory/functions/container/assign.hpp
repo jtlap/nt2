@@ -104,8 +104,8 @@ namespace nt2 { namespace ext
   {
     typedef nt2::container::domain::template as_child_expr<A0, typename A0::proto_tag, false> A0c;
     typedef nt2::container::domain::template as_child_expr<A1, typename A1::proto_tag, false> A1c;
-    typedef boost::proto::basic_expr< boost::proto::tag::assign, boost::proto::list2<typename A0c::result_type, typename A1c::result_type>, 2l > expr;
-    typedef container::generator_transform<nt2::container::domain> transform;
+    typedef boost::proto::basic_expr< nt2::tag::assign_, boost::proto::list2<typename A0c::result_type, typename A1c::result_type>, 2l > expr;
+    typedef nt2::container::generator_transform<nt2::container::domain> transform;
     typedef typename transform::template result<transform(expr const&)>::type result_type;
 
     BOOST_FORCEINLINE
@@ -123,8 +123,8 @@ namespace nt2 { namespace ext
   {
     typedef nt2::container::domain::template as_child_expr<A0, typename A0::proto_tag, false> A0c;
     typedef nt2::container::domain::template as_child<A1 const> A1c;
-    typedef boost::proto::basic_expr< boost::proto::tag::assign, boost::proto::list2<typename A0c::result_type, typename A1c::result_type>, 2l > expr;
-    typedef container::generator_transform<nt2::container::domain> transform;
+    typedef boost::proto::basic_expr< nt2::tag::assign_, boost::proto::list2<typename A0c::result_type, typename A1c::result_type>, 2l > expr;
+    typedef nt2::container::generator_transform<nt2::container::domain> transform;
     typedef typename transform::template result<transform(expr const&)>::type result_type;
 
     BOOST_FORCEINLINE
