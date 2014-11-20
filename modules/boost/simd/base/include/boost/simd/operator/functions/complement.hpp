@@ -8,10 +8,8 @@
 //==============================================================================
 #ifndef BOOST_SIMD_OPERATOR_FUNCTIONS_COMPLEMENT_HPP_INCLUDED
 #define BOOST_SIMD_OPERATOR_FUNCTIONS_COMPLEMENT_HPP_INCLUDED
-#include <boost/simd/include/functor.hpp>
-#include <boost/dispatch/include/functor.hpp>
-#include <boost/proto/tags.hpp>
 
+#include <boost/simd/include/functor.hpp>
 
 namespace boost { namespace simd
 {
@@ -62,20 +60,6 @@ namespace boost { namespace simd
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::complement_ , bitwise_not , 1 )
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::complement_ , b_not       , 1 )
 } }
-
-namespace boost { namespace dispatch { namespace meta
-{
-  template<>
-  struct hierarchy_of<boost::proto::tag::complement>
-  {
-    typedef boost::simd::tag::complement_ type;
-  };
-  template<>
-  struct proto_tag<boost::simd::tag::complement_>
-  {
-    typedef boost::proto::tag::complement type;
-  };
-} } }
 
 #include <boost/simd/operator/specific/common.hpp>
 

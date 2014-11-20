@@ -10,8 +10,6 @@
 #define BOOST_SIMD_MEMORY_FUNCTIONS_ASSIGN_HPP_INCLUDED
 
 #include <boost/simd/include/functor.hpp>
-#include <boost/dispatch/include/functor.hpp>
-#include <boost/proto/tags.hpp>
 
 namespace boost { namespace simd
 {
@@ -60,20 +58,6 @@ namespace boost { namespace simd
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL (tag::assign_ , assign, (A0 const&)(A1&), 2)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL (tag::assign_ , assign, (A0&)(A1&), 2)
 } }
-
-namespace boost { namespace dispatch { namespace meta
-{
-  template<>
-  struct hierarchy_of<boost::proto::tag::assign>
-  {
-    typedef boost::simd::tag::assign_ type;
-  };
-  template<>
-  struct proto_tag<boost::simd::tag::assign_>
-  {
-    typedef boost::proto::tag::assign type;
-  };
-} } }
 
 #include <boost/simd/operator/specific/common.hpp>
 

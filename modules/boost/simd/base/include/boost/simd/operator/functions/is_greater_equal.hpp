@@ -8,9 +8,8 @@
 //==============================================================================
 #ifndef BOOST_SIMD_OPERATOR_FUNCTIONS_IS_GREATER_EQUAL_HPP_INCLUDED
 #define BOOST_SIMD_OPERATOR_FUNCTIONS_IS_GREATER_EQUAL_HPP_INCLUDED
-#include <boost/simd/include/functor.hpp>
-#include <boost/dispatch/include/functor.hpp>
 
+#include <boost/simd/include/functor.hpp>
 
 namespace boost { namespace simd
 {
@@ -61,20 +60,6 @@ namespace boost { namespace simd
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_greater_equal_, is_greater_equal , 2 )
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_greater_equal_, ge               , 2 )
 } }
-
-namespace boost { namespace dispatch { namespace meta
-{
-  template<>
-  struct hierarchy_of<boost::proto::tag::greater_equal>
-  {
-    typedef boost::simd::tag::is_greater_equal_ type;
-  };
-  template<>
-  struct proto_tag<boost::simd::tag::is_greater_equal_>
-  {
-    typedef boost::proto::tag::greater_equal type;
-  };
-} } }
 
 #include <boost/simd/operator/specific/common.hpp>
 

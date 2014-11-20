@@ -23,7 +23,7 @@ namespace nt2 { namespace container
   template<typename Kind, typename T, typename S>
   struct shared_view
        :  expression< boost::proto
-          ::basic_expr< boost::proto::tag::terminal
+          ::basic_expr< nt2::tag::terminal_
                       , boost::proto::term< memory
                              ::container_shared_ref<Kind,T,S,false>
                                           >
@@ -33,7 +33,7 @@ namespace nt2 { namespace container
                     >
   {
     typedef memory::container_shared_ref< Kind, T, S, false >   container_ref;
-    typedef boost::proto::basic_expr< boost::proto::tag::terminal
+    typedef boost::proto::basic_expr< nt2::tag::terminal_
                                     , boost::proto::term<container_ref>
                                     , 0l
                                     >                     basic_expr;
@@ -114,7 +114,7 @@ namespace nt2 { namespace container
   template<typename Kind, typename T, typename S>
   struct shared_view<Kind, T const, S>
        : expression <  boost::proto::basic_expr
-                      < boost::proto::tag::terminal
+                      < nt2::tag::terminal_
                       , boost::proto::term
                         <memory::container_shared_ref<Kind, T const, S, false>
                       >
@@ -124,7 +124,7 @@ namespace nt2 { namespace container
                    >
   {
     typedef memory::container_shared_ref<Kind, T const, S, false >   container_ref;
-    typedef boost::proto::basic_expr< boost::proto::tag::terminal
+    typedef boost::proto::basic_expr< nt2::tag::terminal_
                                     , boost::proto::term<container_ref>
                                     , 0l
                                     >                           basic_expr;

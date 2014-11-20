@@ -8,10 +8,8 @@
 //==============================================================================
 #ifndef BOOST_SIMD_OPERATOR_FUNCTIONS_LOGICAL_AND_HPP_INCLUDED
 #define BOOST_SIMD_OPERATOR_FUNCTIONS_LOGICAL_AND_HPP_INCLUDED
-#include <boost/simd/include/functor.hpp>
-#include <boost/dispatch/include/functor.hpp>
-#include <boost/proto/tags.hpp>
 
+#include <boost/simd/include/functor.hpp>
 
 namespace boost { namespace simd
 {
@@ -64,20 +62,6 @@ namespace boost { namespace simd
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::logical_and_      , logical_and     , 2 )
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::logical_and_      , l_and           , 2 )
 } }
-
-namespace boost { namespace dispatch { namespace meta
-{
-  template<>
-  struct hierarchy_of<boost::proto::tag::logical_and>
-  {
-    typedef boost::simd::tag::logical_and_ type;
-  };
-  template<>
-  struct proto_tag<boost::simd::tag::logical_and_>
-  {
-    typedef boost::proto::tag::logical_and type;
-  };
-} } }
 
 #include <boost/simd/operator/specific/common.hpp>
 

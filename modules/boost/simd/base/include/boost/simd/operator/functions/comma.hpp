@@ -8,10 +8,8 @@
 //==============================================================================
 #ifndef BOOST_SIMD_OPERATOR_FUNCTIONS_COMMA_HPP_INCLUDED
 #define BOOST_SIMD_OPERATOR_FUNCTIONS_COMMA_HPP_INCLUDED
-#include <boost/simd/include/functor.hpp>
-#include <boost/dispatch/include/functor.hpp>
-#include <boost/proto/tags.hpp>
 
+#include <boost/simd/include/functor.hpp>
 
 namespace boost { namespace simd
 {
@@ -57,20 +55,6 @@ namespace boost { namespace simd
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::comma_ , comma  , 2 )
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::comma_ , then   , 2 )
 } }
-
-namespace boost { namespace dispatch { namespace meta
-{
-  template<>
-  struct hierarchy_of<boost::proto::tag::comma>
-  {
-    typedef boost::simd::tag::comma_ type;
-  };
-  template<>
-  struct proto_tag<boost::simd::tag::comma_>
-  {
-    typedef boost::proto::tag::comma type;
-  };
-} } }
 
 #include <boost/simd/operator/specific/common.hpp>
 

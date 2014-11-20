@@ -40,7 +40,7 @@ namespace nt2 { namespace ext
   template<class T, class Enable>
   struct as_child_ref
   {
-    typedef boost::proto::basic_expr< boost::proto::tag::terminal, boost::proto::term<T&> > expr;
+    typedef boost::proto::basic_expr< nt2::tag::terminal_, boost::proto::term<T&> > expr;
     typedef nt2::container::expression<expr, T&> type;
     static type call(T& t)
     {

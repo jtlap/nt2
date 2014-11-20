@@ -8,10 +8,8 @@
 //==============================================================================
 #ifndef BOOST_SIMD_OPERATOR_FUNCTIONS_MINUS_HPP_INCLUDED
 #define BOOST_SIMD_OPERATOR_FUNCTIONS_MINUS_HPP_INCLUDED
-#include <boost/simd/include/functor.hpp>
-#include <boost/dispatch/include/functor.hpp>
-#include <boost/proto/tags.hpp>
 
+#include <boost/simd/include/functor.hpp>
 
 namespace boost { namespace simd
 {
@@ -62,20 +60,6 @@ namespace boost { namespace simd
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::minus_             , minus            , 2 )
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::minus_             , sub              , 2 )
 } }
-
-namespace boost { namespace dispatch { namespace meta
-{
-  template<>
-  struct hierarchy_of<boost::proto::tag::minus>
-  {
-    typedef boost::simd::tag::minus_ type;
-  };
-  template<>
-  struct proto_tag<boost::simd::tag::minus_>
-  {
-    typedef boost::proto::tag::minus type;
-  };
-} } }
 
 #include <boost/simd/operator/specific/common.hpp>
 

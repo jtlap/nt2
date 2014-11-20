@@ -167,7 +167,7 @@ namespace nt2 { namespace ext
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION_IF( nt2::tag::assign_, tag::cpu_
                               , (A0)(T0)(N0)(A1)(T1)(N1)
-                              , (mpl::not_< is_same<T0, nt2::tag::tie_> >)
+                              , (boost::mpl::not_< boost::is_same<T0, nt2::tag::tie_> >)
                               , ((node_ <A0, elementwise_<T0>, N0 ,nt2::container::domain> ))
                                 ((node_ <A1, tieable_<T1>, N1,nt2::container::domain>))
                               )

@@ -133,10 +133,10 @@ namespace boost { namespace simd { namespace ext
     BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE operator()(A0& a0) const
     BOOST_AUTO_DECLTYPE_BODY
     (
-      boost::dispatch::meta::hierarchy_of_t<T>::dispatch( boost::dispatch::default_site_t<T>()
-                                                        , boost::dispatch::meta::hierarchy_of_t<A0&>()
-                                                        )
-                                                        ( a0 )
+      T::dispatch( boost::dispatch::default_site_t<T>()
+                 , boost::dispatch::meta::hierarchy_of_t<A0&>()
+                 )
+                 ( a0 )
     )
 
     #ifdef BOOST_MSVC
@@ -156,12 +156,12 @@ namespace boost { namespace simd { namespace ext
     BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE operator()(A0& a0, State const& state, Data const& data) const
     BOOST_AUTO_DECLTYPE_BODY
     (
-      boost::dispatch::meta::hierarchy_of_t<T>::dispatch( boost::dispatch::default_site_t<T>()
-                                                        , boost::dispatch::meta::hierarchy_of_t<A0&>()
-                                                        , boost::dispatch::meta::hierarchy_of_t<State const&>()
-                                                        , boost::dispatch::meta::hierarchy_of_t<Data const&>()
-                                                        )
-                                                        ( a0, state, data )
+      T::dispatch( boost::dispatch::default_site_t<T>()
+                 , boost::dispatch::meta::hierarchy_of_t<A0&>()
+                 , boost::dispatch::meta::hierarchy_of_t<State const&>()
+                 , boost::dispatch::meta::hierarchy_of_t<Data const&>()
+                 )
+                 ( a0, state, data )
     )
 
     #ifdef BOOST_MSVC
@@ -185,10 +185,10 @@ namespace boost { namespace simd { namespace ext
     BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE operator()(Expr& expr) const
     BOOST_AUTO_DECLTYPE_BODY
     (
-      boost::dispatch::meta::hierarchy_of_t<T>::dispatch( boost::dispatch::default_site_t<T>()
-                                                        , BOOST_PP_ENUM(n, M0, MHIERARCHY)
-                                                        )
-                                                        ( BOOST_PP_ENUM(n, M0, MIDENTITY) )
+      T::dispatch( boost::dispatch::default_site_t<T>()
+                 , BOOST_PP_ENUM(n, M0, MHIERARCHY)
+                 )
+                 ( BOOST_PP_ENUM(n, M0, MIDENTITY) )
     )
 
     #ifdef BOOST_MSVC
@@ -208,10 +208,10 @@ namespace boost { namespace simd { namespace ext
     BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE operator()(Expr& expr, State const& state, Data const& data) const
     BOOST_AUTO_DECLTYPE_BODY
     (
-      boost::dispatch::meta::hierarchy_of_t<T>::dispatch( boost::dispatch::default_site_t<T>()
-                                                        , BOOST_PP_ENUM(n, M0d, MHIERARCHY)
-                                                        )
-                                                        ( BOOST_PP_ENUM(n, M0d, MIDENTITY) )
+      T::dispatch( boost::dispatch::default_site_t<T>()
+                 , BOOST_PP_ENUM(n, M0d, MHIERARCHY)
+                 )
+                 ( BOOST_PP_ENUM(n, M0d, MIDENTITY) )
     )
 
     #ifdef BOOST_MSVC

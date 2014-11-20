@@ -20,9 +20,7 @@
 #include <boost/mpl/and.hpp>
 #include <boost/mpl/not.hpp>
 #include <boost/mpl/or.hpp>
-#include <boost/proto/tags.hpp>
 #include <boost/proto/traits.hpp>
-#include <boost/proto/proto_fwd.hpp>
 
 #define BOOST_SIMD_OVERLOAD_UNARY_OP(Tag, Op)                                  \
 template<class A0>                                                             \
@@ -139,39 +137,63 @@ namespace boost { namespace simd
 
   namespace tag
   {
+    struct unary_plus_;
+    struct unary_minus_;
+    struct complement_;
+    struct logical_not_;
     struct inc_;
     struct dec_;
+
+    struct bitwise_and_;
+    struct bitwise_or_;
+    struct bitwise_xor_;
+    struct plus_;
+    struct minus_;
+    struct divides_;
+    struct multiplies_;
+    struct modulo_;
+    struct shift_left_;
+    struct shift_right_;
+    struct logical_and_;
+    struct logical_or_;
+
+    struct is_equal_;
+    struct is_not_equal_;
+    struct is_less_;
+    struct is_greater_;
+    struct is_less_equal_;
+    struct is_greater_equal_;
   }
 
   // unary operators
-  BOOST_SIMD_OVERLOAD_UNARY_OP( boost::proto::tag::unary_plus  ,  + )
-  BOOST_SIMD_OVERLOAD_UNARY_OP( boost::proto::tag::negate      ,  - )
-  BOOST_SIMD_OVERLOAD_UNARY_OP( boost::proto::tag::complement  ,  ~ )
-  BOOST_SIMD_OVERLOAD_UNARY_OP( boost::proto::tag::logical_not ,  ! )
-  BOOST_SIMD_OVERLOAD_UNARY_OP_INC( boost::proto::tag::plus    , boost::simd::tag::inc_, ++ )
-  BOOST_SIMD_OVERLOAD_UNARY_OP_INC( boost::proto::tag::minus   , boost::simd::tag::dec_, -- )
+  BOOST_SIMD_OVERLOAD_UNARY_OP( tag::unary_plus_  ,  + )
+  BOOST_SIMD_OVERLOAD_UNARY_OP( tag::unary_minus_ ,  - )
+  BOOST_SIMD_OVERLOAD_UNARY_OP( tag::complement_  ,  ~ )
+  BOOST_SIMD_OVERLOAD_UNARY_OP( tag::logical_not_ ,  ! )
+  BOOST_SIMD_OVERLOAD_UNARY_OP_INC( tag::plus_    , tag::inc_, ++ )
+  BOOST_SIMD_OVERLOAD_UNARY_OP_INC( tag::minus_   , tag::dec_, -- )
 
   // binary operators
-  BOOST_SIMD_OVERLOAD_BINARY_OP_ASSIGN( boost::proto::tag::bitwise_and , &  )
-  BOOST_SIMD_OVERLOAD_BINARY_OP_ASSIGN( boost::proto::tag::bitwise_or  , |  )
-  BOOST_SIMD_OVERLOAD_BINARY_OP_ASSIGN( boost::proto::tag::bitwise_xor , ^  )
-  BOOST_SIMD_OVERLOAD_BINARY_OP_ASSIGN( boost::proto::tag::plus        , +  )
-  BOOST_SIMD_OVERLOAD_BINARY_OP_ASSIGN( boost::proto::tag::minus       , -  )
-  BOOST_SIMD_OVERLOAD_BINARY_OP_ASSIGN( boost::proto::tag::divides     , /  )
-  BOOST_SIMD_OVERLOAD_BINARY_OP_ASSIGN( boost::proto::tag::multiplies  , *  )
-  BOOST_SIMD_OVERLOAD_BINARY_OP_ASSIGN( boost::proto::tag::modulus     , %  )
-  BOOST_SIMD_OVERLOAD_BINARY_OP_ASSIGN( boost::proto::tag::shift_left  , << )
-  BOOST_SIMD_OVERLOAD_BINARY_OP_ASSIGN( boost::proto::tag::shift_right , >> )
-  BOOST_SIMD_OVERLOAD_BINARY_OP( boost::proto::tag::logical_and        , && )
-  BOOST_SIMD_OVERLOAD_BINARY_OP( boost::proto::tag::logical_or         , || )
+  BOOST_SIMD_OVERLOAD_BINARY_OP_ASSIGN( tag::bitwise_and_ , &  )
+  BOOST_SIMD_OVERLOAD_BINARY_OP_ASSIGN( tag::bitwise_or_  , |  )
+  BOOST_SIMD_OVERLOAD_BINARY_OP_ASSIGN( tag::bitwise_xor_ , ^  )
+  BOOST_SIMD_OVERLOAD_BINARY_OP_ASSIGN( tag::plus_        , +  )
+  BOOST_SIMD_OVERLOAD_BINARY_OP_ASSIGN( tag::minus_       , -  )
+  BOOST_SIMD_OVERLOAD_BINARY_OP_ASSIGN( tag::divides_     , /  )
+  BOOST_SIMD_OVERLOAD_BINARY_OP_ASSIGN( tag::multiplies_  , *  )
+  BOOST_SIMD_OVERLOAD_BINARY_OP_ASSIGN( tag::modulo_      , %  )
+  BOOST_SIMD_OVERLOAD_BINARY_OP_ASSIGN( tag::shift_left_  , << )
+  BOOST_SIMD_OVERLOAD_BINARY_OP_ASSIGN( tag::shift_right_ , >> )
+  BOOST_SIMD_OVERLOAD_BINARY_OP( tag::logical_and_        , && )
+  BOOST_SIMD_OVERLOAD_BINARY_OP( tag::logical_or_         , || )
 
   // comparison operators
-  BOOST_SIMD_OVERLOAD_BINARY_OP( boost::proto::tag::equal_to        , == )
-  BOOST_SIMD_OVERLOAD_BINARY_OP( boost::proto::tag::not_equal_to    , != )
-  BOOST_SIMD_OVERLOAD_BINARY_OP( boost::proto::tag::less            , <  )
-  BOOST_SIMD_OVERLOAD_BINARY_OP( boost::proto::tag::greater         , >  )
-  BOOST_SIMD_OVERLOAD_BINARY_OP( boost::proto::tag::less_equal      , <= )
-  BOOST_SIMD_OVERLOAD_BINARY_OP( boost::proto::tag::greater_equal   , >= )
+  BOOST_SIMD_OVERLOAD_BINARY_OP( tag::is_equal_           , == )
+  BOOST_SIMD_OVERLOAD_BINARY_OP( tag::is_not_equal_       , != )
+  BOOST_SIMD_OVERLOAD_BINARY_OP( tag::is_less_            , <  )
+  BOOST_SIMD_OVERLOAD_BINARY_OP( tag::is_greater_         , >  )
+  BOOST_SIMD_OVERLOAD_BINARY_OP( tag::is_less_equal_      , <= )
+  BOOST_SIMD_OVERLOAD_BINARY_OP( tag::is_greater_equal_   , >= )
 } }
 
 #undef BOOST_SIMD_OVERLOAD_UNARY_OP

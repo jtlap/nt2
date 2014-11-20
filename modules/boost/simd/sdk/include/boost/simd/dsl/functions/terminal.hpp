@@ -10,8 +10,6 @@
 #define BOOST_SIMD_DSL_FUNCTIONS_TERMINAL_HPP_INCLUDED
 
 #include <boost/simd/include/functor.hpp>
-#include <boost/dispatch/dsl/call.hpp>
-#include <boost/proto/tags.hpp>
 
 namespace boost { namespace simd
 {
@@ -56,24 +54,5 @@ namespace boost { namespace simd
     return boost::dispatch::functor<typename boost::dispatch::meta::hierarchy_of<typename Expr::proto_tag>::type>()(e);
   }
 } }
-
-namespace boost { namespace dispatch { namespace meta
-{
-  template<>
-  struct hierarchy_of<boost::proto::tag::terminal>
-  {
-    typedef boost::simd::tag::terminal_ type;
-  };
-  template<>
-  struct proto_tag<boost::simd::tag::terminal_>
-  {
-    typedef boost::proto::tag::terminal type;
-  };
-  template<>
-  struct is_formal<boost::simd::tag::terminal_>
-   : mpl::true_
-  {
-  };
-} } }
 
 #endif

@@ -202,7 +202,7 @@ struct vector_domain
 
 template<int N>
 typename boost::proto::result_of
-::make_expr< boost::proto::tag::terminal
+::make_expr< nt2::tag::terminal_
 , table_domain<N>
 , int const
 
@@ -210,11 +210,11 @@ typename boost::proto::result_of
 make_table()
 {
         return        boost::proto::
-        make_expr<boost::proto::tag::terminal,table_domain<N> >(N);
+        make_expr<nt2::tag::terminal_,table_domain<N> >(N);
 }
 
 boost::proto::result_of
-::make_expr< boost::proto::tag::terminal
+::make_expr< nt2::tag::terminal_
 , matrix_domain
 , int const
 
@@ -222,12 +222,12 @@ boost::proto::result_of
 make_matrix()
 {
         return        boost::proto::
-        make_expr<boost::proto::tag::terminal,matrix_domain >(20);
+        make_expr<nt2::tag::terminal_,matrix_domain >(20);
 }
 
 
 boost::proto::result_of
-::make_expr< boost::proto::tag::terminal
+::make_expr< nt2::tag::terminal_
 , vector_domain
 , int const
 
@@ -235,7 +235,7 @@ boost::proto::result_of
 make_vector()
 {
         return        boost::proto::
-        make_expr<boost::proto::tag::terminal,vector_domain >(20);
+        make_expr<nt2::tag::terminal_,vector_domain >(20);
 }
 
 

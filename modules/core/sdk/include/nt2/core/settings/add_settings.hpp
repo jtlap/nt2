@@ -113,15 +113,15 @@ namespace nt2 { namespace meta
   #undef M0
 
   /// INTERNAL ONLY
-  template<typename Original, typename New>
-  struct add_settings < boost::proto::basic_expr< boost::proto::tag::terminal
+  template<typename Tag, typename Original, typename New>
+  struct add_settings < boost::proto::basic_expr< Tag
                                                 , boost::proto::term<Original>
                                                 , 0l
                                                 >
                       , New
                       >
   {
-    typedef boost::proto::basic_expr< boost::proto::tag::terminal
+    typedef boost::proto::basic_expr< Tag
                                     , boost::proto
                                            ::term < typename  add_settings
                                                               < Original

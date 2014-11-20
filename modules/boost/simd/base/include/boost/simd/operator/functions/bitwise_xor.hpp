@@ -8,10 +8,8 @@
 //==============================================================================
 #ifndef BOOST_SIMD_OPERATOR_FUNCTIONS_BITWISE_XOR_HPP_INCLUDED
 #define BOOST_SIMD_OPERATOR_FUNCTIONS_BITWISE_XOR_HPP_INCLUDED
-#include <boost/simd/include/functor.hpp>
-#include <boost/dispatch/include/functor.hpp>
-#include <boost/proto/tags.hpp>
 
+#include <boost/simd/include/functor.hpp>
 
 namespace boost { namespace simd
 {
@@ -67,20 +65,6 @@ namespace boost { namespace simd
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::bitwise_xor_      , bitwise_xor     , 2 )
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::bitwise_xor_      , b_xor           , 2 )
 } }
-
-namespace boost { namespace dispatch { namespace meta
-{
-  template<>
-  struct hierarchy_of<boost::proto::tag::bitwise_xor>
-  {
-    typedef boost::simd::tag::bitwise_xor_ type;
-  };
-  template<>
-  struct proto_tag<boost::simd::tag::bitwise_xor_>
-  {
-    typedef boost::proto::tag::bitwise_xor type;
-  };
-} } }
 
 #include <boost/simd/operator/specific/common.hpp>
 

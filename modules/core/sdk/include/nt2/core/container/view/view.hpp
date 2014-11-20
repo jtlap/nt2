@@ -33,7 +33,7 @@ namespace nt2 { namespace container
    * allows construction from an expression of a container terminal */
   template<typename Kind, typename T, typename S>
   struct view
-       : expression< boost::proto::basic_expr < boost::proto::tag::terminal
+       : expression< boost::proto::basic_expr < nt2::tag::terminal_
                                               , boost::proto::term
                                                 < memory::container_ref < Kind
                                                                         , T
@@ -46,7 +46,7 @@ namespace nt2 { namespace container
                    >
   {
     typedef memory::container_ref<Kind, T, S>             container_ref;
-    typedef boost::proto::basic_expr< boost::proto::tag::terminal
+    typedef boost::proto::basic_expr< nt2::tag::terminal_
                                     , boost::proto::term<container_ref>
                                     , 0l
                                     >               basic_expr;
@@ -131,7 +131,7 @@ namespace nt2 { namespace container
   template<typename Kind, typename T, typename S>
   struct view<Kind, T const, S>
        : expression<  boost::proto
-                      ::basic_expr< boost::proto::tag::terminal
+                      ::basic_expr< nt2::tag::terminal_
                                   , boost::proto::term
                                     < memory::container_ref<Kind,T const,S> >
                                   , 0l
@@ -140,7 +140,7 @@ namespace nt2 { namespace container
                    >
   {
     typedef memory::container_ref<Kind,T const,S>       container_ref;
-    typedef boost::proto::basic_expr< boost::proto::tag::terminal
+    typedef boost::proto::basic_expr< nt2::tag::terminal_
                                     , boost::proto::term< memory::container_ref < Kind
                                                                                 , T const
                                                                                 , S

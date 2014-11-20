@@ -18,20 +18,6 @@
 #include <boost/dispatch/meta/scalar_of.hpp>
 #include <boost/proto/traits.hpp>
 
-namespace boost { namespace dispatch { namespace meta
-{
-  template<> struct hierarchy_of<boost::proto::tag::function>
-  {
-    typedef nt2::tag::function_ type;
-  };
-
-  template<> struct proto_tag<nt2::tag::function_>
-  {
-    typedef boost::proto::tag::function type;
-  };
-} } }
-
-
 namespace nt2
 {
   namespace tag

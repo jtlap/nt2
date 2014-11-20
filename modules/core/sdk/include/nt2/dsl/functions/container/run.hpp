@@ -28,7 +28,7 @@ namespace nt2 { namespace ext
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION_IF( nt2::tag::run_, tag::cpu_
                             , (A0)(S0)(K0)(T)(N)
-                            , (mpl::not_< is_same<T, boost::simd::tag::assign_> >)
+                            , (boost::mpl::not_< boost::is_same<T, nt2::tag::assign_> >)
                             , ((expr_< container_<K0,unspecified_<A0>,S0>
                                      , T
                                      , N
@@ -80,9 +80,9 @@ namespace nt2 { namespace ext
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION_IF( nt2::tag::run_, tag::cpu_
                             , (A0)(T)(N)
-                            , (mpl::and_< is_same<typename A0::proto_domain, nt2::container::domain>
-                                        , mpl::not_< is_same<T, boost::simd::tag::assign_> >
-                                        >)
+                            , (boost::mpl::and_< boost::is_same<typename A0::proto_domain, nt2::container::domain>
+                                               , boost::mpl::not_< boost::is_same<T, nt2::tag::assign_> >
+                                               >)
                             , ((expr_< scalar_< unspecified_<A0> >
                                      , T
                                      , N
@@ -118,7 +118,7 @@ namespace nt2 { namespace ext
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_, tag::cpu_
                             , (A0)
                             , ((node_< A0
-                                     , boost::simd::tag::assign_
+                                     , nt2::tag::assign_
                                      , boost::mpl::long_<2>
                                      , nt2::container::domain
                                      >

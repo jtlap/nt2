@@ -48,7 +48,7 @@ NT2_TEST_CASE( run_type )
   table<T, S> a0;
 
   typedef nt2::memory::container<table_, T, S> container;
-  typedef boost::proto::basic_expr< boost::proto::tag::terminal, boost::proto::term<container&> > expr;
+  typedef boost::proto::basic_expr< nt2::tag::terminal_, boost::proto::term<container&> > expr;
   typedef nt2::container::expression<expr, container&> nt2_expr;
 
   NT2_TEST_EXPR_TYPE( a0

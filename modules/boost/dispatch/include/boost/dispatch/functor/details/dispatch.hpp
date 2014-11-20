@@ -39,9 +39,9 @@ namespace boost { namespace dispatch { namespace meta
                    >::type Site;
 
     typedef decltype
-    ( hierarchy_of_t<Tag>::dispatch ( hierarchy_of_t<Site>()
-                                    , hierarchy_of_t<A>()...
-                                    )
+    ( Tag::dispatch ( hierarchy_of_t<Site>()
+                    , hierarchy_of_t<A>()...
+                    )
     ) type;
   };
 

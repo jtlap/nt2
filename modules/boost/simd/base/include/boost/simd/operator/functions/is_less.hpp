@@ -8,9 +8,8 @@
 //==============================================================================
 #ifndef BOOST_SIMD_OPERATOR_FUNCTIONS_IS_LESS_HPP_INCLUDED
 #define BOOST_SIMD_OPERATOR_FUNCTIONS_IS_LESS_HPP_INCLUDED
-#include <boost/simd/include/functor.hpp>
-#include <boost/dispatch/include/functor.hpp>
 
+#include <boost/simd/include/functor.hpp>
 
 namespace boost { namespace simd
 {
@@ -63,20 +62,6 @@ namespace boost { namespace simd
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_less_, lt      , 2 )
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_less_, is_lt   , 2 )
 } }
-
-namespace boost { namespace dispatch { namespace meta
-{
-  template<>
-  struct hierarchy_of<boost::proto::tag::less>
-  {
-    typedef boost::simd::tag::is_less_ type;
-  };
-  template<>
-  struct proto_tag<boost::simd::tag::is_less_>
-  {
-    typedef boost::proto::tag::less type;
-  };
-} } }
 
 #include <boost/simd/operator/specific/common.hpp>
 

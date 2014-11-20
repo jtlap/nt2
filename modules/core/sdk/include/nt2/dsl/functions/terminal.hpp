@@ -81,25 +81,6 @@ namespace nt2 { namespace ext
   };
 } }
 
-namespace boost { namespace dispatch { namespace meta
-{
-  template<>
-  struct hierarchy_of<boost::proto::tag::terminal>
-  {
-    typedef nt2::tag::terminal_ type;
-  };
-  template<>
-  struct proto_tag<nt2::tag::terminal_>
-  {
-    typedef boost::proto::tag::terminal type;
-  };
-  template<>
-  struct is_formal<nt2::tag::terminal_>
-   : mpl::true_
-  {
-  };
-} } }
-
 namespace nt2 { namespace details
 {
   //============================================================================

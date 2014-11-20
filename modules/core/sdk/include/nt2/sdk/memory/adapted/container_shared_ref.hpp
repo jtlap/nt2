@@ -22,6 +22,11 @@
 #include <nt2/core/settings/option.hpp>
 #include <boost/dispatch/meta/terminal_of_shared.hpp>
 
+namespace nt2 { namespace tag
+{
+  struct terminal_;
+} }
+
 namespace nt2 { namespace meta
 {
   /// INTERNAL ONLY memory::container_shared_ref models Container
@@ -96,7 +101,7 @@ namespace boost { namespace dispatch { namespace meta
   {
     typedef nt2::memory::container<Kind, T, S>                    container;
     typedef nt2::memory::container_shared_ref<Kind, T, S, true>   container_ref;
-    typedef boost::proto::basic_expr< boost::proto::tag::terminal
+    typedef boost::proto::basic_expr< nt2::tag::terminal_
                                     , boost::proto::term<container_ref>
                                     , 0
                                     >                             basic_expr;

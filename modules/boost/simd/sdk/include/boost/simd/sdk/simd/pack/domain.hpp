@@ -23,6 +23,12 @@
 
 namespace boost { namespace simd
 {
+  namespace tag
+  {
+    struct terminal_;
+  }
+
+
   ////////////////////////////////////////////////////////////////////////////
   // Tell proto that in the simd::domain, all expressions should be
   // wrapped in simd::expr<> using simd::generator
@@ -35,7 +41,7 @@ namespace boost { namespace simd
     struct as_child : boost::proto::callable
     {
       typedef typename boost::remove_const<T>::type term_t;
-      typedef boost::proto::basic_expr< boost::proto::tag::terminal, boost::proto::term<term_t> > expr_t;
+      typedef boost::proto::basic_expr< boost::simd::tag::terminal_, boost::proto::term<term_t> > expr_t;
       typedef expression<expr_t, typename boost::dispatch::meta::semantic_of<term_t>::type> result_type;
       BOOST_FORCEINLINE result_type operator()(typename boost::add_reference<T>::type t) const
       {
@@ -55,7 +61,7 @@ namespace boost { namespace simd
     };
 
     template<class T>
-    struct as_child_expr<T, boost::proto::tag::terminal>
+    struct as_child_expr<T, boost::simd::tag::terminal_>
      : boost::proto::callable
     {
       typedef typename boost::proto::result_of::value<T&>::value_type value_type;

@@ -82,7 +82,7 @@ namespace nt2 { namespace ext
   struct is_vectorizable_scalar
             < nt2::container::expression
                     < boost::proto::
-                            basic_expr< boost::proto::tag::terminal
+                            basic_expr< nt2::tag::terminal_
                                       , boost::proto::term<nt2::container::colon_>
                                       , 0l
                                       >
@@ -98,7 +98,7 @@ namespace nt2 { namespace ext
   struct is_vectorizable_indexer
             < nt2::container::expression
                     < boost::proto::
-                            basic_expr< boost::proto::tag::terminal
+                            basic_expr< nt2::tag::terminal_
                                       , boost::proto::term<nt2::container::colon_>
                                       , 0l
                                       >

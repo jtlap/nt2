@@ -110,7 +110,7 @@ namespace nt2 { namespace container
   };
 
   template<typename T>
-  struct as_view_impl<T, boost::proto::tag::terminal>
+  struct as_view_impl<T, nt2::tag::terminal_>
   {
     typedef typename as_view_impl_term<T, typename boost::proto::result_of::value<T&>::type>::type type;
     static BOOST_FORCEINLINE type call(T& t)
@@ -141,6 +141,7 @@ namespace nt2 { namespace container
                               , container::grammar
                               >
   {
+
     // Construct an expression from a non-expression
     // - by value unless manually called with a reference
     // - semantic is same as terminal value
@@ -148,7 +149,7 @@ namespace nt2 { namespace container
     struct as_child : boost::proto::callable
     {
       typedef typename boost::remove_const<T>::type term_t;
-      typedef boost::proto::basic_expr< boost::proto::tag::terminal, boost::proto::term<term_t> > expr_t;
+      typedef boost::proto::basic_expr< nt2::tag::terminal_, boost::proto::term<term_t> > expr_t;
       typedef expression<expr_t, typename boost::mpl::if_< boost::is_void<Sema>, typename boost::remove_const<T>::type, Sema >::type> result_type;
       BOOST_FORCEINLINE result_type operator()(typename boost::add_reference<T>::type t) const
       {
@@ -195,9 +196,15 @@ namespace nt2 { namespace container
     {
     };
 
+    template<typename T, bool Schedule>
+    struct as_child_expr<T, boost::proto::tag::terminal, Schedule>
+         : as_child_expr<T, nt2::tag::terminal_, Schedule>
+    {
+    };
+
     // Scheduled terminals: converted to views
     template<typename T>
-    struct as_child_expr<T, boost::proto::tag::terminal, true>
+    struct as_child_expr<T, nt2::tag::terminal_, true>
      : boost::proto::callable
     {
       typedef typename as_view_impl<T>::type result_type;
@@ -210,7 +217,7 @@ namespace nt2 { namespace container
 
     // Non-scheduled terminals: ensure tables are held by reference
     template<typename T>
-    struct as_child_expr<T, boost::proto::tag::terminal, false>
+    struct as_child_expr<T, nt2::tag::terminal_, false>
      : boost::proto::callable
     {
       typedef typename boost::proto::result_of::value<T&>::value_type value_type;
@@ -228,6 +235,32 @@ namespace nt2 { namespace container
     template<typename T>
     struct as_child<T, typename T::proto_is_expr_>
          : as_child_expr<T, typename T::proto_tag> {};
+
+
+    template<class T, class Dummy = void>
+    struct as_expr
+         : boost::proto::callable
+    {
+      typedef typename boost::remove_const<T>::type term_t;
+      typedef boost::proto::basic_expr< nt2::tag::terminal_, boost::proto::term<term_t> > expr_t;
+      typedef expression<expr_t, typename boost::remove_const<T>::type> result_type;
+
+      BOOST_FORCEINLINE result_type operator()(T& t) const
+      {
+        return result_type(expr_t::make(t));
+      }
+    };
+
+    template<class T>
+    struct as_expr<T, typename T::proto_is_expr_>
+         : boost::proto::callable
+    {
+      typedef typename boost::remove_const<T>::type result_type;
+      BOOST_FORCEINLINE result_type operator()(T& t) const
+      {
+        return t;
+      }
+    };
   };
 } }
 
@@ -245,7 +278,7 @@ namespace nt2 { namespace meta
   };
 
   template<typename T>
-  struct as_elementwise<T, boost::proto::tag::terminal>
+  struct as_elementwise<T, nt2::tag::terminal_>
   {
     typedef T& type;
     static BOOST_FORCEINLINE T& call(T& t)

@@ -51,7 +51,7 @@ namespace nt2 { namespace ext
     {
       typedef typename A0::proto_child0::proto_child0 container_ref;
       typedef typename container_ref::base_t base_t;
-      typedef boost::proto::basic_expr< boost::proto::tag::terminal, boost::proto::term<base_t&>, 0l> basic_expr;
+      typedef boost::proto::basic_expr< nt2::tag::terminal_, boost::proto::term<base_t&>, 0l> basic_expr;
       typedef nt2::container::expression<basic_expr, base_t&> nt2_expr;
 
       nt2_expr c(basic_expr::make(static_cast<base_t&>(*boost::proto::value(boost::proto::child_c<0>(a0)).base())));
@@ -87,7 +87,7 @@ namespace nt2 { namespace ext
       typedef typename container_ref::base_t base0_t;
       typedef typename meta::add_settings<base0_t, _4D>::type base_t;
 
-      typedef boost::proto::basic_expr< boost::proto::tag::terminal, boost::proto::term<base_t&>, 0l> basic_expr;
+      typedef boost::proto::basic_expr< nt2::tag::terminal_, boost::proto::term<base_t&>, 0l> basic_expr;
       typedef nt2::container::expression<basic_expr, base_t&> nt2_expr;
 
       // FIXME: this static_cast isn't really safe

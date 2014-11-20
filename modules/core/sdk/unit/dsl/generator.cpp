@@ -512,14 +512,14 @@ NT2_TEST_CASE( function )
   NT2_TEST_EXPR_TYPE( a0(a1)
                     , as_node<_>
                     , ( node2 < nt2::tag::function_
-                              , boost::proto::tag::terminal
+                              , nt2::tag::terminal_
                               , node4< nt2::tag::function_index_
                                      , node1 < nt2::tag::aggregate_
-                                             , boost::proto::tag::terminal
+                                             , nt2::tag::terminal_
                                              >
-                                     , boost::proto::tag::terminal
-                                     , boost::proto::tag::terminal
-                                     , boost::proto::tag::terminal
+                                     , nt2::tag::terminal_
+                                     , nt2::tag::terminal_
+                                     , nt2::tag::terminal_
                                      >
                               >
                       )
@@ -537,11 +537,11 @@ NT2_TEST_CASE( fma )
   NT2_TEST_EXPR_TYPE( a0 * a1 + a2 * a0
                     , as_node<_>
                     , ( node3< nt2::tag::fma_
-                             , boost::proto::tag::terminal
-                             , boost::proto::tag::terminal
-                             , node2< boost::proto::tag::multiplies
-                                    , boost::proto::tag::terminal
-                                    , boost::proto::tag::terminal
+                             , nt2::tag::terminal_
+                             , nt2::tag::terminal_
+                             , node2< nt2::tag::multiplies_
+                                    , nt2::tag::terminal_
+                                    , nt2::tag::terminal_
                                     >
                              >
                       )
@@ -550,9 +550,9 @@ NT2_TEST_CASE( fma )
   NT2_TEST_EXPR_TYPE( a0 * a1 + a2
                     , as_node<_>
                     , ( node3< nt2::tag::fma_
-                             , boost::proto::tag::terminal
-                             , boost::proto::tag::terminal
-                             , boost::proto::tag::terminal
+                             , nt2::tag::terminal_
+                             , nt2::tag::terminal_
+                             , nt2::tag::terminal_
                              >
                       )
                     );
@@ -560,9 +560,9 @@ NT2_TEST_CASE( fma )
   NT2_TEST_EXPR_TYPE( a0 + a1 * a2
                     , as_node<_>
                     , ( node3< nt2::tag::fma_
-                             , boost::proto::tag::terminal
-                             , boost::proto::tag::terminal
-                             , boost::proto::tag::terminal
+                             , nt2::tag::terminal_
+                             , nt2::tag::terminal_
+                             , nt2::tag::terminal_
                              >
                       )
                     );
@@ -570,12 +570,12 @@ NT2_TEST_CASE( fma )
   NT2_TEST_EXPR_TYPE( a0 * a1 + (a2 * a0 + a1)
                     , as_node<_>
                     , ( node3< nt2::tag::fma_
-                             , boost::proto::tag::terminal
-                             , boost::proto::tag::terminal
+                             , nt2::tag::terminal_
+                             , nt2::tag::terminal_
                              , node3< nt2::tag::fma_
-                                    , boost::proto::tag::terminal
-                                    , boost::proto::tag::terminal
-                                    , boost::proto::tag::terminal
+                                    , nt2::tag::terminal_
+                                    , nt2::tag::terminal_
+                                    , nt2::tag::terminal_
                                     >
                              >
                       )
@@ -584,13 +584,13 @@ NT2_TEST_CASE( fma )
   NT2_TEST_EXPR_TYPE( a0 + a1 * (a2 * a0 + a1)
                     , as_node<_>
                     , ( node3< nt2::tag::fma_
-                             , boost::proto::tag::terminal
+                             , nt2::tag::terminal_
                              , node3< nt2::tag::fma_
-                                    , boost::proto::tag::terminal
-                                    , boost::proto::tag::terminal
-                                    , boost::proto::tag::terminal
+                                    , nt2::tag::terminal_
+                                    , nt2::tag::terminal_
+                                    , nt2::tag::terminal_
                                     >
-                             , boost::proto::tag::terminal
+                             , nt2::tag::terminal_
                              >
                       )
                     );

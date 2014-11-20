@@ -31,12 +31,6 @@ namespace boost { namespace dispatch { namespace tag
 namespace meta
 {
   template<class T>
-  struct proto_tag
-  {
-    typedef T type;
-  };
-
-  template<class T>
   struct is_formal : is_formal<typename T::parent>
   {
   };
@@ -83,7 +77,7 @@ namespace boost { namespace dispatch { namespace meta
     struct result<This(A...)>
     {
       typedef typename boost::proto::result_of::
-      make_expr < typename meta::proto_tag<Func>::type
+      make_expr < Func
                 , typename meta::as_ref<A>::type...
                 >::type type;
     };
@@ -93,7 +87,7 @@ namespace boost { namespace dispatch { namespace meta
     operator()(A&&... a) const
     {
       return boost::proto::
-      make_expr< typename meta::proto_tag<Func>::type >
+      make_expr< Func >
                ( boost::reference_wrapper< typename boost::remove_reference< typename meta::as_ref<A&&>::type >::type >(a)... );
     }
   };
