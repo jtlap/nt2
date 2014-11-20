@@ -67,6 +67,13 @@ namespace boost { namespace dispatch { namespace meta
   {
     typedef T const& type;
   };
+
+  /// INTERNAL ONLY
+  template<class T>
+  struct as_ref<T&&>
+  {
+    typedef T const& type;
+  };
 } } }
 
 #endif

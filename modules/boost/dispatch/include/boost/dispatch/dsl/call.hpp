@@ -94,7 +94,7 @@ namespace boost { namespace dispatch { namespace meta
     {
       return boost::proto::
       make_expr< typename meta::proto_tag<Func>::type >
-               ( boost::reference_wrapper< typename boost::remove_reference< typename meta::as_ref<A>::type >::type >(a)... );
+               ( boost::reference_wrapper< typename boost::remove_reference< typename meta::as_ref<A&&>::type >::type >(a)... );
     }
   };
 } } }

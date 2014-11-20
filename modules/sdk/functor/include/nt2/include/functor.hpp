@@ -38,7 +38,7 @@ namespace nt2
     BOOST_FORCEINLINE
     BOOST_AUTO_DECLTYPE operator()(Args&&... args) const
     BOOST_AUTO_DECLTYPE_BODY(
-      dispatching(ext::adl_helper(), Tag(), boost::dispatch::default_site_t<Site>(), boost::dispatch::meta::hierarchy_of_t<Args>()...)(static_cast<Args&&>(args)...)
+      dispatching(ext::adl_helper(), Tag(), boost::dispatch::default_site_t<Site>(), boost::dispatch::meta::hierarchy_of_t<Args&&>()...)(static_cast<Args&&>(args)...)
     )
   };
 }

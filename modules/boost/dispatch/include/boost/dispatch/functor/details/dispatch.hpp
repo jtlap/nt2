@@ -12,7 +12,6 @@
 #include <boost/dispatch/meta/hierarchy_of.hpp>
 #include <boost/dispatch/attributes.hpp>
 #include <boost/dispatch/functor/forward.hpp>
-#include <boost/dispatch/functor/details/call.hpp>
 #include <boost/mpl/identity.hpp>
 #include <boost/mpl/eval_if.hpp>
 #include <boost/type_traits/is_void.hpp>
@@ -27,30 +26,6 @@ namespace boost { namespace dispatch { namespace meta
   //==============================================================================
   template<class Sig, class Site = void>
   struct dispatch_call;
-
-  //==============================================================================
-  // What the fuck with adl_helper ? Well, as pointed out by Johannes Schaub
-  // it is mandated by the standard so ADL kicks in on resolving calls to
-  // dispatching without having to order them BEFORE the actual dispatch_call
-  // class definitions. Without it, the whole system brittles.
-  //==============================================================================
-
-  template< class Tag, class Site
-          , class... A
-          >
-  BOOST_FORCEINLINE
-  boost::dispatch::meta::
-  implement<tag::unknown_, Site, Tag(A...)>
-  dispatching ( adl_helper
-              , meta::unknown_<Tag>, meta::unknown_<Site>
-              , meta::unknown_<A>...
-              )
-  {
-    boost::dispatch::meta::implement< tag::unknown_, Site
-                                    , Tag(A...)
-                                    > that;
-    return that;
-  }
 
   template< class Tag, class Site_
           , class... A
