@@ -32,8 +32,6 @@ NT2_TEST_CASE_TPL ( logical_not_integer__1_0,  NT2_SIMD_INTEGRAL_TYPES)
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef native<T,ext_t>                        n_t;
-  typedef n_t                                     vT;
   typedef native< boost::simd::logical<T>, ext_t> vlT;
   typedef typename nt2::meta::call<logical_not_(T)>::type sr_t;
 
@@ -50,8 +48,6 @@ NT2_TEST_CASE_TPL ( logical_not_real__1_0,  NT2_SIMD_REAL_TYPES)
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef native<T,ext_t>                        n_t;
-  typedef n_t                                     vT;
   typedef native< boost::simd::logical<T>, ext_t> vlT;
   typedef typename nt2::meta::call<logical_not_(T)>::type sr_t;
 
