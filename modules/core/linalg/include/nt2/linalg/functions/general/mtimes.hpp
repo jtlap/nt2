@@ -263,8 +263,10 @@ namespace nt2 { namespace ext
       mtimes(boost::proto::child_c<0>(a0), boost::proto::child_c<0>(a1), a2, a3, tag::blas_ctranspose_(), tag::blas_ctranspose_())
     )
   };
+} }
 
-
+namespace boost { namespace simd { namespace ext
+{
   // Recognize alpha
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::multiplies_, tag::cpu_
                             , (A0)(A1)
@@ -287,7 +289,10 @@ namespace nt2 { namespace ext
       mtimes(boost::proto::child_c<0>(a0), boost::proto::child_c<1>(a0), boost::proto::child_c<2>(a0), a1 * boost::proto::value(boost::proto::child_c<3>(a0)), boost::proto::child_c<4>(a0), boost::proto::child_c<5>(a0))
     )
   };
+} } }
 
+namespace nt2 { namespace ext
+{
   // run_assign
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_assign_, tag::cpu_
                             , (A0)(A1)

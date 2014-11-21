@@ -81,6 +81,7 @@ do
     perl-sed 's@namespace\s+nt2\s*{\s*namespace\s+ext@namespace boost { namespace simd { namespace ext@g' "$i"
     perl-sed 's@(?<!:)\bmeta::(as_complex|as_real|as_dry)@nt2::meta::\1@g' "$i"
     perl-sed 's@(?<!:)\bmeta::(as_integer|as_(?:un)?signed|as_floating)@boost::dispatch::meta::\1@g' "$i"
+    perl-sed 's@(?<![:/])\b(real|imag)\b@nt2::\1@g' "$i"
     perl-sed 's@}\s*}(\s*)#endif@} } }\1#endif@gs' "$i"
   fi
 done

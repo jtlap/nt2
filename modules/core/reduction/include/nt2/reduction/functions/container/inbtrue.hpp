@@ -16,22 +16,16 @@
 #include <nt2/include/functions/real.hpp>
 #include <nt2/core/container/dsl/forward.hpp>
 
-namespace nt2 { namespace ext
+namespace boost { namespace simd { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::inbtrue_, tag::cpu_,
                               (A0),
                               ((ast_<A0, nt2::container::domain>))
                             )
   {
-    typedef typename meta::call<tag::if_one_else_zero_(A0 const&)>::type T0;
-    typedef typename meta::call<tag::real_(T0)>::type                    T1;
-    typedef typename meta::call<tag::touint_(T1)>::type                  T2;
-    typedef typename meta::call<tag::sum_(T2)>::type                     T3;
-    typedef T3 result_type;
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
-    {
-      return nt2::sum(nt2::touint(nt2::real(nt2::if_one_else_zero(a0))));
-    }
+    BOOST_DISPATCH_RETURNS(1, (A0 const& a0),
+      nt2::sum(nt2::touint(nt2::real(nt2::if_one_else_zero(a0))))
+    )
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::inbtrue_, tag::cpu_,
@@ -40,15 +34,10 @@ namespace nt2 { namespace ext
                               (scalar_<integer_<A1> >)
                             )
   {
-    typedef typename meta::call<tag::if_one_else_zero_(A0 const&)>::type T0;
-    typedef typename meta::call<tag::real_(T0)>::type                    T1;
-    typedef typename meta::call<tag::touint_(T1)>::type                  T2;
-    typedef typename meta::call<tag::sum_(T2,A1 const&)>::type  result_type;
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0, const A1& a1) const
-    {
-      return  nt2::sum(nt2::touint(nt2::real(nt2::if_one_else_zero(a0))), a1);
-    }
+    BOOST_DISPATCH_RETURNS(2, (A0 const& a0, const A1& a1),
+      nt2::sum(nt2::touint(nt2::real(nt2::if_one_else_zero(a0))), a1)
+    )
   };
-} }
+} } }
 
 #endif
