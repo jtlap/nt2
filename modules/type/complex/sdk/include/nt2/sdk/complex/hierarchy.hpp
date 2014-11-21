@@ -48,4 +48,10 @@ namespace nt2 { namespace ext
   using boost::dispatch::meta::dry_;
 } }
 
+namespace boost { namespace simd { namespace ext
+{
+  using boost::dispatch::meta::complex_;
+  using boost::dispatch::meta::dry_;
+} } }
+
 #endif

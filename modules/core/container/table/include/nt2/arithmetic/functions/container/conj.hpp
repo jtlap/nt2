@@ -13,7 +13,7 @@
 #include <nt2/include/functions/ctranspose.hpp>
 #include <nt2/include/functions/transpose.hpp>
 
-namespace nt2 { namespace ext
+namespace boost { namespace simd { namespace ext
 {
   // conj optimizations
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::conj_, tag::cpu_
@@ -21,7 +21,7 @@ namespace nt2 { namespace ext
                             , ((node_<A0, nt2::tag::transpose_, boost::mpl::long_<1>, nt2::container::domain>))
                             )
   {
-    BOOST_DISPATCH_RETURNS(1, (A0 const& a0), ctranspose(boost::proto::child_c<0>(a0)))
+    BOOST_DISPATCH_RETURNS(1, (A0 const& a0), nt2::ctranspose(boost::proto::child_c<0>(a0)))
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::conj_, tag::cpu_
@@ -29,7 +29,7 @@ namespace nt2 { namespace ext
                             , ((node_<A0, nt2::tag::ctranspose_, boost::mpl::long_<1>, nt2::container::domain>))
                             )
   {
-    BOOST_DISPATCH_RETURNS(1, (A0 const& a0), transpose(boost::proto::child_c<0>(a0)))
+    BOOST_DISPATCH_RETURNS(1, (A0 const& a0), nt2::transpose(boost::proto::child_c<0>(a0)))
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::conj_, tag::cpu_
@@ -39,6 +39,6 @@ namespace nt2 { namespace ext
   {
     BOOST_DISPATCH_RETURNS(1, (A0 const& a0), boost::proto::child_c<0>(a0))
   };
-} }
+} } }
 
 #endif

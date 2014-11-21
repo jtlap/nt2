@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# TODO
-# nt2
-
 function perl-sed() {
   perl -p -0777 -i -e "$@"
 }
@@ -65,4 +62,25 @@ do
 
   # existing uses of BOOST_DISPATCH_REGISTER with template tag, use the _G variant
   perl-sed 's/BOOST_DISPATCH_REGISTER(_TO)?(_IF)?(\s*)\((\s*)\(.+?\)\s*,\s*([:a-zA-Z0-9#_<>\s]+)(\s*)(,|\n|\\)/BOOST_DISPATCH_REGISTER_G\1\2\3(\4\5\6\7/gs' "$i"
+
+  if echo "$i" | grep -q -F 'include/nt2'
+  then
+    # unqualified mpl:: or is_same
+    perl-sed 's@(?<![:/])\b(mpl::|is_same\b)@boost::\1@g' "$i"
+  fi
+done
+
+echo "complex numbers for Boost.SIMD"
+complex_specializations=$(find . -regextype posix-egrep -regex './modules/type/complex/base/include/.*\.hpp' -o -regex './modules/type/complex/sdk/include/nt2/memory/.*\.hpp' -not -name assign.hpp)
+
+echo "$complex_specializations" | while read i
+do
+  if ! grep -q -F 'namespace boost { namespace simd { namespace ext' "$i"
+  then
+    echo "$i"
+    perl-sed 's@namespace\s+nt2\s*{\s*namespace\s+ext@namespace boost { namespace simd { namespace ext@g' "$i"
+    perl-sed 's@(?<!:)\bmeta::(as_complex|as_real|as_dry)@nt2::meta::\1@g' "$i"
+    perl-sed 's@(?<!:)\bmeta::(as_integer|as_(?:un)?signed|as_floating)@boost::dispatch::meta::\1@g' "$i"
+    perl-sed 's@}\s*}(\s*)#endif@} } }\1#endif@gs' "$i"
+  fi
 done
