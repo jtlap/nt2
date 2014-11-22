@@ -11,7 +11,7 @@
 #define NT2_CORE_FUNCTIONS_EXPR_FIRST_INDEX_HPP_INCLUDED
 
 #include <nt2/core/functions/first_index.hpp>
-#include <nt2/core/container/dsl.hpp>
+#include <nt2/core/container/dsl/forward.hpp>
 #include <boost/dispatch/meta/mpl.hpp>
 
 namespace nt2 { namespace ext
