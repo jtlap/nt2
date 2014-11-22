@@ -43,7 +43,10 @@ namespace boost { namespace simd { namespace details
 
     return boost::math::nextafter(a0, a1, c_policy());
   }
+}
 
+namespace ext
+{
   BOOST_DISPATCH_IMPLEMENT          ( nextafter_, tag::cpu_
                                     , (A0)
                                     , (scalar_< arithmetic_<A0> >)(scalar_< arithmetic_<A0> >)
