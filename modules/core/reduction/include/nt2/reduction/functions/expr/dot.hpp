@@ -11,12 +11,12 @@
 #define NT2_REDUCTION_FUNCTIONS_EXPR_DOT_HPP_INCLUDED
 
 #include <nt2/reduction/functions/dot.hpp>
-#include <nt2/core/container/dsl.hpp>
+#include <nt2/core/container/dsl/forward.hpp>
 #include <nt2/include/functions/sum.hpp>
 #include <nt2/include/functions/conj.hpp>
 #include <nt2/include/functions/multiplies.hpp>
 
-namespace nt2 { namespace ext
+namespace boost { namespace simd { namespace ext
 {
   /// INTERNAL ONLY
   BOOST_DISPATCH_IMPLEMENT  ( dot_, tag::cpu_
@@ -25,7 +25,7 @@ namespace nt2 { namespace ext
                             )
   {
     BOOST_DISPATCH_RETURNS(2, (A0 const& a0, A1 const& a1),
-      nt2::sum(nt2::multiplies(a0, conj(a1)))
+      nt2::sum(nt2::multiplies(a0, nt2::conj(a1)))
     )
   };
 
@@ -37,9 +37,9 @@ namespace nt2 { namespace ext
                             )
   {
     BOOST_DISPATCH_RETURNS(3, (A0 const& a0, A1 const& a1, A2 const& a2),
-      nt2::sum(nt2::multiplies(a0, conj(a1)), a2)
+      nt2::sum(nt2::multiplies(a0, nt2::conj(a1)), a2)
     )
   };
-} }
+} } }
 
 #endif
