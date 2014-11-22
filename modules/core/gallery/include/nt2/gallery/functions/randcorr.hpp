@@ -69,6 +69,9 @@ namespace nt2 { namespace tag
      struct randcorr_ : ext::unspecified_<randcorr_>
     {
       typedef ext::unspecified_<randcorr_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_randcorr_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
   }
   namespace ext
@@ -80,6 +83,13 @@ namespace nt2 { namespace tag
     }
     template<class... Args>
     struct impl_randcorr0_;
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::randcorr_, Site> dispatching_randcorr_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::randcorr_, Site>();
+    }
+    template<class... Args>
+    struct impl_randcorr_;
   }
 
   NT2_FUNCTION_IMPLEMENTATION(tag::randcorr_, randcorr, 3)

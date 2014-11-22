@@ -62,6 +62,9 @@ namespace nt2 { namespace tag
      struct randhess_ : ext::unspecified_<randhess_>
     {
       typedef ext::unspecified_<randhess_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_randhess_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
   }
   namespace ext
@@ -73,6 +76,13 @@ namespace nt2 { namespace tag
     }
     template<class... Args>
     struct impl_randhess0_;
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::randhess_, Site> dispatching_randhess_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::randhess_, Site>();
+    }
+    template<class... Args>
+    struct impl_randhess_;
   }
 
   NT2_FUNCTION_IMPLEMENTATION(tag::randhess0_, randhess, 2)

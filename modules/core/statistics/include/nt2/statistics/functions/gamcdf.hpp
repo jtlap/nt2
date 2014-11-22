@@ -42,6 +42,9 @@ namespace nt2 { namespace tag
     {
       /// @brief Parent hierarchy
       typedef ext::elementwise_<gamcdf0_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_gamcdf0_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
   }
   namespace ext
@@ -53,6 +56,13 @@ namespace nt2 { namespace tag
    }
    template<class... Args>
    struct impl_gamcdf_;
+   template<class Site, class... H>
+   BOOST_FORCEINLINE generic_dispatcher<tag::gamcdf0_, Site> dispatching_gamcdf0_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   {
+     return generic_dispatcher<tag::gamcdf0_, Site>();
+   }
+   template<class... Args>
+   struct impl_gamcdf0_;
   }
   /*!
     gamma  cumulative distribution
