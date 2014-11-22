@@ -62,7 +62,7 @@ namespace boost { namespace simd { namespace ext
                           nt2::if_else(nt2::logical_andnot(nt2::is_finite(i),nt2::is_nan(r)),
                                        result_type(sr),
                                        nt2::if_else(nt2::logical_andnot(nt2::is_finite(r),nt2::is_nan(i)),
-                                                    mul_i(si),
+                                                    nt2::mul_i(si),
                                                     z
                                                    )
                                       ),
@@ -71,7 +71,7 @@ namespace boost { namespace simd { namespace ext
        }
        z =  nt2::if_else(nt2::is_real(a0),
                          result_type(nt2::real(z)),
-                         nt2::if_else(nt2::is_imag(a0), mul_i(nt2::imag(z)), z)
+                         nt2::if_else(nt2::is_imag(a0), nt2::mul_i(nt2::imag(z)), z)
                         );
 #endif
        return nt2::if_else(nt2::is_eqz(mod), a0, z);

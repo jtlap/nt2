@@ -22,7 +22,7 @@ namespace boost { namespace simd { namespace ext
 {
   BOOST_DISPATCH_IMPLEMENT_IF  ( groups_, tag::cpu_,
                           (A0)(X),
-                          (boost::mpl::not_< boost::is_same<A0, typename dispatch::meta::downgrade<A0>::type> >),
+                          (boost::mpl::not_< boost::is_same<A0, typename boost::dispatch::meta::downgrade<A0>::type> >),
                           ((simd_<complex_<arithmetic_<A0> >,X>))
                           ((simd_<complex_<arithmetic_<A0> >,X>))
                         )
@@ -37,7 +37,7 @@ namespace boost { namespace simd { namespace ext
 
   BOOST_DISPATCH_IMPLEMENT_IF  ( groups_, tag::cpu_,
                           (A0)(X),
-                          (boost::mpl::not_< boost::is_same<A0, typename dispatch::meta::downgrade<A0>::type> >),
+                          (boost::mpl::not_< boost::is_same<A0, typename boost::dispatch::meta::downgrade<A0>::type> >),
                           ((simd_<dry_<arithmetic_<A0> >,X>))
                           ((simd_<dry_<arithmetic_<A0> >,X>))
                         )
