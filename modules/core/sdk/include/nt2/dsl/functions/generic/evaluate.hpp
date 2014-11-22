@@ -21,11 +21,11 @@ namespace nt2 { namespace ext
                                     , ((ast_<A0, D>))
                                     )
   {
-    typedef typename boost::dispatch::meta::call<tag::run_(A0&)>::type result_type;
+    typedef typename boost::dispatch::meta::call<nt2::tag::run_(A0&)>::type result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0& a0) const
     {
-      return run(a0);
+      return nt2::run(a0);
     }
   };
 } }
