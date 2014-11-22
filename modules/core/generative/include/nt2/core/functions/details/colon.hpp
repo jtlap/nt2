@@ -29,6 +29,7 @@ namespace nt2 { namespace tag
   struct table_;
   struct colon_;
   struct unity_colon_;
+  struct terminal_;
 } }
 
 namespace nt2 { namespace details
