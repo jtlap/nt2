@@ -26,6 +26,10 @@ namespace nt2 { namespace tag
     {
       /// @brief Parent hierarchy
       typedef ext::abstract_<is_prime_> parent;
+
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_is_prime_(ext::adl_helper(), static_cast<Args&&>(args)...) )
     };
   }
   namespace ext
