@@ -40,6 +40,14 @@ namespace nt2
     }
     template<class... Args>
     struct impl_quad_;
+
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::Quadabstol, Site> dispatching_Quadabstol(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::Quadabstol, Site>();
+    }
+    template<class... Args>
+    struct impl_Quadabstol;
   }
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(tag::Quadabstol, Quadabstol);
 

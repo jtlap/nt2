@@ -39,6 +39,14 @@ namespace nt2
     }
     template<class... Args>
     struct impl_quadl_;
+
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::Quadlabstol, Site> dispatching_Quadlabstol(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::Quadlabstol, Site>();
+    }
+    template<class... Args>
+    struct impl_Quadlabstol;
   }
 
   /// INTERNAL ONLY

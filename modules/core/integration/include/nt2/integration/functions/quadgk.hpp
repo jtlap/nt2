@@ -44,6 +44,22 @@ namespace nt2
     }
     template<class... Args>
     struct impl_quadgk_;
+
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::Quadgkabstol, Site> dispatching_Quadgkabstol(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::Quadgkabstol, Site>();
+    }
+    template<class... Args>
+    struct impl_Quadgkabstol;
+
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::Quadgkreltol, Site> dispatching_Quadgkreltol(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::Quadgkreltol, Site>();
+    }
+    template<class... Args>
+    struct impl_Quadgkreltol;
   }
   /// INTERNAL ONLY
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(tag::Quadgkabstol, Quadgkabstol);
