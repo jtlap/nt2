@@ -10,22 +10,20 @@
 #define NT2_SWAR_FUNCTIONS_EXPR_SORT_HPP_INCLUDED
 
 #include <boost/simd/swar/functions/sort.hpp>
-#include <nt2/core/container/dsl.hpp>
-#include <nt2/include/functions/size.hpp>
-#include <nt2/include/functions/flipud.hpp>
-#include <nt2/include/functions/is_nan.hpp>
+#include <nt2/core/container/dsl/forward.hpp>
 #include <nt2/core/container/table/table.hpp>
-#include <algorithm>
+#include <nt2/include/functions/size.hpp>
 #include <nt2/include/functions/assign.hpp>
 #include <nt2/include/functions/tie.hpp>
-#include <nt2/core/utility/as_subscript.hpp>
 #include <nt2/include/functions/indices.hpp>
 #include <nt2/include/functions/linesstride.hpp>
+#include <nt2/core/utility/as_subscript.hpp>
 #include <nt2/sdk/meta/is_target.hpp>
-#include <string>
 #include <boost/mpl/bool.hpp>
+#include <algorithm>
+#include <string>
 
-namespace nt2 { namespace ext
+namespace boost { namespace simd { namespace ext
 {
   //============================================================================
   // This version of sort is called whenever a tie(...) = sort(...) is captured
@@ -40,12 +38,12 @@ namespace nt2 { namespace ext
   {
     typedef void                                                    result_type;
     typedef typename boost::proto::result_of::child_c<A1&,0>::type       child0;
-    typedef typename meta::strip<child0>::type                        st_child0;
+    typedef typename nt2::meta::strip<child0>::type                   st_child0;
     typedef typename st_child0::value_type                           value_type;
     typedef typename st_child0::index_type                           index_type;
-    typedef container::table<value_type,index_type>                       res_t;
+    typedef nt2::container::table<value_type,index_type>                  res_t;
     typedef typename st_child0::extent_type                               ext_t;
-    typedef typename result_of::as_subscript<ext_t,size_t>::type          sub_t;
+    typedef typename nt2::result_of::as_subscript<ext_t,size_t>::type     sub_t;
 
     BOOST_FORCEINLINE result_type operator()( A0& a0, A1& a1 ) const
     {
@@ -57,7 +55,7 @@ namespace nt2 { namespace ext
       //retrieve options
       choice(a0, up, dim, N0());
       // compute the sorted result
-      compute(a0, a1, up,  dim, N0(), N1(), typename meta::is_target<child0>::type() );
+      compute(a0, a1, up,  dim, N0(), N1(), typename nt2::meta::is_target<child0>::type() );
     }
 
   private:
@@ -199,7 +197,7 @@ namespace nt2 { namespace ext
     {
       size_t h = nt2::size(res, dim);
       if (h <= 1) return;
-      size_t nbslice =  numel(res)/h;
+      size_t nbslice =  nt2::numel(res)/h;
 //    if (dim == 1)
 //    {
 //      value_type* beg = res.raw();
@@ -212,13 +210,13 @@ namespace nt2 { namespace ext
 //    }
 //    else
 //    {
-        size_t stride = linesstride(res, dim);
-        size_t decal =  stride*(size(res, dim)-1);
+        size_t stride = nt2::linesstride(res, dim);
+        size_t decal =  stride*(nt2::size(res, dim)-1);
         size_t p = 0;
         value_type* beg = res.raw();
         for(size_t i=0; i < nbslice; ++i)
         {
-          sub_t pos = as_subscript(res.extent(), p);
+          sub_t pos = nt2::as_subscript(res.extent(), p);
 
           if (pos[dim-1]!= 0)
           {
@@ -237,13 +235,13 @@ namespace nt2 { namespace ext
       // here 0 has to be replaced by min(dim-1, size(index_type)),  but dim-1 is run-time
       // and I dont know how to simpy take the ith element of the index_type
       const i_type base = ind_type::value-1;
-      idx =  nt2::indices(size(res), nt2::over(dim), meta::as_<i_type>())+base;
+      idx =  nt2::indices(nt2::size(res), nt2::over(dim), nt2::meta::as_<i_type>())+base;
 
       size_t h = nt2::size(res, dim);
       if (h <= 1) return;
-      size_t nbslice =  numel(res)/h;
+      size_t nbslice =  nt2::numel(res)/h;
       size_t stride = linesstride(res, dim);
-      size_t decal = stride*(size(res, dim)-1);
+      size_t decal = stride*(nt2::size(res, dim)-1);
       size_t p = 0;
       value_type* beg = res.raw();
       i_type* bep = idx.raw();
@@ -266,20 +264,20 @@ namespace nt2 { namespace ext
       typedef typename boost::mpl::at_c< typename T::index_type::type, 0>::type  ind_type;
       // here 0 has to be replaced by min(dim-1, size(index_type)),  but dim-1 is run-time
       // and I dont know how to simpy take the ith element of the index_type
-      idx =  nt2::indices(size(res), nt2::over(dim), meta::as_<i_type>())-One<i_type>();
+      idx =  nt2::indices(nt2::size(res), nt2::over(dim), nt2::meta::as_<i_type>())-One<i_type>();
       //base 0 here for indexing the raw array
 
       size_t h = nt2::size(res, dim);
       if (h <= 1) { idx = idx+ind_type::value; return; }
-      size_t nbslice =  numel(res)/h;
-      size_t stride = linesstride(res, dim);
-      size_t decal = stride*(size(res, dim)-1);
+      size_t nbslice =  nt2::numel(res)/h;
+      size_t stride = nt2::linesstride(res, dim);
+      size_t decal = stride*(nt2::size(res, dim)-1);
       size_t p = 0;
       value_type* beg = res.raw();
       i_type* bep = idx.raw();
       for(size_t i=0; i < nbslice; ++i)
       {
-        sub_t pos = as_subscript(res.extent(), p);
+        sub_t pos = nt2::as_subscript(res.extent(), p);
         if (pos[dim-1]!= 0)
         {
           p+= decal;
@@ -430,6 +428,6 @@ namespace nt2 { namespace ext
       }
     }
   };
-} }
+} } }
 
 #endif
