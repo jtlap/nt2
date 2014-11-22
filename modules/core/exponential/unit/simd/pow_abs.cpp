@@ -47,6 +47,7 @@ NT2_TEST_CASE_TPL ( pow_abs,  NT2_SIMD_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(pow_abs(nt2::Inf<vT>(), nt2::Inf<vT>()), nt2::Inf<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(pow_abs(nt2::Minf<vT>(), nt2::Minf<vT>()), nt2::Zero<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(pow_abs(nt2::Inf<vT>(), nt2::Minf<vT>()), nt2::Zero<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(pow_abs(nt2::Inf<vT>(), nt2::Half<vT>()), nt2::Inf<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(pow_abs(nt2::Nan<vT>(), nt2::Nan<vT>()), nt2::Nan<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(pow_abs(nt2::Two<vT>(), nt2::Inf<vT>()), nt2::Inf<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(pow_abs(nt2::Half<vT>(), nt2::Inf<vT>()), nt2::Zero<r_t>(), 0);

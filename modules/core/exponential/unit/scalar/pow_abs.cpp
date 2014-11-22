@@ -42,6 +42,7 @@ NT2_TEST_CASE_TPL ( pow_abs,  NT2_REAL_TYPES)
   // specific values tests
 #ifndef BOOST_SIMD_NO_INVALIDS
   NT2_TEST_ULP_EQUAL(pow_abs(nt2::Inf<T>(), nt2::Inf<T>()), nt2::Inf<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(pow_abs(nt2::Inf<T>(), nt2::Half<T>()), nt2::Inf<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(pow_abs(nt2::Minf<T>(), nt2::Minf<T>()), nt2::Zero<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(pow_abs(nt2::Nan<T>(), nt2::Nan<T>()), nt2::Nan<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(pow_abs(nt2::Two<T>(), nt2::Inf<T>()), nt2::Inf<r_t>(), 0);
