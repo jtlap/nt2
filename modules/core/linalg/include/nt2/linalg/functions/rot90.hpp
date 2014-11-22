@@ -39,7 +39,7 @@ namespace nt2
      *        in namespace nt2::tag for toolbox algebra
     **/
     struct rot90_   :  ext::unspecified_<rot90_> { typedef ext::unspecified_<rot90_> parent;   template<class... Args>   static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)   BOOST_AUTO_DECLTYPE_BODY( dispatching_rot90_( ext::adl_helper(), static_cast<Args&&>(args)... ) ) };
-    struct rot90_0_ :  ext::abstract_<rot90_0_>              { typedef ext::abstract_<rot90_0_> parent;              };
+    struct rot90_0_ :  ext::abstract_<rot90_0_>  { typedef ext::abstract_<rot90_0_> parent;    template<class... Args>   static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)   BOOST_AUTO_DECLTYPE_BODY( dispatching_rot90_0_( ext::adl_helper(), static_cast<Args&&>(args)... ) ) };
 
   }
   namespace ext
@@ -51,6 +51,14 @@ namespace nt2
     }
     template<class... Args>
     struct impl_rot90_;
+
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::rot90_0_, Site> dispatching_rot90_0_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::rot90_0_, Site>();
+    }
+    template<class... Args>
+    struct impl_rot90_0_;
   }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::rot90_,   rot90, 2)
