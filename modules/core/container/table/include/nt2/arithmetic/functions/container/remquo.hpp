@@ -13,7 +13,7 @@
 #include <nt2/include/functions/tie.hpp>
 #include <boost/dispatch/meta/terminal_of.hpp>
 
-namespace nt2 { namespace ext
+namespace boost { namespace simd { namespace ext
 {
   BOOST_DISPATCH_IMPLEMENT  ( remquo_, tag::cpu_
                             , (A0)(A1)(A2)(A3)
@@ -80,6 +80,6 @@ namespace nt2 { namespace ext
       return r0;
     }
   };
-} }
+} } }
 
 #endif
