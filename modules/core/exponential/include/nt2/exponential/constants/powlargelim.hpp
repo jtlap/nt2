@@ -9,6 +9,7 @@
 #ifndef NT2_EXPONENTIAL_CONSTANTS_POWLARGELIM_HPP_INCLUDED
 #define NT2_EXPONENTIAL_CONSTANTS_POWLARGELIM_HPP_INCLUDED
 
+#include <nt2/include/functor.hpp>
 #include <boost/simd/constant/hierarchy.hpp>
 #include <boost/simd/constant/register.hpp>
 

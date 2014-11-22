@@ -8,6 +8,8 @@
 //==============================================================================
 #ifndef NT2_EXPONENTIAL_CONSTANTS_INVEXP_1_HPP_INCLUDED
 #define NT2_EXPONENTIAL_CONSTANTS_INVEXP_1_HPP_INCLUDED
+
+#include <nt2/include/functor.hpp>
 #include <boost/simd/constant/hierarchy.hpp>
 #include <boost/simd/constant/register.hpp>
 
