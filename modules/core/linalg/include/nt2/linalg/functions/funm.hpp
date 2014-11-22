@@ -19,7 +19,20 @@ namespace nt2 { namespace tag
     struct funm_ :   ext::unspecified_<funm_>
     {
       typedef ext::unspecified_<funm_>  parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_funm_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::funm_, Site> dispatching_funm_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::funm_, Site>();
+    }
+    template<class... Args>
+    struct impl_funm_;
   }
   /**
    * @brief funm(f, a) evaluates the functor fun at the square

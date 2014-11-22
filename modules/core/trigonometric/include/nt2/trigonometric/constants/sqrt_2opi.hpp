@@ -29,6 +29,16 @@ namespace nt2
                                 , 0x3fe9884533d43651ll
                                 )
   }
+  namespace ext
+  {
+   template<class Site, class... H>
+   BOOST_FORCEINLINE generic_dispatcher<tag::Sqrt_2opi, Site> dispatching_Sqrt_2opi(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   {
+     return generic_dispatcher<tag::Sqrt_2opi, Site>();
+   }
+   template<class... Args>
+   struct impl_Sqrt_2opi;
+  }
   /*!
     Constant  \f$\frac{\sqrt2}{\pi}\f$.
 

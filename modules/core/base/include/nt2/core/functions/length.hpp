@@ -24,10 +24,23 @@ namespace nt2
     /*!
       @brief tag for the length functor
     **/
-    struct length_ : boost::dispatch::tag::formal_
+    struct length_ : ext::abstract_<length_>
     {
-      typedef boost::dispatch::tag::formal_ parent;
+      typedef ext::abstract_<length_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_length_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::length_, Site> dispatching_length_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::length_, Site>();
+    }
+    template<class... Args>
+    struct impl_length_;
   }
 
   /*!

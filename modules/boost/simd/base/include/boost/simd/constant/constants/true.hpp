@@ -31,7 +31,20 @@ namespace boost { namespace simd
     {
       typedef logical<double> default_type;
       typedef ext::pure_constant_<True> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_True( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+   template<class Site, class... H>
+   BOOST_FORCEINLINE generic_dispatcher<tag::True, Site> dispatching_True(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   {
+     return generic_dispatcher<tag::True, Site>();
+   }
+   template<class... Args>
+   struct impl_True;
   }
   /*!
     Generates the value True as a logical associated to chosen type

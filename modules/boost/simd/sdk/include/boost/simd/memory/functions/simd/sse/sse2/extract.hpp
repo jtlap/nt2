@@ -19,7 +19,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::extract_
+  BOOST_DISPATCH_IMPLEMENT          ( extract_
                                     , boost::simd::tag::sse2_
                                     , (A0)(A1)
                                     , ((simd_< ints8_<A0>, boost::simd::tag::sse_ >))
@@ -35,7 +35,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::extract_
+  BOOST_DISPATCH_IMPLEMENT          ( extract_
                                     , boost::simd::tag::sse2_
                                     , (A0)(A1)
                                     , ((simd_< ints16_<A0>, boost::simd::tag::sse_ >))
@@ -52,7 +52,7 @@ namespace boost { namespace simd { namespace ext
 
 // workaround for bug with GCC 32-bit x87, causing weird issues with splat int,sse -> complex<float>,sse
 #if !(defined(BOOST_SIMD_COMPILER_GCC) && !defined(BOOST_SIMD_ARCH_X86_64) && defined(BOOST_SIMD_HAS_X87))
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::extract_
+  BOOST_DISPATCH_IMPLEMENT          ( extract_
                                     , boost::simd::tag::sse2_
                                     , (A0)(A1)
                                     , ((simd_< ints32_<A0>, boost::simd::tag::sse_ >))
@@ -69,7 +69,7 @@ namespace boost { namespace simd { namespace ext
 #endif
 
 #ifdef BOOST_SIMD_ARCH_X86_64
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::extract_
+  BOOST_DISPATCH_IMPLEMENT          ( extract_
                                     , boost::simd::tag::sse2_
                                     , (A0)(A1)
                                     , ((simd_< ints64_<A0>, boost::simd::tag::sse_ >))
@@ -85,7 +85,7 @@ namespace boost { namespace simd { namespace ext
   };
 #endif
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::extract_
+  BOOST_DISPATCH_IMPLEMENT          ( extract_
                                     , boost::simd::tag::sse2_
                                     , (A0)(A1)
                                     , ((simd_< single_<A0>, boost::simd::tag::sse_ >))
@@ -100,7 +100,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::extract_
+  BOOST_DISPATCH_IMPLEMENT          ( extract_
                                     , boost::simd::tag::sse2_
                                     , (A0)(A1)
                                     , ((simd_< double_<A0>, boost::simd::tag::sse_ >))

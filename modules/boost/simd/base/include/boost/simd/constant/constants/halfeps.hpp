@@ -30,6 +30,16 @@ namespace boost { namespace simd
                                 , 0x33800000, 0x3CA0000000000000ULL
                                 )
   }
+  namespace ext
+  {
+   template<class Site, class... H>
+   BOOST_FORCEINLINE generic_dispatcher<tag::Halfeps, Site> dispatching_Halfeps(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   {
+     return generic_dispatcher<tag::Halfeps, Site>();
+   }
+   template<class... Args>
+   struct impl_Halfeps;
+  }
   /*!
     Generates the  machine epsilon.
 

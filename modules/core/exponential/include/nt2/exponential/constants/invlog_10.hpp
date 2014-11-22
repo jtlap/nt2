@@ -28,6 +28,16 @@ namespace nt2
                                 , 0x3fdbcb7b1526e50dULL
                                 )
   }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::Invlog_10, Site> dispatching_Invlog_10(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::Invlog_10, Site>();
+    }
+    template<class... Args>
+    struct impl_Invlog_10;
+  }
   /*!
     Generates constant 1/log(10).
 

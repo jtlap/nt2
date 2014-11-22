@@ -32,7 +32,7 @@ namespace nt2 { namespace ext
 //---------------------------------------------Real-double-no w no u------------------------------------------------//
 
   /// INTERNAL ONLY - Compute the workspace
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::geesx1_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( geesx1_, tag::cpu_
                             , (A0)(S0)(A1)
                             , ((container_<nt2::tag::table_,  double_<A0>, S0 >)) //a
                               (scalar_<double_<A1> > )
@@ -73,7 +73,7 @@ namespace nt2 { namespace ext
   };
 
    /// INTERNAL ONLY - Compute the workspace
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::geesx1_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( geesx1_, tag::cpu_
                             , (A0)(S0)(A1)
                             , ((container_<nt2::tag::table_,  single_<A0>, S0 >)) //a
                               (scalar_<single_<A1> > )
@@ -114,7 +114,7 @@ namespace nt2 { namespace ext
     }
   };
   /// INTERNAL ONLY - workspace ready
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::geesx1_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( geesx1_, tag::cpu_
                             , (A0)(S0)(A1)(WK)
                             , ((container_<nt2::tag::table_,  single_<A0>, S0 >)) //a
                               (scalar_<single_<A1> > )
@@ -153,7 +153,7 @@ namespace nt2 { namespace ext
     }
   };
   /// INTERNAL ONLY - workspace ready
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::geesx1_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( geesx1_, tag::cpu_
                             , (A0)(S0)(A1)(WK)
                             , ((container_<nt2::tag::table_,  double_<A0>, S0 >)) //a
                               (scalar_<double_<A1> > )
@@ -195,7 +195,7 @@ namespace nt2 { namespace ext
 
 
   /// INTERNAL ONLY - Compute the workspace
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::geesx1_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( geesx1_, tag::cpu_
                             , (A0)(S0)(A1)
                             , ((container_<nt2::tag::table_,  complex_<double_<A0> >, S0 >)) //a
                               (scalar_<complex_ < double_<A1> > > )
@@ -234,7 +234,7 @@ namespace nt2 { namespace ext
   };
 
   /// INTERNAL ONLY - Workspace is ready
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::geesx1_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( geesx1_, tag::cpu_
                             , (A0)(S0)(A1)(WK)
                             , ((container_<nt2::tag::table_,  complex_<double_<A0> >, S0 >)) //a
                               (scalar_<complex_ < double_<A1> > > )
@@ -274,7 +274,7 @@ namespace nt2 { namespace ext
 
 
   /// INTERNAL ONLY - Compute the workspace
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::geesx1_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( geesx1_, tag::cpu_
                             , (A0)(S0)(A1)
                             , ((container_<nt2::tag::table_,  complex_<single_<A0> >, S0 >)) //a
                               (scalar_<complex_ < single_<A1> > > )
@@ -313,7 +313,7 @@ namespace nt2 { namespace ext
   };
 
   /// INTERNAL ONLY - Workspace is ready
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::geesx1_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( geesx1_, tag::cpu_
                             , (A0)(S0)(A1)(WK)
                             , ((container_<nt2::tag::table_,  complex_<single_<A0> >, S0 >)) //a
                               (scalar_<complex_ < single_<A1> > > )

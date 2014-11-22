@@ -30,6 +30,16 @@ namespace boost { namespace simd
                                 , 0x40490FDB, 0x400921FB54442D18ULL
                                 )
   }
+  namespace ext
+  {
+   template<class Site, class... H>
+   BOOST_FORCEINLINE generic_dispatcher<tag::Pi, Site> dispatching_Pi(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   {
+     return generic_dispatcher<tag::Pi, Site>();
+   }
+   template<class... Args>
+   struct impl_Pi;
+  }
   /*!
     Generates value \f$\pi\f$ that is the half length of a circle of radius one
     ... in normal temperature and pressure conditions.

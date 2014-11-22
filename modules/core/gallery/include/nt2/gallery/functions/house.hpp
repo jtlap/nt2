@@ -71,7 +71,20 @@ namespace nt2 { namespace tag
     struct house_ : ext::tieable_<house_>
     {
       typedef ext::tieable_<house_>  parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_house_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::house_, Site> dispatching_house_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::house_, Site>();
+    }
+    template<class... Args>
+    struct impl_house_;
   }
 
   NT2_FUNCTION_IMPLEMENTATION(tag::house_, house, 1)

@@ -24,7 +24,7 @@ namespace nt2 { namespace ext
   // before assign is resolved. As a tieable function, planerot retrieves rhs/lhs
   // pair as inputs
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::planerot_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( planerot_, tag::cpu_
                               , (A0)(N0)(A1)(N1)
                               , ((node_<A0, nt2::tag::planerot_, N0, nt2::container::domain>))
                               ((node_<A1, nt2::tag::tie_ , N1, nt2::container::domain>))

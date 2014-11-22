@@ -24,10 +24,23 @@ namespace nt2
     /*!
       @brief Tag for isulpequal functor
     **/
-    struct isulpequal_ : boost::dispatch::tag::formal_
+    struct isulpequal_ : ext::abstract_<isulpequal_>
     {
-      typedef boost::dispatch::tag::formal_ parent;
+      typedef ext::abstract_<isulpequal_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_isulpequal_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::isulpequal_, Site> dispatching_isulpequal_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::isulpequal_, Site>();
+    }
+    template<class... Args>
+    struct impl_isulpequal_;
   }
 
   /*!

@@ -16,9 +16,9 @@
 #include <nt2/include/functions/bitwise_cast.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
 
-namespace nt2 { namespace ext
+namespace boost { namespace simd { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::average_, tag::cpu_, (A0)(A1)
+  BOOST_DISPATCH_IMPLEMENT  ( average_, tag::cpu_, (A0)(A1)
                             , (generic_< complex_ < arithmetic_<A0> > > )
                               (generic_< complex_ < arithmetic_<A1> > > )
                             )
@@ -30,7 +30,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::average_, tag::cpu_, (A0)(A1)
+  BOOST_DISPATCH_IMPLEMENT  ( average_, tag::cpu_, (A0)(A1)
                             , (generic_< dry_ < arithmetic_<A0> > > )
                               (generic_< dry_ < arithmetic_<A1> > > )
                             )
@@ -42,7 +42,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::average_, tag::cpu_, (A0)(A1)
+  BOOST_DISPATCH_IMPLEMENT  ( average_, tag::cpu_, (A0)(A1)
                             ,  (generic_< arithmetic_<A0> >)
                                (generic_< complex_< arithmetic_<A1> > >)
 
@@ -55,7 +55,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::average_, tag::cpu_, (A0)(A1)
+  BOOST_DISPATCH_IMPLEMENT  ( average_, tag::cpu_, (A0)(A1)
                             ,  (generic_< dry_ < arithmetic_<A0> > >)
                                (generic_< complex_< arithmetic_<A1> > >)
 
@@ -64,12 +64,12 @@ namespace nt2 { namespace ext
     typedef A1 result_type;
     NT2_FUNCTOR_CALL(2)
     {
-     typedef typename meta::as_real<A0>::type rtype;
+     typedef typename nt2::meta::as_real<A0>::type rtype;
        return result_type(average(nt2::real(a0), nt2::real(a1)),nt2::imag(a1)*Half<rtype>()) ;
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::average_, tag::cpu_, (A0)(A1)
+  BOOST_DISPATCH_IMPLEMENT  ( average_, tag::cpu_, (A0)(A1)
                             ,  (generic_< complex_< arithmetic_<A0> > >)
                                (generic_< arithmetic_<A1> >)
 
@@ -82,7 +82,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::average_, tag::cpu_, (A0)(A1)
+  BOOST_DISPATCH_IMPLEMENT  ( average_, tag::cpu_, (A0)(A1)
                             ,  (generic_< complex_< arithmetic_<A0> > >)
                                (generic_< dry_ < arithmetic_<A1> > >)
 
@@ -91,10 +91,10 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      typedef typename meta::as_real<A1>::type rtype;
+      typedef typename nt2::meta::as_real<A1>::type rtype;
       return result_type(average(nt2::real(a0), nt2::real(a1)),nt2::imag(a0)*Half<rtype>()) ;
     }
   };
-} }
+} } }
 
 #endif

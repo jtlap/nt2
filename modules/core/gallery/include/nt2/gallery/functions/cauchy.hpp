@@ -57,7 +57,17 @@ namespace nt2 { namespace tag
      * \brief Define the tag cauchy_ of functor cauchy
      *        in namespace nt2::tag for toolbox algebra
     **/
-    struct cauchy_ : tag::formal_ { typedef tag::formal_ parent; };
+    struct cauchy_ : ext::abstract_<cauchy_> { typedef ext::abstract_<cauchy_> parent;   template<class... Args>   static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)   BOOST_AUTO_DECLTYPE_BODY( dispatching_cauchy_( ext::adl_helper(), static_cast<Args&&>(args)... ) ) };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::cauchy_, Site> dispatching_cauchy_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::cauchy_, Site>();
+    }
+    template<class... Args>
+    struct impl_cauchy_;
   }
 
   NT2_FUNCTION_IMPLEMENTATION(tag::cauchy_, cauchy, 1)

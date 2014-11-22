@@ -19,10 +19,23 @@ namespace nt2
     /*!
       @brief Tag for the casts functor
     **/
-    struct casts_ : boost::dispatch::tag::formal_
+    struct casts_ : ext::abstract_<casts_>
     {
-      typedef boost::dispatch::tag::formal_ parent;
+      typedef ext::abstract_<casts_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_casts_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::casts_, Site> dispatching_casts_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::casts_, Site>();
+    }
+    template<class... Args>
+    struct impl_casts_;
   }
 
   /*!

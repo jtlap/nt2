@@ -16,7 +16,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::enumerate_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT          ( enumerate_, tag::cpu_
                                     , (T)
                                     , ((target_ < ast_< T
                                                       , boost::simd::domain
@@ -33,7 +33,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::enumerate_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT          ( enumerate_, tag::cpu_
                                     , (A0)(T)
                                     , (scalar_< arithmetic_<A0> >)
                                       ((target_ < ast_< T
@@ -51,7 +51,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::enumerate_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT          ( enumerate_, tag::cpu_
                                     , (A0)(T)(X)
                                     , ((simd_< arithmetic_<A0>, X >))
                                       ((target_ < ast_< T
@@ -68,7 +68,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::enumerate_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT          ( enumerate_, tag::cpu_
                                     , (A0)(A1)(T)
                                     , (scalar_< arithmetic_<A0> >)
                                       (scalar_< arithmetic_<A1> >)
@@ -88,7 +88,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::enumerate_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT          ( enumerate_, tag::cpu_
                                     , (A0)(A1)(X)(T)
                                     , ((simd_< arithmetic_<A0>, X >))
                                       (generic_< arithmetic_<A1> >)

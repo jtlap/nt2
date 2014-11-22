@@ -18,7 +18,7 @@ namespace nt2 {  namespace ext
 {
   /// INTERNAL ONLY
   /// Along only returns a scalar
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::indices_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( indices_, tag::cpu_
                             , (A0)
                             , ((array_< scalar_< integer_<A0> >
                                       , boost::mpl::size_t<2>
@@ -36,7 +36,7 @@ namespace nt2 {  namespace ext
 
   /// INTERNAL ONLY
   /// Along only returns a scalar wityh a given target type
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::indices_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( indices_, tag::cpu_
                             , (A0)(T)
                             , ((array_< scalar_< integer_<A0> >
                                       , boost::mpl::size_t<2>
@@ -54,7 +54,7 @@ namespace nt2 {  namespace ext
   };
 
   /// INTERNAL ONLY
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::indices_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( indices_, tag::cpu_
                             , (A0)(A1)
                             , (fusion_sequence_<A0>)
                               ((array_< scalar_< integer_<A1> >
@@ -87,7 +87,7 @@ namespace nt2 {  namespace ext
   };
 
   /// INTERNAL ONLY
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::indices_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( indices_, tag::cpu_
                             , (A0)(A1)(T)
                             , (fusion_sequence_<A0>)
                               ((array_< scalar_< integer_<A1> >
@@ -126,7 +126,7 @@ namespace nt2 {  namespace ext
   #define M1(z,n,t) (scalar_< arithmetic_<BOOST_PP_CAT(A,n)> >)
 
   #define M0(z,n,t)                                                             \
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::indices_, tag::cpu_                     \
+  BOOST_DISPATCH_IMPLEMENT  ( indices_, tag::cpu_                     \
                             , BOOST_PP_REPEAT(n,M2,~)(X)                        \
                             , BOOST_PP_REPEAT(n,M1,~)                           \
                               ((array_< scalar_< integer_<X> >                  \
@@ -147,7 +147,7 @@ namespace nt2 {  namespace ext
                           )                                                     \
   };                                                                            \
                                                                                 \
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::indices_, tag::cpu_                     \
+  BOOST_DISPATCH_IMPLEMENT  ( indices_, tag::cpu_                     \
                             , BOOST_PP_REPEAT(n,M2,~)(X)(T)                     \
                             , BOOST_PP_REPEAT(n,M1,~)                           \
                               ((array_< scalar_< integer_<X> >                  \

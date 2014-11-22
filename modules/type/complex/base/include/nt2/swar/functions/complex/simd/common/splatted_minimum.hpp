@@ -14,21 +14,21 @@
 #include <nt2/include/functions/minimum.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
 
-namespace nt2 { namespace ext
+namespace boost { namespace simd { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::splatted_minimum_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( splatted_minimum_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<dry_<arithmetic_<A0> >,X>))
                             )
   {
     typedef A0                                result_type;
-    typedef typename meta::as_real<A0>::type  r_t;
+    typedef typename nt2::meta::as_real<A0>::type  r_t;
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
     {
       return bitwise_cast<result_type>(splatted_minimum(bitwise_cast<r_t>(a0)));
     }
   };
-} }
+} } }
 
 #endif

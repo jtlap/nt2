@@ -26,7 +26,20 @@ namespace nt2
     struct complexify_ : ext::elementwise_<complexify_>
     {
       typedef ext::elementwise_<complexify_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_complexify_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::complexify_, Site> dispatching_complexify_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::complexify_, Site>();
+    }
+    template<class... Args>
+    struct impl_complexify_;
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::complexify_, complexify, 1)
 

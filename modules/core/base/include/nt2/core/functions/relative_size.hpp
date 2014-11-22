@@ -20,10 +20,23 @@ namespace nt2
 {
   namespace tag
   {
-    struct relative_size_ : boost::dispatch::tag::formal_
+    struct relative_size_ : ext::abstract_<relative_size_>
     {
-      typedef boost::dispatch::tag::formal_ parent;
+      typedef ext::abstract_<relative_size_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_relative_size_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::relative_size_, Site> dispatching_relative_size_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::relative_size_, Site>();
+    }
+    template<class... Args>
+    struct impl_relative_size_;
   }
 
   //============================================================================

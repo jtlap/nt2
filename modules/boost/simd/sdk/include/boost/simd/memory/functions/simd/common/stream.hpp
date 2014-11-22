@@ -17,7 +17,7 @@
 namespace boost { namespace simd { namespace ext
 {
   /// INTERNAL ONLY - If no stream intrinsic, do a classical store.
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::stream_
+  BOOST_DISPATCH_IMPLEMENT          ( stream_
                                     , tag::cpu_
                                     , (A0)(A1)(A2)(X)
                                     , ((simd_< unspecified_<A0>, X >))

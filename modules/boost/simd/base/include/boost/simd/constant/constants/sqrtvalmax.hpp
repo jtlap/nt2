@@ -41,6 +41,9 @@ namespace boost { namespace simd
                                 )
                           >
       {};
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_Sqrtvalmax( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
 
     /// INTERNAL ONLY
@@ -72,6 +75,16 @@ namespace boost { namespace simd
     template<class T, class Dummy>
     struct  Sqrtvalmax::apply<boost::dispatch::meta::int64_<T>,Dummy>
           : meta::int_c<T, 3037000499ll> {};
+  }
+  namespace ext
+  {
+   template<class Site, class... H>
+   BOOST_FORCEINLINE generic_dispatcher<tag::Sqrtvalmax, Site> dispatching_Sqrtvalmax(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   {
+     return generic_dispatcher<tag::Sqrtvalmax, Site>();
+   }
+   template<class... Args>
+   struct impl_Sqrtvalmax;
   }
   /*!
     Generates the square root of the greatest finite representable value

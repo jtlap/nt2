@@ -31,7 +31,7 @@
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::gemsv_, nt2::tag::magma_<site>
+  BOOST_DISPATCH_IMPLEMENT  ( gemsv_, nt2::tag::magma_<site>
                             , (A0)(S0)(A1)(S1)(A2)(S2)(site)
                             , ((container_<nt2::tag::table_,  double_<A0>, S0 >)) //A
                               ((container_<nt2::tag::table_,  double_<A1>, S1 >)) //B
@@ -77,7 +77,7 @@ namespace nt2 { namespace ext
   };
 
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::gemsv_, nt2::tag::magma_<site>
+  BOOST_DISPATCH_IMPLEMENT  ( gemsv_, nt2::tag::magma_<site>
                             , (A0)(S0)(A1)(S1)(A2)(S2)(site)
                             , ((container_< nt2::tag::table_, complex_<double_<A0> >, S0 >)) // A
                               ((container_< nt2::tag::table_, complex_<double_<A1> >, S1 >)) // B

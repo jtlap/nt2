@@ -17,7 +17,7 @@ namespace boost { namespace simd { namespace ext
 {
   // r = [ a[0] a[2] ... a[n/2] b[0] b[2] ... b[n/2] ]
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::deinterleave_first_
+  BOOST_DISPATCH_IMPLEMENT         ( deinterleave_first_
                                    , boost::simd::tag::vmx_
                                    , (A0)(A1)
                                    , ((simd_<ints8_<A0>,boost::simd::tag::vmx_>))
@@ -36,7 +36,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::deinterleave_first_
+  BOOST_DISPATCH_IMPLEMENT         ( deinterleave_first_
                                    , boost::simd::tag::vmx_
                                    , (A0)(A1)
                                    , ((simd_<ints16_<A0>,boost::simd::tag::vmx_>))
@@ -55,7 +55,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::deinterleave_first_
+  BOOST_DISPATCH_IMPLEMENT         ( deinterleave_first_
                                    , boost::simd::tag::vmx_
                                    , (A0)(A1)
                                    , ((simd_<ints32_<A0>,boost::simd::tag::vmx_>))
@@ -74,7 +74,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::deinterleave_first_
+  BOOST_DISPATCH_IMPLEMENT         ( deinterleave_first_
                                    , boost::simd::tag::vmx_
                                    , (A0)(A1)
                                    , ((simd_<single_<A0>,boost::simd::tag::vmx_>))

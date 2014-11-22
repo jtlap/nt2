@@ -19,7 +19,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::none_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT          ( none_, tag::cpu_
                                     , (A0)(X)
                                     , ((simd_<fundamental_<A0>,X>))
                                     )

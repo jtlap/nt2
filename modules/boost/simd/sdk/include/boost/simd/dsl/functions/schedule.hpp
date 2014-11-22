@@ -38,18 +38,18 @@ namespace boost { namespace simd
   }
   namespace tag
   {
-    struct schedule_ : dispatch::tag::formal_
+    struct schedule_ : ext::abstract_<schedule_>
     {
-      typedef dispatch::tag::formal_ parent;
+      typedef ext::abstract_<schedule_> parent;
 
       template<class... Args>
       static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
       BOOST_AUTO_DECLTYPE_BODY( dispatching_schedule_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
 
-    struct schedule_assign_ : dispatch::tag::formal_
+    struct schedule_assign_ : ext::abstract_<schedule_assign_>
     {
-      typedef dispatch::tag::formal_ parent;
+      typedef ext::abstract_<schedule_assign_> parent;
 
       template<class... Args>
       static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)

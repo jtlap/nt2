@@ -49,7 +49,7 @@ extern "C"
 namespace nt2 { namespace ext
 {
   /// INTERNAL ONLY
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::gecon_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( gecon_, tag::cpu_
                             , (A0)(S0)(A1)(A2)
                             , ((container_< nt2::tag::table_, double_<A0>, S0 >))
                               (scalar_< ints8_<A1> >)            //  norm
@@ -77,7 +77,7 @@ namespace nt2 { namespace ext
   };
 
   /// INTERNAL ONLY
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::gecon_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( gecon_, tag::cpu_
                             , (A0)(S0)(A1)(A2)
                             , ((container_< nt2::tag::table_, single_<A0>, S0 >))
                               (scalar_< ints8_<A1> >)             //  norm
@@ -105,7 +105,7 @@ namespace nt2 { namespace ext
   };
 
   /// INTERNAL ONLY
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::gecon_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( gecon_, tag::cpu_
                             , (A0)(S0)(A1)(A2)
                             , ((container_< nt2::tag::table_, complex_<double_<A0> >, S0 >))
                               (scalar_< ints8_<A1> >)            //  norm
@@ -134,7 +134,7 @@ namespace nt2 { namespace ext
   };
 
   /// INTERNAL ONLY
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::gecon_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( gecon_, tag::cpu_
                             , (A0)(S0)(A1)(A2)
                             , ((container_< nt2::tag::table_, complex_<single_<A0> >, S0 >))
                               (scalar_< ints8_<A1> >)             //  norm

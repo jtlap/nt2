@@ -20,10 +20,23 @@ namespace nt2
 {
   namespace tag
   {
-    struct ndims_ : boost::dispatch::tag::formal_
+    struct ndims_ : ext::abstract_<ndims_>
     {
-      typedef boost::dispatch::tag::formal_ parent;
+      typedef ext::abstract_<ndims_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_ndims_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::ndims_, Site> dispatching_ndims_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::ndims_, Site>();
+    }
+    template<class... Args>
+    struct impl_ndims_;
   }
 
   //============================================================================

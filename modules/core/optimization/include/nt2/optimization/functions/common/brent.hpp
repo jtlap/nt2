@@ -22,7 +22,7 @@
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::brent_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( brent_, tag::cpu_
                             , (F)(T)(O)
                             , (unspecified_< F >)
                               (generic_< floating_<T> >)

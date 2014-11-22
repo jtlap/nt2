@@ -22,7 +22,7 @@
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::fibonacci_, tag::cpu_,
+  BOOST_DISPATCH_IMPLEMENT  (fibonacci_, tag::cpu_,
                              (A0)(A1),
                              ((scalar_<floating_<A0> >))
                              ((scalar_<floating_<A0> >))

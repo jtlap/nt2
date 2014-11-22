@@ -22,11 +22,24 @@ namespace nt2 { namespace tag
      @par Models:
         Hierarchy
    **/
-    struct caurnd_ : boost::dispatch::tag::formal_
+    struct caurnd_ : ext::abstract_<caurnd_>
     {
       /// @brief Parent hierarchy
-      typedef boost::dispatch::tag::formal_ parent;
+      typedef ext::abstract_<caurnd_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_caurnd_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+   template<class Site, class... H>
+   BOOST_FORCEINLINE generic_dispatcher<tag::caurnd_, Site> dispatching_caurnd_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   {
+     return generic_dispatcher<tag::caurnd_, Site>();
+   }
+   template<class... Args>
+   struct impl_caurnd_;
   }
   /*!
     @brief cauchy pseudo random numbers generator : inverse cumulative method using rand

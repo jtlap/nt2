@@ -26,7 +26,7 @@
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::proper_tanpi_, boost::simd::tag::simd_
+  BOOST_DISPATCH_IMPLEMENT  ( proper_tanpi_, boost::simd::tag::simd_
                             , (A0)(X)
                             , ((simd_<floating_<A0>,X>))
                             )

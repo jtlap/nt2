@@ -24,10 +24,23 @@ namespace nt2
     /*!
       @brief Tag for liner_interp functor
     **/
-    struct linear_interp_ : boost::dispatch::tag::formal_
+    struct linear_interp_ : ext::abstract_<linear_interp_>
     {
-      typedef boost::dispatch::tag::formal_ parent;
+      typedef ext::abstract_<linear_interp_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_linear_interp_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::linear_interp_, Site> dispatching_linear_interp_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::linear_interp_, Site>();
+    }
+    template<class... Args>
+    struct impl_linear_interp_;
   }
 
   /*!

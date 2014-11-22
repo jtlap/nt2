@@ -21,7 +21,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::is_not_equal_
+  BOOST_DISPATCH_IMPLEMENT_IF         ( is_not_equal_
                                       , boost::simd::tag::cpu_
                                       , (A0)(X)
                                       , (mpl::equal_to< mpl::sizeof_<A0>
@@ -45,7 +45,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::is_not_equal_
+  BOOST_DISPATCH_IMPLEMENT          ( is_not_equal_
                                     , boost::simd::tag::cpu_
                                     , (A0)(X)
                                     , ((simd_<integer_<A0>,X>))

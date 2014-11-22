@@ -33,7 +33,20 @@ namespace nt2
     {
       /// @brief Parent hierarchy
       typedef ext::reshaping_<ifvectvert_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_ifvectvert_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+   template<class Site, class... H>
+   BOOST_FORCEINLINE generic_dispatcher<tag::ifvectvert_, Site> dispatching_ifvectvert_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   {
+     return generic_dispatcher<tag::ifvectvert_, Site>();
+   }
+   template<class... Args>
+   struct impl_ifvectvert_;
   }
   /*!
 

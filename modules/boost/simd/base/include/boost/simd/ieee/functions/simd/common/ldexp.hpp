@@ -39,7 +39,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF ( boost::simd::tag::ldexp_, tag::cpu_,(A0)(A1)(X)
+  BOOST_DISPATCH_IMPLEMENT_IF          ( ldexp_, tag::cpu_,(A0)(A1)(X)
                                        , (boost::mpl::equal_to < boost::simd::meta::cardinal_of<A0>
                                                                , boost::simd::meta::cardinal_of<A1>
                                                                >
@@ -55,7 +55,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF ( boost::simd::tag::ldexp_, tag::cpu_,(A0)(A1)(X)(Y)
+  BOOST_DISPATCH_IMPLEMENT_IF          ( ldexp_, tag::cpu_,(A0)(A1)(X)(Y)
                                        , (boost::mpl::equal_to < boost::simd::meta::cardinal_of<A0>
                                                                , boost::simd::meta::cardinal_of<A1>
                                                                >

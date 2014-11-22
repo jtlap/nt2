@@ -16,7 +16,7 @@
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sinecosine_<mode>, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT_G( nt2::tag::sinecosine_<mode>, tag::cpu_
                             , (A0)(A1)(A2)(mode)
                             , ((ast_<A0, nt2::container::domain>))
                               (unspecified_<A1>)
@@ -30,7 +30,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sinecosine_<mode>, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT_G( nt2::tag::sinecosine_<mode>, tag::cpu_
                             , (A0)(A1)(mode)
                             , ((ast_<A0, nt2::container::domain>))
                               (unspecified_<A1>)

@@ -19,10 +19,23 @@ namespace nt2
     /*!
       @brief Tag for arecatcompatible functor
     **/
-    struct arecatcompatible_ : boost::dispatch::tag::formal_
+    struct arecatcompatible_ : ext::abstract_<arecatcompatible_>
     {
-      typedef boost::dispatch::tag::formal_ parent;
+      typedef ext::abstract_<arecatcompatible_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_arecatcompatible_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::arecatcompatible_, Site> dispatching_arecatcompatible_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::arecatcompatible_, Site>();
+    }
+    template<class... Args>
+    struct impl_arecatcompatible_;
   }
 
   /*!

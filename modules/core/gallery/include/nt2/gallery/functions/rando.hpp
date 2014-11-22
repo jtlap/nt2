@@ -45,8 +45,21 @@ namespace nt2 { namespace tag
     struct rando_ : ext::unspecified_<rando_>
     {
       typedef ext::unspecified_<rando_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_rando_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
 }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::rando_, Site> dispatching_rando_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::rando_, Site>();
+    }
+    template<class... Args>
+    struct impl_rando_;
+  }
 
   NT2_FUNCTION_IMPLEMENTATION(tag::rando_, rando, 4)
   NT2_FUNCTION_IMPLEMENTATION(tag::rando_, rando, 3)

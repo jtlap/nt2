@@ -118,7 +118,7 @@ namespace nt2 { namespace details
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::mtc_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( mtc_, tag::cpu_
                               , (F)(X)(O)
                               , (unspecified_< F >)
                               ((ast_<X, nt2::container::domain>))

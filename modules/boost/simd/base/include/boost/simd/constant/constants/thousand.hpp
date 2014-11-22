@@ -33,6 +33,16 @@ namespace boost { namespace simd
    **/
     BOOST_SIMD_CONSTANT_REGISTER(Thousand,double,1000, 0x447a0000, 0x408f400000000000ll)
   }
+  namespace ext
+  {
+   template<class Site, class... H>
+   BOOST_FORCEINLINE generic_dispatcher<tag::Thousand, Site> dispatching_Thousand(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   {
+     return generic_dispatcher<tag::Thousand, Site>();
+   }
+   template<class... Args>
+   struct impl_Thousand;
+  }
   /*!
     Generates value 1000
 

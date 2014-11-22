@@ -118,7 +118,7 @@ namespace boost { namespace dispatch { namespace meta
 
   template<typename T>
   struct scalar_of< nt2::container::composite_reference<T> >
-       : mpl::if_< is_same< typename scalar_of<T>::type
+       : boost::mpl::if_< boost::is_same< typename scalar_of<T>::type
                           , T
                           >
                  , nt2::container::composite_reference<T>
@@ -166,42 +166,42 @@ namespace boost { namespace fusion { namespace traits
   struct  enable_equality < nt2::container::composite_reference<T>
                           , nt2::container::composite_reference<T>
                           >
-        : mpl::not_< simd::is_value<T> >
+        : boost::mpl::not_< simd::is_value<T> >
   {};
 
   template<typename T>
   struct  enable_equality < nt2::container::composite_reference<T>
                           , T
                           >
-        : mpl::not_< simd::is_value<T> >
+        : boost::mpl::not_< simd::is_value<T> >
   {};
 
   template<typename T>
   struct  enable_equality < T
                           , nt2::container::composite_reference<T>
                           >
-        : mpl::not_< simd::is_value<T> >
+        : boost::mpl::not_< simd::is_value<T> >
   {};
 
   template<typename T>
   struct  enable_comparison < nt2::container::composite_reference<T>
                             , nt2::container::composite_reference<T>
                             >
-        : mpl::not_< simd::is_value<T> >
+        : boost::mpl::not_< simd::is_value<T> >
   {};
 
   template<typename T>
   struct  enable_comparison < nt2::container::composite_reference<T>
                             , T
                             >
-        : mpl::not_< simd::is_value<T> >
+        : boost::mpl::not_< simd::is_value<T> >
   {};
 
   template<typename T>
   struct  enable_comparison < T
                             , nt2::container::composite_reference<T>
                             >
-        : mpl::not_< simd::is_value<T> >
+        : boost::mpl::not_< simd::is_value<T> >
   {};
 } } }
 

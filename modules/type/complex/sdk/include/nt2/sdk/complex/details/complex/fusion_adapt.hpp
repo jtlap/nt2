@@ -32,7 +32,7 @@ namespace extension
   template<> struct is_sequence_impl<std_complex_tag>
   {
     template<class Seq>
-    struct apply : mpl::true_
+    struct apply : boost::mpl::true_
     {
     };
   };
@@ -40,7 +40,7 @@ namespace extension
   template<> struct is_view_impl<std_complex_tag>
   {
     template<class Seq>
-    struct apply : mpl::false_
+    struct apply : boost::mpl::false_
     {
     };
   };
@@ -112,7 +112,7 @@ namespace extension
   {
     template<class Seq>
     struct apply
-      : mpl::int_<2>
+      : boost::mpl::int_<2>
     {
     };
   };

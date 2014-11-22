@@ -17,7 +17,7 @@
 //secd(x+iy)=rec(cosd(x+iy)).
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::secd_, tag::cpu_, (A0)
+  BOOST_DISPATCH_IMPLEMENT  ( secd_, tag::cpu_, (A0)
                             , (generic_< complex_< arithmetic_<A0> > >)
                             )
   {

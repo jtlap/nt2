@@ -28,7 +28,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF ( boost::simd::tag::fast_frexp_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT_IF          ( fast_frexp_, tag::cpu_
                                        , (A0)(A2)
                                        , ( boost::is_same
                                            < typename dispatch::meta::
@@ -49,7 +49,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF ( boost::simd::tag::fast_frexp_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT_IF          ( fast_frexp_, tag::cpu_
                                        , (A0)(A1)
                                        , ( boost::is_same
                                            < typename dispatch::meta::
@@ -74,7 +74,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::fast_frexp_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT          ( fast_frexp_, tag::cpu_
                                     , (A0)
                                     , (scalar_ < floating_<A0> > )
                                     )

@@ -30,6 +30,16 @@ namespace boost { namespace simd
                                 , 0x20000000, 0x2000000000000000ll
                                 )
   }
+  namespace ext
+  {
+   template<class Site, class... H>
+   BOOST_FORCEINLINE generic_dispatcher<tag::Sqrtsmallestposval, Site> dispatching_Sqrtsmallestposval(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   {
+     return generic_dispatcher<tag::Sqrtsmallestposval, Site>();
+   }
+   template<class... Args>
+   struct impl_Sqrtsmallestposval;
+  }
   /*!
     Generates the square root of the least non zero positive
     value of the chosen type.

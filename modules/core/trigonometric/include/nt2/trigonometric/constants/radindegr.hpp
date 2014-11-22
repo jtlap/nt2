@@ -29,6 +29,16 @@ namespace nt2
                                 , 0xbce1e7ab456405f8ull
                                 )
   }
+  namespace ext
+  {
+   template<class Site, class... H>
+   BOOST_FORCEINLINE generic_dispatcher<tag::Radindegr, Site> dispatching_Radindegr(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   {
+     return generic_dispatcher<tag::Radindegr, Site>();
+   }
+   template<class... Args>
+   struct impl_Radindegr;
+  }
   /*!
     Constant Radian in Degree residue can help to obtain better conversion
     from Radian to Degree

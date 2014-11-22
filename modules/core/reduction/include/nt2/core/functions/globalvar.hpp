@@ -21,11 +21,24 @@ namespace nt2
     /*!
       @brief Tag for the globalvar functor
     **/
-    struct globalvar_ : boost::dispatch::tag::formal_
+    struct globalvar_ : ext::abstract_<globalvar_>
     {
       /// @brief Parent hierarchy
-      typedef boost::dispatch::tag::formal_ parent;
+      typedef ext::abstract_<globalvar_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_globalvar_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::globalvar_, Site> dispatching_globalvar_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::globalvar_, Site>();
+    }
+    template<class... Args>
+    struct impl_globalvar_;
   }
   /*!
     @brief Variance  of all the elements of an expression
@@ -61,7 +74,7 @@ namespace nt2
 namespace nt2 { namespace ext
 {
   /// INTERNAL ONLY
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::globalvar_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( globalvar_, tag::cpu_
                               , (A0)(A1)
                             , (unspecified_<A0>)
                               (scalar_<integer_<A1> > )
@@ -78,7 +91,7 @@ namespace nt2 { namespace ext
     }
   };
   /// INTERNAL ONLY
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::globalvar_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( globalvar_, tag::cpu_
                             , (A0)
                             , (unspecified_<A0>)
                             )

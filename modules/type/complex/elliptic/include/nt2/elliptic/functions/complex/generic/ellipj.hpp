@@ -27,7 +27,7 @@
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION(  nt2::tag::ellipj_, tag::cpu_,
+  BOOST_DISPATCH_IMPLEMENT  (  ellipj_, tag::cpu_,
                                (A0)(A1)(A2),
                                (generic_<complex_<floating_<A0> > >)
                                (generic_<floating_<A1> >)
@@ -61,7 +61,7 @@ namespace nt2 { namespace ext
       //TODO treat properly the limit cases ie delta = inf
     }
   };
-    NT2_FUNCTOR_IMPLEMENTATION(  nt2::tag::ellipj_, tag::cpu_,
+    BOOST_DISPATCH_IMPLEMENT  (  ellipj_, tag::cpu_,
                                (A0)(A1)(A2),
                                (generic_<complex_<floating_<A0> > >)
                                (generic_<floating_<A1> >)

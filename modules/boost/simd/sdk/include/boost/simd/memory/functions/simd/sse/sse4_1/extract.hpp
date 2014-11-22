@@ -16,7 +16,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::extract_
+  BOOST_DISPATCH_IMPLEMENT          ( extract_
                                     , boost::simd::tag::sse4_2_
                                     , (A0)(A1)
                                     , ((simd_< ints8_<A0>, boost::simd::tag::sse_ >))
@@ -31,7 +31,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::extract_
+  BOOST_DISPATCH_IMPLEMENT          ( extract_
                                     , boost::simd::tag::sse4_2_
                                     , (A0)(A1)
                                     , ((simd_< ints32_<A0>, boost::simd::tag::sse_ >))
@@ -47,7 +47,7 @@ namespace boost { namespace simd { namespace ext
   };
 
 #ifdef BOOST_SIMD_ARCH_X86_64
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::extract_
+  BOOST_DISPATCH_IMPLEMENT          ( extract_
                                     , boost::simd::tag::sse4_2_
                                     , (A0)(A1)
                                     , ((simd_< ints64_<A0>, boost::simd::tag::sse_ >))
@@ -63,7 +63,7 @@ namespace boost { namespace simd { namespace ext
   };
 #endif
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::extract_
+  BOOST_DISPATCH_IMPLEMENT          ( extract_
                                     , boost::simd::tag::sse4_2_
                                     , (A0)(A1)
                                     , ((simd_< single_<A0>, boost::simd::tag::sse_ >))

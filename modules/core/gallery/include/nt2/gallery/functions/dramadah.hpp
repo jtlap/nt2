@@ -64,7 +64,20 @@ namespace nt2 { namespace tag
     struct dramadah_ :  ext::unspecified_<dramadah_>
     {
       typedef ext::unspecified_<dramadah_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_dramadah_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::dramadah_, Site> dispatching_dramadah_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::dramadah_, Site>();
+    }
+    template<class... Args>
+    struct impl_dramadah_;
   }
 
   NT2_FUNCTION_IMPLEMENTATION(tag::dramadah_, dramadah, 1)

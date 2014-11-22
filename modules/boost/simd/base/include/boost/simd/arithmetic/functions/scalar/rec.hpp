@@ -20,7 +20,7 @@ namespace boost { namespace simd { namespace ext
   #pragma warning(disable: 4723) // potential divide by 0
 #endif
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::rec_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT          ( rec_, tag::cpu_
                                     , (A0)
                                     , (scalar_< floating_<A0> >)
                                     )

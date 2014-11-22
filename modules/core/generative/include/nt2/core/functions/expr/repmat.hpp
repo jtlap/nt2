@@ -18,7 +18,7 @@ namespace nt2 { namespace ext
   //============================================================================
   // Generates from an expression and an extent
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::repmat_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( repmat_, tag::cpu_
                             , (A0)(A1)
                             , ((ast_<A0, nt2::container::domain>))
                               (fusion_sequence_<A1>)
@@ -46,7 +46,7 @@ namespace nt2 { namespace ext
   //============================================================================
   // Generates from an expression and a size
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::repmat_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( repmat_, tag::cpu_
                             , (A0)(A1)
                             , ((ast_<A0, nt2::container::domain>))
                               ((ast_<A1, nt2::container::domain>))
@@ -64,7 +64,7 @@ namespace nt2 { namespace ext
   #define M1(z,n,t) (scalar_< integer_<BOOST_PP_CAT(A,n)> >)
 
   #define M0(z,n,t)                                                             \
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::repmat_, tag::cpu_                      \
+  BOOST_DISPATCH_IMPLEMENT  ( repmat_, tag::cpu_                      \
                             , BOOST_PP_REPEAT(BOOST_PP_INC(n),M2,~)             \
                             , ((ast_<A0, nt2::container::domain>))              \
                               BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(n),M1,~)   \

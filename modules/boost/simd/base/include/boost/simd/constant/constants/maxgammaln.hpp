@@ -30,6 +30,16 @@ namespace boost { namespace simd
                                 , 0x7bc3f8eaLL, 0x7f574c5dd06d2516ULL
                                 );
   }
+  namespace ext
+  {
+   template<class Site, class... H>
+   BOOST_FORCEINLINE generic_dispatcher<tag::Maxgammaln, Site> dispatching_Maxgammaln(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   {
+     return generic_dispatcher<tag::Maxgammaln, Site>();
+   }
+   template<class... Args>
+   struct impl_Maxgammaln;
+  }
   /*!
     Generates value \f$\log\pi\f$
 

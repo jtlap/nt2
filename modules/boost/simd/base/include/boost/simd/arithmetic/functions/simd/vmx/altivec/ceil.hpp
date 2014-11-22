@@ -15,7 +15,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::ceil_
+  BOOST_DISPATCH_IMPLEMENT          ( ceil_
                                     , boost::simd::tag::vmx_
                                     , (A0)
                                     , ((simd_< single_<A0>

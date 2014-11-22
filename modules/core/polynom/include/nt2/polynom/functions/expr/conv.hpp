@@ -59,7 +59,7 @@ namespace nt2{ namespace ext
         : meta::value_as<Expr,0>
   {};
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::conv_, tag::cpu_,
+  BOOST_DISPATCH_IMPLEMENT  ( conv_, tag::cpu_,
                               (A0),
                               (scalar_<unspecified_<A0> >)
                               (scalar_<unspecified_<A0> >)
@@ -70,7 +70,7 @@ namespace nt2{ namespace ext
                           )
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::conv_, tag::cpu_,
+  BOOST_DISPATCH_IMPLEMENT  ( conv_, tag::cpu_,
                               (A0)(A1),
                               (scalar_<unspecified_<A0> >)
                               ((ast_<A1, nt2::container::domain>))
@@ -81,7 +81,7 @@ namespace nt2{ namespace ext
                           )
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::conv_, tag::cpu_,
+  BOOST_DISPATCH_IMPLEMENT  ( conv_, tag::cpu_,
                               (A0)(A1),
                               ((ast_<A0, nt2::container::domain>))
                               (scalar_<unspecified_<A1> >)
@@ -92,7 +92,7 @@ namespace nt2{ namespace ext
                           )
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_assign_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( run_assign_, tag::cpu_
                             , (A0)(A1)(N)
                             , ((ast_<A0, nt2::container::domain>))
                               ((node_<A1, nt2::tag::conv_, N,nt2::container::domain> ))

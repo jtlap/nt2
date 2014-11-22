@@ -44,7 +44,20 @@ namespace nt2 { namespace tag
     struct invhilb_ : ext::unspecified_<invhilb_>
     {
       typedef ext::unspecified_<invhilb_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_invhilb_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::invhilb_, Site> dispatching_invhilb_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::invhilb_, Site>();
+    }
+    template<class... Args>
+    struct impl_invhilb_;
   }
 
   NT2_FUNCTION_IMPLEMENTATION(tag::invhilb_, invhilb, 1)

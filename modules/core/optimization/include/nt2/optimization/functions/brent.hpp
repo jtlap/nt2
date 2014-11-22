@@ -28,7 +28,20 @@ namespace nt2
     {
       /// @brief Parent hierarchy
       typedef ext::unspecified_<brent_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_brent_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+   template<class Site, class... H>
+   BOOST_FORCEINLINE generic_dispatcher<tag::brent_, Site> dispatching_brent_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   {
+     return generic_dispatcher<tag::brent_, Site>();
+   }
+   template<class... Args>
+   struct impl_brent_;
   }
   /*!
    * Applies brent algorithm to find local minimum of a function

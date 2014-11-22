@@ -139,7 +139,7 @@ namespace nt2 { namespace ext
   };
 
   // casts
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::casts_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( casts_, tag::cpu_
                             , (A0)(To)
                             , ((ast_<A0, nt2::container::domain>))
                               (target_< scalar_< unspecified_<To> > >)

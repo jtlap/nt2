@@ -21,12 +21,12 @@ namespace boost { namespace fusion { namespace extension
   //============================================================================
   template<> struct is_sequence_impl<nt2::tag::permute_>
   {
-    template<typename T> struct apply : mpl::true_ {};
+    template<typename T> struct apply : boost::mpl::true_ {};
   };
 
   template<> struct is_view_impl<nt2::tag::permute_>
   {
-    template<typename Seq> struct apply : mpl::true_ {};
+    template<typename Seq> struct apply : boost::mpl::true_ {};
   };
 
   template<> struct category_of_impl<nt2::tag::permute_>

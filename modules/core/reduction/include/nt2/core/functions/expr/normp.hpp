@@ -17,7 +17,7 @@
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::normp_, tag::cpu_,
+  BOOST_DISPATCH_IMPLEMENT  ( normp_, tag::cpu_,
                               (A0)(A1),
                               ((ast_<A0, nt2::container::domain>))
                               (scalar_<arithmetic_<A1> > )
@@ -34,7 +34,7 @@ namespace nt2 { namespace ext
       return nt2::pow(nt2::asump(a0, p), one_o_p);
     }
   };
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::normp_, tag::cpu_,
+  BOOST_DISPATCH_IMPLEMENT  ( normp_, tag::cpu_,
                               (A0)(A1)(A2),
                               ((ast_<A0, nt2::container::domain>))
                               (scalar_<arithmetic_<A1> > )

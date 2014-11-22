@@ -61,7 +61,20 @@ namespace nt2 { namespace tag
     struct dorr_ : ext::tieable_<dorr_>
     {
       typedef ext::tieable_<dorr_>  parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_dorr_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::dorr_, Site> dispatching_dorr_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::dorr_, Site>();
+    }
+    template<class... Args>
+    struct impl_dorr_;
   }
 
   NT2_FUNCTION_IMPLEMENTATION(tag::dorr_, dorr, 1)

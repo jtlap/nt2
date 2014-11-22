@@ -15,7 +15,7 @@
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::isexpandable_to_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( isexpandable_to_, tag::cpu_
                             , (A0)(A1)
                             , (scalar_<unspecified_<A0> >)
                               (fusion_sequence_<A1>)

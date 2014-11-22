@@ -29,6 +29,16 @@ namespace nt2
                                 , 0x408ff80000000000ULL
                                 )
   }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::Maxlog2, Site> dispatching_Maxlog2(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::Maxlog2, Site>();
+    }
+    template<class... Args>
+    struct impl_Maxlog2;
+  }
   /*!
     Generates constant Maxlog2 used in logarithm/exponential computations
 

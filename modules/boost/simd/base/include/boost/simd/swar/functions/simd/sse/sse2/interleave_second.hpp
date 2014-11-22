@@ -14,7 +14,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::interleave_second_
+  BOOST_DISPATCH_IMPLEMENT         ( interleave_second_
                                    , boost::simd::tag::sse2_
                                    , (A0)(A1)
                                    , ((simd_<single_<A0>,boost::simd::tag::sse_>))
@@ -29,7 +29,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::interleave_second_
+  BOOST_DISPATCH_IMPLEMENT         ( interleave_second_
                                    , boost::simd::tag::sse2_
                                    , (A0)(A1)
                                    , ((simd_<double_<A0>,boost::simd::tag::sse_>))
@@ -45,7 +45,7 @@ namespace boost { namespace simd { namespace ext
   };
 
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::interleave_second_
+  BOOST_DISPATCH_IMPLEMENT         ( interleave_second_
                                    , boost::simd::tag::sse2_
                                    , (A0)(A1)
                                    , ((simd_<type8_<A0>,boost::simd::tag::sse_>))
@@ -60,7 +60,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::interleave_second_
+  BOOST_DISPATCH_IMPLEMENT         ( interleave_second_
                                    , boost::simd::tag::sse2_
                                    , (A0)(A1)
                                    , ((simd_<type16_<A0>,boost::simd::tag::sse_>))
@@ -75,7 +75,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::interleave_second_
+  BOOST_DISPATCH_IMPLEMENT         ( interleave_second_
                                    , boost::simd::tag::sse2_
                                    , (A0)(A1)
                                    , ((simd_<type32_<A0>,boost::simd::tag::sse_>))
@@ -90,7 +90,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::interleave_second_
+  BOOST_DISPATCH_IMPLEMENT         ( interleave_second_
                                    , boost::simd::tag::sse2_
                                    , (A0)(A1)
                                    , ((simd_<type64_<A0>,boost::simd::tag::sse_>))

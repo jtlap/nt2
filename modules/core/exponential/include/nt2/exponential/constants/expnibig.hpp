@@ -29,6 +29,16 @@ namespace nt2
                                 , 0x4380000000000000ll  // 2^57
                                 )
   }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::Expnibig, Site> dispatching_Expnibig(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::Expnibig, Site>();
+    }
+    template<class... Args>
+    struct impl_Expnibig;
+  }
   /*!
     Generates a constant used in expni.
 

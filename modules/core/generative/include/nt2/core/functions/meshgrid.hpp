@@ -29,7 +29,20 @@ namespace nt2
     {
       /// @brief Parent hierarchy
       typedef ext::tieable_<meshgrid_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_meshgrid_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::meshgrid_, Site> dispatching_meshgrid_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::meshgrid_, Site>();
+    }
+    template<class... Args>
+    struct impl_meshgrid_;
   }
 
   /*!

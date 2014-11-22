@@ -25,7 +25,20 @@ namespace boost { namespace simd { namespace tag
     {
       /// @brief Parent hierarchy
       typedef ext::elementwise_<hypot_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_hypot_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::hypot_, Site> dispatching_hypot_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::hypot_, Site>();
+    }
+    template<class... Args>
+    struct impl_hypot_;
   }
   /*!
     Computes \f$(x^2 + y^2)^{1/2}\f$

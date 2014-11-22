@@ -30,6 +30,16 @@ namespace boost { namespace simd
                                 , 4,0x40800000UL,0x4010000000000000ULL
                                 )
   }
+  namespace ext
+  {
+   template<class Site, class... H>
+   BOOST_FORCEINLINE generic_dispatcher<tag::Four, Site> dispatching_Four(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   {
+     return generic_dispatcher<tag::Four, Site>();
+   }
+   template<class... Args>
+   struct impl_Four;
+  }
   /*!
      Generates value 4 in the chosen type
 

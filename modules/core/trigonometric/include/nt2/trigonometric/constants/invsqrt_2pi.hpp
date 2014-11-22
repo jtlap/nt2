@@ -29,6 +29,16 @@ namespace nt2
                                 , 0x3fd9884533d43651ll
                                 )
   }
+  namespace ext
+  {
+   template<class Site, class... H>
+   BOOST_FORCEINLINE generic_dispatcher<tag::Invsqrt_2pi, Site> dispatching_Invsqrt_2pi(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   {
+     return generic_dispatcher<tag::Invsqrt_2pi, Site>();
+   }
+   template<class... Args>
+   struct impl_Invsqrt_2pi;
+  }
   /*!
     Constant  \f$\frac1{\sqrt{2\pi}}\f$.
 

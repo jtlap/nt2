@@ -45,10 +45,23 @@ namespace nt2 { namespace tag
      * \brief Define the tag parter_ of functor parter
      *        in namespace nt2::tag for toolbox algebra
     **/
-    struct parter_ : boost::dispatch::tag::formal_
+    struct parter_ : ext::abstract_<parter_>
     {
-      typedef boost::dispatch::tag::formal_ parent;
+      typedef ext::abstract_<parter_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_parter_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::parter_, Site> dispatching_parter_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::parter_, Site>();
+    }
+    template<class... Args>
+    struct impl_parter_;
   }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::parter_, parter, 2)

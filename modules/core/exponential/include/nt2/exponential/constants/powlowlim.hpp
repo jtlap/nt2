@@ -29,6 +29,16 @@ namespace nt2
                                 , 0xc0d0c7c000000000ULL //-17183
                                 )
   }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::Powlowlim, Site> dispatching_Powlowlim(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::Powlowlim, Site>();
+    }
+    template<class... Args>
+    struct impl_Powlowlim;
+  }
  /*!
     Generates constant powlowlim
 

@@ -26,7 +26,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF ( boost::simd::tag::saturate_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT_IF          ( saturate_, tag::cpu_
                                        , (A0)(T)
                                        , (is_same<typename meta::scalar_of<typename T::type>::type, typename meta::scalar_of<A0>::type>)
                                        , (generic_< arithmetic_<A0> >)
@@ -43,7 +43,7 @@ namespace boost { namespace simd { namespace ext
 
   // any->any, only works if target is strictly smaller
   // FIXME: is Valmax<target_t>/Valmin<target_t> representable with A0 if floating-point?
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::saturate_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT          ( saturate_, tag::cpu_
                                     , (A0)(T)
                                     , (generic_< unspecified_<A0> >)
                                       (target_< generic_< arithmetic_<T> > >)
@@ -62,7 +62,7 @@ namespace boost { namespace simd { namespace ext
 
   // unsigned->any, only works if target is smaller or equal
   // FIXME: is Valmax<target_t> representable with A0 if floating-point?
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::saturate_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT          ( saturate_, tag::cpu_
                                     , (A0)(T)
                                     , (generic_<unsigned_<A0> >)
                                       (target_< generic_< arithmetic_<T> > >)
@@ -79,7 +79,7 @@ namespace boost { namespace simd { namespace ext
   };
 
   // if target is greater or equal and signed->unsigned, just need to check if negative
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF ( boost::simd::tag::saturate_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT_IF          ( saturate_, tag::cpu_
                                        , (A0)(T)
                                        , (mpl::greater_equal< mpl::sizeof_<typename meta::scalar_of<typename T::type>::type>, mpl::sizeof_<typename meta::scalar_of<A0>::type> >)
                                        , (generic_< int_<A0> >)
@@ -95,7 +95,7 @@ namespace boost { namespace simd { namespace ext
   };
 
   // if target is strictly greater, nothing to saturate
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF ( boost::simd::tag::saturate_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT_IF          ( saturate_, tag::cpu_
                                        , (A0)(T)
                                        , (mpl::greater< mpl::sizeof_<typename meta::scalar_of<typename T::type>::type>, mpl::sizeof_<typename meta::scalar_of<A0>::type> >)
                                        , (generic_< integer_<A0> >)

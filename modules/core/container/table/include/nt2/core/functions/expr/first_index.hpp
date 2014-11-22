@@ -16,7 +16,7 @@
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::first_index_,tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( first_index_,tag::cpu_
                             , (A0)(A1)
                             , ((ast_<A0, nt2::container::domain>))
                               (mpl_integral_< scalar_< integer_<A1> > >)
@@ -33,7 +33,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::first_index_,tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( first_index_,tag::cpu_
                             , (A0)(A1)
                             , ((ast_<A0, nt2::container::domain>))
                               (scalar_< integer_<A1> >)

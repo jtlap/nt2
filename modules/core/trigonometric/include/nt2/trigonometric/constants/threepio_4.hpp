@@ -30,6 +30,16 @@ namespace nt2
                                 , 0x4002d97c7f3321d2ll
                                 )
   }
+  namespace ext
+  {
+   template<class Site, class... H>
+   BOOST_FORCEINLINE generic_dispatcher<tag::Threepio_4, Site> dispatching_Threepio_4(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   {
+     return generic_dispatcher<tag::Threepio_4, Site>();
+   }
+   template<class... Args>
+   struct impl_Threepio_4;
+  }
   /*!
     Constant threepio_4 : \f$3\pi/4\f$.
 

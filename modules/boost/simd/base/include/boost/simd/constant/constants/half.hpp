@@ -28,6 +28,16 @@ namespace boost { namespace simd
    **/
     BOOST_SIMD_CONSTANT_REGISTER(Half,double,0,0x3F000000,0x3FE0000000000000ULL)
   }
+  namespace ext
+  {
+   template<class Site, class... H>
+   BOOST_FORCEINLINE generic_dispatcher<tag::Half, Site> dispatching_Half(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   {
+     return generic_dispatcher<tag::Half, Site>();
+   }
+   template<class... Args>
+   struct impl_Half;
+  }
   /*!
     Generates value \f$\frac12\f$
 

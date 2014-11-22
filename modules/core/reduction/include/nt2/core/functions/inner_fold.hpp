@@ -18,10 +18,23 @@ namespace nt2
     /*!
       @brief Tag for the inner_fold functor
     **/
-    struct inner_fold_ : boost::dispatch::tag::formal_
+    struct inner_fold_ : ext::abstract_<inner_fold_>
     {
-      typedef boost::dispatch::tag::formal_ parent;
+      typedef ext::abstract_<inner_fold_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_inner_fold_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::inner_fold_, Site> dispatching_inner_fold_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::inner_fold_, Site>();
+    }
+    template<class... Args>
+    struct impl_inner_fold_;
   }
 
   /*!

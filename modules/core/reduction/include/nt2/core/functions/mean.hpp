@@ -21,11 +21,24 @@ namespace nt2
     /*!
       @brief Tag for the mean functor
     **/
-    struct mean_ : boost::dispatch::tag::formal_
+    struct mean_ : ext::abstract_<mean_>
     {
       /// @brief Parent hierarchy
-      typedef boost::dispatch::tag::formal_ parent;
+      typedef ext::abstract_<mean_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_mean_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::mean_, Site> dispatching_mean_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::mean_, Site>();
+    }
+    template<class... Args>
+    struct impl_mean_;
   }
   /*!
    @brief mean of a table along a given dimension

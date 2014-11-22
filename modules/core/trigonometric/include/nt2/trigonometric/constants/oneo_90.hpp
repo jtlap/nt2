@@ -29,6 +29,16 @@ namespace nt2
                                 , 0x3f86c16c16c16c17ll  //1/90
                                 )
   }
+  namespace ext
+  {
+   template<class Site, class... H>
+   BOOST_FORCEINLINE generic_dispatcher<tag::Oneo_90, Site> dispatching_Oneo_90(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   {
+     return generic_dispatcher<tag::Oneo_90, Site>();
+   }
+   template<class... Args>
+   struct impl_Oneo_90;
+  }
   /*!
     Constant 1/90
 

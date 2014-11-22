@@ -18,7 +18,7 @@
 namespace boost { namespace simd { namespace ext
 {
   /// INTERNAL ONLY
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::insert_
+  BOOST_DISPATCH_IMPLEMENT          ( insert_
                                     , tag::cpu_
                                     , (A0)(A1)(A2)
                                     , (scalar_< fundamental_<A0> >)
@@ -35,7 +35,7 @@ namespace boost { namespace simd { namespace ext
   };
 
   /// INTERNAL ONLY
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::insert_
+  BOOST_DISPATCH_IMPLEMENT          ( insert_
                                     , tag::cpu_
                                     , (A0)(A1)(A2)
                                     , (fusion_sequence_<A0>)

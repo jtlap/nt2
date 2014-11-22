@@ -47,10 +47,23 @@ namespace nt2
 {
   namespace tag
   {
-    struct ofsameheight_ : boost::dispatch::tag::formal_
+    struct ofsameheight_ : ext::abstract_<ofsameheight_>
     {
-      typedef boost::dispatch::tag::formal_ parent;
+      typedef ext::abstract_<ofsameheight_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_ofsameheight_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::ofsameheight_, Site> dispatching_ofsameheight_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::ofsameheight_, Site>();
+    }
+    template<class... Args>
+    struct impl_ofsameheight_;
   }
 
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::ofsameheight_, ofsameheight, 2)

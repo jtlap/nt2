@@ -17,7 +17,7 @@
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::log10_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( log10_, tag::cpu_
                             , (A0)
                             , (generic_< floating_<A0> >)
                             )

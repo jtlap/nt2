@@ -21,7 +21,17 @@ namespace nt2 { namespace tag
      @par Models:
         Hierarchy
    **/
-    struct spence_ : ext::elementwise_<spence_> { typedef ext::elementwise_<spence_> parent; };
+    struct spence_ : ext::elementwise_<spence_> { typedef ext::elementwise_<spence_> parent;   template<class... Args>   static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)   BOOST_AUTO_DECLTYPE_BODY( dispatching_spence_( ext::adl_helper(), static_cast<Args&&>(args)... ) ) };
+  }
+  namespace ext
+  {
+   template<class Site, class... H>
+   BOOST_FORCEINLINE generic_dispatcher<tag::spence_, Site> dispatching_spence_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   {
+     return generic_dispatcher<tag::spence_, Site>();
+   }
+   template<class... Args>
+   struct impl_spence_;
   }
   /*!
     Computes the spence function or dilogarithm for a0 >= 0 (else return Nan)

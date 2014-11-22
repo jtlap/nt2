@@ -30,7 +30,7 @@
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::fastnormcdf_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( fastnormcdf_, tag::cpu_
                             , (A0)
                             , (generic_< single_<A0> >)
                             )

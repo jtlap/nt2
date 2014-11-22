@@ -19,7 +19,7 @@
 
 namespace nt2{ namespace ext
 {
-    NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::rank_, tag::cpu_,
+    BOOST_DISPATCH_IMPLEMENT  ( rank_, tag::cpu_,
                                 (A0)
                                 ,((ast_<A0, nt2::container::domain>))
                                 )
@@ -35,7 +35,7 @@ namespace nt2{ namespace ext
       return size_t(inbtrue(gt(s,  nt2::length(a0)*nt2::eps(s(1)))));
     }
   };
-    NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::rank_, tag::cpu_,
+    BOOST_DISPATCH_IMPLEMENT  ( rank_, tag::cpu_,
                                 (A0)(A1)
                                 ,((ast_<A0, nt2::container::domain>))
                                 (scalar_<floating_<A1 > >)

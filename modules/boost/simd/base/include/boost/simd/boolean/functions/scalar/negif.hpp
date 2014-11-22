@@ -16,7 +16,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::negif_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT          ( negif_, tag::cpu_
                                     , (A0)(A1)
                                     , (scalar_< unspecified_<A0> >)
                                       (scalar_< signed_<A1> >)

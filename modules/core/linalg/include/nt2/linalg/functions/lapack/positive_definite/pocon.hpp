@@ -50,7 +50,7 @@ extern "C"
 namespace nt2 { namespace ext
 {
   /// INTERNAL ONLY
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pocon_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( pocon_, tag::cpu_
                             , (A0)(S0)(A1)
                             , ((container_< nt2::tag::table_, double_<A0>, S0 >))
                               (scalar_< floating_<A1> >)            //  anorm
@@ -78,7 +78,7 @@ namespace nt2 { namespace ext
   };
 
   /// INTERNAL ONLY
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pocon_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( pocon_, tag::cpu_
                             , (A0)(S0)(A1)
                             , ((container_< nt2::tag::table_, single_<A0>, S0 >))
                               (scalar_< floating_<A1> >)            //  anorm
@@ -106,7 +106,7 @@ namespace nt2 { namespace ext
   };
 
   /// INTERNAL ONLY
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pocon_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( pocon_, tag::cpu_
                             , (A0)(S0)(A1)
                             , ((container_< nt2::tag::table_, complex_<double_<A0> >, S0 >))
                               (scalar_< floating_<A1> >)            //  anorm
@@ -135,7 +135,7 @@ namespace nt2 { namespace ext
   };
 
   /// INTERNAL ONLY
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pocon_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( pocon_, tag::cpu_
                             , (A0)(S0)(A1)
                             , ((container_< nt2::tag::table_, complex_<single_<A0> >, S0 >))
                               (scalar_< floating_<A1> >)            //  anorm

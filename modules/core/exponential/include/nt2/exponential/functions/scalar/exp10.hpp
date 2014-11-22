@@ -78,7 +78,7 @@ namespace nt2 {  namespace details
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::exp10_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( exp10_, tag::cpu_
                             , (A0)
                             , (scalar_< arithmetic_<A0> >)
                             )
@@ -92,7 +92,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::exp10_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( exp10_, tag::cpu_
                             , (A0)
                             , (scalar_< floating_<A0> >)
                             )

@@ -18,7 +18,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::all_reduce_
+  BOOST_DISPATCH_IMPLEMENT          ( all_reduce_
                                     , boost::simd::tag::avx_
                                     , (Tag)(A0)
                                     , ((simd_ < type64_<A0>
@@ -49,7 +49,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::all_reduce_
+  BOOST_DISPATCH_IMPLEMENT          ( all_reduce_
                                     , boost::simd::tag::avx_
                                     , (Tag)(A0)
                                     , ((simd_ < type32_<A0>

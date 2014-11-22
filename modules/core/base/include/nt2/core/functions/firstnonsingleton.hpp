@@ -24,10 +24,23 @@ namespace nt2
     /*!
       @brief Tag for firstnonsingleton functor
     **/
-    struct firstnonsingleton_ : boost::dispatch::tag::formal_
+    struct firstnonsingleton_ : ext::abstract_<firstnonsingleton_>
     {
-      typedef boost::dispatch::tag::formal_ parent;
+      typedef ext::abstract_<firstnonsingleton_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_firstnonsingleton_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::firstnonsingleton_, Site> dispatching_firstnonsingleton_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::firstnonsingleton_, Site>();
+    }
+    template<class... Args>
+    struct impl_firstnonsingleton_;
   }
 
   /*!

@@ -25,7 +25,20 @@ namespace boost { namespace simd { namespace tag
     {
       /// @brief Parent hierarchy
       typedef ext::elementwise_<rshl_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_rshl_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::rshl_, Site> dispatching_rshl_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::rshl_, Site>();
+    }
+    template<class... Args>
+    struct impl_rshl_;
   }
   /*!
     Returns the first entry shifted left or right

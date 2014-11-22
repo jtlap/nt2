@@ -19,7 +19,7 @@
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::atanh_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( atanh_, tag::cpu_
                             , (A0)
                             , (scalar_< floating_<A0> >)
                             )

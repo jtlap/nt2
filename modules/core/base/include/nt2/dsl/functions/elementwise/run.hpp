@@ -18,7 +18,7 @@ namespace nt2 { namespace ext
   //============================================================================
   // Element-wise operations go to transform
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_assign_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( run_assign_, tag::cpu_
                             , (A0)(T0)(N0)(A1)(T1)(N1)
                             , ((node_<A0, elementwise_<T0>, N0, nt2::container::domain>))
                               ((node_<A1, elementwise_<T1>, N1, nt2::container::domain>))
@@ -39,7 +39,7 @@ namespace nt2 { namespace ext
   // Copies go to transform as well, but we check for self-assignment.
   // This is not a pessimization, some code patterns rely on this!
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_assign_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( run_assign_, tag::cpu_
                             , (A0)(T0)
                             , ((node_ < A0, elementwise_<T0>
                                       , boost::mpl::long_<0>

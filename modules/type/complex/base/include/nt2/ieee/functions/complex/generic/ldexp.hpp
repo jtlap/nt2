@@ -15,9 +15,9 @@
 #include <nt2/sdk/complex/meta/as_complex.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
 
-namespace nt2  { namespace ext
+namespace boost { namespace simd { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::ldexp_, tag::cpu_, (A0)(A1)
+  BOOST_DISPATCH_IMPLEMENT  ( ldexp_, tag::cpu_, (A0)(A1)
                             , (generic_< complex_ < floating_<A0> > >)
                               (generic_< integer_<A1> >)
                             )
@@ -29,7 +29,7 @@ namespace nt2  { namespace ext
     }
   };
 
-   NT2_FUNCTOR_IMPLEMENTATION( boost::simd::tag::ldexp_, tag::cpu_, (A0)(A1)
+   BOOST_DISPATCH_IMPLEMENT  ( ldexp_, tag::cpu_, (A0)(A1)
                             , (generic_< dry_ < floating_<A0> > >)
                               (generic_< integer_<A1> >)
                             )
@@ -40,6 +40,6 @@ namespace nt2  { namespace ext
       return result_type(nt2::ldexp(nt2::real(a0), a1));
     }
   };
-} }
+} } }
 
 #endif

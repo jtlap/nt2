@@ -29,6 +29,16 @@ namespace nt2
                                 , 0x40cfff8000000000ULL //16383
                                 )
   }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::Powlargelim, Site> dispatching_Powlargelim(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::Powlargelim, Site>();
+    }
+    template<class... Args>
+    struct impl_Powlargelim;
+  }
  /*!
     Generates constant powlargelim
 

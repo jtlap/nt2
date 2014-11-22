@@ -27,8 +27,21 @@ namespace nt2
       struct balance_ : ext::unspecified_<factorization::balance_>
       {
         typedef ext::unspecified_<factorization::balance_> parent;
+        template<class... Args>
+        static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+        BOOST_AUTO_DECLTYPE_BODY( dispatching_balance_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
       };
     }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::balance_, Site> dispatching_balance_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::balance_, Site>();
+    }
+    template<class... Args>
+    struct impl_balance_;
+  }
 
     struct balance_ :  ext::tieable_<balance_>
     {

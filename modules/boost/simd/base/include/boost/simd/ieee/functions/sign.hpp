@@ -26,7 +26,20 @@ namespace boost { namespace simd { namespace tag
     {
       /// @brief Parent hierarchy
       typedef ext::elementwise_<sign_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_sign_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+   template<class Site, class... H>
+   BOOST_FORCEINLINE generic_dispatcher<tag::sign_, Site> dispatching_sign_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   {
+     return generic_dispatcher<tag::sign_, Site>();
+   }
+   template<class... Args>
+   struct impl_sign_;
   }
   /*!
     Returns the sign of a0. I.e. -1, 0 or 1, according

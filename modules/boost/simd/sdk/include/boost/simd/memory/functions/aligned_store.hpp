@@ -25,11 +25,24 @@ namespace boost { namespace simd
       @par Models:
       Hierarchy
     **/
-    struct aligned_store_ : tag::formal_
+    struct aligned_store_ : ext::abstract_<aligned_store_>
     {
       /// @brief Parent hierarchy
-      typedef tag::formal_ parent;
+      typedef ext::abstract_<aligned_store_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_aligned_store_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::aligned_store_, Site> dispatching_aligned_store_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::aligned_store_, Site>();
+    }
+    template<class... Args>
+    struct impl_aligned_store_;
   }
 
   /*!

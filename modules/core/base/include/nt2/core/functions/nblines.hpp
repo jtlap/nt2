@@ -16,10 +16,23 @@ namespace nt2
 {
   namespace tag
   {
-    struct nblines_ : boost::dispatch::tag::formal_
+    struct nblines_ : ext::abstract_<nblines_>
     {
-      typedef boost::dispatch::tag::formal_ parent;
+      typedef ext::abstract_<nblines_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_nblines_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::nblines_, Site> dispatching_nblines_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::nblines_, Site>();
+    }
+    template<class... Args>
+    struct impl_nblines_;
   }
 
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::nblines_, nblines, 2)

@@ -50,10 +50,23 @@ namespace nt2 { namespace tag
      * \brief Define the tag vecnorm_ of functor vecnorm
      *        in namespace nt2::tag for toolbox algebra
     **/
-    struct vecnorm_ : boost::dispatch::tag::formal_
+    struct vecnorm_ : ext::abstract_<vecnorm_>
     {
-      typedef boost::dispatch::tag::formal_ parent;
+      typedef ext::abstract_<vecnorm_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_vecnorm_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::vecnorm_, Site> dispatching_vecnorm_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::vecnorm_, Site>();
+    }
+    template<class... Args>
+    struct impl_vecnorm_;
   }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(nt2::tag::vecnorm_, vecnorm, 1)

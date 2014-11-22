@@ -51,7 +51,7 @@
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::mpower_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( mpower_, tag::cpu_
                             , (A0)(A1)
                             , (scalar_<unspecified_<A0> >)
                               (scalar_<unspecified_<A1> >)
@@ -64,7 +64,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::mpower_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( mpower_, tag::cpu_
                             , (A0)(A1)
                             , (scalar_<unspecified_<A0> >)
                               ((ast_<A1, nt2::container::domain>))
@@ -92,7 +92,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_assign_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( run_assign_, tag::cpu_
                             , (A0)(A1)
                             , ((ast_<A0, nt2::container::domain>))
                               ((node_<A1, nt2::tag::mpower_, boost::mpl::long_<2>, nt2::container::domain>))

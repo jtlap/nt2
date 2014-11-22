@@ -16,7 +16,7 @@
 namespace nt2 { namespace ext
 {
   /// INTERNAL ONLY
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::diag_of_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( diag_of_, tag::cpu_
                               , (A0)
                               , (scalar_< arithmetic_<A0> >)
                               )
@@ -30,7 +30,7 @@ namespace nt2 { namespace ext
 
   /// INTERNAL ONLY
   /// TODO: Make lazier
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::offset_diag_of_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( offset_diag_of_, tag::cpu_
                               , (A0)(A1)
                               , (scalar_< arithmetic_<A0> >)
                                 (scalar_< integer_<A1> >)

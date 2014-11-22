@@ -20,11 +20,24 @@ namespace nt2
     /*!
       @brief Tag for the globalasump functor
     **/
-    struct globalasump_ : boost::dispatch::tag::formal_
+    struct globalasump_ : ext::abstract_<globalasump_>
     {
       /// @brief Parent hierarchy
-      typedef boost::dispatch::tag::formal_ parent;
+      typedef ext::abstract_<globalasump_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_globalasump_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::globalasump_, Site> dispatching_globalasump_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::globalasump_, Site>();
+    }
+    template<class... Args>
+    struct impl_globalasump_;
   }
 
   /*!
@@ -59,7 +72,7 @@ namespace nt2
 namespace nt2 { namespace ext
 {
   /// INTERNAL ONLY
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::globalasump_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( globalasump_, tag::cpu_
                               , (A0)(A1)
                               , (unspecified_<A0>)
                               (scalar_<arithmetic_<A1> > )

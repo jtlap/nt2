@@ -28,6 +28,16 @@ namespace boost { namespace simd
    **/
     BOOST_SIMD_CONSTANT_REGISTER( Pio_2, double, 2, 0x3fc90fdb, 0x3ff921fb54442d18ll)
   }
+  namespace ext
+  {
+   template<class Site, class... H>
+   BOOST_FORCEINLINE generic_dispatcher<tag::Pio_2, Site> dispatching_Pio_2(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   {
+     return generic_dispatcher<tag::Pio_2, Site>();
+   }
+   template<class... Args>
+   struct impl_Pio_2;
+  }
   /*!
     Generates value \f$\frac\pi{2}\f$.
 

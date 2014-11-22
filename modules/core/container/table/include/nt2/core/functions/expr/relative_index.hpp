@@ -21,7 +21,7 @@ namespace nt2 { namespace ext
   //============================================================================
   // When indexing an expression, evaluate a type with right cardinal then convert
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::relative_index_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( relative_index_, tag::cpu_
                             , (A0)(A1)(A2)(A3)(A4)
                             , ((ast_<A0, nt2::container::domain>))
                               (scalar_< unspecified_<A1> >)
@@ -46,7 +46,7 @@ namespace nt2 { namespace ext
   //============================================================================
   // When indexing a scalar, evaluate as scalar type of expression then convert
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::relative_index_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( relative_index_, tag::cpu_
                             , (A0)(Arity)(A1)(A2)(A3)(A4)
                             , ((expr_ < scalar_< unspecified_<A0> >
                                       , nt2::tag::terminal_

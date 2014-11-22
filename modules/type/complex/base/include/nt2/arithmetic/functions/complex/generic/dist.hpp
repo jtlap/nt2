@@ -15,82 +15,82 @@
 #include <nt2/sdk/complex/meta/as_real.hpp>
 #include <nt2/sdk/complex/meta/as_dry.hpp>
 
-namespace nt2 { namespace ext
+namespace boost { namespace simd { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::dist_, tag::cpu_, (A0)(A1)
+  BOOST_DISPATCH_IMPLEMENT  ( dist_, tag::cpu_, (A0)(A1)
                             , (generic_< complex_ < arithmetic_<A0> > > )
                               (generic_< complex_ < arithmetic_<A1> > > )
                             )
   {
-    typedef typename meta::as_real<A0>::type result_type;
+    typedef typename nt2::meta::as_real<A0>::type result_type;
     NT2_FUNCTOR_CALL(2)
     {
       return nt2::abs(nt2::minus(a0, a1));
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::dist_, tag::cpu_, (A0)(A1)
+  BOOST_DISPATCH_IMPLEMENT  ( dist_, tag::cpu_, (A0)(A1)
                             , (generic_< dry_ < arithmetic_<A0> > > )
                               (generic_< dry_ < arithmetic_<A1> > > )
                             )
   {
-    typedef typename meta::as_real<A0>::type result_type;
+    typedef typename nt2::meta::as_real<A0>::type result_type;
     NT2_FUNCTOR_CALL(2)
     {
       return nt2::abs(nt2::minus(nt2::real(a0), nt2::real(a1)));
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::dist_, tag::cpu_, (A0)(A1)
+  BOOST_DISPATCH_IMPLEMENT  ( dist_, tag::cpu_, (A0)(A1)
                             ,  (generic_< arithmetic_<A0> >)
                                (generic_< complex_< arithmetic_<A1> > >)
 
                             )
   {
-    typedef typename meta::as_real<A0>::type result_type;
+    typedef typename nt2::meta::as_real<A0>::type result_type;
     NT2_FUNCTOR_CALL(2)
     {
       return nt2::abs(nt2::minus(a0, a1));
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::dist_, tag::cpu_, (A0)(A1)
+  BOOST_DISPATCH_IMPLEMENT  ( dist_, tag::cpu_, (A0)(A1)
                             ,  (generic_< dry_ < arithmetic_<A0> > >)
                                (generic_< complex_< arithmetic_<A1> > >)
 
                             )
   {
-    typedef typename meta::as_real<A0>::type result_type;
+    typedef typename nt2::meta::as_real<A0>::type result_type;
     NT2_FUNCTOR_CALL(2)
     {
       return nt2::abs(nt2::minus(a0, a1));
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::dist_, tag::cpu_, (A0)(A1)
+  BOOST_DISPATCH_IMPLEMENT  ( dist_, tag::cpu_, (A0)(A1)
                             ,  (generic_< complex_< arithmetic_<A0> > >)
                                (generic_< dry_ < arithmetic_<A1> > >)
 
                             )
   {
-    typedef typename meta::as_real<A0>::type result_type;
+    typedef typename nt2::meta::as_real<A0>::type result_type;
     NT2_FUNCTOR_CALL(2)
     {
       return nt2::abs(nt2::minus(a0, a1));
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::dist_, tag::cpu_, (A0)(A1)
+  BOOST_DISPATCH_IMPLEMENT  ( dist_, tag::cpu_, (A0)(A1)
                             , (generic_< complex_< arithmetic_<A0> > >)
                               (generic_< arithmetic_<A1> >)
                             )
   {
-    typedef typename meta::as_real<A0>::type result_type;
+    typedef typename nt2::meta::as_real<A0>::type result_type;
     NT2_FUNCTOR_CALL(2)
     {
       return nt2::abs(nt2::minus(a0, a1));
     }
   };
-} }
+} } }
 
 #endif

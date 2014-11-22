@@ -21,7 +21,20 @@ namespace nt2
     struct repvert_ : ext::elementwise_<repvert_>
     {
       typedef ext::elementwise_<repvert_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_repvert_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::repvert_, Site> dispatching_repvert_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::repvert_, Site>();
+    }
+    template<class... Args>
+    struct impl_repvert_;
   }
 
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::repvert_, repvert, 2)

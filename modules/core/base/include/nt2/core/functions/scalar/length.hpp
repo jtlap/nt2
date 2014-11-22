@@ -23,7 +23,7 @@
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::length_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( length_, tag::cpu_
                             , (A0), (scalar_< unspecified_<A0> >)
                             )
   {
@@ -33,7 +33,7 @@ namespace nt2 { namespace ext
     result_type operator()(const A0&) const { return result_type(); }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::length_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( length_, tag::cpu_
                             , (A0)
                             , (fusion_sequence_<A0>)
                             )

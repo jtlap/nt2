@@ -75,7 +75,7 @@ extern "C"
 namespace nt2 { namespace ext
 {
   /// Computes the workspace
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sysvx_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( sysvx_, tag::cpu_
                             , (A0)(S0)(A1)(S1)(A2)(S2)(A3)(S3)(A4)
                             , ((container_< nt2::tag::table_, double_<A0>, S0 >))   // A
                               ((container_< nt2::tag::table_, integer_<A1>, S1 >)) // piv
@@ -118,7 +118,7 @@ namespace nt2 { namespace ext
      }
   };
   /// Workspace is ready -
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sysvx_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( sysvx_, tag::cpu_
                             , (A0)(S0)(A1)(S1)(A2)(S2)(A3)(S3)(A4)(A5)
                             , ((container_< nt2::tag::table_, double_<A0>, S0 >))   // A
                               ((container_< nt2::tag::table_, integer_<A1>, S1 >)) // piv
@@ -165,7 +165,7 @@ namespace nt2 { namespace ext
      }
   };
   /// Computes the workspace -
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sysvx_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( sysvx_, tag::cpu_
                             , (A0)(S0)(A1)(S1)(A2)(S2)(A3)(S3)(A4)
                             , ((container_< nt2::tag::table_, single_<A0>, S0 >))   // A
                               ((container_< nt2::tag::table_, integer_<A1>, S1 >)) // piv
@@ -209,7 +209,7 @@ namespace nt2 { namespace ext
   };
 
   /// Workspace is ready -
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sysvx_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( sysvx_, tag::cpu_
                             , (A0)(S0)(A1)(S1)(A2)(S2)(A3)(S3)(A4)(A5)
                             , ((container_< nt2::tag::table_, single_<A0>, S0 >))   // A
                               ((container_< nt2::tag::table_, integer_<A1>, S1 >)) // piv
@@ -259,7 +259,7 @@ namespace nt2 { namespace ext
 //--------------------------------------------Complex-----------------------------------------//
 
   /// Computes the workspace
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sysvx_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( sysvx_, tag::cpu_
                             , (A0)(S0)(A1)(S1)(A2)(S2)(A3)(S3)(A4)
                             , ((container_< nt2::tag::table_, complex_<double_<A0> >, S0 >))   // A
                               ((container_< nt2::tag::table_, integer_<A1>, S1 >))            // piv
@@ -302,7 +302,7 @@ namespace nt2 { namespace ext
      }
   };
   /// Workspace is ready -
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sysvx_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( sysvx_, tag::cpu_
                             , (A0)(S0)(A1)(S1)(A2)(S2)(A3)(S3)(A4)(A5)
                             , ((container_< nt2::tag::table_, complex_<double_<A0> >, S0 >))   // A
                               ((container_< nt2::tag::table_, integer_<A1>, S1 >))            // piv
@@ -350,7 +350,7 @@ namespace nt2 { namespace ext
      }
   };
   /// Computes the workspace -
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sysvx_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( sysvx_, tag::cpu_
                             , (A0)(S0)(A1)(S1)(A2)(S2)(A3)(S3)(A4)
                             , ((container_< nt2::tag::table_, complex_<single_<A0> >, S0 >))  // A
                               ((container_< nt2::tag::table_, integer_<A1>, S1 >))            // piv
@@ -395,7 +395,7 @@ namespace nt2 { namespace ext
   };
 
   /// Workspace is ready -
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sysvx_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( sysvx_, tag::cpu_
                             , (A0)(S0)(A1)(S1)(A2)(S2)(A3)(S3)(A4)(A5)
                             , ((container_< nt2::tag::table_, complex_<single_<A0> >, S0 >))  // A
                               ((container_< nt2::tag::table_, integer_<A1>, S1 >))            // piv

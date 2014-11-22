@@ -24,11 +24,24 @@ namespace boost { namespace simd
       @par Models:
       Hierarchy
     **/
-    struct stream_ : tag::formal_
+    struct stream_ : ext::abstract_<stream_>
     {
       /// @brief Parent hierarchy
-      typedef tag::formal_ parent;
+      typedef ext::abstract_<stream_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_stream_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::stream_, Site> dispatching_stream_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::stream_, Site>();
+    }
+    template<class... Args>
+    struct impl_stream_;
   }
 
   /*!

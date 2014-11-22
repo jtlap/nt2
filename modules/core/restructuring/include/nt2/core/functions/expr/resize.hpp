@@ -16,7 +16,7 @@
 namespace nt2 { namespace ext
 {
   /// INTERNAL ONLY : resize_ from expression + of_size
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::resize_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( resize_, tag::cpu_
                             , (A0)(A1)
                             , ((ast_<A0, nt2::container::domain>))
                               (fusion_sequence_<A1>)
@@ -34,7 +34,7 @@ namespace nt2 { namespace ext
   };
 
   /// INTERNAL ONLY : resize_ from expression + size(...)
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::resize_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( resize_, tag::cpu_
                             , (A0)(A1)
                             , ((ast_<A0, nt2::container::domain>))
                               ((ast_<A1, nt2::container::domain>))

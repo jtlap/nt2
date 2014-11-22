@@ -16,7 +16,7 @@
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::linear_interp_, tag::cpu_,
+  BOOST_DISPATCH_IMPLEMENT  ( linear_interp_, tag::cpu_,
                               (A0)(A1)(A2),
                               (unspecified_<A0>)
                               (unspecified_<A1>)
@@ -33,7 +33,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::linear_interp_, tag::cpu_,
+  BOOST_DISPATCH_IMPLEMENT  ( linear_interp_, tag::cpu_,
                               (A0)(A1)(A2),
                               (generic_<floating_<A0> >)
                               (unspecified_<A1>)

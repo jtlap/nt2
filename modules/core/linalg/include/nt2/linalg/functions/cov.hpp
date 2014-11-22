@@ -20,10 +20,23 @@ namespace nt2 {  namespace tag
      * \brief Define the tag expm_ of functor expm
      *        in namespace nt2::tag for toolbox algebra
     **/
-    struct cov_ : tag::formal_
+    struct cov_ : ext::abstract_<cov_>
     {
-       typedef tag::formal_ parent;
+       typedef ext::abstract_<cov_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_cov_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::cov_, Site> dispatching_cov_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::cov_, Site>();
+    }
+    template<class... Args>
+    struct impl_cov_;
   }
   /**
    * @brief compute covariance matrix expression

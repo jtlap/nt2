@@ -58,7 +58,7 @@ namespace nt2 { namespace ext
   #define M1(z,n,txt) (unspecified_<A##n>)
   #define M2(z,n,txt) nt2::run(boost::proto::child_c<BOOST_PP_INC(n)>(a0),p,t)
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sub2ind_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( sub2ind_, tag::cpu_
                             , (SZ)BOOST_PP_REPEAT(N,M0,~)
                             , ((ast_<SZ,nt2::container::domain>))
                               BOOST_PP_REPEAT(N,M1,~)
@@ -75,7 +75,7 @@ namespace nt2 { namespace ext
                           )
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( run_, tag::cpu_
                             , (A0)(State)(Data)
                             , ((node_ < A0, nt2::tag::sub2ind_
                                       , boost::mpl::long_<BOOST_PP_INC(N)>

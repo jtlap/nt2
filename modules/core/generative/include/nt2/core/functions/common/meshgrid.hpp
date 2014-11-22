@@ -17,7 +17,7 @@
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::meshgrid_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( meshgrid_, tag::cpu_
                             , (A0)(N0)(A1)(N1)
                             , ((node_ < A0, nt2::tag::meshgrid_
                                       , N0, nt2::container::domain

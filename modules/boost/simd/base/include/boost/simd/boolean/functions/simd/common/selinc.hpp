@@ -20,7 +20,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::selinc_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT          ( selinc_, tag::cpu_
                                     , (A0)(A1)(X)
                                     , ((simd_<fundamental_<A0>, X>))
                                       ((simd_<integer_<A1>, X>))
@@ -33,7 +33,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::selinc_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT          ( selinc_, tag::cpu_
                                     , (A0)(A1)(X)
                                     , ((simd_<fundamental_<A0>, X>))
                                       ((simd_<arithmetic_<A1>, X>))

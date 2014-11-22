@@ -16,7 +16,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_nltz_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT         ( is_nltz_, tag::cpu_
                             , (A0)
                             , (scalar_< arithmetic_<A0> >)
                             )
@@ -28,7 +28,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_nltz_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT         ( is_nltz_, tag::cpu_
                             , (A0)
                             , (scalar_< floating_<A0> >)
                             )

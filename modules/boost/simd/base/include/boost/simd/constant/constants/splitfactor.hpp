@@ -30,6 +30,16 @@ namespace boost { namespace simd
                                 , 0x46000000, 0x41A0000000000000ULL
                                 )
   }
+  namespace ext
+  {
+   template<class Site, class... H>
+   BOOST_FORCEINLINE generic_dispatcher<tag::Splitfactor, Site> dispatching_Splitfactor(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   {
+     return generic_dispatcher<tag::Splitfactor, Site>();
+   }
+   template<class... Args>
+   struct impl_Splitfactor;
+  }
   /*!
     Generates a constant used to split a floating number in two parts,
     in floating point routines (such two_add and two_prod) to get extra precision.

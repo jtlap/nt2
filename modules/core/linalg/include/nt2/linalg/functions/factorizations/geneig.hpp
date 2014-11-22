@@ -29,7 +29,7 @@
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::geneig_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( geneig_, tag::cpu_
                             , (A0)
                             , (scalar_<unspecified_<A0> >)
                               (scalar_<unspecified_<A0> >)
@@ -43,7 +43,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::geneig_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( geneig_, tag::cpu_
                             , (A0)(A1)
                             , (scalar_<unspecified_<A0> >)
                               (scalar_<unspecified_<A0> >)
@@ -58,7 +58,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::geneig_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( geneig_, tag::cpu_
                             , (A0)(A1)(A2)
                             , (scalar_<unspecified_<A0> >)
                               (scalar_<unspecified_<A0> >)
@@ -77,7 +77,7 @@ namespace nt2 { namespace ext
   //============================================================================
   //Geneig computations
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::geneig_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( geneig_, tag::cpu_
                             , (A0)(N0)(A1)(N1)
                             , ((node_<A0, nt2::tag::geneig_
                                     , N0, nt2::container::domain

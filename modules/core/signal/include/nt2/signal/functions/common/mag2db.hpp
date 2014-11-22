@@ -19,7 +19,7 @@
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::mag2db_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( mag2db_, tag::cpu_
                             , (A0)
                             , (generic_< arithmetic_<A0> >)
                               (generic_< arithmetic_<A0> >)
@@ -32,7 +32,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::mag2db_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( mag2db_, tag::cpu_
                             , (A0)
                             , (generic_< arithmetic_<A0> >)
                             )

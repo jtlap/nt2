@@ -23,11 +23,24 @@ namespace nt2
      @par Models:
         Hierarchy
    **/
-    struct putalong_ : boost::dispatch::tag::formal_
+    struct putalong_ : ext::abstract_<putalong_>
     {
       /// @brief Parent hierarchy
-      typedef boost::dispatch::tag::formal_ parent;
+      typedef ext::abstract_<putalong_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_putalong_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+   template<class Site, class... H>
+   BOOST_FORCEINLINE generic_dispatcher<tag::putalong_, Site> dispatching_putalong_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   {
+     return generic_dispatcher<tag::putalong_, Site>();
+   }
+   template<class... Args>
+   struct impl_putalong_;
   }
   /*!
 

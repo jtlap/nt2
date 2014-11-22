@@ -16,7 +16,7 @@
 namespace boost { namespace simd { namespace ext
 {
   // conj optimizations
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::conj_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( conj_, tag::cpu_
                             , (A0)
                             , ((node_<A0, nt2::tag::transpose_, boost::mpl::long_<1>, nt2::container::domain>))
                             )
@@ -24,7 +24,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_DISPATCH_RETURNS(1, (A0 const& a0), nt2::ctranspose(boost::proto::child_c<0>(a0)))
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::conj_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( conj_, tag::cpu_
                             , (A0)
                             , ((node_<A0, nt2::tag::ctranspose_, boost::mpl::long_<1>, nt2::container::domain>))
                             )
@@ -32,7 +32,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_DISPATCH_RETURNS(1, (A0 const& a0), nt2::transpose(boost::proto::child_c<0>(a0)))
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::conj_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( conj_, tag::cpu_
                             , (A0)
                             , ((node_<A0, nt2::tag::conj_, boost::mpl::long_<1>, nt2::container::domain>))
                             )

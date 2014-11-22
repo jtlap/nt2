@@ -16,7 +16,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::split_
+  BOOST_DISPATCH_IMPLEMENT         ( split_
                                    , tag::cpu_
                                    , (A0)
                                    , (( simd_ < single_<A0>

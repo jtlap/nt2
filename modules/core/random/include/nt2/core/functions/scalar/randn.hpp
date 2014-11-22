@@ -21,7 +21,7 @@ namespace nt2 { namespace ext
 {
   /// INTERNAL ONLY
   /// target
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::randn_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( randn_, tag::cpu_
                             , (T)
                             , (target_< scalar_< floating_<T> > >)
                             )
@@ -38,7 +38,7 @@ namespace nt2 { namespace ext
 
   /// INTERNAL ONLY
   /// of_size + target
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::randn_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( randn_, tag::cpu_
                             , (T)(A0)
                             , (fusion_sequence_<A0>)
                               (target_< scalar_< floating_<T> > >)
@@ -60,7 +60,7 @@ namespace nt2 { namespace ext
 
   /// INTERNAL ONLY
   /// of_size
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::randn_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( randn_, tag::cpu_
                             , (A0)
                             , (fusion_sequence_<A0>)
                             )
@@ -85,7 +85,7 @@ namespace nt2 { namespace ext
   #define M1(z,n,t) (scalar_< arithmetic_<BOOST_PP_CAT(A,n)> >)
 
   #define M0(z,n,t)                                                             \
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::randn_, tag::cpu_                        \
+  BOOST_DISPATCH_IMPLEMENT  ( randn_, tag::cpu_                        \
                             , BOOST_PP_REPEAT(n,M2,~)                           \
                             , BOOST_PP_REPEAT(n,M1,~)                           \
                             )                                                   \
@@ -96,7 +96,7 @@ namespace nt2 { namespace ext
                           )                                                     \
   };                                                                            \
                                                                                 \
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::randn_, tag::cpu_                        \
+  BOOST_DISPATCH_IMPLEMENT  ( randn_, tag::cpu_                        \
                             , BOOST_PP_REPEAT(n,M2,~)(T)                        \
                             , BOOST_PP_REPEAT(n,M1,~)                           \
                               (target_< scalar_< floating_<T> > >)              \

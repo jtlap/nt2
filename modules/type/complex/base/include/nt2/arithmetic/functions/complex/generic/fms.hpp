@@ -17,9 +17,9 @@
 // for optimize
 #include <nt2/include/functions/fnms.hpp>
 
-namespace nt2 { namespace ext
+namespace boost { namespace simd { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::fms_, tag::cpu_, (A0)(A1)(A2)
+  BOOST_DISPATCH_IMPLEMENT  ( fms_, tag::cpu_, (A0)(A1)(A2)
                             , (generic_<complex_<arithmetic_<A0> > > )
                               (generic_<complex_<arithmetic_<A1> > > )
                               (generic_<complex_<arithmetic_<A2> > > )
@@ -33,7 +33,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::fms_, tag::cpu_, (A0)(A1)(A2)
+  BOOST_DISPATCH_IMPLEMENT  ( fms_, tag::cpu_, (A0)(A1)(A2)
                             , (generic_<complex_<arithmetic_<A0> > > )
                               (generic_<arithmetic_<A1> > )
                               (generic_<arithmetic_<A2> > )
@@ -47,7 +47,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::fms_, tag::cpu_, (A0)(A1)(A2)
+  BOOST_DISPATCH_IMPLEMENT  ( fms_, tag::cpu_, (A0)(A1)(A2)
                             , (generic_<arithmetic_<A0> > )
                               (generic_<complex_<arithmetic_<A1> > > )
                               (generic_<arithmetic_<A2> > )
@@ -61,7 +61,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::fms_, tag::cpu_, (A0)(A1)(A2)
+  BOOST_DISPATCH_IMPLEMENT  ( fms_, tag::cpu_, (A0)(A1)(A2)
                             , (generic_<arithmetic_<A0> > )
                               (generic_<arithmetic_<A1> > )
                               (generic_<complex_<arithmetic_<A2> > > )
@@ -75,7 +75,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::fms_, tag::cpu_, (A0)(A1)(A2)
+  BOOST_DISPATCH_IMPLEMENT  ( fms_, tag::cpu_, (A0)(A1)(A2)
                             , (generic_<complex_<arithmetic_<A0> > > )
                               (generic_<complex_<arithmetic_<A1> > > )
                               (generic_<arithmetic_<A2> > )
@@ -89,7 +89,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::fms_, tag::cpu_, (A0)(A1)(A2)
+  BOOST_DISPATCH_IMPLEMENT  ( fms_, tag::cpu_, (A0)(A1)(A2)
                             , (generic_<arithmetic_<A0> > )
                               (generic_<complex_<arithmetic_<A1> > > )
                               (generic_<complex_<arithmetic_<A2> > > )
@@ -103,7 +103,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::fms_, tag::cpu_, (A0)(A1)(A2)
+  BOOST_DISPATCH_IMPLEMENT  ( fms_, tag::cpu_, (A0)(A1)(A2)
                             , (generic_<complex_<arithmetic_<A0> > > )
                               (generic_<arithmetic_<A1> > )
                               (generic_<complex_<arithmetic_<A2> > > )
@@ -116,6 +116,6 @@ namespace nt2 { namespace ext
       return a0 * a1 - a2;
     }
   };
-} }
+} } }
 
 #endif

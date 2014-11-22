@@ -21,7 +21,7 @@ namespace boost { namespace simd { namespace ext
   //============================================================================
   // Implementation when type A0 is double
   //============================================================================
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::groups_
+  BOOST_DISPATCH_IMPLEMENT          ( groups_
                                     , boost::simd::tag::sse2_
                                     , (A0)
                                     , ((simd_<double_<A0>,boost::simd::tag::sse_>))
@@ -39,7 +39,7 @@ namespace boost { namespace simd { namespace ext
   //============================================================================
   // Implementation when type A0 is int16_t
   //============================================================================
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::groups_
+  BOOST_DISPATCH_IMPLEMENT          ( groups_
                                     , boost::simd::tag::sse2_
                                     , (A0)
                                     , ((simd_<int16_<A0>,boost::simd::tag::sse_>))
@@ -58,7 +58,7 @@ namespace boost { namespace simd { namespace ext
   //============================================================================
   // Implementation when type A0 is uint16_t
   //============================================================================
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::groups_
+  BOOST_DISPATCH_IMPLEMENT          ( groups_
                                     , boost::simd::tag::sse2_
                                     , (A0)
                                     , ((simd_<uint16_<A0>,boost::simd::tag::sse_>))
@@ -78,7 +78,7 @@ namespace boost { namespace simd { namespace ext
   //============================================================================
   // Implementation when type A0 is int32_t
   //============================================================================
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::groups_
+  BOOST_DISPATCH_IMPLEMENT          ( groups_
                                     , boost::simd::tag::sse2_
                                     , (A0)
                                     , ((simd_<int32_<A0>,boost::simd::tag::sse_>))

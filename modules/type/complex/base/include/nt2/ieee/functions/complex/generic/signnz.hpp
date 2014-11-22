@@ -16,9 +16,9 @@
 #include <nt2/include/functions/is_eqz.hpp>
 #include <nt2/include/constants/one.hpp>
 
-namespace nt2 { namespace ext
+namespace boost { namespace simd { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::signnz_, tag::cpu_, (A0)
+  BOOST_DISPATCH_IMPLEMENT  ( signnz_, tag::cpu_, (A0)
                             , (generic_< complex_< arithmetic_<A0> > >)
                             )
   {
@@ -29,7 +29,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::signnz_, tag::cpu_, (A0)
+  BOOST_DISPATCH_IMPLEMENT  ( signnz_, tag::cpu_, (A0)
                             , (generic_< dry_< arithmetic_<A0> > >)
                             )
   {
@@ -40,6 +40,6 @@ namespace nt2 { namespace ext
     }
   };
 
-} }
+} } }
 
 #endif

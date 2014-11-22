@@ -12,7 +12,17 @@
 
 namespace nt2 { namespace tag
   {
-    struct laguerre_ : ext::elementwise_<laguerre_> { typedef ext::elementwise_<laguerre_> parent; };
+    struct laguerre_ : ext::elementwise_<laguerre_> { typedef ext::elementwise_<laguerre_> parent;   template<class... Args>   static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)   BOOST_AUTO_DECLTYPE_BODY( dispatching_laguerre_( ext::adl_helper(), static_cast<Args&&>(args)... ) ) };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::laguerre_, Site> dispatching_laguerre_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::laguerre_, Site>();
+    }
+    template<class... Args>
+    struct impl_laguerre_;
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::laguerre_, laguerre, 2)
 }

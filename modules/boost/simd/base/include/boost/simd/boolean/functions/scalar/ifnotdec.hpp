@@ -15,7 +15,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::ifnotdec_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT          ( ifnotdec_, tag::cpu_
                                     , (A0)(A1)
                                     , (scalar_< fundamental_<A0> >)
                                       (scalar_< arithmetic_<A1> >)

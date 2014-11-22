@@ -28,7 +28,20 @@ namespace nt2
     {
       /// @brief Parent hierarchy
       typedef ext::elementwise_<along_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_along_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+   template<class Site, class... H>
+   BOOST_FORCEINLINE generic_dispatcher<tag::along_, Site> dispatching_along_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   {
+     return generic_dispatcher<tag::along_, Site>();
+   }
+   template<class... Args>
+   struct impl_along_;
   }
   /*!
     Applies an index \c ind on \c expr along the \c i-th dimension

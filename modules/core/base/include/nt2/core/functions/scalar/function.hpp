@@ -29,7 +29,7 @@ namespace nt2 { namespace ext
 #define M4(z,n,t) (i##n - boost::mpl::at_c<idx_t, n>::type::value)
 
 #define M2(z,n,t)                                                              \
-NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::function_, tag::cpu_                     \
+BOOST_DISPATCH_IMPLEMENT  ( function_, tag::cpu_                     \
                           , (A0)BOOST_PP_REPEAT(n,M0,~)                        \
                           , ((ast_<A0, nt2::container::domain>))               \
                             BOOST_PP_REPEAT(n,M1,~)                            \
@@ -57,7 +57,7 @@ NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::function_, tag::cpu_                     \
                    );                                                          \
   }                                                                            \
 };                                                                             \
-NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::function_, tag::cpu_                     \
+BOOST_DISPATCH_IMPLEMENT  ( function_, tag::cpu_                     \
                           , (A0)BOOST_PP_REPEAT(n,M0,~)                        \
                           , (scalar_<unspecified_<A0> >)                       \
                             BOOST_PP_REPEAT(n,M3,~)                            \

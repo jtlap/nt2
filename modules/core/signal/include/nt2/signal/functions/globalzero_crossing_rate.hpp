@@ -20,11 +20,24 @@ namespace nt2
     /*!
       @brief Tag for the golbalzero_crossing_rate functor
     **/
-     struct globalzero_crossing_rate_ : boost::dispatch::tag::formal_
+     struct globalzero_crossing_rate_ : ext::abstract_<globalzero_crossing_rate_>
     {
       /// @brief Parent hierarchy
-      typedef boost::dispatch::tag::formal_ parent;
+      typedef ext::abstract_<globalzero_crossing_rate_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_globalzero_crossing_rate_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::globalzero_crossing_rate_, Site> dispatching_globalzero_crossing_rate_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::globalzero_crossing_rate_, Site>();
+    }
+    template<class... Args>
+    struct impl_globalzero_crossing_rate_;
   }
   /*!
     @brief rate of sign changes along a signal
@@ -61,7 +74,7 @@ namespace nt2
 namespace nt2 { namespace ext
 {
   /// INTERNAL ONLY
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::globalzero_crossing_rate_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( globalzero_crossing_rate_, tag::cpu_
                             , (A0)
                             , (unspecified_<A0>)
                             )

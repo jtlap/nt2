@@ -21,11 +21,24 @@ namespace nt2
   namespace tag
   {
     /// @brief Defines tri function tag
-    struct getri_ : boost::dispatch::tag::formal_
+    struct getri_ : ext::abstract_<getri_>
     {
       /// INTERNAL ONLY
-      typedef boost::dispatch::tag::formal_  parent;
+      typedef ext::abstract_<getri_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_getri_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::getri_, Site> dispatching_getri_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::getri_, Site>();
+    }
+    template<class... Args>
+    struct impl_getri_;
   }
 
   /*!

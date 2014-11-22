@@ -24,7 +24,20 @@ namespace nt2
     struct linsolve_ : ext::tieable_<linsolve_>
     {
       typedef ext::tieable_<linsolve_>  parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_linsolve_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::linsolve_, Site> dispatching_linsolve_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::linsolve_, Site>();
+    }
+    template<class... Args>
+    struct impl_linsolve_;
   }
 
   /**

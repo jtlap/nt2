@@ -46,7 +46,7 @@ namespace nt2 { namespace meta
   {};
 
   //============================================================================
-  // Non-empty settings lists are parse using mpl::find_if
+  // Non-empty settings lists are parse using boost::mpl::find_if
   //============================================================================
   #define M0(z,n,t)                                                            \
   template< BOOST_PP_ENUM_PARAMS(n,class S), class Option>                     \

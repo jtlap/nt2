@@ -32,7 +32,20 @@ namespace nt2
     {
       /// @brief Parent hierarchy
       typedef ext::elementwise_<fill_pattern_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_fill_pattern_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::fill_pattern_, Site> dispatching_fill_pattern_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::fill_pattern_, Site>();
+    }
+    template<class... Args>
+    struct impl_fill_pattern_;
   }
 
 

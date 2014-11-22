@@ -21,12 +21,22 @@ namespace nt2 { namespace tag
      @par Models:
         Hierarchy
    **/
-    //    struct is_prime_ : ext::elementwise_<is_prime_> { typedef ext::elementwise_<is_prime_> parent; };
-    struct is_prime_ : tag::formal_
+    //    struct is_prime_ : ext::elementwise_<is_prime_> { typedef ext::elementwise_<is_prime_> parent;   template<class... Args>   static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)   BOOST_AUTO_DECLTYPE_BODY( dispatching_is_prime_( ext::adl_helper(), static_cast<Args&&>(args)... ) ) };
+    struct is_prime_ : ext::abstract_<is_prime_>
     {
       /// @brief Parent hierarchy
-      typedef tag::formal_ parent;
+      typedef ext::abstract_<is_prime_> parent;
     };
+  }
+  namespace ext
+  {
+   template<class Site, class... H>
+   BOOST_FORCEINLINE generic_dispatcher<tag::is_prime_, Site> dispatching_is_prime_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   {
+     return generic_dispatcher<tag::is_prime_, Site>();
+   }
+   template<class... Args>
+   struct impl_is_prime_;
   }
   /*!
     computes if each element of the table is prime or not in an expression table of logical.

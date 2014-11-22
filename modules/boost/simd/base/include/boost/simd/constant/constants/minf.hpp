@@ -40,6 +40,9 @@ namespace boost { namespace simd
       /// INTERNAL ONLY
       template<class Target, class Dummy=void>
       struct apply : meta::make_dependent<Valmin, Dummy>::type::template apply<Target,Dummy> {};
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_Minf( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
 
     /// INTERNAL ONLY
@@ -51,6 +54,16 @@ namespace boost { namespace simd
     template<class T, class Dummy>
     struct  Minf::apply<boost::dispatch::meta::double_<T>,Dummy>
           : meta::double_<0xFFF0000000000000ULL> {};
+  }
+  namespace ext
+  {
+   template<class Site, class... H>
+   BOOST_FORCEINLINE generic_dispatcher<tag::Minf, Site> dispatching_Minf(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   {
+     return generic_dispatcher<tag::Minf, Site>();
+   }
+   template<class... Args>
+   struct impl_Minf;
   }
   /*!
     Generates  -inf IEEE value (\f$ - \infty \f$) for floating types and minimum value

@@ -26,7 +26,7 @@ namespace nt2 { namespace ext
   //============================================================================
   // Capture a tie(l, u, p) = qrdelete(...) at assign time and resolve to optimized call
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::qrdelete_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( qrdelete_, tag::cpu_
                             , (A0)(N0)(A1)(N1)
                             , ((node_<A0, nt2::tag::qrdelete_, N0, nt2::container::domain>))
                               ((node_<A1, nt2::tag::tie_ , N1, nt2::container::domain>))

@@ -19,7 +19,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::saturate_at_<Tag>
+  BOOST_DISPATCH_IMPLEMENT_G        ( boost::simd::tag::saturate_at_<Tag>
                                     , tag::cpu_
                                     , (A0)(Tag)
                                     , (generic_<signed_<A0> >)
@@ -34,7 +34,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::saturate_at_<Tag>
+  BOOST_DISPATCH_IMPLEMENT_G        ( boost::simd::tag::saturate_at_<Tag>
                                     , tag::cpu_
                                     , (A0)(Tag)
                                     , (generic_<unsigned_<A0> >)

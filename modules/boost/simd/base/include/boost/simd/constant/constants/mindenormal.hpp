@@ -42,6 +42,9 @@ namespace boost { namespace simd
       /// INTERNAL ONLY
       template<class Target, class Dummy=void>
       struct apply : meta::int_c<typename Target::type,1> {};
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_Mindenormal( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
 
     /// INTERNAL ONLY
@@ -54,6 +57,16 @@ namespace boost { namespace simd
     struct  Mindenormal::apply<boost::dispatch::meta::double_<T>,Dummy>
           : meta::double_<1> {};
     #endif
+  }
+  namespace ext
+  {
+   template<class Site, class... H>
+   BOOST_FORCEINLINE generic_dispatcher<tag::Mindenormal, Site> dispatching_Mindenormal(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   {
+     return generic_dispatcher<tag::Mindenormal, Site>();
+   }
+   template<class... Args>
+   struct impl_Mindenormal;
   }
   /*!
     Constant Mindenormal : the least of all non zero positive value

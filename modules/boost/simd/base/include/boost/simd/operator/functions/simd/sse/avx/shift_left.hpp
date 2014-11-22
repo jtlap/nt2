@@ -15,7 +15,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::shift_left_, boost::simd::tag::avx_
+  BOOST_DISPATCH_IMPLEMENT         ( shift_left_, boost::simd::tag::avx_
                             , (A0)(A1)
                             , ((simd_<integer_<A0>,boost::simd::tag::avx_>))
                               (scalar_< integer_<A1> >)

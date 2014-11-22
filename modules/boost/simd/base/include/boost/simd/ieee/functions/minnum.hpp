@@ -26,7 +26,20 @@ namespace boost { namespace simd { namespace tag
     {
       /// @brief Parent hierarchy
       typedef ext::elementwise_<minnum_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_minnum_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+   template<class Site, class... H>
+   BOOST_FORCEINLINE generic_dispatcher<tag::minnum_, Site> dispatching_minnum_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   {
+     return generic_dispatcher<tag::minnum_, Site>();
+   }
+   template<class... Args>
+   struct impl_minnum_;
   }
   /*!
      Returns the minimum value, ignoring nans.

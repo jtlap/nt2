@@ -21,7 +21,7 @@ namespace nt2 { namespace ext
   //============================================================================
   // General inner_scan
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::inner_scan_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( inner_scan_, tag::cpu_
                             , (Out)(In)(Neutral)(Bop)(Uop)
                             , ((ast_< Out, nt2::container::domain>))
                               ((ast_< In, nt2::container::domain>))

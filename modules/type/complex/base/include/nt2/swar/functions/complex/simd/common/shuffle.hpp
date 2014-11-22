@@ -15,9 +15,9 @@
 #include <nt2/include/functions/imag.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
 
-namespace nt2 { namespace ext
+namespace boost { namespace simd { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::shuffle_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( shuffle_, tag::cpu_
                             , (A0)(X)(P)
                             , ((simd_<complex_<arithmetic_<A0> >,X>))
                               (target_< unspecified_<P> >)
@@ -28,18 +28,18 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, P const&) const
     {
       typedef typename P::type p_t;
-      return result_type( shuffle<p_t>(real(a0)),shuffle<p_t>(imag(a0)) );
+      return result_type( shuffle<p_t>(nt2::real(a0)),shuffle<p_t>(nt2::imag(a0)) );
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::shuffle_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( shuffle_, tag::cpu_
                             , (A0)(X)(P)
                             , ((simd_<dry_<arithmetic_<A0> >,X>))
                               (target_< unspecified_<P> >)
                             )
   {
     typedef A0                                result_type;
-    typedef typename meta::as_real<A0>::type  r_t;
+    typedef typename nt2::meta::as_real<A0>::type  r_t;
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, P const&) const
     {
@@ -48,7 +48,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::shuffle_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( shuffle_, tag::cpu_
                             , (A0)(X)(P)
                             , ((simd_<complex_<arithmetic_<A0> >,X>))
                               ((simd_<complex_<arithmetic_<A0> >,X>))
@@ -61,13 +61,13 @@ namespace nt2 { namespace ext
     result_type operator()(A0 const& a0, A0 const& a1, P const&) const
     {
       typedef typename P::type p_t;
-      return result_type( shuffle<p_t>(real(a0),real(a1))
-                        , shuffle<p_t>(imag(a0),imag(a1))
+      return result_type( shuffle<p_t>(nt2::real(a0),nt2::real(a1))
+                        , shuffle<p_t>(nt2::imag(a0),nt2::imag(a1))
                         );
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::shuffle_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( shuffle_, tag::cpu_
                             , (A0)(X)(P)
                             , ((simd_<dry_<arithmetic_<A0> >,X>))
                               ((simd_<dry_<arithmetic_<A0> >,X>))
@@ -75,7 +75,7 @@ namespace nt2 { namespace ext
                             )
   {
     typedef A0                                result_type;
-    typedef typename meta::as_real<A0>::type  r_t;
+    typedef typename nt2::meta::as_real<A0>::type  r_t;
 
     BOOST_FORCEINLINE
     result_type operator()(A0 const& a0, A0 const& a1, P const&) const
@@ -87,6 +87,6 @@ namespace nt2 { namespace ext
                                       );
     }
   };
-} }
+} } }
 
 #endif

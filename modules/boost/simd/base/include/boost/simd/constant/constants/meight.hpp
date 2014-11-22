@@ -30,6 +30,16 @@ namespace boost { namespace simd
                                 , 0xc1000000UL,0xc020000000000000ULL
                                 )
   }
+  namespace ext
+  {
+   template<class Site, class... H>
+   BOOST_FORCEINLINE generic_dispatcher<tag::Meight, Site> dispatching_Meight(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   {
+     return generic_dispatcher<tag::Meight, Site>();
+   }
+   template<class... Args>
+   struct impl_Meight;
+  }
   /*!
     Generates value -8
 

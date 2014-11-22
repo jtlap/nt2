@@ -16,7 +16,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::make_
+  BOOST_DISPATCH_IMPLEMENT          ( make_
                                     , boost::simd::tag::sse2_
                                     , (A0)
                                     , ((target_ < simd_ < double_<A0>
@@ -29,7 +29,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_MAKE_BODY(2) { return _mm_setr_pd(a0, a1); }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::make_
+  BOOST_DISPATCH_IMPLEMENT          ( make_
                                     , boost::simd::tag::sse2_
                                     , (A0)
                                     , ((target_ < simd_ < ints64_<A0>
@@ -53,7 +53,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::make_
+  BOOST_DISPATCH_IMPLEMENT          ( make_
                                     , boost::simd::tag::sse2_
                                     , (A0)
                                     , ((target_ < simd_ < single_<A0>
@@ -66,7 +66,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_MAKE_BODY(4) { return _mm_setr_ps(a0, a1, a2, a3); }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::make_
+  BOOST_DISPATCH_IMPLEMENT          ( make_
                                     , boost::simd::tag::sse2_
                                     , (A0)
                                     , ((target_ < simd_ < ints32_<A0>
@@ -79,7 +79,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_MAKE_BODY(4) { return _mm_setr_epi32(a0, a1, a2, a3); }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::make_
+  BOOST_DISPATCH_IMPLEMENT          ( make_
                                     , boost::simd::tag::sse2_
                                     , (A0)
                                     , ((target_ < simd_ < ints16_<A0>
@@ -95,7 +95,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::make_
+  BOOST_DISPATCH_IMPLEMENT         ( make_
                                     , boost::simd::tag::sse2_
                                     , (A0)
                                     , ((target_ < simd_ < ints8_<A0>

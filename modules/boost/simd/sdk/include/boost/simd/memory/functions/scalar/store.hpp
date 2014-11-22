@@ -21,7 +21,7 @@
 namespace boost { namespace simd { namespace ext
 {
   /// INTERNAL ONLY - Scalar store and store are equivalent
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::store_
+  BOOST_DISPATCH_IMPLEMENT          ( store_
                                     , tag::cpu_
                                     , (A0)(A1)(A2)
                                     , (unspecified_<A0>)
@@ -39,7 +39,7 @@ namespace boost { namespace simd { namespace ext
   };
 
   /// INTERNAL ONLY - Scalar store and store are equivalent
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::store_
+  BOOST_DISPATCH_IMPLEMENT          ( store_
                                     , tag::cpu_
                                     , (A0)(A1)
                                     , (unspecified_<A0>)
@@ -55,7 +55,7 @@ namespace boost { namespace simd { namespace ext
   };
 
   /// INTERNAL ONLY - scalar masked store
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::store_
+  BOOST_DISPATCH_IMPLEMENT          ( store_
                                     , tag::cpu_
                                     , (A0)(A1)(A2)
                                     , (unspecified_<A0>)
@@ -73,7 +73,7 @@ namespace boost { namespace simd { namespace ext
   };
 
   /// INTERNAL ONLY - Scalar masked offset store
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::store_
+  BOOST_DISPATCH_IMPLEMENT          ( store_
                                     , tag::cpu_
                                     , (A0)(A1)(A2)(A3)
                                     , (unspecified_<A0>)
@@ -93,7 +93,7 @@ namespace boost { namespace simd { namespace ext
   };
 
   /// INTERNAL ONLY - Fusion sequence store with offset
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::store_
+  BOOST_DISPATCH_IMPLEMENT          ( store_
                                     , tag::cpu_
                                     , (A0)(A1)(A2)
                                     , (fusion_sequence_<A0>)
@@ -115,7 +115,7 @@ namespace boost { namespace simd { namespace ext
   };
 
   /// INTERNAL ONLY - Scalar store and store are equivalent
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::store_
+  BOOST_DISPATCH_IMPLEMENT          ( store_
                                     , tag::cpu_
                                     , (A0)(A1)
                                     , (fusion_sequence_<A0>)
@@ -136,7 +136,7 @@ namespace boost { namespace simd { namespace ext
   };
 
   /// Handles store( seq, seq'*)
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::store_
+  BOOST_DISPATCH_IMPLEMENT_IF         ( store_
                                       , tag::cpu_
                                       , (A0)(A1)
                                       , (mpl::not_< simd::meta::is_native<A0> >)
@@ -152,7 +152,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::store_
+  BOOST_DISPATCH_IMPLEMENT_IF         ( store_
                                       , tag::cpu_
                                       , (A0)(A1)(A2)
                                       , (mpl::not_< simd::meta::is_native<A0> >)

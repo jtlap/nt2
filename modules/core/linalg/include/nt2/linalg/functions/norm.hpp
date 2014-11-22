@@ -19,7 +19,17 @@ namespace nt2 { namespace tag
      * \brief Define the tag norm_ of functor norm
      *        in namespace nt2::tag for toolbox algebra
     **/
-    struct norm_ :  tag::formal_ { typedef tag::formal_ parent; };
+    struct norm_ :  ext::abstract_<norm_> { typedef ext::abstract_<norm_> parent;   template<class... Args>   static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)   BOOST_AUTO_DECLTYPE_BODY( dispatching_norm_( ext::adl_helper(), static_cast<Args&&>(args)... ) ) };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::norm_, Site> dispatching_norm_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::norm_, Site>();
+    }
+    template<class... Args>
+    struct impl_norm_;
   }
 
   /*!

@@ -53,7 +53,20 @@ namespace nt2 { namespace tag
     struct krylov_ : ext::unspecified_<krylov_>
     {
       typedef ext::unspecified_<krylov_>  parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_krylov_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::krylov_, Site> dispatching_krylov_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::krylov_, Site>();
+    }
+    template<class... Args>
+    struct impl_krylov_;
   }
 
   NT2_FUNCTION_IMPLEMENTATION(tag::krylov_, krylov, 1)

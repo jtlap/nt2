@@ -23,7 +23,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::logical_not_
+  BOOST_DISPATCH_IMPLEMENT         ( logical_not_
                                    , tag::formal_, (D)(A0)(Arity)
                                    , ((node_<A0, boost::simd::tag::is_less_, Arity, D>))
                                    )
@@ -33,7 +33,7 @@ namespace boost { namespace simd { namespace ext
     )
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::logical_not_
+  BOOST_DISPATCH_IMPLEMENT         ( logical_not_
                                    , tag::formal_, (D)(A0)(Arity)
                                    , ((node_<A0, boost::simd::tag::is_greater_, Arity, D>))
                                    )
@@ -43,7 +43,7 @@ namespace boost { namespace simd { namespace ext
     )
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::logical_not_
+  BOOST_DISPATCH_IMPLEMENT         ( logical_not_
                                    , tag::formal_, (D)(A0)(Arity)
                                    , ((node_<A0, boost::simd::tag::is_less_equal_, Arity, D>))
                                    )
@@ -53,7 +53,7 @@ namespace boost { namespace simd { namespace ext
     )
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::logical_not_
+  BOOST_DISPATCH_IMPLEMENT         ( logical_not_
                                    , tag::formal_, (D)(A0)(Arity)
                                    , ((node_<A0, boost::simd::tag::is_greater_equal_, Arity, D>))
                                    )

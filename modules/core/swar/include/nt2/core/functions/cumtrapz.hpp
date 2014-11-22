@@ -23,11 +23,24 @@ namespace nt2
      @par Models:
         Hierarchy
    **/
-    struct cumtrapz_ : boost::dispatch::tag::formal_
+    struct cumtrapz_ : ext::abstract_<cumtrapz_>
     {
       /// @brief Parent hierarchy
-      typedef boost::dispatch::tag::formal_ parent;
+      typedef ext::abstract_<cumtrapz_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_cumtrapz_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+   template<class Site, class... H>
+   BOOST_FORCEINLINE generic_dispatcher<tag::cumtrapz_, Site> dispatching_cumtrapz_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   {
+     return generic_dispatcher<tag::cumtrapz_, Site>();
+   }
+   template<class... Args>
+   struct impl_cumtrapz_;
   }
   /*!  Computes the cumulate trapz of the vector elements using the
     abscissae differences is they are given z = cumtrapz(y) computes

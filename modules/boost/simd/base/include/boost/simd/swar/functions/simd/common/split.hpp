@@ -19,7 +19,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::split_
+  BOOST_DISPATCH_IMPLEMENT_IF         ( split_
                                       , tag::cpu_
                                       , (A0)(A1)(X)(Y)
                                       , (simd::meta::is_upgradable_to<A0,A1>)
@@ -37,7 +37,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::split_
+  BOOST_DISPATCH_IMPLEMENT         ( split_
                                    , tag::cpu_
                                    , (A0)(X)
                                    , ((simd_<arithmetic_<A0>, X>))

@@ -16,7 +16,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::toint_, boost::simd::tag::sse2_ , (A0)
+  BOOST_DISPATCH_IMPLEMENT          ( toint_, boost::simd::tag::sse2_ , (A0)
                                     , ((simd_<single_<A0>,boost::simd::tag::sse_>))
                                     )
   {

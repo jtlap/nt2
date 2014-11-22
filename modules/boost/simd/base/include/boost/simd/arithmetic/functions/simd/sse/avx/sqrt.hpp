@@ -22,7 +22,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::sqrt_
+  BOOST_DISPATCH_IMPLEMENT          ( sqrt_
                                     , boost::simd::tag::avx_
                                     , (A0)
                                     , ((simd_<double_<A0>,boost::simd::tag::avx_>))
@@ -35,7 +35,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::sqrt_
+  BOOST_DISPATCH_IMPLEMENT          ( sqrt_
                                     , boost::simd::tag::avx_
                                     , (A0)
                                     , ((simd_<single_<A0>,boost::simd::tag::avx_>))
@@ -48,7 +48,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::sqrt_
+  BOOST_DISPATCH_IMPLEMENT          ( sqrt_
                                     , boost::simd::tag::avx_
                                     , (A0)
                                     , ((simd_<uint64_<A0>,boost::simd::tag::avx_>))
@@ -61,7 +61,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::sqrt_, boost::simd::tag::avx_
+  BOOST_DISPATCH_IMPLEMENT          ( sqrt_, boost::simd::tag::avx_
                                     , (A0)
                                     , ((simd_<int64_<A0>,boost::simd::tag::avx_>))
                                     )

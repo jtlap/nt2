@@ -45,7 +45,7 @@ namespace nt2 { namespace ext
   //============================================================================
   // LINSOLVE classic
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::clinsolve_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( clinsolve_, tag::cpu_
                             , (A0)(A1)(A2)(N2)
                             , ((ast_<A0, nt2::container::domain>))   // A
                               ((ast_<A1, nt2::container::domain>))   // B

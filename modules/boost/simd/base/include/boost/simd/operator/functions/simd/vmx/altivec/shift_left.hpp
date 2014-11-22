@@ -20,7 +20,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::shift_left_
+  BOOST_DISPATCH_IMPLEMENT          ( shift_left_
                                     , boost::simd::tag::vmx_
                                     , (A0)(A1)
                                     , ((simd_<integer_<A0>,boost::simd::tag::vmx_>))
@@ -40,7 +40,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::shift_left_
+  BOOST_DISPATCH_IMPLEMENT          ( shift_left_
                                     , boost::simd::tag::vmx_
                                     , (A0)(A1)
                                     , ((simd_<integer_<A0>,boost::simd::tag::vmx_>))

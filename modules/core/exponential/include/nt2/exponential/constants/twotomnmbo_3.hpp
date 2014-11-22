@@ -29,6 +29,16 @@ namespace nt2
                                 , 0x3ed428a2f98d7286ULL
                                 )
   }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::Twotomnmbo_3, Site> dispatching_Twotomnmbo_3(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::Twotomnmbo_3, Site>();
+    }
+    template<class... Args>
+    struct impl_Twotomnmbo_3;
+  }
   /*!
     Generates constant e.
 

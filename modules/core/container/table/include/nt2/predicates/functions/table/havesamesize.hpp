@@ -15,7 +15,7 @@
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::havesamesize_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( havesamesize_, tag::cpu_
                             , (A0)(A1)
                             , (unspecified_<A0>)
                               (unspecified_<A1>)

@@ -38,7 +38,7 @@
 
  namespace nt2{ namespace ext
  {
-   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::mcsne_, nt2::tag::magma_<site>
+   BOOST_DISPATCH_IMPLEMENT  ( mcsne_, nt2::tag::magma_<site>
                              , (A0)(A1)(site)
                              , ((ast_<A0, nt2::container::domain>))
                                ((ast_<A1, nt2::container::domain>))
@@ -136,7 +136,7 @@
 
 // namespace nt2{ namespace ext
 // {
-//   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::mcsne_, nt2::tag::magma_<site>
+//   BOOST_DISPATCH_IMPLEMENT  ( mcsne_, nt2::tag::magma_<site>
 //                             , (A0)(A1)(site)
 //                             , ((ast_<A0, nt2::container::domain>))
 //                               ((ast_<A1, nt2::container::domain>))

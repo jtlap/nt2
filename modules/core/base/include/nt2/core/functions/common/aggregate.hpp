@@ -24,7 +24,7 @@ namespace nt2 { namespace ext
 #define M2(z,n,t) boost::cref(a##n)
 
 #define M3(z,n,t)                                                             \
-NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::aggregate_, tag::cpu_                   \
+BOOST_DISPATCH_IMPLEMENT  ( aggregate_, tag::cpu_                   \
                           , BOOST_PP_REPEAT(n,M0,~)                           \
                           , BOOST_PP_REPEAT(n,M1,~)                           \
                           )                                                   \

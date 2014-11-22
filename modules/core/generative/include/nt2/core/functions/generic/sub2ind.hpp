@@ -43,7 +43,7 @@ namespace nt2 { namespace ext
   #define M1(z,n,t) nt2::touint(a##n - one)
 
   /// INTERNAL ONLY - sub2ind(ettent,D1,D2)
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sub2ind_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( sub2ind_, tag::cpu_
                             , (SZ)(A1)
                             , (fusion_sequence_<SZ>)
                               BOOST_PP_REPEAT(N,M0,generic_)
@@ -65,7 +65,7 @@ namespace nt2 { namespace ext
   };
 
   /// INTERNAL ONLY - ind2sub(size,IND)
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sub2ind_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( sub2ind_, tag::cpu_
                             , (SZ)(A1)
                             , ((ast_<SZ,nt2::container::domain>))
                               BOOST_PP_REPEAT(N,M0,scalar_)

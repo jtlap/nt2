@@ -26,7 +26,20 @@ namespace boost { namespace simd { namespace tag
     {
       /// @brief Parent hierarchy
       typedef ext::elementwise_<nextpow2_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_nextpow2_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+   template<class Site, class... H>
+   BOOST_FORCEINLINE generic_dispatcher<tag::nextpow2_, Site> dispatching_nextpow2_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   {
+     return generic_dispatcher<tag::nextpow2_, Site>();
+   }
+   template<class... Args>
+   struct impl_nextpow2_;
   }
   /*!
     Returns the least n such that abs(x) is less or equal to \f$2^n\f$

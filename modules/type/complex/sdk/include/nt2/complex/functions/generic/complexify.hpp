@@ -17,7 +17,7 @@
 namespace nt2 { namespace ext
 {
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::complexify_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( complexify_, tag::cpu_
                             , (A0)
                             , (generic_< fundamental_<A0> >)
                             )
@@ -29,7 +29,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::complexify_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( complexify_, tag::cpu_
                             , (A0)
                             , (generic_< complex_<fundamental_<A0> > > )
                             )
@@ -41,7 +41,7 @@ namespace nt2 { namespace ext
     }
   };
 
- NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::complexify_, tag::cpu_
+ BOOST_DISPATCH_IMPLEMENT  ( complexify_, tag::cpu_
                             , (A0)
                             , (generic_< dry_< fundamental_<A0 > > >)
                             )

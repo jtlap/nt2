@@ -14,9 +14,9 @@
 #include <nt2/include/functions/imag.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
 
-namespace nt2 { namespace ext
+namespace boost { namespace simd { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION_IF ( boost::simd::tag::slice_
+  BOOST_DISPATCH_IMPLEMENT_IF   ( slice_
                                 , tag::cpu_
                                 , (A0)(A1)(X)(Y)
                                 , ( boost::mpl::bool_
@@ -32,16 +32,16 @@ namespace nt2 { namespace ext
     typedef void result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a0,A1& a1,A1& a2) const
     {
-      typedef typename meta::as_real<A1>::type r_t;
+      typedef typename nt2::meta::as_real<A1>::type r_t;
 
       r_t r1,i1,r2,i2;
-      nt2::slice(real(a0),r1,r2);
-      nt2::slice(imag(a0),i1,i2);
+      nt2::slice(nt2::real(a0),r1,r2);
+      nt2::slice(nt2::imag(a0),i1,i2);
 
       a1 = A1(r1,i1);
       a2 = A1(r2,i2);
     }
   };
-} }
+} } }
 
 #endif

@@ -17,7 +17,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::posmin_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT          ( posmin_, tag::cpu_
                                     , (A0)
                                     , (scalar_<fundamental_<A0> > )
                                     )

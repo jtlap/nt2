@@ -24,10 +24,23 @@ namespace nt2
     /*!
       @brief tag for the numel functor
     **/
-    struct numel_ : boost::dispatch::tag::formal_
+    struct numel_ : ext::abstract_<numel_>
     {
-      typedef boost::dispatch::tag::formal_ parent;
+      typedef ext::abstract_<numel_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_numel_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::numel_, Site> dispatching_numel_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::numel_, Site>();
+    }
+    template<class... Args>
+    struct impl_numel_;
   }
 
   /*!

@@ -21,11 +21,24 @@ namespace nt2
   namespace tag
   {
     /// @brief Defines hsev function tag
-    struct hsev_w_ : boost::dispatch::tag::formal_
+    struct hsev_w_ : ext::abstract_<hsev_w_>
     {
       /// INTERNAL ONLY
-      typedef boost::dispatch::tag::formal_  parent;
+      typedef ext::abstract_<hsev_w_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_hsev_w_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::hsev_w_, Site> dispatching_hsev_w_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::hsev_w_, Site>();
+    }
+    template<class... Args>
+    struct impl_hsev_w_;
   }
 
   /*!

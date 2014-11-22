@@ -25,7 +25,20 @@ namespace boost { namespace simd { namespace tag
     {
       /// @brief Parent hierarchy
        typedef ext::unspecified_<posmin_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_posmin_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+   template<class Site, class... H>
+   BOOST_FORCEINLINE generic_dispatcher<tag::posmin_, Site> dispatching_posmin_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   {
+     return generic_dispatcher<tag::posmin_, Site>();
+   }
+   template<class... Args>
+   struct impl_posmin_;
   }
   /*!
     Returns the index of the first occurence of least element of the SIMD vector

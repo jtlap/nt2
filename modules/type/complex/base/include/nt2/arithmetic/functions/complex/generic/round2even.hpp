@@ -16,9 +16,9 @@
 #include <nt2/sdk/complex/meta/as_real.hpp>
 #include <nt2/sdk/complex/meta/as_dry.hpp>
 
-namespace nt2 { namespace ext
+namespace boost { namespace simd { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::round2even_, tag::cpu_, (A0)
+  BOOST_DISPATCH_IMPLEMENT  ( round2even_, tag::cpu_, (A0)
                             , (generic_< complex_< arithmetic_<A0> > >)
                             )
   {
@@ -30,7 +30,7 @@ namespace nt2 { namespace ext
   };
 
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::round2even_, tag::cpu_, (A0)
+  BOOST_DISPATCH_IMPLEMENT  ( round2even_, tag::cpu_, (A0)
                             , (generic_< dry_< arithmetic_<A0> > >)
                             )
   {
@@ -41,6 +41,6 @@ namespace nt2 { namespace ext
     }
   };
 
-} }
+} } }
 
 #endif

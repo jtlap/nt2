@@ -36,6 +36,16 @@ namespace nt2
                                 , 1, 0x3f800000UL, 0x3ff0000000000000ULL
                                 )
   }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::eye_, Site> dispatching_eye_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::eye_, Site>();
+    }
+    template<class... Args>
+    struct impl_eye_;
+  }
 
   #if defined(DOXYGEN_ONLY)
   /*!

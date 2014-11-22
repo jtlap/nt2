@@ -28,7 +28,7 @@ namespace nt2 { namespace ext
   // Note that MATLAB cumulative functions have a f(x) and a f(x,i) form
   // that we handle with reduction_dim
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_assign_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( run_assign_, tag::cpu_
                             , (A0)(T0)(N0)(A1)(T1)(O1)(Neutral1)(N1)
                             , ((node_<A0, elementwise_<T0>, N0, nt2::container::domain>))
                               ((node_<A1, cumulative_<T1,O1,Neutral1>, N1 , nt2::container::domain>))

@@ -34,7 +34,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::frexp_
+  BOOST_DISPATCH_IMPLEMENT          ( frexp_
                                     , tag::cpu_
                                     , (A0)(A1)
                                     , (scalar_< floating_<A0> >)

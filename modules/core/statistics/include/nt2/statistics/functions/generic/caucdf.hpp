@@ -16,7 +16,7 @@
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::caucdf_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( caucdf_, tag::cpu_
                               , (A0)
                               , (generic_< floating_<A0> >)
                               )
@@ -25,7 +25,7 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1) { return Half<A0>()+nt2::atanpi(a0); }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::caucdf_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( caucdf_, tag::cpu_
                               , (A0)(A1)
                               , (generic_<floating_<A0> > )
                               (generic_<floating_<A1> >)
@@ -37,7 +37,7 @@ namespace nt2 { namespace ext
 
 
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::caucdf_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( caucdf_, tag::cpu_
                               , (A0)(A1)(A2)
                               , (generic_< floating_<A0> >)
                               (generic_< floating_<A1> >)

@@ -31,7 +31,20 @@ namespace nt2
     {
       /// @brief Parent hierarchy
       typedef ext::elementwise_<fliplr_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_fliplr_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+   template<class Site, class... H>
+   BOOST_FORCEINLINE generic_dispatcher<tag::fliplr_, Site> dispatching_fliplr_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   {
+     return generic_dispatcher<tag::fliplr_, Site>();
+   }
+   template<class... Args>
+   struct impl_fliplr_;
   }
   /*!
     Flips an expression around the vertical axis

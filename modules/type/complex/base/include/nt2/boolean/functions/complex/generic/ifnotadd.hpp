@@ -14,9 +14,9 @@
 #include <nt2/include/functions/plus.hpp>
 #include <boost/type_traits/common_type.hpp>
 
-namespace nt2 { namespace ext
+namespace boost { namespace simd { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::ifnotadd_, tag::cpu_, (A0)(A1)(A2)
+  BOOST_DISPATCH_IMPLEMENT  ( ifnotadd_, tag::cpu_, (A0)(A1)(A2)
                             , (generic_< unspecified_<A0> >)
                               (generic_< unspecified_<A1> >)
                               (generic_< unspecified_<A2> >)
@@ -28,6 +28,6 @@ namespace nt2 { namespace ext
       return a1+nt2::if_zero_else(a0, a2);
     }
   };
-} }
+} } }
 
 #endif

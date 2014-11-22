@@ -15,10 +15,23 @@ namespace nt2
 {
   namespace tag
   {
-      struct eyeplus_ :  boost::dispatch::tag::formal_
+      struct eyeplus_ :  ext::abstract_<eyeplus_>
       {
-        typedef boost::dispatch::tag::formal_ parent;
+        typedef ext::abstract_<eyeplus_> parent;
+        template<class... Args>
+        static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+        BOOST_AUTO_DECLTYPE_BODY( dispatching_eyeplus_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
       };
+  }
+  namespace ext
+  {
+      template<class Site, class... H>
+      BOOST_FORCEINLINE generic_dispatcher<tag::eyeplus_, Site> dispatching_eyeplus_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+      {
+        return generic_dispatcher<tag::eyeplus_, Site>();
+      }
+      template<class... Args>
+      struct impl_eyeplus_;
   }
 
   /**

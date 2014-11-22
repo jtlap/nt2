@@ -30,6 +30,16 @@ namespace nt2
                                 , 0x397B839A252049C1ll
                                 )
   }
+  namespace ext
+  {
+   template<class Site, class... H>
+   BOOST_FORCEINLINE generic_dispatcher<tag::Pio2_3t, Site> dispatching_Pio2_3t(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   {
+     return generic_dispatcher<tag::Pio2_3t, Site>();
+   }
+   template<class... Args>
+   struct impl_Pio2_3t;
+  }
   /*!
     Constant used in modular computation involving \f$\pi\f$
 

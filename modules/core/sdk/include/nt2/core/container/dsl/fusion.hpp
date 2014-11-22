@@ -39,7 +39,7 @@ namespace boost { namespace fusion { namespace traits
   struct tag_of< nt2::container::expression<Expr,ResultType> >
   {
     typedef typename
-            mpl::if_< nt2::meta::
+            boost::mpl::if_< nt2::meta::
                       is_statically_sized < nt2::container::
                                             expression<Expr,ResultType>
                                           >
@@ -56,12 +56,12 @@ namespace boost { namespace fusion { namespace extension
   //============================================================================
   template<> struct is_sequence_impl<nt2::tag::container_>
   {
-    template<typename T> struct apply : mpl::true_ {};
+    template<typename T> struct apply : boost::mpl::true_ {};
   };
 
   template<> struct is_view_impl<nt2::tag::container_>
   {
-    template<typename Seq> struct apply : mpl::false_ {};
+    template<typename Seq> struct apply : boost::mpl::false_ {};
   };
 
   template<> struct category_of_impl<nt2::tag::container_>
@@ -76,7 +76,7 @@ namespace boost { namespace fusion { namespace extension
   {
     template<typename Sequence>
     struct  apply
-          : mpl::size_t < dispatch::meta::call<nt2::tag::extent_(Sequence)>
+          : boost::mpl::size_t < dispatch::meta::call<nt2::tag::extent_(Sequence)>
                                   ::type::static_numel
                         >
     {};
@@ -90,7 +90,7 @@ namespace boost { namespace fusion { namespace extension
     template<typename Sequence, typename Index>
     struct apply
     {
-      typedef typename  mpl::if_< is_const<Sequence>
+      typedef typename  boost::mpl::if_< is_const<Sequence>
                                 , typename Sequence::const_reference
                                 , typename Sequence::reference
                                 >::type                             type;

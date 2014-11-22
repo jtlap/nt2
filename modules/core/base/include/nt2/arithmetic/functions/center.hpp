@@ -21,10 +21,23 @@ namespace nt2
 {
   namespace tag
   {
-    struct center_ : boost::dispatch::tag::formal_
+    struct center_ : ext::abstract_<center_>
     {
-      typedef boost::dispatch::tag::formal_ parent;
+      typedef ext::abstract_<center_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_center_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::center_, Site> dispatching_center_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::center_, Site>();
+    }
+    template<class... Args>
+    struct impl_center_;
   }
 
   /*!

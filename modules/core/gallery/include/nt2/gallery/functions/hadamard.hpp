@@ -51,7 +51,17 @@ namespace nt2 { namespace tag
      * \brief Define the tag hadamard_ of functor hadamard
      *        in namespace nt2::tag for toolbox algebra
     **/
-    struct hadamard_ : ext::unspecified_<hadamard_> { typedef ext::unspecified_<hadamard_> parent; };
+    struct hadamard_ : ext::unspecified_<hadamard_> { typedef ext::unspecified_<hadamard_> parent;   template<class... Args>   static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)   BOOST_AUTO_DECLTYPE_BODY( dispatching_hadamard_( ext::adl_helper(), static_cast<Args&&>(args)... ) ) };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::hadamard_, Site> dispatching_hadamard_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::hadamard_, Site>();
+    }
+    template<class... Args>
+    struct impl_hadamard_;
   }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::hadamard_, hadamard, 1)

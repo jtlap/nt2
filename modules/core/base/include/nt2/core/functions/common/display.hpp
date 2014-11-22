@@ -15,7 +15,7 @@
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::display_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( display_, tag::cpu_
                             , (A0)
                             , (unspecified_<A0>)
                             )
@@ -28,7 +28,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::display_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( display_, tag::cpu_
                             , (Tag)(Site)
                             , ((unspecified_< nt2::functor<Tag, Site> >))
                             )
@@ -44,7 +44,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::display_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( display_, tag::cpu_
                             , (A0)(A1)
                             , (unspecified_<A0>)
                               (unspecified_<A1>)

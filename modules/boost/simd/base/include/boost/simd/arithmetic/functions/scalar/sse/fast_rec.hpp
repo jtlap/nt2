@@ -17,7 +17,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::fast_rec_
+  BOOST_DISPATCH_IMPLEMENT          ( fast_rec_
                                     , boost::simd::tag::sse_
                                     , (A0)
                                     , (scalar_< single_<A0> >)
@@ -31,7 +31,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::fast_rec_
+  BOOST_DISPATCH_IMPLEMENT          ( fast_rec_
                                     , boost::simd::tag::sse_
                                     , (A0)
                                     , (scalar_< double_<A0> >)

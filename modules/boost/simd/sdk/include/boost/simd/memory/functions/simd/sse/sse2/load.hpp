@@ -21,7 +21,7 @@
 namespace boost { namespace simd { namespace ext
 {
   /// INTERNAL ONLY - double load without offset
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::load_
+  BOOST_DISPATCH_IMPLEMENT          ( load_
                                     , boost::simd::tag::sse2_
                                     , (A0)(A1)
                                     , (iterator_< scalar_< double_<A0> > >)
@@ -40,7 +40,7 @@ namespace boost { namespace simd { namespace ext
   };
 
   /// INTERNAL ONLY - single load without offset
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::load_
+  BOOST_DISPATCH_IMPLEMENT          ( load_
                                     , boost::simd::tag::sse2_
                                     , (A0)(A1)
                                     , (iterator_< scalar_< single_<A0> > >)
@@ -59,7 +59,7 @@ namespace boost { namespace simd { namespace ext
   };
 
   /// INTERNAL ONLY - integers load without offset
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::load_
+  BOOST_DISPATCH_IMPLEMENT_IF         ( load_
                                       , boost::simd::tag::sse2_
                                       , (A0)(A1)
                                       , ( simd::meta::is_pointing_to

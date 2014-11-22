@@ -36,6 +36,9 @@ namespace boost { namespace simd
       struct apply : meta::int_c< typename Target::type
                                 , typename Target::type(I)
                                 > {};
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching( ext::adl_helper(), Intpattern(), static_cast<Args&&>(args)... ) )
     };
   }
 

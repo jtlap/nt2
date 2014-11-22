@@ -28,7 +28,7 @@ namespace nt2 { namespace ext
   //============================================================================
   // Partial outer_fold with offset/size
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION_IF ( nt2::tag::outer_fold_, boost::simd::tag::simd_
+  BOOST_DISPATCH_IMPLEMENT_IF   ( outer_fold_, boost::simd::tag::simd_
                                 , (Out)(In)(Neutral)(Bop)(Uop)
                                 , ( boost::simd::meta::
                                     is_vectorizable < typename Out::value_type

@@ -24,7 +24,20 @@ namespace boost { namespace simd { namespace tag
     struct idivround2even_ : ext::elementwise_<idivround2even_> {
       /// @brief Parent hierarchy
       typedef ext::elementwise_<idivround2even_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_idivround2even_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::idivround2even_, Site> dispatching_idivround2even_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::idivround2even_, Site>();
+    }
+    template<class... Args>
+    struct impl_idivround2even_;
   }
   /*!
     Computes the integer conversion of the rounded to even

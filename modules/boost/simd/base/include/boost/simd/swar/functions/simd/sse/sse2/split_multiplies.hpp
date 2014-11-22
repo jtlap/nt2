@@ -18,7 +18,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::split_multiplies_
+  BOOST_DISPATCH_IMPLEMENT         ( split_multiplies_
                                    , boost::simd::tag::sse2_
                                    , (A0)(A1)
                                    , ((simd_<int16_<A0>,boost::simd::tag::sse_>))
@@ -38,7 +38,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::split_multiplies_
+  BOOST_DISPATCH_IMPLEMENT         ( split_multiplies_
                                    , boost::simd::tag::sse2_
                                    , (A0)(A1)
                                    , ((simd_<uint16_<A0>,boost::simd::tag::sse_>))
@@ -58,7 +58,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::split_multiplies_
+  BOOST_DISPATCH_IMPLEMENT         ( split_multiplies_
                                    , boost::simd::tag::sse2_
                                    , (A0)(A1)
                                    , ((simd_<uint32_<A0>,boost::simd::tag::sse_>))

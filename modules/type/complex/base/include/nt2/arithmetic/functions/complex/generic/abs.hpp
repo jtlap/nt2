@@ -15,13 +15,13 @@
 #include <nt2/include/functions/simd/abs.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
 
-namespace nt2 { namespace ext
+namespace boost { namespace simd { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::abs_, tag::cpu_, (A0)
+  BOOST_DISPATCH_IMPLEMENT  ( abs_, tag::cpu_, (A0)
                             , (generic_< complex_< floating_<A0> > >)
                             )
   {
-    typedef typename meta::as_real<A0>::type       result_type;
+    typedef typename nt2::meta::as_real<A0>::type       result_type;
     NT2_FUNCTOR_CALL(1)
     {
       return hypot(nt2::real(a0),nt2::imag(a0));
@@ -29,16 +29,16 @@ namespace nt2 { namespace ext
   };
 
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::abs_, tag::cpu_, (A0)
+  BOOST_DISPATCH_IMPLEMENT  ( abs_, tag::cpu_, (A0)
                             , (generic_< dry_< floating_<A0> > >)
                             )
   {
-    typedef typename meta::as_real<A0>::type result_type;
+    typedef typename nt2::meta::as_real<A0>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
       return nt2::abs(nt2::real(a0));
     }
   };
-} }
+} } }
 
 #endif

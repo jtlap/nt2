@@ -17,7 +17,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::shuffle_
+  BOOST_DISPATCH_IMPLEMENT          ( shuffle_
                                     , boost::simd::tag::cpu_
                                     , (A0)(X)(P)
                                     , ((simd_<arithmetic_<A0>,X>))
@@ -38,7 +38,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::shuffle_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT_IF         ( shuffle_, tag::cpu_
                                       , (A0)(X)(P)
                                       , ( mpl::equal_to < mpl::sizeof_<A0>
                                                         , mpl::sizeof_<typename A0::type>
@@ -58,7 +58,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::shuffle_
+  BOOST_DISPATCH_IMPLEMENT          ( shuffle_
                                     , boost::simd::tag::cpu_
                                     , (A0)(X)(P)
                                     , ((simd_<arithmetic_<A0>,X>))
@@ -81,7 +81,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::shuffle_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT_IF         ( shuffle_, tag::cpu_
                                       , (A0)(X)(P)
                                       , ( mpl::equal_to < mpl::sizeof_<A0>
                                                         , mpl::sizeof_<typename A0::type>

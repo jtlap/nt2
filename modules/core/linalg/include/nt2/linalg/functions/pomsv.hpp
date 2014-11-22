@@ -23,11 +23,24 @@ namespace nt2
   namespace tag
   {
     /// @brief Defines gesvx function tag
-    struct pomsv_ : boost::dispatch::tag::formal_
+    struct pomsv_ : ext::abstract_<pomsv_>
     {
       /// INTERNAL ONLY
-      typedef boost::dispatch::tag::formal_  parent;
+      typedef ext::abstract_<pomsv_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_pomsv_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::pomsv_, Site> dispatching_pomsv_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::pomsv_, Site>();
+    }
+    template<class... Args>
+    struct impl_pomsv_;
   }
 
   /*!

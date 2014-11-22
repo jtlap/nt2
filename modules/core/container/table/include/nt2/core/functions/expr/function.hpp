@@ -39,7 +39,7 @@
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::assign_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( assign_, tag::cpu_
                             , (A0)(N0)(I0)
                             , ((node_<A0, nt2::tag::function_, N0, nt2::container::domain>))
                               ((node_<I0, nt2::tag::empty_colon_, boost::mpl::long_<3>, nt2::container::domain>))
@@ -61,7 +61,7 @@ namespace nt2 { namespace ext
   };
 
   // handle erase for a(_, 1) = _(), lhs is a terminal because contiguous
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::assign_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( assign_, tag::cpu_
                             , (A0)(I0)
                             , ((node_<A0, nt2::tag::terminal_, boost::mpl::long_<0>, nt2::container::domain>))
                               ((node_<I0, nt2::tag::empty_colon_, boost::mpl::long_<3>, nt2::container::domain>))
@@ -99,7 +99,7 @@ namespace nt2 { namespace ext
   };
 
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::function_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( function_, tag::cpu_
                             , (A0)(I0)
                             , ((ast_<A0, nt2::container::domain>))(colon_<I0>)
                             )
@@ -213,7 +213,7 @@ namespace nt2 { namespace ext
 #define M4(z,n,t) function_find<A0, I##n>::call(a0, i##n)
 
 #define M0(z,n,t)                                                                                  \
-NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::function_, tag::cpu_                                         \
+BOOST_DISPATCH_IMPLEMENT  ( function_, tag::cpu_                                         \
                           , (A0)BOOST_PP_REPEAT(n,M1,~)                                            \
                           , ((ast_<A0, nt2::container::domain>))BOOST_PP_REPEAT(n,M2,~)            \
                           )                                                                        \

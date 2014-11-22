@@ -24,10 +24,23 @@ namespace nt2
     /*!
       @brief Tag for isfloating functor
     **/
-    struct isfloating_ : boost::dispatch::tag::formal_
+    struct isfloating_ : ext::abstract_<isfloating_>
     {
-      typedef boost::dispatch::tag::formal_ parent;
+      typedef ext::abstract_<isfloating_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_isfloating_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::isfloating_, Site> dispatching_isfloating_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::isfloating_, Site>();
+    }
+    template<class... Args>
+    struct impl_isfloating_;
   }
 
   /*!

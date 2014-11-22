@@ -16,7 +16,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::bitwise_andnot_
+  BOOST_DISPATCH_IMPLEMENT_IF         ( bitwise_andnot_
                                       , boost::simd::tag::avx_
                                       , (A0)(A1)
                                       , (boost::mpl::equal_to < boost::simd::meta::cardinal_of<A0>

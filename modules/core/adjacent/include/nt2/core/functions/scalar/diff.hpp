@@ -17,7 +17,7 @@
 namespace nt2 { namespace ext
 {
   /// INTERNAL ONLY
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::diff_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( diff_, tag::cpu_
                             , (A0)
                             , (scalar_<unspecified_<A0> >)
                             )
@@ -30,7 +30,7 @@ namespace nt2 { namespace ext
   };
 
   /// INTERNAL ONLY
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::diff_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( diff_, tag::cpu_
                             , (A0)(A1)
                             , (scalar_<unspecified_<A0> >)
                               (scalar_<integer_<A1> >)
@@ -46,7 +46,7 @@ namespace nt2 { namespace ext
   };
 
   /// INTERNAL ONLY
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::diff_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( diff_, tag::cpu_
                             , (A0)(A1)(A2)
                             , (scalar_<unspecified_<A0> >)
                               (scalar_<integer_<A1> >)

@@ -52,10 +52,23 @@ namespace nt2
      * \brief Define the tag cross_ of functor cross
      *        in namespace nt2::tag for toolbox algebra
      **/
-    struct cross_ :  boost::dispatch::tag::formal_
+    struct cross_ :  ext::abstract_<cross_>
     {
-      typedef  boost::dispatch::tag::formal_ parent;
+      typedef ext::abstract_<cross_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_cross_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::cross_, Site> dispatching_cross_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::cross_, Site>();
+    }
+    template<class... Args>
+    struct impl_cross_;
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::cross_, cross, 2)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::cross_, cross, 3)

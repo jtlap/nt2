@@ -30,6 +30,16 @@ namespace boost { namespace simd
                                 , 0x34C00000, 0x3CC8000000000000ULL
                                 )
   }
+  namespace ext
+  {
+   template<class Site, class... H>
+   BOOST_FORCEINLINE generic_dispatcher<tag::Threeeps, Site> dispatching_Threeeps(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   {
+     return generic_dispatcher<tag::Threeeps, Site>();
+   }
+   template<class... Args>
+   struct impl_Threeeps;
+  }
   /*!
     Generate a value equal to 3 times Eps of the chosen type
 

@@ -19,7 +19,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::shuffle_
+  BOOST_DISPATCH_IMPLEMENT          ( shuffle_
                                     , boost::simd::tag::sse2_
                                     , (T)(P)
                                     , ((simd_ < arithmetic_<T>
@@ -43,7 +43,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::shuffle_
+  BOOST_DISPATCH_IMPLEMENT          ( shuffle_
                                     , boost::simd::tag::sse2_
                                     , (T)(P)
                                     , ((simd_ < arithmetic_<T>

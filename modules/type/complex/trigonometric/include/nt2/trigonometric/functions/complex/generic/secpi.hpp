@@ -19,7 +19,7 @@
 //secpi(x+iy)=rec(cospi(x+iy)).
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::secpi_, tag::cpu_, (A0)
+  BOOST_DISPATCH_IMPLEMENT  ( secpi_, tag::cpu_, (A0)
                             , (generic_< complex_< arithmetic_<A0> > >)
                             )
   {
@@ -30,7 +30,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::secpi_, tag::cpu_, (A0)
+  BOOST_DISPATCH_IMPLEMENT  ( secpi_, tag::cpu_, (A0)
                               , (generic_< dry_< arithmetic_<A0> > >)
                               )
   {

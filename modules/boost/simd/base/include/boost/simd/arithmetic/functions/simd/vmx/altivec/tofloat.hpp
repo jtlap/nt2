@@ -17,7 +17,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::tofloat_
+  BOOST_DISPATCH_IMPLEMENT          ( tofloat_
                                     , boost::simd::tag::vmx_
                                     , (A0)
                                     , ((simd_ < ints32_<A0>

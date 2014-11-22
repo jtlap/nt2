@@ -51,8 +51,21 @@ namespace nt2 { namespace tag
     struct bandred_ : ext::unspecified_<bandred_>
     {
       typedef ext::unspecified_<bandred_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_bandred_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
 }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::bandred_, Site> dispatching_bandred_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::bandred_, Site>();
+    }
+    template<class... Args>
+    struct impl_bandred_;
+  }
 
   NT2_FUNCTION_IMPLEMENTATION(tag::bandred_, bandred, 3)
   NT2_FUNCTION_IMPLEMENTATION(tag::bandred_, bandred, 2)

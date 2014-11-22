@@ -34,6 +34,9 @@ namespace boost { namespace simd
       /// INTERNAL ONLY
       template<class Target, class Dummy=void>
       struct  apply : meta::int_c<typename Target::type,0> {};
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_Limitexponent( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
 
     /// INTERNAL ONLY
@@ -46,6 +49,16 @@ namespace boost { namespace simd
     struct  Limitexponent::apply<boost::dispatch::meta::double_<T>,Dummy>
           : meta::int_c<boost::simd::int64_t,1024> {};
 
+  }
+  namespace ext
+  {
+   template<class Site, class... H>
+   BOOST_FORCEINLINE generic_dispatcher<tag::Limitexponent, Site> dispatching_Limitexponent(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   {
+     return generic_dispatcher<tag::Limitexponent, Site>();
+   }
+   template<class... Args>
+   struct impl_Limitexponent;
   }
   /*!
     Generates the limit exposant of floating point numbers,  that is Maxexponant+1

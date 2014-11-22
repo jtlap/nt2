@@ -24,15 +24,15 @@
 #include <nt2/sdk/complex/meta/as_dry.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
 
-namespace nt2 { namespace ext
+namespace boost { namespace simd { namespace ext
 {
   // complex/complex
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::is_not_less_equal_, tag::cpu_, (A0)
+  BOOST_DISPATCH_IMPLEMENT  ( is_not_less_equal_, tag::cpu_, (A0)
                             , (generic_< complex_< arithmetic_<A0> > >)
                               (generic_< complex_< arithmetic_<A0> > >)
                             )
   {
-    typedef typename  meta::as_real<A0>::type rA0;
+    typedef typename  nt2::meta::as_real<A0>::type rA0;
     typedef typename meta::as_logical<rA0>::type result_type;
     NT2_FUNCTOR_CALL_REPEAT(2)
     {
@@ -40,12 +40,12 @@ namespace nt2 { namespace ext
     }
   };
   // dry/dry
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::is_not_less_equal_, tag::cpu_, (A0)
+  BOOST_DISPATCH_IMPLEMENT  ( is_not_less_equal_, tag::cpu_, (A0)
                             , (generic_< dry_< arithmetic_<A0> > >)
                               (generic_< dry_< arithmetic_<A0> > >)
                             )
   {
-    typedef typename  meta::as_real<A0>::type rA0;
+    typedef typename  nt2::meta::as_real<A0>::type rA0;
     typedef typename meta::as_logical<rA0>::type result_type;
     NT2_FUNCTOR_CALL_REPEAT(2)
     {
@@ -53,12 +53,12 @@ namespace nt2 { namespace ext
     }
   };
   // complex/arithmetic
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::is_not_less_equal_, tag::cpu_, (A0)(A1)
+  BOOST_DISPATCH_IMPLEMENT  ( is_not_less_equal_, tag::cpu_, (A0)(A1)
                             , (generic_< complex_< arithmetic_<A0> > >)
                               (generic_< arithmetic_<A1> >)
                             )
   {
-    typedef typename  meta::as_real<A0>::type rA0;
+    typedef typename  nt2::meta::as_real<A0>::type rA0;
     typedef typename meta::as_logical<rA0>::type result_type;
     NT2_FUNCTOR_CALL(2)
     {
@@ -66,12 +66,12 @@ namespace nt2 { namespace ext
     }
   };
   // complex/dry
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::is_not_less_equal_, tag::cpu_, (A0)(A1)
+  BOOST_DISPATCH_IMPLEMENT  ( is_not_less_equal_, tag::cpu_, (A0)(A1)
                             , (generic_< complex_< arithmetic_<A0> > >)
                               (generic_< dry_ < arithmetic_<A1> > >)
                             )
   {
-    typedef typename  meta::as_real<A0>::type rA0;
+    typedef typename  nt2::meta::as_real<A0>::type rA0;
     typedef typename meta::as_logical<rA0>::type result_type;
     NT2_FUNCTOR_CALL(2)
     {
@@ -79,12 +79,12 @@ namespace nt2 { namespace ext
     }
   };
   // arithmetic/complex
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::is_not_less_equal_, tag::cpu_, (A0)(A1),
+  BOOST_DISPATCH_IMPLEMENT  ( is_not_less_equal_, tag::cpu_, (A0)(A1),
                               (generic_< arithmetic_<A0> >)
                               (generic_< complex_< arithmetic_<A1> > >)
                             )
   {
-    typedef typename  meta::as_real<A0>::type rA0;
+    typedef typename  nt2::meta::as_real<A0>::type rA0;
     typedef typename meta::as_logical<rA0>::type result_type;
     NT2_FUNCTOR_CALL(2)
     {
@@ -92,18 +92,18 @@ namespace nt2 { namespace ext
     }
   };
   // dry/complex
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::is_not_less_equal_, tag::cpu_, (A0)(A1),
+  BOOST_DISPATCH_IMPLEMENT  ( is_not_less_equal_, tag::cpu_, (A0)(A1),
                               (generic_< dry_ < arithmetic_<A0> > >)
                               (generic_< complex_< arithmetic_<A1> > >)
                             )
   {
-    typedef typename  meta::as_real<A0>::type rA0;
+    typedef typename  nt2::meta::as_real<A0>::type rA0;
     typedef typename meta::as_logical<rA0>::type result_type;
     NT2_FUNCTOR_CALL(2)
     {
       return is_not_less_equal(nt2::real(a1),nt2::real(a0));
     }
   };
-} }
+} } }
 
 #endif

@@ -26,7 +26,20 @@ namespace boost { namespace simd { namespace tag
     {
       /// @brief Parent hierarchy
       typedef ext::elementwise_<is_not_equal_with_equal_nans_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_is_not_equal_with_equal_nans_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };}
+  namespace ext
+  {
+   template<class Site, class... H>
+   BOOST_FORCEINLINE generic_dispatcher<tag::is_not_equal_with_equal_nans_, Site> dispatching_is_not_equal_with_equal_nans_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   {
+     return generic_dispatcher<tag::is_not_equal_with_equal_nans_, Site>();
+   }
+   template<class... Args>
+   struct impl_is_not_equal_with_equal_nans_;
+  }
   /*!
     Returns True if a0 and a1 are not equal else False,
     nans being considered equal

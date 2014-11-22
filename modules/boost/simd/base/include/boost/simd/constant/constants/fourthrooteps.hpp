@@ -30,6 +30,16 @@ namespace boost { namespace simd
                                 , 0x3C9837F0,0x3F20000000000000ULL
                                 )
   }
+  namespace ext
+  {
+   template<class Site, class... H>
+   BOOST_FORCEINLINE generic_dispatcher<tag::Fourthrooteps, Site> dispatching_Fourthrooteps(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   {
+     return generic_dispatcher<tag::Fourthrooteps, Site>();
+   }
+   template<class... Args>
+   struct impl_Fourthrooteps;
+  }
   /*!
     Generates the 4th root of constant @c Eps.
 

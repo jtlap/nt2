@@ -39,11 +39,24 @@ namespace nt2 { namespace tag
      * \brief Define the tag mnormfro_ of functor mnormfro
      *        in namespace nt2::tag for toolbox algebra
     **/
-    struct mnormfro_ :  boost::dispatch::tag::formal_
+    struct mnormfro_ :  ext::abstract_<mnormfro_>
     {
       /// INTERNAL ONLY
-      typedef  boost::dispatch::tag::formal_ parent;
+      typedef ext::abstract_<mnormfro_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_mnormfro_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::mnormfro_, Site> dispatching_mnormfro_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::mnormfro_, Site>();
+    }
+    template<class... Args>
+    struct impl_mnormfro_;
   }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::mnormfro_, mnormfro, 1)

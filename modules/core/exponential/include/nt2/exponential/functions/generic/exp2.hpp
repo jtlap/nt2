@@ -19,7 +19,7 @@
 namespace nt2 { namespace ext
 {
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::exp2_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( exp2_, tag::cpu_
                             , (A0)
                             , (generic_< floating_<A0> >)
                             )
@@ -33,7 +33,7 @@ namespace nt2 { namespace ext
               ::expa(a0);
     }
   };
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::exp2_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( exp2_, tag::cpu_
                             , (A0)
                             , (generic_< integer_<A0> >)
                             )

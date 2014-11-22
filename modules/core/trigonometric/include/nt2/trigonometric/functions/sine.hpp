@@ -20,7 +20,7 @@ namespace nt2 { namespace tag
      @par Models:
         Hierarchy
    **/
-    template <class T> struct sine_ : ext::elementwise_< sine_<T> > { typedef ext::elementwise_< sine_<T> > parent; };
+    template <class T> struct sine_ : ext::elementwise_< sine_<T> > { typedef ext::elementwise_< sine_<T> > parent;   template<class... Args>   static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)   BOOST_AUTO_DECLTYPE_BODY( dispatching( ext::adl_helper(), sine_(), static_cast<Args&&>(args)... ) ) };
   }
   /*!
     templated sine.

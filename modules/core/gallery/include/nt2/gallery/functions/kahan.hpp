@@ -67,7 +67,20 @@ namespace nt2 { namespace tag
     struct kahan_ :  ext::unspecified_<kahan_>
     {
       typedef ext::unspecified_<kahan_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_kahan_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::kahan_, Site> dispatching_kahan_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::kahan_, Site>();
+    }
+    template<class... Args>
+    struct impl_kahan_;
   }
 
   NT2_FUNCTION_IMPLEMENTATION(tag::kahan_, kahan, 1)

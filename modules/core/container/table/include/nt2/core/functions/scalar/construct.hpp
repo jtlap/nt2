@@ -22,7 +22,7 @@ namespace nt2 { namespace ext
   //============================================================================
   // Construct a terminal from a size and a Iterator pair
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::construct_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( construct_, tag::cpu_
                             , (A0)(A1)(A2)(A3)
                             , (scalar_< unspecified_<A0> >)
                               (fusion_sequence_<A1>)
@@ -51,7 +51,7 @@ namespace nt2 { namespace ext
   //============================================================================
   // Assign a container from a pair of iterators
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::construct_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( construct_, tag::cpu_
                             , (A0)(A1)(A2)(A3)
                             , (unspecified_<A0>)
                               (fusion_sequence_<A1>)

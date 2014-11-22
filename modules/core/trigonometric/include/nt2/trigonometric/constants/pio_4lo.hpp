@@ -29,6 +29,16 @@ namespace nt2
                                 , 0x3c81a62633145c07ULL
                                 )
   }
+  namespace ext
+  {
+   template<class Site, class... H>
+   BOOST_FORCEINLINE generic_dispatcher<tag::Pio_4lo, Site> dispatching_Pio_4lo(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   {
+     return generic_dispatcher<tag::Pio_4lo, Site>();
+   }
+   template<class... Args>
+   struct impl_Pio_4lo;
+  }
   /*!
     This constant is such that, for pairs of types (Tup, T)
     (namely (float,  double) and (double, long double)) the sum:

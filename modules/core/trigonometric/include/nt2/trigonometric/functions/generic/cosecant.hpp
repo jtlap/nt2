@@ -14,7 +14,7 @@
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::cosecant_<mode>, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT_G( nt2::tag::cosecant_<mode>, tag::cpu_
                             , (A0)(mode)
                             , (generic_< floating_<A0> >)
                             )

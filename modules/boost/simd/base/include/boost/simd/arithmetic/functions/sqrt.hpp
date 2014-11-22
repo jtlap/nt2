@@ -23,7 +23,20 @@ namespace boost { namespace simd { namespace tag
     struct sqrt_ : ext::elementwise_<sqrt_>
     {
       typedef ext::elementwise_<sqrt_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_sqrt_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+   template<class Site, class... H>
+   BOOST_FORCEINLINE generic_dispatcher<tag::sqrt_, Site> dispatching_sqrt_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   {
+     return generic_dispatcher<tag::sqrt_, Site>();
+   }
+   template<class... Args>
+   struct impl_sqrt_;
   }
   /*!
     Computes the square root of its parameter. For integers it is the

@@ -58,14 +58,27 @@ namespace nt2 { namespace tag
      * \brief Define the tag randcolu_ of functor randcolu
      *        in namespace nt2::tag for toolbox algebra
      **/
-    struct randcolu0_ : boost::dispatch::tag::formal_
+    struct randcolu0_ : ext::abstract_<randcolu0_>
     {
-      typedef boost::dispatch::tag::formal_ parent;
+      typedef ext::abstract_<randcolu0_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_randcolu0_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
      struct randcolu_ : ext::unspecified_<randcolu_>
     {
       typedef ext::unspecified_<randcolu_> parent;
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::randcolu0_, Site> dispatching_randcolu0_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::randcolu0_, Site>();
+    }
+    template<class... Args>
+    struct impl_randcolu0_;
   }
 
   NT2_FUNCTION_IMPLEMENTATION(tag::randcolu_, randcolu, 3)

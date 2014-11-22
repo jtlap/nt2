@@ -23,11 +23,24 @@ namespace nt2
   namespace tag
   {
     /// @brief Defines gelsy function tag
-    struct gels_ : boost::dispatch::tag::formal_
+    struct gels_ : ext::abstract_<gels_>
     {
       /// INTERNAL ONLY
-      typedef boost::dispatch::tag::formal_  parent;
+      typedef ext::abstract_<gels_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_gels_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::gels_, Site> dispatching_gels_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::gels_, Site>();
+    }
+    template<class... Args>
+    struct impl_gels_;
   }
 
   /*!

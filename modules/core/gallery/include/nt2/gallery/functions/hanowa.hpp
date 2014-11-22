@@ -44,10 +44,23 @@ namespace nt2 { namespace tag
      * \brief Define the tag hanowa_ of functor hanowa
      *        in namespace nt2::tag for toolbox algebra
     **/
-    struct hanowa_ : boost::dispatch::tag::formal_
+    struct hanowa_ : ext::abstract_<hanowa_>
     {
-      typedef boost::dispatch::tag::formal_ parent;
+      typedef ext::abstract_<hanowa_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_hanowa_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::hanowa_, Site> dispatching_hanowa_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::hanowa_, Site>();
+    }
+    template<class... Args>
+    struct impl_hanowa_;
   }
 
   NT2_FUNCTION_IMPLEMENTATION(tag::hanowa_, hanowa, 2)

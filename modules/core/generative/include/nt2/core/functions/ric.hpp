@@ -32,6 +32,16 @@ namespace nt2
     **/
     BOOST_SIMD_CONSTANT_REGISTER( ric_, double , 0, 0, 0 )
   }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::ric_, Site> dispatching_ric_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::ric_, Site>();
+    }
+    template<class... Args>
+    struct impl_ric_;
+  }
 
   #define M0(z,n,t)                                   \
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::ric_, ric, n) \

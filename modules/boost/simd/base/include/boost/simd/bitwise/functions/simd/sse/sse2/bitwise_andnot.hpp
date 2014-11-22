@@ -16,7 +16,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF ( boost::simd::tag::bitwise_andnot_, boost::simd::tag::sse2_, (A0)(A1)
+  BOOST_DISPATCH_IMPLEMENT_IF          ( bitwise_andnot_, boost::simd::tag::sse2_, (A0)(A1)
                                          , (boost::mpl::equal_to < boost::simd::meta::cardinal_of<A0>
                                                                  , boost::simd::meta::cardinal_of<A1>
                                                                  >
@@ -32,7 +32,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::bitwise_andnot_, boost::simd::tag::sse2_, (A0),
+  BOOST_DISPATCH_IMPLEMENT         (bitwise_andnot_, boost::simd::tag::sse2_, (A0),
                              ((simd_<double_<A0>,boost::simd::tag::sse_>))
                              ((simd_<double_<A0>,boost::simd::tag::sse_>))
                             )
@@ -44,7 +44,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::bitwise_andnot_, boost::simd::tag::sse2_, (A0)
+  BOOST_DISPATCH_IMPLEMENT         ( bitwise_andnot_, boost::simd::tag::sse2_, (A0)
                             , ((simd_<single_<A0>,boost::simd::tag::sse_>))
                               ((simd_<single_<A0>,boost::simd::tag::sse_>))
                             )

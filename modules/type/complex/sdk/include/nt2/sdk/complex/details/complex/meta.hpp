@@ -45,7 +45,7 @@ namespace boost { namespace dispatch { namespace meta
   struct hierarchy_of< std::complex<T>, Origin >
   {
     typedef typename remove_const<Origin>::type stripped;
-    typedef typename mpl::if_< is_same< std::complex<T>, stripped >, stripped, Origin >::type origin_;
+    typedef typename boost::mpl::if_< boost::is_same< std::complex<T>, stripped >, stripped, Origin >::type origin_;
     typedef scalar_< complex_< typename property_of<T, origin_>::type > > type;
   };
 

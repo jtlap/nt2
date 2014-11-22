@@ -37,7 +37,7 @@
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::atan2_, boost::simd::tag::simd_
+  BOOST_DISPATCH_IMPLEMENT  ( atan2_, boost::simd::tag::simd_
                             , (A0)(X)
                             , ((simd_<floating_<A0>,X>))
                               ((simd_<floating_<A0>,X>))

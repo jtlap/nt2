@@ -19,7 +19,7 @@ namespace nt2
   namespace ext
   {
 
-    NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::parter_, tag::cpu_,
+    BOOST_DISPATCH_IMPLEMENT  ( parter_, tag::cpu_,
                                 (A0)(T),
                                 (scalar_<integer_<A0> >)
                                 (target_<scalar_<floating_<T> > > )

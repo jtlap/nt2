@@ -30,6 +30,16 @@ namespace boost { namespace simd
                                 , 0x40FF1402, 0x403205966F2B4F13ULL
                                 )
   }
+  namespace ext
+  {
+   template<class Site, class... H>
+   BOOST_FORCEINLINE generic_dispatcher<tag::Mlogeps2, Site> dispatching_Mlogeps2(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   {
+     return generic_dispatcher<tag::Mlogeps2, Site>();
+   }
+   template<class... Args>
+   struct impl_Mlogeps2;
+  }
   /*!
     Generates \f$-\log(eps^2)\f$ value
 

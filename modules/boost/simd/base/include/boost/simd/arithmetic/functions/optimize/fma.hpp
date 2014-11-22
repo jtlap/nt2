@@ -18,7 +18,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::fma_ , tag::formal_, (D)(A0)(A1)(A2)
+  BOOST_DISPATCH_IMPLEMENT         ( fma_ , tag::formal_, (D)(A0)(A1)(A2)
                                    , ((node_<A0, boost::simd::tag::unary_minus_, mpl::long_<3> , D>))
                                      (unspecified_<A1>)
                                      (unspecified_<A2>)
@@ -29,7 +29,7 @@ namespace boost { namespace simd { namespace ext
     )
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::fma_ , tag::formal_, (D)(A0)(A1)(A2)
+  BOOST_DISPATCH_IMPLEMENT         ( fma_ , tag::formal_, (D)(A0)(A1)(A2)
                                    , (unspecified_<A0>)
                                      ((node_<A1, boost::simd::tag::unary_minus_, mpl::long_<3> , D>))
                                      (unspecified_<A2>)
@@ -40,7 +40,7 @@ namespace boost { namespace simd { namespace ext
     )
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::fma_ , tag::formal_, (D)(A0)(A1)(A2)
+  BOOST_DISPATCH_IMPLEMENT         ( fma_ , tag::formal_, (D)(A0)(A1)(A2)
                                    , ((node_<A0, boost::simd::tag::unary_minus_, mpl::long_<3> , D>))
                                      ((node_<A1, boost::simd::tag::unary_minus_, mpl::long_<3> , D>))
                                      (unspecified_<A2>)

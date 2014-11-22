@@ -24,10 +24,23 @@ namespace nt2
     /*!
       @brief Tag for isvectoralong functor
     **/
-    struct isvectoralong_ : boost::dispatch::tag::formal_
+    struct isvectoralong_ : ext::abstract_<isvectoralong_>
     {
-      typedef boost::dispatch::tag::formal_ parent;
+      typedef ext::abstract_<isvectoralong_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_isvectoralong_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::isvectoralong_, Site> dispatching_isvectoralong_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::isvectoralong_, Site>();
+    }
+    template<class... Args>
+    struct impl_isvectoralong_;
   }
 
   // TODO merge as isvector(x,d) ?

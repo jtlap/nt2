@@ -21,7 +21,7 @@
 namespace nt2 { namespace ext
 {
   /// INTERNAL ONLY
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::findj_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( findj_, tag::cpu_
                             , (A0)
                             , (unspecified_<A0>)
                             )
@@ -37,7 +37,7 @@ namespace nt2 { namespace ext
   };
 
   /// INTERNAL ONLY
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::findj_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( findj_, tag::cpu_
                             , (A0)(A1)
                             , (unspecified_<A0>)
                               (target_< scalar_< integer_<A1> > >)

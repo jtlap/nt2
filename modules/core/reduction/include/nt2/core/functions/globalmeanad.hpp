@@ -21,11 +21,24 @@ namespace nt2
     /*!
       @brief Tag for the globalmeanad functor
     **/
-    struct globalmeanad_ : boost::dispatch::tag::formal_
+    struct globalmeanad_ : ext::abstract_<globalmeanad_>
     {
       /// @brief Parent hierarchy
-      typedef boost::dispatch::tag::formal_ parent;
+      typedef ext::abstract_<globalmeanad_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_globalmeanad_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::globalmeanad_, Site> dispatching_globalmeanad_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::globalmeanad_, Site>();
+    }
+    template<class... Args>
+    struct impl_globalmeanad_;
   }
 
   /*!
@@ -60,7 +73,7 @@ namespace nt2
 namespace nt2 { namespace ext
 {
   /// INTERNAL ONLY
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::globalmeanad_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( globalmeanad_, tag::cpu_
                             , (A0)
                             , (unspecified_<A0>)
                             )

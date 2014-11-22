@@ -17,7 +17,7 @@
 namespace nt2 { namespace ext
 {
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::log10_
+  BOOST_DISPATCH_IMPLEMENT  ( log10_
                             , boost::simd::tag::cpu_
                             , (A0)
                             , (scalar_< int_<A0> >)
@@ -32,7 +32,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::log10_, boost::simd::tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( log10_, boost::simd::tag::cpu_
                             , (A0)
                             , (scalar_< uint8_<A0> >)
                             )
@@ -44,7 +44,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::log10_, boost::simd::tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( log10_, boost::simd::tag::cpu_
                             , (A0)
                             , (scalar_< uint16_<A0> >)
                             )
@@ -58,7 +58,7 @@ namespace nt2 { namespace ext
 
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::log10_, boost::simd::tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( log10_, boost::simd::tag::cpu_
                             , (A0)
                             , (scalar_< uint32_<A0> >)
                             )
@@ -72,7 +72,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::log10_, boost::simd::tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( log10_, boost::simd::tag::cpu_
                             , (A0)
                             , (scalar_< uint64_<A0> >)
                             )

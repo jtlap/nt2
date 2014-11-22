@@ -25,7 +25,20 @@ namespace nt2
     {
       typedef ext::state_constant_<deltaf_> parent;
       typedef double                 default_type;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_deltaf_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::deltaf_, Site> dispatching_deltaf_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::deltaf_, Site>();
+    }
+    template<class... Args>
+    struct impl_deltaf_;
   }
 
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::deltaf_, deltaf, 3)

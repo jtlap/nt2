@@ -27,7 +27,7 @@ namespace nt2 { namespace ext
   // before assign is resolved. As a tieable function, balance retrieves rhs/lhs
   // pair as inputs
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::ratfracder_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( ratfracder_, tag::cpu_
                             , (A0)(N0)(A1)(N1)
                             , ((node_<A0, nt2::tag::ratfracder_, N0, nt2::container::domain>))
                               ((node_<A1, nt2::tag::tie_ , N1, nt2::container::domain>))

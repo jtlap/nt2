@@ -17,7 +17,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::enumerate_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT          ( enumerate_, tag::cpu_
                                     , (X)(T)
                                     , ((target_< simd_< arithmetic_<T>,X> >))
                                     )
@@ -61,7 +61,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::enumerate_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT          ( enumerate_, tag::cpu_
                                     , (A0)(X)(T)
                                     , (scalar_< arithmetic_<A0> >)
                                       ((target_< simd_< arithmetic_<T>,X> >))
@@ -75,7 +75,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::enumerate_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT          ( enumerate_, tag::cpu_
                                     , (A0)(A1)(X)(Y)
                                     , ((simd_< arithmetic_<A0>, X >))
                                       ((target_< simd_< arithmetic_<A1>, Y> >))
@@ -88,7 +88,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::enumerate_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT          ( enumerate_, tag::cpu_
                                     , (A0)(A1)(X)(T)
                                     , (scalar_< arithmetic_<A0> >)
                                       (scalar_< arithmetic_<A1> >)
@@ -107,7 +107,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::enumerate_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT          ( enumerate_, tag::cpu_
                                     , (A0)(A1)(X)(T)
                                     , ((simd_< arithmetic_<A0>, X >))
                                       (generic_< arithmetic_<A1> >)

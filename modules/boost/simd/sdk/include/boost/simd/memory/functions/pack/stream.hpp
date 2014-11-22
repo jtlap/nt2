@@ -20,7 +20,7 @@
 namespace boost { namespace simd { namespace ext
 {
   /// INTERNAL ONLY pack stream with offset
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::stream_
+  BOOST_DISPATCH_IMPLEMENT          ( stream_
                                     , tag::cpu_
                                     , (A0)(A1)(A2)
                                     , ((ast_<A0, boost::simd::domain>))
@@ -38,7 +38,7 @@ namespace boost { namespace simd { namespace ext
   };
 
   /// INTERNAL ONLY pack stream without offset
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::stream_
+  BOOST_DISPATCH_IMPLEMENT          ( stream_
                                     , tag::cpu_
                                     , (A0)(A1)
                                     , ((ast_<A0, boost::simd::domain>))

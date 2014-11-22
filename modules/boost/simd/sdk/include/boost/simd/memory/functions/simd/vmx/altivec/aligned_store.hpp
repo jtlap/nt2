@@ -21,7 +21,7 @@
 namespace boost { namespace simd { namespace ext
 {
   /// INTERNAL ONLY - SIMD store without offset
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::aligned_store_
+  BOOST_DISPATCH_IMPLEMENT_IF         ( aligned_store_
                                       , boost::simd::tag::vmx_
                                       , (A0)(A1)
                                       , ( simd::meta::is_pointing_to

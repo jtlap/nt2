@@ -41,11 +41,24 @@ namespace nt2 { namespace tag
      * \brief Define the tag mnorminf_ of functor mnorminf
      *        in namespace nt2::tag for toolbox algebra
     **/
-    struct mnorminf_ :  boost::dispatch::tag::formal_
+    struct mnorminf_ :  ext::abstract_<mnorminf_>
     {
       /// INTERNAL ONLY
-      typedef  boost::dispatch::tag::formal_ parent;
+      typedef ext::abstract_<mnorminf_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_mnorminf_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::mnorminf_, Site> dispatching_mnorminf_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::mnorminf_, Site>();
+    }
+    template<class... Args>
+    struct impl_mnorminf_;
   }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::mnorminf_, mnorminf, 1)

@@ -16,7 +16,7 @@ namespace nt2 { namespace ext
   //============================================================================
   // Generates repvert from 1 expression
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::repvert_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( repvert_, tag::cpu_
                             , (A0)
                             , ((ast_<A0, nt2::container::domain>))
                             )
@@ -31,7 +31,7 @@ namespace nt2 { namespace ext
   //============================================================================
   // Generates linearize_ from expression and integer
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::repvert_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( repvert_, tag::cpu_
                             , (A0)(A1)
                             , ((ast_<A0, nt2::container::domain>))
                               (scalar_<integer_<A1> >)

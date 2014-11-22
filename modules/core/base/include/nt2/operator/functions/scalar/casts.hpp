@@ -16,7 +16,7 @@
 namespace nt2 { namespace ext
 {
   // scalar impl general
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::casts_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( casts_, tag::cpu_
                             , (A0)(To)
                             , (scalar_< unspecified_<A0> >)
                               (target_< scalar_< unspecified_<To> > >)

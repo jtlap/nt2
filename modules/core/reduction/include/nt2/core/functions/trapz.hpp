@@ -14,11 +14,24 @@ namespace nt2
 {
   namespace tag
   {
-    struct trapz_ : boost::dispatch::tag::formal_
+    struct trapz_ : ext::abstract_<trapz_>
     {
       /// @brief Parent hierarchy
-       typedef boost::dispatch::tag::formal_ parent;
+       typedef ext::abstract_<trapz_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_trapz_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::trapz_, Site> dispatching_trapz_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::trapz_, Site>();
+    }
+    template<class... Args>
+    struct impl_trapz_;
   }
   /*!
     @brief Trapezoidal numerical integration

@@ -19,9 +19,9 @@
 
 #include <algorithm>
 
-namespace nt2 { namespace ext
+namespace boost { namespace simd { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sort_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( sort_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<complex_<floating_<A0> >,X>))
                             )
@@ -45,7 +45,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sort_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( sort_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<dry_<floating_<A0> >,X>))
                             )
@@ -58,7 +58,7 @@ namespace nt2 { namespace ext
     }
   };
 
- } }
+ } } }
 
 
 #endif

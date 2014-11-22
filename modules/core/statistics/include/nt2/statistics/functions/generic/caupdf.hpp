@@ -18,7 +18,7 @@
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::caupdf_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( caupdf_, tag::cpu_
                               , (A0)
                               , (generic_< floating_<A0> >)
                               )
@@ -27,7 +27,7 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1) { return nt2::rec(nt2::oneplus(nt2::sqr(a0)))*Invpi<A0>(); }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::caupdf_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( caupdf_, tag::cpu_
                               , (A0)(A1)
                               , (generic_<floating_<A0> > )
                               (generic_<floating_<A1> >)
@@ -37,7 +37,7 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(2) { return nt2::caupdf(a0-a1); }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::caupdf_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( caupdf_, tag::cpu_
                             , (A0)(A1)(A2)
                               , (generic_< floating_<A0> >)
                                (generic_< floating_<A1> >)

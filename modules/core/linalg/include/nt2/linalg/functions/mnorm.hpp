@@ -25,11 +25,24 @@ namespace nt2 { namespace tag
       @par Models:
       Hierarchy
     **/
-    struct mnorm_ :  tag::formal_
+    struct mnorm_ :  ext::abstract_<mnorm_>
     {
       /// INTERNAL ONLY
-      typedef  boost::dispatch::tag::formal_ parent;
+      typedef ext::abstract_<mnorm_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_mnorm_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::mnorm_, Site> dispatching_mnorm_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::mnorm_, Site>();
+    }
+    template<class... Args>
+    struct impl_mnorm_;
   }
 
   /*!

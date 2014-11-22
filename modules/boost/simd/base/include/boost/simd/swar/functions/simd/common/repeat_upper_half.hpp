@@ -20,7 +20,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::repeat_upper_half_
+  BOOST_DISPATCH_IMPLEMENT          ( repeat_upper_half_
                                     , tag::cpu_
                                     , (A0)(X)
                                     , ((simd_< unspecified_<A0>, X>))
@@ -41,7 +41,7 @@ namespace boost { namespace simd { namespace ext
     #undef M0
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::repeat_upper_half_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT_IF         ( repeat_upper_half_, tag::cpu_
                                       , (A0)(X)
                                       , ( boost::simd::meta::is_bitwise_logical<A0> )
                                       , ((simd_< logical_<A0>, X>))

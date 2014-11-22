@@ -52,14 +52,27 @@ namespace nt2 { namespace tag
      * \brief Define the tag randhess_ of functor randhess
      *        in namespace nt2::tag for toolbox algebra
      **/
-    struct randhess0_ : boost::dispatch::tag::formal_
+    struct randhess0_ : ext::abstract_<randhess0_>
     {
-      typedef boost::dispatch::tag::formal_ parent;
+      typedef ext::abstract_<randhess0_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_randhess0_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
      struct randhess_ : ext::unspecified_<randhess_>
     {
       typedef ext::unspecified_<randhess_> parent;
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::randhess0_, Site> dispatching_randhess0_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::randhess0_, Site>();
+    }
+    template<class... Args>
+    struct impl_randhess0_;
   }
 
   NT2_FUNCTION_IMPLEMENTATION(tag::randhess0_, randhess, 2)

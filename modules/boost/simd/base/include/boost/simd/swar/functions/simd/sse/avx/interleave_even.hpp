@@ -17,7 +17,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::interleave_even_
+  BOOST_DISPATCH_IMPLEMENT         ( interleave_even_
                                    , boost::simd::tag::avx_
                                    , (A0)(A1)
                                    , ((simd_<single_<A0>,boost::simd::tag::avx_>))
@@ -34,7 +34,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::interleave_even_
+  BOOST_DISPATCH_IMPLEMENT         ( interleave_even_
                                    , boost::simd::tag::avx_
                                    , (A0)(A1)
                                    , ((simd_<double_<A0>,boost::simd::tag::avx_>))
@@ -49,7 +49,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::interleave_even_
+  BOOST_DISPATCH_IMPLEMENT         ( interleave_even_
                                    , boost::simd::tag::avx_
                                    , (A0)(A1)
                                    , ((simd_<type32_<A0>,boost::simd::tag::avx_>))
@@ -69,7 +69,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::interleave_even_
+  BOOST_DISPATCH_IMPLEMENT         ( interleave_even_
                                    , boost::simd::tag::avx_
                                    , (A0)(A1)
                                    , ((simd_<type64_<A0>,boost::simd::tag::avx_>))

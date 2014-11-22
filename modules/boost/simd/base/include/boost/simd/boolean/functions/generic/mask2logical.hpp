@@ -18,7 +18,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::mask2logical_, tag::cpu_, (A0)
+  BOOST_DISPATCH_IMPLEMENT          ( mask2logical_, tag::cpu_, (A0)
                                     , (generic_< arithmetic_<A0> >)
                                     )
   {

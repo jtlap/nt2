@@ -13,7 +13,7 @@
 
 namespace boost { namespace simd
 {
-  namespace tag { struct evaluate_; } namespace ext { template<class Site, class... H> BOOST_FORCEINLINE generic_dispatcher<tag::evaluate_, Site> dispatching_evaluate_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...) {   return generic_dispatcher<tag::evaluate_, Site>(); } template<class... Args> struct impl_evaluate_; } namespace tag { struct evaluate_ : dispatch::tag::formal_ { typedef dispatch::tag::formal_ parent;   template<class... Args>   static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)   BOOST_AUTO_DECLTYPE_BODY( dispatching_evaluate_( ext::adl_helper(), static_cast<Args&&>(args)... ) ) }; }
+  namespace tag { struct evaluate_; } namespace ext { template<class Site, class... H> BOOST_FORCEINLINE generic_dispatcher<tag::evaluate_, Site> dispatching_evaluate_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...) {   return generic_dispatcher<tag::evaluate_, Site>(); } template<class... Args> struct impl_evaluate_; } namespace tag { struct evaluate_ : ext::abstract_<evaluate_> { typedef ext::abstract_<evaluate_> parent;   template<class... Args>   static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)   BOOST_AUTO_DECLTYPE_BODY( dispatching_evaluate_( ext::adl_helper(), static_cast<Args&&>(args)... ) ) }; }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::evaluate_, evaluate, 1)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::evaluate_, evaluate, (A0&), 1)

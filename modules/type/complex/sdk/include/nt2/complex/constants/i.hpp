@@ -63,7 +63,20 @@ namespace nt2
     {
       typedef std::complex<double> default_type;
       typedef ext::constant_<I> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_I( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::I, Site> dispatching_I(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::I, Site>();
+    }
+    template<class... Args>
+    struct impl_I;
   }
 
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(nt2::tag::I, I)

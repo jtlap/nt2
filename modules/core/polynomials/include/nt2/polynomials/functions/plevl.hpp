@@ -16,7 +16,17 @@
 // and not a part of the polynomial
 namespace nt2 { namespace tag
   {
-    struct plevl_ : ext::elementwise_<plevl_> { typedef ext::elementwise_<plevl_> parent; };
+    struct plevl_ : ext::elementwise_<plevl_> { typedef ext::elementwise_<plevl_> parent;   template<class... Args>   static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)   BOOST_AUTO_DECLTYPE_BODY( dispatching_plevl_( ext::adl_helper(), static_cast<Args&&>(args)... ) ) };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::plevl_, Site> dispatching_plevl_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::plevl_, Site>();
+    }
+    template<class... Args>
+    struct impl_plevl_;
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::plevl_, plevl, 2)
   NT2_FUNCTION_IMPLEMENTATION(tag::plevl_, p1evl, 2)

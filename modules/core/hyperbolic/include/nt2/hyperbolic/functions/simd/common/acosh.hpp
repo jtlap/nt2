@@ -23,7 +23,7 @@
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::acosh_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( acosh_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<floating_<A0>,X>))
                             )

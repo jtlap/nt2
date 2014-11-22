@@ -27,7 +27,20 @@ namespace nt2
     struct whereij_ : ext::elementwise_<whereij_>
     {
       typedef ext::elementwise_<whereij_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_whereij_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::whereij_, Site> dispatching_whereij_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::whereij_, Site>();
+    }
+    template<class... Args>
+    struct impl_whereij_;
   }
 
   /*!

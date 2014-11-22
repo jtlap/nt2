@@ -23,7 +23,20 @@ namespace nt2
     struct qr_ : ext::tieable_<qr_>
     {
       typedef ext::tieable_<qr_>  parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_qr_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::qr_, Site> dispatching_qr_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::qr_, Site>();
+    }
+    template<class... Args>
+    struct impl_qr_;
   }
 
   /**

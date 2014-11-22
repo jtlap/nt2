@@ -18,11 +18,24 @@ namespace nt2
     /*!
       @brief Tag for the asump functor
     **/
-    struct asump_ : boost::dispatch::tag::formal_
+    struct asump_ : ext::abstract_<asump_>
     {
       /// @brief Parent hierarchy
-      typedef boost::dispatch::tag::formal_ parent;
+      typedef ext::abstract_<asump_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_asump_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::asump_, Site> dispatching_asump_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::asump_, Site>();
+    }
+    template<class... Args>
+    struct impl_asump_;
   }
 
   /*!

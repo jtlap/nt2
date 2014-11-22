@@ -24,7 +24,20 @@ namespace nt2
     struct planerot_ :  ext::tieable_<planerot_>
     {
       typedef ext::tieable_<planerot_>  parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_planerot_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::planerot_, Site> dispatching_planerot_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::planerot_, Site>();
+    }
+    template<class... Args>
+    struct impl_planerot_;
   }
 
   /**

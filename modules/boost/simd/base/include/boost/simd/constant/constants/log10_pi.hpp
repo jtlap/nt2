@@ -30,6 +30,16 @@ namespace boost { namespace simd
                                   , 0x3efe8a6e, 0x3fdfd14db31ba3bbll
                                   )
   }
+  namespace ext
+  {
+   template<class Site, class... H>
+   BOOST_FORCEINLINE generic_dispatcher<tag::Log10_pi, Site> dispatching_Log10_pi(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   {
+     return generic_dispatcher<tag::Log10_pi, Site>();
+   }
+   template<class... Args>
+   struct impl_Log10_pi;
+  }
   /*!
     Generates base ten logarithm of pi used in pispace (\f$\log(\pi)\f$)
 

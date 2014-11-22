@@ -19,29 +19,29 @@
 #include <nt2/sdk/complex/meta/as_complex.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
 
-namespace nt2 { namespace ext
+namespace boost { namespace simd { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::arg_, tag::cpu_, (A0)
+  BOOST_DISPATCH_IMPLEMENT  ( arg_, tag::cpu_, (A0)
                             , (generic_< complex_< arithmetic_<A0> > >)
                             )
   {
-    typedef typename meta::as_real<A0>::type result_type;
+    typedef typename nt2::meta::as_real<A0>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
       return nt2::atan2(nt2::imag(a0),nt2::real(a0));
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::arg_, tag::cpu_, (A0)
+  BOOST_DISPATCH_IMPLEMENT  ( arg_, tag::cpu_, (A0)
                             , (generic_< dry_< arithmetic_<A0> > >)
                             )
   {
-    typedef typename meta::as_real<A0>::type result_type;
+    typedef typename nt2::meta::as_real<A0>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
       return nt2::arg(nt2::real(a0));
     }
   };
-} }
+} } }
 
 #endif

@@ -16,7 +16,20 @@ namespace nt2 { namespace tag
     struct rem_pio2_straight_ : ext::elementwise_<rem_pio2_straight_>
     {
       typedef ext::elementwise_<rem_pio2_straight_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_rem_pio2_straight_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::rem_pio2_straight_, Site> dispatching_rem_pio2_straight_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::rem_pio2_straight_, Site>();
+    }
+    template<class... Args>
+    struct impl_rem_pio2_straight_;
   }
   /*!
     Computes the remainder modulo \f$\pi/2\f$.

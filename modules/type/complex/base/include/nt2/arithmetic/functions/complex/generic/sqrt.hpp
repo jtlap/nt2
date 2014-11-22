@@ -45,18 +45,18 @@
 #include <nt2/sdk/complex/meta/as_dry.hpp>
 #include <nt2/sdk/meta/as_logical.hpp>
 
-namespace nt2 { namespace ext
+namespace boost { namespace simd { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sqrt_, tag::cpu_, (A0)
+  BOOST_DISPATCH_IMPLEMENT  ( sqrt_, tag::cpu_, (A0)
                             , (generic_< complex_< arithmetic_<A0> > >)
                             )
   {
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      //always compute the sqroot of the complex with positive imag part
+      //always compute the sqroot of the complex with positive nt2::imag part
       //then conjugate if necessary
-      typedef typename meta::as_real<A0>::type rtype;
+      typedef typename nt2::meta::as_real<A0>::type rtype;
       typedef typename meta::as_logical<rtype>::type ltype;
       rtype ia0 = nt2::imag(a0);
       ltype negimag = is_ltz(ia0);
@@ -87,18 +87,18 @@ namespace nt2 { namespace ext
                               ),
                   z);
       z = if_else(logical_and(is_real(a0), is_nan(a0)), a0, z);
-      z = if_else(logical_or(is_nan(real(a0)), is_nan(imag(a0))), result_type(Nan<rtype>(), Nan<rtype>()), z);
-      z = if_else(logical_and(is_real(a0), is_gez(real(a0))), result_type(real(z)), z);
+      z = if_else(logical_or(is_nan(nt2::real(a0)), is_nan(nt2::imag(a0))), result_type(Nan<rtype>(), Nan<rtype>()), z);
+      z = if_else(logical_and(is_real(a0), is_gez(nt2::real(a0))), result_type(nt2::real(z)), z);
       return if_else(negimag, conj(z), z);
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sqrt_, tag::cpu_, (A0)
+  BOOST_DISPATCH_IMPLEMENT  ( sqrt_, tag::cpu_, (A0)
                             , (generic_< dry_< arithmetic_<A0> > >)
                             )
   {
-    typedef typename meta::as_real<A0>::type rtype;
-    typedef typename meta::as_complex<rtype>::type result_type;
+    typedef typename nt2::meta::as_real<A0>::type rtype;
+    typedef typename nt2::meta::as_complex<rtype>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
       const rtype root = nt2::sqrt(nt2::abs(nt2::real(a0)));
@@ -107,6 +107,6 @@ namespace nt2 { namespace ext
                      result_type(root));
     }
   };
-} }
+} } }
 
 #endif

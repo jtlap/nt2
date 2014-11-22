@@ -18,7 +18,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::abs_, boost::simd::tag::ssse3_
+  BOOST_DISPATCH_IMPLEMENT          ( abs_, boost::simd::tag::ssse3_
                                     , (A0)
                                     , ((simd_<int32_<A0>,boost::simd::tag::sse_>))
                                     )
@@ -30,7 +30,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::abs_, boost::simd::tag::ssse3_
+  BOOST_DISPATCH_IMPLEMENT          ( abs_, boost::simd::tag::ssse3_
                                     , (A0)
                                     , ((simd_<int8_<A0>,boost::simd::tag::sse_>))
                                     )
@@ -44,7 +44,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::abs_, boost::simd::tag::ssse3_
+  BOOST_DISPATCH_IMPLEMENT          ( abs_, boost::simd::tag::ssse3_
                                     , (A0)
                                     , ((simd_<int16_<A0>,boost::simd::tag::sse_>))
                                     )
@@ -56,7 +56,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::abs_, boost::simd::tag::ssse3_
+  BOOST_DISPATCH_IMPLEMENT          ( abs_, boost::simd::tag::ssse3_
                                     , (A0)
                                     , ((simd_<floating_<A0>,boost::simd::tag::sse_>))
                                     )
@@ -68,7 +68,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::abs_, boost::simd::tag::ssse3_
+  BOOST_DISPATCH_IMPLEMENT          ( abs_, boost::simd::tag::ssse3_
                                     , (A0)
                                     , ((simd_<int64_<A0>,boost::simd::tag::sse_>))
                                     )
@@ -83,7 +83,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::abs_, boost::simd::tag::ssse3_
+  BOOST_DISPATCH_IMPLEMENT          ( abs_, boost::simd::tag::ssse3_
                                     , (A0)
                                     , ((simd_<unsigned_<A0>,boost::simd::tag::sse_>))
                                     )

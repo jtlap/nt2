@@ -44,7 +44,7 @@ extern "C"
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::gemsv_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( gemsv_, tag::cpu_
                             , (A0)(S0)(A1)(S1)(A2)(S2)
                             , ((container_< nt2::tag::table_, double_<A0>, S0 >)) // A
                               ((container_< nt2::tag::table_, double_<A1>, S1 >)) // B
@@ -76,7 +76,7 @@ namespace nt2 { namespace ext
      }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::gemsv_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( gemsv_, tag::cpu_
                             , (A0)(S0)(A1)(S1)(A2)(S2)
                             , ((container_< nt2::tag::table_, complex_<double_<A0> >, S0 >)) // A
                               ((container_< nt2::tag::table_, complex_<double_<A1> >, S1 >)) // B

@@ -30,7 +30,20 @@ namespace nt2
     struct randi_ : ext::unspecified_<randi_>
     {
       typedef ext::unspecified_<randi_>  parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_randi_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::randi_, Site> dispatching_randi_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::randi_, Site>();
+    }
+    template<class... Args>
+    struct impl_randi_;
   }
 
   #define M0(z,n,t)                                                            \

@@ -17,9 +17,9 @@
 #include <nt2/include/functions/bitwise_cast.hpp>
 #include <nt2/sdk/meta/as_logical.hpp>
 
-namespace nt2 { namespace ext
+namespace boost { namespace simd { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( boost::simd::tag::minnummag_, tag::cpu_,
+  BOOST_DISPATCH_IMPLEMENT  ( minnummag_, tag::cpu_,
                               (A0),
                               (generic_<complex_<floating_<A0> > >)
                               (generic_<complex_<floating_<A0> > >)
@@ -36,7 +36,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( boost::simd::tag::minnummag_, tag::cpu_,
+  BOOST_DISPATCH_IMPLEMENT  ( minnummag_, tag::cpu_,
                               (A0),
                               (generic_<dry_<floating_<A0> > >)
                               (generic_<dry_<floating_<A0> > >)
@@ -45,10 +45,10 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return bitwise_cast<A0>(minnummag(real(a0), real(a1)));
+      return bitwise_cast<A0>(minnummag(nt2::real(a0), nt2::real(a1)));
     }
   };
-} }
+} } }
 
 
 #endif

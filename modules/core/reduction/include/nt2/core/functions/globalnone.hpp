@@ -21,11 +21,24 @@ namespace nt2
     /*!
       @brief Tag for the globalnone functor
     **/
-    struct globalnone_ : boost::dispatch::tag::formal_
+    struct globalnone_ : ext::abstract_<globalnone_>
     {
       /// @brief Parent hierarchy
-      typedef boost::dispatch::tag::formal_ parent;
+      typedef ext::abstract_<globalnone_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_globalnone_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::globalnone_, Site> dispatching_globalnone_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::globalnone_, Site>();
+    }
+    template<class... Args>
+    struct impl_globalnone_;
   }
 
   /*!
@@ -56,7 +69,7 @@ namespace nt2
 namespace nt2 { namespace ext
 {
   /// INTERNAL ONLY
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::globalnone_
+  BOOST_DISPATCH_IMPLEMENT  ( globalnone_
                             , tag::cpu_
                             , (A0)
                             , (unspecified_<A0>)

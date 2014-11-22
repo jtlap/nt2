@@ -30,6 +30,16 @@ namespace boost { namespace simd
                                 , 100, 0x42c80000, 0x4059000000000000ll
                                 )
   }
+  namespace ext
+  {
+   template<class Site, class... H>
+   BOOST_FORCEINLINE generic_dispatcher<tag::Hundred, Site> dispatching_Hundred(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   {
+     return generic_dispatcher<tag::Hundred, Site>();
+   }
+   template<class... Args>
+   struct impl_Hundred;
+  }
   /*!
     Generates the value 100 in the chosen type
 

@@ -15,9 +15,9 @@
 #include <nt2/include/functions/real.hpp>
 #include <nt2/include/functions/bitwise_cast.hpp>
 
-namespace nt2 { namespace ext
+namespace boost { namespace simd { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::splat_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( splat_, tag::cpu_
                             , (A0)(A1)(X)
                             , (scalar_< unspecified_<A0> >)
                               ((target_<simd_<complex_<arithmetic_<A1> >, X > >))
@@ -26,12 +26,12 @@ namespace nt2 { namespace ext
     typedef typename A1::type result_type;
     inline result_type operator()(const A0& a0, const A1&) const
     {
-      typedef typename meta::as_real<result_type>::type rtype;
+      typedef typename nt2::meta::as_real<result_type>::type rtype;
       return result_type(splat < rtype>(nt2::real(a0)),  splat<rtype>(nt2::imag(a0)));
     }
   };
 
-   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::splat_, tag::cpu_
+   BOOST_DISPATCH_IMPLEMENT  ( splat_, tag::cpu_
                             , (A0)(A1)(X)
                             , (scalar_< unspecified_<A0> >)
                               ((target_<simd_<dry_< arithmetic_<A1> >, X > >))
@@ -40,10 +40,10 @@ namespace nt2 { namespace ext
     typedef typename A1::type result_type;
     inline result_type operator()(const A0& a0, const A1&) const
     {
-      typedef typename meta::as_real<result_type>::type rtype;
+      typedef typename nt2::meta::as_real<result_type>::type rtype;
       return bitwise_cast<result_type>(splat<rtype>(nt2::real(a0)));
     }
   };
-} }
+} } }
 
 #endif

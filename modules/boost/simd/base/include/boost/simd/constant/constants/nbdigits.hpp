@@ -34,6 +34,9 @@ namespace boost { namespace simd
       /// INTERNAL ONLY
       template<class Target, class Dummy=void>
       struct  apply : meta::int_c <typename Target::type,0> {};
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_Nbdigits( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
 
     /// INTERNAL ONLY
@@ -45,6 +48,16 @@ namespace boost { namespace simd
     template<class T, class Dummy>
     struct  Nbdigits::apply<boost::dispatch::meta::double_<T>,Dummy>
           : meta::int_c<boost::simd::int64_t,53> {};
+  }
+  namespace ext
+  {
+   template<class Site, class... H>
+   BOOST_FORCEINLINE generic_dispatcher<tag::Nbdigits, Site> dispatching_Nbdigits(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   {
+     return generic_dispatcher<tag::Nbdigits, Site>();
+   }
+   template<class... Args>
+   struct impl_Nbdigits;
   }
   /*!
     Generates the number of mantissa bits of a floating point number,

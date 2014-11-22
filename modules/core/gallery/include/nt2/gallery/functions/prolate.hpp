@@ -43,10 +43,23 @@ namespace nt2 { namespace tag
      * \brief Define the tag prolate_ of functor prolate
      *        in namespace nt2::tag for toolbox algebra
     **/
-    struct prolate_ : boost::dispatch::tag::formal_
+    struct prolate_ : ext::abstract_<prolate_>
     {
-      typedef boost::dispatch::tag::formal_ parent;
+      typedef ext::abstract_<prolate_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_prolate_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::prolate_, Site> dispatching_prolate_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::prolate_, Site>();
+    }
+    template<class... Args>
+    struct impl_prolate_;
   }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::prolate_, prolate, 2)

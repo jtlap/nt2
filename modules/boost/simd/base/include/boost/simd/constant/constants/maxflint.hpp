@@ -30,6 +30,16 @@ namespace boost { namespace simd
                                 , 0x4b800000, 0x4340000000000000ll
                                 )
   }
+  namespace ext
+  {
+   template<class Site, class... H>
+   BOOST_FORCEINLINE generic_dispatcher<tag::Maxflint, Site> dispatching_Maxflint(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   {
+     return generic_dispatcher<tag::Maxflint, Site>();
+   }
+   template<class... Args>
+   struct impl_Maxflint;
+  }
   /*!
     Generates the least integer value which is exactly
     representable in floating point numbers and

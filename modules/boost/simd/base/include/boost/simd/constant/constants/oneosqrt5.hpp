@@ -30,6 +30,16 @@ namespace boost { namespace simd
                                 , 0x3ee4f92eUL
                                 , 0x3fdc9f25c5bfedd9ULL);
   }
+  namespace ext
+  {
+   template<class Site, class... H>
+   BOOST_FORCEINLINE generic_dispatcher<tag::Oneosqrt5, Site> dispatching_Oneosqrt5(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   {
+     return generic_dispatcher<tag::Oneosqrt5, Site>();
+   }
+   template<class... Args>
+   struct impl_Oneosqrt5;
+  }
   /*!
     Generates \f$1/\sqrt5\f$
 

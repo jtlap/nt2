@@ -29,6 +29,16 @@ namespace nt2
                                 , 0x401921fb54442d18ll
                                 )
   }
+  namespace ext
+  {
+   template<class Site, class... H>
+   BOOST_FORCEINLINE generic_dispatcher<tag::Pix_2, Site> dispatching_Pix_2(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   {
+     return generic_dispatcher<tag::Pix_2, Site>();
+   }
+   template<class... Args>
+   struct impl_Pix_2;
+  }
   /*!
     Constant  \f$2\pi\f$.
 

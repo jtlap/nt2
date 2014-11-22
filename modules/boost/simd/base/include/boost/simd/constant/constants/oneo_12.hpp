@@ -30,6 +30,16 @@ namespace boost { namespace simd
                                 , 0x3daaaaab, 0x3fb5555555555555ll
                                 )
   }
+  namespace ext
+  {
+   template<class Site, class... H>
+   BOOST_FORCEINLINE generic_dispatcher<tag::Oneo_12, Site> dispatching_Oneo_12(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   {
+     return generic_dispatcher<tag::Oneo_12, Site>();
+   }
+   template<class... Args>
+   struct impl_Oneo_12;
+  }
   /*!
     Generates value 1/12
 

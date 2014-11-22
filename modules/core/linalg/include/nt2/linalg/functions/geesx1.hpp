@@ -21,11 +21,24 @@ namespace nt2
   namespace tag
   {
     /// @brief Defines geesx function tag
-    struct geesx1_ : boost::dispatch::tag::formal_
+    struct geesx1_ : ext::abstract_<geesx1_>
     {
       /// INTERNAL ONLY
-      typedef boost::dispatch::tag::formal_  parent;
+      typedef ext::abstract_<geesx1_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_geesx1_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::geesx1_, Site> dispatching_geesx1_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::geesx1_, Site>();
+    }
+    template<class... Args>
+    struct impl_geesx1_;
   }
 
   /*!

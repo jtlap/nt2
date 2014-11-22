@@ -22,7 +22,20 @@ namespace nt2
     struct linspace_ : ext::state_constant_<linspace_>
     {
       typedef ext::state_constant_<linspace_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_linspace_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::linspace_, Site> dispatching_linspace_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::linspace_, Site>();
+    }
+    template<class... Args>
+    struct impl_linspace_;
   }
 
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::linspace_, linspace, 2)

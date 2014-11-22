@@ -44,7 +44,20 @@ namespace nt2
 
       /// @brief default value type for untyped calls
       typedef double                      default_type;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_deltac_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::deltac_, Site> dispatching_deltac_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::deltac_, Site>();
+    }
+    template<class... Args>
+    struct impl_deltac_;
   }
 
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::deltac_, deltac, 3)

@@ -18,7 +18,7 @@ namespace nt2 { namespace ext
   //============================================================================
   // Generates cat from 2 expressions
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::cat_, tag::cpu_,
+  BOOST_DISPATCH_IMPLEMENT  ( cat_, tag::cpu_,
                               (Dimension)(A1)(A2),
                               (scalar_<integer_<Dimension> >)
                               ((ast_<A1, nt2::container::domain>))
@@ -53,7 +53,7 @@ namespace nt2 { namespace ext
   //============================================================================
   // Generates cat from expression/scalar
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::cat_, tag::cpu_,
+  BOOST_DISPATCH_IMPLEMENT  ( cat_, tag::cpu_,
                               (Dimension)(A1)(A2),
                               (scalar_<integer_<Dimension> >)
                               ((ast_<A1, nt2::container::domain>))
@@ -89,7 +89,7 @@ namespace nt2 { namespace ext
   //============================================================================
   // Generates cat from expression/scalar
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::cat_, tag::cpu_,
+  BOOST_DISPATCH_IMPLEMENT  ( cat_, tag::cpu_,
                               (Dimension)(A1)(A2),
                               (scalar_<integer_<Dimension> >)
                               (scalar_< unspecified_<A1> >)

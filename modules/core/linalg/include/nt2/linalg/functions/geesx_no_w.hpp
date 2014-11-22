@@ -22,11 +22,24 @@ namespace nt2
   {
     /// @brief Defines geesx_no_w_ function tag
 
-    struct geesx_no_w_ : boost::dispatch::tag::formal_
+    struct geesx_no_w_ : ext::abstract_<geesx_no_w_>
     {
       /// INTERNAL ONLY
-      typedef boost::dispatch::tag::formal_  parent;
+      typedef ext::abstract_<geesx_no_w_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_geesx_no_w_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::geesx_no_w_, Site> dispatching_geesx_no_w_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::geesx_no_w_, Site>();
+    }
+    template<class... Args>
+    struct impl_geesx_no_w_;
   }
 
   /*!

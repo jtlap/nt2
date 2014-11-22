@@ -18,9 +18,9 @@
 #include <boost/mpl/not.hpp>
 #include <boost/type_traits/is_same.hpp>
 
-namespace nt2 { namespace ext
+namespace boost { namespace simd { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION_IF( nt2::tag::groups_, tag::cpu_,
+  BOOST_DISPATCH_IMPLEMENT_IF  ( groups_, tag::cpu_,
                           (A0)(X),
                           (boost::mpl::not_< boost::is_same<A0, typename dispatch::meta::downgrade<A0>::type> >),
                           ((simd_<complex_<arithmetic_<A0> >,X>))
@@ -35,7 +35,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION_IF( nt2::tag::groups_, tag::cpu_,
+  BOOST_DISPATCH_IMPLEMENT_IF  ( groups_, tag::cpu_,
                           (A0)(X),
                           (boost::mpl::not_< boost::is_same<A0, typename dispatch::meta::downgrade<A0>::type> >),
                           ((simd_<dry_<arithmetic_<A0> >,X>))
@@ -49,7 +49,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::groups_, tag::cpu_,
+  BOOST_DISPATCH_IMPLEMENT  ( groups_, tag::cpu_,
                              (A0)(X),
                              ((simd_<complex_<arithmetic_<A0> >,X>))
                            )
@@ -64,7 +64,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::groups_, tag::cpu_,
+  BOOST_DISPATCH_IMPLEMENT  ( groups_, tag::cpu_,
                              (A0)(X),
                              ((simd_<dry_<arithmetic_<A0> >,X>))
                            )
@@ -78,5 +78,5 @@ namespace nt2 { namespace ext
       return bitwise_cast<result_type>(groups(nt2::real(a0)));
     }
   };
-} }
+} } }
 #endif

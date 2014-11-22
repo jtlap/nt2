@@ -16,7 +16,7 @@
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sxfun_, tag::cpu_,
+  BOOST_DISPATCH_IMPLEMENT  ( sxfun_, tag::cpu_,
                               (A0)(A1)(A2),
                               (unspecified_<A0>)
                               (unspecified_<A1>)
@@ -35,7 +35,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sxfun_, tag::cpu_,
+  BOOST_DISPATCH_IMPLEMENT  ( sxfun_, tag::cpu_,
                               (A0)(A1)(A2)(A3),
                               (unspecified_<A0>)
                               (unspecified_<A1>)

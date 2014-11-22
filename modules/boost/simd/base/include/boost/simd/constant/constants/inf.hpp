@@ -40,6 +40,9 @@ namespace boost { namespace simd
       /// INTERNAL ONLY
       template<class Target, class Dummy=void>
       struct apply : meta::make_dependent<Valmax, Dummy>::type::template apply<Target,Dummy> {};
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_Inf( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
 
 
@@ -52,6 +55,16 @@ namespace boost { namespace simd
     template<class T, class Dummy>
     struct  Inf::apply<boost::dispatch::meta::double_<T>,Dummy>
       : meta::double_<0x7FF0000000000000ULL> {};
+  }
+  namespace ext
+  {
+   template<class Site, class... H>
+   BOOST_FORCEINLINE generic_dispatcher<tag::Inf, Site> dispatching_Inf(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   {
+     return generic_dispatcher<tag::Inf, Site>();
+   }
+   template<class... Args>
+   struct impl_Inf;
   }
 
   /*!

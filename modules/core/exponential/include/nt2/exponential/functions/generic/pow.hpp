@@ -25,7 +25,7 @@
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( pow_, tag::cpu_
                             , (A0)(A1)
                             , (generic_< arithmetic_<A0> >)
                               (scalar_< uint_<A1> >)
@@ -51,7 +51,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( pow_, tag::cpu_
                             , (A0)(A1)
                             , (generic_< integer_<A0> >)
                               (generic_< int_<A1> >)
@@ -69,7 +69,7 @@ namespace nt2 { namespace ext
   };
 
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( pow_, tag::cpu_
                             , (A0)(A1)
                             , (generic_< floating_<A0> >)
                               (generic_< int_<A1> >)

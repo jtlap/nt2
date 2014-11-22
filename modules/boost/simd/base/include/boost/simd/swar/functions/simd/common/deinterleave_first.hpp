@@ -19,7 +19,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::deinterleave_first_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT          ( deinterleave_first_, tag::cpu_
                                     , (A0)(A1)(X)
                                     , ((simd_< unspecified_<A0>, X>))
                                       ((simd_< unspecified_<A1>, X>))
@@ -40,7 +40,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::deinterleave_first_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT_IF         ( deinterleave_first_, tag::cpu_
                                       , (A0)(X)
                                       , ( boost::simd::meta::is_bitwise_logical<A0> )
                                       , ((simd_< logical_<A0>, X>))

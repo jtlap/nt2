@@ -28,6 +28,16 @@ namespace boost { namespace simd
    **/
     BOOST_SIMD_CONSTANT_REGISTER( Zero, double , 0, 0, 0 )
   }
+  namespace ext
+  {
+   template<class Site, class... H>
+   BOOST_FORCEINLINE generic_dispatcher<tag::Zero, Site> dispatching_Zero(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   {
+     return generic_dispatcher<tag::Zero, Site>();
+   }
+   template<class... Args>
+   struct impl_Zero;
+  }
   /*!
     Generates value 0
 

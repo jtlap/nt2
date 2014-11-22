@@ -18,7 +18,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::if_else_
+  BOOST_DISPATCH_IMPLEMENT          ( if_else_
                                     , boost::simd::tag::avx_
                                     , (A0)(A1)
                                     , ((simd_<logical_<A0>, boost::simd::tag::avx_>))
@@ -35,7 +35,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::if_else_
+  BOOST_DISPATCH_IMPLEMENT          ( if_else_
                                     , boost::simd::tag::avx_
                                     , (A0)(A1)
                                     , ((simd_<logical_<A0>, boost::simd::tag::avx_>))
@@ -52,7 +52,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::if_else_
+  BOOST_DISPATCH_IMPLEMENT          ( if_else_
                                     , boost::simd::tag::avx_
                                     , (A0)(A1)
                                     , ((simd_<logical_<A0>, boost::simd::tag::avx_>))

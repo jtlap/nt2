@@ -58,10 +58,23 @@ namespace nt2 { namespace tag
      * \brief Define the tag tridiag_ of functor tridiag
      *        in namespace nt2::tag for toolbox algebra
     **/
-    struct tridiag_ : boost::dispatch::tag::formal_
+    struct tridiag_ : ext::abstract_<tridiag_>
     {
-      typedef boost::dispatch::tag::formal_ parent;
+      typedef ext::abstract_<tridiag_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_tridiag_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::tridiag_, Site> dispatching_tridiag_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::tridiag_, Site>();
+    }
+    template<class... Args>
+    struct impl_tridiag_;
   }
 
   NT2_FUNCTION_IMPLEMENTATION(tag::tridiag_, tridiag, 4)

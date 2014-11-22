@@ -77,7 +77,7 @@ namespace nt2
 #define NT2_ORTHOG(V, K, Body)                                      \
   namespace ext                                                     \
   {                                                                 \
-    NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::orthog##K##_, tag::cpu_,  \
+    BOOST_DISPATCH_IMPLEMENT  ( orthog##K##_, tag::cpu_,  \
                                 (A0)(T),                            \
                                 (scalar_<integer_<A0> >)            \
                                 (target_<scalar_<floating_<T> > > ) \

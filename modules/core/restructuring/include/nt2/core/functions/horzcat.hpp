@@ -24,11 +24,24 @@ namespace nt2
      @par Models:
         Hierarchy
    **/
-    struct  horzcat_ : boost::dispatch::tag::formal_
+    struct  horzcat_ : ext::abstract_<horzcat_>
     {
       /// @brief Parent hierarchy
-      typedef boost::dispatch::tag::formal_ parent;
+      typedef ext::abstract_<horzcat_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_horzcat_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+   template<class Site, class... H>
+   BOOST_FORCEINLINE generic_dispatcher<tag::horzcat_, Site> dispatching_horzcat_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   {
+     return generic_dispatcher<tag::horzcat_, Site>();
+   }
+   template<class... Args>
+   struct impl_horzcat_;
   }
   /*!
     Horizontal concatenation

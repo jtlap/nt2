@@ -22,7 +22,7 @@
 namespace boost { namespace simd { namespace ext
 {
   /// INTERNAL ONLY - SIMD store without offset
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::store_
+  BOOST_DISPATCH_IMPLEMENT          ( store_
                                     , tag::cpu_
                                     , (A0)(A1)(X)
                                     , ((simd_< unspecified_<A0>, X >))
@@ -58,7 +58,7 @@ namespace boost { namespace simd { namespace ext
   };
 
   /// INTERNAL ONLY - SIMD masked store without offset
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::store_
+  BOOST_DISPATCH_IMPLEMENT          ( store_
                                     , tag::cpu_
                                     , (A0)(A1)(A2)(X)
                                     , ((simd_< unspecified_<A0>, X >))
@@ -101,7 +101,7 @@ namespace boost { namespace simd { namespace ext
   };
 
   /// INTERNAL ONLY - SIMD store via scalar emulation with offset
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::store_
+  BOOST_DISPATCH_IMPLEMENT          ( store_
                                     , tag::cpu_
                                     , (A0)(A1)(A2)(X)
                                     , ((simd_< unspecified_<A0>, X >))
@@ -119,7 +119,7 @@ namespace boost { namespace simd { namespace ext
   };
 
   /// INTERNAL ONLY - masked SIMD store via scalar emulation with offset
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::store_
+  BOOST_DISPATCH_IMPLEMENT          ( store_
                                     , tag::cpu_
                                     , (A0)(A1)(A2)(A3)(X)
                                     , ((simd_< unspecified_<A0>, X >))
@@ -141,7 +141,7 @@ namespace boost { namespace simd { namespace ext
   };
 
   /// INTERNAL ONLY - SIMD scatter store via scalar emulation
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::store_
+  BOOST_DISPATCH_IMPLEMENT_IF         ( store_
                                       , tag::cpu_
                                       , (A0)(A1)(A2)(X)(Y)
                                       , (mpl::equal_to
@@ -185,7 +185,7 @@ namespace boost { namespace simd { namespace ext
   };
 
   /// INTERNAL ONLY - masked SIMD scatter store via scalar emulation
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::store_
+  BOOST_DISPATCH_IMPLEMENT_IF         ( store_
                                       , tag::cpu_
                                       , (A0)(A1)(A2)(A3)(X)(Y)
                                       , (mpl::equal_to
@@ -236,7 +236,7 @@ namespace boost { namespace simd { namespace ext
   };
 
   /// INTERNAL ONLY - SIMD store for Fusion Sequence with offset
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::store_
+  BOOST_DISPATCH_IMPLEMENT          ( store_
                                     , tag::cpu_
                                     , (A0)(A1)(A2)(X)
                                     , ((simd_< fusion_sequence_<A0>, X >))
@@ -258,7 +258,7 @@ namespace boost { namespace simd { namespace ext
   };
 
   /// INTERNAL ONLY - SIMD store for Fusion Sequence without offset
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::store_
+  BOOST_DISPATCH_IMPLEMENT          ( store_
                                     , tag::cpu_
                                     , (A0)(A1)(X)
                                     , ((simd_< fusion_sequence_<A0>, X >))

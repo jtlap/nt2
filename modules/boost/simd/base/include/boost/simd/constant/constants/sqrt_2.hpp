@@ -30,6 +30,16 @@ namespace boost { namespace simd
                                 , 0x3FB504F3, 0x3ff6A09E667F3BCCULL
                                 )
   }
+  namespace ext
+  {
+   template<class Site, class... H>
+   BOOST_FORCEINLINE generic_dispatcher<tag::Sqrt_2, Site> dispatching_Sqrt_2(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   {
+     return generic_dispatcher<tag::Sqrt_2, Site>();
+   }
+   template<class... Args>
+   struct impl_Sqrt_2;
+  }
   /*!
     Generates value \f$\sqrt2\f$
 

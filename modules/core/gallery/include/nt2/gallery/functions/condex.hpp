@@ -70,7 +70,20 @@ namespace nt2 { namespace tag
     struct condex_ : ext::unspecified_<condex_>
     {
       typedef ext::unspecified_<condex_>  parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_condex_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::condex_, Site> dispatching_condex_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::condex_, Site>();
+    }
+    template<class... Args>
+    struct impl_condex_;
   }
 
   NT2_FUNCTION_IMPLEMENTATION(tag::condex_, condex, 1)

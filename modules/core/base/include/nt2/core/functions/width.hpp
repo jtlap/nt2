@@ -20,10 +20,23 @@ namespace nt2
 {
   namespace tag
   {
-    struct width_ : boost::dispatch::tag::formal_
+    struct width_ : ext::abstract_<width_>
     {
-      typedef boost::dispatch::tag::formal_ parent;
+      typedef ext::abstract_<width_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_width_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::width_, Site> dispatching_width_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::width_, Site>();
+    }
+    template<class... Args>
+    struct impl_width_;
   }
 
   //============================================================================

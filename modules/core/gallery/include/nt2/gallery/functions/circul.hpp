@@ -52,7 +52,17 @@ namespace nt2 { namespace tag
      * \brief Define the tag circul_ of functor circul
      *        in namespace nt2::tag for toolbox algebra
     **/
-    struct circul_ : ext::unspecified_<circul_> { typedef ext::unspecified_<circul_> parent; };
+    struct circul_ : ext::unspecified_<circul_> { typedef ext::unspecified_<circul_> parent;   template<class... Args>   static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)   BOOST_AUTO_DECLTYPE_BODY( dispatching_circul_( ext::adl_helper(), static_cast<Args&&>(args)... ) ) };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::circul_, Site> dispatching_circul_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::circul_, Site>();
+    }
+    template<class... Args>
+    struct impl_circul_;
   }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::circul_, circul, 1)

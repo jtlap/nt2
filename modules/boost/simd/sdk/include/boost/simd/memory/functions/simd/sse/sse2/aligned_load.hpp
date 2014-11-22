@@ -28,7 +28,7 @@
 namespace boost { namespace simd { namespace ext
 {
   /// INTERNAL ONLY - Load register of SIMD double without offset
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::aligned_load_
+  BOOST_DISPATCH_IMPLEMENT          ( aligned_load_
                                     , boost::simd::tag::sse2_
                                     , (A0)(A2)
                                     , (iterator_< scalar_< double_<A0> > >)
@@ -49,7 +49,7 @@ namespace boost { namespace simd { namespace ext
   };
 
   /// INTERNAL ONLY - Load register of SIMD float
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::aligned_load_
+  BOOST_DISPATCH_IMPLEMENT          ( aligned_load_
                                     , boost::simd::tag::sse2_
                                     , (A0)(A2)
                                     , (iterator_< scalar_< single_<A0> > >)
@@ -71,7 +71,7 @@ namespace boost { namespace simd { namespace ext
   };
 
   /// INTERNAL ONLY - Load register of SIMD integers without offset
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::aligned_load_
+  BOOST_DISPATCH_IMPLEMENT_IF         ( aligned_load_
                                       , boost::simd::tag::sse2_
                                       , (A0)(A2)
                                       , ( simd::meta::is_pointing_to
@@ -99,7 +99,7 @@ namespace boost { namespace simd { namespace ext
   };
 
   /// INTERNAL ONLY - Load with Misalignment without offset
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::aligned_load_
+  BOOST_DISPATCH_IMPLEMENT_IF         ( aligned_load_
                                       , boost::simd::tag::sse2_
                                       , (A0)(A2)(A3)
                                       , ( boost::is_same

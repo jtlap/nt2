@@ -24,10 +24,23 @@ namespace nt2
     /*!
       @brief Tag for inner_scan_ functor
     **/
-    struct inner_scan_ : boost::dispatch::tag::formal_
+    struct inner_scan_ : ext::abstract_<inner_scan_>
     {
-      typedef boost::dispatch::tag::formal_ parent;
+      typedef ext::abstract_<inner_scan_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_inner_scan_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::inner_scan_, Site> dispatching_inner_scan_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::inner_scan_, Site>();
+    }
+    template<class... Args>
+    struct impl_inner_scan_;
   }
 
   /*!

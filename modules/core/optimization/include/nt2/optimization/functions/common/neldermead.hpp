@@ -27,7 +27,7 @@
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::neldermead_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( neldermead_, tag::cpu_
                               , (F)(A)(H)(O)
                             , (unspecified_< F >)
                               ((ast_< A, nt2::container::domain>))
@@ -55,7 +55,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::neldermead_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( neldermead_, tag::cpu_
                               , (F)(A)(H)(O)
                             , (unspecified_< F >)
                               ((ast_< A, nt2::container::domain>))

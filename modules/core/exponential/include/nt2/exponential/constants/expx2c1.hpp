@@ -29,6 +29,16 @@ namespace nt2
                                 , 0x4060000000000000ll
                                 )
   }
+  namespace ext
+  {
+   template<class Site, class... H>
+   BOOST_FORCEINLINE generic_dispatcher<tag::Expx2c1, Site> dispatching_Expx2c1(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   {
+     return generic_dispatcher<tag::Expx2c1, Site>();
+   }
+   template<class... Args>
+   struct impl_Expx2c1;
+  }
   /*!
     Generates a costant used in expx2.
 

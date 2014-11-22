@@ -20,7 +20,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::unary_minus_ , tag::formal_, (D)(A0)
+  BOOST_DISPATCH_IMPLEMENT         ( unary_minus_ , tag::formal_, (D)(A0)
                                    , ((node_<A0, boost::simd::tag::fma_, mpl::long_<3> , D>))
                                    )
   {
@@ -29,7 +29,7 @@ namespace boost { namespace simd { namespace ext
     )
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::unary_minus_ , tag::formal_, (D)(A0)
+  BOOST_DISPATCH_IMPLEMENT         ( unary_minus_ , tag::formal_, (D)(A0)
                                    , ((node_<A0, boost::simd::tag::fms_, mpl::long_<3> , D>))
                                    )
   {

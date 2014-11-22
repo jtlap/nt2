@@ -13,9 +13,9 @@
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/sdk/complex/hierarchy.hpp>
 
-namespace nt2 { namespace ext
+namespace boost { namespace simd { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION ( nt2::tag::Maxinit, tag::cpu_, (A0)
+  BOOST_DISPATCH_IMPLEMENT   ( Maxinit, tag::cpu_, (A0)
                              , ((target_< generic_< complex_< arithmetic_<A0> > > >))
                              )
   {
@@ -26,7 +26,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION ( nt2::tag::Maxinit, tag::cpu_, (A0)
+  BOOST_DISPATCH_IMPLEMENT   ( Maxinit, tag::cpu_, (A0)
                              , ((target_< generic_< dry_< arithmetic_<A0> > > >))
                              )
   {
@@ -36,6 +36,6 @@ namespace nt2 { namespace ext
       return Zero<result_type>();
     }
   };
-} }
+} } }
 
 #endif

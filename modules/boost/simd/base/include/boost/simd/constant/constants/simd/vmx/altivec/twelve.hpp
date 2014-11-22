@@ -16,7 +16,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( simd::tag::Twelve
+  BOOST_DISPATCH_IMPLEMENT          ( Twelve
                                     , boost::simd::tag::vmx_
                                     , (A0)
                                     , ((target_ < simd_ < int8_<A0>
@@ -34,7 +34,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( simd::tag::Twelve
+  BOOST_DISPATCH_IMPLEMENT          ( Twelve
                                     , boost::simd::tag::vmx_
                                     , (A0)
                                     , ((target_ < simd_ < uint8_<A0>
@@ -52,7 +52,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( simd::tag::Twelve
+  BOOST_DISPATCH_IMPLEMENT          ( Twelve
                                     , boost::simd::tag::vmx_
                                     , (A0)
                                     , ((target_ < simd_ < int16_<A0>
@@ -70,7 +70,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( simd::tag::Twelve
+  BOOST_DISPATCH_IMPLEMENT          ( Twelve
                                     , boost::simd::tag::vmx_
                                     , (A0)
                                     , ((target_ < simd_ < uint16_<A0>
@@ -88,7 +88,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( simd::tag::Twelve
+  BOOST_DISPATCH_IMPLEMENT          ( Twelve
                                     , boost::simd::tag::vmx_
                                     , (A0)
                                     , ((target_ < simd_ < int32_<A0>
@@ -106,7 +106,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( simd::tag::Twelve
+  BOOST_DISPATCH_IMPLEMENT          ( Twelve
                                     , boost::simd::tag::vmx_
                                     , (A0)
                                     , ((target_ < simd_ < uint32_<A0>

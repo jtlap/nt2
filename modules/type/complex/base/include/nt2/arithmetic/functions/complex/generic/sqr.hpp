@@ -31,16 +31,16 @@
 #include <nt2/sdk/complex/meta/as_dry.hpp>
 #include <nt2/sdk/meta/as_logical.hpp>
 
-namespace nt2 { namespace ext
+namespace boost { namespace simd { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sqr_, tag::cpu_, (A0)
+  BOOST_DISPATCH_IMPLEMENT  ( sqr_, tag::cpu_, (A0)
                             , (generic_< complex_< arithmetic_<A0> > >)
                             )
   {
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename meta::as_real<A0>::type rA0;
+      typedef typename nt2::meta::as_real<A0>::type rA0;
       typedef typename meta::as_logical<rA0>::type lA0;
       rA0 x = sqr(nt2::real(a0)) - sqr(nt2::imag(a0));
       rA0 y = Two<rA0>()*nt2::real(a0)*nt2::imag(a0);
@@ -56,7 +56,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sqr_, tag::cpu_, (A0)
+  BOOST_DISPATCH_IMPLEMENT  ( sqr_, tag::cpu_, (A0)
                             , (generic_< dry_< arithmetic_<A0> > >)
                             )
   {
@@ -66,6 +66,6 @@ namespace nt2 { namespace ext
       return bitwise_cast<result_type>(nt2::sqr(nt2::real(a0)));
     }
   };
-} }
+} } }
 
 #endif

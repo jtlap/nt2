@@ -36,6 +36,16 @@ namespace boost { namespace simd
                                 , 5040, 0x459d8000, 0x40b3b00000000000ll
                                 )
   }
+  namespace ext
+  {
+   template<class Site, class... H>
+   BOOST_FORCEINLINE generic_dispatcher<tag::Fact_7, Site> dispatching_Fact_7(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   {
+     return generic_dispatcher<tag::Fact_7, Site>();
+   }
+   template<class... Args>
+   struct impl_Fact_7;
+  }
   /*!
     Generates 7! that is 5040
 

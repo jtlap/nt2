@@ -31,7 +31,20 @@ namespace nt2
     {
       /// @brief Parent hierarchy
       typedef ext::elementwise_<flipud_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_flipud_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+   template<class Site, class... H>
+   BOOST_FORCEINLINE generic_dispatcher<tag::flipud_, Site> dispatching_flipud_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   {
+     return generic_dispatcher<tag::flipud_, Site>();
+   }
+   template<class... Args>
+   struct impl_flipud_;
   }
   /*!
     Flips an expression around the horizontal axis

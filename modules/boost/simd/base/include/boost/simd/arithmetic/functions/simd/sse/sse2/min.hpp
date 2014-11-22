@@ -24,7 +24,7 @@
 namespace boost { namespace simd { namespace ext
 {
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::min_, boost::simd::tag::sse2_, (A0)
+  BOOST_DISPATCH_IMPLEMENT          ( min_, boost::simd::tag::sse2_, (A0)
                                     , ((simd_<double_<A0>,boost::simd::tag::sse_>))
                                       ((simd_<double_<A0>,boost::simd::tag::sse_>))
                                     )
@@ -41,7 +41,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::min_, boost::simd::tag::sse2_
+  BOOST_DISPATCH_IMPLEMENT          ( min_, boost::simd::tag::sse2_
                                     , (A0)
                                     , ((simd_<single_<A0>,boost::simd::tag::sse_>))
                                       ((simd_<single_<A0>,boost::simd::tag::sse_>))
@@ -59,7 +59,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::min_, boost::simd::tag::sse2_
+  BOOST_DISPATCH_IMPLEMENT          ( min_, boost::simd::tag::sse2_
                                     , (A0)
                                     , ((simd_<int16_<A0>,boost::simd::tag::sse_>))((simd_<int16_<A0>,boost::simd::tag::sse_>))
                                     )
@@ -71,7 +71,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::min_, boost::simd::tag::sse2_
+  BOOST_DISPATCH_IMPLEMENT          ( min_, boost::simd::tag::sse2_
                                     , (A0)
                                     , ((simd_<uint8_<A0>,boost::simd::tag::sse_>))((simd_<uint8_<A0>,boost::simd::tag::sse_>))
                                     )

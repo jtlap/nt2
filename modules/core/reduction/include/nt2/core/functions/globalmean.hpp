@@ -21,11 +21,24 @@ namespace nt2
     /*!
       @brief Tag for the globalmean functor
     **/
-    struct globalmean_ : boost::dispatch::tag::formal_
+    struct globalmean_ : ext::abstract_<globalmean_>
     {
       /// @brief Parent hierarchy
-      typedef boost::dispatch::tag::formal_ parent;
+      typedef ext::abstract_<globalmean_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_globalmean_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::globalmean_, Site> dispatching_globalmean_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::globalmean_, Site>();
+    }
+    template<class... Args>
+    struct impl_globalmean_;
   }
 
   /*!
@@ -58,7 +71,7 @@ namespace nt2
 namespace nt2 { namespace ext
 {
   /// INTERNAL ONLY
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::globalmean_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( globalmean_, tag::cpu_
                             , (A0)
                             , (unspecified_<A0>)
                             )

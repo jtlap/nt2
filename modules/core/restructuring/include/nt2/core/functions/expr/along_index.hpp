@@ -54,7 +54,7 @@ namespace nt2 { namespace ext
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::along_index_, tag::cpu_,
+  BOOST_DISPATCH_IMPLEMENT  ( along_index_, tag::cpu_,
                               (A0)(A1)(A2),
                               (unspecified_<A0>)
                               (unspecified_<A1>)
@@ -67,7 +67,7 @@ namespace nt2 { namespace ext
   };
 
   // TODO: take into account indexes
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_, tag::cpu_,
+  BOOST_DISPATCH_IMPLEMENT  ( run_, tag::cpu_,
                               (A0)(State)(Data),
                               ((node_<A0, nt2::tag::along_index_, boost::mpl::long_<3> , nt2::container::domain>))
                               (generic_< arithmetic_<State> > )

@@ -47,7 +47,17 @@ namespace nt2 { namespace tag
      * \brief Define the tag hankel_ of functor hankel
      *        in namespace nt2::tag for toolbox algebra
     **/
-    struct hankel_ : ext::unspecified_<hankel_> { typedef ext::unspecified_<hankel_> parent; };
+    struct hankel_ : ext::unspecified_<hankel_> { typedef ext::unspecified_<hankel_> parent;   template<class... Args>   static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)   BOOST_AUTO_DECLTYPE_BODY( dispatching_hankel_( ext::adl_helper(), static_cast<Args&&>(args)... ) ) };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::hankel_, Site> dispatching_hankel_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::hankel_, Site>();
+    }
+    template<class... Args>
+    struct impl_hankel_;
   }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::hankel_, hankel, 1)

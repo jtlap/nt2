@@ -15,7 +15,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::reverse_
+  BOOST_DISPATCH_IMPLEMENT          ( reverse_
                                     , boost::simd::tag::ssse3_
                                     , (A0)
                                     , ((simd_ < ints8_<A0>
@@ -36,7 +36,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::reverse_
+  BOOST_DISPATCH_IMPLEMENT          ( reverse_
                                     , boost::simd::tag::ssse3_
                                     , (A0)
                                     , ((simd_ < ints16_<A0>

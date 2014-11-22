@@ -28,6 +28,16 @@ namespace nt2
                                 , 0x40026bb1bbb55516ULL
                                 )
   }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::Log_10, Site> dispatching_Log_10(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::Log_10, Site>();
+    }
+    template<class... Args>
+    struct impl_Log_10;
+  }
   /*!
     Generates constant Log_10. (\f$\log(10)\f$)
 

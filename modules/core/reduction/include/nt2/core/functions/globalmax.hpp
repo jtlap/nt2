@@ -23,11 +23,24 @@ namespace nt2
     /*!
       @brief Tag for the globalmax functor
     **/
-     struct globalmax_ : tag::formal_
+     struct globalmax_ : ext::abstract_<globalmax_>
     {
       /// @brief Parent hierarchy
-      typedef tag::formal_ parent;
+      typedef ext::abstract_<globalmax_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_globalmax_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::globalmax_, Site> dispatching_globalmax_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::globalmax_, Site>();
+    }
+    template<class... Args>
+    struct impl_globalmax_;
   }
 
   /*!
@@ -84,7 +97,7 @@ namespace nt2
 namespace nt2 { namespace ext
 {
   /// INTERNAL ONLY
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::globalmax_, tag::cpu_,
+  BOOST_DISPATCH_IMPLEMENT  ( globalmax_, tag::cpu_,
                               (A0),
                               (unspecified_<A0>)
     )
@@ -98,7 +111,7 @@ namespace nt2 { namespace ext
     }
   };
   /// INTERNAL ONLY
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::globalmax_, tag::cpu_,
+  BOOST_DISPATCH_IMPLEMENT  ( globalmax_, tag::cpu_,
                               (A0)(A1),
                               (unspecified_<A0>)(scalar_<integer_<A1> > )
     )

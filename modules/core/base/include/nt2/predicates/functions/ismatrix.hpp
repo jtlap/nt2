@@ -24,10 +24,23 @@ namespace nt2
     /*!
       @brief Tag for ismatrix functor
     **/
-    struct ismatrix_ : boost::dispatch::tag::formal_
+    struct ismatrix_ : ext::abstract_<ismatrix_>
     {
-      typedef boost::dispatch::tag::formal_ parent;
+      typedef ext::abstract_<ismatrix_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_ismatrix_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::ismatrix_, Site> dispatching_ismatrix_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::ismatrix_, Site>();
+    }
+    template<class... Args>
+    struct impl_ismatrix_;
   }
 
   /*!

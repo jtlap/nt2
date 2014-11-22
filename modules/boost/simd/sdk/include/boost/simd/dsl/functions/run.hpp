@@ -38,18 +38,18 @@ namespace boost { namespace simd
   }
   namespace tag
   {
-    struct run_ : dispatch::tag::formal_
+    struct run_ : ext::abstract_<run_>
     {
-      typedef dispatch::tag::formal_ parent;
+      typedef ext::abstract_<run_> parent;
 
       template<class... Args>
       static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
       BOOST_AUTO_DECLTYPE_BODY( dispatching_run_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
 
-    struct run_assign_ : dispatch::tag::formal_
+    struct run_assign_ : ext::abstract_<run_assign_>
     {
-      typedef dispatch::tag::formal_ parent;
+      typedef ext::abstract_<run_assign_> parent;
 
       template<class... Args>
       static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)

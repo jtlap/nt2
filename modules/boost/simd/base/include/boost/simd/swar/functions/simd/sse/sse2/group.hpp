@@ -18,7 +18,7 @@ namespace boost { namespace simd { namespace ext
   //============================================================================
   // Implementation when type A0 is double
   //============================================================================
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::group_
+  BOOST_DISPATCH_IMPLEMENT          ( group_
                                     , boost::simd::tag::sse2_
                                     , (A0)
                                     , ((simd_<double_<A0>,boost::simd::tag::sse_>))

@@ -18,11 +18,24 @@ namespace nt2
     /*!
       @brief Tag for the zero_crossing_rate functor
     **/
-    struct zero_crossing_rate_ : boost::dispatch::tag::formal_
+    struct zero_crossing_rate_ : ext::abstract_<zero_crossing_rate_>
     {
       /// @brief Parent hierarchy
-      typedef boost::dispatch::tag::formal_ parent;
+      typedef ext::abstract_<zero_crossing_rate_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_zero_crossing_rate_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::zero_crossing_rate_, Site> dispatching_zero_crossing_rate_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::zero_crossing_rate_, Site>();
+    }
+    template<class... Args>
+    struct impl_zero_crossing_rate_;
   }
   /*!
     @brief rate of sign changes along a signal

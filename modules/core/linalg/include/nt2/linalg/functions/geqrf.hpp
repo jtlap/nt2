@@ -21,11 +21,24 @@ namespace nt2
   namespace tag
   {
     /// @brief Defines qrf function tag
-    struct geqrf_ : boost::dispatch::tag::formal_
+    struct geqrf_ : ext::abstract_<geqrf_>
     {
       /// INTERNAL ONLY
-      typedef boost::dispatch::tag::formal_  parent;
+      typedef ext::abstract_<geqrf_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_geqrf_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::geqrf_, Site> dispatching_geqrf_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::geqrf_, Site>();
+    }
+    template<class... Args>
+    struct impl_geqrf_;
   }
 
   /*!

@@ -17,7 +17,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::is_ngez_, tag::cpu_,
+  BOOST_DISPATCH_IMPLEMENT         (is_ngez_, tag::cpu_,
                           (A0)(X),
                           ((simd_<floating_<A0>,X>))
                          )
@@ -28,7 +28,7 @@ namespace boost { namespace simd { namespace ext
       return is_nge(a0, Zero<A0>());
     }
   };
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::is_ngez_, tag::cpu_,
+  BOOST_DISPATCH_IMPLEMENT         (is_ngez_, tag::cpu_,
                           (A0)(X),
                           ((simd_<arithmetic_<A0>,X>))
                          )

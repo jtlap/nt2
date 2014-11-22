@@ -24,7 +24,20 @@ namespace boost { namespace simd
     struct two_split_ : ext::elementwise_<two_split_>
     {
       typedef ext::elementwise_<two_split_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_two_split_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::two_split_, Site> dispatching_two_split_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::two_split_, Site>();
+    }
+    template<class... Args>
+    struct impl_two_split_;
   }
 
   /*!

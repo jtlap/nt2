@@ -19,7 +19,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::is_ltz_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT          ( is_ltz_, tag::cpu_
                                     , (A0)(X)
                                     , ((simd_<signed_<A0>,X>))
                                     )
@@ -31,7 +31,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::is_ltz_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT          ( is_ltz_, tag::cpu_
                                     , (A0)(X)
                                     , ((simd_<unsigned_<A0>,X>))
                                     )

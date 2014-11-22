@@ -19,7 +19,17 @@
 namespace nt2 { namespace tag
   {
     /// @brief Define the tag null_ of functor null
-    struct null_ :  tag::formal_ { typedef tag::formal_ parent; };
+    struct null_ :  ext::abstract_<null_> { typedef ext::abstract_<null_> parent;   template<class... Args>   static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)   BOOST_AUTO_DECLTYPE_BODY( dispatching_null_( ext::adl_helper(), static_cast<Args&&>(args)... ) ) };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::null_, Site> dispatching_null_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::null_, Site>();
+    }
+    template<class... Args>
+    struct impl_null_;
   }
 
 /*!

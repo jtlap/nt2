@@ -31,10 +31,10 @@
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/include/functions/bitwise_cast.hpp>
 
-namespace nt2 { namespace ext
+namespace boost { namespace simd { namespace ext
 {
   // complex/complex
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::divides_, tag::cpu_, (A0)
+  BOOST_DISPATCH_IMPLEMENT  ( divides_, tag::cpu_, (A0)
                             , (generic_< complex_< arithmetic_<A0> > >)
                               (generic_< complex_< arithmetic_<A0> > >)
                             )
@@ -42,8 +42,8 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL_REPEAT(2)
     {
-      typedef typename meta::as_real<result_type>::type rtype;
-      typedef typename meta::as_integer<rtype>::type itype;
+      typedef typename nt2::meta::as_real<result_type>::type rtype;
+      typedef typename boost::dispatch::meta::as_integer<rtype>::type itype;
       rtype rr =  nt2::abs(nt2::real(a1));
       rtype ii =  nt2::abs(nt2::imag(a1));
       itype e =  -if_else(lt(rr, ii), exponent(ii), exponent(rr));
@@ -59,7 +59,7 @@ namespace nt2 { namespace ext
   };
 
   // complex/real
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::divides_, tag::cpu_, (A0)(A1)
+  BOOST_DISPATCH_IMPLEMENT  ( divides_, tag::cpu_, (A0)(A1)
                             , (generic_< arithmetic_<A0> >)
                               (generic_< complex_< arithmetic_<A1> > >)
                             )
@@ -72,7 +72,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::divides_, tag::cpu_, (A0)(A1)
+  BOOST_DISPATCH_IMPLEMENT  ( divides_, tag::cpu_, (A0)(A1)
                             , (generic_< complex_< arithmetic_<A0> > >)
                               (generic_< arithmetic_<A1> >)
                             )
@@ -85,13 +85,13 @@ namespace nt2 { namespace ext
   };
 
   // dry/complex
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::divides_, tag::cpu_, (A0)(A1)
+  BOOST_DISPATCH_IMPLEMENT  ( divides_, tag::cpu_, (A0)(A1)
                             , (generic_< dry_< arithmetic_<A0> > >)
                               (generic_< complex_< arithmetic_<A1> > >)
                             )
   {
-    typedef typename meta::as_real<A0>::type rtype;
-    typedef typename meta::as_complex<A0>::type result_type;
+    typedef typename nt2::meta::as_real<A0>::type rtype;
+    typedef typename nt2::meta::as_complex<A0>::type result_type;
     NT2_FUNCTOR_CALL(2)
     {
       return nt2::divides(nt2::real(a0), a1);
@@ -99,13 +99,13 @@ namespace nt2 { namespace ext
   };
 
   // complex/dry
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::divides_, tag::cpu_, (A0)(A1)
+  BOOST_DISPATCH_IMPLEMENT  ( divides_, tag::cpu_, (A0)(A1)
                             , (generic_< complex_< arithmetic_<A0> > > )
                               (generic_< dry_< arithmetic_<A1> > >)
                             )
   {
-    typedef typename meta::as_real<A1>::type rtype;
-    typedef typename meta::as_complex<A1>::type result_type;
+    typedef typename nt2::meta::as_real<A1>::type rtype;
+    typedef typename nt2::meta::as_complex<A1>::type result_type;
     NT2_FUNCTOR_CALL(2)
     {
       return result_type(nt2::real(a0)/nt2::real(a1), nt2::imag(a0)/nt2::real(a1));
@@ -113,7 +113,7 @@ namespace nt2 { namespace ext
   };
 
   // dry/arithmetic
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::divides_, tag::cpu_, (A0)(A1)
+  BOOST_DISPATCH_IMPLEMENT  ( divides_, tag::cpu_, (A0)(A1)
                             , (generic_< dry_< arithmetic_<A0> > >)
                               (generic_< arithmetic_<A1> >)
                             )
@@ -126,7 +126,7 @@ namespace nt2 { namespace ext
   };
 
   // arithmetic/dry
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::divides_, tag::cpu_, (A0)(A1)
+  BOOST_DISPATCH_IMPLEMENT  ( divides_, tag::cpu_, (A0)(A1)
                             , (generic_< arithmetic_<A0> >)
                               (generic_< dry_< arithmetic_<A1> > >)
 
@@ -140,7 +140,7 @@ namespace nt2 { namespace ext
   };
 
   // dry/dry
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::divides_, tag::cpu_, (A0)
+  BOOST_DISPATCH_IMPLEMENT  ( divides_, tag::cpu_, (A0)
                             , (generic_< dry_< arithmetic_<A0> > >)
                               (generic_< dry_< arithmetic_<A0> > >)
 
@@ -153,6 +153,6 @@ namespace nt2 { namespace ext
     }
   };
 
-} }
+} } }
 
 #endif

@@ -21,6 +21,16 @@ namespace nt2
                                 , 0x4061e083ba3443d4ll  // 143.01608
                                 )
   }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::Stirlingsplitlim, Site> dispatching_Stirlingsplitlim(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::Stirlingsplitlim, Site>();
+    }
+    template<class... Args>
+    struct impl_Stirlingsplitlim;
+  }
 
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(tag::Stirlingsplitlim, Stirlingsplitlim);
 }

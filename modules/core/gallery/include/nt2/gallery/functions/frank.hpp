@@ -64,14 +64,27 @@ namespace nt2 { namespace tag
      * \brief Define the tag frank_ of functor frank
      *        in namespace nt2::tag for toolbox algebra
     **/
-    struct frank0_ : boost::dispatch::tag::formal_
+    struct frank0_ : ext::abstract_<frank0_>
     {
-      typedef boost::dispatch::tag::formal_ parent;
+      typedef ext::abstract_<frank0_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_frank0_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
-    struct frank1_ : boost::dispatch::tag::formal_
+    struct frank1_ : ext::abstract_<frank1_>
     {
-      typedef boost::dispatch::tag::formal_ parent;
+      typedef ext::abstract_<frank1_> parent;
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::frank0_, Site> dispatching_frank0_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::frank0_, Site>();
+    }
+    template<class... Args>
+    struct impl_frank0_;
   }
 
   NT2_FUNCTION_IMPLEMENTATION(tag::frank0_, frank0, 2)

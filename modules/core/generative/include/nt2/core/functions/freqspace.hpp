@@ -27,7 +27,20 @@ namespace nt2
     struct freqspace_ : ext::tieable_<freqspace_>
     {
       typedef ext::tieable_<freqspace_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_freqspace_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::freqspace_, Site> dispatching_freqspace_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::freqspace_, Site>();
+    }
+    template<class... Args>
+    struct impl_freqspace_;
   }
 
   /*!

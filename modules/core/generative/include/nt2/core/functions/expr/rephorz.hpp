@@ -17,7 +17,7 @@ namespace nt2 { namespace ext
   //============================================================================
   // Generates rephorz from 1 expression
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::rephorz_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( rephorz_, tag::cpu_
                             , (A0)
                             , ((ast_<A0, nt2::container::domain>))
                             )
@@ -32,7 +32,7 @@ namespace nt2 { namespace ext
   //============================================================================
   // Generates linearize_ from 2 expressions
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::rephorz_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( rephorz_, tag::cpu_
                             , (A0)(A1)
                             , ((ast_<A0, nt2::container::domain>))
                               (scalar_<integer_<A1> >)

@@ -33,12 +33,25 @@ namespace nt2 { namespace tag
     {
       /// @brief Parent hierarchy
       typedef ext::tieable_<expcdf_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_expcdf_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
     struct expcdf0_: ext::elementwise_<expcdf0_>
     {
       /// @brief Parent hierarchy
       typedef ext::elementwise_<expcdf0_> parent;
     };
+  }
+  namespace ext
+  {
+   template<class Site, class... H>
+   BOOST_FORCEINLINE generic_dispatcher<tag::expcdf_, Site> dispatching_expcdf_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   {
+     return generic_dispatcher<tag::expcdf_, Site>();
+   }
+   template<class... Args>
+   struct impl_expcdf_;
   }
   /*!
     exponential  cumulative distribution

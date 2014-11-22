@@ -21,11 +21,24 @@ namespace nt2
     /*!
       @brief Tag for the globalasum2 functor
     **/
-    struct globalasum2_ : boost::dispatch::tag::formal_
+    struct globalasum2_ : ext::abstract_<globalasum2_>
     {
       /// @brief Parent hierarchy
-      typedef boost::dispatch::tag::formal_ parent;
+      typedef ext::abstract_<globalasum2_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_globalasum2_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::globalasum2_, Site> dispatching_globalasum2_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::globalasum2_, Site>();
+    }
+    template<class... Args>
+    struct impl_globalasum2_;
   }
   /*!
     @brief Sum of the absolute square of all the elements of a table expression
@@ -58,7 +71,7 @@ namespace nt2
 namespace nt2 { namespace ext
 {
   /// INTERNAL ONLY
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::globalasum2_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( globalasum2_, tag::cpu_
                             , (A0)
                             , (unspecified_<A0>)
                             )

@@ -24,7 +24,7 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::almost_less_or_equal_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( almost_less_or_equal_, tag::cpu_
                             , (A0)(A1)(A2)
                             , (scalar_< arithmetic_<A0> >)(scalar_< arithmetic_<A1> >)(scalar_< integer_<A2> >)
                             )
@@ -45,7 +45,7 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::almost_less_or_equal_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( almost_less_or_equal_, tag::cpu_
                             , (A0)(A1)(A2)
                             , (scalar_< floating_<A0> >)(scalar_< floating_<A1> >)(scalar_< integer_<A2> >)
                             )

@@ -30,6 +30,9 @@ namespace boost { namespace simd
     {
       /// @brief Parent hierarchy
       typedef ext::elementwise_< saturate_at_<T> > parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching( ext::adl_helper(), saturate_at_(), static_cast<Args&&>(args)... ) )
     };
   }
   /*!

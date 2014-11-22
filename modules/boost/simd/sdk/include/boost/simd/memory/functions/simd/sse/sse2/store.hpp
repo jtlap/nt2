@@ -20,7 +20,7 @@
 namespace boost { namespace simd { namespace ext
 {
   /// INTERNAL ONLY - double SIMD store without offset
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::store_
+  BOOST_DISPATCH_IMPLEMENT          ( store_
                                     , boost::simd::tag::sse2_
                                     , (A0)(A1)
                                     , ((simd_ < double_<A0>
@@ -39,7 +39,7 @@ namespace boost { namespace simd { namespace ext
   };
 
   /// INTERNAL ONLY - single SIMD store without offset
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::store_
+  BOOST_DISPATCH_IMPLEMENT          ( store_
                                     , boost::simd::tag::sse2_
                                     , (A0)(A1)
                                     , ((simd_ < single_<A0>
@@ -58,7 +58,7 @@ namespace boost { namespace simd { namespace ext
   };
 
   /// INTERNAL ONLY - integers SIMD store without offset
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::store_
+  BOOST_DISPATCH_IMPLEMENT_IF         ( store_
                                       , boost::simd::tag::sse2_
                                       , (A0)(A1)
                                       , ( simd::meta::is_pointing_to

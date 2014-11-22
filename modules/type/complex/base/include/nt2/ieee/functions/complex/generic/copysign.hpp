@@ -17,9 +17,9 @@
 #include <nt2/include/functions/sign.hpp>
 #include <nt2/include/functions/real.hpp>
 
-namespace nt2 { namespace ext
+namespace boost { namespace simd { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::copysign_, tag::cpu_,
+  BOOST_DISPATCH_IMPLEMENT  (copysign_, tag::cpu_,
                              (A0),
                              ((generic_<complex_ < floating_<A0> > >))
                              ((generic_<complex_ < floating_<A0> > >))
@@ -33,7 +33,7 @@ namespace nt2 { namespace ext
   };
 
 
-  NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::copysign_, tag::cpu_,
+  BOOST_DISPATCH_IMPLEMENT  (copysign_, tag::cpu_,
                              (A0),
                              ((generic_<dry_ < floating_<A0> > >))
                              ((generic_<dry_ < floating_<A0> > >))
@@ -46,7 +46,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::copysign_, tag::cpu_,
+  BOOST_DISPATCH_IMPLEMENT  (copysign_, tag::cpu_,
                              (A0)(A1),
                              ((generic_<complex_ < floating_<A0> > >))
                              ((generic_<scalar_ < floating_<A1> > >))
@@ -60,7 +60,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::copysign_, tag::cpu_,
+  BOOST_DISPATCH_IMPLEMENT  (copysign_, tag::cpu_,
                              (A0)(A1),
                              ((generic_<scalar_ < floating_<A0> > >))
                              ((generic_<complex_ < floating_<A1> > >))
@@ -74,7 +74,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::copysign_, tag::cpu_,
+  BOOST_DISPATCH_IMPLEMENT  (copysign_, tag::cpu_,
                              (A0)(A1),
                              ((generic_<complex_ < floating_<A0> > >))
                              ((generic_<dry_ < floating_<A1> > >))
@@ -84,11 +84,11 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(2)
     {
       A1 m = abs(a0);
-      return result_type(copysign(m, real(a1)));
+      return result_type(copysign(m, nt2::real(a1)));
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::copysign_, tag::cpu_,
+  BOOST_DISPATCH_IMPLEMENT  (copysign_, tag::cpu_,
                              (A0)(A1),
                              ((generic_<dry_ < floating_<A0> > >))
                              ((generic_<complex_ < floating_<A1> > >))
@@ -102,5 +102,5 @@ namespace nt2 { namespace ext
     }
   };
 
-} }
+} } }
 #endif

@@ -17,7 +17,7 @@ namespace nt2 { namespace ext
   //============================================================================
   // Generates horzcat from 1 variable
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::horzcat_, tag::cpu_,
+  BOOST_DISPATCH_IMPLEMENT  ( horzcat_, tag::cpu_,
                               (A0),
                               (unspecified_<A0>)
                             )
@@ -32,7 +32,7 @@ namespace nt2 { namespace ext
   //============================================================================
   // Generates linearize_ from 2 variables
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::horzcat_, tag::cpu_,
+  BOOST_DISPATCH_IMPLEMENT  ( horzcat_, tag::cpu_,
                               (A0)(A1),
                               (unspecified_<A0>)
                               (unspecified_<A1>)

@@ -19,6 +19,9 @@ namespace nt2
     {
       /// @brief Parent hierarchy
       typedef ext::unspecified_<romberg_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_romberg_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
 
     // definition  of abstol constant for romberg method
@@ -27,6 +30,16 @@ namespace nt2
                                   , 0, 0x3a83126f             //1.0e-3
                                   , 0x3eb0c6f7a0b5ed8dll      //1.0e-6
       )
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::romberg_, Site> dispatching_romberg_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::romberg_, Site>();
+    }
+    template<class... Args>
+    struct impl_romberg_;
   }
 
   /// INTERNAL ONLY

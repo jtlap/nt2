@@ -19,7 +19,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::divides_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT          ( divides_, tag::cpu_
                                     , (A0)
                                     , (scalar_< fundamental_<A0> >)
                                       (scalar_< fundamental_<A0> >)

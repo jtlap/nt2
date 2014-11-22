@@ -19,7 +19,7 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::polevl_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( polevl_, tag::cpu_
                             , (A0)(A1)
                             , (scalar_< arithmetic_<A0> >)(fusion_sequence_<A1>)
                             )
@@ -40,7 +40,7 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::polevl_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( polevl_, tag::cpu_
                             , (A0)(A1)
                             , (scalar_< floating_<A0> >)(fusion_sequence_<A1>)
                             )

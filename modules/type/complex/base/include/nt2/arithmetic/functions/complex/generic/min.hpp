@@ -25,9 +25,9 @@
 #include <nt2/sdk/complex/meta/as_dry.hpp>
 // as matlab min for complex is first on magnitudes and if equality on arguments
 
-namespace nt2 { namespace ext
+namespace boost { namespace simd { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::min_, tag::cpu_, (A0)(A1)
+  BOOST_DISPATCH_IMPLEMENT  ( min_, tag::cpu_, (A0)(A1)
                             , (generic_< complex_ < arithmetic_<A0> > > )
                               (generic_< complex_ < arithmetic_<A1> > > )
                             )
@@ -35,7 +35,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      typedef typename meta::as_real<result_type>::type rtype;
+      typedef typename nt2::meta::as_real<result_type>::type rtype;
       rtype absa0 = nt2::abs(a0);
       rtype absa1 = nt2::abs(a1);
       result_type r = select(lt(absa0, absa1), a0, a1);
@@ -43,7 +43,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::min_, tag::cpu_, (A0)(A1)
+  BOOST_DISPATCH_IMPLEMENT  ( min_, tag::cpu_, (A0)(A1)
                             , (generic_< dry_ < arithmetic_<A0> > > )
                               (generic_< dry_ < arithmetic_<A1> > > )
                             )
@@ -51,7 +51,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      typedef typename meta::as_real<result_type>::type rtype;
+      typedef typename nt2::meta::as_real<result_type>::type rtype;
       rtype absa0 = nt2::abs(a0);
       rtype absa1 = nt2::abs(a1);
       result_type r = if_else(lt(absa0, absa1), a0, a1);
@@ -62,7 +62,7 @@ namespace nt2 { namespace ext
 
 
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::min_, tag::cpu_, (A0)(A1)
+  BOOST_DISPATCH_IMPLEMENT  ( min_, tag::cpu_, (A0)(A1)
                             ,  (generic_< arithmetic_<A0> >)
                                (generic_< complex_< arithmetic_<A1> > >)
 
@@ -80,20 +80,20 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::min_, tag::cpu_, (A0)(A1)
+  BOOST_DISPATCH_IMPLEMENT  ( min_, tag::cpu_, (A0)(A1)
                             ,  (generic_< dry_ < arithmetic_<A0> > >)
                                (generic_< complex_< arithmetic_<A1> > >)
 
                             )
   {
-    typedef typename meta::as_complex<A0>::type result_type;
+    typedef typename nt2::meta::as_complex<A0>::type result_type;
     NT2_FUNCTOR_CALL(2)
     {
       return nt2::min(nt2::real(a0), a1);
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::min_, tag::cpu_, (A0)(A1)
+  BOOST_DISPATCH_IMPLEMENT  ( min_, tag::cpu_, (A0)(A1)
                             ,  (generic_< complex_< arithmetic_<A0> > >)
                                (generic_< arithmetic_<A1> >)
 
@@ -111,20 +111,20 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::min_, tag::cpu_, (A0)(A1)
+  BOOST_DISPATCH_IMPLEMENT  ( min_, tag::cpu_, (A0)(A1)
                             ,  (generic_< complex_< arithmetic_<A0> > >)
                                (generic_< dry_ < arithmetic_<A1> > >)
 
                             )
   {
-    typedef typename meta::as_complex<A1>::type result_type;
+    typedef typename nt2::meta::as_complex<A1>::type result_type;
     NT2_FUNCTOR_CALL(2)
     {
       return nt2::min(a0, nt2::real(a1));
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::min_, tag::cpu_, (A0)(A1)
+  BOOST_DISPATCH_IMPLEMENT  ( min_, tag::cpu_, (A0)(A1)
                             ,  (generic_< dry_< arithmetic_<A0> > >)
                                (generic_< arithmetic_<A1> >)
 
@@ -137,7 +137,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::min_, tag::cpu_, (A0)(A1)
+  BOOST_DISPATCH_IMPLEMENT  ( min_, tag::cpu_, (A0)(A1)
                             , (generic_< arithmetic_<A0> >)
                               (generic_< dry_< arithmetic_<A1> > >)
                             )
@@ -149,6 +149,6 @@ namespace nt2 { namespace ext
     }
   };
 
-} }
+} } }
 
 #endif

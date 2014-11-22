@@ -57,10 +57,23 @@ namespace nt2 { namespace tag
      * \brief Define the tag fiedler_ of functor fiedler
      *        in namespace nt2::tag for toolbox algebra
     **/
-    struct fiedler_ : boost::dispatch::tag::formal_
+    struct fiedler_ : ext::abstract_<fiedler_>
     {
-      typedef boost::dispatch::tag::formal_  parent;
+      typedef ext::abstract_<fiedler_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_fiedler_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::fiedler_, Site> dispatching_fiedler_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::fiedler_, Site>();
+    }
+    template<class... Args>
+    struct impl_fiedler_;
   }
 
   NT2_FUNCTION_IMPLEMENTATION(tag::fiedler_, fiedler, 1)

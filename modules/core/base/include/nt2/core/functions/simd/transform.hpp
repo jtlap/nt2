@@ -24,7 +24,7 @@ namespace nt2 { namespace ext
   //============================================================================
   // Partial nD element-wise transform with offset/size
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION_IF( nt2::tag::transform_, boost::simd::tag::simd_
+  BOOST_DISPATCH_IMPLEMENT_IF  ( transform_, boost::simd::tag::simd_
                                , (Out)(In)(Range)
                                , (boost::simd::meta::is_vectorizable<typename Out::value_type, BOOST_SIMD_DEFAULT_EXTENSION>)
                                , ((ast_<Out, nt2::container::domain>))

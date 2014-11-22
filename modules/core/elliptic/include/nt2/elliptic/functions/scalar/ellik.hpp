@@ -31,7 +31,7 @@
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::ellik_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( ellik_, tag::cpu_
                             , (A0)
                             , (scalar_< double_<A0> >)
                               (scalar_< double_<A0> >)
@@ -46,7 +46,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::ellik_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( ellik_, tag::cpu_
                             , (A0)
                             , (scalar_< single_<A0> >)(scalar_< single_<A0> >)
                             )

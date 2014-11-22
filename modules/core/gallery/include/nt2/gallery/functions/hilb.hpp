@@ -50,7 +50,17 @@ namespace nt2 { namespace tag
      * \brief Define the tag hilb_ of functor hilb
      *        in namespace nt2::tag for toolbox algebra
     **/
-    struct hilb_ : boost::dispatch::tag::formal_ { typedef boost::dispatch::tag::formal_ parent; };
+    struct hilb_ : ext::abstract_<hilb_> { typedef ext::abstract_<hilb_> parent;   template<class... Args>   static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)   BOOST_AUTO_DECLTYPE_BODY( dispatching_hilb_( ext::adl_helper(), static_cast<Args&&>(args)... ) ) };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::hilb_, Site> dispatching_hilb_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::hilb_, Site>();
+    }
+    template<class... Args>
+    struct impl_hilb_;
   }
 
   NT2_FUNCTION_IMPLEMENTATION(tag::hilb_, hilb, 1)

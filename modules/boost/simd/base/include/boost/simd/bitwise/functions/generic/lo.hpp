@@ -19,7 +19,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::lo_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT          ( lo_, tag::cpu_
                                     , (A0)
                                     , (generic_< arithmetic_<A0> >)
                                     )

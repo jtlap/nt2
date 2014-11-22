@@ -13,7 +13,7 @@
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::issorted_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( issorted_, tag::cpu_
                             , (A0)
                             , (scalar_<unspecified_<A0> > )
                             )
@@ -27,7 +27,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::issorted_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( issorted_, tag::cpu_
                             , (A0)(A1)
                             , (scalar_<unspecified_<A0> > )
                               (scalar_<integer_ < A1> > )
@@ -39,7 +39,7 @@ namespace nt2 { namespace ext
     result_type operator()(const A0&, A1) const { return true; }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::issorted_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( issorted_, tag::cpu_
                             , (A0)(A1)(A2)
                             , (scalar_<unspecified_<A0> > )
                               (scalar_<integer_ < A1> > )

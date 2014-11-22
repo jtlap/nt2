@@ -29,6 +29,16 @@ namespace nt2
                                 , 0xc08ff00000000000ULL
                                 )
   }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::Minlog2, Site> dispatching_Minlog2(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::Minlog2, Site>();
+    }
+    template<class... Args>
+    struct impl_Minlog2;
+  }
   /*!
     Generates constant Minlog2 used in logarithm/exponential computations
 

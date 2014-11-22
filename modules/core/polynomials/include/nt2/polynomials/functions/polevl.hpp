@@ -16,7 +16,17 @@
 
 namespace nt2 { namespace tag
   {
-    struct polevl_ : ext::elementwise_<polevl_> { typedef ext::elementwise_<polevl_> parent; };
+    struct polevl_ : ext::elementwise_<polevl_> { typedef ext::elementwise_<polevl_> parent;   template<class... Args>   static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)   BOOST_AUTO_DECLTYPE_BODY( dispatching_polevl_( ext::adl_helper(), static_cast<Args&&>(args)... ) ) };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::polevl_, Site> dispatching_polevl_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::polevl_, Site>();
+    }
+    template<class... Args>
+    struct impl_polevl_;
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::polevl_, polevl, 2)
 }

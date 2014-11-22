@@ -15,7 +15,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::multiplies_, boost::simd::tag::qpx_
+  BOOST_DISPATCH_IMPLEMENT         ( multiplies_, boost::simd::tag::qpx_
                                    , (A0)
                                    , ((simd_<double_<A0>, boost::simd::tag::qpx_>))
                                      ((simd_<double_<A0>, boost::simd::tag::qpx_>))

@@ -28,7 +28,20 @@ namespace nt2
     struct randn_ : ext::unspecified_<randn_>
     {
       typedef ext::unspecified_<randn_>  parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_randn_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::randn_, Site> dispatching_randn_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::randn_, Site>();
+    }
+    template<class... Args>
+    struct impl_randn_;
   }
 
   #define M0(z,n,t)                                       \

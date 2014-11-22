@@ -21,7 +21,7 @@
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::issorted_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( issorted_, tag::cpu_
                             , (A0)
                             , ((ast_<A0, nt2::container::domain>))
                             )
@@ -37,7 +37,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::issorted_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( issorted_, tag::cpu_
                               , (A0)(A1)
                               , ((ast_<A0, nt2::container::domain>))
                               (scalar_<integer_ < A1> > )
@@ -53,7 +53,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::issorted_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( issorted_, tag::cpu_
                             , (A0)(A1)
                             , ((ast_<A0, nt2::container::domain>))
                               (scalar_<bool_<A1> >)
@@ -68,7 +68,7 @@ namespace nt2 { namespace ext
       return issorted(a0, dim, up);
     }
   };
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::issorted_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( issorted_, tag::cpu_
                             , (A0)(A1)(A2)
                             , ((ast_<A0, nt2::container::domain>))
                               (scalar_<integer_ < A1> > )

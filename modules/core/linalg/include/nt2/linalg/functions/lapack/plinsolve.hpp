@@ -32,7 +32,7 @@ namespace nt2 { namespace ext
   //============================================================================
   // LINSOLVE
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::plinsolve_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( plinsolve_, tag::cpu_
                             , (A0)(A1)(A2)(N2)
                             , ((ast_<A0, nt2::container::domain>))  // A
                               ((ast_<A1, nt2::container::domain>))  // B

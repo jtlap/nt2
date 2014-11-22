@@ -22,7 +22,7 @@
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::mldivide_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( mldivide_, tag::cpu_
                             , (A0)(S0)(A1)(S1)
                             , ((expr_ < container_< nt2::tag::table_, double_<A0>, S0 >
                                       , nt2::tag::terminal_
@@ -57,7 +57,7 @@ namespace nt2 { namespace ext
      }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::mldivide_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( mldivide_, tag::cpu_
                             , (A0)(S0)(A1)(S1)
                             , ((expr_ < container_< nt2::tag::table_, single_<A0>, S0 >
                                       , nt2::tag::terminal_

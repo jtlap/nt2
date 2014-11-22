@@ -14,9 +14,9 @@
 #include <nt2/include/functions/imag.hpp>
 #include <boost/simd/sdk/simd/meta/vector_of.hpp>
 
-namespace nt2 { namespace ext
+namespace boost { namespace simd { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( boost::simd::tag::combine_
+  BOOST_DISPATCH_IMPLEMENT  ( combine_
                             , tag::cpu_
                             , (A0)(X)
                             , ((simd_< complex_< unspecified_<A0> >, X >))
@@ -29,11 +29,11 @@ namespace nt2 { namespace ext
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A0 const& a1) const
     {
-      return result_type( nt2::combine(real(a0),real(a1))
-                        , nt2::combine(imag(a0),imag(a1))
+      return result_type( nt2::combine(nt2::real(a0),nt2::real(a1))
+                        , nt2::combine(nt2::imag(a0),nt2::imag(a1))
                         );
     }
   };
-} }
+} } }
 
 #endif

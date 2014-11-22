@@ -21,7 +21,17 @@ namespace nt2 { namespace tag
      @par Models:
         Hierarchy
    **/
-    struct tolerant_trunc_ : ext::elementwise_<tolerant_trunc_> { typedef ext::elementwise_<tolerant_trunc_> parent; };
+    struct tolerant_trunc_ : ext::elementwise_<tolerant_trunc_> { typedef ext::elementwise_<tolerant_trunc_> parent;   template<class... Args>   static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)   BOOST_AUTO_DECLTYPE_BODY( dispatching_tolerant_trunc_( ext::adl_helper(), static_cast<Args&&>(args)... ) ) };
+  }
+  namespace ext
+  {
+   template<class Site, class... H>
+   BOOST_FORCEINLINE generic_dispatcher<tag::tolerant_trunc_, Site> dispatching_tolerant_trunc_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   {
+     return generic_dispatcher<tag::tolerant_trunc_, Site>();
+   }
+   template<class... Args>
+   struct impl_tolerant_trunc_;
   }
   /*!
     Computes the truncation with a tolerance of 3 ulps using Hagerty's FL5 function.

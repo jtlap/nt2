@@ -16,7 +16,7 @@
 namespace nt2 { namespace ext
 {
   /// INTERNAL ONLY
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::adjfun_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( adjfun_, tag::cpu_
                             , (Functor)(A0)
                             , (unspecified_<Functor>)
                               ((ast_<A0, nt2::container::domain>))
@@ -41,7 +41,7 @@ namespace nt2 { namespace ext
   };
 
   /// INTERNAL ONLY
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::adjfun_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( adjfun_, tag::cpu_
                             , (Functor)(A0)(Along)
                             , (unspecified_<Functor>)
                               ((ast_<A0, nt2::container::domain>))

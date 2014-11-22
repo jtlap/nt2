@@ -13,7 +13,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::reversebits_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT         ( reversebits_, tag::cpu_
                             , (A0)
                             , (scalar_< ints8_<A0> >)
                             )
@@ -27,7 +27,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::reversebits_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT         ( reversebits_, tag::cpu_
                             , (A0)
                             , (scalar_< ints64_<A0> >)
                             )
@@ -43,7 +43,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::reversebits_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT         ( reversebits_, tag::cpu_
                             , (A0)
                             , (scalar_< ints16_<A0> >)
                             )
@@ -59,7 +59,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::reversebits_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT         ( reversebits_, tag::cpu_
                             , (A0)
                             , (scalar_< ints32_<A0> >)
                             )

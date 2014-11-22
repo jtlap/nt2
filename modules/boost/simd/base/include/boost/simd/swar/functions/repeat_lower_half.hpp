@@ -29,7 +29,20 @@ namespace boost { namespace simd {
     {
       /// @brief Parent hierarchy
       typedef ext::unspecified_<repeat_lower_half_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_repeat_lower_half_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+   template<class Site, class... H>
+   BOOST_FORCEINLINE generic_dispatcher<tag::repeat_lower_half_, Site> dispatching_repeat_lower_half_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   {
+     return generic_dispatcher<tag::repeat_lower_half_, Site>();
+   }
+   template<class... Args>
+   struct impl_repeat_lower_half_;
   }
 
   /*!

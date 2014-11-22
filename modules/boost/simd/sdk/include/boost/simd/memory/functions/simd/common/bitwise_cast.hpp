@@ -20,7 +20,7 @@ namespace boost { namespace simd { namespace ext
 #ifndef BOOST_SIMD_NO_STRICT_ALIASING
 
   // logical <-> non-logical are normally the same type inside (or castable to it)
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::bitwise_cast_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT         ( bitwise_cast_, tag::cpu_
                                    , (A0)(A1)(X)
                                    , ((simd_< logical_<A0>, X >))
                                      ((target_< simd_< unspecified_<A1>, X > >))
@@ -35,7 +35,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::bitwise_cast_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT         ( bitwise_cast_, tag::cpu_
                                    , (A0)(A1)(X)
                                    , ((simd_< unspecified_<A0>, X >))
                                      ((target_< simd_< logical_<A1>, X > >))
@@ -50,7 +50,7 @@ namespace boost { namespace simd { namespace ext
   };
 
   // the next two specializations apparently allow to generate better code with MSVC
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::bitwise_cast_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT_IF         ( bitwise_cast_, tag::cpu_
                                       , (A0)(A1)(X)
                                       , (is_same<typename A0::type, typename A1::type>)
                                       , ((simd_< logical_<A0>, X >))
@@ -65,7 +65,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::bitwise_cast_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT_IF         ( bitwise_cast_, tag::cpu_
                                       , (A0)(A1)(X)
                                       , (is_same<A0, typename A1::type::type>)
                                       , ((simd_< arithmetic_<A0>, X >))
@@ -81,7 +81,7 @@ namespace boost { namespace simd { namespace ext
   };
 
   // logical<->logical, call bitwise_cast three times
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::bitwise_cast_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT         ( bitwise_cast_, tag::cpu_
                                    , (A0)(A1)(X)
                                    , ((simd_< logical_<A0>, X >))
                                      ((target_< simd_< logical_<A1>, X > >))
@@ -96,7 +96,7 @@ namespace boost { namespace simd { namespace ext
   };
 
   // the different arithmetic types on the same extension are usually aliasable
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::bitwise_cast_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT         ( bitwise_cast_, tag::cpu_
                                    , (A0)(A1)(X)
                                    , ((simd_< arithmetic_<A0>, X >))
                                      ((target_< simd_< arithmetic_<A1>, X > >))

@@ -18,7 +18,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( simd::tag::True, tag::cpu_, (A0)(X)
+  BOOST_DISPATCH_IMPLEMENT          ( True, tag::cpu_, (A0)(X)
                                     , ((target_< simd_< logical_<A0>,X> >))
                                     )
   {

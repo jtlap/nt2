@@ -15,52 +15,52 @@
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
 
-namespace nt2 { namespace ext
+namespace boost { namespace simd { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::hypot_, tag::cpu_, (A0)(A1)
+  BOOST_DISPATCH_IMPLEMENT  ( hypot_, tag::cpu_, (A0)(A1)
                             , (generic_< complex_ < arithmetic_<A0> > > )
                               (generic_< complex_ < arithmetic_<A1> > > )
                             )
   {
-    typedef typename meta::as_real<A0>::type result_type;
+    typedef typename nt2::meta::as_real<A0>::type result_type;
     NT2_FUNCTOR_CALL(2)
     {
       return nt2::hypot(nt2::abs(a0), nt2::abs(a1));
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::hypot_, tag::cpu_, (A0)(A1)
+  BOOST_DISPATCH_IMPLEMENT  ( hypot_, tag::cpu_, (A0)(A1)
                             , (generic_< dry_ < arithmetic_<A0> > > )
                               (generic_< dry_ < arithmetic_<A1> > > )
                             )
   {
-    typedef typename meta::as_real<A0>::type result_type;
+    typedef typename nt2::meta::as_real<A0>::type result_type;
     NT2_FUNCTOR_CALL(2)
     {
       return nt2::hypot(nt2::real(a0), nt2::real(a1)) ;
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::hypot_, tag::cpu_, (A0)(A1)
+  BOOST_DISPATCH_IMPLEMENT  ( hypot_, tag::cpu_, (A0)(A1)
                             ,  (generic_< arithmetic_<A0> >)
                                (generic_< complex_< arithmetic_<A1> > >)
 
                             )
   {
-    typedef typename meta::as_real<A0>::type result_type;
+    typedef typename nt2::meta::as_real<A0>::type result_type;
     NT2_FUNCTOR_CALL(2)
     {
       return nt2::hypot(a0, nt2::abs(a1));
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::hypot_, tag::cpu_, (A0)(A1)
+  BOOST_DISPATCH_IMPLEMENT  ( hypot_, tag::cpu_, (A0)(A1)
                             ,  (generic_< dry_ < arithmetic_<A0> > >)
                                (generic_< complex_< arithmetic_<A1> > >)
 
                             )
   {
-    typedef typename meta::as_real<A0>::type result_type;
+    typedef typename nt2::meta::as_real<A0>::type result_type;
     NT2_FUNCTOR_CALL(2)
     {
       return  nt2::hypot(a1, a0);
@@ -68,31 +68,31 @@ namespace nt2 { namespace ext
 
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::hypot_, tag::cpu_, (A0)(A1)
+  BOOST_DISPATCH_IMPLEMENT  ( hypot_, tag::cpu_, (A0)(A1)
                             ,  (generic_< complex_< arithmetic_<A0> > >)
                                (generic_< arithmetic_<A1> >)
 
                             )
   {
-    typedef typename meta::as_real<A0>::type result_type;
+    typedef typename nt2::meta::as_real<A0>::type result_type;
     NT2_FUNCTOR_CALL(2)
     {
       return  nt2::hypot(a1, a0);
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::hypot_, tag::cpu_, (A0)(A1)
+  BOOST_DISPATCH_IMPLEMENT  ( hypot_, tag::cpu_, (A0)(A1)
                             ,  (generic_< complex_< arithmetic_<A0> > >)
                                (generic_< dry_ < arithmetic_<A1> > >)
 
                             )
   {
-    typedef typename meta::as_real<A0>::type result_type;
+    typedef typename nt2::meta::as_real<A0>::type result_type;
     NT2_FUNCTOR_CALL(2)
     {
       return  nt2::hypot(a1, a0);
     }
   };
-} }
+} } }
 
 #endif

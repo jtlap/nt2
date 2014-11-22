@@ -21,7 +21,7 @@
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( run_, tag::cpu_
                             , (A0)(State)(Data)
                             , ((node_< A0, nt2::tag::tril_
                                      , boost::mpl::long_<1>
@@ -51,7 +51,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( run_, tag::cpu_
                             , (A0)(State)(Data)
                             , ((node_< A0, nt2::tag::tril_
                                      , boost::mpl::long_<2>

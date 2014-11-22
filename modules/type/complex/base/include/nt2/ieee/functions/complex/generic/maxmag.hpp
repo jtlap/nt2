@@ -23,23 +23,23 @@
 
 
 
-namespace nt2 { namespace ext
+namespace boost { namespace simd { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( boost::simd::tag::maxmag_, tag::cpu_,
+  BOOST_DISPATCH_IMPLEMENT  ( maxmag_, tag::cpu_,
                                      (A0),
                                      (generic_<complex_<floating_<A0> > >)
                                      (generic_<complex_<floating_<A0> > >)
                                    )
   {
     typedef A0 result_type;
-    typedef typename meta::as_real<A0>::type rA0;
+    typedef typename nt2::meta::as_real<A0>::type rA0;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       return nt2::max(a0, a1);
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( boost::simd::tag::maxmag_, tag::cpu_,
+  BOOST_DISPATCH_IMPLEMENT  ( maxmag_, tag::cpu_,
                                      (A0),
                                      (generic_<dry_<floating_<A0> > >)
                                      (generic_<dry_<floating_<A0> > >)
@@ -48,7 +48,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      typedef typename meta::as_real<result_type>::type rtype;
+      typedef typename nt2::meta::as_real<result_type>::type rtype;
       rtype absa0 = nt2::abs(a0);
       rtype absa1 = nt2::abs(a1);
       result_type r = if_else(gt(absa0, absa1), a0, a1);
@@ -56,7 +56,7 @@ namespace nt2 { namespace ext
     }
 
   };
-} }
+} } }
 
 
 #endif

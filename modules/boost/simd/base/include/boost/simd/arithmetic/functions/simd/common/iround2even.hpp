@@ -29,7 +29,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::iround2even_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT          ( iround2even_, tag::cpu_
                                     , (A0)(X)
                                     , ((simd_<single_<A0>, X>))
                                     )

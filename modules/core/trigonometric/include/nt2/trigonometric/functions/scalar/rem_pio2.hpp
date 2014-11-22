@@ -27,7 +27,7 @@
 namespace nt2 { namespace ext
 {
 
-  NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::rem_pio2_, tag::cpu_,
+  BOOST_DISPATCH_IMPLEMENT  (rem_pio2_, tag::cpu_,
                              (A0),
                              (scalar_ < single_<A0> > )
                              (scalar_ < single_<A0> > )
@@ -392,7 +392,7 @@ do {                                                                           \
 #undef GET_A0_WORD
 #undef SET_A0_WORD
 
-  NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::rem_pio2_, tag::cpu_,
+  BOOST_DISPATCH_IMPLEMENT  (rem_pio2_, tag::cpu_,
                              (A0),
                              (scalar_ < double_<A0> > )
                              (scalar_ < double_<A0> > )

@@ -54,7 +54,17 @@ namespace nt2 { namespace tag
      * \brief Define the tag compar_ of functor compar
      *        in namespace nt2::tag for toolbox algebra
     **/
-    struct compar_ : ext::unspecified_<compar_> { typedef ext::unspecified_<compar_> parent; };
+    struct compar_ : ext::unspecified_<compar_> { typedef ext::unspecified_<compar_> parent;   template<class... Args>   static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)   BOOST_AUTO_DECLTYPE_BODY( dispatching_compar_( ext::adl_helper(), static_cast<Args&&>(args)... ) ) };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::compar_, Site> dispatching_compar_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::compar_, Site>();
+    }
+    template<class... Args>
+    struct impl_compar_;
   }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::compar_, compar, 1)

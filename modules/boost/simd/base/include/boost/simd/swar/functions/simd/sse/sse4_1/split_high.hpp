@@ -19,7 +19,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::split_high_
+  BOOST_DISPATCH_IMPLEMENT          ( split_high_
                                     , boost::simd::tag::sse4_1_
                                     , (A0)
                                     , ((simd_ < int8_<A0>
@@ -36,7 +36,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::split_high_
+  BOOST_DISPATCH_IMPLEMENT          ( split_high_
                                     , boost::simd::tag::sse4_1_
                                     , (A0)
                                     , ((simd_ < int16_<A0>
@@ -53,7 +53,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::split_high_
+  BOOST_DISPATCH_IMPLEMENT          ( split_high_
                                     , boost::simd::tag::sse4_1_
                                     , (A0)
                                     , ((simd_ < int32_<A0>

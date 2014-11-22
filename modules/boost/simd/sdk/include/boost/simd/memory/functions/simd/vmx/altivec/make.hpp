@@ -15,7 +15,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::make_
+  BOOST_DISPATCH_IMPLEMENT          ( make_
                                     , boost::simd::tag::vmx_
                                     , (A0)
                                     , ((target_ < simd_ < type32_<A0>
@@ -32,7 +32,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::make_
+  BOOST_DISPATCH_IMPLEMENT          ( make_
                                     , boost::simd::tag::vmx_
                                     , (A0)
                                     , ((target_ < simd_ < type16_<A0>
@@ -49,7 +49,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::make_
+  BOOST_DISPATCH_IMPLEMENT          ( make_
                                     , boost::simd::tag::vmx_
                                     , (A0)
                                     , ((target_ < simd_ < type8_<A0>

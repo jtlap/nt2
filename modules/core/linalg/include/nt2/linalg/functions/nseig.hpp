@@ -25,7 +25,20 @@ namespace nt2
     struct nseig_ : ext::tieable_<nseig_>
     {
       typedef ext::tieable_<nseig_>  parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_nseig_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::nseig_, Site> dispatching_nseig_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::nseig_, Site>();
+    }
+    template<class... Args>
+    struct impl_nseig_;
   }
 
   /**

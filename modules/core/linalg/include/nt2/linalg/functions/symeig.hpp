@@ -22,7 +22,20 @@ namespace nt2
     struct symeig_ : ext::tieable_<symeig_>
     {
       typedef ext::tieable_<symeig_>  parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_symeig_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::symeig_, Site> dispatching_symeig_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::symeig_, Site>();
+    }
+    template<class... Args>
+    struct impl_symeig_;
   }
 
   /**

@@ -42,7 +42,7 @@ namespace nt2 { namespace ext
   #define M4(z, n, t) nt2::run(boost::proto::child_c<n+1>(expr), state, boost::simd::ext::adapt_data<typename boost::proto::result_of::child_c<Expr, n+1>::type, Data>::call(data))
 
   #define M2(z, n, t)                                                                              \
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::arrayfun_, tag::cpu_                                       \
+  BOOST_DISPATCH_IMPLEMENT  ( arrayfun_, tag::cpu_                                       \
                             , (F)BOOST_PP_REPEAT(n, M0, ~)                                         \
                             , (unspecified_<F>)                                                    \
                               BOOST_PP_REPEAT(n, M1, ~)                                            \
@@ -57,7 +57,7 @@ namespace nt2 { namespace ext
     }                                                                                              \
   };                                                                                               \
                                                                                                    \
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_, tag::cpu_                                            \
+  BOOST_DISPATCH_IMPLEMENT  ( run_, tag::cpu_                                            \
                             , (Expr)(State)(Data)                                                   \
                             , ((node_<Expr, nt2::tag::arrayfun_, boost::mpl::long_<n+1>, nt2::container::domain>)) \
                               (generic_< integer_<State> >)                                        \

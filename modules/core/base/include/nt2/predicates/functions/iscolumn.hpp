@@ -24,10 +24,23 @@ namespace nt2
     /*!
       @brief Tag for iscolumn functor
     **/
-    struct iscolumn_ : boost::dispatch::tag::formal_
+    struct iscolumn_ : ext::abstract_<iscolumn_>
     {
-      typedef boost::dispatch::tag::formal_ parent;
+      typedef ext::abstract_<iscolumn_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_iscolumn_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::iscolumn_, Site> dispatching_iscolumn_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::iscolumn_, Site>();
+    }
+    template<class... Args>
+    struct impl_iscolumn_;
   }
 
   /*!

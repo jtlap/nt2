@@ -21,7 +21,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::popcnt_, tag::cpu_, (A0)(X)
+  BOOST_DISPATCH_IMPLEMENT         ( popcnt_, tag::cpu_, (A0)(X)
                             , ((simd_<int8_<A0>,X>))
                             )
   {
@@ -39,7 +39,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::popcnt_, tag::cpu_, (A0)(X)
+  BOOST_DISPATCH_IMPLEMENT         ( popcnt_, tag::cpu_, (A0)(X)
                             , ((simd_<int64_<A0>,X>))
                             )
   {
@@ -60,7 +60,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::popcnt_, tag::cpu_, (A0)(X)
+  BOOST_DISPATCH_IMPLEMENT         ( popcnt_, tag::cpu_, (A0)(X)
                             , ((simd_<int16_<A0>,X>))
                             )
   {
@@ -79,7 +79,7 @@ namespace boost { namespace simd { namespace ext
       }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::popcnt_, tag::cpu_, (A0)(X)
+  BOOST_DISPATCH_IMPLEMENT         ( popcnt_, tag::cpu_, (A0)(X)
                             , ((simd_<int32_<A0>,X>))
                             )
   {
@@ -99,7 +99,7 @@ namespace boost { namespace simd { namespace ext
       }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::popcnt_, tag::cpu_, (A0)(X)
+  BOOST_DISPATCH_IMPLEMENT         ( popcnt_, tag::cpu_, (A0)(X)
                             , ((simd_<floating_<A0>,X>))
                             )
   {

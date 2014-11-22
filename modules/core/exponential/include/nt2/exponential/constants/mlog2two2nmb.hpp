@@ -29,6 +29,16 @@ namespace nt2
                                 , 0xc04a800000000000ULL
                                 )
   }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::Mlog2two2nmb, Site> dispatching_Mlog2two2nmb(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::Mlog2two2nmb, Site>();
+    }
+    template<class... Args>
+    struct impl_Mlog2two2nmb;
+  }
  /*!
     Generates constant Mlog2two2nmb.
 

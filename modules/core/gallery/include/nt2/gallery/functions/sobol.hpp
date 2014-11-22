@@ -48,7 +48,20 @@ namespace nt2 { namespace tag
     struct sobol_ :  ext::unspecified_<sobol_>
     {
       typedef ext::unspecified_<sobol_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_sobol_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::sobol_, Site> dispatching_sobol_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::sobol_, Site>();
+    }
+    template<class... Args>
+    struct impl_sobol_;
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::sobol_, sobol, 2)
 

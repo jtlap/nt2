@@ -19,7 +19,20 @@ namespace boost { namespace simd
     struct split_multiplies_ : ext::elementwise_<split_multiplies_>
     {
       typedef ext::elementwise_<split_multiplies_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_split_multiplies_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::split_multiplies_, Site> dispatching_split_multiplies_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::split_multiplies_, Site>();
+    }
+    template<class... Args>
+    struct impl_split_multiplies_;
   }
 
   /*!

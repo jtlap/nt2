@@ -19,7 +19,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::slice_
+  BOOST_DISPATCH_IMPLEMENT_IF         ( slice_
                                       , tag::cpu_
                                       , (A0)(A1)(X)(Y)
                                       , ( boost::mpl::bool_
@@ -43,7 +43,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::slice_
+  BOOST_DISPATCH_IMPLEMENT_IF         ( slice_
                                       , tag::cpu_
                                       , (A0)(A1)(X)(Y)
                                       , ( boost::mpl::and_

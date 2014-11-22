@@ -27,7 +27,20 @@ namespace nt2
     {
       /// @brief Parent hierarchy
       typedef ext::elementwise_<sin_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_sin_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+   template<class Site, class... H>
+   BOOST_FORCEINLINE generic_dispatcher<tag::sin_, Site> dispatching_sin_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   {
+     return generic_dispatcher<tag::sin_, Site>();
+   }
+   template<class... Args>
+   struct impl_sin_;
   }
   /*!
     sine of the input in radians.

@@ -14,7 +14,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::broadcast_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT         ( broadcast_, tag::cpu_
                                    , (A0)(A1)
                                    , (scalar_< unspecified_<A0> >)
                                      (mpl_integral_< scalar_< integer_<A1> > >)

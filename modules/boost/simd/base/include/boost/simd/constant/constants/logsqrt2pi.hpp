@@ -30,6 +30,16 @@ namespace boost { namespace simd
                                 , 0x3f6b3f8eLL, 0x3fed67f1c864beb5ULL // 0.91893853320467274178032973640562
                                 );
   }
+  namespace ext
+  {
+   template<class Site, class... H>
+   BOOST_FORCEINLINE generic_dispatcher<tag::Logsqrt2pi, Site> dispatching_Logsqrt2pi(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   {
+     return generic_dispatcher<tag::Logsqrt2pi, Site>();
+   }
+   template<class... Args>
+   struct impl_Logsqrt2pi;
+  }
   /*!
     Generates value \f$\log\sqrt{2\pi}\f$
 

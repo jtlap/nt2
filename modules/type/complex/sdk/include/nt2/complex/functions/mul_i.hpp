@@ -57,7 +57,17 @@ namespace nt2
      * \brief Define the tag mul_i_ of functor mul_i
      *        in namespace nt2::tag for toolbox complex
     **/
-    struct mul_i_ : ext::elementwise_<mul_i_> { typedef ext::elementwise_<mul_i_> parent; };
+    struct mul_i_ : ext::elementwise_<mul_i_> { typedef ext::elementwise_<mul_i_> parent;   template<class... Args>   static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)   BOOST_AUTO_DECLTYPE_BODY( dispatching_mul_i_( ext::adl_helper(), static_cast<Args&&>(args)... ) ) };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::mul_i_, Site> dispatching_mul_i_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::mul_i_, Site>();
+    }
+    template<class... Args>
+    struct impl_mul_i_;
   }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::mul_i_, mul_i, 1)

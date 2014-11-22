@@ -20,7 +20,7 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::lookup_, boost::simd::tag::sse2_
+  BOOST_DISPATCH_IMPLEMENT         ( lookup_, boost::simd::tag::sse2_
                             , (A0)(A1)
                             , ((simd_<arithmetic_<A0>,boost::simd::tag::sse_>))((simd_<integer_<A1>,boost::simd::tag::sse_>))
                             )

@@ -25,6 +25,9 @@ namespace nt2 { namespace tag
     {
       /// @brief Parent hierarchy
       typedef ext::elementwise_< tangent_<T> > parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching( ext::adl_helper(), tangent_(), static_cast<Args&&>(args)... ) )
     };
   }
   /*!

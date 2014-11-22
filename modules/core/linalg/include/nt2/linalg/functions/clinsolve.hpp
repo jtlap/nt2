@@ -21,11 +21,24 @@ namespace nt2
   namespace tag
   {
     /// @brief Defines gecon function tag
-    struct clinsolve_ : boost::dispatch::tag::formal_
+    struct clinsolve_ : ext::abstract_<clinsolve_>
     {
       /// INTERNAL ONLY
-      typedef boost::dispatch::tag::formal_  parent;
+      typedef ext::abstract_<clinsolve_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_clinsolve_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::clinsolve_, Site> dispatching_clinsolve_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::clinsolve_, Site>();
+    }
+    template<class... Args>
+    struct impl_clinsolve_;
   }
 
   /*!

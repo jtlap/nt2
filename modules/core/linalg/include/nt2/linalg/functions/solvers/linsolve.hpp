@@ -26,7 +26,7 @@ namespace nt2 { namespace ext
   //============================================================================
   // LINSOLVE
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::linsolve_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( linsolve_, tag::cpu_
                             , (A0)(N0)(A1)(N1)
                             , ((node_<A0, nt2::tag::linsolve_
                                     , N0, nt2::container::domain

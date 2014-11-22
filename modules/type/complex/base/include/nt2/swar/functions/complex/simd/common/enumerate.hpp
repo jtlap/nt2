@@ -16,9 +16,9 @@
 #include <nt2/sdk/complex/hierarchy.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
 
-namespace nt2 { namespace ext
+namespace boost { namespace simd { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::enumerate_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( enumerate_, tag::cpu_
                             , (T)
                             , ((target_< generic_< complex_<arithmetic_<T> > > >))
                             )
@@ -32,7 +32,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::enumerate_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( enumerate_, tag::cpu_
                             , (A0)(T)
                             , ((generic_< arithmetic_<A0> >))
                               ((target_< generic_< complex_<arithmetic_<T> > > >))
@@ -42,12 +42,12 @@ namespace nt2 { namespace ext
 
     result_type operator()(A0 const& a0, T const& ) const
     {
-      typedef typename meta::as_real<result_type>::type r_t;
+      typedef typename nt2::meta::as_real<result_type>::type r_t;
       return result_type( enumerate<r_t>(a0) );
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::enumerate_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( enumerate_, tag::cpu_
                             , (A0)(T)
                             , ((generic_< complex_<arithmetic_<A0> > >))
                               ((target_< generic_< complex_<arithmetic_<T> > > >))
@@ -57,14 +57,14 @@ namespace nt2 { namespace ext
 
     result_type operator()(A0 const& a0, T const& ) const
     {
-      typedef typename meta::as_real<result_type>::type r_t;
+      typedef typename nt2::meta::as_real<result_type>::type r_t;
       return result_type( enumerate<r_t>(nt2::real(a0))
                         , splat<r_t>(nt2::imag(a0))
                         );
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::enumerate_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( enumerate_, tag::cpu_
                             , (A0)(A1)(T)
                             , ((generic_< complex_<arithmetic_<A0> > >))
                               ((generic_< complex_<arithmetic_<A1> > >))
@@ -75,13 +75,13 @@ namespace nt2 { namespace ext
 
     result_type operator()(A0 const& a0, A1 const& a1, T const& ) const
     {
-      typedef typename meta::as_real<result_type>::type r_t;
-      return result_type( enumerate<r_t>(real(a0), real(a1))
-                        , enumerate<r_t>(imag(a0), imag(a1))
+      typedef typename nt2::meta::as_real<result_type>::type r_t;
+      return result_type( enumerate<r_t>(nt2::real(a0), nt2::real(a1))
+                        , enumerate<r_t>(nt2::imag(a0), nt2::imag(a1))
                         );
     }
   };
-} }
+} } }
 
 
 #endif

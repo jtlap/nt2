@@ -16,7 +16,7 @@
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::repnum_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( repnum_, tag::cpu_
                             , (A0)(Seq)
                             , (scalar_<unspecified_<A0> >)
                               (fusion_sequence_<Seq>)
@@ -52,7 +52,7 @@ namespace nt2 { namespace ext
   #define M1(z,n,t) (scalar_< integer_<BOOST_PP_CAT(A,n)> >)
 
   #define M0(z,n,t)                                                             \
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::repnum_, tag::cpu_                      \
+  BOOST_DISPATCH_IMPLEMENT  ( repnum_, tag::cpu_                      \
                             , BOOST_PP_REPEAT(BOOST_PP_INC(n),M2,~)             \
                             , (scalar_<unspecified_<A0> > )                     \
                               BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(n),M1,~)   \

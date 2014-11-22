@@ -16,11 +16,24 @@ namespace nt2
   namespace tag
   {
     /// @brief Defines swap function tag
-    struct swap_ : boost::dispatch::tag::formal_
+    struct swap_ : ext::abstract_<swap_>
     {
       /// INTERNAL ONLY
-      typedef boost::dispatch::tag::formal_  parent;
+      typedef ext::abstract_<swap_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_swap_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::swap_, Site> dispatching_swap_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::swap_, Site>();
+    }
+    template<class... Args>
+    struct impl_swap_;
   }
 
   /*!

@@ -27,7 +27,20 @@ namespace nt2
       struct hjmin_ : ext::unspecified_<hjmin_>
     {
       typedef ext::unspecified_<hjmin_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_hjmin_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+   template<class Site, class... H>
+   BOOST_FORCEINLINE generic_dispatcher<tag::hjmin_, Site> dispatching_hjmin_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   {
+     return generic_dispatcher<tag::hjmin_, Site>();
+   }
+   template<class... Args>
+   struct impl_hjmin_;
   }
   /*!
    * Apply hjmin (Hooke-Jeeves) algorithm to find local minimum of a function

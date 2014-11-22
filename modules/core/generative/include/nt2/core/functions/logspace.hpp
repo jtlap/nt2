@@ -30,7 +30,20 @@ namespace nt2
     struct logspace_ : ext::state_constant_<logspace_>
     {
       typedef ext::state_constant_<logspace_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_logspace_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::logspace_, Site> dispatching_logspace_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::logspace_, Site>();
+    }
+    template<class... Args>
+    struct impl_logspace_;
   }
 
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::logspace_, logspace, 2)

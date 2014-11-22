@@ -55,7 +55,17 @@ namespace nt2 { namespace tag
      * \brief Define the tag invol_ of functor invol
      *        in namespace nt2::tag for toolbox algebra
     **/
-    struct invol_ :   ext::unspecified_<invol_> { typedef  ext::unspecified_<invol_> parent; };
+    struct invol_ :   ext::unspecified_<invol_> { typedef  ext::unspecified_<invol_> parent;   template<class... Args>   static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)   BOOST_AUTO_DECLTYPE_BODY( dispatching_invol_( ext::adl_helper(), static_cast<Args&&>(args)... ) ) };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::invol_, Site> dispatching_invol_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::invol_, Site>();
+    }
+    template<class... Args>
+    struct impl_invol_;
   }
 
   NT2_FUNCTION_IMPLEMENTATION(tag::invol_, invol, 1)

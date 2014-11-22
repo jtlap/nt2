@@ -29,6 +29,16 @@ namespace nt2
                                 , 0x404f6a7a2955385ell  //20\pi
                                 )
   }
+  namespace ext
+  {
+   template<class Site, class... H>
+   BOOST_FORCEINLINE generic_dispatcher<tag::_20_pi, Site> dispatching__20_pi(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   {
+     return generic_dispatcher<tag::_20_pi, Site>();
+   }
+   template<class... Args>
+   struct impl__20_pi;
+  }
   /*!
     Constant \f$20\pi\f$.
 

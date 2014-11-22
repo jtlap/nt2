@@ -36,6 +36,16 @@ namespace nt2
                                 , 0x3ffa51a6625307d3ULL
                                 )
   }
+  namespace ext
+  {
+   template<class Site, class... H>
+   BOOST_FORCEINLINE generic_dispatcher<tag::Pi2o_6, Site> dispatching_Pi2o_6(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   {
+     return generic_dispatcher<tag::Pi2o_6, Site>();
+   }
+   template<class... Args>
+   struct impl_Pi2o_6;
+  }
   /*!
     Generates \f$ \pi^2/6\f$
 

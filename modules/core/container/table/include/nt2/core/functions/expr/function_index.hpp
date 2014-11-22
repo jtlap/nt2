@@ -15,7 +15,7 @@
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::function_index_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( function_index_, tag::cpu_
                             , (I)(N)(Sz)(Idx)
                             , ((node_<I, nt2::tag::aggregate_, N, nt2::container::domain>))
                               (fusion_sequence_<Sz>)

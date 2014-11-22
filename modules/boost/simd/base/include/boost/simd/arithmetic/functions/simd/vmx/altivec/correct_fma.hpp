@@ -16,7 +16,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::correct_fma_, boost::simd::tag::vmx_
+  BOOST_DISPATCH_IMPLEMENT          ( correct_fma_, boost::simd::tag::vmx_
                                     , (A0)
                                     , ((simd_<floating_<A0>,boost::simd::tag::vmx_>))
                                       ((simd_<floating_<A0>,boost::simd::tag::vmx_>))

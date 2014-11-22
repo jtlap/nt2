@@ -53,7 +53,7 @@ namespace nt2
                                   >::type
                         >
   {
-    // Case for non mpl::void_ basically
+    // Case for non boost::mpl::void_ basically
     template<class X, class E=void> struct impl
     {
       typedef std::size_t type;

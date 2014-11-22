@@ -21,7 +21,7 @@ namespace nt2 { namespace ext
   //============================================================================
   // When indexing on _, return the consecutive positions
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::relative_index_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( relative_index_, tag::cpu_
                             , (A0)(Arity)(A1)(A2)(A3)(A4)
                             , ((expr_ < colon_< A0 >
                                       , nt2::tag::terminal_
@@ -46,7 +46,7 @@ namespace nt2 { namespace ext
   //============================================================================
   // When indexing on _(a, b) with an extremum, return the current offset
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::relative_index_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( relative_index_, tag::cpu_
                             , (A0)(A1)(A2)(A3)(A4)
                             , ((node_ < A0
                                       , nt2::tag::relative_colon_
@@ -76,7 +76,7 @@ namespace nt2 { namespace ext
   //============================================================================
   // When indexing on _(a, s, b) with an extremum, return the current offset
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::relative_index_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( relative_index_, tag::cpu_
                             , (A0)(A1)(A2)(A3)(A4)
                             , ((node_ < A0
                                       , nt2::tag::relative_colon_
@@ -107,7 +107,7 @@ namespace nt2 { namespace ext
   //============================================================================
   // When indexing begin_/end_ +/- i, evaluate to proper extremum
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::relative_index_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( relative_index_, tag::cpu_
                             , (A0)(Arity)(A1)(A2)(A3)(A4)
                             , ((expr_ < extremum_< A0 >
                                       , nt2::tag::terminal_

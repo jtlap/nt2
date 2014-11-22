@@ -29,7 +29,7 @@ namespace nt2 { namespace ext
   //============================================================================
   // Generates pispace from a pair of [low,up]
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pispace_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( pispace_, tag::cpu_
                             , (A0)
                             , (scalar_< floating_<A0> >)
                             )
@@ -57,7 +57,7 @@ namespace nt2 { namespace ext
   //============================================================================
   // Generates pispace from a pair of [low,up] and a number of elements
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pispace_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( pispace_, tag::cpu_
                             , (A0)(A1)
                             , (scalar_< floating_<A0> >)
                               (scalar_< integer_<A1> >)

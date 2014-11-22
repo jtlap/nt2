@@ -18,7 +18,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::slide_
+  BOOST_DISPATCH_IMPLEMENT          ( slide_
                                     , boost::simd::tag::sse2_
                                     , (A0)(N)
                                     , ((simd_< arithmetic_<A0>
@@ -88,7 +88,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::slide_
+  BOOST_DISPATCH_IMPLEMENT          ( slide_
                                     , boost::simd::tag::sse2_
                                     , (A0)(N)
                                     , ((simd_< arithmetic_<A0>

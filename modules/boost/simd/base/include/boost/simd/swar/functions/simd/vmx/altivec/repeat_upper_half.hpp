@@ -15,7 +15,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::repeat_upper_half_
+  BOOST_DISPATCH_IMPLEMENT          ( repeat_upper_half_
                                     , boost::simd::tag::vmx_
                                     , (A0)
                                     , ((simd_ < arithmetic_<A0>

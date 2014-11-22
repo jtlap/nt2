@@ -20,7 +20,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::fast_ldexp_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT          ( fast_ldexp_, tag::cpu_
                                     , (A0)(A1)
                                     , (scalar_< integer_<A0> >)(scalar_< integer_<A1> >)
                                     )
@@ -32,7 +32,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::fast_ldexp_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT          ( fast_ldexp_, tag::cpu_
                                     , (A0)(A1)
                                     , (scalar_< floating_<A0> >)(scalar_< integer_<A1> >)
                                     )

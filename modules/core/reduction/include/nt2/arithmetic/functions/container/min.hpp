@@ -29,7 +29,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::min_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( min_, tag::cpu_
                             , (A0)(A1)(A2)
                             , (unspecified_<A0>)
                               (unspecified_<A1>)

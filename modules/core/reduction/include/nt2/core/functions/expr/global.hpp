@@ -16,7 +16,7 @@
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::global_, tag::cpu_,
+  BOOST_DISPATCH_IMPLEMENT  ( global_, tag::cpu_,
                               (A0)(A1),
                               (unspecified_<A0>)
                               ((ast_<A1, nt2::container::domain>))
@@ -29,7 +29,7 @@ namespace nt2 { namespace ext
       return a0(nt2::colvect(a1))(1);
     }
   };
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::global_, tag::cpu_,
+  BOOST_DISPATCH_IMPLEMENT  ( global_, tag::cpu_,
                               (A0)(A1),
                               (unspecified_<A0>)
                               (generic_<unspecified_<A1> > )
@@ -42,7 +42,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::global_, tag::cpu_,
+  BOOST_DISPATCH_IMPLEMENT  ( global_, tag::cpu_,
                               (A0)(A1)(A2),
                               (unspecified_<A0>)
                               ((ast_<A1, nt2::container::domain>))
@@ -56,7 +56,7 @@ namespace nt2 { namespace ext
       return a0(nt2::colvect(a1), a2)(1);
     }
   };
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::global_, tag::cpu_,
+  BOOST_DISPATCH_IMPLEMENT  ( global_, tag::cpu_,
                               (A0)(A1)(A2),
                               (unspecified_<A0>)
                               (generic_<unspecified_<A1> > )

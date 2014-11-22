@@ -24,7 +24,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::if_else_, tag::cpu_, (A0)(A1)(X)
+  BOOST_DISPATCH_IMPLEMENT          ( if_else_, tag::cpu_, (A0)(A1)(X)
                                     , ((simd_< logical_<A0>, X >))
                                       ((simd_< arithmetic_<A1>, X >))
                                       ((simd_< arithmetic_<A1>, X >))
@@ -37,7 +37,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::if_else_, tag::cpu_, (A0)(A1)(X)
+  BOOST_DISPATCH_IMPLEMENT          ( if_else_, tag::cpu_, (A0)(A1)(X)
                                     , ((simd_< arithmetic_<A0>, X >))
                                       ((simd_< arithmetic_<A1>, X >))
                                       ((simd_< arithmetic_<A1>, X >))
@@ -51,7 +51,7 @@ namespace boost { namespace simd { namespace ext
   };
 
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::if_else_, tag::cpu_, (A0)(A1)(X)
+  BOOST_DISPATCH_IMPLEMENT          ( if_else_, tag::cpu_, (A0)(A1)(X)
                                     , ((simd_< arithmetic_<A0>, X >))
                                       ((simd_< logical_<A1>, X >))
                                       ((simd_< logical_<A1>, X >))
@@ -64,7 +64,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::if_else_, tag::cpu_, (A0)(A1)(X)
+  BOOST_DISPATCH_IMPLEMENT          ( if_else_, tag::cpu_, (A0)(A1)(X)
                                     , ((simd_< logical_<A0>, X >))
                                       ((simd_< logical_<A1>, X >))
                                       ((simd_< logical_<A1>, X >))

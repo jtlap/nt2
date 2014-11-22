@@ -24,10 +24,23 @@ namespace nt2
     /*!
       @brief Tag for istriangular functor
     **/
-    struct istriangular_ : boost::dispatch::tag::formal_
+    struct istriangular_ : ext::abstract_<istriangular_>
     {
-      typedef boost::dispatch::tag::formal_ parent;
+      typedef ext::abstract_<istriangular_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_istriangular_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::istriangular_, Site> dispatching_istriangular_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::istriangular_, Site>();
+    }
+    template<class... Args>
+    struct impl_istriangular_;
   }
 
   /*!

@@ -29,6 +29,16 @@ namespace nt2
                                 , 0x3ed3509f79fef312ULL // 0.000004605038981195214
                                 )
   }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::Log10_2lo, Site> dispatching_Log10_2lo(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::Log10_2lo, Site>();
+    }
+    template<class... Args>
+    struct impl_Log10_2lo;
+  }
  /*!
     Generates constant log10_2lo.This constant is coupled with Log10_2hi and is
     used in the float logarithms computations

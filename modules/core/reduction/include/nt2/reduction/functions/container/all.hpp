@@ -20,7 +20,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::all_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( all_, tag::cpu_
                             , (A0)(T)(N)
                             , ((expr_< generic_<arithmetic_<A0> >,T,N >))
                             )
@@ -30,7 +30,7 @@ namespace boost { namespace simd { namespace ext
     )
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( boost::simd::tag::all_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( all_, tag::cpu_
                             , (A0)(T)(N)(A1)
                             , ((expr_< generic_<arithmetic_<A0> >,T,N >))
                               (scalar_< integer_<A1> >)

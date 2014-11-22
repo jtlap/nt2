@@ -14,9 +14,9 @@
 #include <nt2/include/functions/real.hpp>
 #include <nt2/sdk/complex/meta/as_dry.hpp>
 
-namespace nt2 { namespace ext
+namespace boost { namespace simd { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::frac_, tag::cpu_, (A0)
+  BOOST_DISPATCH_IMPLEMENT  ( frac_, tag::cpu_, (A0)
                             , (generic_< complex_< arithmetic_<A0> > >)
                             )
   {
@@ -27,7 +27,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::frac_, tag::cpu_, (A0)
+  BOOST_DISPATCH_IMPLEMENT  ( frac_, tag::cpu_, (A0)
                             , (generic_< dry_< arithmetic_<A0> > >)
                             )
   {
@@ -38,6 +38,6 @@ namespace nt2 { namespace ext
     }
   };
 
-} }
+} } }
 
 #endif

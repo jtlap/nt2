@@ -19,11 +19,24 @@ namespace nt2
     /*!
       @brief Tag for the normp functor
     **/
-    struct normp_ : boost::dispatch::tag::formal_
+    struct normp_ : ext::abstract_<normp_>
     {
       /// @brief Parent hierarchy
-      typedef boost::dispatch::tag::formal_ parent;
+      typedef ext::abstract_<normp_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_normp_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::normp_, Site> dispatching_normp_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::normp_, Site>();
+    }
+    template<class... Args>
+    struct impl_normp_;
   }
   /*!
     @brief Sum of the p power of absolute values of table to 1/p

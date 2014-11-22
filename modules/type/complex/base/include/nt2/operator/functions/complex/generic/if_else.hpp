@@ -19,10 +19,10 @@
 #include <nt2/include/functions/imag.hpp>
 #include <boost/dispatch/attributes.hpp>
 
-namespace nt2 { namespace ext
+namespace boost { namespace simd { namespace ext
 {
   //complex/complex 1 -1
-  NT2_FUNCTOR_IMPLEMENTATION ( nt2::tag::if_else_, tag::cpu_, (A0)
+  BOOST_DISPATCH_IMPLEMENT   ( if_else_, tag::cpu_, (A0)
                              , (generic_< complex_< arithmetic_<A0> > >)
                                (generic_< complex_< arithmetic_<A0> > >)
                                (generic_< complex_< arithmetic_<A0> > >)
@@ -37,7 +37,7 @@ namespace nt2 { namespace ext
   };
 
   //complex/complex 1 -1
-  NT2_FUNCTOR_IMPLEMENTATION ( nt2::tag::if_else_, tag::cpu_, (A0)(A1)
+  BOOST_DISPATCH_IMPLEMENT   ( if_else_, tag::cpu_, (A0)(A1)
                              , (generic_< logical_<A0> >)
                                (generic_< complex_< arithmetic_<A1> > >)
                                (generic_< complex_< arithmetic_<A1> > >)
@@ -52,7 +52,7 @@ namespace nt2 { namespace ext
   };
 
   //complex/complex 2
-  NT2_FUNCTOR_IMPLEMENTATION ( nt2::tag::if_else_, tag::cpu_, (A0)(A1)
+  BOOST_DISPATCH_IMPLEMENT   ( if_else_, tag::cpu_, (A0)(A1)
                              , (generic_< fundamental_<A0> >)
                                (generic_< complex_< arithmetic_<A1> > >)
                                (generic_< complex_< arithmetic_<A1> > >)
@@ -67,7 +67,7 @@ namespace nt2 { namespace ext
 
 
   //dry/dry 1 -5
-  NT2_FUNCTOR_IMPLEMENTATION ( nt2::tag::if_else_, tag::cpu_, (A0)(A1)
+  BOOST_DISPATCH_IMPLEMENT   ( if_else_, tag::cpu_, (A0)(A1)
                              , (generic_< logical_<A0> >)
                                (generic_< dry_< arithmetic_<A1> > >)
                                (generic_< dry_< arithmetic_<A1> > >)
@@ -81,7 +81,7 @@ namespace nt2 { namespace ext
   };
 
   //dry/dry 2
-  NT2_FUNCTOR_IMPLEMENTATION ( nt2::tag::if_else_, tag::cpu_, (A0)(A1)
+  BOOST_DISPATCH_IMPLEMENT   ( if_else_, tag::cpu_, (A0)(A1)
                              , (generic_< fundamental_<A0> >)
                                (generic_< dry_< arithmetic_<A1> > >)
                                (generic_< dry_< arithmetic_<A1> > >)
@@ -95,7 +95,7 @@ namespace nt2 { namespace ext
   };
 
   //dry/complex 1 -6
-  NT2_FUNCTOR_IMPLEMENTATION ( nt2::tag::if_else_, tag::cpu_, (A0)(A1)(A2)
+  BOOST_DISPATCH_IMPLEMENT   ( if_else_, tag::cpu_, (A0)(A1)(A2)
                              , (generic_< logical_<A0> >)
                                (generic_< dry_< arithmetic_<A1> > >)
                                (generic_< complex_< arithmetic_<A2> > >)
@@ -109,7 +109,7 @@ namespace nt2 { namespace ext
   };
 
   //dry/complex 2
-  NT2_FUNCTOR_IMPLEMENTATION ( nt2::tag::if_else_, tag::cpu_, (A0)(A1)(A2)
+  BOOST_DISPATCH_IMPLEMENT   ( if_else_, tag::cpu_, (A0)(A1)(A2)
                              , (generic_< fundamental_<A0> >)
                                (generic_< dry_< arithmetic_<A1> > >)
                                (generic_< complex_< arithmetic_<A2> > >)
@@ -123,7 +123,7 @@ namespace nt2 { namespace ext
   };
 
   //complex/dry/ 1 -7
-  NT2_FUNCTOR_IMPLEMENTATION ( nt2::tag::if_else_, tag::cpu_, (A0)(A1)(A2)
+  BOOST_DISPATCH_IMPLEMENT   ( if_else_, tag::cpu_, (A0)(A1)(A2)
                              , (generic_< logical_<A0> >)
                                (generic_< complex_< arithmetic_<A1> > >)
                                (generic_< dry_< arithmetic_<A2> > >)
@@ -137,7 +137,7 @@ namespace nt2 { namespace ext
   };
 
   //complex/dry/ 2
-  NT2_FUNCTOR_IMPLEMENTATION ( nt2::tag::if_else_, tag::cpu_, (A0)(A1)(A2)
+  BOOST_DISPATCH_IMPLEMENT   ( if_else_, tag::cpu_, (A0)(A1)(A2)
                              , (generic_< fundamental_<A0> >)
                                (generic_< complex_< arithmetic_<A1> > >)
                                (generic_< dry_< arithmetic_<A2> > >)
@@ -151,7 +151,7 @@ namespace nt2 { namespace ext
   };
 
   //arithmetic/dry 1
-  NT2_FUNCTOR_IMPLEMENTATION ( nt2::tag::if_else_, tag::cpu_, (A0)(A1)(A2)
+  BOOST_DISPATCH_IMPLEMENT   ( if_else_, tag::cpu_, (A0)(A1)(A2)
                              , (generic_< logical_<A0> >)
                                (generic_< arithmetic_<A1> >)
                                (generic_< dry_< arithmetic_<A2> > >)
@@ -165,7 +165,7 @@ namespace nt2 { namespace ext
   };
 
   //arithmetic/dry 2
-  NT2_FUNCTOR_IMPLEMENTATION ( nt2::tag::if_else_, tag::cpu_, (A0)(A1)(A2)
+  BOOST_DISPATCH_IMPLEMENT   ( if_else_, tag::cpu_, (A0)(A1)(A2)
                              , (generic_< fundamental_<A0> >)
                                (generic_< arithmetic_<A1> >)
                                (generic_< dry_< arithmetic_<A2> > >)
@@ -179,7 +179,7 @@ namespace nt2 { namespace ext
   };
 
   //arithmetic/complex 1
-  NT2_FUNCTOR_IMPLEMENTATION ( nt2::tag::if_else_, tag::cpu_, (A0)(A1)(A2)
+  BOOST_DISPATCH_IMPLEMENT   ( if_else_, tag::cpu_, (A0)(A1)(A2)
                              , (generic_< logical_<A0> >)
                                (generic_< arithmetic_<A1> >)
                                (generic_< complex_< arithmetic_<A2> > >)
@@ -193,7 +193,7 @@ namespace nt2 { namespace ext
   };
 
   //arithmetic/complex 2
-  NT2_FUNCTOR_IMPLEMENTATION ( nt2::tag::if_else_, tag::cpu_, (A0)(A1)(A2)
+  BOOST_DISPATCH_IMPLEMENT   ( if_else_, tag::cpu_, (A0)(A1)(A2)
                              , (generic_< fundamental_<A0> >)
                                (generic_< arithmetic_<A1> >)
                                (generic_< complex_< arithmetic_<A2> > >)
@@ -207,7 +207,7 @@ namespace nt2 { namespace ext
   };
 
   //dry/arithmetic/   1
-  NT2_FUNCTOR_IMPLEMENTATION ( nt2::tag::if_else_, tag::cpu_, (A0)(A1)(A2)
+  BOOST_DISPATCH_IMPLEMENT   ( if_else_, tag::cpu_, (A0)(A1)(A2)
                              , (generic_< logical_<A0> >)
                                (generic_< dry_< arithmetic_<A1> > >)
                                (generic_< arithmetic_<A2> >)
@@ -221,7 +221,7 @@ namespace nt2 { namespace ext
   };
 
   //dry/arithmetic_ 2
-  NT2_FUNCTOR_IMPLEMENTATION ( nt2::tag::if_else_, tag::cpu_, (A0)(A1)(A2)
+  BOOST_DISPATCH_IMPLEMENT   ( if_else_, tag::cpu_, (A0)(A1)(A2)
                              , (generic_< fundamental_<A0> >)
                                (generic_< dry_< arithmetic_<A1> > >)
                                (generic_< arithmetic_<A2> >)
@@ -235,7 +235,7 @@ namespace nt2 { namespace ext
   };
 
   //complex/arithmetic/   1
-  NT2_FUNCTOR_IMPLEMENTATION ( nt2::tag::if_else_, tag::cpu_, (A0)(A1)(A2)
+  BOOST_DISPATCH_IMPLEMENT   ( if_else_, tag::cpu_, (A0)(A1)(A2)
                              , (generic_< logical_<A0> >)
                                (generic_< complex_< arithmetic_<A1> > >)
                                (generic_< arithmetic_<A2> >)
@@ -249,7 +249,7 @@ namespace nt2 { namespace ext
   };
 
   //complex/arithmetic_ 2
-  NT2_FUNCTOR_IMPLEMENTATION ( nt2::tag::if_else_, tag::cpu_, (A0)(A1)(A2)
+  BOOST_DISPATCH_IMPLEMENT   ( if_else_, tag::cpu_, (A0)(A1)(A2)
                              , (generic_< fundamental_<A0> >)
                                (generic_< complex_< arithmetic_<A1> > >)
                                (generic_< arithmetic_<A2> >)
@@ -262,6 +262,6 @@ namespace nt2 { namespace ext
     }
   };
 
-} }
+} } }
 
 #endif

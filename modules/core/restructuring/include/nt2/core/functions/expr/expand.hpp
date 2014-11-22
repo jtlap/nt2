@@ -17,7 +17,7 @@
 namespace nt2 { namespace ext
 {
   /// INTERNAL ONLY - expand from ast + fusion sequence as size
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::expand_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( expand_, tag::cpu_
                             , (A0)(A1)
                             , ((ast_<A0, nt2::container::domain>))
                               (fusion_sequence_<A1>)
@@ -35,7 +35,7 @@ namespace nt2 { namespace ext
   };
 
   /// INTERNAL ONLY - expand from scalar + fusion sequence as size
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::expand_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( expand_, tag::cpu_
                             , (A0)(A1)
                             , (scalar_<unspecified_<A0> >)
                               (fusion_sequence_<A1>)
@@ -52,7 +52,7 @@ namespace nt2 { namespace ext
                           )
   };
   /// INTERNAL ONLY - expand from ast + ast as size
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::expand_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( expand_, tag::cpu_
                             , (A0)(A1)
                             , ((ast_<A0, nt2::container::domain>))
                               ((ast_<A1, nt2::container::domain>))
@@ -64,7 +64,7 @@ namespace nt2 { namespace ext
   };
 
   /// INTERNAL ONLY - expand from scalar + ast as size
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::expand_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( expand_, tag::cpu_
                             , (A0)(A1)
                             , (scalar_<unspecified_<A0> >)
                               ((ast_<A1, nt2::container::domain>))

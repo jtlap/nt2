@@ -18,7 +18,7 @@
 namespace nt2 { namespace ext
 {
   /// INTERNAL ONLY
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::dot_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( dot_, tag::cpu_
                             , (A0)(A1)
                             , (scalar_< floating_<A0> >)
                               (scalar_< floating_<A0> >)

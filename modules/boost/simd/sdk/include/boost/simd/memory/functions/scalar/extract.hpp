@@ -18,7 +18,7 @@
 namespace boost { namespace simd { namespace ext
 {
   /// INTERNAL ONLY
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::extract_
+  BOOST_DISPATCH_IMPLEMENT          ( extract_
                                     , tag::cpu_
                                     , (A0)(A1)
                                     , (scalar_< unspecified_<A0> >)

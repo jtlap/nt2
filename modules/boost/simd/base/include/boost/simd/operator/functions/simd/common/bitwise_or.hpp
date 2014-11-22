@@ -18,7 +18,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF ( boost::simd::tag::bitwise_or_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT_IF          ( bitwise_or_, tag::cpu_
                                        , (A0)(A1)(X)
                                        , (boost::mpl::not_< boost::is_same<A0, A1> >)
                                        , ((simd_<arithmetic_<A0>,X>))

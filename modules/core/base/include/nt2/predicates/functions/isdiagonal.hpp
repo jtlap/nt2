@@ -21,10 +21,23 @@ namespace nt2
 {
   namespace tag
   {
-    struct isdiagonal_ : boost::dispatch::tag::formal_
+    struct isdiagonal_ : ext::abstract_<isdiagonal_>
     {
-      typedef boost::dispatch::tag::formal_ parent;
+      typedef ext::abstract_<isdiagonal_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_isdiagonal_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::isdiagonal_, Site> dispatching_isdiagonal_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::isdiagonal_, Site>();
+    }
+    template<class... Args>
+    struct impl_isdiagonal_;
   }
 
   /*!

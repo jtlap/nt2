@@ -16,7 +16,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_not_nan_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT         ( is_not_nan_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<arithmetic_<A0>,X>))
                             )
@@ -27,7 +27,7 @@ namespace boost { namespace simd { namespace ext
       return boost::simd::True<result_type>();
     }
   };
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_not_nan_, tag::cpu_, (A0)(X)
+  BOOST_DISPATCH_IMPLEMENT         ( is_not_nan_, tag::cpu_, (A0)(X)
                             , ((simd_<floating_<A0>,X>))
                             )
   {

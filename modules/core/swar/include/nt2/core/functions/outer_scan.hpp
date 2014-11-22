@@ -23,7 +23,20 @@ namespace nt2
     struct outer_scan_ : ext::unspecified_<outer_scan_>
     {
       typedef ext::unspecified_<outer_scan_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_outer_scan_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::outer_scan_, Site> dispatching_outer_scan_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::outer_scan_, Site>();
+    }
+    template<class... Args>
+    struct impl_outer_scan_;
   }
 
   //============================================================================

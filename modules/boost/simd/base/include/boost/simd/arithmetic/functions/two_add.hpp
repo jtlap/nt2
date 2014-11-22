@@ -24,7 +24,20 @@ namespace boost { namespace simd
     struct two_add_ : ext::elementwise_<two_add_>
     {
       typedef ext::elementwise_<two_add_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_two_add_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::two_add_, Site> dispatching_two_add_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::two_add_, Site>();
+    }
+    template<class... Args>
+    struct impl_two_add_;
   }
 
   /*!

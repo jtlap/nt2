@@ -21,7 +21,17 @@ namespace nt2 { namespace tag
      @par Models:
         Hierarchy
    **/
-    struct tand_ : ext::elementwise_<tand_> { typedef ext::elementwise_<tand_> parent; };
+    struct tand_ : ext::elementwise_<tand_> { typedef ext::elementwise_<tand_> parent;   template<class... Args>   static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)   BOOST_AUTO_DECLTYPE_BODY( dispatching_tand_( ext::adl_helper(), static_cast<Args&&>(args)... ) ) };
+  }
+  namespace ext
+  {
+   template<class Site, class... H>
+   BOOST_FORCEINLINE generic_dispatcher<tag::tand_, Site> dispatching_tand_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   {
+     return generic_dispatcher<tag::tand_, Site>();
+   }
+   template<class... Args>
+   struct impl_tand_;
   }
   /*!
     tangent of the input in degrees.

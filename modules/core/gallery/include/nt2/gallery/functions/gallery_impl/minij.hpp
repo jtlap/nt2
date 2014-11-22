@@ -16,7 +16,7 @@
 namespace nt2 {namespace ext
 {
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::minij_, tag::cpu_,
+  BOOST_DISPATCH_IMPLEMENT  ( minij_, tag::cpu_,
                               (A0)(T),
                               (scalar_<integer_<A0> >)
                               (target_<scalar_<floating_<T> > >)
@@ -31,7 +31,7 @@ namespace nt2 {namespace ext
   };
 
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::minij_, tag::cpu_,
+  BOOST_DISPATCH_IMPLEMENT  ( minij_, tag::cpu_,
                               (A0)(A1)(T),
                               (scalar_<integer_<A0> >)
                               (scalar_<integer_<A1> >)

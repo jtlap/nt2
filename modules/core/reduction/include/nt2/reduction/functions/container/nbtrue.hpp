@@ -17,7 +17,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::nbtrue_, tag::cpu_,
+  BOOST_DISPATCH_IMPLEMENT  ( nbtrue_, tag::cpu_,
                               (A0),
                               ((ast_<A0, nt2::container::domain>))
                             )
@@ -27,7 +27,7 @@ namespace boost { namespace simd { namespace ext
     )
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::nbtrue_, tag::cpu_,
+  BOOST_DISPATCH_IMPLEMENT  ( nbtrue_, tag::cpu_,
                               (A0)(A1),
                               ((ast_<A0, nt2::container::domain>))
                               (scalar_<integer_<A1> >)

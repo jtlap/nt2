@@ -16,7 +16,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::enumerate_
+  BOOST_DISPATCH_IMPLEMENT          ( enumerate_
                                     , boost::simd::tag::vmx_
                                     , (T)
                                     , ((target_

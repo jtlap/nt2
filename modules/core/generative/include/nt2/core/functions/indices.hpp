@@ -29,7 +29,20 @@ namespace nt2
     {
       typedef ext::state_constant_<indices_>  parent;
       typedef double                          default_type;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_indices_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::indices_, Site> dispatching_indices_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::indices_, Site>();
+    }
+    template<class... Args>
+    struct impl_indices_;
   }
 
   #define M0(z,n,t)                                           \

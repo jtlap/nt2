@@ -31,7 +31,7 @@
 namespace nt2 { namespace ext
 {
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::gesvx_,  nt2::tag::magma_<site>
+  BOOST_DISPATCH_IMPLEMENT  ( gesvx_,  nt2::tag::magma_<site>
                             , (A0)(S0)(A1)(S1)(A2)(S2)(A3)(site)
                             , ((container_< nt2::tag::table_,  double_<A0>, S0 >))  //A
                               ((container_< nt2::tag::table_,  double_<A1>, S1 >))  // B
@@ -83,7 +83,7 @@ namespace nt2 { namespace ext
   };
 
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::gesvx_,  nt2::tag::magma_<site>
+  BOOST_DISPATCH_IMPLEMENT  ( gesvx_,  nt2::tag::magma_<site>
                             , (A0)(S0)(A1)(S1)(A2)(S2)(A3)(site)
                             , ((container_< nt2::tag::table_,  single_<A0>, S0 >))  //A
                               ((container_< nt2::tag::table_,  single_<A1>, S1 >))  // B
@@ -132,7 +132,7 @@ namespace nt2 { namespace ext
   };
 
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::gesvx_,  nt2::tag::magma_<site>
+  BOOST_DISPATCH_IMPLEMENT  ( gesvx_,  nt2::tag::magma_<site>
                             , (A0)(S0)(A1)(S1)(A2)(S2)(A3)(site)
                             , ((container_< nt2::tag::table_,  complex_<double_<A0> >, S0 >))  //A
                               ((container_< nt2::tag::table_,  complex_<double_<A1> >, S1 >))  // B
@@ -186,7 +186,7 @@ namespace nt2 { namespace ext
   };
 
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::gesvx_,  nt2::tag::magma_<site>
+  BOOST_DISPATCH_IMPLEMENT  ( gesvx_,  nt2::tag::magma_<site>
                             , (A0)(S0)(A1)(S1)(A2)(S2)(A3)(site)
                             , ((container_< nt2::tag::table_,  complex_<single_<A0> >, S0 >))  //A
                               ((container_< nt2::tag::table_,  complex_<single_<A1> >, S1 >))  // B

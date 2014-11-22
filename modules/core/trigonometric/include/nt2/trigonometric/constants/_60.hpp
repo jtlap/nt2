@@ -29,6 +29,16 @@ namespace nt2
                                 , 0x404e000000000000ULL
                                 )
   }
+  namespace ext
+  {
+   template<class Site, class... H>
+   BOOST_FORCEINLINE generic_dispatcher<tag::_60, Site> dispatching__60(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   {
+     return generic_dispatcher<tag::_60, Site>();
+   }
+   template<class... Args>
+   struct impl__60;
+  }
   /*!
     Constant 60.
 

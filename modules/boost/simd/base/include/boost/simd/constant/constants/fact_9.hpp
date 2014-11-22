@@ -36,6 +36,16 @@ namespace boost { namespace simd
                                 , 362880, 0x48b13000,0x4116260000000000ll
                                 )
   }
+  namespace ext
+  {
+   template<class Site, class... H>
+   BOOST_FORCEINLINE generic_dispatcher<tag::Fact_9, Site> dispatching_Fact_9(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   {
+     return generic_dispatcher<tag::Fact_9, Site>();
+   }
+   template<class... Args>
+   struct impl_Fact_9;
+  }
   /*!
     Generates 9! that is 362880,
 

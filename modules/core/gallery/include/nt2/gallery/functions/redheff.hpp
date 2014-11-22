@@ -57,10 +57,23 @@ namespace nt2 { namespace tag
      * \brief Define the tag redheff_ of functor redheff
      *        in namespace nt2::tag for toolbox algebra
     **/
-    struct redheff_ : boost::dispatch::tag::formal_
+    struct redheff_ : ext::abstract_<redheff_>
     {
-      typedef boost::dispatch::tag::formal_ parent;
+      typedef ext::abstract_<redheff_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_redheff_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::redheff_, Site> dispatching_redheff_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::redheff_, Site>();
+    }
+    template<class... Args>
+    struct impl_redheff_;
   }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::redheff_, redheff, 2)

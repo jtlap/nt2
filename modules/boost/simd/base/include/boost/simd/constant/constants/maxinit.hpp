@@ -41,6 +41,9 @@ namespace boost { namespace simd
       template<class Target, class Dummy=void>
       struct  apply
             : meta::int_c < typename Target::type, 0> {};
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_Maxinit( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
 
     /// INTERNAL ONLY
@@ -76,6 +79,16 @@ namespace boost { namespace simd
       : meta::int_c < T
                     , T(-boost::simd::uint64_t(9223372036854775808ULL))
                     > {};
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::Maxinit, Site> dispatching_Maxinit(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::Maxinit, Site>();
+    }
+    template<class... Args>
+    struct impl_Maxinit;
   }
   /*!
     Generates the least finite value of a type for the current order,

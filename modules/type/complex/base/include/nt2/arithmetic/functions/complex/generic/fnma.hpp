@@ -15,9 +15,9 @@
 #include <nt2/include/functions/minus.hpp>
 #include <nt2/include/functions/unary_minus.hpp>
 
-namespace nt2 { namespace ext
+namespace boost { namespace simd { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::fnma_, tag::cpu_, (A0)(A1)(A2)
+  BOOST_DISPATCH_IMPLEMENT  ( fnma_, tag::cpu_, (A0)(A1)(A2)
                             , (generic_<complex_<arithmetic_<A0> > > )
                               (generic_<complex_<arithmetic_<A1> > > )
                               (generic_<complex_<arithmetic_<A2> > > )
@@ -31,7 +31,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::fnma_, tag::cpu_, (A0)(A1)(A2)
+  BOOST_DISPATCH_IMPLEMENT  ( fnma_, tag::cpu_, (A0)(A1)(A2)
                             , (generic_<complex_<arithmetic_<A0> > > )
                               (generic_<arithmetic_<A1> > )
                               (generic_<arithmetic_<A2> > )
@@ -45,7 +45,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::fnma_, tag::cpu_, (A0)(A1)(A2)
+  BOOST_DISPATCH_IMPLEMENT  ( fnma_, tag::cpu_, (A0)(A1)(A2)
                             , (generic_<arithmetic_<A0> > )
                               (generic_<complex_<arithmetic_<A1> > > )
                               (generic_<arithmetic_<A2> > )
@@ -59,7 +59,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::fnma_, tag::cpu_, (A0)(A1)(A2)
+  BOOST_DISPATCH_IMPLEMENT  ( fnma_, tag::cpu_, (A0)(A1)(A2)
                             , (generic_<arithmetic_<A0> > )
                               (generic_<arithmetic_<A1> > )
                               (generic_<complex_<arithmetic_<A2> > > )
@@ -73,7 +73,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::fnma_, tag::cpu_, (A0)(A1)(A2)
+  BOOST_DISPATCH_IMPLEMENT  ( fnma_, tag::cpu_, (A0)(A1)(A2)
                             , (generic_<complex_<arithmetic_<A0> > > )
                               (generic_<complex_<arithmetic_<A1> > > )
                               (generic_<arithmetic_<A2> > )
@@ -87,7 +87,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::fnma_, tag::cpu_, (A0)(A1)(A2)
+  BOOST_DISPATCH_IMPLEMENT  ( fnma_, tag::cpu_, (A0)(A1)(A2)
                             , (generic_<arithmetic_<A0> > )
                               (generic_<complex_<arithmetic_<A1> > > )
                               (generic_<complex_<arithmetic_<A2> > > )
@@ -101,7 +101,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::fnma_, tag::cpu_, (A0)(A1)(A2)
+  BOOST_DISPATCH_IMPLEMENT  ( fnma_, tag::cpu_, (A0)(A1)(A2)
                             , (generic_<complex_<arithmetic_<A0> > > )
                               (generic_<arithmetic_<A1> > )
                               (generic_<complex_<arithmetic_<A2> > > )
@@ -114,6 +114,6 @@ namespace nt2 { namespace ext
       return - a0 * a1 - a2;
     }
   };
-} }
+} } }
 
 #endif

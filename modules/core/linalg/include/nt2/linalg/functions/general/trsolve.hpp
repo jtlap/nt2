@@ -66,7 +66,7 @@ namespace nt2 { namespace ext
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::trsolve_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( trsolve_, tag::cpu_
                             , (A0)(A1)
                             , ((ast_<A0, nt2::container::domain>))
                               ((ast_<A1, nt2::container::domain>))
@@ -80,7 +80,7 @@ namespace nt2 { namespace ext
   };
 
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::trsolve_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( trsolve_, tag::cpu_
                             , (A0)(A1)
                             , ((node_< A0, nt2::tag::transpose_, boost::mpl::long_<1> , nt2::container::domain>))
                               ((ast_<A1, nt2::container::domain>))
@@ -97,7 +97,7 @@ namespace nt2 { namespace ext
   };
 
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::trsolve_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( trsolve_, tag::cpu_
                             , (A0)(A1)
                             , ((node_< A0, nt2::tag::ctranspose_, boost::mpl::long_<1> , nt2::container::domain>))
                               ((ast_<A1, nt2::container::domain>))
@@ -113,7 +113,7 @@ namespace nt2 { namespace ext
     )
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::trsolve_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( trsolve_, tag::cpu_
                             , (A0)(A1)(A2)
                             , ((ast_<A0, nt2::container::domain>))
                               ((ast_<A1, nt2::container::domain>))
@@ -127,7 +127,7 @@ namespace nt2 { namespace ext
     )
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::trsolve_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( trsolve_, tag::cpu_
                             , (A0)(A1)(A2)
                             , ((node_< A0, nt2::tag::transpose_, boost::mpl::long_<1> , nt2::container::domain>))
                               ((ast_<A1, nt2::container::domain>))
@@ -143,7 +143,7 @@ namespace nt2 { namespace ext
     )
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::trsolve_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( trsolve_, tag::cpu_
                             , (A0)(A1)(A2)
                             , ((node_< A0, nt2::tag::ctranspose_, boost::mpl::long_<1> , nt2::container::domain>))
                               ((ast_<A1, nt2::container::domain>))
@@ -161,7 +161,7 @@ namespace nt2 { namespace ext
 
   // no shape for input matrix so add it as a parameter
 
-    NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::trsolve_, tag::cpu_
+    BOOST_DISPATCH_IMPLEMENT  ( trsolve_, tag::cpu_
                             , (A0)(A1)(A2)
                             , ((ast_<A0, nt2::container::domain>))
                               ((ast_<A1, nt2::container::domain>))
@@ -175,7 +175,7 @@ namespace nt2 { namespace ext
     )
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::trsolve_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( trsolve_, tag::cpu_
                             , (A0)(A1)(A2)
                             , ((node_< A0, nt2::tag::transpose_, boost::mpl::long_<1> , nt2::container::domain>))
                               ((ast_<A1, nt2::container::domain>))
@@ -188,7 +188,7 @@ namespace nt2 { namespace ext
     )
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::trsolve_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( trsolve_, tag::cpu_
                             , (A0)(A1)(A2)
                             , ((node_< A0, nt2::tag::ctranspose_, boost::mpl::long_<1> , nt2::container::domain>))
                               ((ast_<A1, nt2::container::domain>))
@@ -201,7 +201,7 @@ namespace nt2 { namespace ext
     )
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::trsolve_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( trsolve_, tag::cpu_
                             , (A0)(A1)(A2)(A3)(A4)(A5)(A6)
                             , ((ast_<A0, nt2::container::domain>))
                               ((ast_<A1, nt2::container::domain>))
@@ -220,7 +220,7 @@ namespace nt2 { namespace ext
   };
 
   // run_assign
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_assign_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( run_assign_, tag::cpu_
                             , (A0)(A1)
                             , ((ast_<A0, nt2::container::domain>))
                               ((node_< A1, nt2::tag::trsolve_, boost::mpl::long_<7> , nt2::container::domain>))

@@ -20,7 +20,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::bitwise_notand_
+  BOOST_DISPATCH_IMPLEMENT         ( bitwise_notand_
                                    , tag::cpu_, (A0)(X)
                                    , ((simd_<arithmetic_<A0>,X>))
                                      ((simd_<arithmetic_<A0>,X>))
@@ -33,7 +33,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF ( boost::simd::tag::bitwise_notand_
+  BOOST_DISPATCH_IMPLEMENT_IF          ( bitwise_notand_
                                        , tag::cpu_, (A0)(A1)(X)
                                        , (boost::mpl::not_ < is_same<A0, A1> >)
                                        , ((simd_<arithmetic_<A0>,X>))

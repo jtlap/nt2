@@ -57,7 +57,17 @@ namespace nt2
      * \brief Define the tag pure_ of functor pure
      *        in namespace nt2::tag for toolbox complex
     **/
-    struct pure_ : ext::elementwise_<pure_> { typedef ext::elementwise_<pure_> parent; };
+    struct pure_ : ext::elementwise_<pure_> { typedef ext::elementwise_<pure_> parent;   template<class... Args>   static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)   BOOST_AUTO_DECLTYPE_BODY( dispatching_pure_( ext::adl_helper(), static_cast<Args&&>(args)... ) ) };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::pure_, Site> dispatching_pure_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::pure_, Site>();
+    }
+    template<class... Args>
+    struct impl_pure_;
   }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::pure_, pure, 1)

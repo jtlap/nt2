@@ -17,7 +17,7 @@
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::size_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( size_, tag::cpu_
                             , (A0)(S0)(K0)
                             , ((container_<K0,unspecified_<A0>,S0>))
                             )
@@ -44,7 +44,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::size_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( size_, tag::cpu_
                             , (A0)(S0)(K0)(A1)
                             , ((container_<K0,unspecified_<A0>,S0>))
                               (scalar_< unspecified_<A1> >)

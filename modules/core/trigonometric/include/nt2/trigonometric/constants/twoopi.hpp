@@ -29,6 +29,16 @@ namespace nt2
                                 , 0x3fe45f306dc9c883ll
                                 )
   }
+  namespace ext
+  {
+   template<class Site, class... H>
+   BOOST_FORCEINLINE generic_dispatcher<tag::Twoopi, Site> dispatching_Twoopi(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   {
+     return generic_dispatcher<tag::Twoopi, Site>();
+   }
+   template<class... Args>
+   struct impl_Twoopi;
+  }
   /*!
     Constant \f$\frac2\pi\f$.
 

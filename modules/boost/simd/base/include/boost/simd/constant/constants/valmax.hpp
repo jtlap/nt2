@@ -54,6 +54,9 @@ namespace boost { namespace simd
 
         typedef  meta::int_c < target_t, value> type;
       };
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_Valmax( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
 
     /// INTERNAL ONLY
@@ -85,6 +88,16 @@ namespace boost { namespace simd
     template<class T, class Dummy>
     struct  Valmax::apply<boost::dispatch::meta::uint64_<T>,Dummy>
           : meta::int_c<T, 0xFFFFFFFFFFFFFFFFULL> {};
+  }
+  namespace ext
+  {
+   template<class Site, class... H>
+   BOOST_FORCEINLINE generic_dispatcher<tag::Valmax, Site> dispatching_Valmax(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   {
+     return generic_dispatcher<tag::Valmax, Site>();
+   }
+   template<class... Args>
+   struct impl_Valmax;
   }
   /*!
     Generates the greatest finite value of a type.

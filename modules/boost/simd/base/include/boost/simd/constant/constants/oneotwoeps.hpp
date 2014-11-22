@@ -30,6 +30,16 @@ namespace boost { namespace simd
                                 , 0X4A800000UL
                                 , 0x4320000000000000ULL)
   }
+  namespace ext
+  {
+   template<class Site, class... H>
+   BOOST_FORCEINLINE generic_dispatcher<tag::Oneotwoeps, Site> dispatching_Oneotwoeps(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   {
+     return generic_dispatcher<tag::Oneotwoeps, Site>();
+   }
+   template<class... Args>
+   struct impl_Oneotwoeps;
+  }
   /*!
     Generates \f$1/(2\epsilon)\f$
 

@@ -14,7 +14,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_imag_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT         ( is_imag_, tag::cpu_
                             , (A0)
                             , (generic_< arithmetic_<A0> >)
                             )

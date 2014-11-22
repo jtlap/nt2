@@ -15,7 +15,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::complement_, boost::simd::tag::vmx_, (A0)
+  BOOST_DISPATCH_IMPLEMENT         ( complement_, boost::simd::tag::vmx_, (A0)
                             , ((simd_<arithmetic_<A0>,boost::simd::tag::vmx_>))
                             )
   {

@@ -23,7 +23,7 @@
 // compute atan (pi*x)  for -1/2 <= x << 1/2 else return nan
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::proper_tanpi_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( proper_tanpi_, tag::cpu_
                             , (A0)
                             , (scalar_< floating_<A0> >)
                             )

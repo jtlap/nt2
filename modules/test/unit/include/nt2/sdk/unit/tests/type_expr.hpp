@@ -32,7 +32,7 @@
   For a given @c Expression, consider the test successful if and only if
 
   @code
-  is_same<boost::mpl::apply<Lambda,decltype(Expression)>::type,Type>::value == true
+  boost::is_same<boost::mpl::apply<Lambda,decltype(Expression)>::type,Type>::value == true
   @endcode
 
   @usage{test_type_expr.cpp}

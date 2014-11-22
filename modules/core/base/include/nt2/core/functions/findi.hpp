@@ -27,10 +27,23 @@ namespace nt2
     /*!
       @brief Tag for the findi functor
     **/
-    struct findi_ : boost::dispatch::tag::formal_
+    struct findi_ : ext::abstract_<findi_>
     {
-      typedef boost::dispatch::tag::formal_ parent;
+      typedef ext::abstract_<findi_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_findi_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::findi_, Site> dispatching_findi_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::findi_, Site>();
+    }
+    template<class... Args>
+    struct impl_findi_;
   }
 
   /*!

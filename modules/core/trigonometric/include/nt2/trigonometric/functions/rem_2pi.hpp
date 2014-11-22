@@ -21,7 +21,17 @@ namespace nt2 { namespace tag
      @par Models:
         Hierarchy
    **/
-    struct rem_2pi_ : ext::elementwise_<rem_2pi_> { typedef ext::elementwise_<rem_2pi_> parent; };
+    struct rem_2pi_ : ext::elementwise_<rem_2pi_> { typedef ext::elementwise_<rem_2pi_> parent;   template<class... Args>   static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)   BOOST_AUTO_DECLTYPE_BODY( dispatching_rem_2pi_( ext::adl_helper(), static_cast<Args&&>(args)... ) ) };
+  }
+  namespace ext
+  {
+   template<class Site, class... H>
+   BOOST_FORCEINLINE generic_dispatcher<tag::rem_2pi_, Site> dispatching_rem_2pi_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   {
+     return generic_dispatcher<tag::rem_2pi_, Site>();
+   }
+   template<class... Args>
+   struct impl_rem_2pi_;
   }
   /*!
     compute the remainder modulo \f$2\pi\f$.

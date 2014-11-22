@@ -18,7 +18,7 @@ namespace boost { namespace simd { namespace ext
   //////////////////////////////////////////////////////////////////////////////
   // a/b use a bit preserving algorithm from vecLib by Apple
   //////////////////////////////////////////////////////////////////////////////
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divides_, boost::simd::tag::vmx_, (A0)(A1)
+  BOOST_DISPATCH_IMPLEMENT         ( divides_, boost::simd::tag::vmx_, (A0)(A1)
                             , ((simd_<ints16_<A0>,boost::simd::tag::vmx_>))
                               ((simd_<ints16_<A1>,boost::simd::tag::vmx_>)))
   {

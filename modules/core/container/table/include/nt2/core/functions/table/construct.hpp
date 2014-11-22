@@ -24,7 +24,7 @@ namespace nt2 { namespace ext
   /// INTERNAL ONLY
   /// Construct a terminal from a size
   ///  * Perform a resize on the table's container
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::construct_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( construct_, tag::cpu_
                             , (A0)(A1)
                             , ((node_ < A0,nt2::tag::terminal_
                                       , boost::mpl::long_<0>
@@ -52,7 +52,7 @@ namespace nt2 { namespace ext
   ///
   /// This is done even if swap sounds bad with automatic storage table.
   /// Good news are that automatic_  table usually don't require allocators ;)
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::construct_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( construct_, tag::cpu_
                             , (A0)(A1)(A2)
                             , ((node_ < A0,nt2::tag::terminal_
                                       , boost::mpl::long_<0>
@@ -80,7 +80,7 @@ namespace nt2 { namespace ext
   /// Construct a terminal from another expression
   /// Non trivial assignment is passed to the parent expression type that will
   /// select how to perform the expression evaluation.
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::construct_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( construct_, tag::cpu_
                             , (A0)(A1)
                             , ((node_ < A0,nt2::tag::terminal_
                                       , boost::mpl::long_<0>
@@ -103,7 +103,7 @@ namespace nt2 { namespace ext
   /// Construct a terminal from a scalar:
   ///  * Resize table to [1 1]
   ///  * Copy the scalar to the table memory (*raw() is the easiest way)
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::construct_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( construct_, tag::cpu_
                             , (A0)(A1)
                             , ((node_ < A0,nt2::tag::terminal_
                                       , boost::mpl::long_<0>
@@ -125,7 +125,7 @@ namespace nt2 { namespace ext
 
   /// INTERNAL ONLY
   /// Construct a terminal from a size and a Iterator pair
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::construct_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( construct_, tag::cpu_
                             , (A0)(A1)(A2)(A3)
                             , ((node_ < A0,nt2::tag::terminal_
                                       , boost::mpl::long_<0>

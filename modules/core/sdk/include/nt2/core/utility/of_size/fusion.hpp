@@ -26,12 +26,12 @@ namespace boost { namespace fusion { namespace extension
   //============================================================================
   template<> struct is_sequence_impl<nt2::tag::of_size_>
   {
-    template<typename Seq> struct apply : mpl::true_ {};
+    template<typename Seq> struct apply : boost::mpl::true_ {};
   };
 
   template<> struct is_view_impl<nt2::tag::of_size_>
   {
-    template<typename Seq> struct apply : mpl::false_ {};
+    template<typename Seq> struct apply : boost::mpl::false_ {};
   };
 
   template<> struct category_of_impl<nt2::tag::of_size_>
@@ -48,7 +48,7 @@ namespace boost { namespace fusion { namespace extension
   //============================================================================
   template<> struct size_impl<nt2::tag::of_size_>
   {
-    template<typename Seq> struct apply : mpl::size_t<Seq::static_size> {};
+    template<typename Seq> struct apply : boost::mpl::size_t<Seq::static_size> {};
   };
 
   //============================================================================
@@ -71,21 +71,21 @@ namespace boost { namespace fusion { namespace extension
     template<class Seq, class Index, std::size_t S>
     struct  select_apply<Seq, Index, S, true>
           : apply_impl< Seq, Index
-                      , mpl::at<typename Seq::values_type, Index>::type::value
+                      , boost::mpl::at<typename Seq::values_type, Index>::type::value
                       >
     {};
 
     template<class Seq, class Index, std::size_t S>
     struct select_apply<Seq, Index, S, false>
     {
-      typedef mpl::size_t<1> type;
+      typedef boost::mpl::size_t<1> type;
       static type call(Seq&) { return type(); }
     };
 
     template<class Seq, class Index, std::ptrdiff_t N>
     struct apply_impl<Seq, Index, N, false>
     {
-      typedef typename mpl::if_ < is_const<Seq>
+      typedef typename boost::mpl::if_ < is_const<Seq>
                                 , std::size_t const&
                                 , std::size_t&
                                 >::type               type;
@@ -96,7 +96,7 @@ namespace boost { namespace fusion { namespace extension
     template<class Seq, class Index, std::ptrdiff_t N, bool IsStatic>
     struct apply_impl
     {
-      typedef mpl::size_t<N> type;
+      typedef boost::mpl::size_t<N> type;
       static type call(Seq&) { return type(); }
     };
   };

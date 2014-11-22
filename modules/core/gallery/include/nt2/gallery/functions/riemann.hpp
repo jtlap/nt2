@@ -52,10 +52,23 @@ namespace nt2 { namespace tag
      * \brief Define the tag riemann_ of functor riemann
      *        in namespace nt2::tag for toolbox algebra
     **/
-    struct riemann_ : boost::dispatch::tag::formal_
+    struct riemann_ : ext::abstract_<riemann_>
     {
-      typedef boost::dispatch::tag::formal_ parent;
+      typedef ext::abstract_<riemann_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_riemann_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::riemann_, Site> dispatching_riemann_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::riemann_, Site>();
+    }
+    template<class... Args>
+    struct impl_riemann_;
   }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::riemann_, riemann, 2)

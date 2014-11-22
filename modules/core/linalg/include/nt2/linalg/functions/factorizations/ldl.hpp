@@ -15,7 +15,7 @@
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::factorization::ldl_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT_G( nt2::tag::factorization::ldl_, tag::cpu_
                             , (A0)
                             , ((ast_<A0, nt2::container::domain>))
                             )
@@ -32,7 +32,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::factorization::ldl_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT_G( nt2::tag::factorization::ldl_, tag::cpu_
                             , (A0)(IP)
                             , ((ast_<A0, nt2::container::domain>))
                               (unspecified_< IP >)

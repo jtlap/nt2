@@ -15,7 +15,7 @@
 namespace boost { namespace simd { namespace ext
 {
   // constants
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(pure_constant_<Func>, tag::formal_
+  BOOST_DISPATCH_IMPLEMENT_G       (pure_constant_<Func>, tag::formal_
                         , (Func)(A0)
                         , ((target_< ast_<A0, boost::simd::domain> >))
                         )

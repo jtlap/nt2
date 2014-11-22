@@ -21,11 +21,24 @@ namespace nt2
     /*!
       @brief Tag for the globalnorm2 functor
     **/
-    struct globalnorm2_ : boost::dispatch::tag::formal_
+    struct globalnorm2_ : ext::abstract_<globalnorm2_>
     {
       /// @brief Parent hierarchy
-      typedef boost::dispatch::tag::formal_ parent;
+      typedef ext::abstract_<globalnorm2_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_globalnorm2_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::globalnorm2_, Site> dispatching_globalnorm2_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::globalnorm2_, Site>();
+    }
+    template<class... Args>
+    struct impl_globalnorm2_;
   }
 
   /*!
@@ -64,7 +77,7 @@ namespace nt2
 namespace nt2 { namespace ext
 {
   /// INTERNAL ONLY
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::globalnorm2_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( globalnorm2_, tag::cpu_
                             , (A0)
                             , (unspecified_<A0>)
                             )

@@ -30,7 +30,7 @@ namespace nt2 { namespace ext
 {
 
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::llspgen_, tag::cpu_,
+  BOOST_DISPATCH_IMPLEMENT  ( llspgen_, tag::cpu_,
                               (A0),
                               (scalar_<arithmetic_<A0> >)
                               (scalar_<arithmetic_<A0> >)
@@ -48,7 +48,7 @@ namespace nt2 { namespace ext
 
 
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::llspgen_, tag::cpu_,
+  BOOST_DISPATCH_IMPLEMENT  ( llspgen_, tag::cpu_,
                               (A0)(T),
                               (scalar_<arithmetic_<A0> >)
                               (scalar_<arithmetic_<A0> >)
@@ -67,7 +67,7 @@ namespace nt2 { namespace ext
       };
 
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::llspgen_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( llspgen_, tag::cpu_
                             , (A0)(N0)(A1)(N1)
                             , ((node_<A0,nt2::tag::llspgen_,N0,nt2::container::domain>))
                               ((node_<A1, nt2::tag::tie_

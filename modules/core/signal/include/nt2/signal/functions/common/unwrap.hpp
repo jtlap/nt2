@@ -27,7 +27,7 @@
 
 namespace nt2 { namespace ext
 {
- NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::unwrap_, tag::cpu_,
+ BOOST_DISPATCH_IMPLEMENT  ( unwrap_, tag::cpu_,
                               (A0),
                               ((ast_<A0, nt2::container::domain >))
                             )
@@ -41,7 +41,7 @@ namespace nt2 { namespace ext
                           )
       };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::unwrap_, tag::cpu_,
+  BOOST_DISPATCH_IMPLEMENT  ( unwrap_, tag::cpu_,
                               (A0)(A1),
                               ((ast_<A0, nt2::container::domain >))
                               (scalar_<floating_<A1> >)
@@ -55,7 +55,7 @@ namespace nt2 { namespace ext
                            )
                           )
       };
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::unwrap_, tag::cpu_,
+  BOOST_DISPATCH_IMPLEMENT  ( unwrap_, tag::cpu_,
                               (A0)(A1),
                               ((ast_<A0, nt2::container::domain >))
                               (scalar_<integer_<A1> >)
@@ -70,7 +70,7 @@ namespace nt2 { namespace ext
                           )
       };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::unwrap_, tag::cpu_,
+  BOOST_DISPATCH_IMPLEMENT  ( unwrap_, tag::cpu_,
                               (A0)(A1)(A2),
                               ((ast_<A0, nt2::container::domain >))
                               (scalar_<floating_<A1> >)
@@ -86,7 +86,7 @@ namespace nt2 { namespace ext
                           )
       };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_assign_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( run_assign_, tag::cpu_
                             , (A0)(A1)(N)
                             , ((ast_<A0, nt2::container::domain>))
                               ((node_<A1,nt2::tag::unwrap_,N,nt2::container::domain>))

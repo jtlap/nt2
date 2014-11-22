@@ -33,12 +33,25 @@ namespace nt2 { namespace tag
     {
       /// @brief Parent hierarchy
       typedef ext::tieable_<norminv_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_norminv_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
     struct norminv0_ : ext::elementwise_<norminv0_>
     {
       /// @brief Parent hierarchy
       typedef ext::elementwise_<norminv0_> parent;
     };
+  }
+  namespace ext
+  {
+   template<class Site, class... H>
+   BOOST_FORCEINLINE generic_dispatcher<tag::norminv_, Site> dispatching_norminv_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   {
+     return generic_dispatcher<tag::norminv_, Site>();
+   }
+   template<class... Args>
+   struct impl_norminv_;
   }
   /*!
     normal inverse cumulative distribution

@@ -24,7 +24,20 @@ namespace boost { namespace simd { namespace tag
     struct minusone_ : ext::elementwise_<minusone_>
     {
       typedef ext::elementwise_<minusone_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_minusone_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+   template<class Site, class... H>
+   BOOST_FORCEINLINE generic_dispatcher<tag::minusone_, Site> dispatching_minusone_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   {
+     return generic_dispatcher<tag::minusone_, Site>();
+   }
+   template<class... Args>
+   struct impl_minusone_;
   }
   /*!
     Return the entry minus one, saturated in the entry type.

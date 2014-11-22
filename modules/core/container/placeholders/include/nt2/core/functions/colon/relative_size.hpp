@@ -18,7 +18,7 @@ namespace nt2 { namespace ext
   //============================================================================
   // Compute indexing size using _
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::relative_size_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( relative_size_, tag::cpu_
                             , (Idx)(Arity)(Size)(Base)
                             , ((expr_ < colon_< Idx >
                                       , nt2::tag::terminal_
@@ -41,7 +41,7 @@ namespace nt2 { namespace ext
   //============================================================================
   // Compute indexing size using relative mark-up (begin_ and/or end_)
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::relative_size_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( relative_size_, tag::cpu_
                             , (Idx)(Size)(Base)
                             , ((node_ < Idx
                                       , nt2::tag::relative_colon_
@@ -69,7 +69,7 @@ namespace nt2 { namespace ext
   //============================================================================
   // Compute indexing size using relative mark-up (begin_,end_) and stride
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::relative_size_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( relative_size_, tag::cpu_
                             , (Idx)(Size)(Base)
                             , ((node_ < Idx
                                       , nt2::tag::relative_colon_

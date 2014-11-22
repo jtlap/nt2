@@ -36,6 +36,9 @@ namespace boost { namespace simd
       /// INTERNAL ONLY
       template<class Target, class Dummy=void>
       struct apply : meta::int_c<typename Target::type,0> {};
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_Signmask( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
 
     /// INTERNAL ONLY
@@ -69,6 +72,16 @@ namespace boost { namespace simd
           : meta::int_c < T
                         , boost::simd::int64_t(0x8000000000000000ULL)
                         > {};
+  }
+  namespace ext
+  {
+   template<class Site, class... H>
+   BOOST_FORCEINLINE generic_dispatcher<tag::Signmask, Site> dispatching_Signmask(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   {
+     return generic_dispatcher<tag::Signmask, Site>();
+   }
+   template<class... Args>
+   struct impl_Signmask;
   }
   /*!
     Generate a mask with the lone most significand bit set to one

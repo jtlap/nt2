@@ -30,6 +30,16 @@ namespace boost { namespace simd
                                 , 0x3f928682LL, 0x3ff250d048e7a1bdULL //1.1447298858494001741434273513531
                                 );
   }
+  namespace ext
+  {
+   template<class Site, class... H>
+   BOOST_FORCEINLINE generic_dispatcher<tag::Logpi, Site> dispatching_Logpi(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   {
+     return generic_dispatcher<tag::Logpi, Site>();
+   }
+   template<class... Args>
+   struct impl_Logpi;
+  }
   /*!
     Generates value \f$\log\pi\f$
 

@@ -34,6 +34,9 @@ namespace boost { namespace simd
       /// INTERNAL ONLY
       template<class Target, class Dummy=void>
       struct  apply :  meta::int_c<typename Target::type,0> {};
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_Ldexpmask( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
 
     /// INTERNAL ONLY
@@ -45,6 +48,16 @@ namespace boost { namespace simd
     template<class T, class Dummy>
     struct  Ldexpmask::apply<boost::dispatch::meta::double_<T>,Dummy>
           : meta::int_c<boost::simd::int64_t,0x7FF0000000000000ULL> {};
+  }
+  namespace ext
+  {
+   template<class Site, class... H>
+   BOOST_FORCEINLINE generic_dispatcher<tag::Ldexpmask, Site> dispatching_Ldexpmask(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   {
+     return generic_dispatcher<tag::Ldexpmask, Site>();
+   }
+   template<class... Args>
+   struct impl_Ldexpmask;
   }
   /*!
     Generates the mask to extract the exponent

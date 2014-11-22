@@ -24,7 +24,20 @@ namespace nt2
     struct  repnum_ : ext::state_constant_<repnum_>
     {
       typedef ext::state_constant_<repnum_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_repnum_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::repnum_, Site> dispatching_repnum_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::repnum_, Site>();
+    }
+    template<class... Args>
+    struct impl_repnum_;
   }
 
   #define M0(z,n,t)                                                           \

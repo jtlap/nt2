@@ -16,7 +16,7 @@
 
 namespace nt2{ namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::tridiag_, tag::cpu_,
+  BOOST_DISPATCH_IMPLEMENT  ( tridiag_, tag::cpu_,
                               (A0),
                               (scalar_<integer_<A0> > )
     )
@@ -27,7 +27,7 @@ namespace nt2{ namespace ext
       return tridiag(n, meta::as_<double>());
     }
   };
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::tridiag_, tag::cpu_,
+  BOOST_DISPATCH_IMPLEMENT  ( tridiag_, tag::cpu_,
                               (A0)(T),
                               (scalar_<integer_<A0> > )
                               (target_< scalar_<unspecified_<T> > > )
@@ -42,7 +42,7 @@ namespace nt2{ namespace ext
       return tridiag(n, v_type(-1), v_type(2), v_type(-1));
     }
   };
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::tridiag_, tag::cpu_,
+  BOOST_DISPATCH_IMPLEMENT  ( tridiag_, tag::cpu_,
                               (A0)(A1)(A2)(A3),
                               (scalar_<integer_<A0> > )
                               (scalar_<unspecified_<A1> >)
@@ -68,7 +68,7 @@ namespace nt2{ namespace ext
     }
   };
 
-   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::tridiag_, tag::cpu_,
+   BOOST_DISPATCH_IMPLEMENT  ( tridiag_, tag::cpu_,
                               (A0)(A1)(A2),
                               (scalar_<unspecified_<A0> >)
                               (scalar_<unspecified_<A1> >)
@@ -89,7 +89,7 @@ namespace nt2{ namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::tridiag_, tag::cpu_,
+  BOOST_DISPATCH_IMPLEMENT  ( tridiag_, tag::cpu_,
                               (A0)(A1)(A2),
                               ((ast_<A0, nt2::container::domain>))
                               (scalar_<unspecified_<A1> >)
@@ -109,7 +109,7 @@ namespace nt2{ namespace ext
                      nt2::repnum(a2, nt2::numel(a0), size_t(1)));
     }
   };
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::tridiag_, tag::cpu_,
+  BOOST_DISPATCH_IMPLEMENT  ( tridiag_, tag::cpu_,
                               (A0)(A1)(A2),
                               (scalar_<unspecified_<A0> >)
                               ((ast_<A1, nt2::container::domain>))
@@ -132,7 +132,7 @@ namespace nt2{ namespace ext
     }
   };
 
-   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::tridiag_, tag::cpu_,
+   BOOST_DISPATCH_IMPLEMENT  ( tridiag_, tag::cpu_,
                               (A0)(A1)(A2),
                               (scalar_<unspecified_<A0> >)
                               ((ast_<A1, nt2::container::domain>))
@@ -152,7 +152,7 @@ namespace nt2{ namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::tridiag_, tag::cpu_,
+  BOOST_DISPATCH_IMPLEMENT  ( tridiag_, tag::cpu_,
                               (A0)(A1)(A2),
                               ((ast_<A0, nt2::container::domain>))
                               (scalar_<unspecified_<A1> >)
@@ -171,7 +171,7 @@ namespace nt2{ namespace ext
                      a2);
     }
   };
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::tridiag_, tag::cpu_,
+  BOOST_DISPATCH_IMPLEMENT  ( tridiag_, tag::cpu_,
                               (A0)(A1)(A2),
                               ((ast_<A0, nt2::container::domain>))
                               ((ast_<A1, nt2::container::domain>))
@@ -193,7 +193,7 @@ namespace nt2{ namespace ext
   };
 
 
- NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::tridiag_, tag::cpu_,
+ BOOST_DISPATCH_IMPLEMENT  ( tridiag_, tag::cpu_,
                               (A0)(A1)(A2),
                               ((ast_<A0, nt2::container::domain>))
                               ((ast_<A1, nt2::container::domain>))

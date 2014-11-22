@@ -24,10 +24,23 @@ namespace nt2
     /*!
       @brief Tag for issorted functor
     **/
-    struct issorted_ : boost::dispatch::tag::formal_
+    struct issorted_ : ext::abstract_<issorted_>
     {
-      typedef boost::dispatch::tag::formal_ parent;
+      typedef ext::abstract_<issorted_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_issorted_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::issorted_, Site> dispatching_issorted_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::issorted_, Site>();
+    }
+    template<class... Args>
+    struct impl_issorted_;
   }
 
   /*!

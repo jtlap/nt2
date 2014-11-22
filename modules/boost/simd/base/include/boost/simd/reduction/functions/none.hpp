@@ -23,11 +23,24 @@ namespace boost { namespace simd
      @par Models:
         Hierarchy
    **/
-    struct none_ : dispatch::tag::formal_
+    struct none_ : ext::abstract_<none_>
     {
       /// @brief Parent hierarchy
-      typedef dispatch::tag::formal_ parent;
+      typedef ext::abstract_<none_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_none_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+   template<class Site, class... H>
+   BOOST_FORCEINLINE generic_dispatcher<tag::none_, Site> dispatching_none_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   {
+     return generic_dispatcher<tag::none_, Site>();
+   }
+   template<class... Args>
+   struct impl_none_;
   }
   /*!
     Returns True if all elements of the input vector are zero.

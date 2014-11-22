@@ -16,7 +16,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::bitwise_select_, boost::simd::tag::vmx_
+  BOOST_DISPATCH_IMPLEMENT         ( bitwise_select_, boost::simd::tag::vmx_
              , (A0)(A1)
              , ((simd_< arithmetic_<A0>, boost::simd::tag::vmx_ >))
                ((simd_< arithmetic_<A1>, boost::simd::tag::vmx_ >))

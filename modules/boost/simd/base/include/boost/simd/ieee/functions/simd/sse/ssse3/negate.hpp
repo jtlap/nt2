@@ -14,7 +14,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::negate_, boost::simd::tag::ssse3_,
+  BOOST_DISPATCH_IMPLEMENT         (negate_, boost::simd::tag::ssse3_,
                        (A0),
                        ((simd_<int32_<A0>,boost::simd::tag::sse_>))
                        ((simd_<int32_<A0>,boost::simd::tag::sse_>))
@@ -24,7 +24,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2) { return _mm_sign_epi32(a0, a1);  }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::negate_, boost::simd::tag::ssse3_,
+  BOOST_DISPATCH_IMPLEMENT         (negate_, boost::simd::tag::ssse3_,
                        (A0),
                        ((simd_<int16_<A0>,boost::simd::tag::sse_>))
                       )
@@ -33,7 +33,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2) { return _mm_sign_epi16(a0, a1);  }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::negate_, boost::simd::tag::ssse3_,
+  BOOST_DISPATCH_IMPLEMENT         (negate_, boost::simd::tag::ssse3_,
                        (A0),
                        ((simd_<int8_<A0>,boost::simd::tag::sse_>))
                       )

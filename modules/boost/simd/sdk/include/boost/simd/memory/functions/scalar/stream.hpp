@@ -19,7 +19,7 @@
 namespace boost { namespace simd { namespace ext
 {
   /// INTERNAL ONLY - Scalar stream and store are equivalent
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::stream_
+  BOOST_DISPATCH_IMPLEMENT          ( stream_
                                     , tag::cpu_
                                     , (A0)(A1)(A2)
                                     , (unspecified_<A0>)
@@ -36,7 +36,7 @@ namespace boost { namespace simd { namespace ext
   };
 
   /// INTERNAL ONLY - Scalar stream and store are equivalent
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::stream_
+  BOOST_DISPATCH_IMPLEMENT          ( stream_
                                     , tag::cpu_
                                     , (A0)(A1)
                                     , (unspecified_<A0>)
@@ -53,7 +53,7 @@ namespace boost { namespace simd { namespace ext
   };
 
   /// INTERNAL ONLY - Fusion sequence stream with offset
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::stream_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT          ( stream_, tag::cpu_
                                     , (A0)(A1)(A2)
                                     , (fusion_sequence_<A0>)
                                       (fusion_sequence_<A1>)
@@ -74,7 +74,7 @@ namespace boost { namespace simd { namespace ext
   };
 
   /// INTERNAL ONLY - Fusion sequence stream without offset
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::stream_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT          ( stream_, tag::cpu_
                                     , (A0)(A1)
                                     , (fusion_sequence_<A0>)
                                       (fusion_sequence_<A1>)

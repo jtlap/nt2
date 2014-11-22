@@ -26,7 +26,7 @@ namespace nt2 { namespace ext
   //============================================================================
   // Non-assign table expressions are reduced to assign expressions
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION_IF( nt2::tag::run_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT_IF  ( run_, tag::cpu_
                             , (A0)(S0)(K0)(T)(N)
                             , (boost::mpl::not_< boost::is_same<T, nt2::tag::assign_> >)
                             , ((expr_< container_<K0,unspecified_<A0>,S0>
@@ -49,7 +49,7 @@ namespace nt2 { namespace ext
   //============================================================================
   // Running a table terminal does nothing and returns it
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( run_, tag::cpu_
                             , (A0)(S0)(K0)(T)
                             , ((expr_< container_<K0,unspecified_<A0>,S0>
                                      , T
@@ -78,7 +78,7 @@ namespace nt2 { namespace ext
   //============================================================================
   // Non-assign scalar expressions are evaluated directly
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION_IF( nt2::tag::run_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT_IF  ( run_, tag::cpu_
                             , (A0)(T)(N)
                             , (boost::mpl::and_< boost::is_same<typename A0::proto_domain, nt2::container::domain>
                                                , boost::mpl::not_< boost::is_same<T, nt2::tag::assign_> >
@@ -115,7 +115,7 @@ namespace nt2 { namespace ext
   //============================================================================
   // Assign expressions call run_assign
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( run_, tag::cpu_
                             , (A0)
                             , ((node_< A0
                                      , nt2::tag::assign_

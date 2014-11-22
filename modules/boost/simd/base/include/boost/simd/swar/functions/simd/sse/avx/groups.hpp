@@ -16,7 +16,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::groups_
+  BOOST_DISPATCH_IMPLEMENT          ( groups_
                                     , boost::simd::tag::avx_
                                     , (A0)
                                     , ((simd_<integer_<A0>,boost::simd::tag::avx_>))

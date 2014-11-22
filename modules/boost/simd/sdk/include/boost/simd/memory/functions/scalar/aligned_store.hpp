@@ -21,7 +21,7 @@
 namespace boost { namespace simd { namespace ext
 {
   /// INTERNAL ONLY - masked Regular scalar store with offset
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::aligned_store_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT          ( aligned_store_, tag::cpu_
                                     , (A0)(A1)(A2)(A3)
                                     , (unspecified_<A0>)
                                       (iterator_< unspecified_<A1> >)
@@ -40,7 +40,7 @@ namespace boost { namespace simd { namespace ext
   };
 
   /// INTERNAL ONLY - Regular scalar store with offset
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::aligned_store_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT          ( aligned_store_, tag::cpu_
                                     , (A0)(A1)(A2)
                                     , (unspecified_<A0>)
                                       (iterator_< unspecified_<A1> >)
@@ -57,7 +57,7 @@ namespace boost { namespace simd { namespace ext
   };
 
   /// INTERNAL ONLY - mask Regular scalar store without offset
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::aligned_store_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT          ( aligned_store_, tag::cpu_
                                     , (A0)(A1)(A2)
                                     , (unspecified_<A0>)
                                       (iterator_< unspecified_<A1> >)
@@ -75,7 +75,7 @@ namespace boost { namespace simd { namespace ext
   };
 
   /// INTERNAL ONLY - Regular scalar store without offset
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::aligned_store_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT          ( aligned_store_, tag::cpu_
                                     , (A0)(A1)
                                     , (unspecified_<A0>)
                                       (iterator_< unspecified_<A1> >)
@@ -91,7 +91,7 @@ namespace boost { namespace simd { namespace ext
   };
 
   /// INTERNAL ONLY - Fusion sequence store with offset
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::aligned_store_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT          ( aligned_store_, tag::cpu_
                                     , (A0)(A1)(A2)
                                     , (fusion_sequence_<A0>)
                                       (fusion_sequence_<A1>)
@@ -108,7 +108,7 @@ namespace boost { namespace simd { namespace ext
   };
 
   /// INTERNAL ONLY - Fusion sequence store without offset
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::aligned_store_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT          ( aligned_store_, tag::cpu_
                                     , (A0)(A1)
                                     , (fusion_sequence_<A0>)
                                       (fusion_sequence_<A1>)

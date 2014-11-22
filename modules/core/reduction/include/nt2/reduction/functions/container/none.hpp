@@ -15,7 +15,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::none_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( none_, tag::cpu_
                             , (A0)(T)(N)
                             , ((expr_< generic_<fundamental_<A0> >,T,N >))
                             )
@@ -25,7 +25,7 @@ namespace boost { namespace simd { namespace ext
     )
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::none_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( none_, tag::cpu_
                             , (A0)(T)(N)(A1)
                             , ((expr_< generic_<fundamental_<A0> >,T,N >))
                               (scalar_< integer_<A1> >)

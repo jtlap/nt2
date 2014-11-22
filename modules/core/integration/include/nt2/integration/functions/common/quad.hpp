@@ -202,7 +202,7 @@ namespace nt2 { namespace details
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::quad_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( quad_, tag::cpu_
                               , (F)(X)(O)
                               , (unspecified_< F >)
                               ((ast_<X, nt2::container::domain>))

@@ -15,7 +15,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::compare_equal_
+  BOOST_DISPATCH_IMPLEMENT          ( compare_equal_
                                     , boost::simd::tag::vmx_
                                     , (A0)
                                     , ((simd_<arithmetic_<A0>,boost::simd::tag::vmx_>))

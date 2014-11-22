@@ -71,7 +71,20 @@ namespace nt2 { namespace tag
      struct randsvd_ : ext::unspecified_<randsvd_>
     {
       typedef ext::unspecified_<randsvd_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_randsvd_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::randsvd_, Site> dispatching_randsvd_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::randsvd_, Site>();
+    }
+    template<class... Args>
+    struct impl_randsvd_;
   }
 
   NT2_FUNCTION_IMPLEMENTATION(tag::randsvd_, randsvd, 6)

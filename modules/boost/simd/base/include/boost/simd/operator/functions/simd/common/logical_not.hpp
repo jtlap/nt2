@@ -17,7 +17,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::logical_not_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT         ( logical_not_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<arithmetic_<A0>,X>))
                             )
@@ -26,7 +26,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL(1) { return is_eqz(a0); }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::logical_not_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT         ( logical_not_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<logical_<A0>,X>))
 

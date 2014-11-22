@@ -29,6 +29,16 @@ namespace nt2
                                 , 0x4003504f333f9de6ULL
                                 )
   }
+  namespace ext
+  {
+   template<class Site, class... H>
+   BOOST_FORCEINLINE generic_dispatcher<tag::Tan_3pio_8, Site> dispatching_Tan_3pio_8(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   {
+     return generic_dispatcher<tag::Tan_3pio_8, Site>();
+   }
+   template<class... Args>
+   struct impl_Tan_3pio_8;
+  }
   /*!
     Constant \f$\tan3\frac\pi{8} = \sqrt2 + 1\f$.
 

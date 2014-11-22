@@ -28,7 +28,20 @@ namespace boost { namespace simd
     {
       /// @brief Parent hierarchy
       typedef ext::unspecified_<compare_greater_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_compare_greater_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+   template<class Site, class... H>
+   BOOST_FORCEINLINE generic_dispatcher<tag::compare_greater_, Site> dispatching_compare_greater_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   {
+     return generic_dispatcher<tag::compare_greater_, Site>();
+   }
+   template<class... Args>
+   struct impl_compare_greater_;
   }
   /*!
     return a bool that is the result of the lexicographic

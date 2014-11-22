@@ -30,7 +30,7 @@ namespace nt2
   namespace ext
   {
 
-    NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sampling_, tag::cpu_,
+    BOOST_DISPATCH_IMPLEMENT  ( sampling_, tag::cpu_,
                                 (A0),
                                 ((ast_<A0, nt2::container::domain>))
                               )
@@ -60,7 +60,7 @@ namespace nt2
 
 
 
-    NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sampling_, tag::cpu_,
+    BOOST_DISPATCH_IMPLEMENT  ( sampling_, tag::cpu_,
                                 (A0)(T),
                                 (scalar_<integer_<A0> >)
                                 (target_<scalar_<floating_<T> > > )

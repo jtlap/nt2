@@ -26,11 +26,24 @@ namespace boost { namespace simd
       @par Models:
       Hierarchy
     **/
-    struct load_ : tag::formal_
+    struct load_ : ext::abstract_<load_>
     {
       /// @brief Parent hierarchy
-      typedef tag::formal_ parent;
+      typedef ext::abstract_<load_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_load_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::load_, Site> dispatching_load_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::load_, Site>();
+    }
+    template<class... Args>
+    struct impl_load_;
   }
 
   /*!

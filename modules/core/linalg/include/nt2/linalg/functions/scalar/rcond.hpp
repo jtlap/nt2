@@ -22,7 +22,7 @@
 
 namespace nt2{ namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::rcond_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( rcond_, tag::cpu_
                             , (A0)
                             , ((ast_<A0, nt2::container::domain>))
                             )
@@ -42,7 +42,7 @@ namespace nt2{ namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::rcond_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( rcond_, tag::cpu_
                             , (A0)
                             , (scalar_< unspecified_<A0> >)
                             )
@@ -55,7 +55,7 @@ namespace nt2{ namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::rcond_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( rcond_, tag::cpu_
                             , (A0)(A1)
                             , ((ast_<A0, nt2::container::domain>))
                               (unspecified_<A1>)
@@ -81,7 +81,7 @@ namespace nt2{ namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::rcond_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( rcond_, tag::cpu_
                             , (A0)(A1)
                             , (scalar_<unspecified_<A0> > )
                               (unspecified_<A1>)

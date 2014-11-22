@@ -27,10 +27,23 @@ namespace nt2
     /*!
       @brief Tag for the findj functor
     **/
-    struct findj_ : boost::dispatch::tag::formal_
+    struct findj_ : ext::abstract_<findj_>
     {
-      typedef boost::dispatch::tag::formal_ parent;
+      typedef ext::abstract_<findj_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_findj_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::findj_, Site> dispatching_findj_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::findj_, Site>();
+    }
+    template<class... Args>
+    struct impl_findj_;
   }
 
   /*!

@@ -46,10 +46,23 @@ namespace nt2 { namespace tag
      * \brief Define the tag smoke_ of functor smoke
      *        in namespace nt2::tag for toolbox algebra
     **/
-    struct smoke_ : boost::dispatch::tag::formal_
+    struct smoke_ : ext::abstract_<smoke_>
     {
-      typedef boost::dispatch::tag::formal_ parent;
+      typedef ext::abstract_<smoke_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_smoke_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::smoke_, Site> dispatching_smoke_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::smoke_, Site>();
+    }
+    template<class... Args>
+    struct impl_smoke_;
   }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::smoke_, smoke, 2)

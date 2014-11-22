@@ -40,7 +40,7 @@
 namespace nt2 { namespace ext
 {
 
-  NT2_FUNCTOR_IMPLEMENTATION(  nt2::tag::ellipke_, tag::cpu_,
+  BOOST_DISPATCH_IMPLEMENT  (  ellipke_, tag::cpu_,
                                (A0)(A1)(X),
                                ((simd_<floating_<A0>,X >))
                                ((scalar_<floating_<A1> >))

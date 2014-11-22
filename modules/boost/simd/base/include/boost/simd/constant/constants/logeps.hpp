@@ -30,6 +30,16 @@ namespace boost { namespace simd
                                 , 0xc17f1402UL, 0xc04205966f2b4f19ULL
                                 )
   }
+  namespace ext
+  {
+   template<class Site, class... H>
+   BOOST_FORCEINLINE generic_dispatcher<tag::Logeps, Site> dispatching_Logeps(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   {
+     return generic_dispatcher<tag::Logeps, Site>();
+   }
+   template<class... Args>
+   struct impl_Logeps;
+  }
   /*!
     Generates the  logarithm of the machine epsilon.
 

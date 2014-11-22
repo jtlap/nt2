@@ -22,11 +22,24 @@ namespace nt2
   namespace tag
   {
     /// @brief Defines gesv function tag
-    struct posv_ : boost::dispatch::tag::formal_
+    struct posv_ : ext::abstract_<posv_>
     {
       /// INTERNAL ONLY
-      typedef boost::dispatch::tag::formal_  parent;
+      typedef ext::abstract_<posv_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_posv_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::posv_, Site> dispatching_posv_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::posv_, Site>();
+    }
+    template<class... Args>
+    struct impl_posv_;
   }
 
   /*!

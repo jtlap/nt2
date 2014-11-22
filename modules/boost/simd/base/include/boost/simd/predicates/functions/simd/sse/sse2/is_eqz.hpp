@@ -19,7 +19,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::is_eqz_
+  BOOST_DISPATCH_IMPLEMENT          ( is_eqz_
                                     , boost::simd::tag::sse2_
                                     , (A0)
                                     , ((simd_ < int64_<A0>

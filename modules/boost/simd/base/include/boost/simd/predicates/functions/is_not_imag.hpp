@@ -26,7 +26,20 @@ namespace boost { namespace simd { namespace tag
     {
       /// @brief Parent hierarchy
       typedef ext::elementwise_<is_not_imag_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_is_not_imag_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };}
+  namespace ext
+  {
+   template<class Site, class... H>
+   BOOST_FORCEINLINE generic_dispatcher<tag::is_not_imag_, Site> dispatching_is_not_imag_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   {
+     return generic_dispatcher<tag::is_not_imag_, Site>();
+   }
+   template<class... Args>
+   struct impl_is_not_imag_;
+  }
   /*!
     Returns True or False according a0 is real or not.
     For non complex numbers it is true except if a0 is zero

@@ -30,6 +30,16 @@ namespace boost { namespace simd
                                 , 0xbf1e377aLL, 0xbfe3c6ef372fe950ULL
                                 );
   }
+  namespace ext
+  {
+   template<class Site, class... H>
+   BOOST_FORCEINLINE generic_dispatcher<tag::Goldbar, Site> dispatching_Goldbar(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   {
+     return generic_dispatcher<tag::Goldbar, Site>();
+   }
+   template<class... Args>
+   struct impl_Goldbar;
+  }
   /*!
     Generates the goldbaren ratio that is \f$\phi = \frac{1+\sqrt5}{2}\f$
 

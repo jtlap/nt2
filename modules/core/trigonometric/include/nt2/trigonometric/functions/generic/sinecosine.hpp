@@ -17,7 +17,7 @@
 namespace nt2 { namespace ext
 {
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sinecosine_<mode>
+  BOOST_DISPATCH_IMPLEMENT_G( nt2::tag::sinecosine_<mode>
                             , tag::cpu_
                             , (A0)(mode)
                             , ((generic_< floating_<A0> >))
@@ -32,7 +32,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sinecosine_<mode>, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT_G( nt2::tag::sinecosine_<mode>, tag::cpu_
                             , (A0)(mode)
                             , (generic_< floating_<A0> >)
                             )
@@ -48,7 +48,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sinecosine_<mode>, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT_G( nt2::tag::sinecosine_<mode>, tag::cpu_
                             , (A0)(mode)
                             , ((generic_< floating_<A0> >))
                               ((generic_< floating_<A0> >))

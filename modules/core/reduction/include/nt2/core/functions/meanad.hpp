@@ -19,10 +19,23 @@ namespace nt2
    /*!
       @brief Tag for the meanad functor
     **/
-     struct meanad_ : boost::dispatch::tag::formal_
+     struct meanad_ : ext::abstract_<meanad_>
     {
-      typedef boost::dispatch::tag::formal_ parent;
+      typedef ext::abstract_<meanad_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_meanad_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+   template<class Site, class... H>
+   BOOST_FORCEINLINE generic_dispatcher<tag::meanad_, Site> dispatching_meanad_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   {
+     return generic_dispatcher<tag::meanad_, Site>();
+   }
+   template<class... Args>
+   struct impl_meanad_;
   }
   /*!
     @brief mean of the absolute deviation to the mean of an expression

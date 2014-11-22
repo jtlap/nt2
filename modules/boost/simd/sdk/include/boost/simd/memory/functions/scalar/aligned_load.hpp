@@ -20,7 +20,7 @@
 namespace boost { namespace simd { namespace ext
 {
   /// INTERNAL ONLY - Regular scalar load with offset
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::aligned_load_ , tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT          ( aligned_load_ , tag::cpu_
                                     , (A0)(A1)(A2)
                                     , (iterator_< unspecified_<A0> >)
                                       (target_< unspecified_<A1> >)
@@ -37,7 +37,7 @@ namespace boost { namespace simd { namespace ext
   };
 
   /// INTERNAL ONLY - masked scalar load with offset
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::aligned_load_
+  BOOST_DISPATCH_IMPLEMENT          ( aligned_load_
                                     , tag::cpu_
                                     , (A0)(A1)(A2)(A3)(A4)
                                     , (iterator_< unspecified_<A0> >)
@@ -58,7 +58,7 @@ namespace boost { namespace simd { namespace ext
 
 
   /// INTERNAL ONLY - masked scalar load with offset, zero
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::aligned_load_
+  BOOST_DISPATCH_IMPLEMENT          ( aligned_load_
                                     , tag::cpu_
                                     , (A0)(A1)(A2)(A3)
                                     , (iterator_< unspecified_<A0> >)
@@ -77,7 +77,7 @@ namespace boost { namespace simd { namespace ext
   };
 
   /// INTERNAL ONLY - Regular scalar load without offset
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::aligned_load_ , tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT          ( aligned_load_ , tag::cpu_
                                     , (A0)(A2)
                                     , (iterator_< unspecified_<A0> >)
                                       (target_< unspecified_<A2> >)
@@ -93,7 +93,7 @@ namespace boost { namespace simd { namespace ext
   };
 
   /// INTERNAL ONLY - masked regular scalar load without offset
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::aligned_load_
+  BOOST_DISPATCH_IMPLEMENT          ( aligned_load_
                                     , tag::cpu_
                                     , (A0)(A1)(A2)(A3)
                                     , (iterator_< unspecified_<A0> >)
@@ -112,7 +112,7 @@ namespace boost { namespace simd { namespace ext
   };
 
   /// INTERNAL ONLY - masked regular scalar load without offset, zero
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::aligned_load_
+  BOOST_DISPATCH_IMPLEMENT          ( aligned_load_
                                     , tag::cpu_
                                     , (A0)(A1)(A2)
                                     , (iterator_< unspecified_<A0> >)
@@ -130,7 +130,7 @@ namespace boost { namespace simd { namespace ext
   };
 
   /// INTERNAL ONLY - scalar load with misalignment and offset
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::aligned_load_ , tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT          ( aligned_load_ , tag::cpu_
                                     , (A0)(A1)(A2)(A3)
                                     , (iterator_< unspecified_<A0> >)
                                       (target_< scalar_< unspecified_<A1> > >)
@@ -148,7 +148,7 @@ namespace boost { namespace simd { namespace ext
   };
 
   /// INTERNAL ONLY - masked scalar load with misalignment and offset
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::aligned_load_ , tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT          ( aligned_load_ , tag::cpu_
                                     , (A0)(A1)(A2)(A3)(A4)(A5)
                                     , (iterator_< unspecified_<A0> >)
                                       (target_< scalar_< unspecified_<A1> > >)
@@ -168,7 +168,7 @@ namespace boost { namespace simd { namespace ext
   };
 
   /// INTERNAL ONLY - masked scalar load with misalignment and offset, masked
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::aligned_load_ , tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT          ( aligned_load_ , tag::cpu_
                                     , (A0)(A1)(A2)(A3)(A4)
                                     , (iterator_< unspecified_<A0> >)
                                       (target_< scalar_< unspecified_<A1> > >)
@@ -187,7 +187,7 @@ namespace boost { namespace simd { namespace ext
   };
 
   /// INTERNAL ONLY - scalar load with misalignment and without offset
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::aligned_load_
+  BOOST_DISPATCH_IMPLEMENT          ( aligned_load_
                                     , tag::cpu_
                                     , (A0)(A2)(A3)
                                     , (iterator_< unspecified_<A0> >)
@@ -205,7 +205,7 @@ namespace boost { namespace simd { namespace ext
   };
 
   /// INTERNAL ONLY - masked scalar load with misalignment and without offset
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::aligned_load_
+  BOOST_DISPATCH_IMPLEMENT          ( aligned_load_
                                     , tag::cpu_
                                     , (A0)(A2)(A3)(A4)(A5)
                                     , (iterator_< unspecified_<A0> >)
@@ -225,7 +225,7 @@ namespace boost { namespace simd { namespace ext
   };
 
     /// INTERNAL ONLY - masked scalar load with misalignment and without offset
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::aligned_load_
+  BOOST_DISPATCH_IMPLEMENT          ( aligned_load_
                                     , tag::cpu_
                                     , (A0)(A2)(A3)(A4)
                                     , (iterator_< unspecified_<A0> >)
@@ -244,7 +244,7 @@ namespace boost { namespace simd { namespace ext
   };
 
   /// INTERNAL ONLY - Scalar FusionSequence load with offset
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::aligned_load_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT          ( aligned_load_, tag::cpu_
                                     , (A0)(A1)(A2)
                                     , (fusion_sequence_<A0>)
                                       ((target_< fusion_sequence_<A1> >))
@@ -259,7 +259,7 @@ namespace boost { namespace simd { namespace ext
   };
 
   /// INTERNAL ONLY - Scalar FusionSequence load without offset
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::aligned_load_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT          ( aligned_load_, tag::cpu_
                                     , (A0)(A2)
                                     , (fusion_sequence_<A0>)
                                       ((target_< fusion_sequence_<A2> >))

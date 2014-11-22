@@ -40,11 +40,24 @@ namespace nt2 { namespace tag
      * \brief Define the tag mnorm1_ of functor mnorm1
      *        in namespace nt2::tag for toolbox algebra
     **/
-    struct mnorm1_ :  boost::dispatch::tag::formal_
+    struct mnorm1_ :  ext::abstract_<mnorm1_>
     {
       /// INTERNAL ONLY
-      typedef  boost::dispatch::tag::formal_ parent;
+      typedef ext::abstract_<mnorm1_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_mnorm1_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::mnorm1_, Site> dispatching_mnorm1_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::mnorm1_, Site>();
+    }
+    template<class... Args>
+    struct impl_mnorm1_;
   }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::mnorm1_, mnorm1, 1)

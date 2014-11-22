@@ -16,7 +16,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::hmsb_
+  BOOST_DISPATCH_IMPLEMENT          ( hmsb_
                                     , boost::simd::tag::ssse3_
                                     , (A0)
                                     , ((simd_ < type16_<A0>

@@ -29,7 +29,20 @@ namespace nt2
     struct sub2ind_ : ext::elementwise_<sub2ind_>
     {
       typedef ext::elementwise_<sub2ind_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_sub2ind_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::sub2ind_, Site> dispatching_sub2ind_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::sub2ind_, Site>();
+    }
+    template<class... Args>
+    struct impl_sub2ind_;
   }
 
 

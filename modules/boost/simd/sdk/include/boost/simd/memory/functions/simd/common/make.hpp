@@ -27,7 +27,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::make_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT          ( make_, tag::cpu_
                                     , (A0)(X)
                                     , ((target_< simd_< unspecified_<A0>, X > >))
                                     )
@@ -48,7 +48,7 @@ namespace boost { namespace simd { namespace ext
     #undef M0
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF ( boost::simd::tag::make_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT_IF          ( make_, tag::cpu_
                                        , (A0)(X)
                                        , (simd::meta::is_logical_mask<A0>)
                                        , ((target_< simd_< logical_<A0>, X > >))

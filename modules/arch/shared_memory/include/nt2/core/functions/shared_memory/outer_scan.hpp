@@ -19,7 +19,7 @@
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION ( nt2::tag::outer_scan_, (nt2::tag::shared_memory_<BackEnd,Site>)
+  BOOST_DISPATCH_IMPLEMENT   ( outer_scan_, (nt2::tag::shared_memory_<BackEnd,Site>)
                              , (Out)(In)(Neutral)(Bop)(Uop)(BackEnd)(Site)
                              , ((ast_<Out, nt2::container::domain>))
                                ((ast_<In, nt2::container::domain>))

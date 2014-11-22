@@ -18,7 +18,7 @@
 namespace boost { namespace simd { namespace ext
 {
   /// INTERNAL ONLY - Integer stream with offset
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::stream_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT          ( stream_, tag::cpu_
                                     , (A0)(A1)(A2)
                                     , (scalar_< ints32_<A0> >)
                                       (iterator_< scalar_< unspecified_<A1> > >)
@@ -35,7 +35,7 @@ namespace boost { namespace simd { namespace ext
   };
 
   /// INTERNAL ONLY - Integer stream without offset
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::stream_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT          ( stream_, tag::cpu_
                                     , (A0)(A1)
                                     , (scalar_< ints32_<A0> >)
                                       (iterator_< scalar_< unspecified_<A1> > >)

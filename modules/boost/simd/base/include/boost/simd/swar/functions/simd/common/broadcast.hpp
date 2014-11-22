@@ -20,7 +20,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::broadcast_
+  BOOST_DISPATCH_IMPLEMENT          ( broadcast_
                                     , boost::simd::tag::cpu_
                                     , (A0)(X)(A1)
                                     , ((simd_< unspecified_<A0>, X >))
@@ -35,7 +35,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::broadcast_
+  BOOST_DISPATCH_IMPLEMENT          ( broadcast_
                                     , boost::simd::tag::cpu_
                                     , (A0)(A1)
                                     , ((ast_<A0, boost::simd::domain>))

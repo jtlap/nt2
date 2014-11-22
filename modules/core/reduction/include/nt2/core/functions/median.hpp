@@ -17,11 +17,24 @@ namespace nt2
     /*!
       @brief Tag for the asum1 functor
     **/
-    struct median_ : boost::dispatch::tag::formal_
+    struct median_ : ext::abstract_<median_>
     {
       /// @brief Parent hierarchy
-      typedef boost::dispatch::tag::formal_ parent;
+      typedef ext::abstract_<median_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_median_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::median_, Site> dispatching_median_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::median_, Site>();
+    }
+    template<class... Args>
+    struct impl_median_;
   }
  /*!
     @brief median of a table expression along a dimension

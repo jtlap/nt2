@@ -15,9 +15,9 @@
 #include <nt2/include/functions/is_nez.hpp>
 #include <nt2/sdk/meta/as_logical.hpp>
 
-namespace nt2 { namespace ext
+namespace boost { namespace simd { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::if_allbits_else_, tag::cpu_, (A0)(A1)
+  BOOST_DISPATCH_IMPLEMENT  ( if_allbits_else_, tag::cpu_, (A0)(A1)
                             , (generic_< logical_<A0> >)
                               (generic_< complex_<floating_<A1> > >)
                             )
@@ -25,10 +25,10 @@ namespace nt2 { namespace ext
     typedef A1 result_type;
     result_type  operator()(A0 const& a0, A1 const& a1) const
     {
-      return result_type(if_allbits_else(a0, real(a1)), if_allbits_else(a0, imag(a1)));
+      return result_type(if_allbits_else(a0, nt2::real(a1)), if_allbits_else(a0, nt2::imag(a1)));
     }
   };
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::if_allbits_else_, tag::cpu_, (A0)(A1)
+  BOOST_DISPATCH_IMPLEMENT  ( if_allbits_else_, tag::cpu_, (A0)(A1)
                             , (generic_< complex_<floating_<A0> > > )
                               (generic_< complex_<floating_<A1> > > )
                             )
@@ -36,9 +36,9 @@ namespace nt2 { namespace ext
     typedef A1 result_type;
     result_type  operator()(A0 const& a0, A1 const& a1) const
     {
-      return result_type(if_allbits_else(is_nez(a0), real(a1)), if_allbits_else(is_nez(a0), imag(a1)));
+      return result_type(if_allbits_else(is_nez(a0), nt2::real(a1)), if_allbits_else(is_nez(a0), nt2::imag(a1)));
     }
   };
-} }
+} } }
 
 #endif

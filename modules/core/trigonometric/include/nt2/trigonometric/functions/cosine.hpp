@@ -24,6 +24,9 @@ namespace nt2 { namespace tag
     struct cosine_ : ext::elementwise_< cosine_<T> >
     {
       typedef ext::elementwise_< cosine_<T> > parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching( ext::adl_helper(), cosine_(), static_cast<Args&&>(args)... ) )
     };
   }
   /*!

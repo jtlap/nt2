@@ -16,7 +16,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::raw_rec_
+  BOOST_DISPATCH_IMPLEMENT          ( raw_rec_
                                     , boost::simd::tag::avx_
                                     , (A0)
                                     , ((simd_< single_<A0>

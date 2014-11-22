@@ -20,7 +20,7 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::degree_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( degree_, tag::cpu_
                             , (A0)
                             , ((ast_<A0, nt2::container::domain>))
                             )
@@ -33,7 +33,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::degree_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( degree_, tag::cpu_
                             , (A0)
                             , (scalar_<unspecified_ < A0> > )
                             )

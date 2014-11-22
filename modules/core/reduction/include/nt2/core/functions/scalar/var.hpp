@@ -16,7 +16,7 @@
 namespace nt2 { namespace ext
 {
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::var_, tag::cpu_, (A0)
+  BOOST_DISPATCH_IMPLEMENT  ( var_, tag::cpu_, (A0)
                             , (scalar_< unspecified_<A0> >)
                             )
   {
@@ -26,7 +26,7 @@ namespace nt2 { namespace ext
       return Zero<A0>();
     }
   };
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::var_, tag::cpu_, (A0)(A1)
+  BOOST_DISPATCH_IMPLEMENT  ( var_, tag::cpu_, (A0)(A1)
                             , (scalar_< unspecified_<A0> >)
                               (scalar_< unspecified_<A1> >)
                             )
@@ -38,7 +38,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::var_, tag::cpu_, (A0)(A1)
+  BOOST_DISPATCH_IMPLEMENT  ( var_, tag::cpu_, (A0)(A1)
                             , (scalar_< unspecified_<A0> >)
                               (scalar_< unspecified_<A0> >)
                               (scalar_< integer_<A1> > )

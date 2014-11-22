@@ -13,7 +13,7 @@
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::firstoflength_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( firstoflength_, tag::cpu_
                             , (A0)(A1)
                             , (scalar_< unspecified_<A0> >)
                               (scalar_< integer_<A1> >)
@@ -27,7 +27,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::firstoflength_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( firstoflength_, tag::cpu_
                             , (A0)(A1)
                             , (fusion_sequence_<A0>)
                               (scalar_< integer_<A1> >)

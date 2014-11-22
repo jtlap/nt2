@@ -21,11 +21,24 @@ namespace nt2
     /*!
       @brief Tag for the globalsum functor
     **/
-    struct globalsum_ : boost::dispatch::tag::formal_
+    struct globalsum_ : ext::abstract_<globalsum_>
     {
       /// @brief Parent hierarchy
-      typedef boost::dispatch::tag::formal_ parent;
+      typedef ext::abstract_<globalsum_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_globalsum_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::globalsum_, Site> dispatching_globalsum_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::globalsum_, Site>();
+    }
+    template<class... Args>
+    struct impl_globalsum_;
   }
 
 
@@ -59,7 +72,7 @@ namespace nt2
 namespace nt2 { namespace ext
 {
   /// INTERNAL ONLY
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::globalsum_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( globalsum_, tag::cpu_
                             , (A0)
                             , (unspecified_<A0>)
                             )

@@ -31,7 +31,7 @@ namespace nt2 { namespace ext
   //============================================================================
   //SYMEIG Scalar
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::symeig_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( symeig_, tag::cpu_
                             , (A0)
                             , (scalar_<unspecified_<A0> >)
                             )
@@ -44,7 +44,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::symeig_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( symeig_, tag::cpu_
                             , (A0)(A1)
                             , (scalar_<unspecified_<A0> >)
                               (unspecified_<A1>)
@@ -58,7 +58,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::symeig_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( symeig_, tag::cpu_
                             , (A0)(A1)(A2)
                             , (scalar_<unspecified_<A0> >)
                               (unspecified_<A1>)
@@ -77,7 +77,7 @@ namespace nt2 { namespace ext
   //============================================================================
   //SYMEIG
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::symeig_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( symeig_, tag::cpu_
                             , (A0)(N0)(A1)(N1)
                             , ((node_<A0, nt2::tag::symeig_
                                     , N0, nt2::container::domain

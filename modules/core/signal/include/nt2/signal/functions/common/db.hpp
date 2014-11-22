@@ -21,7 +21,7 @@
 namespace nt2 { namespace ext
 {
   // voltage is the default
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::db_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( db_, tag::cpu_
                             , (A0)
                             , (generic_< arithmetic_<A0> >)
                             )
@@ -34,7 +34,7 @@ namespace nt2 { namespace ext
   };
 
   //normalized only for voltage
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::db_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( db_, tag::cpu_
                             , (A0)
                             , (generic_< arithmetic_<A0> >)
                               (generic_< arithmetic_<A0> >)
@@ -48,7 +48,7 @@ namespace nt2 { namespace ext
   };
 
   // value + type of db
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::db_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( db_, tag::cpu_
                             , (A0)(A1)
                             , (generic_< arithmetic_<A0> >)
                               (target_< unspecified_<A1> >)
@@ -71,7 +71,7 @@ namespace nt2 { namespace ext
   };
 
   // value & ref. + type of db
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::db_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( db_, tag::cpu_
                             , (A0)(A1)
                             , (generic_< arithmetic_<A0> >)
                               (target_< unspecified_<A1> >)

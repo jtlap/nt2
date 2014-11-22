@@ -14,21 +14,21 @@
 #include <nt2/sdk/complex/hierarchy.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
 
-namespace nt2 { namespace ext
+namespace boost { namespace simd { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( constant_<Tag>, tag::cpu_, (Tag)(A0)
+  BOOST_DISPATCH_IMPLEMENT_G( constant_<Tag>, tag::cpu_, (Tag)(A0)
                             , ((target_< generic_< complex_< arithmetic_<A0> > > >))
                             )
   {
     typedef typename A0::type result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const&) const
     {
-      typedef typename meta::as_real<result_type>::type real_t;
+      typedef typename nt2::meta::as_real<result_type>::type real_t;
       return result_type(boost::dispatch::functor<Tag>()(boost::dispatch::meta::as_<real_t>()));
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( constant_<Tag>, tag::cpu_, (Tag)(A0)
+  BOOST_DISPATCH_IMPLEMENT_G( constant_<Tag>, tag::cpu_, (Tag)(A0)
                             , ((target_< generic_< dry_< arithmetic_<A0> > > >))
                             )
   {
@@ -36,10 +36,10 @@ namespace nt2 { namespace ext
 
     BOOST_FORCEINLINE result_type operator()(A0 const&) const
     {
-      typedef typename meta::as_real<result_type>::type real_t;
+      typedef typename nt2::meta::as_real<result_type>::type real_t;
       return bitwise_cast<result_type>(boost::dispatch::functor<Tag>()(boost::dispatch::meta::as_<real_t>()));
     }
   };
-} }
+} } }
 
 #endif

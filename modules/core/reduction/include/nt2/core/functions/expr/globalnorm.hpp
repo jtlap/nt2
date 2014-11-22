@@ -30,7 +30,7 @@
 namespace nt2 { namespace ext
 {
   // Default globalnorm is globalnorm2
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::globalnorm_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( globalnorm_, tag::cpu_
                             , (A0)
                             , ((ast_<A0, nt2::container::domain>))
                             )
@@ -42,7 +42,7 @@ namespace nt2 { namespace ext
   };
 
   // Selects globalnorm from dynamic norm value
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::globalnorm_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( globalnorm_, tag::cpu_
                             , (A0)(A1)
                             , ((ast_<A0, nt2::container::domain>))
                               (scalar_<arithmetic_<A1> > )
@@ -67,7 +67,7 @@ namespace nt2 { namespace ext
   };
 
   // Selects globalnorm from static norm value
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::globalnorm_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( globalnorm_, tag::cpu_
                             , (A0)(A1)
                             , ((ast_<A0, nt2::container::domain>))
                               (mpl_integral_< scalar_< fundamental_<A1> > >)
@@ -106,7 +106,7 @@ namespace nt2 { namespace ext
   };
 
   // Selects globalnorm from static norm value tag
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::globalnorm_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( globalnorm_, tag::cpu_
                             , (A0)(A1)
                             , ((ast_<A0, nt2::container::domain>))
                               (target_<unspecified_<A1> >)

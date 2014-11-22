@@ -18,7 +18,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::compare_greater_equal_
+  BOOST_DISPATCH_IMPLEMENT          ( compare_greater_equal_
                                     , tag::cpu_, (X)(A0)
                                     , ((simd_<arithmetic_<A0>,X>))
                                       ((simd_<arithmetic_<A0>,X>))

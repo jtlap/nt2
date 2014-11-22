@@ -21,7 +21,7 @@
 namespace boost { namespace simd { namespace ext
 {
   /// INTERNAL ONLY
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::load_
+  BOOST_DISPATCH_IMPLEMENT          ( load_
                                     , tag::cpu_
                                     , (A0)(A1)(A2)
                                     , (iterator_< unspecified_<A0> >)
@@ -39,7 +39,7 @@ namespace boost { namespace simd { namespace ext
   };
 
   /// INTERNAL ONLY - masked scalar load offset
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::load_
+  BOOST_DISPATCH_IMPLEMENT          ( load_
                                     , tag::cpu_
                                     , (A0)(A1)(A2)(A3)(A4)
                                     , (iterator_< unspecified_<A0> >)
@@ -59,7 +59,7 @@ namespace boost { namespace simd { namespace ext
   };
 
   /// INTERNAL ONLY - masked scalar load offset, zero
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::load_
+  BOOST_DISPATCH_IMPLEMENT          ( load_
                                     , tag::cpu_
                                     , (A0)(A1)(A2)(A3)
                                     , (iterator_< unspecified_<A0> >)
@@ -78,7 +78,7 @@ namespace boost { namespace simd { namespace ext
   };
 
   /// INTERNAL ONLY
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::load_
+  BOOST_DISPATCH_IMPLEMENT          ( load_
                                     , tag::cpu_
                                     , (A0)(A1)
                                     , (iterator_< unspecified_<A0> >)
@@ -92,7 +92,7 @@ namespace boost { namespace simd { namespace ext
   };
 
   /// INTERNAL ONLY - masked scalar load, zero
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::load_
+  BOOST_DISPATCH_IMPLEMENT          ( load_
                                     , tag::cpu_
                                     , (A0)(A1)(A2)
                                     , (iterator_< unspecified_<A0> >)
@@ -110,7 +110,7 @@ namespace boost { namespace simd { namespace ext
   };
 
   /// INTERNAL ONLY - masked scalar load
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::load_
+  BOOST_DISPATCH_IMPLEMENT          ( load_
                                     , tag::cpu_
                                     , (A0)(A1)(A2)(A3)
                                     , (iterator_< unspecified_<A0> >)
@@ -129,7 +129,7 @@ namespace boost { namespace simd { namespace ext
   };
 
   /// INTERNAL ONLY
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::load_
+  BOOST_DISPATCH_IMPLEMENT          ( load_
                                     , tag::cpu_
                                     , (A0)(A1)(A2)
                                     , (fusion_sequence_<A0>)
@@ -153,7 +153,7 @@ namespace boost { namespace simd { namespace ext
   };
 
   /// INTERNAL ONLY
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::load_
+  BOOST_DISPATCH_IMPLEMENT          ( load_
                                     , tag::cpu_
                                     , (A0)(A2)
                                     , (fusion_sequence_<A0>)
@@ -176,7 +176,7 @@ namespace boost { namespace simd { namespace ext
   };
 
   /// INTERNAL ONLY - Load through pointer of fusion sequence
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::load_
+  BOOST_DISPATCH_IMPLEMENT_IF         ( load_
                                       , tag::cpu_
                                       , (A0)(A1)(A2)
                                       , (mpl::not_< simd::meta::is_native<typename A1::type> >)
@@ -197,7 +197,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::load_
+  BOOST_DISPATCH_IMPLEMENT_IF         ( load_
                                       , tag::cpu_
                                       , (A0)(A2)
                                       , (mpl::not_< simd::meta::is_native<typename A2::type> >)

@@ -23,8 +23,8 @@ namespace nt2 { namespace meta
 } }
 
 
-NT2_REGISTER_DISPATCH(Tag,tag::cpu_,(Tag)(A0),(vector_<A0>));
-NT2_REGISTER_DISPATCH(Tag,tag::cpu_,(Tag)(A0)(A1),(vector_<A0>)(vector_<A1>));
+BOOST_DISPATCH_REGISTER_G(Tag,tag::cpu_,(Tag)(A0),(vector_<A0>));
+BOOST_DISPATCH_REGISTER_G(Tag,tag::cpu_,(Tag)(A0)(A1),(vector_<A0>)(vector_<A1>));
 
 namespace nt2 { namespace ext
 {

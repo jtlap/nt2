@@ -21,11 +21,24 @@ namespace nt2
     /*!
       @brief Tag for the globalstdev functor
     **/
-    struct globalstdev_ : boost::dispatch::tag::formal_
+    struct globalstdev_ : ext::abstract_<globalstdev_>
     {
       /// @brief Parent hierarchy
-      typedef boost::dispatch::tag::formal_ parent;
+      typedef ext::abstract_<globalstdev_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_globalstdev_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::globalstdev_, Site> dispatching_globalstdev_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::globalstdev_, Site>();
+    }
+    template<class... Args>
+    struct impl_globalstdev_;
   }
   /*!
     @brief Standard Deviation  of all the elements of an expression
@@ -61,7 +74,7 @@ namespace nt2
 namespace nt2 { namespace ext
 {
   /// INTERNAL ONLY
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::globalstdev_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( globalstdev_, tag::cpu_
                             , (A0)
                             , (unspecified_<A0>)
                             )
@@ -76,7 +89,7 @@ namespace nt2 { namespace ext
     }
   };
   /// INTERNAL ONLY
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::globalstdev_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( globalstdev_, tag::cpu_
                               , (A0)(A1)
                               , (unspecified_<A0>)
                               (scalar_<integer_<A1> > )

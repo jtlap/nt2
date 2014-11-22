@@ -52,6 +52,9 @@ namespace boost { namespace simd
       template<class T, class Dummy>
       struct apply<boost::dispatch::meta::double_<T>,Dummy> : meta::double_<D>
       {};
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching( ext::adl_helper(), Realpattern(), static_cast<Args&&>(args)... ) )
     };
   }
 

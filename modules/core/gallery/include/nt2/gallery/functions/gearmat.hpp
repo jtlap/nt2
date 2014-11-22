@@ -47,10 +47,23 @@ namespace nt2 { namespace tag
      * \brief Define the tag gearmat_ of functor gearmat
      *        in namespace nt2::tag for toolbox algebra
     **/
-    struct gearmat_ : boost::dispatch::tag::formal_
+    struct gearmat_ : ext::abstract_<gearmat_>
     {
-      typedef boost::dispatch::tag::formal_ parent;
+      typedef ext::abstract_<gearmat_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_gearmat_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::gearmat_, Site> dispatching_gearmat_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::gearmat_, Site>();
+    }
+    template<class... Args>
+    struct impl_gearmat_;
   }
 
   NT2_FUNCTION_IMPLEMENTATION(tag::gearmat_, gearmat, 2)

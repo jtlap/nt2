@@ -28,6 +28,16 @@ namespace boost { namespace simd
    **/
     BOOST_SIMD_CONSTANT_REGISTER(Cgold,double,0,0x3EC3910D,0x3FD8722191A02D61ULL)
   }
+  namespace ext
+  {
+   template<class Site, class... H>
+   BOOST_FORCEINLINE generic_dispatcher<tag::Cgold, Site> dispatching_Cgold(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   {
+     return generic_dispatcher<tag::Cgold, Site>();
+   }
+   template<class... Args>
+   struct impl_Cgold;
+  }
   /*!
     Generates the conjugate golden ration that is\f$\bar\phi = \frac{1-\sqrt5}{2}\f$
 

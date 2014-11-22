@@ -15,7 +15,7 @@
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::fill_pattern_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( fill_pattern_, tag::cpu_
                             , (A0)(A1)
                             , ((ast_<A0, nt2::container::domain>))
                               (fusion_sequence_<A1>)
@@ -38,7 +38,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::fill_pattern_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( fill_pattern_, tag::cpu_
                             , (A0)(A1)
                             , ((ast_<A0, nt2::container::domain>))
                               ((ast_<A1, nt2::container::domain>))

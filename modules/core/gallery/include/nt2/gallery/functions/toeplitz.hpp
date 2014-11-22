@@ -47,7 +47,17 @@ namespace nt2 { namespace tag
      * \brief Define the tag toeplitz_ of functor toeplitz
      *        in namespace nt2::tag for toolbox algebra
     **/
-    struct toeplitz_ : ext::unspecified_<toeplitz_> { typedef ext::unspecified_<toeplitz_> parent; };
+    struct toeplitz_ : ext::unspecified_<toeplitz_> { typedef ext::unspecified_<toeplitz_> parent;   template<class... Args>   static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)   BOOST_AUTO_DECLTYPE_BODY( dispatching_toeplitz_( ext::adl_helper(), static_cast<Args&&>(args)... ) ) };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::toeplitz_, Site> dispatching_toeplitz_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::toeplitz_, Site>();
+    }
+    template<class... Args>
+    struct impl_toeplitz_;
   }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::toeplitz_, toeplitz, 1)

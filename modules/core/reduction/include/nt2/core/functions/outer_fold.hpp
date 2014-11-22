@@ -14,10 +14,23 @@ namespace nt2
 {
   namespace tag
   {
-    struct outer_fold_ : boost::dispatch::tag::formal_
+    struct outer_fold_ : ext::abstract_<outer_fold_>
     {
-      typedef boost::dispatch::tag::formal_ parent;
+      typedef ext::abstract_<outer_fold_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_outer_fold_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::outer_fold_, Site> dispatching_outer_fold_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::outer_fold_, Site>();
+    }
+    template<class... Args>
+    struct impl_outer_fold_;
   }
 
   //============================================================================

@@ -14,7 +14,7 @@
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::cols_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( cols_, tag::cpu_
                             , (A0)(T)
                             , ((ast_<A0, nt2::container::domain>))
                               (scalar_< unspecified_<T> >)

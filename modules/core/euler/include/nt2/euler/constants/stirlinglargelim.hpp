@@ -21,6 +21,16 @@ namespace nt2
                                 , 0x4065800000000000ULL    // 172.0
                                 )
   }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::Stirlinglargelim, Site> dispatching_Stirlinglargelim(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::Stirlinglargelim, Site>();
+    }
+    template<class... Args>
+    struct impl_Stirlinglargelim;
+  }
 
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(tag::Stirlinglargelim, Stirlinglargelim);
 }

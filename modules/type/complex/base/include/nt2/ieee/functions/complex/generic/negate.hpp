@@ -16,9 +16,9 @@
 #include <nt2/include/functions/if_else_zero.hpp>
 #include <nt2/include/functions/unary_minus.hpp>
 
-namespace nt2 { namespace ext
+namespace boost { namespace simd { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::negate_, tag::cpu_,
+  BOOST_DISPATCH_IMPLEMENT  (negate_, tag::cpu_,
                              (A0)(A1),
                              ((generic_<unspecified_<A0> >))
                              ((generic_<unspecified_<A1> >))
@@ -32,5 +32,5 @@ namespace nt2 { namespace ext
     }
   };
 
-} }
+} } }
 #endif

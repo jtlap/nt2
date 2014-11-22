@@ -15,10 +15,23 @@ namespace nt2
 {
   namespace tag
   {
-      struct minuseye_ :  boost::dispatch::tag::formal_
+      struct minuseye_ :  ext::abstract_<minuseye_>
       {
-        typedef boost::dispatch::tag::formal_ parent;
+        typedef ext::abstract_<minuseye_> parent;
+        template<class... Args>
+        static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+        BOOST_AUTO_DECLTYPE_BODY( dispatching_minuseye_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
       };
+  }
+  namespace ext
+  {
+      template<class Site, class... H>
+      BOOST_FORCEINLINE generic_dispatcher<tag::minuseye_, Site> dispatching_minuseye_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+      {
+        return generic_dispatcher<tag::minuseye_, Site>();
+      }
+      template<class... Args>
+      struct impl_minuseye_;
   }
 
   /**

@@ -30,6 +30,16 @@ namespace boost { namespace simd
                                 , 0x4affffffLL, 0x432fffffffffffffULL
                                 );
   }
+  namespace ext
+  {
+   template<class Site, class... H>
+   BOOST_FORCEINLINE generic_dispatcher<tag::Greatestnoninteger, Site> dispatching_Greatestnoninteger(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   {
+     return generic_dispatcher<tag::Greatestnoninteger, Site>();
+   }
+   template<class... Args>
+   struct impl_Greatestnoninteger;
+  }
   /*!
     Generates the least integer value which is exactly
     representable in floating point numbers and

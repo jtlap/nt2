@@ -19,7 +19,7 @@
 namespace nt2 { namespace ext
 {
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::eyeminus_, tag::cpu_,
+  BOOST_DISPATCH_IMPLEMENT  ( eyeminus_, tag::cpu_,
                               (A0),
                               (scalar_<arithmetic_<A0 > >)(scalar_<arithmetic_<A0> > )
                               )
@@ -29,7 +29,7 @@ namespace nt2 { namespace ext
                           , (oneminus(a0*a1))
                           );
   };
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::eyeminus_, tag::cpu_,
+  BOOST_DISPATCH_IMPLEMENT  ( eyeminus_, tag::cpu_,
                               (A0)(A1),
                               ((ast_<A0, nt2::container::domain>))(scalar_<arithmetic_<A1> > )
                             )
@@ -41,7 +41,7 @@ namespace nt2 { namespace ext
                           );
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::eyeminus_, tag::cpu_,
+  BOOST_DISPATCH_IMPLEMENT  ( eyeminus_, tag::cpu_,
                               (A0),
                               ((ast_<A0, nt2::container::domain>))
                             )
@@ -52,7 +52,7 @@ namespace nt2 { namespace ext
                           , (nt2::eye(extent(a), nt2::meta::as_<value_type>())-a)
                           );
   };
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::eyeminus_, tag::cpu_,
+  BOOST_DISPATCH_IMPLEMENT  ( eyeminus_, tag::cpu_,
                               (A0),
                               (scalar_<arithmetic_<A0 > >)
                             )

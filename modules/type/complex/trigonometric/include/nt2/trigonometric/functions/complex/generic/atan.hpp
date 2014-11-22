@@ -62,7 +62,7 @@
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::atan_, tag::cpu_, (A0)
+  BOOST_DISPATCH_IMPLEMENT  ( atan_, tag::cpu_, (A0)
                             , (generic_< complex_< floating_<A0> > >)
                             )
   {
@@ -74,7 +74,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::atan_, tag::cpu_, (A0)
+  BOOST_DISPATCH_IMPLEMENT  ( atan_, tag::cpu_, (A0)
                             , (generic_< dry_< arithmetic_<A0> > >)
                             )
   {

@@ -26,9 +26,9 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace ext
+namespace boost { namespace simd { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::cumsum_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( cumsum_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<complex_<arithmetic_<A0> >,X>))
                             )
@@ -40,7 +40,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::cumsum_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( cumsum_, tag::cpu_
                                      , (A0)(X)
                                      , ((simd_<dry_<arithmetic_<A0> >,X>))
                                      )
@@ -51,7 +51,7 @@ namespace nt2 { namespace ext
         return result_type(cumsum(nt2::real(a0)));
       }
   };
-} }
+} } }
 
 
 #endif

@@ -19,7 +19,7 @@
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::lcm_, tag::cpu_,
+  BOOST_DISPATCH_IMPLEMENT  (lcm_, tag::cpu_,
                       (A0)(X),
                       ((simd_<integer_<A0>,X>))
                       ((simd_<integer_<A0>,X>))

@@ -33,19 +33,19 @@
 // for optimize
 #include <nt2/include/functions/fnma.hpp>
 
-namespace nt2 { namespace ext
+namespace boost { namespace simd { namespace ext
 {
 
 
   //0 ccc
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::fma_, tag::cpu_, (A0)(A1)(A2)
+  BOOST_DISPATCH_IMPLEMENT  ( fma_, tag::cpu_, (A0)(A1)(A2)
                               , (generic_<complex_<arithmetic_<A0> > > )
                               (generic_<complex_<arithmetic_<A1> > > )
                               (generic_<complex_<arithmetic_<A2> > > )
     )
   {
     typedef A0 result_type;
-    typedef typename meta::as_real<A0>::type r_type;
+    typedef typename nt2::meta::as_real<A0>::type r_type;
     NT2_FUNCTOR_CALL(3)
     {
       r_type r = fma(-nt2::imag(a1), nt2::imag(a0), fma(nt2::real(a0), nt2::real(a1), nt2::real(a2)));
@@ -72,18 +72,18 @@ namespace nt2 { namespace ext
 
 
   //8 acc
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::fma_, tag::cpu_, (A0)(A1)(A2)
+  BOOST_DISPATCH_IMPLEMENT  ( fma_, tag::cpu_, (A0)(A1)(A2)
                               , (generic_<arithmetic_<A0> > )
                               (generic_<complex_<arithmetic_<A1> > > )
                               (generic_<complex_<arithmetic_<A2> > > )
     )
   {
     typedef A1 result_type;
-    typedef typename meta::as_real<A0>::type r_type;
+    typedef typename nt2::meta::as_real<A0>::type r_type;
     NT2_FUNCTOR_CALL(3)
     {
-      r_type r = fma(a0, real(a1), real(a2));
-      r_type i = fma(a0, imag(a1), imag(a2));
+      r_type r = fma(a0, nt2::real(a1), nt2::real(a2));
+      r_type i = fma(a0, nt2::imag(a1), nt2::imag(a2));
       return checkr(a0, a1, a2, r, i);
     }
     static inline result_type checkr(const A0& a0, const A1& a1, const A2& a2, r_type& r, r_type& i)
@@ -94,11 +94,11 @@ namespace nt2 { namespace ext
       r =  if_else(is_invalid(a0),
                    if_else(is_real(a1),
                            r,
-                           if_else(nt2::is_imag(a1), real(a2),r)),
+                           if_else(nt2::is_imag(a1), nt2::real(a2),r)),
                    r
         );
       i =  if_else(is_invalid(a0),
-                   if_else(is_real(a1), imag(a2), i),
+                   if_else(is_real(a1), nt2::imag(a2), i),
                    i);
       return result_type(r, i);
 #endif
@@ -106,7 +106,7 @@ namespace nt2 { namespace ext
   };
 
   //9 cac
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::fma_, tag::cpu_, (A0)(A1)(A2)
+  BOOST_DISPATCH_IMPLEMENT  ( fma_, tag::cpu_, (A0)(A1)(A2)
                               , (generic_<complex_<arithmetic_<A0> > > )
                               (generic_<arithmetic_<A1> > )
                               (generic_<complex_<arithmetic_<A2> > > )
@@ -120,14 +120,14 @@ namespace nt2 { namespace ext
   };
 
   //10 cca
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::fma_, tag::cpu_, (A0)(A1)(A2)
+  BOOST_DISPATCH_IMPLEMENT  ( fma_, tag::cpu_, (A0)(A1)(A2)
                               , (generic_<complex_<arithmetic_<A0> > > )
                               (generic_<complex_<arithmetic_<A1> > > )
                               (generic_<arithmetic_<A2> > )
     )
   {
     typedef A0 result_type;
-    typedef typename meta::as_real<A0>::type r_type;
+    typedef typename nt2::meta::as_real<A0>::type r_type;
     NT2_FUNCTOR_CALL(3)
     {
       r_type r =fma(-nt2::imag(a1), nt2::imag(a0), fma(nt2::real(a1), nt2::real(a0), a2));
@@ -152,14 +152,14 @@ namespace nt2 { namespace ext
   };
 
   //11 caa
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::fma_, tag::cpu_, (A0)(A1)(A2)
+  BOOST_DISPATCH_IMPLEMENT  ( fma_, tag::cpu_, (A0)(A1)(A2)
                               , (generic_<complex_<arithmetic_<A0> > > )
                               (generic_< arithmetic_<A1>  > )
                               (generic_< arithmetic_<A2>  > )
     )
   {
     typedef A0 result_type;
-    typedef typename meta::as_real<A0>::type r_type;
+    typedef typename nt2::meta::as_real<A0>::type r_type;
     NT2_FUNCTOR_CALL(3)
     {
       r_type r = fma(nt2::real(a0), a1, a2);
@@ -178,7 +178,7 @@ namespace nt2 { namespace ext
   };
 
   //12 aca
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::fma_, tag::cpu_, (A0)(A1)(A2)
+  BOOST_DISPATCH_IMPLEMENT  ( fma_, tag::cpu_, (A0)(A1)(A2)
                               , (generic_< arithmetic_<A0>  > )
                               (generic_<complex_<arithmetic_<A1> > > )
                               (generic_< arithmetic_<A2>  > )
@@ -192,7 +192,7 @@ namespace nt2 { namespace ext
   };
 
   //13 aac
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::fma_, tag::cpu_, (A0)(A1)(A2)
+  BOOST_DISPATCH_IMPLEMENT  ( fma_, tag::cpu_, (A0)(A1)(A2)
                               , (generic_<arithmetic_<A0>  > )
                               (generic_<arithmetic_<A1>  > )
                               (generic_<complex_<arithmetic_<A2> > > )
@@ -207,6 +207,6 @@ namespace nt2 { namespace ext
     }
   };
 
- } }
+ } } }
 
 #endif

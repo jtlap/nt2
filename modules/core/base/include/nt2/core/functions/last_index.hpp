@@ -24,10 +24,23 @@ namespace nt2
     /*!
       @brief Tag for the last_index functor
     **/
-    struct last_index_ : boost::dispatch::tag::formal_
+    struct last_index_ : ext::abstract_<last_index_>
     {
-      typedef boost::dispatch::tag::formal_ parent;
+      typedef ext::abstract_<last_index_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_last_index_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::last_index_, Site> dispatching_last_index_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::last_index_, Site>();
+    }
+    template<class... Args>
+    struct impl_last_index_;
   }
 
   /*!

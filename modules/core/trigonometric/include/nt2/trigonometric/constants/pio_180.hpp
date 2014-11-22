@@ -29,6 +29,16 @@ namespace nt2
                                 , 0x3f91df46a2529d3all
                                 )
   }
+  namespace ext
+  {
+   template<class Site, class... H>
+   BOOST_FORCEINLINE generic_dispatcher<tag::Pio_180, Site> dispatching_Pio_180(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   {
+     return generic_dispatcher<tag::Pio_180, Site>();
+   }
+   template<class... Args>
+   struct impl_Pio_180;
+  }
   /*!
     Constant \f$\frac\pi{180}\f$.
 

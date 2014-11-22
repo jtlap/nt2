@@ -21,11 +21,24 @@ namespace nt2
     /*!
       @brief Tag for the functor
     **/
-    struct globalprod_ : tag::formal_
+    struct globalprod_ : ext::abstract_<globalprod_>
     {
       /// @brief Parent hierarchy
-      typedef tag::formal_ parent;
+      typedef ext::abstract_<globalprod_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_globalprod_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::globalprod_, Site> dispatching_globalprod_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::globalprod_, Site>();
+    }
+    template<class... Args>
+    struct impl_globalprod_;
   }
 
  /*!
@@ -57,7 +70,7 @@ namespace nt2
 namespace nt2 { namespace ext
 {
   /// INTERNAL ONLY
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::globalprod_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( globalprod_, tag::cpu_
                             , (A0)
                             , (unspecified_<A0>)
                             )

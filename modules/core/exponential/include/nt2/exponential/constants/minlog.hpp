@@ -29,6 +29,16 @@ namespace nt2
                                 , 0xc086232bdd7abcd2ULL
                                 )
   }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::Minlog, Site> dispatching_Minlog(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::Minlog, Site>();
+    }
+    template<class... Args>
+    struct impl_Minlog;
+  }
   /*!
     Generates constant Minlog used in logarithm/exponential computations
     nt2::log(x) return  0 if x is less than Minlog (underflow)

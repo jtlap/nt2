@@ -30,7 +30,20 @@ namespace boost { namespace simd
     {
       /// @brief Parent hierarchy
       typedef ext::reduction_<any_, tag::logical_or_, tag::False> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_any_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+   template<class Site, class... H>
+   BOOST_FORCEINLINE generic_dispatcher<tag::any_, Site> dispatching_any_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   {
+     return generic_dispatcher<tag::any_, Site>();
+   }
+   template<class... Args>
+   struct impl_any_;
   }
   /*!
     Returns true if at least one element of the input vector is non zero.

@@ -14,19 +14,19 @@
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/zero.hpp>
 
-namespace nt2 { namespace ext
+namespace boost { namespace simd { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::inbtrue_, tag::cpu_, (A0)(X)
+  BOOST_DISPATCH_IMPLEMENT  ( inbtrue_, tag::cpu_, (A0)(X)
                               , ((simd_< complex_< arithmetic_<A0> > , X>))
     )
   {
     typedef std::size_t result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return nt2::inbtrue(real(if_else(a0, nt2::One<A0>(), nt2::Zero<A0>())));
+      return nt2::inbtrue(nt2::real(if_else(a0, nt2::One<A0>(), nt2::Zero<A0>())));
     }
   };
 
-} }
+} } }
 
 #endif

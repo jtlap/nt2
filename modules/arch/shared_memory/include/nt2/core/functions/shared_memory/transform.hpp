@@ -23,7 +23,7 @@ namespace nt2 { namespace ext
   // Generates a SPMD loop nest and forward to internal site for evaluation
   // using the partial transform syntax.
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::transform_, (nt2::tag::shared_memory_<BackEnd,Site>)
+  BOOST_DISPATCH_IMPLEMENT  ( transform_, (nt2::tag::shared_memory_<BackEnd,Site>)
                             , (Out)(In)(BackEnd)(Site)(Range)
                             , ((ast_<Out, nt2::container::domain>))
                               ((ast_<In, nt2::container::domain>))

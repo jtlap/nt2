@@ -15,7 +15,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::insert_
+  BOOST_DISPATCH_IMPLEMENT          ( insert_
                                     , boost::simd::tag::sse2_
                                     , (A0)(A1)(A2)
                                     , (scalar_< integer_<A0> >)

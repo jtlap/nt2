@@ -19,7 +19,7 @@
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::trsm_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( trsm_, tag::cpu_
                             , (A0)(A1)(A2)(A3)(A4)(S4)(A5)(S5)
                             , (scalar_< ints8_<A0> >)
                               (scalar_< ints8_<A1> >)
@@ -46,7 +46,7 @@ namespace nt2 { namespace ext
      }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::trsm_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( trsm_, tag::cpu_
                             , (A0)(A1)(A2)(A3)(A4)(S4)(A5)(S5)
                             , (scalar_< ints8_<A0> >)
                               (scalar_< ints8_<A1> >)
@@ -72,7 +72,7 @@ namespace nt2 { namespace ext
      }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::trsm_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( trsm_, tag::cpu_
                             , (A0)(A1)(A2)(A3)(A4)(S4)(A5)(S5)
                             , (scalar_< ints8_<A0> >)
                               (scalar_< ints8_<A1> >)
@@ -98,7 +98,7 @@ namespace nt2 { namespace ext
      }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::trsm_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( trsm_, tag::cpu_
                             , (A0)(A1)(A2)(A3)(A4)(S4)(A5)(S5)
                             , (scalar_< ints8_<A0> >)
                               (scalar_< ints8_<A1> >)
@@ -124,7 +124,7 @@ namespace nt2 { namespace ext
      }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::trsm_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( trsm_, tag::cpu_
                             , (A0)(A1)(A2)(A3)(A4)(S4)(A5)(S5)(A6)
                             , (scalar_< ints8_<A0> >)
                               (scalar_< ints8_<A1> >)
@@ -151,7 +151,7 @@ namespace nt2 { namespace ext
      }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::trsm_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( trsm_, tag::cpu_
                             , (A0)(A1)(A2)(A3)(A4)(S4)(A5)(S5)(A6)
                             , (scalar_< ints8_<A0> >)
                               (scalar_< ints8_<A1> >)
@@ -177,7 +177,7 @@ namespace nt2 { namespace ext
      }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::trsm_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( trsm_, tag::cpu_
                             , (A0)(A1)(A2)(A3)(A4)(S4)(A5)(S5)(A6)
                             , (scalar_< ints8_<A0> >)
                               (scalar_< ints8_<A1> >)
@@ -204,7 +204,7 @@ namespace nt2 { namespace ext
      }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::trsm_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( trsm_, tag::cpu_
                             , (A0)(A1)(A2)(A3)(A4)(S4)(A5)(S5)(A6)
                             , (scalar_< ints8_<A0> >)
                               (scalar_< ints8_<A1> >)

@@ -21,11 +21,24 @@ namespace nt2
   namespace tag
   {
     /// @brief Defines laswp function tag
-    struct laswp_ : boost::dispatch::tag::formal_
+    struct laswp_ : ext::abstract_<laswp_>
     {
       /// INTERNAL ONLY
-      typedef boost::dispatch::tag::formal_  parent;
+      typedef ext::abstract_<laswp_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_laswp_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::laswp_, Site> dispatching_laswp_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::laswp_, Site>();
+    }
+    template<class... Args>
+    struct impl_laswp_;
   }
 
   /*!

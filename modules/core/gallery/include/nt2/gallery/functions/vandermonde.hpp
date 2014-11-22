@@ -41,10 +41,23 @@ namespace nt2 { namespace tag
      * \brief Define the tag vandermonde_ of functor vandermonde
      *        in namespace nt2::tag for toolbox algebra
     **/
-    struct vandermonde_ : boost::dispatch::tag::formal_
+    struct vandermonde_ : ext::abstract_<vandermonde_>
     {
-      typedef boost::dispatch::tag::formal_ parent;
+      typedef ext::abstract_<vandermonde_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_vandermonde_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::vandermonde_, Site> dispatching_vandermonde_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::vandermonde_, Site>();
+    }
+    template<class... Args>
+    struct impl_vandermonde_;
   }
 
   NT2_FUNCTION_IMPLEMENTATION(tag::vandermonde_, vandermonde, 2)

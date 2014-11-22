@@ -25,7 +25,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::combine_
+  BOOST_DISPATCH_IMPLEMENT          ( combine_
                                     , tag::cpu_
                                     , (A0)(X)
                                     , ((simd_<unspecified_<A0>,X>))
@@ -52,7 +52,7 @@ namespace boost { namespace simd { namespace ext
 
   // combine logical by combining internal representation
   // Only valid if native<T,X> and native<logical<T><X> has same size
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::combine_
+  BOOST_DISPATCH_IMPLEMENT          ( combine_
                                     , tag::cpu_
                                     , (A0)(X)
                                     , ((simd_<logical_<A0>,X>))
@@ -96,7 +96,7 @@ namespace boost { namespace simd { namespace ext
   };
 
   // combine fusion sequence iteratively
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::combine_
+  BOOST_DISPATCH_IMPLEMENT          ( combine_
                                     , tag::cpu_
                                     , (A0)(X)
                                     , ((simd_< fusion_sequence_<A0>, X>))

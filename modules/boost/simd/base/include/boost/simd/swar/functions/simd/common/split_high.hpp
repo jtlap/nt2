@@ -19,7 +19,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::split_high_
+  BOOST_DISPATCH_IMPLEMENT_IF         ( split_high_
                                       , tag::cpu_
                                       , (A0)(X)
                                       , (simd::meta::is_upgradable<A0>)

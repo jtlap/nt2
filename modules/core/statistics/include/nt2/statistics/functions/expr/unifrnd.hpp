@@ -20,7 +20,7 @@ namespace nt2 { namespace ext
   //============================================================================
   // Generates unifrnd from expression (support size(a) + type calls)
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::unifrnd_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( unifrnd_, tag::cpu_
                             , (A0)
                             , (scalar_<floating_<A0> > )
                               (scalar_<floating_<A0> > )
@@ -33,7 +33,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::unifrnd_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( unifrnd_, tag::cpu_
                             , (A0)(A1)
                             , (scalar_<floating_<A0> > )
                               (scalar_<floating_<A0> > )
@@ -50,7 +50,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::unifrnd_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( unifrnd_, tag::cpu_
                             , (A0)(A1)(A2)
                             , (scalar_<floating_<A0> > )
                               (scalar_<floating_<A0> > )
@@ -69,7 +69,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::unifrnd_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( unifrnd_, tag::cpu_
                             , (A0)(A1)(A2)(A3)
                             , (scalar_<floating_<A0> > )
                               (scalar_<floating_<A0> > )
@@ -90,7 +90,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::unifrnd_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( unifrnd_, tag::cpu_
                             , (A0)(A1)(A2)(A3)(A4)
                             , (scalar_<floating_<A0> > )
                               (scalar_<floating_<A0> > )
@@ -112,7 +112,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::unifrnd_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( unifrnd_, tag::cpu_
                             , (A0)(A1)(A2)(A3)(A4)(A5)
                             , (scalar_<floating_<A0> > )
                               (scalar_<floating_<A0> > )

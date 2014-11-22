@@ -18,11 +18,24 @@ namespace nt2
     /*!
       @brief Tag for the asum1 functor
     **/
-    struct asum1_ : boost::dispatch::tag::formal_
+    struct asum1_ : ext::abstract_<asum1_>
     {
       /// @brief Parent hierarchy
-      typedef boost::dispatch::tag::formal_ parent;
+      typedef ext::abstract_<asum1_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_asum1_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::asum1_, Site> dispatching_asum1_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::asum1_, Site>();
+    }
+    template<class... Args>
+    struct impl_asum1_;
   }
   /*!
     @brief Sum of absolute values of a table expression along a dimension

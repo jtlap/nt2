@@ -26,7 +26,20 @@ namespace boost { namespace simd {
     {
       /// @brief Parent hierarchy
       typedef ext::elementwise_<divs_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_divs_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::divs_, Site> dispatching_divs_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::divs_, Site>();
+    }
+    template<class... Args>
+    struct impl_divs_;
   }
   /*!
     Computes  the truncated saturated division of its parameters.

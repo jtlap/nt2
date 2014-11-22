@@ -43,10 +43,23 @@ namespace nt2 { namespace tag
      * \brief Define the tag lehmer_ of functor lehmer
      *        in namespace nt2::tag for toolbox algebra
     **/
-    struct lehmer_ : boost::dispatch::tag::formal_
+    struct lehmer_ : ext::abstract_<lehmer_>
     {
-      typedef boost::dispatch::tag::formal_ parent;
+      typedef ext::abstract_<lehmer_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_lehmer_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::lehmer_, Site> dispatching_lehmer_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::lehmer_, Site>();
+    }
+    template<class... Args>
+    struct impl_lehmer_;
   }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::lehmer_, lehmer, 2)

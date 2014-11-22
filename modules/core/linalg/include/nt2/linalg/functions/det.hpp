@@ -41,7 +41,17 @@ namespace nt2 { namespace tag
      * \brief Define the tag trace_ of functor trace
      *        in namespace nt2::tag for toolbox algebra
     **/
-    struct det_ :  tag::formal_ { typedef tag::formal_ parent; };
+    struct det_ :  ext::abstract_<det_> { typedef ext::abstract_<det_> parent;   template<class... Args>   static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)   BOOST_AUTO_DECLTYPE_BODY( dispatching_det_( ext::adl_helper(), static_cast<Args&&>(args)... ) ) };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::det_, Site> dispatching_det_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::det_, Site>();
+    }
+    template<class... Args>
+    struct impl_det_;
   }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::det_, det, 1)

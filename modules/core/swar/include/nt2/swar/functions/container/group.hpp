@@ -21,7 +21,7 @@
 namespace nt2 { namespace ext
 {
   // group
-  NT2_FUNCTOR_IMPLEMENTATION_IF( nt2::tag::run_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT_IF  ( run_, tag::cpu_
                             , (A0)(State)(Data)(X)
                             , (boost::mpl::and_<
                                 boost::mpl::less< boost::mpl::sizeof_<typename A0::value_type>
@@ -48,7 +48,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( run_, tag::cpu_
                             , (A0)(State)(Data)
                             , ((node_<A0, nt2::tag::group_, boost::mpl::long_<1> , nt2::container::domain>))
                               (generic_< integer_<State> >)

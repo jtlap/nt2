@@ -19,7 +19,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::oneminus_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT          ( oneminus_, tag::cpu_
                                     , (A0)
                                     , (generic_<signed_<A0> >)
                                     )
@@ -31,7 +31,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::oneminus_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT          ( oneminus_, tag::cpu_
                                     , (A0)
                                     , (generic_<unsigned_<A0> >)
                                     )

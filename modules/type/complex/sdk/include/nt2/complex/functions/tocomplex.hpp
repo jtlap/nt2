@@ -60,7 +60,17 @@ namespace nt2
      * \brief Define the tag tocomplex_ of functor tocomplex
      *        in namespace nt2::tag for toolbox complex
     **/
-    struct tocomplex_ : ext::elementwise_<tocomplex_> { typedef ext::elementwise_<tocomplex_> parent; };
+    struct tocomplex_ : ext::elementwise_<tocomplex_> { typedef ext::elementwise_<tocomplex_> parent;   template<class... Args>   static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)   BOOST_AUTO_DECLTYPE_BODY( dispatching_tocomplex_( ext::adl_helper(), static_cast<Args&&>(args)... ) ) };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::tocomplex_, Site> dispatching_tocomplex_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::tocomplex_, Site>();
+    }
+    template<class... Args>
+    struct impl_tocomplex_;
   }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::tocomplex_, tocomplex, 1)

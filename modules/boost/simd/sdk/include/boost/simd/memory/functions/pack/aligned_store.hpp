@@ -20,7 +20,7 @@
 namespace boost { namespace simd { namespace ext
 {
   /// INTERNAL ONLY pack store with offset
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::aligned_store_
+  BOOST_DISPATCH_IMPLEMENT          ( aligned_store_
                                     , tag::cpu_
                                     , (A0)(A1)(A2)
                                     , ((ast_<A0, boost::simd::domain>))
@@ -38,7 +38,7 @@ namespace boost { namespace simd { namespace ext
   };
 
   /// INTERNAL ONLY mask pack store with offset
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::aligned_store_
+  BOOST_DISPATCH_IMPLEMENT          ( aligned_store_
                                     , tag::cpu_
                                     , (A0)(A1)(A2)(A3)(X)(Tag)(Arity)
                                     , ((ast_<A0, boost::simd::domain>))
@@ -60,7 +60,7 @@ namespace boost { namespace simd { namespace ext
   };
 
   /// INTERNAL ONLY pack scatter
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::aligned_store_
+  BOOST_DISPATCH_IMPLEMENT          ( aligned_store_
                                     , tag::cpu_
                                     , (A0)(A1)(A2)(X)
                                     , ((ast_<A0, boost::simd::domain>))
@@ -78,7 +78,7 @@ namespace boost { namespace simd { namespace ext
   };
 
   /// INTERNAL ONLY mask pack scatter
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::aligned_store_
+  BOOST_DISPATCH_IMPLEMENT          ( aligned_store_
                                     , tag::cpu_
                                     , (A0)(A1)(A2)(A3)(X)(Tag)(Arity)
                                     , ((ast_<A0, boost::simd::domain>))
@@ -100,7 +100,7 @@ namespace boost { namespace simd { namespace ext
   };
 
   /// INTERNAL ONLY pack store without offset
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::aligned_store_
+  BOOST_DISPATCH_IMPLEMENT          ( aligned_store_
                                     , tag::cpu_
                                     , (A0)(A1)
                                     , ((ast_<A0, boost::simd::domain>))
@@ -116,7 +116,7 @@ namespace boost { namespace simd { namespace ext
   };
 
   /// INTERNAL ONLY mask pack store without offset
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::aligned_store_
+  BOOST_DISPATCH_IMPLEMENT          ( aligned_store_
                                     , tag::cpu_
                                     , (A0)(A1)(A2)(X)(Tag)(Arity)
                                     , ((ast_<A0, boost::simd::domain>))

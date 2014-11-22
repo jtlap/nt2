@@ -22,7 +22,20 @@ namespace nt2
     struct pispace_ : ext::state_constant_<pispace_>
     {
       typedef ext::state_constant_<pispace_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_pispace_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::pispace_, Site> dispatching_pispace_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::pispace_, Site>();
+    }
+    template<class... Args>
+    struct impl_pispace_;
   }
 
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::pispace_, pispace, 1)

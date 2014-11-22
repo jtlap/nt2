@@ -15,7 +15,7 @@
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::isreal_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( isreal_, tag::cpu_
                             , (A0)(S0)(K0)(T)(M)
                             , ((expr_< container_<K0,fundamental_<A0>,S0>
                                      , T
@@ -32,7 +32,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::isreal_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( isreal_, tag::cpu_
                             , (A0)
                             , ((ast_<A0, nt2::container::domain>))
                             )

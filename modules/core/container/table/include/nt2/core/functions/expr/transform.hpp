@@ -19,7 +19,7 @@ namespace nt2 { namespace ext
   //============================================================================
   // Global version
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::transform_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( transform_, tag::cpu_
                             , (Out)(In)
                             , ((ast_<Out, nt2::container::domain>))
                               ((ast_<In, nt2::container::domain>))
@@ -37,7 +37,7 @@ namespace nt2 { namespace ext
   // Partial version - Process sz elements starting at element p
   // Note that p should be properly set beforehand
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::transform_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( transform_, tag::cpu_
                             , (Out)(In)(Range)
                             , ((ast_<Out, nt2::container::domain>))
                               ((ast_<In, nt2::container::domain>))

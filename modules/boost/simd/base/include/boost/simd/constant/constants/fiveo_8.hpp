@@ -31,6 +31,16 @@ namespace boost { namespace simd
                                 , 0x3fe4000000000000ULL
                                 )
   }
+  namespace ext
+  {
+   template<class Site, class... H>
+   BOOST_FORCEINLINE generic_dispatcher<tag::Fiveo_8, Site> dispatching_Fiveo_8(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   {
+     return generic_dispatcher<tag::Fiveo_8, Site>();
+   }
+   template<class... Args>
+   struct impl_Fiveo_8;
+  }
   /*!
     Generates value 5/8 = 0.625
 

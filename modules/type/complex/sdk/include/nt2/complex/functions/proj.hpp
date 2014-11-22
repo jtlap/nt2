@@ -56,7 +56,17 @@ namespace nt2
      * \brief Define the tag proj_ of functor proj
      *        in namespace nt2::tag for toolbox complex
     **/
-    struct proj_ : ext::elementwise_<proj_> { typedef ext::elementwise_<proj_> parent; };
+    struct proj_ : ext::elementwise_<proj_> { typedef ext::elementwise_<proj_> parent;   template<class... Args>   static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)   BOOST_AUTO_DECLTYPE_BODY( dispatching_proj_( ext::adl_helper(), static_cast<Args&&>(args)... ) ) };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::proj_, Site> dispatching_proj_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::proj_, Site>();
+    }
+    template<class... Args>
+    struct impl_proj_;
   }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::proj_, proj, 1)

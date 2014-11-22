@@ -16,7 +16,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::lookup_
+  BOOST_DISPATCH_IMPLEMENT          ( lookup_
                                     , boost::simd::tag::vmx_
                                     , (A0)(A1)
                                     , ((simd_ < ints8_<A0>
@@ -39,7 +39,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::lookup_
+  BOOST_DISPATCH_IMPLEMENT          ( lookup_
                                     , boost::simd::tag::vmx_
                                     , (A0)(A1)
                                     , ((simd_ < ints16_<A0>
@@ -70,7 +70,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::lookup_
+  BOOST_DISPATCH_IMPLEMENT          ( lookup_
                                     , boost::simd::tag::vmx_
                                     , (A0)(A1)
                                     , ((simd_ < type32_<A0>

@@ -29,6 +29,16 @@ namespace nt2
                                   , 0x3fc45f306dc9c883ll
                                   )
   }
+  namespace ext
+  {
+   template<class Site, class... H>
+   BOOST_FORCEINLINE generic_dispatcher<tag::Inv2pi, Site> dispatching_Inv2pi(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   {
+     return generic_dispatcher<tag::Inv2pi, Site>();
+   }
+   template<class... Args>
+   struct impl_Inv2pi;
+  }
   /*!
     Constant \f$\frac1\pi\f$.
 

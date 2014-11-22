@@ -21,11 +21,24 @@ namespace nt2
     /*!
       @brief Tag for the globalall functor
     **/
-    struct globalall_ : boost::dispatch::tag::formal_
+    struct globalall_ : ext::abstract_<globalall_>
     {
       /// @brief Parent hierarchy
-      typedef boost::dispatch::tag::formal_ parent;
+      typedef ext::abstract_<globalall_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_globalall_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::globalall_, Site> dispatching_globalall_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::globalall_, Site>();
+    }
+    template<class... Args>
+    struct impl_globalall_;
   }
   /*!
     @brief Checks that all elements of an expression is non-zero
@@ -55,7 +68,7 @@ namespace nt2
 namespace nt2 { namespace ext
 {
   /// INTERNAL ONLY
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::globalall_
+  BOOST_DISPATCH_IMPLEMENT  ( globalall_
                             , tag::cpu_
                             , (A0)
                             , (unspecified_<A0>)

@@ -24,10 +24,23 @@ namespace nt2
     /*!
       @brief Tag for isequaln functor
     **/
-    struct isequaln_ : boost::dispatch::tag::formal_
+    struct isequaln_ : ext::abstract_<isequaln_>
     {
-      typedef boost::dispatch::tag::formal_ parent;
+      typedef ext::abstract_<isequaln_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_isequaln_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::isequaln_, Site> dispatching_isequaln_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::isequaln_, Site>();
+    }
+    template<class... Args>
+    struct impl_isequaln_;
   }
 
   /*!

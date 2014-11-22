@@ -15,7 +15,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::bitwise_cast_, boost::simd::tag::avx_
+  BOOST_DISPATCH_IMPLEMENT         ( bitwise_cast_, boost::simd::tag::avx_
                                    , (A0)(A1)
                                    , ((simd_< integer_<A0>, boost::simd::tag::avx_ >))
                                      ((target_< simd_< integer_<A1>, boost::simd::tag::avx_ > >))
@@ -29,7 +29,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::bitwise_cast_, boost::simd::tag::avx_
+  BOOST_DISPATCH_IMPLEMENT         ( bitwise_cast_, boost::simd::tag::avx_
                                    , (A0)(A1)
                                    , ((simd_< integer_<A0>, boost::simd::tag::avx_ >))
                                      ((target_< simd_< single_<A1>, boost::simd::tag::avx_ > >))
@@ -43,7 +43,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::bitwise_cast_, boost::simd::tag::avx_
+  BOOST_DISPATCH_IMPLEMENT         ( bitwise_cast_, boost::simd::tag::avx_
                                    , (A0)(A1)
                                    , ((simd_< integer_<A0>, boost::simd::tag::avx_ >))
                                      ((target_< simd_< double_<A1>, boost::simd::tag::avx_ > >))
@@ -57,7 +57,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::bitwise_cast_, boost::simd::tag::avx_
+  BOOST_DISPATCH_IMPLEMENT         ( bitwise_cast_, boost::simd::tag::avx_
                                    , (A0)(A1)
                                    , ((simd_< single_<A0>, boost::simd::tag::avx_ >))
                                      ((target_< simd_< integer_<A1>, boost::simd::tag::avx_ > >))
@@ -71,7 +71,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::bitwise_cast_, boost::simd::tag::avx_
+  BOOST_DISPATCH_IMPLEMENT         ( bitwise_cast_, boost::simd::tag::avx_
                                    , (A0)(A1)
                                    , ((simd_< double_<A0>, boost::simd::tag::avx_ >))
                                      ((target_< simd_< integer_<A1>, boost::simd::tag::avx_ > >))
@@ -85,7 +85,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::bitwise_cast_, boost::simd::tag::avx_
+  BOOST_DISPATCH_IMPLEMENT         ( bitwise_cast_, boost::simd::tag::avx_
                                    , (A0)(A1)
                                    , ((simd_< double_<A0>, boost::simd::tag::avx_ >))
                                      ((target_< simd_< single_<A1>, boost::simd::tag::avx_ > >))
@@ -99,7 +99,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::bitwise_cast_, boost::simd::tag::avx_
+  BOOST_DISPATCH_IMPLEMENT         ( bitwise_cast_, boost::simd::tag::avx_
                                    , (A0)(A1)
                                    , ((simd_< single_<A0>, boost::simd::tag::avx_ >))
                                      ((target_< simd_< double_<A1>, boost::simd::tag::avx_ > >))

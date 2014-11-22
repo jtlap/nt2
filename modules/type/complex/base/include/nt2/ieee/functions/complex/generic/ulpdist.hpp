@@ -16,15 +16,15 @@
 #include <nt2/sdk/complex/meta/as_real.hpp>
 #include <boost/dispatch/attributes.hpp>
 
-namespace nt2 { namespace ext
+namespace boost { namespace simd { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::ulpdist_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( ulpdist_, tag::cpu_
                             , (A0)
                             , (generic_< complex_< floating_<A0> > >)
                               (generic_< complex_< floating_<A0> > >)
                             )
   {
-    typedef typename meta::as_real<A0>::type result_type;
+    typedef typename nt2::meta::as_real<A0>::type result_type;
 
     BOOST_FORCEINLINE NT2_FUNCTOR_CALL_REPEAT(2)
     {
@@ -34,18 +34,18 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::ulpdist_, tag::cpu_, (A0)
+  BOOST_DISPATCH_IMPLEMENT  ( ulpdist_, tag::cpu_, (A0)
                             , (generic_< dry_< floating_<A0> > >)
                               (generic_< dry_< floating_<A0> > >)
                             )
   {
-    typedef typename meta::as_real<A0>::type result_type;
+    typedef typename nt2::meta::as_real<A0>::type result_type;
 
     BOOST_FORCEINLINE NT2_FUNCTOR_CALL_REPEAT(2)
     {
       return nt2::ulpdist(nt2::real(a0), nt2::real(a1));
     }
   };
-} }
+} } }
 
 #endif

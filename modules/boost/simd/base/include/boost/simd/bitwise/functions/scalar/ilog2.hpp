@@ -20,7 +20,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::ilog2_, tag::cpu_, (A0)
+  BOOST_DISPATCH_IMPLEMENT         ( ilog2_, tag::cpu_, (A0)
                             , (scalar_< floating_<A0> >)
                             )
   {
@@ -31,7 +31,7 @@ namespace boost { namespace simd { namespace ext
       }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::ilog2_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT         ( ilog2_, tag::cpu_
                             , (A0)
                             , (scalar_< arithmetic_<A0> >)
                             )
@@ -45,7 +45,7 @@ namespace boost { namespace simd { namespace ext
   };
 
 #if defined(BOOST_MSVC)
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::ilog2_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT_IF         ( ilog2_, tag::cpu_
                             , (A0)
                             , (mpl::less_equal< mpl::sizeof_<A0>, mpl::size_t<4> >)
                             , (scalar_< integer_<A0> >)
@@ -64,7 +64,7 @@ namespace boost { namespace simd { namespace ext
 #endif
 
 #if defined(BOOST_MSVC) && defined(_WIN64)
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::ilog2_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT         ( ilog2_, tag::cpu_
                             , (A0)
                             , (scalar_< ints64_<A0> >)
                             )

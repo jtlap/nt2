@@ -17,7 +17,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::fast_toint_
+  BOOST_DISPATCH_IMPLEMENT          ( fast_toint_
                                     , tag::cpu_
                                     , (A0)
                                     , (scalar_< arithmetic_<A0> >)

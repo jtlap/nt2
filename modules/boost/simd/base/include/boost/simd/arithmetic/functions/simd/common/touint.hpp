@@ -26,7 +26,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::touint_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT          ( touint_, tag::cpu_
                                     , (A0)(X)
                                     , ((simd_<integer_<A0>,X>))
                                     )
@@ -40,7 +40,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::touint_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT          ( touint_, tag::cpu_
                                     , (A0)(X)
                                     , ((simd_<floating_<A0>,X>))
                                     )

@@ -22,9 +22,9 @@
 #include <nt2/sdk/complex/meta/as_dry.hpp>
 #include <nt2/include/functions/real.hpp>
 
-namespace nt2 { namespace ext
+namespace boost { namespace simd { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( boost::simd::tag::minmag_, tag::cpu_,
+  BOOST_DISPATCH_IMPLEMENT  ( minmag_, tag::cpu_,
                                      (A0),
                                      (generic_<complex_<floating_<A0> > >)
                                      (generic_<complex_<floating_<A0> > >)
@@ -37,7 +37,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( boost::simd::tag::minmag_, tag::cpu_,
+  BOOST_DISPATCH_IMPLEMENT  ( minmag_, tag::cpu_,
                                      (A0),
                                      (generic_<dry_<floating_<A0> > >)
                                      (generic_<dry_<floating_<A0> > >)
@@ -46,14 +46,14 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      typedef typename meta::as_real<result_type>::type rtype;
+      typedef typename nt2::meta::as_real<result_type>::type rtype;
       rtype absa0 = nt2::abs(a0);
       rtype absa1 = nt2::abs(a1);
       result_type r = if_else(lt(absa0, absa1), a0, a1);
       return if_else(eq(absa0, absa1), if_else(is_ltz(a0), a0, a1), r);
     }
   };
-} }
+} } }
 
 
 #endif

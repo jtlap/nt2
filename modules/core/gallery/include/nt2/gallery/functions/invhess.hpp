@@ -64,7 +64,17 @@ namespace nt2 { namespace tag
      * \brief Define the tag invhess_ of functor invhess
      *        in namespace nt2::tag for toolbox algebra
     **/
-    struct invhess_ :   ext::unspecified_<invhess_> { typedef  ext::unspecified_<invhess_> parent; };
+    struct invhess_ :   ext::unspecified_<invhess_> { typedef  ext::unspecified_<invhess_> parent;   template<class... Args>   static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)   BOOST_AUTO_DECLTYPE_BODY( dispatching_invhess_( ext::adl_helper(), static_cast<Args&&>(args)... ) ) };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::invhess_, Site> dispatching_invhess_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::invhess_, Site>();
+    }
+    template<class... Args>
+    struct impl_invhess_;
   }
 
   NT2_FUNCTION_IMPLEMENTATION(tag::invhess_, invhess, 1)

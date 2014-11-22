@@ -24,7 +24,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::groups_
+  BOOST_DISPATCH_IMPLEMENT          ( groups_
                                     , tag::cpu_
                                     , (A0)(X)
                                     , ((simd_<arithmetic_<A0>,X>))
@@ -71,7 +71,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF ( boost::simd::tag::groups_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT_IF          ( groups_, tag::cpu_
                                        , (A0)(X)
                                        , (boost::mpl::not_< boost::is_same<A0
                                                           , typename dispatch::meta::downgrade<A0
@@ -89,7 +89,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF ( boost::simd::tag::groups_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT_IF          ( groups_, tag::cpu_
                                        , (A0)(X)
                                        , (boost::mpl::not_< boost::is_same<A0
                                                           , typename dispatch::meta::downgrade<A0
@@ -107,7 +107,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::groups_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT          ( groups_, tag::cpu_
                                     , (A0)(X)
                                     , ((simd_<floating_<A0>,X>))
                                     )

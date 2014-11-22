@@ -17,7 +17,7 @@
 namespace boost { namespace simd { namespace ext
 {
   /// INTERNAL ONLY - Stream double without offset
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::stream_
+  BOOST_DISPATCH_IMPLEMENT          ( stream_
                                     , boost::simd::tag::avx_
                                     , (A0)(A1)
                                     , ((simd_ < double_<A0>
@@ -37,7 +37,7 @@ namespace boost { namespace simd { namespace ext
   };
 
   /// INTERNAL ONLY - Stream single without offset
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::stream_
+  BOOST_DISPATCH_IMPLEMENT          ( stream_
                                     , boost::simd::tag::avx_
                                     , (A0)(A1)
                                     , ((simd_ < single_<A0>
@@ -57,7 +57,7 @@ namespace boost { namespace simd { namespace ext
   };
 
   /// INTERNAL ONLY - Stream integers without offset
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::stream_
+  BOOST_DISPATCH_IMPLEMENT          ( stream_
                                     , boost::simd::tag::avx_
                                     , (A0)(A1)
                                     , ((simd_ < integer_<A0>

@@ -19,7 +19,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::if_else_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT          ( if_else_, tag::cpu_
                                     , (A0)(A1)
                                     , (scalar_< fundamental_<A0> >)
                                       (scalar_< fundamental_<A1> >)

@@ -29,6 +29,16 @@ namespace nt2
                                 , 0x404ca5dc1a63c1f8ll
                                 )
   }
+  namespace ext
+  {
+   template<class Site, class... H>
+   BOOST_FORCEINLINE generic_dispatcher<tag::Radindeg, Site> dispatching_Radindeg(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   {
+     return generic_dispatcher<tag::Radindeg, Site>();
+   }
+   template<class... Args>
+   struct impl_Radindeg;
+  }
   /*!
     Constant Radindeg : Degree in Radian multiplier, \f$\frac{180}\pi\f$.
 

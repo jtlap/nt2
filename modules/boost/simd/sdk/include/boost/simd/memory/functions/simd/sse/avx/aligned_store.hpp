@@ -20,7 +20,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::aligned_store_
+  BOOST_DISPATCH_IMPLEMENT          ( aligned_store_
                                     , boost::simd::tag::avx_
                                     , (A0)(A1)(A2)
                                     , ((simd_ < double_<A0>
@@ -43,7 +43,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::aligned_store_
+  BOOST_DISPATCH_IMPLEMENT          ( aligned_store_
                                     , boost::simd::tag::avx_
                                     , (A0)(A1)(A2)
                                     , ((simd_ < single_<A0>
@@ -67,7 +67,7 @@ namespace boost { namespace simd { namespace ext
   };
 
   /// INTERNAL ONLY - masked AVX double SIMD store without offset
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::aligned_store_
+  BOOST_DISPATCH_IMPLEMENT          ( aligned_store_
                                     , boost::simd::tag::avx_
                                     , (A0)(A1)(A2)
                                     , ((simd_ < double_<A0>
@@ -91,7 +91,7 @@ namespace boost { namespace simd { namespace ext
   };
 
   /// INTERNAL ONLY - AVX double SIMD store without offset
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::aligned_store_
+  BOOST_DISPATCH_IMPLEMENT          ( aligned_store_
                                     , boost::simd::tag::avx_
                                     , (A0)(A1)
                                     , ((simd_ < double_<A0>
@@ -111,7 +111,7 @@ namespace boost { namespace simd { namespace ext
   };
 
   /// INTERNAL ONLY - masked AVX single SIMD store without offset
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::aligned_store_
+  BOOST_DISPATCH_IMPLEMENT          ( aligned_store_
                                     , boost::simd::tag::avx_
                                     , (A0)(A1)(A2)
                                     , ((simd_ < single_<A0>
@@ -135,7 +135,7 @@ namespace boost { namespace simd { namespace ext
   };
 
   /// INTERNAL ONLY - AVX single SIMD store without offset
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::aligned_store_
+  BOOST_DISPATCH_IMPLEMENT          ( aligned_store_
                                     , boost::simd::tag::avx_
                                     , (A0)(A1)
                                     , ((simd_ < single_<A0>
@@ -155,7 +155,7 @@ namespace boost { namespace simd { namespace ext
   };
 
   /// INTERNAL ONLY - AVX integral SIMD store without offset
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::aligned_store_
+  BOOST_DISPATCH_IMPLEMENT_IF         ( aligned_store_
                                       , boost::simd::tag::avx_
                                       , (A0)(A1)
                                        , ( simd::meta::is_pointing_to

@@ -59,7 +59,20 @@ namespace nt2 { namespace tag
     struct ipjfact_ : ext::tieable_<ipjfact_>
     {
       typedef ext::tieable_<ipjfact_>  parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_ipjfact_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::ipjfact_, Site> dispatching_ipjfact_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::ipjfact_, Site>();
+    }
+    template<class... Args>
+    struct impl_ipjfact_;
   }
 
   NT2_FUNCTION_IMPLEMENTATION(tag::ipjfact_, ipjfact, 1)

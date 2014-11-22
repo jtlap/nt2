@@ -16,7 +16,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::fast_sqrt_
+  BOOST_DISPATCH_IMPLEMENT          ( fast_sqrt_
                                     , boost::simd::tag::simd_
                                     , (A0)(X)
                                     , ((simd_< double_<A0>, X>))

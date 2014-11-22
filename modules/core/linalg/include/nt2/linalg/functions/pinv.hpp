@@ -38,7 +38,17 @@ namespace nt2 { namespace tag
      * \brief Define the tag pinv_ of functor pinv
      *        in namespace nt2::tag for toolbox algebra
     **/
-    struct pinv_ :  ext::unspecified_<pinv_> { typedef ext::unspecified_<pinv_> parent; };
+    struct pinv_ :  ext::unspecified_<pinv_> { typedef ext::unspecified_<pinv_> parent;   template<class... Args>   static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)   BOOST_AUTO_DECLTYPE_BODY( dispatching_pinv_( ext::adl_helper(), static_cast<Args&&>(args)... ) ) };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::pinv_, Site> dispatching_pinv_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::pinv_, Site>();
+    }
+    template<class... Args>
+    struct impl_pinv_;
   }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::pinv_, pinv, 1)

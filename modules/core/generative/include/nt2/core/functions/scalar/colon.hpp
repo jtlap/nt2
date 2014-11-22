@@ -22,7 +22,7 @@ namespace nt2 { namespace ext
 {
   /// INTERNAL ONLY
   /// Generates colon from a pair of [low,up]
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::colon_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( colon_, tag::cpu_
                             , (A0)(A1)
                             , (scalar_< arithmetic_<A0> >)
                               (scalar_< arithmetic_<A1> >)
@@ -52,7 +52,7 @@ namespace nt2 { namespace ext
 
   /// INTERNAL ONLY
   /// Generates colon from a pair of [low,up] (static)
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::colon_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( colon_, tag::cpu_
                             , (A0)(A1)
                             , (mpl_integral_< scalar_< arithmetic_<A0> > >)
                               (mpl_integral_< scalar_< arithmetic_<A1> > >)
@@ -87,7 +87,7 @@ namespace nt2 { namespace ext
   /// INTERNAL ONLY
   ///  Generates colon from a pair of [low,up] and a step
   /// Easy case : everything is signed integral
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::colon_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( colon_, tag::cpu_
                             , (A0)(A1)(A2)
                             , (scalar_< integer_<A0> >)
                               (scalar_< integer_<A1> >)
@@ -121,7 +121,7 @@ namespace nt2 { namespace ext
   // Generates colon from a pair of [low,up] and a number of elements
   // Not easy case : floating points :s
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::colon_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( colon_, tag::cpu_
                             , (A0)(A1)(A2)
                             , (scalar_< arithmetic_<A0> >)
                               (scalar_< arithmetic_<A1> >)

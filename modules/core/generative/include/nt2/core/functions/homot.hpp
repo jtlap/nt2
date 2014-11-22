@@ -24,7 +24,20 @@ namespace nt2
     struct  homot_ : ext::state_constant_<homot_>
     {
       typedef ext::state_constant_<homot_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_homot_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::homot_, Site> dispatching_homot_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::homot_, Site>();
+    }
+    template<class... Args>
+    struct impl_homot_;
   }
 
   #define M0(z,n,t)                                                           \

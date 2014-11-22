@@ -39,10 +39,23 @@ namespace nt2 { namespace tag
      * \brief Define the tag pei_ of functor pei
      *        in namespace nt2::tag for toolbox algebra
     **/
-    struct pei_ : boost::dispatch::tag::formal_
+    struct pei_ : ext::abstract_<pei_>
     {
-      typedef boost::dispatch::tag::formal_ parent;
+      typedef ext::abstract_<pei_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_pei_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::pei_, Site> dispatching_pei_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::pei_, Site>();
+    }
+    template<class... Args>
+    struct impl_pei_;
   }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::pei_, pei, 2)

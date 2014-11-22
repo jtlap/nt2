@@ -12,7 +12,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::ceil_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT         ( ceil_, tag::cpu_
                             , (A0)
                             , (generic_<integer_<A0> >)
                             )

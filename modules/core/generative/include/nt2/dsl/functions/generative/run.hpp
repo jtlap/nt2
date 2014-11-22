@@ -18,7 +18,7 @@ namespace nt2 { namespace ext
   //============================================================================
   // generator terminal with a position in read mode
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( run_, tag::cpu_
                             , (A0)(Tag)(State)(Data)(N)
                             , ((node_<A0, constant_<Tag>
                                         , N

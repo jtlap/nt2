@@ -18,7 +18,7 @@
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::circul_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( circul_, tag::cpu_
                             , (A0)
                             , (scalar_<integer_<A0> >)
                             )
@@ -33,7 +33,7 @@ namespace nt2 { namespace ext
                           );
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::circul_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( circul_, tag::cpu_
                             , (A0)(T)
                             , (scalar_<integer_<A0> >)
                               (target_<scalar_<unspecified_<T> > > )
@@ -54,7 +54,7 @@ namespace nt2 { namespace ext
                                 );
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::circul_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( circul_, tag::cpu_
                             , (A0)
                             , ((ast_<A0, nt2::container::domain >))
                             )
@@ -71,7 +71,7 @@ namespace nt2 { namespace ext
                           );
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_assign_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( run_assign_, tag::cpu_
                             , (A0)(A1)(N)
                             , ((ast_<A0, nt2::container::domain>))
                               ((node_<A1,nt2::tag::circul_,N,nt2::container::domain>))

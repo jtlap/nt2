@@ -22,7 +22,7 @@
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::roots_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( roots_, tag::cpu_
                             , (A0)
                             , (scalar_<unspecified_<A0> > )
                             )
@@ -36,7 +36,7 @@ namespace nt2 { namespace ext
                                 );
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_assign_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( run_assign_, tag::cpu_
                               , (A0)(A1)(N)
                               , ((ast_<A0, nt2::container::domain>))
                                 ((node_<A1, nt2::tag::roots_, N,nt2::container::domain> ))

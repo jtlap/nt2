@@ -56,10 +56,23 @@ namespace nt2 { namespace tag
      * \brief Define the tag minij_ of functor minij
      *        in namespace nt2::tag for toolbox algebra
     **/
-    struct minij_ : boost::dispatch::tag::formal_
+    struct minij_ : ext::abstract_<minij_>
     {
-      typedef boost::dispatch::tag::formal_ parent;
+      typedef ext::abstract_<minij_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_minij_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::minij_, Site> dispatching_minij_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::minij_, Site>();
+    }
+    template<class... Args>
+    struct impl_minij_;
   }
 
   NT2_FUNCTION_IMPLEMENTATION(tag::minij_, minij, 2)

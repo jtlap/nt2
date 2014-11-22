@@ -20,7 +20,7 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::fuzzy_greater_or_equal_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( fuzzy_greater_or_equal_, tag::cpu_
                             , (A0)
                             , (scalar_< fundamental_<A0> >)(scalar_< fundamental_<A0> >)(scalar_< fundamental_<A0> >)
                             )

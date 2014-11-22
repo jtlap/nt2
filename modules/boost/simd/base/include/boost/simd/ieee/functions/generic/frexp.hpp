@@ -18,7 +18,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::frexp_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT_IF         ( frexp_, tag::cpu_
                                       , (A0)(A2)
                                       , ( boost::is_same
                                           < typename dispatch::meta
@@ -39,7 +39,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::frexp_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT          ( frexp_, tag::cpu_
                                     , (A0)
                                     , ((generic_<floating_<A0> >))
                                     )

@@ -33,7 +33,7 @@ namespace nt2 { namespace ext
   // the routines here compute only the eigenvalues and always in a complex colon vector
   //---------------------------------------------Real-double-w vr------------------------------------------------//
   /// INTERNAL ONLY - Compute the workspace
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::geev_wvr_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( geev_wvr_, tag::cpu_
                             , (A0)(S0)(A1)(S1)(A2)(S2)
                             , ((container_<nt2::tag::table_,  double_<A0>, S0 >))             //a
                               ((container_<nt2::tag::table_,  complex_<double_<A1> >, S1 >))  //w
@@ -68,7 +68,7 @@ namespace nt2 { namespace ext
 
   //---------------------------------------------Real-single-w vr------------------------------------------------//
   /// INTERNAL ONLY - Compute the workspace
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::geev_wvr_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( geev_wvr_, tag::cpu_
                             , (A0)(S0)(A1)(S1)(A2)(S2)
                             , ((container_<nt2::tag::table_,  single_<A0>, S0 >))             //a
                               ((container_<nt2::tag::table_,  complex_<single_<A1> >, S1 >))  //w
@@ -103,7 +103,7 @@ namespace nt2 { namespace ext
 
 //---------------------------------------------Complex-single-w vr------------------------------------------------//
   /// INTERNAL ONLY - Compute the workspace
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::geev_wvr_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( geev_wvr_, tag::cpu_
                             , (A0)(S0)(A1)(S1)(A2)(S2)
                             , ((container_<nt2::tag::table_,  complex_<single_<A0> >, S0 >))  //a
                               ((container_<nt2::tag::table_,  complex_<single_<A1> >, S1 >))  //w
@@ -139,7 +139,7 @@ namespace nt2 { namespace ext
 
   //---------------------------------------------Complex-double-w vr------------------------------------------------//
   /// INTERNAL ONLY - Compute the workspace
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::geev_wvr_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( geev_wvr_, tag::cpu_
                             , (A0)(S0)(A1)(S1)(A2)(S2)
                             , ((container_<nt2::tag::table_,  complex_<double_<A0> >, S0 >))  //a
                               ((container_<nt2::tag::table_,  complex_<double_<A1> >, S1 >))  //w
@@ -175,7 +175,7 @@ namespace nt2 { namespace ext
 
   //---------------------------------------------Real-double-w vr------------------------------------------------//
   /// INTERNAL ONLY - Workspace is ready
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::geev_wvr_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( geev_wvr_, tag::cpu_
                             , (A0)(S0)(A1)(S1)(A2)(S2)(WK)
                             , ((container_<nt2::tag::table_,  double_<A0>, S0 >))             //a
                               ((container_<nt2::tag::table_,  complex_<double_<A1> >, S1 >))  //w
@@ -214,7 +214,7 @@ namespace nt2 { namespace ext
 
   //---------------------------------------------Real-single-w vr------------------------------------------------//
   /// INTERNAL ONLY - Workspace is ready
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::geev_wvr_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( geev_wvr_, tag::cpu_
                             , (A0)(S0)(A1)(S1)(A2)(S2)(WK)
                             , ((container_<nt2::tag::table_,  single_<A0>, S0 >))             //a
                               ((container_<nt2::tag::table_,  complex_<single_<A1> >, S1 >))  //w
@@ -255,7 +255,7 @@ namespace nt2 { namespace ext
 
   //---------------------------------------------Complex-single-w vr------------------------------------------------//
   /// INTERNAL ONLY - Workspace is ready
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::geev_wvr_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( geev_wvr_, tag::cpu_
                             , (A0)(S0)(A1)(S1)(A2)(S2)(WK)
                             , ((container_<nt2::tag::table_,  complex_<single_<A0> >, S0 >))  //a
                               ((container_<nt2::tag::table_,  complex_<single_<A1> >, S1 >))  //w
@@ -294,7 +294,7 @@ namespace nt2 { namespace ext
 
   //---------------------------------------------Complex-double-w vr------------------------------------------------//
   /// INTERNAL ONLY - Workspace is ready
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::geev_wvr_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( geev_wvr_, tag::cpu_
                             , (A0)(S0)(A1)(S1)(A2)(S2)(WK)
                             , ((container_<nt2::tag::table_,  complex_<double_<A0> >, S0 >))  //a
                               ((container_<nt2::tag::table_,  complex_<double_<A1> >, S1 >))  //w

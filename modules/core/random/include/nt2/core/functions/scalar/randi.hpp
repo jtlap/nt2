@@ -22,7 +22,7 @@
 namespace nt2 { namespace ext
 {
   // randi(imax)
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::randi_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( randi_, tag::cpu_
                             , (A0)
                             , (scalar_< integer_<A0> >)
                             )
@@ -38,7 +38,7 @@ namespace nt2 { namespace ext
   };
 
   // randi([imin imax])
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::randi_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( randi_, tag::cpu_
                             , (S)
                             , (fusion_sequence_<S>)
                             )
@@ -57,7 +57,7 @@ namespace nt2 { namespace ext
   };
 
   // randi(imax, of_size)
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::randi_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( randi_, tag::cpu_
                             , (A0)(S)
                             , (scalar_< integer_<A0> >)
                               (fusion_sequence_<S>)
@@ -78,7 +78,7 @@ namespace nt2 { namespace ext
   };
 
   // randi([imin imax], of_size)
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::randi_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( randi_, tag::cpu_
                             , (A0)(S)
                             , (fusion_sequence_<A0>)
                               (fusion_sequence_<S>)
@@ -108,7 +108,7 @@ namespace nt2 { namespace ext
   #define M1(z,n,t) (scalar_< arithmetic_<BOOST_PP_CAT(A,n)> >)
 
   #define M0(z,n,t)                                                             \
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::randi_, tag::cpu_                       \
+  BOOST_DISPATCH_IMPLEMENT  ( randi_, tag::cpu_                       \
                             , (T)BOOST_PP_REPEAT(n,M2,~)                        \
                             , (scalar_< integer_<T> >)                          \
                               BOOST_PP_REPEAT(n,M1,~)                           \
@@ -124,7 +124,7 @@ namespace nt2 { namespace ext
                             )                                                   \
                           )                                                     \
   };                                                                            \
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::randi_, tag::cpu_                       \
+  BOOST_DISPATCH_IMPLEMENT  ( randi_, tag::cpu_                       \
                             , (S)BOOST_PP_REPEAT(n,M2,~)                        \
                             , (fusion_sequence_<S>)                             \
                               BOOST_PP_REPEAT(n,M1,~)                           \

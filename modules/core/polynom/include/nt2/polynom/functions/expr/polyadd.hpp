@@ -20,7 +20,7 @@
 namespace nt2{ namespace ext
 {
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::polyadd_, tag::cpu_,
+  BOOST_DISPATCH_IMPLEMENT  ( polyadd_, tag::cpu_,
                               (A0),
                               (scalar_<floating_<A0> >)
                               (scalar_<floating_<A0> >)
@@ -31,7 +31,7 @@ namespace nt2{ namespace ext
                           )
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::polyadd_, tag::cpu_,
+  BOOST_DISPATCH_IMPLEMENT  ( polyadd_, tag::cpu_,
                               (A0)(A1),
                               (scalar_<floating_<A0> >)
                               ((ast_<A1, nt2::container::domain>))
@@ -42,7 +42,7 @@ namespace nt2{ namespace ext
                           )
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::polyadd_, tag::cpu_,
+  BOOST_DISPATCH_IMPLEMENT  ( polyadd_, tag::cpu_,
                               (A0)(A1),
                               ((ast_<A1, nt2::container::domain>))
                               (scalar_<floating_<A0> >)
@@ -53,7 +53,7 @@ namespace nt2{ namespace ext
                           )
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::polyadd_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( polyadd_, tag::cpu_
                               , (A0)(A1)
                               , ((ast_<A0, nt2::container::domain>))
                                 ((ast_<A1, nt2::container::domain>))

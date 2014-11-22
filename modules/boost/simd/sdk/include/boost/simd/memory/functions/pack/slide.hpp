@@ -23,7 +23,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::slide_
+  BOOST_DISPATCH_IMPLEMENT         ( slide_
                                       , tag::cpu_
                                       , (A0)(N)
                                       , ((ast_<A0, boost::simd::domain>))
@@ -39,7 +39,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::slide_
+  BOOST_DISPATCH_IMPLEMENT         ( slide_
                                       , tag::cpu_
                                       , (A0)(A1)(N)
                                       // , ((

@@ -23,7 +23,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::two_prod_
+  BOOST_DISPATCH_IMPLEMENT          ( two_prod_
                                     , tag::cpu_
                                     , (A0)
                                     , (generic_< floating_<A0> >)
@@ -42,7 +42,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::two_prod_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT          ( two_prod_, tag::cpu_
                                     , (A0)
                                     , (generic_< floating_<A0> >)
                                       (generic_< floating_<A0> >)
@@ -58,7 +58,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::two_prod_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT          ( two_prod_, tag::cpu_
                                     , (A0)
                                     , (generic_< floating_<A0> >)
                                       (generic_< floating_<A0> >)

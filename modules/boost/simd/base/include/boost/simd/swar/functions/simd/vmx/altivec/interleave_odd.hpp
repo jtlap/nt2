@@ -15,7 +15,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::interleave_odd_
+  BOOST_DISPATCH_IMPLEMENT         ( interleave_odd_
                                    , boost::simd::tag::vmx_
                                    , (A0)(A1)
                                    , ((simd_<ints8_<A0>,boost::simd::tag::vmx_>))
@@ -34,7 +34,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::interleave_odd_
+  BOOST_DISPATCH_IMPLEMENT         ( interleave_odd_
                                    , boost::simd::tag::vmx_
                                    , (A0)(A1)
                                    , ((simd_<ints16_<A0>,boost::simd::tag::vmx_>))
@@ -53,7 +53,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::interleave_odd_
+  BOOST_DISPATCH_IMPLEMENT         ( interleave_odd_
                                    , boost::simd::tag::vmx_
                                    , (A0)(A1)
                                    , ((simd_<ints32_<A0>,boost::simd::tag::vmx_>))
@@ -72,7 +72,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::interleave_odd_
+  BOOST_DISPATCH_IMPLEMENT         ( interleave_odd_
                                    , boost::simd::tag::vmx_
                                    , (A0)(A1)
                                    , ((simd_<single_<A0>,boost::simd::tag::vmx_>))

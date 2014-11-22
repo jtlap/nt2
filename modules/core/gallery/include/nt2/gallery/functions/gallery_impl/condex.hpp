@@ -35,7 +35,7 @@
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::condex_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( condex_, tag::cpu_
                             , (A0)(A1)
                             , (scalar_<integer_<A0> >)
                               (scalar_<integer_<A1> >)
@@ -59,7 +59,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::condex_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( condex_, tag::cpu_
                             , (A0)(A1)(T)
                             , (scalar_<integer_<A0> >)
                               (scalar_<integer_<A1> >)
@@ -89,7 +89,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::condex_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( condex_, tag::cpu_
                             , (A0)(A1)(A2)
                             , (scalar_< integer_<A0> > )
                               (scalar_< integer_<A1> > )
@@ -118,7 +118,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::condex_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( condex_, tag::cpu_
                             , (A0)(A1)(A2)(T)
                             , (scalar_<integer_<A0> >)
                               (scalar_<integer_<A1> >)
@@ -153,7 +153,7 @@ namespace nt2 { namespace ext
   //     condex
   //////////////////////////////////////////////////////////////////////////////
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_assign_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( run_assign_, tag::cpu_
                               , (A0)(A1)(N)
                               , ((ast_<A0, nt2::container::domain>))
                               ((node_<A1,nt2::tag::condex_,N,nt2::container::domain>))

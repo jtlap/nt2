@@ -19,7 +19,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::exponentbits_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT          ( exponentbits_, tag::cpu_
                                     , (A0)
                                     , (scalar_< floating_<A0> >)
                                     )

@@ -16,7 +16,7 @@ namespace nt2 { namespace ext
 {
   /// INTERNAL ONLY
   /// size(...)
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::rand_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( rand_, tag::cpu_
                             , (A0)
                             , ((ast_< A0, nt2::container::domain >))
                             )
@@ -28,7 +28,7 @@ namespace nt2 { namespace ext
 
   /// INTERNAL ONLY
   /// size(...) + target
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::rand_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( rand_, tag::cpu_
                             , (A0)(T)
                             , ((ast_< A0, nt2::container::domain >))
                               (target_< scalar_< unspecified_<T> > >)

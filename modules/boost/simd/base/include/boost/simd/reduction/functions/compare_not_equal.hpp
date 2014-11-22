@@ -28,7 +28,20 @@ namespace boost { namespace simd
     {
       /// @brief Parent hierarchy
       typedef ext::unspecified_<compare_not_equal_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_compare_not_equal_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+   template<class Site, class... H>
+   BOOST_FORCEINLINE generic_dispatcher<tag::compare_not_equal_, Site> dispatching_compare_not_equal_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   {
+     return generic_dispatcher<tag::compare_not_equal_, Site>();
+   }
+   template<class... Args>
+   struct impl_compare_not_equal_;
   }
   /*!
     Returns a logical scalar that is the result of the lexicographic

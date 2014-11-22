@@ -17,7 +17,7 @@ namespace nt2 { namespace ext
   //============================================================================
   // Generates cat from 2 scalar
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::cat_, tag::cpu_,
+  BOOST_DISPATCH_IMPLEMENT  ( cat_, tag::cpu_,
                               (Dimension)(A1)(A2),
                               (scalar_<integer_<Dimension> >)
                               (scalar_< unspecified_<A1> >)

@@ -21,11 +21,24 @@ namespace nt2
   namespace tag
   {
     /// @brief Defines mqr function tag
-    struct mqr_ : boost::dispatch::tag::formal_
+    struct mqr_ : ext::abstract_<mqr_>
     {
       /// INTERNAL ONLY
-      typedef boost::dispatch::tag::formal_  parent;
+      typedef ext::abstract_<mqr_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_mqr_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::mqr_, Site> dispatching_mqr_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::mqr_, Site>();
+    }
+    template<class... Args>
+    struct impl_mqr_;
   }
 
   /*!

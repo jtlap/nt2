@@ -24,7 +24,7 @@ namespace nt2 { namespace ext
 //---------------------------------------------Real-double------------------------------------------------//
 
   /// INTERNAL ONLY - Compute the workspace
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::hsev_wu_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( hsev_wu_, tag::cpu_
                             , (A0)(S0)(A1)(S1)(C0)
                             , ((container_<nt2::tag::table_,  double_<A0>, S0 >)) //a
                               ((container_<nt2::tag::table_,  double_<A1>, S1 >)) //w
@@ -51,7 +51,7 @@ namespace nt2 { namespace ext
   };
 
   /// INTERNAL ONLY - Workspace is ready
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::hsev_wu_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( hsev_wu_, tag::cpu_
                             , (A0)(S0)(A1)(S1)(C0)(WK)
                             , ((container_<nt2::tag::table_,  double_<A0>, S0 >)) //a
                               ((container_<nt2::tag::table_,  double_<A1>, S1 >)) //w
@@ -78,7 +78,7 @@ namespace nt2 { namespace ext
 
 //---------------------------------------------Real-single------------------------------------------------//
   /// INTERNAL ONLY - Compute the workspace
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::hsev_wu_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( hsev_wu_, tag::cpu_
                             , (A0)(S0)(A1)(S1)(C0)
                             , ((container_<nt2::tag::table_,  single_<A0>, S0 >)) //a
                               ((container_<nt2::tag::table_,  single_<A1>, S1 >)) //w
@@ -107,7 +107,7 @@ namespace nt2 { namespace ext
   };
 
   /// INTERNAL ONLY - Workspace is ready
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::hsev_wu_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( hsev_wu_, tag::cpu_
                             , (A0)(S0)(A1)(S1)(C0)(WK)
                             , ((container_<nt2::tag::table_,  single_<A0>, S0 >)) //a
                               ((container_<nt2::tag::table_,  single_<A1>, S1 >)) //w
@@ -136,7 +136,7 @@ namespace nt2 { namespace ext
 //---------------------------------------------Complex-single------------------------------------------------//
 
   /// INTERNAL ONLY - Compute the workspace
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::hsev_wu_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( hsev_wu_, tag::cpu_
                             , (A0)(S0)(A1)(S1)(C0)
                             , ((container_<nt2::tag::table_,  complex_<single_<A0> >, S0 >))//a
                               ((container_<nt2::tag::table_,  single_<A1>, S1 >))           //w
@@ -165,7 +165,7 @@ namespace nt2 { namespace ext
   };
 
   /// INTERNAL ONLY - Workspace is ready
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::hsev_wu_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( hsev_wu_, tag::cpu_
                             , (A0)(S0)(A1)(S1)(C0)(WK)
                             , ((container_<nt2::tag::table_,  complex_<single_<A0> >, S0 >))//a
                               ((container_<nt2::tag::table_,  single_<A1>, S1 >))           //w
@@ -196,7 +196,7 @@ namespace nt2 { namespace ext
 
 
   /// INTERNAL ONLY - Compute the workspace
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::hsev_wu_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( hsev_wu_, tag::cpu_
                             , (A0)(S0)(A1)(S1)(C0)
                             , ((container_<nt2::tag::table_,  complex_<double_<A0> >, S0 >))//a
                               ((container_<nt2::tag::table_,  double_<A1>, S1 >))           //w
@@ -226,7 +226,7 @@ namespace nt2 { namespace ext
   };
 
   /// INTERNAL ONLY - Workspace is ready
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::hsev_wu_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( hsev_wu_, tag::cpu_
                             , (A0)(S0)(A1)(S1)(C0)(WK)
                             , ((container_<nt2::tag::table_,  complex_<double_<A0> >, S0 >))//a
                               ((container_<nt2::tag::table_,  double_<A1>, S1 >))           //w

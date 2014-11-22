@@ -19,7 +19,7 @@
 namespace nt2 { namespace ext
 {
   /// INTERNAL ONLY
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::logspace_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( logspace_, tag::cpu_
                             , (A0)
                             , (scalar_< unspecified_<A0> >)
                               (scalar_< unspecified_<A0> >)
@@ -49,7 +49,7 @@ namespace nt2 { namespace ext
   };
 
   /// INTERNAL ONLY
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::logspace_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( logspace_, tag::cpu_
                             , (A0)(A2)
                             , (scalar_< unspecified_<A0> >)
                               (scalar_< unspecified_<A0> >)
@@ -79,7 +79,7 @@ namespace nt2 { namespace ext
   };
 
   /// INTERNAL ONLY
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::logspace_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( logspace_, tag::cpu_
                             , (A0)(A1)
                             , (scalar_< unspecified_<A0> >)
                               (scalar_< unspecified_<A0> >)
@@ -112,7 +112,7 @@ namespace nt2 { namespace ext
   };
 
   /// INTERNAL ONLY
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::logspace_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( logspace_, tag::cpu_
                             , (A0)(A1)(A2)
                             , (scalar_< unspecified_<A0> >)
                               (scalar_< unspecified_<A0> >)

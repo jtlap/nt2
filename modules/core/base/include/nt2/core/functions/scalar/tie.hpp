@@ -61,7 +61,7 @@ namespace nt2 { namespace ext
 #define M4(z,n,t) ext::as_child_ref<A##n>::call(a##n)
 
 #define M0(z,n,t)                                                              \
-NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::tie_, BOOST_PP_TUPLE_ELEM(2,0,t)         \
+BOOST_DISPATCH_IMPLEMENT  ( tie_, BOOST_PP_TUPLE_ELEM(2,0,t)         \
                           , BOOST_PP_REPEAT(n,M1,~)                            \
                           , BOOST_PP_REPEAT(n,BOOST_PP_TUPLE_ELEM(2,1,t),~)    \
                           )                                                    \

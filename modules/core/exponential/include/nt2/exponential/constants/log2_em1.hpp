@@ -29,6 +29,16 @@ namespace nt2
                                 , 0x3fdc551d94ae0bf8ULL // 0.442695040888963e+00
                                 )
   }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::Log2_em1, Site> dispatching_Log2_em1(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::Log2_em1, Site>();
+    }
+    template<class... Args>
+    struct impl_Log2_em1;
+  }
  /*!
     Generates constant Log2_em1. (\f$\log2(e)-1\f$)
 

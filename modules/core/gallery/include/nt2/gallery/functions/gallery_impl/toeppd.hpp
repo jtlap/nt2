@@ -28,7 +28,7 @@ namespace nt2
 {
   namespace ext
   {
-    NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::toeppd_, tag::cpu_,
+    BOOST_DISPATCH_IMPLEMENT  ( toeppd_, tag::cpu_,
                                 (A0)(A1)(A2),
                                 (scalar_<integer_<A0> >)
                                 ((ast_<A1, nt2::container::domain>))
@@ -63,7 +63,7 @@ namespace nt2
       }
     };
 
-    NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::toeppd_, tag::cpu_,
+    BOOST_DISPATCH_IMPLEMENT  ( toeppd_, tag::cpu_,
                                 (A0)(A1)(T),
                                 (scalar_<integer_<A0> >)
                                 (scalar_<integer_<A1> >)

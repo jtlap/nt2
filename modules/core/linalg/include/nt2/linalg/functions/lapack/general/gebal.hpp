@@ -24,7 +24,7 @@ namespace nt2 { namespace ext
 
 //---------------------------------------------Real-double------------------------------------------------//
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::gebal_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( gebal_, tag::cpu_
                             , (A0)(S0)(A1)(S1)(A2)(A3)(C0)
                             , ((container_<nt2::tag::table_,  double_<A0>, S0 >)) //a
                               ((container_<nt2::tag::table_,  double_<A1>, S1 >)) //scale
@@ -52,7 +52,7 @@ namespace nt2 { namespace ext
 
 //---------------------------------------------Real-single------------------------------------------------//
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::gebal_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( gebal_, tag::cpu_
                             , (A0)(S0)(A1)(S1)(A2)(A3)(C0)
                             , ((container_<nt2::tag::table_,  single_<A0>, S0 >)) //a
                               ((container_<nt2::tag::table_,  single_<A1>, S1 >)) //scale
@@ -80,7 +80,7 @@ namespace nt2 { namespace ext
 
 //---------------------------------------------Complex-single------------------------------------------------//
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::gebal_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( gebal_, tag::cpu_
                             , (A0)(S0)(A1)(S1)(A2)(A3)(C0)
                             , ((container_<nt2::tag::table_,  complex_<single_<A0> > , S0 >)) //a
                               ((container_<nt2::tag::table_,  single_<A1>, S1 >)) //scale
@@ -108,7 +108,7 @@ namespace nt2 { namespace ext
 
 //---------------------------------------------Complex-double------------------------------------------------//
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::gebal_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( gebal_, tag::cpu_
                             , (A0)(S0)(A1)(S1)(A2)(A3)(C0)
                             , ((container_<nt2::tag::table_,  complex_<double_<A0> > , S0 >)) //a
                               ((container_<nt2::tag::table_,  double_<A1>, S1 >)) //scale

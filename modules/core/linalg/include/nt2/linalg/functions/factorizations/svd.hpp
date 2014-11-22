@@ -30,7 +30,7 @@
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::svd_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( svd_, tag::cpu_
                             , (A0)
                             , (scalar_<unspecified_<A0> >)
                             )
@@ -42,7 +42,7 @@ namespace nt2 { namespace ext
       return nt2::abs(a0);
     }
   };
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::svd_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( svd_, tag::cpu_
                             , (A0)(A1)
                             , (scalar_<unspecified_<A0> >)
                               (unspecified_<A1>)
@@ -59,7 +59,7 @@ namespace nt2 { namespace ext
   //============================================================================
   //SVD
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::svd_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( svd_, tag::cpu_
                             , (A0)(N0)(A1)(N1)
                             , ((node_<A0, nt2::tag::svd_
                                     , N0, nt2::container::domain

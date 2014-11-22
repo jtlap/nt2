@@ -41,7 +41,7 @@ namespace nt2 { namespace ext
 namespace nt2 { namespace ext
 {
   /// INTERNAL ONLY
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::ifvectvert_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( ifvectvert_, tag::cpu_
                             , (A0)
                             , (scalar_<unspecified_<A0> >)
                             )

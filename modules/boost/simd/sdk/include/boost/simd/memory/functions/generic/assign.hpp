@@ -14,7 +14,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::assign_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT          ( assign_, tag::cpu_
                                     , (A0)
                                     , (generic_<unspecified_<A0> >)
                                       (generic_<unspecified_<A0> >)
@@ -28,7 +28,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::assign_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT          ( assign_, tag::cpu_
                                     , (A0)(A1)
                                     , (proxy_<A0>)
                                       (unspecified_<A1>)

@@ -17,7 +17,7 @@
 namespace nt2 { namespace ext
 {
   // imax + size
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::randi_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( randi_, tag::cpu_
                             , (A0)(A1)
                             , (scalar_< integer_<A0> >)
                               ((ast_< A1, nt2::container::domain >))
@@ -29,7 +29,7 @@ namespace nt2 { namespace ext
   };
 
   // imin/max + size
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::randi_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( randi_, tag::cpu_
                             , (A0)(A1)
                             , (fusion_sequence_<A0>)
                               ((ast_< A1, nt2::container::domain >))
@@ -41,7 +41,7 @@ namespace nt2 { namespace ext
   };
 
   // imin/max + size
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::randi_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( randi_, tag::cpu_
                             , (A0)(A1)
                             , ((ast_< A0, nt2::container::domain >))
                               (fusion_sequence_<A1>)
@@ -71,7 +71,7 @@ namespace nt2 { namespace ext
   };
 
   // imin/max + size
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::randi_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( randi_, tag::cpu_
                             , (A0)(A1)
                             , ((ast_< A0, nt2::container::domain >))
                               ((ast_< A1, nt2::container::domain >))
@@ -101,7 +101,7 @@ namespace nt2 { namespace ext
   };
 
   // imin/max
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::randi_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( randi_, tag::cpu_
                             , (A0)
                             , ((ast_< A0, nt2::container::domain >))
                             )
@@ -128,7 +128,7 @@ namespace nt2 { namespace ext
   #define M1(z,n,t) (scalar_< arithmetic_<BOOST_PP_CAT(A,n)> >)
 
   #define M0(z,n,t)                                                             \
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::randi_, tag::cpu_                       \
+  BOOST_DISPATCH_IMPLEMENT  ( randi_, tag::cpu_                       \
                             , (T)BOOST_PP_REPEAT(n,M2,~)                        \
                             , ((ast_<T, nt2::container::domain >))              \
                               BOOST_PP_REPEAT(n,M1,~)                           \

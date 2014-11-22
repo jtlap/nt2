@@ -33,6 +33,9 @@ namespace nt2
     {
       /// @brief Parent hierarchy
       typedef ext::elementwise_<diag_of_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_diag_of_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
 
     struct offset_diag_of_ : ext::elementwise_<offset_diag_of_>
@@ -40,6 +43,16 @@ namespace nt2
       /// @brief Parent hierarchy
       typedef ext::elementwise_<offset_diag_of_>  parent;
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::diag_of_, Site> dispatching_diag_of_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::diag_of_, Site>();
+    }
+    template<class... Args>
+    struct impl_diag_of_;
   }
 
   /*!

@@ -15,7 +15,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::subs_
+  BOOST_DISPATCH_IMPLEMENT          ( subs_
                                     , boost::simd::tag::vmx_
                                     , (A0)
                                     , ((simd_< int_<A0>
@@ -36,7 +36,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::subs_
+  BOOST_DISPATCH_IMPLEMENT          ( subs_
                                     , boost::simd::tag::vmx_
                                     , (A0)
                                     , ((simd_< uint_<A0>

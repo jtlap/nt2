@@ -54,7 +54,17 @@ namespace nt2 { namespace tag
      * \brief Define the tag expipi_ of functor expipi
      *        in namespace nt2::tag for toolbox expipionential
     **/
-    struct expipi_ : ext::elementwise_<expipi_> { typedef ext::elementwise_<expipi_> parent; };
+    struct expipi_ : ext::elementwise_<expipi_> { typedef ext::elementwise_<expipi_> parent;   template<class... Args>   static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)   BOOST_AUTO_DECLTYPE_BODY( dispatching_expipi_( ext::adl_helper(), static_cast<Args&&>(args)... ) ) };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::expipi_, Site> dispatching_expipi_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::expipi_, Site>();
+    }
+    template<class... Args>
+    struct impl_expipi_;
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::expipi_, expipi, 1)
 }

@@ -19,7 +19,7 @@
 namespace boost { namespace simd { namespace ext
 {
   /// INTERNAL ONLY - double SIMD stream with offset
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::stream_
+  BOOST_DISPATCH_IMPLEMENT          ( stream_
                                     , boost::simd::tag::sse2_
                                     , (A0)(A1)(A2)
                                     , ((simd_ < double_<A0>
@@ -40,7 +40,7 @@ namespace boost { namespace simd { namespace ext
   };
 
   /// INTERNAL ONLY - double SIMD stream without offset
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::stream_
+  BOOST_DISPATCH_IMPLEMENT          ( stream_
                                     , boost::simd::tag::sse2_
                                     , (A0)(A1)
                                     , ((simd_ < double_<A0>
@@ -60,7 +60,7 @@ namespace boost { namespace simd { namespace ext
   };
 
   /// INTERNAL ONLY - single SIMD stream with offset
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::stream_
+  BOOST_DISPATCH_IMPLEMENT          ( stream_
                                     , boost::simd::tag::sse2_
                                     , (A0)(A1)(A2)
                                     , ((simd_ < single_<A0>
@@ -81,7 +81,7 @@ namespace boost { namespace simd { namespace ext
   };
 
   /// INTERNAL ONLY - single SIMD stream without offset
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::stream_
+  BOOST_DISPATCH_IMPLEMENT          ( stream_
                                     , boost::simd::tag::sse2_
                                     , (A0)(A1)
                                     , ((simd_ < single_<A0>
@@ -101,7 +101,7 @@ namespace boost { namespace simd { namespace ext
   };
 
   /// INTERNAL ONLY - integers SIMD stream with offset
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::stream_
+  BOOST_DISPATCH_IMPLEMENT          ( stream_
                                     , boost::simd::tag::sse2_
                                     , (A0)(A1)(A2)
                                     , ((simd_ < integer_<A0>
@@ -122,7 +122,7 @@ namespace boost { namespace simd { namespace ext
   };
 
   /// INTERNAL ONLY - integers SIMD stream without offset
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::stream_
+  BOOST_DISPATCH_IMPLEMENT          ( stream_
                                     , boost::simd::tag::sse2_
                                     , (A0)(A1)
                                     , ((simd_ < integer_<A0>

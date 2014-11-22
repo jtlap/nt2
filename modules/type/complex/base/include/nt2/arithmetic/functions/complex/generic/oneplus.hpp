@@ -16,9 +16,9 @@
 #include <nt2/sdk/complex/meta/as_real.hpp>
 #include <nt2/sdk/complex/meta/as_dry.hpp>
 
-namespace nt2 { namespace ext
+namespace boost { namespace simd { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::oneplus_, tag::cpu_, (A0)
+  BOOST_DISPATCH_IMPLEMENT  ( oneplus_, tag::cpu_, (A0)
                             , (generic_< complex_< arithmetic_<A0> > >)
                             )
   {
@@ -29,18 +29,18 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::oneplus_, tag::cpu_, (A0)
+  BOOST_DISPATCH_IMPLEMENT  ( oneplus_, tag::cpu_, (A0)
                             , (generic_< dry_< arithmetic_<A0> > >)
                             )
   {
-    typedef typename meta::as_real<A0>::type rA0;
-    typedef typename meta::as_dry<A0>::type result_type;
+    typedef typename nt2::meta::as_real<A0>::type rA0;
+    typedef typename nt2::meta::as_dry<A0>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
       return bitwise_cast<result_type>(oneplus(nt2::real(a0)));
     }
   };
 
-} }
+} } }
 
 #endif

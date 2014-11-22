@@ -21,7 +21,17 @@ namespace nt2 { namespace tag
      @par Models:
         Hierarchy
    **/
-    struct log1p_ : ext::elementwise_<log1p_> { typedef ext::elementwise_<log1p_> parent; };
+    struct log1p_ : ext::elementwise_<log1p_> { typedef ext::elementwise_<log1p_> parent;   template<class... Args>   static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)   BOOST_AUTO_DECLTYPE_BODY( dispatching_log1p_( ext::adl_helper(), static_cast<Args&&>(args)... ) ) };
+  }
+  namespace ext
+  {
+   template<class Site, class... H>
+   BOOST_FORCEINLINE generic_dispatcher<tag::log1p_, Site> dispatching_log1p_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   {
+     return generic_dispatcher<tag::log1p_, Site>();
+   }
+   template<class... Args>
+   struct impl_log1p_;
   }
   /*!
     natural logarithm of 1+a0: \f$\log(1+a_0)\f$

@@ -28,7 +28,7 @@ namespace nt2
     template<class T>
     struct is_colon<T, typename boost::enable_if_c< boost::proto::arity_of<T>::value == 0 >::type>
       : boost::
-        is_same< typename boost::dispatch::meta::
+        boost::is_same< typename boost::dispatch::meta::
                  strip< typename boost::proto::result_of::
                         value<T>::type
                       >::type

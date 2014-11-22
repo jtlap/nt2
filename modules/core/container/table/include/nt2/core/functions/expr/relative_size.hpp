@@ -17,7 +17,7 @@ namespace nt2 { namespace ext
   //============================================================================
   // Compute indexing size using any expression in the non 1D cases
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::relative_size_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( relative_size_, tag::cpu_
                             , (Idx)(Size)(Base)
                             , ((ast_<Idx, nt2::container::domain>))
                               (scalar_< unspecified_<Size> >)

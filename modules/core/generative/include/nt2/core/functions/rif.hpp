@@ -34,6 +34,16 @@ namespace nt2
                                 , 1, 0x3f800000UL, 0x3ff0000000000000ULL
                                 )
   }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::rif_, Site> dispatching_rif_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::rif_, Site>();
+    }
+    template<class... Args>
+    struct impl_rif_;
+  }
 
   #define M0(z,n,t)                                   \
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::rif_, rif, n) \

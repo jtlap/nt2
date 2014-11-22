@@ -18,7 +18,7 @@
 namespace boost { namespace simd { namespace ext
 {
   // Single precision fast_rec is computable from the raw_rec + 1 NR step
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION (  boost::simd::tag::fast_rec_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT          (  fast_rec_, tag::cpu_
                                     , (A0)(X)
                                     , ((simd_< single_<A0>, X >))
                                     )

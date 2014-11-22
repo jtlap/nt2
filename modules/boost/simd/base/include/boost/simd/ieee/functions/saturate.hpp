@@ -27,7 +27,20 @@ namespace boost { namespace simd
     {
       /// @brief parent Hierarchy
       typedef ext::elementwise_<saturate_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_saturate_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::saturate_, Site> dispatching_saturate_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::saturate_, Site>();
+    }
+    template<class... Args>
+    struct impl_saturate_;
   }
 
   /*!

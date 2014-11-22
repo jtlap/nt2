@@ -16,7 +16,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::splat_
+  BOOST_DISPATCH_IMPLEMENT          ( splat_
                                     , boost::simd::tag::sse2_
                                     , (A0)(A1)
                                     , (scalar_< fundamental_<A0> >)
@@ -35,7 +35,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::splat_
+  BOOST_DISPATCH_IMPLEMENT          ( splat_
                                     , boost::simd::tag::sse2_
                                     , (A0)(A1)
                                     , (scalar_< fundamental_<A0> >)
@@ -54,7 +54,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::splat_
+  BOOST_DISPATCH_IMPLEMENT          ( splat_
                                     , boost::simd::tag::sse2_
                                     , (A0)(A1)
                                     , (scalar_< fundamental_<A0> >)
@@ -73,7 +73,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::splat_
+  BOOST_DISPATCH_IMPLEMENT          ( splat_
                                     , boost::simd::tag::sse2_
                                     , (A0)(A1)
                                     , (scalar_< fundamental_<A0> >)
@@ -92,7 +92,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::splat_
+  BOOST_DISPATCH_IMPLEMENT          ( splat_
                                     , boost::simd::tag::sse2_
                                     , (A0)(A1)
                                     , (scalar_< fundamental_<A0> >)
@@ -111,7 +111,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::splat_
+  BOOST_DISPATCH_IMPLEMENT          ( splat_
                                     , boost::simd::tag::sse2_
                                     , (A0)(A1)
                                     , (scalar_< fundamental_<A0> >)

@@ -30,6 +30,16 @@ namespace boost { namespace simd
                                 , 0x3A800000, 0x3F50000000000000ULL
                                 )
   }
+  namespace ext
+  {
+   template<class Site, class... H>
+   BOOST_FORCEINLINE generic_dispatcher<tag::Twotom10, Site> dispatching_Twotom10(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   {
+     return generic_dispatcher<tag::Twotom10, Site>();
+   }
+   template<class... Args>
+   struct impl_Twotom10;
+  }
   /*!
     Generates 2 to the power -10 (\f$2^{-10}\f$)
 

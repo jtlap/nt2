@@ -18,11 +18,24 @@ namespace nt2
     /*!
       @brief Tag for the globalmjn functor
     **/
-    struct globalmin_ : tag::formal_
+    struct globalmin_ : ext::abstract_<globalmin_>
     {
       /// @brief Parent hierarchy
-      typedef tag::formal_ parent;
+      typedef ext::abstract_<globalmin_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_globalmin_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::globalmin_, Site> dispatching_globalmin_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::globalmin_, Site>();
+    }
+    template<class... Args>
+    struct impl_globalmin_;
   }
 
   /*!

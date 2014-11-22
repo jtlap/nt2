@@ -24,10 +24,23 @@ namespace nt2
     /*!
       @brief Tag for the construct function
     **/
-    struct construct_ : boost::dispatch::tag::formal_
+    struct construct_ : ext::abstract_<construct_>
     {
-      typedef boost::dispatch::tag::formal_ parent;
+      typedef ext::abstract_<construct_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_construct_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::construct_, Site> dispatching_construct_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::construct_, Site>();
+    }
+    template<class... Args>
+    struct impl_construct_;
   }
 
   #if defined(DOXYGEN_ONLY)

@@ -29,7 +29,7 @@
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::gamcdf0_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( gamcdf0_, tag::cpu_
                               , (A0)(A1)
                               , (generic_< floating_<A0> >)
                               (generic_< floating_<A1> >)
@@ -39,7 +39,7 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(2){ return nt2::gammainc(a1, a0); }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::gamcdf0_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( gamcdf0_, tag::cpu_
                               , (A0)(A1)(A2)
                               , (generic_< floating_<A0> >)
                               (generic_< floating_<A1> >)
@@ -54,7 +54,7 @@ namespace nt2 { namespace ext
   };
 
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::gamcdf_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( gamcdf_, tag::cpu_
                               , (A0)(N0)(A1)(N1)
                               , ((node_<A0, nt2::tag::gamcdf_, N0, nt2::container::domain>))
                                 ((node_<A1, nt2::tag::tie_ , N1, nt2::container::domain>))

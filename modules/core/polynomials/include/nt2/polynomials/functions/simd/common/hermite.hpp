@@ -24,7 +24,7 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::hermite_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( hermite_, tag::cpu_
                             , (A0)(A1)(X)
                             , (scalar_< integer_<A0> >)((simd_<arithmetic_<A1>,X>))
                             )
@@ -45,7 +45,7 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::hermite_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( hermite_, tag::cpu_
                             , (A0)(A1)(X)
                             , (scalar_< integer_<A0> >)((simd_<floating_<A1>,X>))
                             )

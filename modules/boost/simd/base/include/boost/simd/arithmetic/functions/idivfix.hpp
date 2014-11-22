@@ -26,7 +26,20 @@ namespace boost { namespace simd {
     {
       /// @brief Parent hierarchy
       typedef ext::elementwise_<idivfix_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_idivfix_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::idivfix_, Site> dispatching_idivfix_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::idivfix_, Site>();
+    }
+    template<class... Args>
+    struct impl_idivfix_;
   }
   /*!
     Computes the integer conversion of the truncated division of its parameters.

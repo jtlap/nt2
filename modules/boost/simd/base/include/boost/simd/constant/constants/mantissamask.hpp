@@ -30,6 +30,16 @@ namespace boost { namespace simd
                                 , 0,0x807FFFFFUL,0x800FFFFFFFFFFFFFULL
                                 )
   }
+  namespace ext
+  {
+   template<class Site, class... H>
+   BOOST_FORCEINLINE generic_dispatcher<tag::Mantissamask, Site> dispatching_Mantissamask(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   {
+     return generic_dispatcher<tag::Mantissamask, Site>();
+   }
+   template<class... Args>
+   struct impl_Mantissamask;
+  }
   /*!
     Generates a mask used to compute the mantissa of a floating point value
 

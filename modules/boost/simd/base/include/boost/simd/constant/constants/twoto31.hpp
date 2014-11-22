@@ -35,6 +35,16 @@ namespace boost { namespace simd
                                 , 0x4f000000, 0x41e0000000000000LL
                                 )
   }
+  namespace ext
+  {
+   template<class Site, class... H>
+   BOOST_FORCEINLINE generic_dispatcher<tag::Twoto31, Site> dispatching_Twoto31(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   {
+     return generic_dispatcher<tag::Twoto31, Site>();
+   }
+   template<class... Args>
+   struct impl_Twoto31;
+  }
   /*!
     Generates 2 to the power 31 (\f$2^{31}\f$)
 

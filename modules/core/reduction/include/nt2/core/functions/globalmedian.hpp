@@ -21,11 +21,24 @@ namespace nt2
     /*!
       @brief Tag for the globalmedian functor
     **/
-    struct globalmedian_ : boost::dispatch::tag::formal_
+    struct globalmedian_ : ext::abstract_<globalmedian_>
     {
       /// @brief Parent hierarchy
-      typedef boost::dispatch::tag::formal_ parent;
+      typedef ext::abstract_<globalmedian_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_globalmedian_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::globalmedian_, Site> dispatching_globalmedian_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::globalmedian_, Site>();
+    }
+    template<class... Args>
+    struct impl_globalmedian_;
   }
   /*!
     @brief Median of the absolute deviation of all the elements of an expression
@@ -58,7 +71,7 @@ namespace nt2
 namespace nt2 { namespace ext
 {
   /// INTERNAL ONLY
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::globalmedian_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( globalmedian_, tag::cpu_
                             , (A0)
                             , (unspecified_<A0>)
                             )

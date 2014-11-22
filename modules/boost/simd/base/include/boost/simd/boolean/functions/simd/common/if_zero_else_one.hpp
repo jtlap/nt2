@@ -17,7 +17,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::if_zero_else_one_
+  BOOST_DISPATCH_IMPLEMENT          ( if_zero_else_one_
                                     , tag::cpu_
                                     , (A0)(X)
                                     , ((simd_<arithmetic_<A0>,X>))
@@ -30,7 +30,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::if_zero_else_one_
+  BOOST_DISPATCH_IMPLEMENT          ( if_zero_else_one_
                                     , tag::cpu_
                                     , (A0)(X)
                                     , ((simd_<logical_<A0>,X>))

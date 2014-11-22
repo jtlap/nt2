@@ -30,6 +30,16 @@ namespace boost { namespace simd
                                 , 0xBFC5555555555555LL
                                 )
   }
+  namespace ext
+  {
+   template<class Site, class... H>
+   BOOST_FORCEINLINE generic_dispatcher<tag::Moneo_6, Site> dispatching_Moneo_6(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   {
+     return generic_dispatcher<tag::Moneo_6, Site>();
+   }
+   template<class... Args>
+   struct impl_Moneo_6;
+  }
   /*!
     Generates value 1/6
 

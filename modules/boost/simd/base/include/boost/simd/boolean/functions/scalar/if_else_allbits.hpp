@@ -16,7 +16,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::if_else_allbits_, tag::cpu_, (A0)(A1)
+  BOOST_DISPATCH_IMPLEMENT          ( if_else_allbits_, tag::cpu_, (A0)(A1)
                                     , (scalar_< logical_<A0> >)
                                       (scalar_< fundamental_<A1> >)
                                     )
@@ -27,7 +27,7 @@ namespace boost { namespace simd { namespace ext
       return a0 ? a1 : Allbits<A1>();
     }
   };
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::if_else_allbits_, tag::cpu_, (A0)(A1)
+  BOOST_DISPATCH_IMPLEMENT          ( if_else_allbits_, tag::cpu_, (A0)(A1)
                                     , (scalar_< fundamental_<A0> >)
                                       (scalar_< fundamental_<A1> >)
                                     )

@@ -38,10 +38,10 @@ namespace boost { namespace simd
   }
   namespace tag
   {
-    struct map_ : dispatch::tag::formal_
+    struct map_ : ext::abstract_<map_>
     {
       /// @brief Parent hierarchy
-      typedef dispatch::tag::formal_ parent;
+      typedef ext::abstract_<map_> parent;
       template<class... Args>
       static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
       BOOST_AUTO_DECLTYPE_BODY( dispatching_map_( ext::adl_helper(), static_cast<Args&&>(args)... ) )

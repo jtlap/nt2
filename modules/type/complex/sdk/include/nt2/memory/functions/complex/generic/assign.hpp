@@ -16,9 +16,9 @@
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION_IF( nt2::tag::assign_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT_IF  ( assign_, tag::cpu_
                                , (A0)(A1)
-                               , (is_same<A1, typename nt2::meta::real_of<A0>::type>)
+                               , (boost::is_same<A1, typename nt2::meta::real_of<A0>::type>)
                                , (generic_< complex_< unspecified_<A0> > >)
                                  (generic_< unspecified_<A1> >)
                                )

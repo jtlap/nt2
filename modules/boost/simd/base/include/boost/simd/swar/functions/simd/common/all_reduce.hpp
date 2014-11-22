@@ -19,7 +19,7 @@
 namespace boost { namespace simd { namespace ext
 {
   // Regular, generic SIMD version
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::all_reduce_
+  BOOST_DISPATCH_IMPLEMENT          ( all_reduce_
                                     , boost::simd::tag::simd_
                                     , (Tag)(A0)(X)
                                     , ((simd_< unspecified_<A0>, X >))
@@ -40,7 +40,7 @@ namespace boost { namespace simd { namespace ext
   };
 
   // SIMD Emulation version
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::all_reduce_
+  BOOST_DISPATCH_IMPLEMENT          ( all_reduce_
                                     , tag::cpu_
                                     , (Tag)(A0)(X)
                                     , ((simd_< unspecified_<A0>, X >))
