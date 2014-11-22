@@ -9,6 +9,7 @@
 #ifndef BOOST_SIMD_SDK_FUNCTOR_PROXY_HPP_INCLUDED
 #define BOOST_SIMD_SDK_FUNCTOR_PROXY_HPP_INCLUDED
 
+#include <boost/simd/include/functor.hpp>
 #include <boost/dispatch/meta/any.hpp>
 #include <boost/dispatch/meta/proxy.hpp>
 #include <boost/dispatch/meta/unproxy.hpp>
