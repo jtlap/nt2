@@ -41,7 +41,7 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type operator()(A0& a0) const
     {
       result_type tmp;
-      run_assign(tmp, a0);
+      nt2::run_assign(tmp, a0);
       return tmp;
     }
   };
