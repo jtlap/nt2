@@ -40,6 +40,14 @@ namespace nt2
     }
     template<class... Args>
     struct impl_romberg_;
+
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::Rombergabstol, Site> dispatching_Rombergabstol(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::Rombergabstol, Site>();
+    }
+    template<class... Args>
+    struct impl_Rombergabstol;
   }
 
   /// INTERNAL ONLY
