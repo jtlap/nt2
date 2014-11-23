@@ -32,7 +32,9 @@
  *
 **/
 
-namespace nt2 { namespace tag
+namespace nt2
+{
+  namespace tag
   {
     /*!
      * \brief Define the tag rref_ of functor rref
@@ -45,9 +47,18 @@ namespace nt2 { namespace tag
         typedef ext::unspecified_<factorization::rref_> parent;
         template<class... Args>
         static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
-        BOOST_AUTO_DECLTYPE_BODY( dispatching_rref_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
+        BOOST_AUTO_DECLTYPE_BODY( dispatching( ext::adl_helper(), rref_(), static_cast<Args&&>(args)... ) )
       };
     }
+    struct rref_ :  ext::tieable_<rref_>
+    {
+      typedef ext::tieable_<rref_>  parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_rref_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
+    };
+  }
+
   namespace ext
   {
     template<class Site, class... H>
@@ -57,12 +68,6 @@ namespace nt2 { namespace tag
     }
     template<class... Args>
     struct impl_rref_;
-  }
-
-    struct rref_ :  ext::tieable_<rref_>
-    {
-      typedef ext::tieable_<rref_>  parent;
-    };
   }
 
   NT2_FUNCTION_IMPLEMENTATION(tag::rref_, rref, 1)

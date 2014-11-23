@@ -22,16 +22,14 @@ namespace nt2
 {
   namespace tag
   {
-    namespace factorization
+    struct balance_ :  ext::tieable_<balance_>
     {
-      struct balance_ : ext::unspecified_<factorization::balance_>
-      {
-        typedef ext::unspecified_<factorization::balance_> parent;
-        template<class... Args>
-        static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
-        BOOST_AUTO_DECLTYPE_BODY( dispatching_balance_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
-      };
-    }
+      typedef ext::tieable_<balance_>  parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_balance_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
+    };
+  }
   namespace ext
   {
     template<class Site, class... H>
@@ -41,12 +39,6 @@ namespace nt2
     }
     template<class... Args>
     struct impl_balance_;
-  }
-
-    struct balance_ :  ext::tieable_<balance_>
-    {
-      typedef ext::tieable_<balance_>  parent;
-    };
   }
 
   /**

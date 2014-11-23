@@ -29,9 +29,18 @@ namespace nt2
         typedef ext::unspecified_<factorization::poly_> parent;
         template<class... Args>
         static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
-        BOOST_AUTO_DECLTYPE_BODY( dispatching_poly_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
+        BOOST_AUTO_DECLTYPE_BODY( dispatching( ext::adl_helper(), poly_(), static_cast<Args&&>(args)... ) )
       };
     }
+
+    struct poly_ :  ext::unspecified_<poly_>
+    {
+      typedef ext::unspecified_<poly_>  parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_poly_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
+    };
+  }
   namespace ext
   {
     template<class Site, class... H>
@@ -41,12 +50,6 @@ namespace nt2
     }
     template<class... Args>
     struct impl_poly_;
-  }
-
-    struct poly_ :  ext::unspecified_<poly_>
-    {
-      typedef ext::unspecified_<poly_>  parent;
-    };
   }
 
   /**

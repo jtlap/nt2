@@ -29,9 +29,18 @@ namespace nt2
         typedef ext::unspecified_<factorization::ldl_> parent;
         template<class... Args>
         static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
-        BOOST_AUTO_DECLTYPE_BODY( dispatching_ldl_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
+        BOOST_AUTO_DECLTYPE_BODY( dispatching( ext::adl_helper(), ldl_(), static_cast<Args&&>(args)... ) )
       };
     }
+
+    struct ldl_ : ext::tieable_<ldl_>
+    {
+      typedef ext::tieable_<ldl_>  parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_ldl_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
+    };
+  }
   namespace ext
   {
     template<class Site, class... H>
@@ -41,12 +50,6 @@ namespace nt2
     }
     template<class... Args>
     struct impl_ldl_;
-  }
-
-    struct ldl_ : ext::tieable_<ldl_>
-    {
-      typedef ext::tieable_<ldl_>  parent;
-    };
   }
 
   /**
