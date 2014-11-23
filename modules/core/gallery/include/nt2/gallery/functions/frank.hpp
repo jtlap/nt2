@@ -74,6 +74,9 @@ namespace nt2 { namespace tag
     struct frank1_ : ext::abstract_<frank1_>
     {
       typedef ext::abstract_<frank1_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_frank1_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
   }
   namespace ext
@@ -85,6 +88,14 @@ namespace nt2 { namespace tag
     }
     template<class... Args>
     struct impl_frank0_;
+
+    template<class Site, class... H>
+    BOOST_FORCEINLINE generic_dispatcher<tag::frank1_, Site> dispatching_frank0_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    {
+      return generic_dispatcher<tag::frank1_, Site>();
+    }
+    template<class... Args>
+    struct impl_frank1_;
   }
 
   NT2_FUNCTION_IMPLEMENTATION(tag::frank0_, frank0, 2)
