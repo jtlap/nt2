@@ -12,10 +12,10 @@
 
 #include <nt2/reduction/functions/dot.hpp>
 #include <nt2/include/functions/scalar/conj.hpp>
-#include <nt2/sdk/meta/as_floating.hpp>
-#include <nt2/sdk/meta/as_real.hpp>
+#include <boost/simd/sdk/meta/as_real.hpp>
+#include <boost/dispatch/meta/as_floating.hpp>
 
-namespace nt2 { namespace ext
+namespace boost { namespace simd { namespace ext
 {
   /// INTERNAL ONLY
   BOOST_DISPATCH_IMPLEMENT  ( dot_, tag::cpu_
@@ -25,8 +25,8 @@ namespace nt2 { namespace ext
                               (scalar_< integer_<A1> > )
                             )
   {
-    typedef typename  meta::as_floating<A0>::type f_t;
-    typedef typename  meta::as_real<f_t>::type    result_type;
+    typedef typename boost::dispatch::meta::as_floating<A0>::type f_t;
+    typedef typename meta::as_real<f_t>::type    result_type;
 
     BOOST_FORCEINLINE
     result_type operator()(A0 const& a, A0 const& b, A1 const &) const
@@ -34,6 +34,6 @@ namespace nt2 { namespace ext
       return a*nt2::conj(b);
     }
   };
-} }
+} } }
 
 #endif
