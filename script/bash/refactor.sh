@@ -65,8 +65,14 @@ do
 
   if echo "$i" | grep -q -F 'include/nt2'
   then
-    # unqualified mpl:: or is_same
-    perl-sed 's@(?<![:/])\b(mpl::|is_same\b)@boost::\1@g' "$i"
+    # unqualified dispatch::, mpl:: or is_same
+    perl-sed 's@(?<![:/])\b(mpl::|dispatch::|is_same\b)@boost::\1@g' "$i"
+
+    if ! echo "$i" | grep -q -E '(protocol|run.hpp)'
+    then
+      # unqualified run
+      perl-sed 's@(?<![:/.])\brun\b(\s*\()@nt2::run\1@g' "$i"
+    fi
   fi
 done
 
@@ -75,13 +81,13 @@ complex_specializations=$(find . -regextype posix-egrep -regex './modules/type/c
 
 echo "$complex_specializations" | while read i
 do
+  echo "$i"
   if ! grep -q -F 'namespace boost { namespace simd { namespace ext' "$i"
   then
-    echo "$i"
     perl-sed 's@namespace\s+nt2\s*{\s*namespace\s+ext@namespace boost { namespace simd { namespace ext@g' "$i"
-    perl-sed 's@(?<!:)\bmeta::(as_complex|as_real|as_dry)@nt2::meta::\1@g' "$i"
-    perl-sed 's@(?<!:)\bmeta::(as_integer|as_(?:un)?signed|as_floating)@boost::dispatch::meta::\1@g' "$i"
-    perl-sed 's@(?<![:/])\b(real|imag)\b@nt2::\1@g' "$i"
     perl-sed 's@}\s*}(\s*)#endif@} } }\1#endif@gs' "$i"
   fi
+  perl-sed 's@(?<!:)\bmeta::(as_complex|as_real|as_dry)@nt2::meta::\1@g' "$i"
+  perl-sed 's@(?<!:)\bmeta::(as_integer|as_(?:un)?signed|as_floating|call)@boost::dispatch::meta::\1@g' "$i"
+  perl-sed 's@(?<![:/])\b(real|imag|mul_i|pure|complexiy|frompolar|proj|tocomplex|c_real|mul_minus_i)\b@nt2::\1@g' "$i"
 done

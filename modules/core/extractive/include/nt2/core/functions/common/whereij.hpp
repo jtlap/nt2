@@ -39,8 +39,8 @@ namespace nt2 { namespace ext
       s_t pos  = as_subscript(_2D(a0.extent()),enumerate<i_t>(p));
 
       return if_else( boost::proto::value(boost::proto::child_c<0>(a0))(pos[0],pos[1])
-                    , run(boost::proto::child_c<1>(a0), p, t)
-                    , run(boost::proto::child_c<2>(a0), p, t)
+                    , nt2::run(boost::proto::child_c<1>(a0), p, t)
+                    , nt2::run(boost::proto::child_c<2>(a0), p, t)
                     );
     }
   };

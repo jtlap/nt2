@@ -91,7 +91,7 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type
     operator()(A0 const& a0, State const& p, Data const& t) const
     {
-      return conj( run( transpose( boost::proto::child_c<0>(a0) ), p, t ) );
+      return conj( nt2::run( transpose( boost::proto::child_c<0>(a0) ), p, t ) );
     }
   };
 } }

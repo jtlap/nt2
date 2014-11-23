@@ -76,7 +76,7 @@ namespace boost { namespace fusion { namespace extension
   {
     template<typename Sequence>
     struct  apply
-          : boost::mpl::size_t < dispatch::meta::call<nt2::tag::extent_(Sequence)>
+          : boost::mpl::size_t < boost::dispatch::meta::call<nt2::tag::extent_(Sequence)>
                                   ::type::static_numel
                         >
     {};

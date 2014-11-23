@@ -50,7 +50,7 @@ namespace nt2 { namespace ext
       }
 
       // return each value potentially repeated
-      return run(boost::proto::child_c<0>(a0), as_index(sz0, pos0), t);
+      return nt2::run(boost::proto::child_c<0>(a0), as_index(sz0, pos0), t);
     }
   };
 } }
