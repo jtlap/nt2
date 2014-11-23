@@ -28,7 +28,7 @@ namespace boost { namespace simd { namespace ext
   {
     typedef typename nt2::meta::as_real<A0>::type                        r_t;
     typedef typename Tag::type                                      base;
-    typedef typename meta::call<base(r_t const&, r_t const&)>::type res_t;
+    typedef typename boost::dispatch::meta::call<base(r_t const&, r_t const&)>::type res_t;
     typedef typename nt2::meta::as_dry<res_t>::type                      result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, Tag const&) const
