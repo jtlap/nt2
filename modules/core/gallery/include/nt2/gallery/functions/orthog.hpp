@@ -70,32 +70,48 @@
 // orthog actual class forward declaration
 //==============================================================================
 
-namespace nt2 { namespace tag
-  {
+namespace nt2
+{
     /*!
      * \brief Define the tag orthog_ of functor orthog
      *        in namespace nt2::tag for toolbox algebra
     **/
 
-#define NT2_FORMAL(Name)                            \
-    struct Name : boost::dispatch::tag::formal_     \
-    {                                               \
-      typedef boost::dispatch::tag::formal_ parent; \
-    }                                               \
-        /**/
+  #define NT2_FORMAL(Name)                                                                         \
+  namespace tag                                                                                    \
+  {                                                                                                \
+    struct Name : ext::abstract_<Name>                                                             \
+    {                                                                                              \
+      typedef ext::abstract_<Name> parent;                                                         \
+                                                                                                   \
+      template<class... Args>                                                                      \
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)                        \
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_##Name( ext::adl_helper(), static_cast<Args&&>(args)... ) )\
+    };                                                                                             \
+  }                                                                                                \
+  namespace ext                                                                                    \
+  {                                                                                                \
+    template<class Site, class... H>                                                               \
+    BOOST_FORCEINLINE generic_dispatcher<tag::Name, Site> dispatching_##Name(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)\
+    {                                                                                              \
+      return generic_dispatcher<tag::Name, Site>();                                                \
+    }                                                                                              \
+    template<class... Args>                                                                        \
+    struct impl_##Name;                                                                            \
+  }                                                                                                \
+  /**/
 
-    NT2_FORMAL(orthog1_);
-    NT2_FORMAL(orthog2_);
-    NT2_FORMAL(orthog3_);
-    NT2_FORMAL(orthog4_);
-    NT2_FORMAL(orthog5_);
-    NT2_FORMAL(orthog6_);
-    NT2_FORMAL(orthog7_);
-    NT2_FORMAL(orthogm1_);
-    NT2_FORMAL(orthogm2_);
+  NT2_FORMAL(orthog1_);
+  NT2_FORMAL(orthog2_);
+  NT2_FORMAL(orthog3_);
+  NT2_FORMAL(orthog4_);
+  NT2_FORMAL(orthog5_);
+  NT2_FORMAL(orthog6_);
+  NT2_FORMAL(orthog7_);
+  NT2_FORMAL(orthogm1_);
+  NT2_FORMAL(orthogm2_);
 
-#undef NT2_FORMAL
-  }
+  #undef NT2_FORMAL
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::orthog1_, orthog1, 2)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::orthog2_, orthog2, 2)
