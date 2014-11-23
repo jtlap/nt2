@@ -20,6 +20,7 @@
 #include <nt2/include/functions/asum2.hpp>
 #include <nt2/include/functions/numel.hpp>
 #include <nt2/include/functions/ones.hpp>
+#include <nt2/include/functions/flipud.hpp>
 #include <nt2/sdk/unit/tests/ulp.hpp>
 #include <nt2/sdk/unit/module.hpp>
 
