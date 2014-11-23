@@ -13,6 +13,12 @@
 #include <nt2/include/functions/maximum.hpp>
 #include <nt2/include/functions/numel.hpp>
 
+namespace nt2
+{
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::max_, max, 1)
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::max_, max, 3)
+}
+
 namespace boost { namespace simd { namespace ext
 {
   BOOST_DISPATCH_IMPLEMENT  ( max_, tag::cpu_

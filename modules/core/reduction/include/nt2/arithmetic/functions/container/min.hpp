@@ -13,6 +13,12 @@
 #include <nt2/include/functions/minimum.hpp>
 #include <nt2/include/functions/numel.hpp>
 
+namespace nt2
+{
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::min_, min, 1)
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::min_, min, 3)
+}
+
 namespace boost { namespace simd { namespace ext
 {
   BOOST_DISPATCH_IMPLEMENT  ( min_, tag::cpu_
