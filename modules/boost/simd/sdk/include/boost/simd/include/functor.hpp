@@ -14,6 +14,7 @@
 #include <boost/simd/sdk/simd/native_fwd.hpp>
 #include <boost/simd/sdk/simd/category.hpp>
 #include <boost/dispatch/include/functor.hpp>
+#include <boost/dispatch/dsl/call.hpp>
 #include <boost/simd/sdk/functor/preprocessor/function.hpp>
 #include <boost/simd/sdk/functor/preprocessor/call.hpp>
 
