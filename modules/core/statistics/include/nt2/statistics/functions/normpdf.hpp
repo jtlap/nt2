@@ -41,7 +41,7 @@ namespace nt2 { namespace tag
    struct impl_normpdf_;
   }
   /*!
-    normal distribution
+    normal distribution density of mean m and standard deviation s
 
     @par Semantic:
 

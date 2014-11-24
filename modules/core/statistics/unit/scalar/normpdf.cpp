@@ -6,13 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 statistics toolbox - normpdf/scalar Mode"
-
-//////////////////////////////////////////////////////////////////////////////
-// unit test behavior of statistics components in scalar mode
-//////////////////////////////////////////////////////////////////////////////
-/// created  by jt the 22/02/2011
-///
 #include <nt2/include/functions/normpdf.hpp>
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/cons.hpp>

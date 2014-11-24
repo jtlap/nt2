@@ -64,7 +64,7 @@ namespace nt2 { namespace tag
    struct impl_norminv0_;
   }
   /*!
-    normal inverse cumulative distribution
+    normal inverse cumulative distribution of mean m and standard deviation s
 
     @par Semantic:
 
@@ -92,7 +92,7 @@ namespace nt2 { namespace tag
   /// @overload
   NT2_FUNCTION_IMPLEMENTATION(tag::norminv0_, norminv, 1)
   /*!
-    normal inverse cumulative distribution
+    normal inverse cumulative distribution of mean m and standard deviation s
 
     @par Semantic:
 
