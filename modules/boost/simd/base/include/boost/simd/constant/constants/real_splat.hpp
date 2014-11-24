@@ -54,7 +54,10 @@ namespace boost { namespace simd
       {};
       template<class... Args>
       static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
-      BOOST_AUTO_DECLTYPE_BODY( dispatching( ext::adl_helper(), Realpattern(), static_cast<Args&&>(args)... ) )
+      BOOST_AUTO_DECLTYPE_HEADER( dispatching( ext::adl_helper(), *(Realpattern*)0, static_cast<Args&&>(args)... ) )
+      {
+        return dispatching( ext::adl_helper(), Realpattern(), static_cast<Args&&>(args)... );
+      }
     };
   }
 

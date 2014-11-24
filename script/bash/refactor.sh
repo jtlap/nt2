@@ -44,6 +44,9 @@ do
   # replace tag::formal_ by ext::abstract_<X>
   perl-sed 's/namespace tag(\s*){(\s*)(.*?)?(\s*)(template\s*<[^>]+>\s*)?struct(\s*)(?!apply)([a-zA-Z0-9_]+)(\s*):(\s*)(?:boost::)?(?:dispatch::)?(?:tag::)?formal_(\s*){(.*?)typedef (.*?) parent;/namespace tag\1\{\2\3\4\5struct\6\7\8:\9ext::abstract_<\7>$10\{$11typedef ext::abstract_<\7> parent;/gs' "$i"
 
+  # default-constructing tags causes incompleteness problems with clang
+  perl-sed 's/\n( *)BOOST_AUTO_DECLTYPE_BODY\( dispatching\( ext::adl_helper\(\), ([^,()]+)\(\), static_cast<Args&&>\(args\)... \) \)/\n\1BOOST_AUTO_DECLTYPE_HEADER( dispatching( ext::adl_helper(), *(\2*)0, static_cast<Args&&>(args)... ) )\n\1\{\n\1  return dispatching( ext::adl_helper(), \2(), static_cast<Args&&>(args)... );\n\1\}/g' "$i"
+
 done
 
 echo "function specializations"
