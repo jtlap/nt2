@@ -8,7 +8,7 @@
 ##############################################################################
 
 SET( SOURCES
-  betapdf.cpp
+  evpdf.cpp
   caucdf.cpp
   caupdf.cpp
   cauinv.cpp
