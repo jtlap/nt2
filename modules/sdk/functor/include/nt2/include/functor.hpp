@@ -34,6 +34,16 @@ namespace nt2
   template<class Tag, class Site>
   struct generic_dispatcher
   {
+    /*! For compatibility with result_of protocol */
+    template<class Sig>
+    struct result;
+
+    template<class This, class... Args>
+    struct result<This(Args...)>
+    {
+      typedef decltype( boost::declval<This>()(boost::declval<Args>()...) ) type;
+    };
+
     template<class... Args>
     BOOST_FORCEINLINE
     BOOST_AUTO_DECLTYPE operator()(Args&&... args) const
