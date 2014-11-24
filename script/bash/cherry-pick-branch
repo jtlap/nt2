@@ -1,0 +1,41 @@
+#!/bin/bash
+
+if [ $# -lt 1 ]
+then
+  echo "usage: $(basename $BASH_SOURCE) <branch> [<commit>]"
+  exit 1
+fi
+
+current=$(git symbolic-ref --short HEAD)
+target=$1
+
+if [ $# -gt 1 ]
+then
+  head=$2
+else
+  head=HEAD
+fi
+
+head=$(git rev-parse --short $head)
+last=$(git log $head --oneline | sed -r 's@^[a-f0-9]+ @@g' | head -n 1)
+rev=$(git log $target --oneline | grep -F "$last" | cut -d' ' -f1 | head -n 1)
+
+echo "Commit $head in $current found as $rev in $target"
+nb=$(git rev-list --no-merges $rev..$target | wc -l)
+echo "$nb new commits to cherry pick"
+read -p "Is this ok? (y/n) [n]" -n 1 -r
+echo
+if [[ ! $REPLY =~ ^[Yy]$ ]]
+then
+  exit 1
+fi
+
+hash=$(git rev-list --no-merges $rev..$target | tail -n 1)
+
+git checkout $target
+git checkout -b temp_branch
+git rebase -i --onto $current $hash^
+
+git checkout $current
+git reset --hard temp_branch
+git branch -D temp_branch
