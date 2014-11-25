@@ -34,22 +34,33 @@ namespace nt2
   template<class Tag, class Site>
   struct generic_dispatcher
   {
+    #ifdef BOOST_NO_SFINAE_EXPR
     /*! For compatibility with result_of protocol */
     template<class Sig>
     struct result;
 
+    // result_of needs to SFINAE in this case
     template<class This, class... Args>
     struct result<This(Args...)>
+         : boost::dispatch::meta::
+           result_of< decltype(dispatching(ext::adl_helper(), Tag(), boost::dispatch::default_site_t<Site>(), boost::dispatch::meta::hierarchy_of_t<Args>()...))(Args...) >
     {
-      typedef decltype( boost::declval<This>()(boost::declval<Args>()...) ) type;
     };
 
     template<class... Args>
-    BOOST_FORCEINLINE
-    BOOST_AUTO_DECLTYPE operator()(Args&&... args) const
-    BOOST_AUTO_DECLTYPE_BODY(
+    BOOST_FORCEINLINE typename result<generic_dispatcher(Args&&...)>::type
+    operator()(Args&&... args) const
+    {
+      return dispatching(ext::adl_helper(), Tag(), boost::dispatch::default_site_t<Site>(), boost::dispatch::meta::hierarchy_of_t<Args&&>()...)(static_cast<Args&&>(args)...);
+    }
+    #else
+    template<class... Args>
+    BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE
+    operator()(Args&&... args) const
+    BOOST_AUTO_DECLTYPE_BODY_SFINAE(
       dispatching(ext::adl_helper(), Tag(), boost::dispatch::default_site_t<Site>(), boost::dispatch::meta::hierarchy_of_t<Args&&>()...)(static_cast<Args&&>(args)...)
     )
+    #endif
   };
 }
 

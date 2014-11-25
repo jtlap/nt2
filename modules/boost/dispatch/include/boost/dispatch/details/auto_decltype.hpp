@@ -17,6 +17,8 @@
     the trailing return type in C++14.
 */
 
+#define BOOST_AUTO_DECLTYPE_BODY_SFINAE(body) -> decltype(body) { return body; }
+
 #if 0 // useful for debugging with GCC 4.7+
 #define BOOST_AUTO_DECLTYPE auto
 #define BOOST_AUTO_DECLTYPE_HEADER(body)
