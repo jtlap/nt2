@@ -9,6 +9,8 @@
 
 SET( SOURCES
   evpdf.cpp
+  evinv.cpp
+  evstat.cpp
   caucdf.cpp
   caupdf.cpp
   cauinv.cpp
