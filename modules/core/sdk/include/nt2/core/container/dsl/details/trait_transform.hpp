@@ -27,10 +27,12 @@ namespace nt2 { namespace details
     template<class Expr, class State, class Data>
     struct impl : boost::proto::transform_impl<Expr, State, Data>
     {
-      typedef Trait< typename impl::expr::proto_tag
+      typedef typename impl::expr expr;
+
+      typedef Trait< typename expr::proto_tag
                    , Domain
-                   , impl::expr::proto_arity_c
-                   , typename impl::expr
+                   , expr::proto_arity_c
+                   , expr
                    >                         function;
       typedef typename function::result_type result_type;
 
