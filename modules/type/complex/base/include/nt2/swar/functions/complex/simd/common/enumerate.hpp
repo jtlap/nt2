@@ -19,6 +19,20 @@
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::enumerate_, tag::cpu_
+                            , (T)
+                            , ((target_< generic_< complex_<arithmetic_<T> > > >))
+                            )
+  {
+    typedef typename T::type result_type;
+
+    result_type operator()(T const& ) const
+    {
+      typedef typename nt2::meta::as_real<result_type>::type r_t;
+      return result_type( enumerate<r_t>() );
+    }
+  };
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::enumerate_, tag::cpu_
                             , (A0)(T)
                             , ((generic_< arithmetic_<A0> >))
                               ((target_< generic_< complex_<arithmetic_<T> > > >))
