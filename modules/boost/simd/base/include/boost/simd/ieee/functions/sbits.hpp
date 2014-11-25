@@ -33,8 +33,8 @@ namespace boost { namespace simd { namespace tag
   }
   namespace ext
   {
-   template<class Site, class... H>
-   BOOST_FORCEINLINE generic_dispatcher<tag::sbits_, Site> dispatching_sbits_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   template<class Site>
+   BOOST_FORCEINLINE generic_dispatcher<tag::sbits_, Site> dispatching_sbits_(adl_helper, boost::dispatch::meta::unknown_<Site>, ...)
    {
      return generic_dispatcher<tag::sbits_, Site>();
    }

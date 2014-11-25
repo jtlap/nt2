@@ -42,8 +42,8 @@ namespace nt2 { namespace tag
   }
   namespace ext
   {
-    template<class Site, class... H>
-    BOOST_FORCEINLINE generic_dispatcher<tag::pinv_, Site> dispatching_pinv_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    template<class Site>
+    BOOST_FORCEINLINE generic_dispatcher<tag::pinv_, Site> dispatching_pinv_(adl_helper, boost::dispatch::meta::unknown_<Site>, ...)
     {
       return generic_dispatcher<tag::pinv_, Site>();
     }

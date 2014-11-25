@@ -37,8 +37,8 @@ namespace nt2 { namespace tag
   }
   namespace ext
   {
-   template<class Site, class... H>
-   BOOST_FORCEINLINE generic_dispatcher<tag::idx_linear_, Site> dispatching_idx_linear_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   template<class Site>
+   BOOST_FORCEINLINE generic_dispatcher<tag::idx_linear_, Site> dispatching_idx_linear_(adl_helper, boost::dispatch::meta::unknown_<Site>, ...)
    {
      return generic_dispatcher<tag::idx_linear_, Site>();
    }

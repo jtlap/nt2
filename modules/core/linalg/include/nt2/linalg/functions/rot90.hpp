@@ -44,16 +44,16 @@ namespace nt2
   }
   namespace ext
   {
-    template<class Site, class... H>
-    BOOST_FORCEINLINE generic_dispatcher<tag::rot90_, Site> dispatching_rot90_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    template<class Site>
+    BOOST_FORCEINLINE generic_dispatcher<tag::rot90_, Site> dispatching_rot90_(adl_helper, boost::dispatch::meta::unknown_<Site>, ...)
     {
       return generic_dispatcher<tag::rot90_, Site>();
     }
     template<class... Args>
     struct impl_rot90_;
 
-    template<class Site, class... H>
-    BOOST_FORCEINLINE generic_dispatcher<tag::rot90_0_, Site> dispatching_rot90_0_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    template<class Site>
+    BOOST_FORCEINLINE generic_dispatcher<tag::rot90_0_, Site> dispatching_rot90_0_(adl_helper, boost::dispatch::meta::unknown_<Site>, ...)
     {
       return generic_dispatcher<tag::rot90_0_, Site>();
     }

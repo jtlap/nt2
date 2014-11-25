@@ -48,15 +48,15 @@ namespace nt2 { namespace tag
   }
   namespace ext
   {
-   template<class Site, class... H>
-   BOOST_FORCEINLINE generic_dispatcher<tag::normcdf_, Site> dispatching_normcdf_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   template<class Site>
+   BOOST_FORCEINLINE generic_dispatcher<tag::normcdf_, Site> dispatching_normcdf_(adl_helper, boost::dispatch::meta::unknown_<Site>, ...)
    {
      return generic_dispatcher<tag::normcdf_, Site>();
    }
    template<class... Args>
    struct impl_normcdf_;
-   template<class Site, class... H>
-   BOOST_FORCEINLINE generic_dispatcher<tag::normcdf0_, Site> dispatching_normcdf0_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   template<class Site>
+   BOOST_FORCEINLINE generic_dispatcher<tag::normcdf0_, Site> dispatching_normcdf0_(adl_helper, boost::dispatch::meta::unknown_<Site>, ...)
    {
      return generic_dispatcher<tag::normcdf0_, Site>();
    }

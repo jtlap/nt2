@@ -49,15 +49,15 @@ namespace nt2 { namespace tag
   }
   namespace ext
   {
-   template<class Site, class... H>
-   BOOST_FORCEINLINE generic_dispatcher<tag::gamcdf_, Site> dispatching_gamcdf_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   template<class Site>
+   BOOST_FORCEINLINE generic_dispatcher<tag::gamcdf_, Site> dispatching_gamcdf_(adl_helper, boost::dispatch::meta::unknown_<Site>, ...)
    {
      return generic_dispatcher<tag::gamcdf_, Site>();
    }
    template<class... Args>
    struct impl_gamcdf_;
-   template<class Site, class... H>
-   BOOST_FORCEINLINE generic_dispatcher<tag::gamcdf0_, Site> dispatching_gamcdf0_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   template<class Site>
+   BOOST_FORCEINLINE generic_dispatcher<tag::gamcdf0_, Site> dispatching_gamcdf0_(adl_helper, boost::dispatch::meta::unknown_<Site>, ...)
    {
      return generic_dispatcher<tag::gamcdf0_, Site>();
    }

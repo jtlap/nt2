@@ -21,9 +21,9 @@ namespace nt2 { namespace ext
 {
   struct adl_helper {};
 
-  template<class Tag, class Site, class... Args>
+  template<class Tag, class Site>
   BOOST_FORCEINLINE boost::simd::generic_dispatcher<Tag, Site>
-  dispatching(adl_helper, unknown_<Tag>, unknown_<Site>, unknown_<Args>...)
+  dispatching(adl_helper, unknown_<Tag>, unknown_<Site>, ...)
   {
     return boost::simd::generic_dispatcher<Tag, Site>();
   }

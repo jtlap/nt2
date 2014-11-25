@@ -69,15 +69,15 @@ namespace nt2 { namespace tag
   }
   namespace ext
   {
-    template<class Site, class... H>
-    BOOST_FORCEINLINE generic_dispatcher<tag::randhess0_, Site> dispatching_randhess0_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    template<class Site>
+    BOOST_FORCEINLINE generic_dispatcher<tag::randhess0_, Site> dispatching_randhess0_(adl_helper, boost::dispatch::meta::unknown_<Site>, ...)
     {
       return generic_dispatcher<tag::randhess0_, Site>();
     }
     template<class... Args>
     struct impl_randhess0_;
-    template<class Site, class... H>
-    BOOST_FORCEINLINE generic_dispatcher<tag::randhess_, Site> dispatching_randhess_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    template<class Site>
+    BOOST_FORCEINLINE generic_dispatcher<tag::randhess_, Site> dispatching_randhess_(adl_helper, boost::dispatch::meta::unknown_<Site>, ...)
     {
       return generic_dispatcher<tag::randhess_, Site>();
     }

@@ -20,16 +20,16 @@ namespace boost { namespace simd
   }
   namespace ext
   {
-    template<class Site, class... H>
-    BOOST_FORCEINLINE generic_dispatcher<tag::schedule_, Site> dispatching_schedule_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    template<class Site>
+    BOOST_FORCEINLINE generic_dispatcher<tag::schedule_, Site> dispatching_schedule_(adl_helper, boost::dispatch::meta::unknown_<Site>, ...)
     {
       return generic_dispatcher<tag::schedule_, Site>();
     }
     template<class... Args>
     struct impl_schedule_;
 
-    template<class Site, class... H>
-    BOOST_FORCEINLINE generic_dispatcher<tag::schedule_assign_, Site> dispatching_schedule_assign_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    template<class Site>
+    BOOST_FORCEINLINE generic_dispatcher<tag::schedule_assign_, Site> dispatching_schedule_assign_(adl_helper, boost::dispatch::meta::unknown_<Site>, ...)
     {
       return generic_dispatcher<tag::schedule_assign_, Site>();
     }

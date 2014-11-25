@@ -47,6 +47,9 @@ do
   # default-constructing tags causes incompleteness problems with clang
   perl-sed 's/\n( *)BOOST_AUTO_DECLTYPE_BODY\( dispatching\( ext::adl_helper\(\), ([^,()]+)\(\), static_cast<Args&&>\(args\)... \) \)/\n\1BOOST_AUTO_DECLTYPE_HEADER( dispatching( ext::adl_helper(), *(\2*)0, static_cast<Args&&>(args)... ) )\n\1\{\n\1  return dispatching( ext::adl_helper(), \2(), static_cast<Args&&>(args)... );\n\1\}/g' "$i"
 
+  # MSVC is just plain weird, so we avoid template variadics in dispatching functions
+  perl-sed 's/template<class Site, class\.\.\. H>(\s*)BOOST_FORCEINLINE generic_dispatcher<tag::([a-zA-Z0-9_]+), Site> dispatching_\2\(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...\)/template<class Site>\1BOOST_FORCEINLINE generic_dispatcher<tag::\2, Site> dispatching_\2(adl_helper, boost::dispatch::meta::unknown_<Site>, ...)/gs' "$i"
+
 done
 
 echo "function specializations"

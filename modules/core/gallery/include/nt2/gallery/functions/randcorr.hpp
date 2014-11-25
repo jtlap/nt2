@@ -76,15 +76,15 @@ namespace nt2 { namespace tag
   }
   namespace ext
   {
-    template<class Site, class... H>
-    BOOST_FORCEINLINE generic_dispatcher<tag::randcorr0_, Site> dispatching_randcorr0_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    template<class Site>
+    BOOST_FORCEINLINE generic_dispatcher<tag::randcorr0_, Site> dispatching_randcorr0_(adl_helper, boost::dispatch::meta::unknown_<Site>, ...)
     {
       return generic_dispatcher<tag::randcorr0_, Site>();
     }
     template<class... Args>
     struct impl_randcorr0_;
-    template<class Site, class... H>
-    BOOST_FORCEINLINE generic_dispatcher<tag::randcorr_, Site> dispatching_randcorr_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    template<class Site>
+    BOOST_FORCEINLINE generic_dispatcher<tag::randcorr_, Site> dispatching_randcorr_(adl_helper, boost::dispatch::meta::unknown_<Site>, ...)
     {
       return generic_dispatcher<tag::randcorr_, Site>();
     }

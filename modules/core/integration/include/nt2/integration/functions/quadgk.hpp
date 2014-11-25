@@ -37,24 +37,24 @@ namespace nt2
   }
   namespace ext
   {
-    template<class Site, class... H>
-    BOOST_FORCEINLINE generic_dispatcher<tag::quadgk_, Site> dispatching_quadgk_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    template<class Site>
+    BOOST_FORCEINLINE generic_dispatcher<tag::quadgk_, Site> dispatching_quadgk_(adl_helper, boost::dispatch::meta::unknown_<Site>, ...)
     {
       return generic_dispatcher<tag::quadgk_, Site>();
     }
     template<class... Args>
     struct impl_quadgk_;
 
-    template<class Site, class... H>
-    BOOST_FORCEINLINE generic_dispatcher<tag::Quadgkabstol, Site> dispatching_Quadgkabstol(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    template<class Site>
+    BOOST_FORCEINLINE generic_dispatcher<tag::Quadgkabstol, Site> dispatching_Quadgkabstol(adl_helper, boost::dispatch::meta::unknown_<Site>, ...)
     {
       return generic_dispatcher<tag::Quadgkabstol, Site>();
     }
     template<class... Args>
     struct impl_Quadgkabstol;
 
-    template<class Site, class... H>
-    BOOST_FORCEINLINE generic_dispatcher<tag::Quadgkreltol, Site> dispatching_Quadgkreltol(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    template<class Site>
+    BOOST_FORCEINLINE generic_dispatcher<tag::Quadgkreltol, Site> dispatching_Quadgkreltol(adl_helper, boost::dispatch::meta::unknown_<Site>, ...)
     {
       return generic_dispatcher<tag::Quadgkreltol, Site>();
     }

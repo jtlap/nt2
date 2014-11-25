@@ -75,15 +75,15 @@ namespace nt2 { namespace tag
   }
   namespace ext
   {
-    template<class Site, class... H>
-    BOOST_FORCEINLINE generic_dispatcher<tag::randcolu0_, Site> dispatching_randcolu0_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    template<class Site>
+    BOOST_FORCEINLINE generic_dispatcher<tag::randcolu0_, Site> dispatching_randcolu0_(adl_helper, boost::dispatch::meta::unknown_<Site>, ...)
     {
       return generic_dispatcher<tag::randcolu0_, Site>();
     }
     template<class... Args>
     struct impl_randcolu0_;
-    template<class Site, class... H>
-    BOOST_FORCEINLINE generic_dispatcher<tag::randcolu_, Site> dispatching_randcolu_(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+    template<class Site>
+    BOOST_FORCEINLINE generic_dispatcher<tag::randcolu_, Site> dispatching_randcolu_(adl_helper, boost::dispatch::meta::unknown_<Site>, ...)
     {
       return generic_dispatcher<tag::randcolu_, Site>();
     }

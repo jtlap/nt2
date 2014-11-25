@@ -32,8 +32,8 @@ namespace boost { namespace simd
   }
   namespace ext
   {
-   template<class Site, class... H>
-   BOOST_FORCEINLINE generic_dispatcher<tag::Oneosqrt5, Site> dispatching_Oneosqrt5(adl_helper, boost::dispatch::meta::unknown_<Site>, boost::dispatch::meta::unknown_<H>...)
+   template<class Site>
+   BOOST_FORCEINLINE generic_dispatcher<tag::Oneosqrt5, Site> dispatching_Oneosqrt5(adl_helper, boost::dispatch::meta::unknown_<Site>, ...)
    {
      return generic_dispatcher<tag::Oneosqrt5, Site>();
    }
