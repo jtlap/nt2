@@ -58,6 +58,7 @@
 #include <nt2/include/functions/simd/is_equal.hpp>
 #include <nt2/include/functions/simd/is_inf.hpp>
 #include <nt2/include/functions/simd/is_ltz.hpp>
+#include <nt2/include/functions/simd/if_zero_else_one.hpp>
 #endif
 
 namespace nt2 { namespace ext
@@ -116,6 +117,11 @@ namespace nt2 { namespace ext
       #ifndef BOOST_SIMD_NO_INFINITIES
       z =  if_else(eq(a1,  Inf<A0>()),if_else_zero(gtax1, Inf<A0>()), z);
       z =  if_else(eq(a1, Minf<A0>()),if_zero_else(gtax1, Inf<A0>()), z);
+      z =  if_else(eq(ax, Inf<A0>()),
+                   if_else(is_gtz(a1),
+                           Inf<A0>(),
+                           if_zero_else_one(is_ltz(a1))),
+                   z);
       #endif
       z = if_zero_else(zer_ret, z);
       z = if_else(inf_ret, Inf<A0>(), z);
