@@ -33,12 +33,35 @@ namespace nt2 { namespace tag
     {
       /// @brief Parent hierarchy
       typedef ext::tieable_<evinv_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_evinv_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
     struct evinv0_ : ext::elementwise_<evinv0_>
     {
       /// @brief Parent hierarchy
-      typedef ext::elementwise_<evinv0_> parent;
+      typedef ext::tieable_<evinv0_> parent;
+      template<class... Args>
+      static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_evinv0_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
+  }
+  namespace ext
+  {
+   template<class Site>
+   BOOST_FORCEINLINE generic_dispatcher<tag::evinv_, Site> dispatching_evinv_(adl_helper, boost::dispatch::meta::unknown_<Site>, ...)
+   {
+     return generic_dispatcher<tag::evinv_, Site>();
+   }
+   template<class... Args>
+   struct impl_evinv_;
+   template<class Site>
+   BOOST_FORCEINLINE generic_dispatcher<tag::evinv0_, Site> dispatching_evinv0_(adl_helper, boost::dispatch::meta::unknown_<Site>, ...)
+   {
+     return generic_dispatcher<tag::evinv0_, Site>();
+   }
+   template<class... Args>
+   struct impl_evinv0_;
   }
   /*!
     extreme value inverse cumulative distribution of shape m and scale s

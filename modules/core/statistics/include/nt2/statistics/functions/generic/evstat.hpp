@@ -9,16 +9,16 @@
 #ifndef NT2_STATISTICS_FUNCTIONS_GENERIC_EVSTAT_HPP_INCLUDED
 #define NT2_STATISTICS_FUNCTIONS_GENERIC_EVSTAT_HPP_INCLUDED
 #include <nt2/statistics/functions/evstat.hpp>
-#include <nt2/include/functions/sqr.hpp>
-#include <nt2/include/constants/euler.hpp>
-#include <nt2/include/constants/pi.hpp>
-#include <nt2/include/constants/oneo_6.hpp>
-#include <boost/fusion/include/std_pair.hpp>
 #include <boost/dispatch/attributes.hpp>
+#include <boost/fusion/include/std_pair.hpp>
+#include <nt2/include/constants/euler.hpp>
+#include <nt2/include/constants/oneo_6.hpp>
+#include <nt2/include/constants/pi.hpp>
+#include <nt2/include/functions/sqr.hpp>
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION ( nt2::tag::evstat_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT   ( evstat_, tag::cpu_
                                     , (A0)(A1)(A2)(A3)
                                     , (scalar_ < floating_<A0> > )
                                       (scalar_ < floating_<A1> > )
@@ -35,7 +35,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION ( nt2::tag::evstat_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT   ( evstat_, tag::cpu_
                                     , (A0)(A1)(A2)
                                     , (scalar_ < floating_<A0> > )
                                       (scalar_ < floating_<A1> > )
@@ -51,7 +51,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION ( nt2::tag::evstat_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT   ( evstat_, tag::cpu_
                                     , (A0)(A1)
                                     , (scalar_ < floating_<A0> > )
                                       (scalar_ < floating_<A1> > )
