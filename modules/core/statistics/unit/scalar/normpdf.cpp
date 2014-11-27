@@ -6,13 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 statistics toolbox - normpdf/scalar Mode"
-
-//////////////////////////////////////////////////////////////////////////////
-// unit test behavior of statistics components in scalar mode
-//////////////////////////////////////////////////////////////////////////////
-/// created  by jt the 22/02/2011
-///
 #include <nt2/include/functions/normpdf.hpp>
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/cons.hpp>
@@ -55,6 +48,13 @@ NT2_TEST_CASE_TPL ( normpdf_2,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(normpdf(a, nt2::One<T>()), r, 1);
   a = nt2::reshape(_(T(1), T(16)), 4, 4);
   NT2_TEST_ULP_EQUAL(normpdf(a, a), nt2::repnum(0.39894228040143270286, 4, 4), 1);
-  NT2_TEST_ULP_EQUAL(normpdf(a, a, nt2::abs(a)), nt2::repnum(0.39894228040143270286, 4, 4), 1);
+
+  nt2::table<T> r1 = nt2::cons<T>( nt2::of_size(4, 4),
+    3.989422804014327e-01,     1.994711402007164e-01,     1.329807601338109e-01,     9.973557010035818e-02,
+    7.978845608028655e-02,     6.649038006690546e-02,     5.699175434306182e-02,     4.986778505017909e-02,
+    4.432692004460363e-02,     3.989422804014327e-02,     3.626748003649388e-02,     3.324519003345273e-02,
+    3.068786772318713e-02,     2.849587717153091e-02,     2.659615202676218e-02,     2.493389252508954e-02
+  );
+  NT2_TEST_ULP_EQUAL(normpdf(a, a, nt2::abs(a)), r1, 1);
 } // end of test for floating_
 

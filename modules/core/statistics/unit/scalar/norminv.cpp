@@ -6,15 +6,10 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 statistics toolbox - norminv/scalar Mode"
-
-//////////////////////////////////////////////////////////////////////////////
-// unit test behavior of statistics components in scalar mode
-//////////////////////////////////////////////////////////////////////////////
-/// created  by jt the 22/02/2011
-///
 #include <nt2/include/functions/norminv.hpp>
 #include <nt2/include/functions/eye.hpp>
+#include <nt2/include/functions/cons.hpp>
+#include <nt2/include/functions/linspace.hpp>
 #include <nt2/include/functions/ones.hpp>
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/repnum.hpp>
@@ -76,3 +71,29 @@ NT2_TEST_CASE_TPL ( norminv_2v,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(norminv(nt2::repnum(nt2::Zero<T>(), 10, 2), nt2::One<T>()),  nt2::repnum(nt2::Minf<T>(), 10, 2), 0.5);
 } // end of test for floating_
 
+NT2_TEST_CASE_TPL ( norminv_conf,  NT2_REAL_TYPES)
+{
+  using nt2::norminv;
+  using nt2::tag::norminv_;
+  using nt2::_;
+  // specific values tests
+  nt2::table<T> a =  nt2::linspace(T(0), T(1), 5);
+  nt2::table<T> r, plo, pup;
+  nt2::table<T> cov = nt2::eye(2, nt2::meta::as_<T>());
+  nt2::tie(r, plo, pup) = nt2::norminv(a, T(1), T(2), cov, T(0.05));
+  nt2::table<T> rr = nt2::cons<T>( -nt2::Inf<T>(),    -3.489795003921636e-01,
+                     1.000000000000000e+00,     2.348979500392164e+00,
+                     nt2::Inf<T>()
+                   );
+  nt2::table<T> pplo = nt2::cons<T>(-nt2::Inf<T>(),     -2.713102668956324e+00,
+                      -9.599639845400545e-01,    -1.514366817199697e-02,
+                      nt2::Nan<T>()
+                     );
+  nt2::table<T> ppup = nt2::cons<T>(nt2::Nan<T>(),      2.015143668171997e+00,
+                      2.959963984540054e+00,     4.713102668956324e+00,
+                      nt2::Inf<T>()
+                     );
+  NT2_TEST_ULP_EQUAL(r, rr, 6);
+  NT2_TEST_ULP_EQUAL(plo, pplo, 600);
+  NT2_TEST_ULP_EQUAL(pup, ppup, 1);
+} // end of test for floating_

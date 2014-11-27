@@ -8,21 +8,22 @@
 //==============================================================================
 #ifndef NT2_STATISTICS_FUNCTIONS_GENERIC_NORMINV_HPP_INCLUDED
 #define NT2_STATISTICS_FUNCTIONS_GENERIC_NORMINV_HPP_INCLUDED
+
 #include <nt2/statistics/functions/norminv.hpp>
-#include <nt2/include/functions/sqrt.hpp>
-#include <nt2/include/functions/proper_tanpi.hpp>
-#include <nt2/include/functions/sx.hpp>
-#include <nt2/include/functions/erfcinv.hpp>
-#include <nt2/include/functions/globalall.hpp>
-#include <nt2/include/functions/if_allbits_else.hpp>
-#include <nt2/include/functions/is_nltz.hpp>
-#include <nt2/include/functions/is_gtz.hpp>
+#include <boost/assert.hpp>
+#include <boost/dispatch/attributes.hpp>
 #include <nt2/include/constants/half.hpp>
-#include <nt2/include/constants/two.hpp>
 #include <nt2/include/constants/sqrt_2.hpp>
+#include <nt2/include/constants/two.hpp>
+#include <nt2/include/functions/globalall.hpp>
+#include <nt2/include/functions/erfcinv.hpp>
+#include <nt2/include/functions/fma.hpp>
+#include <nt2/include/functions/is_gtz.hpp>
+#include <nt2/include/functions/is_nltz.hpp>
+#include <nt2/include/functions/sqrt.hpp>
 #include <nt2/include/functions/tie.hpp>
-#include <nt2/include/functions/sx.hpp>
-#include <nt2/core/container/table/table.hpp>
+#include <nt2/core/container/dsl/as_terminal.hpp>
+
 
 namespace nt2 { namespace ext
 {
@@ -81,6 +82,8 @@ namespace nt2 { namespace ext
     typedef typename boost::proto::result_of::child_c<A0&,1>::type          In1;
     typedef typename boost::proto::result_of::child_c<A0&,2>::type          In2;
     typedef typename A0::value_type                                  value_type;
+    typedef nt2::memory::container<tag::table_, value_type, nt2::_2D>  semantic;
+
     BOOST_FORCEINLINE result_type operator()( A0& a0, A1& a1 ) const
     {
       doit(a0, a1, N0(), N1());
@@ -143,16 +146,16 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE static void conf_bounds(const A0& a0, A1& a1,
                                               const value_type& alpha )
     {
-      nt2::container::table<value_type> pcov =  boost::proto::child_c<3>(a0);
+      NT2_AS_TERMINAL_IN(semantic, pcov, boost::proto::child_c<3>(a0));
       const In0& p  = boost::proto::child_c<0>(a0);
       const In1& mu = boost::proto::child_c<1>(a0);
       const In2& sigma = boost::proto::child_c<2>(a0);
-      BOOST_AUTO_TPL(x0,  nt2::norminv(p));
+      auto x0 = nt2::norminv(p);
       boost::proto::child_c<0>(a1) =  nt2::fma(x0, sigma, mu);
-      BOOST_AUTO_TPL(xvar, pcov(1,1) + (Two<value_type>()*pcov(1,2) + pcov(2,2)*x0)*x0);
+      auto xvar = fma(fma(pcov(2,2), x0, Two<value_type>()*pcov(1,2)), x0, pcov(1,1));
       BOOST_ASSERT_MSG(nt2::globalall(nt2::is_nltz(xvar)), "Covariance matrix must be positive");
       value_type normz = -nt2::norminv(alpha*nt2::Half<value_type>());
-      BOOST_AUTO_TPL(halfwidth, normz*nt2::sqrt(xvar));
+      auto halfwidth =  normz*nt2::sqrt(xvar);
       boost::proto::child_c<1>(a1) = boost::proto::child_c<0>(a1)-halfwidth;
       boost::proto::child_c<2>(a1) = boost::proto::child_c<0>(a1)+halfwidth;
     }

@@ -64,7 +64,7 @@ namespace nt2 { namespace tag
    struct impl_normcdf0_;
   }
   /*!
-    normal cumulative distribution
+    normal cumulative distribution of mean m and standard deviation s
 
     @par Semantic:
 
@@ -94,7 +94,8 @@ namespace nt2 { namespace tag
   /// @overload
   NT2_FUNCTION_IMPLEMENTATION(tag::normcdf0_, normcdf, 2)
   /*!
-    normal cumulative distribution with bounds estimates
+    normal cumulative distribution of estimated
+    mean m and standard deviation s with bounds estimates
 
     @par Semantic:
 

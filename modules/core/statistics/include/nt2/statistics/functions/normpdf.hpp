@@ -41,7 +41,7 @@ namespace nt2 { namespace tag
    struct impl_normpdf_;
   }
   /*!
-    normal distribution
+    normal distribution density of mean m and standard deviation s
 
     @par Semantic:
 
@@ -54,7 +54,7 @@ namespace nt2 { namespace tag
     is similar to:
 
     @code
-    auto r = exp(sqr((a0-m)/s)/2)*Invsqrt_2pi;
+    auto r = exp(sqr((a0-m)/s)/2)*Invsqrt_2pi/s;
     @endcode
 
     @see @funcref{exp}, @funcref{sqr}, @funcref{Invsqrt_2pi},

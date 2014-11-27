@@ -9,20 +9,19 @@
 #ifndef NT2_STATISTICS_FUNCTIONS_GENERIC_NORMCDF_HPP_INCLUDED
 #define NT2_STATISTICS_FUNCTIONS_GENERIC_NORMCDF_HPP_INCLUDED
 #include <nt2/statistics/functions/normcdf.hpp>
-#include <nt2/include/functions/abs.hpp>
-#include <nt2/include/functions/sqrt.hpp>
-#include <nt2/include/functions/norminv.hpp>
-#include <nt2/include/functions/atanpi.hpp>
-#include <nt2/include/functions/rec.hpp>
-#include <nt2/include/functions/erfc.hpp>
-#include <nt2/include/functions/globalall.hpp>
-#include <nt2/include/functions/is_gez.hpp>
-#include <nt2/include/functions/colvect.hpp>
+#include <boost/assert.hpp>
+#include <boost/dispatch/attributes.hpp>
+#include <nt2/core/container/dsl/as_terminal.hpp>
 #include <nt2/include/constants/half.hpp>
 #include <nt2/include/constants/sqrt_2o_2.hpp>
 #include <nt2/include/constants/two.hpp>
+#include <nt2/include/functions/globalall.hpp>
+#include <nt2/include/functions/erfc.hpp>
+#include <nt2/include/functions/fma.hpp>
+#include <nt2/include/functions/is_gez.hpp>
+#include <nt2/include/functions/norminv.hpp>
+#include <nt2/include/functions/sqrt.hpp>
 #include <nt2/include/functions/tie.hpp>
-#include <nt2/core/container/table/table.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -135,15 +134,17 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE static void conf_bounds(const A0& a0, A1& a1,
                                               const value_type& alpha )
     {
-      nt2::container::table<value_type> pcov =  boost::proto::child_c<3>(a0);
+      typedef nt2::memory::container<tag::table_, value_type, nt2::_2D>  semantic;
+      NT2_AS_TERMINAL_IN(semantic, pcov, boost::proto::child_c<3>(a0));
       const In0& x  = boost::proto::child_c<0>(a0);
       const In1& mu = boost::proto::child_c<1>(a0);
       const In2& sigma = boost::proto::child_c<2>(a0);
-      BOOST_AUTO_TPL(z, (x-mu)/sigma);
-      BOOST_AUTO_TPL(zvar, pcov(1,1) + (Two<value_type>()*pcov(1,2) + pcov(2,2)*z)*z);
+      auto z = (x-mu)/sigma;
+      auto zvar = fma(fma(pcov(2,2), z, Two<value_type>()*pcov(1,2)), z, pcov(1,1));
+      // this is [1, x0]*pcov*[1; x0]
       BOOST_ASSERT_MSG(nt2::globalall(nt2::is_gez(zvar)), "Covariance matrix must be positive");
       value_type normz = -nt2::norminv(alpha*nt2::Half<value_type>());
-      BOOST_AUTO_TPL(halfwidth, normz*nt2::sqrt(zvar)/sigma);
+      auto halfwidth = normz*nt2::sqrt(zvar)/sigma;
       boost::proto::child_c<0>(a1) = Half<value_type>()*nt2::erfc(-Sqrt_2o_2<value_type>()*z);
       boost::proto::child_c<1>(a1) = Half<value_type>()*nt2::erfc(-Sqrt_2o_2<value_type>()*(z-halfwidth));
       boost::proto::child_c<2>(a1) = Half<value_type>()*nt2::erfc(-Sqrt_2o_2<value_type>()*(z+halfwidth));
