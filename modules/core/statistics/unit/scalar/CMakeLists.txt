@@ -8,6 +8,7 @@
 ##############################################################################
 
 SET( SOURCES
+  evcdf.cpp
   evpdf.cpp
   evinv.cpp
   evstat.cpp
