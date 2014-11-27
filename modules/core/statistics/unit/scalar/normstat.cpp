@@ -25,33 +25,23 @@ NT2_TEST_CASE_TPL( normstat, NT2_REAL_TYPES)
                   , (std::pair<T,T>)
                   );
 
+  T mean;
+  T var;
+  T m = T(1.5);
+  T s = T(2.5);
   {
-    T mean;
-    T var;
-    T m = T(1.5);
-    T s = T(2.5);
     normstat(m, s, mean, var);
     NT2_TEST_EQUAL(var, sqr(s));
     NT2_TEST_EQUAL(mean, m);
   }
 
   {
-    T mean;
-    T var;
-    T m = T(1.5);
-    T s = T(2.5);
-
     mean = normstat(m, s, var);
     NT2_TEST_EQUAL(var, sqr(s));
     NT2_TEST_EQUAL(mean, m);
   }
 
   {
-    T mean;
-    T var;
-    T m = T(1.5);
-    T s = T(2.5);
-
     boost::fusion::vector_tie(mean,var) = normstat(m, s);
     NT2_TEST_EQUAL(var, sqr(s));
     NT2_TEST_EQUAL(mean, m);
@@ -59,8 +49,6 @@ NT2_TEST_CASE_TPL( normstat, NT2_REAL_TYPES)
 
   {
     std::pair<T,T> p;
-    T m = T(1.5);
-    T s = T(2.5);
 
     p = normstat(m, s);
     NT2_TEST_EQUAL(p.first, m);

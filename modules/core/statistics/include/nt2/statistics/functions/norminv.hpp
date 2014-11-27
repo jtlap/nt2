@@ -150,6 +150,11 @@ namespace nt2 { namespace ext
         : meta::size_as<Expr,0>
   {};
 
+  /// INTERNAL ONLY
+  template<class Domain, int N, class Expr>
+  struct  value_type<tag::norminv_,Domain,N,Expr>
+        : meta::value_as<Expr,0>
+  {};
 } }
 
 #endif

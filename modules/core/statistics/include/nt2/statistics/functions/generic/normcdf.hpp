@@ -9,22 +9,19 @@
 #ifndef NT2_STATISTICS_FUNCTIONS_GENERIC_NORMCDF_HPP_INCLUDED
 #define NT2_STATISTICS_FUNCTIONS_GENERIC_NORMCDF_HPP_INCLUDED
 #include <nt2/statistics/functions/normcdf.hpp>
-#include <nt2/include/functions/abs.hpp>
-#include <nt2/include/functions/sqrt.hpp>
-#include <nt2/include/functions/norminv.hpp>
-#include <nt2/include/functions/atanpi.hpp>
-#include <nt2/include/functions/rec.hpp>
-#include <nt2/include/functions/erfc.hpp>
-#include <nt2/include/functions/globalall.hpp>
-#include <nt2/include/functions/is_gez.hpp>
-#include <nt2/include/functions/colvect.hpp>
+#include <boost/assert.hpp>
+#include <boost/dispatch/attributes.hpp>
+#include <nt2/core/container/dsl/as_terminal.hpp>
 #include <nt2/include/constants/half.hpp>
 #include <nt2/include/constants/sqrt_2o_2.hpp>
 #include <nt2/include/constants/two.hpp>
-#include <nt2/include/functions/tie.hpp>
+#include <nt2/include/functions/globalall.hpp>
+#include <nt2/include/functions/erfc.hpp>
 #include <nt2/include/functions/fma.hpp>
-//#include <nt2/core/container/table/table.hpp>
-#include <nt2/core/container/dsl/as_terminal.hpp>
+#include <nt2/include/functions/is_gez.hpp>
+#include <nt2/include/functions/norminv.hpp>
+#include <nt2/include/functions/sqrt.hpp>
+#include <nt2/include/functions/tie.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -138,8 +135,7 @@ namespace nt2 { namespace ext
                                               const value_type& alpha )
     {
       typedef nt2::memory::container<tag::table_, value_type, nt2::_2D>  semantic;
-      NT2_AS_TERMINAL_IN(semantic, pcov
-                        , boost::proto::child_c<3>(a0));
+      NT2_AS_TERMINAL_IN(semantic, pcov, boost::proto::child_c<3>(a0));
       const In0& x  = boost::proto::child_c<0>(a0);
       const In1& mu = boost::proto::child_c<1>(a0);
       const In2& sigma = boost::proto::child_c<2>(a0);

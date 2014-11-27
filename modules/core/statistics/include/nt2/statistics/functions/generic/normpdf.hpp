@@ -9,13 +9,14 @@
 #ifndef NT2_STATISTICS_FUNCTIONS_GENERIC_NORMPDF_HPP_INCLUDED
 #define NT2_STATISTICS_FUNCTIONS_GENERIC_NORMPDF_HPP_INCLUDED
 #include <nt2/statistics/functions/normpdf.hpp>
-#include <nt2/include/functions/rec.hpp>
-#include <nt2/include/functions/exp.hpp>
-#include <nt2/include/functions/sqr.hpp>
-#include <nt2/include/functions/globalall.hpp>
-#include <nt2/include/functions/is_gez.hpp>
-#include <nt2/include/constants/mhalf.hpp>
+#include <boost/assert.hpp>
 #include <nt2/include/constants/invsqrt_2pi.hpp>
+#include <nt2/include/constants/mhalf.hpp>
+#include <nt2/include/functions/globalall.hpp>
+#include <nt2/include/functions/exp.hpp>
+#include <nt2/include/functions/is_gez.hpp>
+#include <nt2/include/functions/rec.hpp>
+#include <nt2/include/functions/sqr.hpp>
 
 namespace nt2 { namespace ext
 {
