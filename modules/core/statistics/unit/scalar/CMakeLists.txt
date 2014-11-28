@@ -21,6 +21,7 @@ SET( SOURCES
   normpdf.cpp
   normrnd.cpp
   norminv.cpp
+  normstat.cpp
   unifpdf.cpp
   unifcdf.cpp
   unifrnd.cpp
