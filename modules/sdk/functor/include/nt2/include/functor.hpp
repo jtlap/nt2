@@ -34,7 +34,9 @@ namespace nt2
   template<class Tag, class Site>
   struct generic_dispatcher
   {
-    #ifdef BOOST_NO_SFINAE_EXPR
+    /* While ICC supports SFINAE with decltype, it seems to cause
+     * infinite compilation times in some cases */
+    #if defined(BOOST_NO_SFINAE_EXPR) || defined(__INTEL_COMPILER)
     /*! For compatibility with result_of protocol */
     template<class Sig>
     struct result;
