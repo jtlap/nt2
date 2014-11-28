@@ -41,11 +41,9 @@ namespace nt2 { namespace tag
    struct impl_lognpdf_;
   }
   /*!
-    normal distribution
+    lognormal distribution density
 
     @par Semantic:
-
-    For every table expression
 
     @code
     auto r = lognpdf(a0, m, s);
@@ -59,8 +57,8 @@ namespace nt2 { namespace tag
 
     @see @funcref{exp}, @funcref{sqr}, @funcref{Invsqrt_2pi},
     @param a0
-    @param a1 optional mean default to 0
-    @param a2 optional standard deviation default to 1
+    @param m optional mean of the associated normal distribution, default to 0
+    @param s optional standard deviation of the associated normal distribution, default to 1
 
 
     @return an expression which eventually will evaluate to the result

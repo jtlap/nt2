@@ -83,8 +83,8 @@ namespace nt2 { namespace tag
 
     @see @funcref{erfc}, @funcref{Sqrt_2o_2},
     @param a0
-    @param a1 optional mean default to 0
-    @param a2 optional standard deviation default to 1
+    @param m optional mean of the associated normal distribution, default to 0
+    @param s optional standard deviation of the associated normal distribution, default to 1
 
     @return an expression which eventually will evaluate to the result
   **/
@@ -97,9 +97,6 @@ namespace nt2 { namespace tag
     normal cumulative distribution with bounds estimates
 
     @par Semantic:
-
-    For every table expression and optional mean and standard
-    deviation.
 
     @code
     tie(r, rlo, rup) = logncdf(a0, m, s, cov, alpha);
@@ -115,12 +112,12 @@ namespace nt2 { namespace tag
 
 
     @param a0
-    @param a1 mean estimate
-    @param a2 standard deviation estimate.
-    @param a3 covariance matrix of the estimated a1 and a2
-    @param a4 optional confidence bound (default to 0.05)
+    @param m  estimated mean of the associated normal distribution
+    @param s  estimated standard deviation of the associated normal distribution
+    @param cov covariance matrix of the estimated m and s.
+    @param alpha optional confidence bound (default to 0.05)
 
-    @return an expression which eventually will evaluate to the result
+    @return r, rlo and rhi as described above
   **/
   NT2_FUNCTION_IMPLEMENTATION(tag::logncdf_,  logncdf, 5)
   /// @overload

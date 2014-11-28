@@ -68,7 +68,9 @@ namespace nt2 { namespace tag
 
     @par Semantic:
 
-    For every table expression
+    For every table expression and optional mean and standard
+    deviation of the associated normal distribution.
+
 
     @code
     auto r = logninv(a0, m, s);
@@ -81,8 +83,8 @@ namespace nt2 { namespace tag
     @endcode
 
     @param a0
-    @param a1
-    @param a2
+    @param m
+    @param s
 
     @return an expression which eventually will evaluate to the result
   **/
@@ -96,8 +98,6 @@ namespace nt2 { namespace tag
 
     @par Semantic:
 
-    For every table expression
-
     @code
     tie(r, rlo, rup)= logninv(a0, m, s, cov, alpha);
     @endcode
@@ -110,13 +110,13 @@ namespace nt2 { namespace tag
     same size as a0 containing the lower and upper confidence bounds.
 
     @param a0
-    @param m estimated  mean
-    @param s estimated standard deviation
+    @param m estimated  mean of the associated normal distribution
+    @param s estimated standard deviation of the associated normal distribution
     @param cov covariance of the estimates
     @param alpha optional confidence bound (default to 0.05)
 
 
-    @return an expression which eventually will evaluate to the result
+    @return r, rlo and rhi as described above
   **/
 
   NT2_FUNCTION_IMPLEMENTATION(tag::logninv_,  logninv, 5)

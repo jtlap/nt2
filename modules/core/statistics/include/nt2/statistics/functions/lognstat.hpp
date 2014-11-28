@@ -45,16 +45,9 @@ namespace nt2 { namespace tag
     tie(m, v) = lognstat(mu, sigma);
     @endcode
 
-    is similar to:
-
-    @code
-    T0 m =  mu;
-    T0 v =  sqr(sigma);
-    @endcode
-
-    @see @funcref{normpdf}, @funcref{normcdf}, @funcref{norminv}, @funcref{normrnd}
-    @param mu mean
-    @param sigma standard deviation
+    @see @funcref{lognpdf}, @funcref{logncdf}, @funcref{logninv}, @funcref{lognrnd}
+    @param mu mean of the associated normal distribution
+    @param sigma standard deviation of the associated normal distribution
 
     @return A Fusion Sequence containing m and v
   **/
@@ -74,19 +67,12 @@ namespace nt2 { namespace tag
     m = lognstat(mu, sigma, v);
     @endcode
 
-    is similar to:
-
-    @code
-    T0 m =  mu;
-    T0 v =  sqr(sigma);
-    @endcode
-
-    @see @funcref{normpdf}, @funcref{normcdf}, @funcref{norminv}, @funcref{normrnd}
-    @param mu mean
-    @param sigma standard deviation
+    @see @funcref{lognpdf}, @funcref{logncdf}, @funcref{logninv}, @funcref{lognrnd}
+    @param mu mean of the associated normal distribution
+    @param sigma standard deviation of the associated normal distribution
     @param v L-Value that will receive the variance
 
-    @return  m
+    @return  m and computes v
 
   **/
 
@@ -94,34 +80,28 @@ namespace nt2 { namespace tag
     NT2_FUNCTION_IMPLEMENTATION_TPL(tag::lognstat_, lognstat,(A0 const&)(A1 const&)(A2&),3)
 
   /*!
-    Computes mean and variance of the log normal distribution from mean and standard deviation
+    Computes mean and variance of the lognormal distribution from mean and standard deviation
     of the associated normal distribution
 
     @par Semantic:
 
     For every parameters of floating type T0:
 
+    @see @funcref{normpdf}, @funcref{normcdf}, @funcref{norminv}, @funcref{normrnd}
+    @param mu mean of the associated normal distribution
+    @param sigma standard deviation of the associated normal distribution
+
     @code
     T0 m, v;
     lognstat(mu, sigma, m, v);
     @endcode
 
-    is similar to:
+    @return void, computes m and v
 
-    @code
-    T0 m =  mu;
-    T0 v =  sqr(sigma);
-    @endcode
-
-    @see @funcref{normpdf}, @funcref{normcdf}, @funcref{norminv}, @funcref{normrnd}
-    @param mu mean
-    @param sigma standard deviation
-
-    @return  m and computes v
-
-    @param a0 angle in radian
-    @param a1 L-Value that will receive the mean value
-    @param a2 L-Value that will receive the variance
+    @param mu mean of the associated normal distribution
+    @param sigma standard deviation of the associated normal distribution
+    @param m L-Value that will receive the mean
+    @param v L-Value that will receive the variance
 
   **/
     NT2_FUNCTION_IMPLEMENTATION_TPL(tag::lognstat_, lognstat,(A0 const&)(A1 const&)(A2&)(A3&),4)
