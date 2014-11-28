@@ -10,7 +10,10 @@
 #ifndef NT2_CORE_CONTAINER_DSL_AS_TERMINAL_HPP_INCLUDED
 #define NT2_CORE_CONTAINER_DSL_AS_TERMINAL_HPP_INCLUDED
 
+#include <nt2/sdk/memory/forward/container.hpp>
 #include <boost/dispatch/meta/terminal_of.hpp>
+#include <boost/dispatch/details/typeof.hpp>
+#include <boost/mpl/bool.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/type_traits/remove_reference.hpp>
