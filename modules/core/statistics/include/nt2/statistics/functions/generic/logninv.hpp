@@ -15,7 +15,7 @@
 #include <nt2/include/constants/half.hpp>
 #include <nt2/include/constants/sqrt_2.hpp>
 #include <nt2/include/constants/two.hpp>
-#include <nt2/include/constants/fma.hpp>
+#include <nt2/include/functions/fma.hpp>
 #include <nt2/include/functions/globalall.hpp>
 #include <nt2/include/functions/simd/erfcinv.hpp>
 #include <nt2/include/functions/exp.hpp>
