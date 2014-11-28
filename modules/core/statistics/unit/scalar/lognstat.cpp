@@ -12,7 +12,7 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <boost/fusion/include/vector_tie.hpp>
 
-#include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/sdk/unit/tests/ulp.hpp>
 #include <nt2/sdk/unit/tests/type_expr.hpp>
 
 NT2_TEST_CASE_TPL( lognstat, NT2_REAL_TYPES)
@@ -33,27 +33,27 @@ NT2_TEST_CASE_TPL( lognstat, NT2_REAL_TYPES)
   T rs = T(5.379293910566451e+06);
  {
     lognstat(m, s, mean, var);
-    NT2_TEST_EQUAL(var, rs);
-    NT2_TEST_EQUAL(mean, rm);
+    NT2_TEST_ULP_EQUAL(var, rs, 0.5);
+    NT2_TEST_ULP_EQUAL(mean, rm, 0.5);
   }
 
   {
     mean = lognstat(m, s, var);
-    NT2_TEST_EQUAL(var, rs);
-    NT2_TEST_EQUAL(mean, rm);
+    NT2_TEST_ULP_EQUAL(var, rs, 0.5);
+    NT2_TEST_ULP_EQUAL(mean, rm, 0.5);
   }
 
   {
     boost::fusion::vector_tie(mean,var) = lognstat(m, s);
-    NT2_TEST_EQUAL(var, rs);
-    NT2_TEST_EQUAL(mean, rm);
+    NT2_TEST_ULP_EQUAL(var, rs, 0.5);
+    NT2_TEST_ULP_EQUAL(mean, rm, 0.5);
   }
 
   {
     std::pair<T,T> p;
 
     p = lognstat(m, s);
-    NT2_TEST_EQUAL(p.first, rm);
-    NT2_TEST_EQUAL(p.second, rs);
+    NT2_TEST_ULP_EQUAL(p.first, rm, 0.5);
+    NT2_TEST_ULP_EQUAL(p.second, rs, 0.5);
   }
 }
