@@ -8,15 +8,19 @@
 ##############################################################################
 
 SET( SOURCES
+  evcdf.cpp
+  evpdf.cpp
+  evinv.cpp
+  evstat.cpp
   caucdf.cpp
   caupdf.cpp
   cauinv.cpp
   caurnd.cpp
   normcdf.cpp
   fastnormcdf.cpp
-  norminv.cpp
   normpdf.cpp
   normrnd.cpp
+  norminv.cpp
   normstat.cpp
   unifpdf.cpp
   unifcdf.cpp
