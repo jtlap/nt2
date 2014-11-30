@@ -55,7 +55,7 @@ NT2_TEST_CASE_TPL ( evcdf_1,  NT2_REAL_TYPES)
      1.000000000000000e+00
  );
   NT2_TEST_ULP_EQUAL(r, rr, 0.5);
-  NT2_TEST_ULP_EQUAL(plo, pplo, 10);
+  NT2_TEST_ULP_EQUAL(plo, pplo, 10.5);
   NT2_TEST_ULP_EQUAL(pup, ppup, 1);
 } // end of test for floating_
 
