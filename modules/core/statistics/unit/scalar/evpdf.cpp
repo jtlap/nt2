@@ -31,7 +31,7 @@ NT2_TEST_CASE_TPL ( evpdf_1, NT2_REAL_TYPES)
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(evpdf(nt2::Nan<T>(), nt2::Half<T>(), nt2::Half<T>()), nt2::Nan<T>(), 0);
-  NT2_TEST_ULP_EQUAL(evpdf(nt2::One<T>(), nt2::Half<T>(), nt2::Half<T>()),  nt2::splat<T>(3.587481574680342e-01), 1);
+  NT2_TEST_ULP_EQUAL(evpdf(nt2::One<T>(), nt2::Half<T>(), nt2::Half<T>()),  nt2::splat<T>(3.587481574680342e-01), 1.5);
   NT2_TEST_ULP_EQUAL(evpdf(nt2::Zero<T>(), nt2::Half<T>(), nt2::Half<T>()), nt2::splat<T>(5.092927600871650e-01), 1);
   NT2_TEST_ULP_EQUAL(evpdf(nt2::Inf<T>(), nt2::Half<T>(), nt2::Half<T>()), nt2::Zero<T>(), 1);
   NT2_TEST_ULP_EQUAL(evpdf(nt2::Minf<T>(), nt2::Half<T>(), nt2::Half<T>()), nt2::Zero<T>(), 1);
