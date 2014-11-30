@@ -1985,6 +1985,7 @@ namespace detail
     unsigned int const idx3( 3 );
 
     #if !defined( BOOST_SIMD_DETECTED )
+        typedef typename Vector::value_type scalar_t;
 
         scalar_t const r2( real_in[ idx2 ] );
         scalar_t const r3( real_in[ idx3 ] );
