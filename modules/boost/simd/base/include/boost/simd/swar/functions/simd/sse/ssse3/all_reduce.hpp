@@ -28,12 +28,12 @@ namespace boost { namespace simd { namespace ext
                                       ((target_< unspecified_<Tag> >))
                                     )
   {
-    typedef typename Tag::type                              base;
+    typedef Tag base;
     typedef typename dispatch::meta::call<base( A0 const&
                                               , A0 const&
                                               )>::type      result_type;
 
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0, Tag const&) const
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0, boost::dispatch::meta::as_<Tag> const&) const
     {
       typedef typename boost::simd::meta::cardinal_of<result_type>::type card;
       details::butterfly<card::value/2,result_type> callee;
@@ -48,12 +48,12 @@ namespace boost { namespace simd { namespace ext
                                       ((target_< unspecified_<Tag> >))
                                     )
   {
-    typedef typename Tag::type                              base;
+    typedef Tag base;
     typedef typename dispatch::meta::call<base( A0 const&
                                               , A0 const&
                                               )>::type      result_type;
 
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0, Tag const&) const
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0, boost::dispatch::meta::as_<Tag> const&) const
     {
       typedef typename boost::simd::meta::cardinal_of<result_type>::type card;
       details::butterfly<card::value/2,result_type> callee;
