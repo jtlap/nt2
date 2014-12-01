@@ -16,21 +16,27 @@ SET( SOURCES
   caupdf.cpp
   cauinv.cpp
   caurnd.cpp
-  normcdf.cpp
-  fastnormcdf.cpp
-  normpdf.cpp
-  normrnd.cpp
-  norminv.cpp
-  normstat.cpp
-  unifpdf.cpp
-  unifcdf.cpp
-  unifrnd.cpp
-  unifinv.cpp
   expcdf.cpp
   exppdf.cpp
   expinv.cpp
+  fastnormcdf.cpp
   gamcdf.cpp
   kstest.cpp
+  logncdf.cpp
+  logninv.cpp
+  lognpdf.cpp
+  lognstat.cpp
+  normcdf.cpp
+  norminv.cpp
+  normpdf.cpp
+  normrnd.cpp
+  normstat.cpp
+  unifcdf.cpp
+  unifinv.cpp
+  unifpdf.cpp
+  unifrnd.cpp
+
+
 # List of scalar test files for toolbox statistics
    )
 
