@@ -46,7 +46,7 @@ namespace boost { namespace dispatch
     }
     #else
     template<class... Args>
-    BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE
+    BOOST_FORCEINLINE auto
     operator()(Args&&... args) const
     BOOST_AUTO_DECLTYPE_BODY_SFINAE(
       dispatching(meta::adl_helper(), Tag(), boost::dispatch::default_site_t<Site>(), boost::dispatch::meta::hierarchy_of_t<Args&&>()...)(static_cast<Args&&>(args)...)
@@ -95,7 +95,7 @@ namespace boost { namespace simd
     }
     #else
     template<class... Args>
-    BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE
+    BOOST_FORCEINLINE auto
     operator()(Args&&... args) const
     BOOST_AUTO_DECLTYPE_BODY_SFINAE(
       dispatching(ext::adl_helper(), Tag(), boost::dispatch::default_site_t<Site>(), boost::dispatch::meta::hierarchy_of_t<Args&&>()...)(static_cast<Args&&>(args)...)
