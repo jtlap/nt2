@@ -24,6 +24,7 @@
 #include <nt2/include/constants/two.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/inf.hpp>
+#include <nt2/include/constants/mhalf.hpp>
 #include <nt2/include/constants/minf.hpp>
 #include <nt2/include/constants/nan.hpp>
 #include <nt2/include/constants/half.hpp>
@@ -43,6 +44,8 @@ NT2_TEST_CASE_TPL ( pow_abs,  NT2_REAL_TYPES)
 #ifndef BOOST_SIMD_NO_INVALIDS
   NT2_TEST_ULP_EQUAL(pow_abs(nt2::Inf<T>(), nt2::Inf<T>()), nt2::Inf<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(pow_abs(nt2::Inf<T>(), nt2::Half<T>()), nt2::Inf<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(pow_abs(nt2::Inf<T>(), nt2::Mhalf<T>()), nt2::Zero<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(pow_abs(nt2::Inf<T>(), nt2::Zero<T>()), nt2::One<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(pow_abs(nt2::Minf<T>(), nt2::Minf<T>()), nt2::Zero<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(pow_abs(nt2::Nan<T>(), nt2::Nan<T>()), nt2::Nan<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(pow_abs(nt2::Two<T>(), nt2::Inf<T>()), nt2::Inf<r_t>(), 0);
