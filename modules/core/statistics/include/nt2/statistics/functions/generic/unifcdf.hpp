@@ -44,7 +44,7 @@ namespace nt2 { namespace ext
   BOOST_DISPATCH_IMPLEMENT  ( unifcdf_, tag::cpu_
                             , (A0)(A1)
                             , (generic_< floating_<A0> >)
-                              (unspecified_<A1>)
+                              (policy<A1>) //(unspecified_<A1>)
                             )
   {
     typedef A0 result_type;

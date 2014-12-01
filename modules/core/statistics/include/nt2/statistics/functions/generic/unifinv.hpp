@@ -34,7 +34,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return if_else( logical_and(is_gez(a0), le(a0, One<A0>()))
+      return if_else_all( logical_and(is_gez(a0), le(a0, One<A0>()))
                     , a0
                     , Nan<A0> ()
                     );
