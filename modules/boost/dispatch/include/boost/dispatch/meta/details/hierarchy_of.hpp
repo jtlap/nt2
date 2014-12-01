@@ -38,9 +38,9 @@ namespace boost { namespace dispatch { namespace details
   //============================================================================
   // Overload for hierarchies
   //============================================================================
-  template<class T>
+  template<class T, class Origin>
   struct  hierarchy_of< T
-                      , T
+                      , Origin
                       , typename
                         meta::enable_if_type< typename T::hierarchy_tag >::type
                       >
