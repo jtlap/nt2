@@ -72,6 +72,8 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::unifcdf_, unifcdf, 2)
   /// @overload
   NT2_FUNCTION_IMPLEMENTATION(tag::unifcdf_, unifcdf, 1)
+  /// @overload
+  NT2_FUNCTION_IMPLEMENTATION(tag::unifcdf_, unifcdf, 4)
 }
 
 #endif
