@@ -28,12 +28,12 @@ namespace boost { namespace simd { namespace ext
                                       ((target_< unspecified_<Tag> >))
                                     )
   {
-    typedef Tag base;
+    typedef typename Tag::type                              base;
     typedef typename dispatch::meta::call<base( A0 const&
                                               , A0 const&
                                               )>::type      result_type;
 
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0, boost::dispatch::meta::as_<Tag> const&) const
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0, Tag const&) const
     {
       typedef typename dispatch::meta::as_floating<A0>::type ftype;
       dispatch::functor<base> op;
@@ -59,12 +59,12 @@ namespace boost { namespace simd { namespace ext
                                       ((target_< unspecified_<Tag> >))
                                     )
   {
-    typedef Tag base;
+    typedef typename Tag::type                              base;
     typedef typename dispatch::meta::call<base( A0 const&
                                               , A0 const&
                                               )>::type      result_type;
 
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0, boost::dispatch::meta::as_<Tag> const&) const
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0, Tag const&) const
     {
       typedef typename dispatch::meta::as_floating<A0>::type ftype;
       dispatch::functor<base> op;
