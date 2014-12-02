@@ -63,7 +63,7 @@ namespace nt2 { namespace ext
       if(x == Inf<A0>() && a1 == Minf<A0>()) return Zero<A0>();
       if(a1 == Inf<A0>()) return (x < One<A0>()) ? Zero<A0>() : Inf<A0>();
       if(a1 == Minf<A0>()) return (x >  One<A0>()) ? Zero<A0>() : Inf<A0>();
-      if(x == Inf<A0>()) return (a0 < Zero<A0>()) ? Zero<A0>() : ((a0 == Zero<A0>()) ? One<A0>() : Inf<A0>());
+      if(x == Inf<A0>()) return (a1 < Zero<A0>()) ? Zero<A0>() : ((a1 == Zero<A0>()) ? One<A0>() : Inf<A0>());
       #endif
       #ifndef BOOST_SIMD_NO_INVALIDS
       if(is_nan(a0) || is_nan(a1)) return Nan<A0>();
