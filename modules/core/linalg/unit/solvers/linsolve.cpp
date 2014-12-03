@@ -46,7 +46,7 @@ typedef nt2::table<T,nt2::rectangular_>    t_t;
 
 t_t a = nt2::cons<T>(nt2::of_size(3,3),2,1,1,1,2,2,2,5,7);
 t_t b = nt2::cons<T>(nt2::of_size(3,1),1,2,5);
-t_t x = nt2::ones(nt2::of_size(3,1),nt2::meta::as_<T>());
+t_t x ;
 t_t x1(b);
 T rcond,rcond1,anorm;
 char norm = '1';
@@ -88,7 +88,7 @@ t_t a = nt2::cons<cT>(nt2::of_size(3,3)
                     );
 t_t b = nt2::cons<cT>(nt2::of_size(3,1)
                     ,cT(1,0),cT(2,0),cT(5,0));
-t_t x = nt2::ones(nt2::of_size(3,1),nt2::meta::as_<cT>());
+t_t x ;
 t_t x1(b);
 
 T rcond,rcond1;
@@ -127,7 +127,7 @@ typedef nt2::table<T,nt2::rectangular_>    t_t;
 
 t_t a = nt2::cons<T>(nt2::of_size(3,3),2,1,1,1,2,2,2,5,7);
 t_t b = nt2::cons<T>(nt2::of_size(3,1),1,2,5);
-t_t x = nt2::ones(nt2::of_size(3,1),nt2::meta::as_<T>());
+t_t x ;
 t_t x1(b);
 T rcond,rcond1,anorm;
 char norm = '1';
@@ -171,7 +171,7 @@ t_t a = nt2::cons<cT>(nt2::of_size(3,3)
                     );
 t_t b = nt2::cons<cT>(nt2::of_size(3,1)
                     ,cT(1,0),cT(2,0),cT(5,0));
-t_t x = nt2::ones(nt2::of_size(3,1),nt2::meta::as_<cT>());
+t_t x ;
 t_t x1(b);
 T rcond,rcond1;
 
@@ -207,7 +207,7 @@ typedef nt2::table<T,nt2::rectangular_>    t_t;
 
 t_t a = nt2::cons<T>(nt2::of_size(3,3),2,1,1,1,2,2,2,5,7);
 t_t b = nt2::cons<T>(nt2::of_size(3,1),1,2,5);
-t_t x = nt2::ones(nt2::of_size(3,1),nt2::meta::as_<T>());
+t_t x ;
 t_t x1(b);
 T rcond,rcond1,anorm;
 char norm = '1';
@@ -250,7 +250,7 @@ t_t a = nt2::cons<cT>(nt2::of_size(3,3)
                     );
 t_t b = nt2::cons<cT>(nt2::of_size(3,1)
                     ,cT(1,0),cT(2,0),cT(5,0));
-t_t x = nt2::ones(nt2::of_size(3,1),nt2::meta::as_<T>());
+t_t x ;
 t_t x1(b);
 T rcond,rcond1;
 
@@ -293,7 +293,7 @@ t_t a = nt2::cons<cT>(nt2::of_size(3,3)
                     );
 t_t b = nt2::cons<cT>(nt2::of_size(3,1)
                     ,cT(1,0),cT(2,0),cT(5,0));
-t_t x = nt2::ones(nt2::of_size(3,1),nt2::meta::as_<cT>());
+t_t x ;
 t_t x1(b);
 T rcond,rcond1,anorm;
 char norm = '1';
@@ -329,7 +329,7 @@ typedef nt2::table<T,nt2::symmetric_>    t_t;
 
 t_t a = nt2::cons<T>(nt2::of_size(3,3),2,1,1,1,1,1,1,1,2);
 t_t b = nt2::cons<T>(nt2::of_size(3,1),1,2,5);
-t_t x = nt2::ones(nt2::of_size(3,1),nt2::meta::as_<T>());
+t_t x ;
 t_t x1(b);
 T rcond,rcond1,anorm;
 char norm = '1';
@@ -364,7 +364,7 @@ typedef nt2::table<T,nt2::symmetric_>    t_t;
 
 t_t a = nt2::cons<T>(nt2::of_size(3,3),2,1,1,1,1,1,1,1,2);
 t_t b = nt2::cons<T>(nt2::of_size(3,1),1,2,5);
-t_t x = nt2::ones(nt2::of_size(3,1),nt2::meta::as_<T>());
+t_t x ;
 t_t x1(b);
 T rcond,rcond1,anorm;
 char norm = '1';
@@ -444,7 +444,7 @@ typedef nt2::table<T,nt2::symmetric_>    t_t;
 
 t_t a = nt2::cons<T>(nt2::of_size(3,3),2,1,1,1,1,1,1,1,2);
 t_t b = nt2::cons<T>(nt2::of_size(3,1),1,2,5);
-t_t x = nt2::ones(nt2::of_size(3,1),nt2::meta::as_<T>());
+t_t x;
 t_t x1(b);
 T rcond,rcond1,anorm;
 char norm = '1';
@@ -489,7 +489,7 @@ t_t a = nt2::cons<cT>(nt2::of_size(3,3)
                     );
 t_t b = nt2::cons<cT>(nt2::of_size(3,1)
                     ,cT(1,0),cT(2,0),cT(5,0));
-t_t x = nt2::ones(nt2::of_size(3,1),nt2::meta::as_<cT>());
+t_t x ;
 t_t x1(b);
 T rcond,rcond1,anorm;
 char norm = '1';
@@ -533,7 +533,7 @@ typedef nt2::table<T,nt2::positive_definite_>    t_t;
 
 t_t a = nt2::cons<T>(nt2::of_size(3,3),2,-1,0,-1,2,-1,0,-1,2);
 t_t b = nt2::cons<T>(nt2::of_size(3,1),1,2,5);
-t_t x = nt2::ones(nt2::of_size(3,1),nt2::meta::as_<T>());
+t_t x ;
 t_t x1(b);
 T rcond,rcond1,anorm;
 char norm = '1';
@@ -572,7 +572,7 @@ t_t a = nt2::cons<cT>(nt2::of_size(3,3)
                      ,cT(-1,0),cT(2,0),cT(-1,0)
                      ,cT(0,0),cT(-1,0),cT(2,0));
 t_t b = nt2::cons<cT>(nt2::of_size(3,1),cT(1,0),cT(2,0),cT(5,0));
-t_t x = nt2::ones(nt2::of_size(3,1),nt2::meta::as_<cT>());
+t_t x;
 t_t x1(b);
 T rcond,rcond1,anorm;
 char norm = '1';
@@ -608,7 +608,7 @@ typedef nt2::table<T,nt2::positive_definite_>    t_t;
 
 t_t a = nt2::cons<T>(nt2::of_size(3,3),2,-1,0,-1,2,-1,0,-1,2);
 t_t b = nt2::cons<T>(nt2::of_size(3,1),1,2,5);
-t_t x = nt2::ones(nt2::of_size(3,1),nt2::meta::as_<T>());
+t_t x ;
 t_t x1(b);
 T rcond,rcond1,anorm;
 char norm = '1';
@@ -649,7 +649,7 @@ t_t a = nt2::cons<cT>(nt2::of_size(3,3)
                      ,cT(-1,0),cT(2,0),cT(-1,0)
                      ,cT(0,0),cT(-1,0),cT(2,0));
 t_t b = nt2::cons<cT>(nt2::of_size(3,1),cT(1,0),cT(2,0),cT(5,0));
-t_t x = nt2::ones(nt2::of_size(3,1),nt2::meta::as_<cT>());
+t_t x ;
 t_t x1(b);
 T rcond,rcond1,anorm;
 char norm = '1';
@@ -685,7 +685,7 @@ typedef nt2::table<T,nt2::positive_definite_>    t_t;
 
 t_t a = nt2::cons<T>(nt2::of_size(3,3),2,-1,0,-1,2,-1,0,-1,2);
 t_t b = nt2::cons<T>(nt2::of_size(3,1),1,2,5);
-t_t x = nt2::ones(nt2::of_size(3,1),nt2::meta::as_<T>());
+t_t x ;
 t_t x1(b);
 T rcond,rcond1,anorm;
 char norm = '1';
@@ -729,7 +729,7 @@ t_t a = nt2::cons<cT>(nt2::of_size(3,3)
                      ,cT(-1,0),cT(2,0),cT(-1,0)
                      ,cT(0,0),cT(-1,0),cT(2,0));
 t_t b = nt2::cons<cT>(nt2::of_size(3,1),cT(1,0),cT(2,0),cT(5,0));
-t_t x = nt2::ones(nt2::of_size(3,1),nt2::meta::as_<cT>());
+t_t x ;
 t_t x1(b);
 T rcond,rcond1,anorm;
 char norm = '1';
@@ -768,7 +768,7 @@ using nt2::precise_;
 nt2::table<T, nt2::band_diagonal_<2,2> >  a = nt2::rand(7, 7, nt2::meta::as_<T>());
 nt2::table<T> b = nt2::rand(7, 1, nt2::meta::as_<T>());
 
-nt2::table<T> x = nt2::ones(nt2::of_size(7,1),nt2::meta::as_<T>());
+nt2::table<T> x ;
 nt2::table<T> x1(b);
 T rcond;
 
@@ -802,7 +802,7 @@ nt2::table<cT, nt2::band_diagonal_<2,2> >  a = nt2::ones(7, 7, nt2::meta::as_<cT
                                              + T(10)*nt2::eye(7, 7, nt2::meta::as_<cT>());
 nt2::table<cT> b = nt2::ones(7, 1, nt2::meta::as_<cT>());
 
-nt2::table<cT> x = nt2::ones(nt2::of_size(7,1),nt2::meta::as_<cT>());
+nt2::table<cT> x ;
 nt2::table<cT> x1(b);
 T rcond;
 

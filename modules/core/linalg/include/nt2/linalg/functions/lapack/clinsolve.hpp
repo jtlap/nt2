@@ -91,6 +91,8 @@ namespace nt2 { namespace ext
         nt2::gelsy( boost::proto::value(entry) ,boost::proto::value(piv)
                 , boost::proto::value(b) );
       }
+
+      assign_swap(b, boost::proto::child_c<0>(a2));
     }
 
     //==========================================================================
@@ -104,6 +106,7 @@ namespace nt2 { namespace ext
       matrix_type entry(a0);
 
       nt2::posv(boost::proto::value(entry), boost::proto::value(b));
+      assign_swap(b, boost::proto::child_c<0>(a2));
     }
 
     //==========================================================================
@@ -118,6 +121,8 @@ namespace nt2 { namespace ext
       piv.resize(nt2::of_size(a0.leading_size(),1));
       nt2::sysv( boost::proto::value(entry),boost::proto::value(piv)
               , boost::proto::value(b));
+      assign_swap(b, boost::proto::child_c<0>(a2));
+
     }
 
     //==========================================================================
@@ -133,6 +138,8 @@ namespace nt2 { namespace ext
 
       nt2::gbsv( boost::proto::value(entry),boost::proto::value(piv)
               , boost::proto::value(b));
+      assign_swap(b, boost::proto::child_c<0>(a2));
+
     }
 
     //==========================================================================
@@ -186,6 +193,7 @@ namespace nt2 { namespace ext
                 , boost::proto::value(b), rank);
         boost::proto::child_c<1>(a2) = static_cast<type_t>(rank);
       }
+      assign_swap(b, boost::proto::child_c<0>(a2));
     }
 
     //==========================================================================
@@ -209,6 +217,7 @@ namespace nt2 { namespace ext
               , boost::proto::value(b));
       boost::proto::child_c<1>(a2) = nt2::sycon( boost::proto::value(entry)
                                                , boost::proto::value(piv) ,anorm);
+      assign_swap(b, boost::proto::child_c<0>(a2));
     }
 
     //==========================================================================
@@ -226,6 +235,7 @@ namespace nt2 { namespace ext
       type_t anorm = nt2::lange(boost::proto::value(entry) ,norm, h_());
       nt2::posv(boost::proto::value(entry), boost::proto::value(b));
       boost::proto::child_c<1>(a2) = nt2::pocon(boost::proto::value(entry),anorm);
+      assign_swap(b, boost::proto::child_c<0>(a2));
     }
 
     //==========================================================================
@@ -246,6 +256,8 @@ namespace nt2 { namespace ext
               , boost::proto::value(b));
       boost::proto::child_c<1>(a2) = nt2::gbcon( boost::proto::value(entry)
                                                , boost::proto::value(piv),anorm);
+
+      assign_swap(b, boost::proto::child_c<0>(a2));
 
     }
 
