@@ -36,10 +36,10 @@ t_t lu;
 t_t a = nt2::cons<T>(nt2::of_size(3,3),2,1,1,1,2,2,2,5,7);
 t_t b = nt2::cons<T>(nt2::of_size(3,1),1,2,5);
 t_t x = nt2::ones(nt2::of_size(10,1),nt2::meta::as_<T>());
-t_t x1(b);
+t_t x1(b+b);
 t_i piv;
 
-nt2::plinsolve(a ,b, nt2::tie(x) );
+nt2::plinsolve(a ,b+b, nt2::tie(x) );
 nt2_la_int iter = nt2::gesv( boost::proto::value(a), boost::proto::value(piv)
                          , boost::proto::value(x1) );
 

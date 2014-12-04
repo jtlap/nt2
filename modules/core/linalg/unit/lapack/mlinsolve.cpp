@@ -41,8 +41,9 @@ t_t x1(b);
 t_i ipiv;
 
 
-nt2::mlinsolve(a+a,b,x);
+nt2::mlinsolve(a+a,b+b,x);
 a = a+a;
+b = b+b;
 nt2_la_int iter= nt2::gemsv( boost::proto::value(a), boost::proto::value(b)
                          , boost::proto::value(x1) );
 
