@@ -10,4 +10,5 @@
 nt2_module_use_modules(test.unit)
 
 add_subdirectory(functions)
+add_subdirectory(futures)
 
