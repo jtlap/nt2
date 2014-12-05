@@ -13,6 +13,7 @@ SET ( SOURCES
   blas_scal.cpp
   blas_swap.cpp
   blas_copy.cpp
+  blas_axpy.cpp
   )
 
 nt2_module_add_tests(core.linalg.blas.unit ${SOURCES})
