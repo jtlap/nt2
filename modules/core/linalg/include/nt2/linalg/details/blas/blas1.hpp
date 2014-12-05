@@ -33,7 +33,7 @@ extern "C"
 
   void NT2_F77NAME(drotg)(double *da, double *db, double *c, double *s);
 
-  void NT2_F77NAME(dscal)(const nt2_la_int* n, double *da, double *dx,
+  void NT2_F77NAME(dscal)(const nt2_la_int* n, const double *da, double *dx,
                       const nt2_la_int* incx);
 
   void NT2_F77NAME(dswap)(const nt2_la_int* n, double *dx, const nt2_la_int* incx,
@@ -63,7 +63,7 @@ extern "C"
 
   void NT2_F77NAME(srotg)(float *da, float *db, float *c, float *s);
 
-  void NT2_F77NAME(sscal)(const nt2_la_int* n, float *da, float *dx, const nt2_la_int* incx);
+  void NT2_F77NAME(sscal)(const nt2_la_int* n, const float *da, float *dx, const nt2_la_int* incx);
 
   void NT2_F77NAME(sswap)(const nt2_la_int* n, float *dx, const nt2_la_int* incx, float *dy,
                       const nt2_la_int* incy);
