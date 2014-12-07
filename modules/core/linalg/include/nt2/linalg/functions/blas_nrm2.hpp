@@ -1,5 +1,5 @@
 //==============================================================================
-//         Copyright 2013 - 2014   Jean-Thierry Lapresté
+//         Copyright 2013 - 2014   Jean-Thierry Lapreste
 //         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
 //         Copyright 2009 - 2013   LRI    UMR 8623 CNRS/Univ Paris Sud XI
 //
