@@ -45,7 +45,6 @@ namespace nt2
       call(result_type && value)
       {
         details::tbb_future<result_type> future_res;
-
         future_res.res_ =
           std::make_shared<result_type>
             ( std::forward<result_type>(value) );
@@ -77,7 +76,7 @@ namespace nt2
 
           node_type * node =
             new node_type( *future_res.getWork()
-                         , details::tbb_task_wrapper< F, async_future, A ... >
+                           , details::tbb_task_wrapper< F, async_future, A ... >
                            ( std::forward<F>(f)
                            , async_future(future_res)
                            , std::forward<A>(a)...
