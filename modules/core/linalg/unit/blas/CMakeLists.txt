@@ -20,6 +20,7 @@ SET ( SOURCES
   blas_nrm2.cpp
   blas_asum.cpp
   blas_i_amax.cpp
+  blas_gemv.cpp
   )
 
 nt2_module_add_tests(core.linalg.blas.unit ${SOURCES})
