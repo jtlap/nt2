@@ -39,10 +39,9 @@ namespace nt2
             ~tbb_future_base () {}
 
             public:
-
             static tbb::flow::graph *getWork ()
             {
-                if (NULL == nt2_graph_)
+                if(NULL == nt2_graph_)
                 {
                    nt2_graph_ = new tbb::flow::graph;
                 }
@@ -103,10 +102,10 @@ namespace nt2
                     delete task_queue_;
                     task_queue_ = NULL;
                 }
-              }
+             }
 
             private:
-
+            // static members
             static tbb::flow::graph *
               nt2_graph_;
 
@@ -135,6 +134,7 @@ namespace nt2
         template<typename result_type>
         struct tbb_future : public tbb_future_base
         {
+
             typedef typename tbb::flow::continue_node<\
             tbb::flow::continue_msg> node_type;
 
@@ -142,25 +142,9 @@ namespace nt2
             : node_(NULL),res_(new result_type),ready_(new bool(false))
             {}
 
-            template< typename previous_future>
-            void attach_previous_future(previous_future const & pfuture)
-            {
-                pfutures_.push_back(
-                  std::shared_ptr<previous_future>(
-                   new previous_future(pfuture)
-                  )
-                );
-            }
-
-
-            void attach_task(node_type * node)
-            {
-                node_ = node;
-            }
-
             bool is_ready()
             {
-                tbb::mutex::scoped_lock lock(mutex_);
+                //tbb::mutex::scoped_lock lock(mutex_);
                 return *ready_;
             }
 
@@ -196,16 +180,17 @@ namespace nt2
 
                 then_future.attach_previous_future(*this);
 
-                node_type * c = new node_type
+                node_type * c
+                = new node_type
                   ( *getWork(),
-                      details::tbb_task_wrapper1<
+                      details::tbb_task_wrapper<
                         F,
                         then_future_type,
                         tbb_future
                         >
                    (std::forward<F>(f)
-                   ,std::forward<then_future_type>(then_future)
-                   ,*this )
+                   ,then_future_type(then_future)
+                   ,tbb_future(*this) )
                   );
 
                 tbb::flow::make_edge(*node_,*c);
@@ -216,11 +201,27 @@ namespace nt2
                 return then_future;
            }
 
+            template< typename previous_future>
+            void attach_previous_future(previous_future const & pfuture)
+            {
+                pfutures_.push_back(
+                  std::shared_ptr<previous_future>(
+                   new previous_future(pfuture)
+                  )
+                );
+            }
+
+
+            void attach_task(node_type * node)
+            {
+                node_ = node;
+            }
+
+            // own members
             node_type * node_;
-            std::shared_ptr<result_type> res_;
             std::vector< std::shared_ptr<void> > pfutures_;
+            std::shared_ptr<result_type> res_;
             std::shared_ptr<bool> ready_;
-            tbb::mutex mutex_;
         };
     }
 }

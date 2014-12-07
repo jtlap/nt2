@@ -63,7 +63,7 @@ struct p4
 {
     typedef int result_type;
 
-    int operator()(future dep) const
+    int operator()(future) const
     {
         return 50;
     }
@@ -87,11 +87,11 @@ NT2_TEST_CASE( then_future )
   p2 w2;
   p3 w3;
 
-  future f5 = nt2::async<Arch>(boost::move(w1));
-  future f6 = f5.then(boost::move(w2));
-  future f7 = f6.then(boost::move(w3));
+  future f5 = nt2::async<Arch>(std::move(w1));
+  future f6 = f5.then(std::move(w2));
+  future f7 = f6.then(std::move(w3));
 
-  future f8 = nt2::async<Arch>(boost::move(w1)).then(boost::move(w2)).then(boost::move(w3));
+  future f8 = nt2::async<Arch>(std::move(w1)).then(std::move(w2)).then(std::move(w3));
 
   int value3 = f7.get();
   int value4 = f8.get();

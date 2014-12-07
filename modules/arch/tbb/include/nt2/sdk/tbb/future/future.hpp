@@ -38,10 +38,9 @@ namespace nt2
       typedef details::tbb_future<result_type> type;
     };
 
-    template< class Site>
-    struct make_ready_future_impl< tag::tbb_<Site> >
+    template< class Site, class result_type>
+    struct make_ready_future_impl< tag::tbb_<Site>, result_type>
     {
-      template< typename result_type >
       inline details::tbb_future<result_type>
       call(result_type && value)
       {
@@ -69,23 +68,23 @@ namespace nt2
         inline typename make_future< tag::tbb_<Site>
                                    , typename boost::result_of< F(A...)>::type
                                    >::type
-        call(F&& f, A&& a)
+        call(F&& f, A&& ... a)
         {
           typedef typename boost::result_of< F(A...)>::type result_type;
-          typedef typename details::tbb_future<result_type> future;
+          typedef typename details::tbb_future<result_type> async_future;
 
-          future future_res;
+          async_future future_res;
 
           node_type * node =
             new node_type( *future_res.getWork()
-                         , details::tbb_task_wrapper< F, future, A ... >
+                         , details::tbb_task_wrapper< F, async_future, A ... >
                            ( std::forward<F>(f)
-                           , future_res
+                           , async_future(future_res)
                            , std::forward<A>(a)...
                            )
                          );
 
-          tbb::flow::make_edge(*future_res.getStart(),*node);
+          tbb::flow::make_edge( *(future_res.getStart()), *(node) );
 
           future_res.getTaskQueue()->push_back(node);
           future_res.attach_task(node);

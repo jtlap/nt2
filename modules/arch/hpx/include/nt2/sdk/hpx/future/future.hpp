@@ -33,12 +33,11 @@ namespace nt2
         typedef typename hpx::lcos::shared_future<result_type> type;
     };
 
-    template< class Site>
-    struct make_ready_future_impl< tag::hpx_<Site> >
+    template< class Site, class result_type>
+    struct make_ready_future_impl< tag::hpx_<Site>, result_type>
     {
-        template< typename result_type >
         inline hpx::lcos::shared_future<result_type>
-        call(result_type value)
+        call(result_type && value)
         {
             return  hpx::make_ready_future(value);
         }

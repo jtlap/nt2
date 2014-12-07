@@ -22,14 +22,15 @@ namespace nt2
     template<class Arch>
     struct async_impl;
 
-    template<class Arch>
+    template<class Arch, typename result_type>
     struct make_ready_future_impl;
 
     template< typename Arch, typename result_type>
     inline typename make_future< Arch,result_type>::type
-    make_ready_future(result_type const & value)
+    make_ready_future(result_type value)
     {
-       return make_ready_future_impl<Arch>().call(value);
+       return make_ready_future_impl<Arch,result_type>()
+              .call(std::move(value) );
     }
 
     template<class Arch>

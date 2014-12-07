@@ -21,6 +21,7 @@
 #include <nt2/sdk/tbb/future/details/empty_body.hpp>
 
 #include <cstdio>
+#include <tuple>
 
 namespace nt2
 {
@@ -36,6 +37,40 @@ namespace nt2
               return 0;
             }
         };
+
+        template<std::size_t N>
+        struct link_nodes
+        {
+        template <class Future, typename Node_raw, typename Tuple>
+        static void call( Future & f
+                        , Node_raw c
+                        , Tuple && a
+                        )
+        {
+
+          tbb::flow::make_edge( *( std::get<N-1>(a).node_ )
+                              , *c
+                              );
+          f.attach_previous_future( std::get<N-1>(a) );
+          link_nodes<N-1>().call(f,c,a);
+        }
+       };
+
+        template<>
+        struct link_nodes<1ul>
+        {
+        template <class Future, typename Node_raw, typename Tuple>
+        static void call( Future & f
+                        , Node_raw c
+                        , Tuple && a
+                        )
+        {
+          tbb::flow::make_edge( *( std::get<0>(a).node_ )
+                              , *c
+                              );
+          f.attach_previous_future( std::get<0>(a) );
+        }
+       };
     }
 
     template<class Site>
@@ -46,7 +81,7 @@ namespace nt2
 
         template <typename Future>
         details::tbb_future< int >
-        call( std::vector<Future> & lazy_values )
+        static call( std::vector<Future> & lazy_values )
         {
            typedef typename details::tbb_future<int> future;
 
@@ -71,23 +106,24 @@ namespace nt2
 
         template< typename ... A >
         details::tbb_future<int>
-        call( details::tbb_future<A> const & a ... )
+        static call( details::tbb_future<A> & ...a )
         {
-            typedef typename details::tbb_future<int> future;
+            typedef typename details::tbb_future<int> return_type;
 
-            future future_res;
+            return_type future_res;
 
             node_type * c = new node_type( *future_res.getWork(),
-              details::tbb_task_wrapper0<details::empty_functor,future>
-                (details::empty_functor(), future_res)
+              details::tbb_task_wrapper<details::empty_functor,return_type>
+                ( details::empty_functor()
+                , return_type(future_res)
+                )
               );
 
             future_res.getTaskQueue()->push_back(c);
-
-            tbb::flow::make_edge(*(a.node_),*c) ... ;
-            future_res.attach_previous_future( a ) ... ;
-
             future_res.attach_task(c);
+
+            details::link_nodes< sizeof...(A) >()
+            .call(future_res,c,std::tie(a...));
 
             return future_res;
          }
