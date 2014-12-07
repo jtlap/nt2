@@ -38,7 +38,8 @@ namespace nt2 { namespace ext
                                      , const A2& incx) const
     {
       nt2_la_int in =n;
-      NT2_F77NAME(sscal) (&in, &alpha, x.raw(), &incx);
+      nt2_la_int ix =incx;
+      NT2_F77NAME(sscal) (&in, &alpha, x.raw(), &ix);
     }
   };
 
@@ -59,7 +60,8 @@ namespace nt2 { namespace ext
                                      , const A2& incx) const
     {
       nt2_la_int in = n;
-      NT2_F77NAME(dscal) (&in, &alpha, x.raw(), &incx);
+      nt2_la_int ix =incx;
+      NT2_F77NAME(dscal) (&in, &alpha, x.raw(), &ix);
     }
   };
 
@@ -81,7 +83,8 @@ namespace nt2 { namespace ext
                                      , const A2& incx) const
     {
       nt2_la_int in =n;
-      NT2_F77NAME(cscal) (&in, &alpha, x.raw(), &incx);
+      nt2_la_int ix =incx;
+      NT2_F77NAME(cscal) (&in, &alpha, x.raw(), &ix);
     }
   };
 
@@ -102,7 +105,8 @@ namespace nt2 { namespace ext
                                      , const A2& incx) const
     {
       nt2_la_int in = n;
-      NT2_F77NAME(zscal) (&in, &alpha, x.raw(), &incx);
+      nt2_la_int ix = incx;
+      NT2_F77NAME(zscal) (&in, &alpha, x.raw(), &ix);
     }
   };
 } }

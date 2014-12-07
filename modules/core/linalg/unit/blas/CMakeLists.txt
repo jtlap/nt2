@@ -10,10 +10,16 @@
 SET ( SOURCES
   blas_rotg.cpp
   blas_rot.cpp
+  blas_rotmg.cpp
+  blas_rotm.cpp
   blas_scal.cpp
   blas_swap.cpp
   blas_copy.cpp
   blas_axpy.cpp
+  blas_dot.cpp
+  blas_nrm2.cpp
+  blas_asum.cpp
+  blas_i_amax.cpp
   )
 
 nt2_module_add_tests(core.linalg.blas.unit ${SOURCES})
