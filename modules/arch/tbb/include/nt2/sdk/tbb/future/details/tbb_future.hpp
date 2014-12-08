@@ -38,6 +38,8 @@ namespace nt2
             tbb_future_base () {}
             ~tbb_future_base () {}
 
+            public:
+
             static tbb::flow::graph *getWork ()
             {
                 if(NULL == nt2_graph_)
@@ -134,21 +136,6 @@ namespace nt2
         template<typename result_type>
         struct tbb_future : public tbb_future_base
         {
-            template<class>
-            friend struct async_impl;
-
-            template<class>
-            friend struct when_all_impl;
-
-            template<class, typename>
-            friend struct make_ready_future_impl;
-
-            template< class, typename, typename ...>
-            friend struct tbb_task_wrapper;
-
-            template<std::size_t>
-            friend struct link_nodes;
-
             typedef typename tbb::flow::continue_node<\
             tbb::flow::continue_msg> node_type;
 
@@ -214,8 +201,6 @@ namespace nt2
 
                 return then_future;
            }
-
-            private:
 
             template< typename previous_future>
             void attach_previous_future(previous_future const & pfuture)

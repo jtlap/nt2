@@ -79,16 +79,16 @@ namespace nt2
        typedef typename tbb::flow::continue_node<\
        tbb::flow::continue_msg> node_type;
 
-        template <typename Future>
-        details::tbb_future< int >
-        static call( std::vector<Future> & lazy_values )
-        {
-           typedef typename details::tbb_future<int> future;
+       typedef typename details::tbb_future<int>
+       whenall_future;
 
-           future future_res;
+        template <typename Future>
+        whenall_future static call( std::vector<Future> & lazy_values )
+        {
+           whenall_future future_res;
 
            node_type * c = new node_type( *(future_res.getWork()),
-             details::tbb_task_wrapper<details::empty_functor,future>
+             details::tbb_task_wrapper<details::empty_functor,whenall_future>
                (details::empty_functor(), future_res)
              );
 
@@ -105,27 +105,24 @@ namespace nt2
         }
 
         template< typename ... A >
-        details::tbb_future<int>
-        static call( details::tbb_future<A> & ...a )
+        whenall_future static call( details::tbb_future<A> & ...a )
         {
-            typedef typename details::tbb_future<int> return_type;
+          whenall_future future_res;
 
-            return_type future_res;
+          node_type * c = new node_type( *future_res.getWork(),
+            details::tbb_task_wrapper<details::empty_functor,whenall_future>
+              ( details::empty_functor()
+              , whenall_future(future_res)
+              )
+            );
 
-            node_type * c = new node_type( *future_res.getWork(),
-              details::tbb_task_wrapper<details::empty_functor,return_type>
-                ( details::empty_functor()
-                , return_type(future_res)
-                )
-              );
+          future_res.getTaskQueue()->push_back(c);
+          future_res.attach_task(c);
 
-            future_res.getTaskQueue()->push_back(c);
-            future_res.attach_task(c);
+          details::link_nodes< sizeof...(A) >()
+          .call(future_res,c,std::tie(a...));
 
-            details::link_nodes< sizeof...(A) >()
-            .call(future_res,c,std::tie(a...));
-
-            return future_res;
+          return future_res;
          }
     };
 }
