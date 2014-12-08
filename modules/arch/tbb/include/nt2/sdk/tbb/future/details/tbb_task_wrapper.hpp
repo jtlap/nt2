@@ -47,26 +47,23 @@ namespace nt2
       template< class F, typename future_type, typename ... A>
       struct tbb_task_wrapper
       {
-          typedef typename generate_tbb_sequence<sizeof...(A)>::type seq;
+        typedef typename generate_tbb_sequence<sizeof...(A)>::type seq;
 
-          tbb_task_wrapper( F && f, future_type && future_result, A&& ... a)
-          : f_(std::forward<F>(f))
-          , future_result_(std::forward<future_type>(future_result))
-          , a_( std::make_tuple(std::forward<A>(a) ...) )
-          {}
+        tbb_task_wrapper( F && f, future_type && future_result, A&& ... a)
+        : f_(std::forward<F>(f))
+        , future_result_(std::forward<future_type>(future_result))
+        , a_( std::make_tuple(std::forward<A>(a) ...) )
+        {}
 
-          void operator()(const tbb::flow::continue_msg )
-          {
-//              tbb::mutex::scoped_lock lock(future_result_.mutex_);
+        void operator()(const tbb::flow::continue_msg )
+        {
+            *(future_result_.res_) = seq().apply(f_,a_);
+            *(future_result_.ready_) = true;
+        }
 
-              *(future_result_.res_) = seq().apply(f_,a_);
-
-              *(future_result_.ready_) = true;
-          }
-
-          F f_;
-          future_type future_result_;
-          std::tuple < A ... > a_;
+        F f_;
+        future_type future_result_;
+        std::tuple < A ... > a_;
       };
 
     }

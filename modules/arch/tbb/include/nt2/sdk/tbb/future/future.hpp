@@ -65,11 +65,11 @@ namespace nt2
 
         template< typename F , typename ... A>
         inline typename make_future< tag::tbb_<Site>
-                                   , typename boost::result_of< F(A...)>::type
+                                   , typename std::result_of< F(A...)>::type
                                    >::type
         call(F&& f, A&& ... a)
         {
-          typedef typename boost::result_of< F(A...)>::type result_type;
+          typedef typename std::result_of< F(A...)>::type result_type;
           typedef typename details::tbb_future<result_type> async_future;
 
           async_future future_res;

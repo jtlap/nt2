@@ -18,6 +18,7 @@
 #include <vector>
 #include <cstdio>
 #include <memory>
+#include <type_traits>
 
 #include <nt2/sdk/tbb/future/details/tbb_task_wrapper.hpp>
 #include <nt2/sdk/tbb/future/details/empty_body.hpp>
@@ -145,7 +146,6 @@ namespace nt2
 
             bool is_ready()
             {
-                //tbb::mutex::scoped_lock lock(mutex_);
                 return *ready_;
             }
 
