@@ -80,8 +80,9 @@ namespace nt2
 #define POINT(a,b) a.b
 
 #define NT2_FUTURE_FORWARD_ARGS(z,n,t) details::openmp_future<A##n> const & a##n
-#define NT2_FUTURE_FORWARD_ARGS1(z,n,t) const bool * r##n = POINT(a##n,ready_).get();
+#define NT2_FUTURE_FORWARD_ARGS1(z,n,t) bool * r##n = POINT(a##n,ready_).get();
 #define NT2_FUTURE_FORWARD_ARGS2(z,n,t) future_res.attach_previous_future( a##n );
+#define NT2_FUTURE_FORWARD_ARGS3(z,n,t) boost::dispatch::ignore_unused(r##n);
 
         template< BOOST_PP_ENUM_PARAMS(N, typename A) >
         details::openmp_future<int> call\
@@ -93,6 +94,7 @@ namespace nt2
 
             BOOST_PP_REPEAT(N, NT2_FUTURE_FORWARD_ARGS1, ~)
             BOOST_PP_REPEAT(N, NT2_FUTURE_FORWARD_ARGS2, ~)
+            BOOST_PP_REPEAT(N, NT2_FUTURE_FORWARD_ARGS3, ~)
 
             #pragma omp task \
                firstprivate(future_res, next, BOOST_PP_ENUM_PARAMS(N,r) ) \
@@ -109,6 +111,7 @@ namespace nt2
 #undef NT2_FUTURE_FORWARD_ARGS
 #undef NT2_FUTURE_FORWARD_ARGS1
 #undef NT2_FUTURE_FORWARD_ARGS2
+#undef NT2_FUTURE_FORWARD_ARGS3
 #undef N
 
 #endif

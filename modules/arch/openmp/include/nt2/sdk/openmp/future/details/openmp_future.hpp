@@ -79,6 +79,10 @@ namespace nt2
 
            openmp_future current_future(*this);
            bool * prev( ready_.get() );
+
+           // Remove warning because the variable is used in the omp pragma
+           boost::dispatch::ignore_unused(prev);
+
            bool * next( then_future.ready_.get() );
 
            #pragma omp task \
