@@ -21,6 +21,7 @@ SET ( SOURCES
   blas_asum.cpp
   blas_i_amax.cpp
   blas_gemv.cpp
+  blas_symv.cpp
   )
 
 nt2_module_add_tests(core.linalg.blas.unit ${SOURCES})
