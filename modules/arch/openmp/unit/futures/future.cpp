@@ -16,7 +16,9 @@
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/tests/type_expr.hpp>
 #include <nt2/sdk/unit/tests/exceptions.hpp>
+#include <iostream>
 
+#if defined(_OPENMP) && _OPENMP >= 201307 /* OpenMP 4.0 */
 
 namespace nt2
 {
@@ -141,3 +143,13 @@ NT2_TEST_CASE( when_all_future )
   NT2_TEST_EQUAL(value2,50) ;
 
 }
+
+#else
+
+NT2_TEST_CASE( no_future )
+{
+  std::cout<<"No OpenMP 4.0 support"<<std::endl;
+  NT2_TEST_EQUAL(1,1) ;
+}
+
+#endif
