@@ -41,7 +41,7 @@ extern "C"
 
   void NT2_F77NAME(dtrmv)(const char* uplo, const char* trans, const char* diag,
                       const nt2_la_int* N, const double* A, const nt2_la_int* lda,
-                      const double* dx, const nt2_la_int* incx);
+                      double* dx, const nt2_la_int* incx);
 
   void NT2_F77NAME(dtbmv)(const char* uplo, const char* trans, const char* diag,
                       const nt2_la_int* N, const nt2_la_int* K, const double* A,
@@ -106,7 +106,7 @@ extern "C"
 
   void NT2_F77NAME(strmv)(const char* uplo, const char* trans, const char* diag,
                       const nt2_la_int* N, const float* A, const nt2_la_int* lda,
-                      const float* dx, const nt2_la_int* incx);
+                      float* dx, const nt2_la_int* incx);
 
   void NT2_F77NAME(stbmv)(const char* uplo, const char* trans, const char* diag,
                       const nt2_la_int* N, const nt2_la_int* K, const float* A,
@@ -169,7 +169,7 @@ extern "C"
 
   void NT2_F77NAME(ztrmv)(const char* uplo, const char* trans, const char* diag,
                       const nt2_la_int* N, const nt2_la_complex* A, const nt2_la_int* lda,
-                      const nt2_la_complex* dx, const nt2_la_int* incx);
+                      nt2_la_complex* dx, const nt2_la_int* incx);
 
   void NT2_F77NAME(ztbmv)(const char* uplo, const char* trans, const char* diag,
                       const nt2_la_int* N, const nt2_la_int* K, const nt2_la_complex* A,
@@ -215,7 +215,7 @@ extern "C"
 
   void NT2_F77NAME(ctrmv)(const char* uplo, const char* trans, const char* diag,
                       const nt2_la_int* N, const nt2_la_complex* A, const nt2_la_int* lda,
-                      const nt2_la_complex* dx, const nt2_la_int* incx);
+                      nt2_la_complex* dx, const nt2_la_int* incx);
 
   void NT2_F77NAME(ctbmv)(const char* uplo, const char* trans, const char* diag,
                       const nt2_la_int* N, const nt2_la_int* K, const nt2_la_complex* A,

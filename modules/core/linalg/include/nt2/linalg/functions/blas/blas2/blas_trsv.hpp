@@ -7,10 +7,10 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_LINALG_FUNCTIONS_BLAS_BLAS2_TRMV_HPP_INCLUDED
-#define NT2_LINALG_FUNCTIONS_BLAS_BLAS2_TRMV_HPP_INCLUDED
+#ifndef NT2_LINALG_FUNCTIONS_BLAS_BLAS2_TRSV_HPP_INCLUDED
+#define NT2_LINALG_FUNCTIONS_BLAS_BLAS2_TRSV_HPP_INCLUDED
 
-#include <nt2/linalg/functions/blas_trmv.hpp>
+#include <nt2/linalg/functions/blas_trsv.hpp>
 #include <nt2/linalg/details/blas/blas2.hpp>
 #include <nt2/include/functions/height.hpp>
 #include <nt2/linalg/details/utility/f77_wrapper.hpp>
@@ -22,7 +22,7 @@ namespace nt2 { namespace ext
 
 // /---------------------------------------------Real-single------------------------------------------------//
 
-  BOOST_DISPATCH_IMPLEMENT  ( blas_trmv_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( blas_trsv_, tag::cpu_
                             , (UPLO)(TRANS)(DIAG)(A)(SA)(X)(SX)(INCX)
                             , (scalar_<int8_<UPLO>>)// uplo
                               (scalar_<int8_<TRANS>>)// trans
@@ -44,12 +44,12 @@ namespace nt2 { namespace ext
       nt2_la_int n = height(a);
       nt2_la_int lda = n;
       nt2_la_int ix= incx;
-      NT2_F77NAME(strmv)  (&uplo, &trans, &diag, &n, a.raw(), &lda, x.raw(), &ix);
+      NT2_F77NAME(strsv)  (&uplo, &trans, &diag, &n, a.raw(), &lda, x.raw(), &ix);
     }
   };
 
 // /---------------------------------------------Real-double------------------------------------------------//
-  BOOST_DISPATCH_IMPLEMENT  ( blas_trmv_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( blas_trsv_, tag::cpu_
                             , (UPLO)(TRANS)(DIAG)(A)(SA)(X)(SX)(INCX)
                             , (scalar_<int8_<UPLO>>)// uplo
                               (scalar_<int8_<TRANS>>)// trans
@@ -71,7 +71,7 @@ namespace nt2 { namespace ext
       nt2_la_int n = height(a);
       nt2_la_int lda = n;
       nt2_la_int ix= incx;
-      NT2_F77NAME(dtrmv) (&uplo, &trans, &diag, &n, a.raw(), &lda, x.raw(), &ix);
+      NT2_F77NAME(dtrsv) (&uplo, &trans, &diag, &n, a.raw(), &lda, x.raw(), &ix);
     }
   };
 
@@ -79,7 +79,7 @@ namespace nt2 { namespace ext
 
 // /---------------------------------------------Complex-single------------------------------------------------//
 
-  BOOST_DISPATCH_IMPLEMENT  ( blas_trmv_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( blas_trsv_, tag::cpu_
                             , (UPLO)(TRANS)(DIAG)(A)(SA)(X)(SX)(INCX)
                             , (scalar_<int8_<UPLO>>)// uplo
                               (scalar_<int8_<TRANS>>)// trans
@@ -101,12 +101,12 @@ namespace nt2 { namespace ext
       nt2_la_int n = height(a);
       nt2_la_int lda = n;
       nt2_la_int ix= incx;
-      NT2_F77NAME(ctrmv) (&uplo, &trans, &diag, &n, a.raw(), &lda, x.raw(), &ix);
+      NT2_F77NAME(ctrsv) (&uplo, &trans, &diag, &n, a.raw(), &lda, x.raw(), &ix);
     }
   };
 
 // /---------------------------------------------Complex-double------------------------------------------------//
-  BOOST_DISPATCH_IMPLEMENT  ( blas_trmv_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( blas_trsv_, tag::cpu_
                             , (UPLO)(TRANS)(DIAG)(A)(SA)(X)(SX)(INCX)
                             , (scalar_<int8_<UPLO>>)// uplo
                               (scalar_<int8_<TRANS>>)// trans
@@ -128,7 +128,7 @@ namespace nt2 { namespace ext
       nt2_la_int n = height(a);
       nt2_la_int lda = n;
       nt2_la_int ix= incx;
-      NT2_F77NAME(ztrmv) (&uplo, &trans, &diag, &n, a.raw(), &lda, x.raw(), &ix);
+      NT2_F77NAME(ztrsv) (&uplo, &trans, &diag, &n, a.raw(), &lda, x.raw(), &ix);
     }
   };
 
