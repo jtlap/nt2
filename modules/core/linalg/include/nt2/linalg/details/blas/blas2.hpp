@@ -78,25 +78,6 @@ extern "C"
                       const nt2_la_int* incx);
 
   // Real, simple precision
-//   void NT2_F77NAME(sger)(const nt2_la_int* M, const nt2_la_int* N, const float* alpha,
-//                      const float* dx, const nt2_la_int* incx, const float* dy,
-//                      const nt2_la_int* incy, float* A, const nt2_la_int* lda);
-
-//   void NT2_F77NAME(ssyr)(const char* uplo, const nt2_la_int* N, const float* alpha,
-//                      const float* dx, const nt2_la_int* incx, float* A,
-//                      const nt2_la_int* lda);
-
-//   void NT2_F77NAME(sspr)(const char* uplo, const nt2_la_int* N, const float* alpha,
-//                      const float* dx, const nt2_la_int* incx, float* A);
-
-//   void NT2_F77NAME(ssyr2)(const char* uplo, const nt2_la_int* N, const float* alpha,
-//                       const float* dx, const nt2_la_int* incx, const float* dy,
-//                       const nt2_la_int* incy, float* A, const nt2_la_int* lda);
-
-//   void NT2_F77NAME(sspr2)(const char* uplo, const nt2_la_int* N, const float* alpha,
-//                       const float* dx, const nt2_la_int* incx, const float* dy,
-//                       const nt2_la_int* incy, float* A);
-
   void NT2_F77NAME(sgemv)(const char* trans, const nt2_la_int* M, const nt2_la_int* N,
                       const float* alpha, const float* A, const nt2_la_int* lda,
                       const float* dx, const nt2_la_int* incx, const float* beta,
@@ -210,6 +191,9 @@ extern "C"
                      const nt2_la_complex* dx, const nt2_la_int* incx, const nt2_la_complex* dy,
                      const nt2_la_int* incy, nt2_la_complex* A, const nt2_la_int* lda);
 
+  void NT2_F77NAME(zgeru)(const nt2_la_int* M, const nt2_la_int* N, const nt2_la_complex* alpha,
+                     const nt2_la_complex* dx, const nt2_la_int* incx, const nt2_la_complex* dy,
+                     const nt2_la_int* incy, nt2_la_complex* A, const nt2_la_int* lda);
 //   void NT2_F77NAME(zsyr)(const char* uplo, const nt2_la_int* N, const nt2_la_complex* alpha,
 //                      const nt2_la_complex* dx, const nt2_la_int* incx, nt2_la_complex* A,
 //                      const nt2_la_int* lda);
@@ -270,6 +254,9 @@ extern "C"
                       const nt2_la_int* N, nt2_la_complex* Ap, nt2_la_complex* dx,
                       const nt2_la_int* incx);
   void NT2_F77NAME(cgerc)(const nt2_la_int* M, const nt2_la_int* N, const nt2_la_complex* alpha,
+                     const nt2_la_complex* dx, const nt2_la_int* incx, const nt2_la_complex* dy,
+                     const nt2_la_int* incy, nt2_la_complex* A, const nt2_la_int* lda);
+  void NT2_F77NAME(cgeru)(const nt2_la_int* M, const nt2_la_int* N, const nt2_la_complex* alpha,
                      const nt2_la_complex* dx, const nt2_la_int* incx, const nt2_la_complex* dy,
                      const nt2_la_int* incy, nt2_la_complex* A, const nt2_la_int* lda);
 
