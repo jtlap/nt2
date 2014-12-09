@@ -10,7 +10,7 @@
 #ifndef NT2_LINALG_FUNCTIONS_BLAS_BLAS2_GEMV_HPP_INCLUDED
 #define NT2_LINALG_FUNCTIONS_BLAS_BLAS2_GEMV_HPP_INCLUDED
 
-#include <nt2/linalg/functions/blas_rotm.hpp>
+#include <nt2/linalg/functions/blas_gemv.hpp>
 #include <nt2/linalg/details/blas/blas2.hpp>
 #include <nt2/include/functions/height.hpp>
 #include <nt2/include/functions/width.hpp>

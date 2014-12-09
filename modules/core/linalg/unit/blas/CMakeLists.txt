@@ -28,6 +28,7 @@ SET ( SOURCES
   blas_geru.cpp
   blas_syr.cpp
   blas_syr2.cpp
+  blas_gemm.cpp
   )
 
 nt2_module_add_tests(core.linalg.blas.unit ${SOURCES})
