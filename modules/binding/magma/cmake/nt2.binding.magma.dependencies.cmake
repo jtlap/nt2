@@ -7,14 +7,18 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-set(MAGMA_FOUND 0)
-if(DEFINED MAGMA_CXX_FLAGS AND NOT MAGMA_CXX_FLAGS)
-  set(MAGMA_FOUND 0)
-else()
+ set(MAGMA_FOUND 0)
+ if(DEFINED MAGMA_CXX_FLAGS AND NOT MAGMA_CXX_FLAGS)
+   set(MAGMA_FOUND 0)
+ else()
 
-  if(NOT DEFINED MAGMA_ROOT AND DEFINED ENV{MAGMA_ROOT})
-    set(MAGMA_ROOT $ENV{MAGMA_ROOT})
-  endif()
+ if(NOT DEFINED MAGMA_ROOT AND DEFINED ENV{MAGMA_ROOT})
+   set(MAGMA_ROOT $ENV{MAGMA_ROOT})
+ endif()
+
+ if(NOT DEFINED INTEL_ROOT)
+   set(INTEL_ROOT /opt/intel/composerxe)
+ endif()
 
   # try to find libmagma
   find_library( MAGMA_MAGMA_LIBRARY
@@ -35,9 +39,15 @@ else()
   else()
     set(NT2_INTEL_LIBRARY_SUFFIXES ia32)
   endif()
-  set(INTEL_ROOT /opt/intel/composerxe)
+
   find_library( INTEL_RC_LIBRARY
                 NAMES irc
+                PATHS ${INTEL_ROOT}/lib
+                PATH_SUFFIXES ${NT2_INTEL_LIBRARY_SUFFIXES}
+              )
+
+  find_library( INTEL_OMP_LIBRARY
+                NAMES iomp5
                 PATHS ${INTEL_ROOT}/lib
                 PATH_SUFFIXES ${NT2_INTEL_LIBRARY_SUFFIXES}
               )
@@ -76,8 +86,8 @@ else()
     if(MAGMA_MAGMABLAS_LIBRARY)
       list(APPEND MAGMA_LIBRARY ${MAGMA_MAGMABLAS_LIBRARY})
     endif()
-    if(INTEL_RC_LIBRARY)
-      list(APPEND MAGMA_LIBRARY ${INTEL_RC_LIBRARY})
+    if(INTEL_RC_LIBRARY AND INTEL_OMP_LIBRARY)
+      list(APPEND MAGMA_LIBRARY ${INTEL_RC_LIBRARY} ${INTEL_OMP_LIBRARY})
     endif()
     set(CUDA_INCLUDE_PATH "${CUBLAS_HEADER}/")
   endif()
