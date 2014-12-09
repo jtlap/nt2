@@ -74,7 +74,7 @@
        details::magma_buffer<float>       dT(lwkopt,nhrs);
 
        double eps = boost::simd::Eps<double>();
-       double anrm = magmablas_dlange('I', m, na, dA.raw(), m, dE.raw() );
+       double anrm = magmablas_dlange(MagmaInfNorm, m, na, dA.raw(), m, dE.raw() );
        double cte = anrm*eps*nt2::sqrt( type_t(na));
        double xnrm, rnrm;
 
@@ -82,28 +82,28 @@
 
        magmablas_dlag2s(ldb,nhrs,dB.raw(),ldb,dSX.raw(),ldb,&info);
 
-       magmablas_sgemv( 't', m, na, one, dSR.raw(), m, dSX.raw(), one, 0, dSX.raw(), one );
+       magmablas_sgemv( MagmaTrans, m, na, one, dSR.raw(), m, dSX.raw(), one, 0, dSX.raw(), one );
 
        magma_sgeqrf2_gpu( m, na, dSR.raw(), m, tau.raw(), &info );
 
-       magmablas_strsm('l','u','t','n',na,nhrs,(float)one,dSR.raw(),m,dSX.raw(), na);
+       magmablas_strsm(MagmaLeft,MagmaUpper,MagmaTrans,MagmaNonUnit,na,nhrs,(float)one,dSR.raw(),m,dSX.raw(), na);
 
-       magmablas_strsm('l','u','n','n',na,nhrs,(float)one,dSR.raw(),m,dSX.raw(), na);
+       magmablas_strsm(MagmaLeft,MagmaUpper,MagmaNoTrans,MagmaNonUnit,na,nhrs,(float)one,dSR.raw(),m,dSX.raw(), na);
 
        magmablas_slag2d(ldb,nhrs,dSX.raw(),ldb,dX.raw(),ldb,&info);
 
-       magmablas_dlacpy('A', ldb, nhrs, dB.raw(), ldb, dE.raw(), ldb);
+       magmablas_dlacpy(MagmaFull, ldb, nhrs, dB.raw(), ldb, dE.raw(), ldb);
 
-       magmablas_dgemv( 'n', lda, na, negone, dA.raw(), lda, dX.raw(), one, one, dE.raw(), one );
+       magmablas_dgemv( MagmaNoTrans, lda, na, negone, dA.raw(), lda, dX.raw(), one, one, dE.raw(), one );
 
        for(size_t i = 1; i<=10;++i)
        {
-         magmablas_dgemv( 't', lda, na, one, dA.raw(), lda, dE.raw(), one, 0, temp.raw(), one );
+         magmablas_dgemv( MagmaTrans, lda, na, one, dA.raw(), lda, dE.raw(), one, 0, temp.raw(), one );
          magmablas_dlag2s(ldb,nhrs,temp.raw(),ldb,dSX.raw(),ldb,&info);
 
-         magmablas_strsm('l','u','t','n',na,nhrs,(float)one,dSR.raw(),m,dSX.raw(), na);
+         magmablas_strsm(MagmaLeft,MagmaUpper,MagmaTrans,MagmaNonUnit,na,nhrs,(float)one,dSR.raw(),m,dSX.raw(), na);
 
-         magmablas_strsm('l','u','n','n',na,nhrs,(float)one,dSR.raw(),m,dSX.raw(), na);
+         magmablas_strsm(MagmaLeft,MagmaUpper,MagmaNoTrans,MagmaNonUnit,na,nhrs,(float)one,dSR.raw(),m,dSX.raw(), na);
 
          magmablas_slag2d(na,nhrs,dSX.raw(),ldb,dE.raw(),ldb,&info);
 
@@ -115,8 +115,8 @@
          dX.raw(x.raw());
          xnrm = nt2::maximum(nt2::abs(x(_)));
 
-         magmablas_dlacpy('A', ldb, nhrs, dB.raw(), ldb, dE.raw(), ldb);
-         magmablas_dgemv( 'n', lda, na, negone, dA.raw(), lda, dX.raw(), one, one, dE.raw(), one );
+         magmablas_dlacpy(MagmaFull, ldb, nhrs, dB.raw(), ldb, dE.raw(), ldb);
+         magmablas_dgemv( MagmaNoTrans, lda, na, negone, dA.raw(), lda, dX.raw(), one, one, dE.raw(), one );
 
          if(rnrm < xnrm*cte) { break; }
        }
@@ -156,7 +156,7 @@
 //       t_ct e,x;
 
 //       double eps = boost::simd::Eps<double>();
-//       double anrm = nt2::lange( boost::proto::value(a),'I');
+//       double anrm = nt2::lange( boost::proto::value(a),MagmaInfNorm);
 //       double cte = anrm*eps*nt2::sqrt( double(na));
 //       double xnrm, rnrm;
 

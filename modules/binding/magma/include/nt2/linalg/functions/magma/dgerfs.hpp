@@ -26,7 +26,7 @@
 #define ITERMAX 5
 
 magma_int_t
-dgerfs_gpu(char trans, magma_int_t N, magma_int_t NRHS,
+dgerfs_gpu(magma_trans_t trans, magma_int_t N, magma_int_t NRHS,
                 double *dA, magma_int_t ldda,
                 double *dAF, magma_int_t lddaf,
                 magma_int_t *IPIV,
@@ -69,7 +69,7 @@ if( N == 0 || NRHS == 0 )
 
 eps  = boost::simd::Eps<double>();
 
-Anrm = magmablas_dlange('I', N, N, dA, ldda, dworkd );
+Anrm = magmablas_dlange(MagmaInfNorm, N, N, dA, ldda, dworkd );
 
 cte  = Anrm * eps * nt2::pow((double)N,0.5) * BWDMAX;
 
@@ -188,7 +188,7 @@ lddx, c_one, dworkd, N);
 
 
  magma_int_t
-sgerfs_gpu(char trans, magma_int_t N, magma_int_t NRHS,
+sgerfs_gpu(magma_trans_t trans, magma_int_t N, magma_int_t NRHS,
                 float *dA, magma_int_t ldda,
                 float *dAF, magma_int_t lddaf,
                 magma_int_t *IPIV,
@@ -235,7 +235,7 @@ if( N == 0 || NRHS == 0 )
 
 eps  = boost::simd::Eps<float>();
 
-Anrm = magmablas_slange('I', N, N, dA, ldda, dworks );
+Anrm = magmablas_slange(MagmaInfNorm, N, N, dA, ldda, dworks );
 
 cte  = Anrm * eps * nt2::pow((float)N,(float)0.5) * BWDMAX;
 
@@ -360,7 +360,7 @@ lddx, c_one, dworks, N);
 //---------------------------------------Complex------------------------------------//
 
 magma_int_t
-zgerfs_gpu(char trans, magma_int_t N, magma_int_t NRHS,
+zgerfs_gpu(magma_trans_t trans, magma_int_t N, magma_int_t NRHS,
                 cuDoubleComplex *dA, magma_int_t ldda,
                 cuDoubleComplex *dAF, magma_int_t lddaf,
                 magma_int_t *IPIV,
@@ -403,7 +403,7 @@ if( N == 0 || NRHS == 0 )
 
 eps  = boost::simd::Eps<double>();
 
-Anrm = magmablas_zlange('I', N, N, dA, ldda, (double*)dworkd );
+Anrm = magmablas_zlange(MagmaInfNorm, N, N, dA, ldda, (double*)dworkd );
 
 cte  = Anrm * eps * nt2::pow((double)N,0.5) * BWDMAX;
 
@@ -522,7 +522,7 @@ lddx, c_one, dworkd, N);
 
 
 magma_int_t
-cgerfs_gpu(char trans, magma_int_t N, magma_int_t NRHS,
+cgerfs_gpu(magma_trans_t trans, magma_int_t N, magma_int_t NRHS,
                 cuFloatComplex *dA, magma_int_t ldda,
                 cuFloatComplex *dAF, magma_int_t lddaf,
                 magma_int_t *IPIV,
@@ -570,7 +570,7 @@ if( N == 0 || NRHS == 0 )
 
 eps  = boost::simd::Eps<double>();
 
-Anrm = magmablas_clange('I', N, N, dA, ldda, (float*)dworkd );
+Anrm = magmablas_clange(MagmaInfNorm, N, N, dA, ldda, (float*)dworkd );
 
 cte  = Anrm * eps * nt2::pow((double)N,0.5) * BWDMAX;
 
@@ -666,11 +666,11 @@ lddx, c_one, dworkd, N);
         {
             j = magma_icamax( N, dX+i*lddx, 1) ;
             magma_cgetmatrix( 1, 1, dX+i*lddx+j-1, 1, &Xnrmv, 1 );
-            Xnrm = NT2_F77NAME(clange)( "F", &ione, &ione, &Xnrmv, &ione, NULL );
+            Xnrm = NT2_F77NAME(clange)("F", &ione, &ione, &Xnrmv, &ione, NULL );
 
             j = magma_icamax ( N, dworkd+i*N, 1 );
             magma_cgetmatrix( 1, 1, dworkd+i*N+j-1, 1, &Rnrmv, 1 );
-            Rnrm = NT2_F77NAME(clange)( "F", &ione, &ione, &Rnrmv, &ione, NULL );
+            Rnrm = NT2_F77NAME(clange)("F", &ione, &ione, &Rnrmv, &ione, NULL );
 
             if( Rnrm >  Xnrm *cte ){
                 goto L20;

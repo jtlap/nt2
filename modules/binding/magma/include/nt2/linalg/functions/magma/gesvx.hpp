@@ -48,7 +48,6 @@ namespace nt2 { namespace ext
         nt2_la_int  n  = nt2::height(a0);
         nt2_la_int  nhrs = nt2::width(a1);
         nt2_la_int  ldb = n;
-        char trans = 'N';
         a3 =1;
 
         nt2::container::table<T> copya(nt2::of_size(n,n));
@@ -64,7 +63,7 @@ namespace nt2 { namespace ext
         details::magma_buffer<T>     dX(n,nhrs, copyb.raw());
         magma_dgesv_gpu( n, nhrs, dAf.raw(), n, ipiv.raw(),dX.raw(), ldb, &that);
 
-        dgerfs_gpu(    trans
+        dgerfs_gpu(    MagmaNoTrans
                            , n           , nhrs
                            , dA.raw()    , n
                            , dAf.raw()   , n
@@ -100,7 +99,6 @@ namespace nt2 { namespace ext
         nt2_la_int  n  = nt2::height(a0);
         nt2_la_int  nhrs = nt2::width(a1);
         nt2_la_int  ldb = n;
-        char trans = 'N';
         a3 =1;
 
         nt2::container::table<T> copya(nt2::of_size(n,n));
@@ -115,7 +113,7 @@ namespace nt2 { namespace ext
         details::magma_buffer<T>     dB(n,nhrs, copyb.raw());
         details::magma_buffer<T>     dX(n,nhrs, copyb.raw());
         magma_sgesv_gpu( n, nhrs, dAf.raw(), n, ipiv.raw(),dX.raw(), ldb, &that);
-        sgerfs_gpu(    trans
+        sgerfs_gpu(    MagmaNoTrans
                            , n           , nhrs
                            , dA.raw()    , n
                            , dAf.raw()   , n
@@ -150,7 +148,6 @@ namespace nt2 { namespace ext
         nt2_la_int  n  = nt2::height(a0);
         nt2_la_int  nhrs = nt2::width(a1);
         nt2_la_int  ldb = n;
-        char trans = 'N';
         a3 =1;
 
         nt2::container::table<cT> copya(nt2::of_size(n,n));
@@ -167,7 +164,7 @@ namespace nt2 { namespace ext
         magma_zgesv_gpu( n, nhrs, (cuDoubleComplex*)dAf.raw(), n, ipiv.raw()
                        , (cuDoubleComplex*)dX.raw(), ldb, &that);
 
-        zgerfs_gpu(    trans
+        zgerfs_gpu(    MagmaNoTrans
                            , n                             , nhrs
                            , (cuDoubleComplex*)dA.raw()    , n
                            , (cuDoubleComplex*)dAf.raw()   , n
@@ -204,7 +201,7 @@ namespace nt2 { namespace ext
         nt2_la_int  n  = nt2::height(a0);
         nt2_la_int  nhrs = nt2::width(a1);
         nt2_la_int  ldb = n;
-        char trans = 'N';
+
         a3 =1;
 
         nt2::container::table<cT> copya(nt2::of_size(n,n));
@@ -221,7 +218,7 @@ namespace nt2 { namespace ext
         magma_cgesv_gpu( n, nhrs, (cuFloatComplex*)dAf.raw(), n, ipiv.raw()
                        , (cuFloatComplex*)dX.raw(), ldb, &that);
 
-        cgerfs_gpu(    trans
+        cgerfs_gpu(    MagmaNoTrans
                            , n                            , nhrs
                            , (cuFloatComplex*)dA.raw()    , n
                            , (cuFloatComplex*)dAf.raw()   , n
