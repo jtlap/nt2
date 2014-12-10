@@ -32,78 +32,78 @@ namespace nt2
     template<typename result_type>
     struct openmp_future
     {
-       openmp_future() : res_(new result_type),ready_(new bool(false))
-       {}
+      openmp_future() : res_(new result_type),ready_(new bool(false))
+      {}
 
-       template<typename previous_future>
-       void attach_previous_future(previous_future const & pfuture)
-       {
-          pfutures_.push_back(
-            std::shared_ptr<previous_future>(
-             new previous_future(pfuture)
+      template<typename previous_future>
+      void attach_previous_future(previous_future const & pfuture)
+      {
+        pfutures_.push_back(
+          std::shared_ptr<previous_future>(
+            new previous_future(pfuture)
             )
           );
-       }
+      }
 
-       bool is_ready() const
-       {
-           return *ready_;
-       }
+      bool is_ready() const
+      {
+        return *ready_;
+      }
 
-       inline void wait()
-       {
-          #pragma omp taskwait
-       }
+      inline void wait()
+      {
+        #pragma omp taskwait
+      }
 
-       result_type get()
-       {
-           if(!is_ready())
-           {
-             wait();
-           }
+      result_type get()
+      {
+        if(!is_ready())
+        {
+          wait();
+        }
 
-           return *res_;
-       }
+        return *res_;
+      }
 
-       template<typename F>
-       openmp_future<typename std::result_of<F(openmp_future)>::type>
-       then(F && f)
-       {
-           typedef typename std::result_of<F(openmp_future)>::type
-             then_result_type;
+      template<typename F>
+      openmp_future<typename std::result_of<F(openmp_future)>::type>
+      then(F && f)
+      {
+        typedef typename std::result_of<F(openmp_future)>::type
+        then_result_type;
 
-           details::openmp_future<then_result_type> then_future;
-           then_future.attach_previous_future(*this);
+        details::openmp_future<then_result_type> then_future;
+        then_future.attach_previous_future(*this);
 
-           F f_( std::forward<F> (f) );
+        F f_( std::forward<F> (f) );
 
-           openmp_future current_future(*this);
-           bool * prev( ready_.get() );
+        openmp_future current_future(*this);
+        bool * prev( ready_.get() );
 
-           // Remove warning because the variable is used in the omp pragma
-           boost::dispatch::ignore_unused(prev);
+// Remove warning because the variable is used in the omp pragma
+        boost::dispatch::ignore_unused(prev);
 
-           bool * next( then_future.ready_.get() );
+        bool * next( then_future.ready_.get() );
 
-           #pragma omp task \
-            firstprivate(then_future,current_future,f_,prev,next) \
-            depend(in: prev) \
-            depend(out: next)
-           {
-               *(then_future.res_) = f_(current_future);
-               *next = true;
-           }
+        #pragma omp task \
+        firstprivate(then_future,current_future,f_,prev,next) \
+        depend(in: prev) \
+        depend(out: next)
+        {
+          *(then_future.res_) = f_(current_future);
+          *next = true;
+        }
 
-           return then_future;
-       }
+        return then_future;
+      }
 
-       std::vector< std::shared_ptr<void> > pfutures_;
-       std::shared_ptr<result_type> res_;
-       std::shared_ptr<bool> ready_;
+      std::vector< std::shared_ptr<void> > pfutures_;
+      std::shared_ptr<result_type> res_;
+      std::shared_ptr<bool> ready_;
 
-     };
-   }
- }
+    };
+  }
+}
 
- #endif
+#endif
 #endif

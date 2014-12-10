@@ -17,16 +17,16 @@
 
 namespace nt2
 {
-    namespace details
-    {
+  namespace details
+  {
 
-        struct empty_body
-        {
-            void operator()( tbb::flow::continue_msg ) const
-            {}
-        };
-    }
+    struct empty_body
+    {
+      void operator()( tbb::flow::continue_msg ) const
+      {}
+    };
+  }
 }
 
- #endif
+#endif
 #endif

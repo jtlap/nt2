@@ -22,51 +22,50 @@
 
 namespace nt2
 {
-    namespace details
-    {
+  namespace details
+  {
 
-      template<int ... Indices>
-      struct tbb_sequence{
-         template<class F, typename ... A>
-         typename std::result_of<F(A...)>::type
-         apply(F& f, std::tuple<A...> & tuple)
-         {
-           return f( std::get<Indices>(tuple)... );
-         }
-      };
-
-      template<int N, int ...S>
-      struct generate_tbb_sequence
-      : generate_tbb_sequence<N-1, N-1, S...> { };
-
-      template<int ...S>
-      struct generate_tbb_sequence<0, S...> {
-        typedef tbb_sequence<S...> type;
-      };
-
-      template< class F, typename future_type, typename ... A>
-      struct tbb_task_wrapper
+    template<int ... Indices>
+    struct tbb_sequence{
+      template<class F, typename ... A>
+      typename std::result_of<F(A...)>::type
+      apply(F& f, std::tuple<A...> & tuple)
       {
-        typedef typename generate_tbb_sequence<sizeof...(A)>::type seq;
+        return f( std::get<Indices>(tuple)... );
+      }
+    };
 
-        tbb_task_wrapper( F && f, future_type && future_result, A&& ... a)
-        : f_(std::forward<F>(f))
-        , future_result_(std::forward<future_type>(future_result))
-        , a_( std::make_tuple(std::forward<A>(a) ...) )
-        {}
+    template<int N, int ...S>
+    struct generate_tbb_sequence
+    : generate_tbb_sequence<N-1, N-1, S...> { };
 
-        void operator()(const tbb::flow::continue_msg )
-        {
-            *(future_result_.res_) = seq().apply(f_,a_);
-            *(future_result_.ready_) = true;
-        }
+    template<int ...S>
+    struct generate_tbb_sequence<0, S...> {
+      typedef tbb_sequence<S...> type;
+    };
 
-        F f_;
-        future_type future_result_;
-        std::tuple < A ... > a_;
-      };
+    template< class F, typename future_type, typename ... A>
+    struct tbb_task_wrapper
+    {
+      typedef typename generate_tbb_sequence<sizeof...(A)>::type seq;
 
-    }
+      tbb_task_wrapper( F && f, future_type && future_result, A&& ... a)
+      : f_(std::forward<F>(f))
+      , future_result_(std::forward<future_type>(future_result))
+      , a_( std::make_tuple(std::forward<A>(a) ...) )
+      {}
+
+      void operator()(const tbb::flow::continue_msg )
+      {
+        *(future_result_.res_) = seq().apply(f_,a_);
+        *(future_result_.ready_) = true;
+      }
+
+      F f_;
+      future_type future_result_;
+      std::tuple < A ... > a_;
+    };
+  }
 }
 
 #endif

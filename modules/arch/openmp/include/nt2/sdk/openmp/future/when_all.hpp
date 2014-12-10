@@ -28,46 +28,46 @@
 
 namespace nt2
 {
-    template<class Site>
-    struct when_all_impl< tag::openmp_<Site> >
+  template<class Site>
+  struct when_all_impl< tag::openmp_<Site> >
+  {
+    template <typename Future>
+    details::openmp_future<int>
+    call( std::vector<Future> && lazy_values )
     {
-        template <typename Future>
-        details::openmp_future<int>
-        call( std::vector<Future> && lazy_values )
-        {
-           typedef typename details::openmp_future<int> future;
+      typedef typename details::openmp_future<int> future;
 
-           std::size_t size( lazy_values.size() );
+      std::size_t size( lazy_values.size() );
 
-           future future_res;
-           bool * next( future_res.ready_.get() );
-           bool * deps[size];
+      future future_res;
+      bool * next( future_res.ready_.get() );
+      bool * deps[size];
 
-           for (std::size_t i=0; i<size; i++)
-           {
-             future_res.attach_previous_future(lazy_values[i]);
-             deps[i] = lazy_values[i].ready_.get();
-           }
+      for (std::size_t i=0; i<size; i++)
+      {
+        future_res.attach_previous_future(lazy_values[i]);
+        deps[i] = lazy_values[i].ready_.get();
+      }
 
-           #pragma omp task \
-           firstprivate(future_res, next, deps) \
-           depend( in : deps[0:size] ) \
-           depend( out : next )
-           {
-                *(future_res.res_) = 1;
-                *next = true;
-           }
+#pragma omp task \
+      firstprivate(future_res, next, deps) \
+      depend( in : deps[0:size] ) \
+      depend( out : next )
+      {
+        *(future_res.res_) = 1;
+        *next = true;
+      }
 
-           return future_res;
-       }
+      return future_res;
+    }
 
 #define BOOST_PP_ITERATION_PARAMS_1 (3, \
-( 1, BOOST_DISPATCH_MAX_ARITY, \
-"nt2/sdk/openmp/future/when_all.hpp") \
-)
+    ( 1, BOOST_DISPATCH_MAX_ARITY, \
+      "nt2/sdk/openmp/future/when_all.hpp") \
+    )
 
 #include BOOST_PP_ITERATE()
-    };
+};
 }
 
 #endif
@@ -84,29 +84,28 @@ namespace nt2
 #define NT2_FUTURE_FORWARD_ARGS2(z,n,t) future_res.attach_previous_future( a##n );
 #define NT2_FUTURE_FORWARD_ARGS3(z,n,t) boost::dispatch::ignore_unused(r##n);
 
-        template< BOOST_PP_ENUM_PARAMS(N, typename A) >
-        details::openmp_future<int> call\
-        ( BOOST_PP_ENUM(N,NT2_FUTURE_FORWARD_ARGS, ~))
-        {
-            details::openmp_future<int> future_res;
+    template< BOOST_PP_ENUM_PARAMS(N, typename A) >
+    details::openmp_future<int> call( BOOST_PP_ENUM(N,NT2_FUTURE_FORWARD_ARGS, ~) )
+    {
+      details::openmp_future<int> future_res;
 
-            bool * next( future_res.ready_.get() );
+      bool * next( future_res.ready_.get() );
 
-            BOOST_PP_REPEAT(N, NT2_FUTURE_FORWARD_ARGS1, ~)
-            BOOST_PP_REPEAT(N, NT2_FUTURE_FORWARD_ARGS2, ~)
-            BOOST_PP_REPEAT(N, NT2_FUTURE_FORWARD_ARGS3, ~)
+      BOOST_PP_REPEAT(N, NT2_FUTURE_FORWARD_ARGS1, ~)
+      BOOST_PP_REPEAT(N, NT2_FUTURE_FORWARD_ARGS2, ~)
+      BOOST_PP_REPEAT(N, NT2_FUTURE_FORWARD_ARGS3, ~)
 
-            #pragma omp task \
-               firstprivate(future_res, next, BOOST_PP_ENUM_PARAMS(N,r) ) \
-               depend( in : BOOST_PP_ENUM_PARAMS(N,r) ) \
-               depend( out : next )
-            {
-                *(future_res.res_) = 1;
-                *next = true;
-            }
+    #pragma omp task \
+      firstprivate(future_res, next, BOOST_PP_ENUM_PARAMS(N,r) ) \
+      depend( in : BOOST_PP_ENUM_PARAMS(N,r) ) \
+      depend( out : next )
+      {
+        *(future_res.res_) = 1;
+        *next = true;
+      }
 
-            return future_res;
-        }
+      return future_res;
+    }
 
 #undef NT2_FUTURE_FORWARD_ARGS
 #undef NT2_FUTURE_FORWARD_ARGS1
