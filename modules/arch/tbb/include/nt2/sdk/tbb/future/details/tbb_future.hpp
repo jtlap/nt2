@@ -127,16 +127,15 @@ namespace nt2
     tbb::flow::continue_node<tbb::flow::continue_msg> *
     tbb_future_base::start_task_ = NULL;
 
-    std::vector< \
-    tbb::flow::continue_node< \
-    tbb::flow::continue_msg> * \
+    std::vector<
+    tbb::flow::continue_node<tbb::flow::continue_msg> *
     > *
     tbb_future_base::task_queue_ = NULL;
 
     template<typename result_type>
     struct tbb_future : public tbb_future_base
     {
-      typedef typename tbb::flow::continue_node<\
+      typedef typename tbb::flow::continue_node<
       tbb::flow::continue_msg> node_type;
 
       tbb_future()
