@@ -50,8 +50,8 @@ namespace nt2
       bool * next( future_res.ready_.get() );
 
       #pragma omp task \
-            firstprivate(future_res,next,value) \
-            depend(out: next)
+      firstprivate(future_res,next,value) \
+      depend(out: next)
       {
         *(future_res.res_) = value;
         *next = true;
@@ -104,11 +104,11 @@ namespace nt2
 
       bool * next( future_res.ready_.get() );
 
-    #pragma omp task \
+      #pragma omp task \
       firstprivate(future_res,next,f_ \
-        BOOST_PP_COMMA_IF(N) \
-        BOOST_PP_ENUM_PARAMS(N, a) \
-        ) \
+      BOOST_PP_COMMA_IF(N) \
+      BOOST_PP_ENUM_PARAMS(N, a) \
+      ) \
       depend(out: next)
       {
         *(future_res.res_) = f_(BOOST_PP_ENUM_PARAMS(N, a));

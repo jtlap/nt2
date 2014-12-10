@@ -49,7 +49,7 @@ namespace nt2
         deps[i] = lazy_values[i].ready_.get();
       }
 
-#pragma omp task \
+      #pragma omp task \
       firstprivate(future_res, next, deps) \
       depend( in : deps[0:size] ) \
       depend( out : next )
@@ -95,7 +95,7 @@ namespace nt2
       BOOST_PP_REPEAT(N, NT2_FUTURE_FORWARD_ARGS2, ~)
       BOOST_PP_REPEAT(N, NT2_FUTURE_FORWARD_ARGS3, ~)
 
-    #pragma omp task \
+      #pragma omp task \
       firstprivate(future_res, next, BOOST_PP_ENUM_PARAMS(N,r) ) \
       depend( in : BOOST_PP_ENUM_PARAMS(N,r) ) \
       depend( out : next )
@@ -111,6 +111,7 @@ namespace nt2
 #undef NT2_FUTURE_FORWARD_ARGS1
 #undef NT2_FUTURE_FORWARD_ARGS2
 #undef NT2_FUTURE_FORWARD_ARGS3
+#undef POINT
 #undef N
 
 #endif
