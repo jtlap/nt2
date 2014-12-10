@@ -47,7 +47,7 @@ namespace nt2 { namespace ext
                                      ) const
     {
       nt2_la_int n = height(a);
-      nt2_la_int lda = n;
+      nt2_la_int lda = a.leading_size();
       nt2_la_int ix= incx;
       nt2_la_int iy= incy;
       NT2_F77NAME(ssymv) (&uplo, &n, &alpha, a.raw(), &lda, x.raw(), &ix, &beta, y.raw(), &iy);
@@ -78,7 +78,7 @@ namespace nt2 { namespace ext
                                      ) const
     {
       nt2_la_int n = height(a);
-      nt2_la_int lda = n;
+      nt2_la_int lda = a.leading_size();
       nt2_la_int ix= incx;
       nt2_la_int iy= incy;
       NT2_F77NAME(dsymv) (&uplo, &n, &alpha, a.raw(), &lda, x.raw(), &ix, &beta, y.raw(), &iy);
@@ -112,7 +112,7 @@ namespace nt2 { namespace ext
                                      ) const
     {
       nt2_la_int n = height(a);
-      nt2_la_int lda = n;
+      nt2_la_int lda = a.leading_size();
       nt2_la_int ix= incx;
       nt2_la_int iy= incy;
       NT2_F77NAME(chemv) (&uplo, &n, &alpha, a.raw(), &lda, x.raw(), &ix, &beta, y.raw(), &iy);
@@ -143,7 +143,7 @@ namespace nt2 { namespace ext
                                      ) const
     {
       nt2_la_int n = height(a);
-      nt2_la_int lda = n;
+      nt2_la_int lda = a.leading_size();
       nt2_la_int ix= incx;
       nt2_la_int iy= incy;
       NT2_F77NAME(zhemv) (&uplo, &n, &alpha, a.raw(), &lda, x.raw(), &ix, &beta, y.raw(), &iy);

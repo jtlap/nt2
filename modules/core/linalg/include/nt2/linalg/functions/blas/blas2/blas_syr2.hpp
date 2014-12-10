@@ -42,7 +42,7 @@ namespace nt2 { namespace ext
                                      , A& a) const
     {
       nt2_la_int n = width(a);
-      nt2_la_int lda = n;
+      nt2_la_int lda = a.leading_size();
       nt2_la_int ix = incx;
       nt2_la_int iy = incy;
       NT2_F77NAME(ssyr2) (&uplo, &n, &alpha, x.raw(), &ix, y.raw(), &iy, a.raw(), &lda);
@@ -71,7 +71,7 @@ namespace nt2 { namespace ext
                                      , A& a) const
     {
       nt2_la_int n = width(a);
-      nt2_la_int lda = n;
+      nt2_la_int lda = a.leading_size();
       nt2_la_int ix = incx;
       nt2_la_int iy = incy;
       NT2_F77NAME(dsyr2) (&uplo, &n, &alpha, x.raw(), &ix, y.raw(), &iy, a.raw(), &lda);
@@ -100,7 +100,7 @@ namespace nt2 { namespace ext
                                      , A& a) const
     {
       nt2_la_int n = width(a);
-      nt2_la_int lda = n;
+      nt2_la_int lda = a.leading_size();
       nt2_la_int ix = incx;
       nt2_la_int iy = incy;
       NT2_F77NAME(cher2)(&uplo, &n, &alpha, x.raw(), &ix, y.raw(), &iy, a.raw(), &lda);
@@ -129,7 +129,7 @@ namespace nt2 { namespace ext
                                      , A& a) const
     {
       nt2_la_int n = width(a);
-      nt2_la_int lda = n;
+      nt2_la_int lda = a.leading_size();
       nt2_la_int ix = incx;
       nt2_la_int iy = incy;
       NT2_F77NAME(zher2) (&uplo, &n, &alpha, x.raw(), &ix, y.raw(), &iy, a.raw(), &lda);

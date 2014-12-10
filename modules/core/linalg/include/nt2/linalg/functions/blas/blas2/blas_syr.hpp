@@ -40,7 +40,7 @@ namespace nt2 { namespace ext
                                      , A& a) const
     {
       nt2_la_int n = width(a);
-      nt2_la_int lda = n;
+      nt2_la_int lda = a.leading_size();
       nt2_la_int ix = incx;
       NT2_F77NAME(ssyr) (&uplo, &n, &alpha, x.raw(), &ix, a.raw(), &lda);
     }
@@ -65,7 +65,7 @@ namespace nt2 { namespace ext
                                      , A& a) const
     {
       nt2_la_int n = width(a);
-      nt2_la_int lda = n;
+      nt2_la_int lda = a.leading_size();
       nt2_la_int ix = incx;
       NT2_F77NAME(dsyr) (&uplo, &n, &alpha, x.raw(), &ix, a.raw(), &lda);
     }
@@ -90,7 +90,7 @@ namespace nt2 { namespace ext
                                      , A& a) const
     {
       nt2_la_int n = width(a);
-      nt2_la_int lda = n;
+      nt2_la_int lda = a.leading_size();
       nt2_la_int ix = incx;
       NT2_F77NAME(cher)(&uplo, &n, &alpha, x.raw(), &ix, a.raw(), &lda);
     }
@@ -115,7 +115,7 @@ namespace nt2 { namespace ext
                                      , A& a) const
     {
       nt2_la_int n = width(a);
-      nt2_la_int lda = n;
+      nt2_la_int lda = a.leading_size();
       nt2_la_int ix = incx;
       NT2_F77NAME(zher) (&uplo, &n, &alpha, x.raw(), &ix, a.raw(), &lda);
     }

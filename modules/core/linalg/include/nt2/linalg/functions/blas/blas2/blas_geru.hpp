@@ -44,7 +44,7 @@ namespace nt2 { namespace ext
                                      , A& a) const
     {
       nt2_la_int m = height(a);
-      nt2_la_int lda = m;
+      nt2_la_int lda = a.leading_size();
       nt2_la_int n = width(a);
       nt2_la_int ix = incx;
       nt2_la_int iy = incy;
@@ -72,7 +72,7 @@ namespace nt2 { namespace ext
                                      , A& a) const
     {
       nt2_la_int m = height(a);
-      nt2_la_int lda = m;
+      nt2_la_int lda = a.leading_size();
       nt2_la_int n = width(a);
       nt2_la_int ix = incx;
       nt2_la_int iy = incy;
@@ -100,7 +100,7 @@ namespace nt2 { namespace ext
                                      , A& a) const
     {
       nt2_la_int m = height(a);
-      nt2_la_int lda = m;
+      nt2_la_int lda = a.leading_size();
       nt2_la_int n = width(a);
       nt2_la_int ix = incx;
       nt2_la_int iy = incy;
@@ -128,7 +128,7 @@ namespace nt2 { namespace ext
                                      , A& a) const
     {
       nt2_la_int m = height(a);
-      nt2_la_int lda = m;
+      nt2_la_int lda = a.leading_size();
       nt2_la_int n = width(a);
       nt2_la_int ix = incx;
       nt2_la_int iy = incy;

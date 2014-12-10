@@ -47,7 +47,7 @@ namespace nt2 { namespace ext
     {
       nt2_la_int n = height(a);
       nt2_la_int m = width(a);
-      nt2_la_int lda = n;
+      nt2_la_int lda = a.leading_size();
       nt2_la_int ix= incx;
       nt2_la_int iy= incy;
       NT2_F77NAME(sgemv) (&trans, &n, &m, &alpha, a.raw(), &lda, x.raw(), &ix, &beta, y.raw(), &iy);
@@ -79,7 +79,7 @@ namespace nt2 { namespace ext
     {
       nt2_la_int n = height(a);
       nt2_la_int m = width(a);
-      nt2_la_int lda = n;
+      nt2_la_int lda = a.leading_size();
       nt2_la_int ix= incx;
       nt2_la_int iy= incy;
       NT2_F77NAME(dgemv) (&trans, &n, &m, &alpha, a.raw(), &lda, x.raw(), &ix, &beta, y.raw(), &iy);
@@ -114,7 +114,7 @@ namespace nt2 { namespace ext
     {
       nt2_la_int n = height(a);
       nt2_la_int m = width(a);
-      nt2_la_int lda = n;
+      nt2_la_int lda = a.leading_size();
       nt2_la_int ix= incx;
       nt2_la_int iy= incy;
       NT2_F77NAME(cgemv) (&trans, &n, &m, &alpha, a.raw(), &lda, x.raw(), &ix, &beta, y.raw(), &iy);
@@ -146,7 +146,7 @@ namespace nt2 { namespace ext
     {
       nt2_la_int n = height(a);
       nt2_la_int m = width(a);
-      nt2_la_int lda = n;
+      nt2_la_int lda = a.leading_size();
       nt2_la_int ix= incx;
       nt2_la_int iy= incy;
       NT2_F77NAME(zgemv) (&trans, &n, &m, &alpha, a.raw(), &lda, x.raw(), &ix, &beta, y.raw(), &iy);
