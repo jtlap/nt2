@@ -6,7 +6,7 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#include <nt2/include/functions/blas_syr2k.hpp>
+#include <nt2/include/functions/blas_syrk.hpp>
 #include <nt2/include/functions/mtimes.hpp>
 #include <nt2/include/functions/cons.hpp>
 #include <nt2/include/functions/colon.hpp>
@@ -36,9 +36,9 @@
 #include <nt2/sdk/unit/tests/relation.hpp>
 
 
-NT2_TEST_CASE_TPL(blas_syr2k, NT2_REAL_TYPES )
+NT2_TEST_CASE_TPL(blas_syrk, NT2_REAL_TYPES )
 {
-  using nt2::blas_syr2k;
+  using nt2::blas_syrk;
   using nt2::mtimes;
   using nt2::reshape;
   using nt2::_;
@@ -50,52 +50,48 @@ NT2_TEST_CASE_TPL(blas_syr2k, NT2_REAL_TYPES )
     nt2::table<T> c1 = reshape(_(T(1), T(9)), 3, 3);
     nt2::table<T> c =  average(c1, trans(c1));
     nt2::table<T> a = reshape(_(T(1), T(6)), 3, 2);
-    nt2::table<T> b = reshape(_(T(0), T(5)), 3, 2);
     T alpha = T(2);
     T beta =  T(3);
-    nt2::table<T> z = c*beta+alpha*mtimes(a, trans(b))+alpha*mtimes(b, trans(a));
-    blas_syr2k('L', 'N', alpha, boost::proto::value(a), boost::proto::value(b), beta, boost::proto::value(c));
+    nt2::table<T> z = c*beta+alpha*mtimes(a, trans(a));
+    blas_syrk('L', 'N', alpha, boost::proto::value(a), beta, boost::proto::value(c));
     NT2_TEST_ULP_EQUAL(tril(c), tril(z), 1);
   }
   {
     nt2::table<T> c1 = reshape(_(T(1), T(9)), 3, 3);
     nt2::table<T> c =  average(c1, trans(c1));
     nt2::table<T> a = reshape(_(T(1), T(6)), 3, 2);
-    nt2::table<T> b = reshape(_(T(0), T(5)), 3, 2);
     T alpha = T(2);
     T beta =  T(3);
-    nt2::table<T> z = c*beta+alpha*mtimes(a, trans(b))+alpha*mtimes(b, trans(a));
-    blas_syr2k('U', 'N', alpha, boost::proto::value(a), boost::proto::value(b), beta, boost::proto::value(c));
+    nt2::table<T> z = c*beta+alpha*mtimes(a, trans(a));
+    blas_syrk('U', 'N', alpha, boost::proto::value(a), beta, boost::proto::value(c));
     NT2_TEST_ULP_EQUAL(triu(c), triu(z), 1);
   }
   {
     nt2::table<T> c1 = reshape(_(T(1), T(4)), 2, 2);
     nt2::table<T> c =  average(c1, trans(c1));
     nt2::table<T> a = reshape(_(T(1), T(6)), 3, 2);
-    nt2::table<T> b = reshape(_(T(0), T(5)), 3, 2);
     T alpha = T(2);
     T beta =  T(3);
-    nt2::table<T> z = c*beta+alpha*mtimes(trans(a), b)+alpha*mtimes(trans(b), a);
-    blas_syr2k('L', 'T', alpha, boost::proto::value(a), boost::proto::value(b), beta, boost::proto::value(c));
+    nt2::table<T> z = c*beta+alpha*mtimes(trans(a), a);
+    blas_syrk('L', 'T', alpha, boost::proto::value(a), beta, boost::proto::value(c));
     NT2_TEST_ULP_EQUAL(tril(c), tril(z), 1);
   }
   {
     nt2::table<T> c1 = reshape(_(T(1), T(4)), 2, 2);
     nt2::table<T> c =  average(c1, trans(c1));
     nt2::table<T> a = reshape(_(T(1), T(6)), 3, 2);
-    nt2::table<T> b = reshape(_(T(0), T(5)), 3, 2);
     T alpha = T(2);
     T beta =  T(3);
-    nt2::table<T> z = c*beta+alpha*mtimes(trans(a), b)+alpha*mtimes(trans(b), a);
-    blas_syr2k('U', 'T', alpha, boost::proto::value(a), boost::proto::value(b), beta, boost::proto::value(c));
+    nt2::table<T> z = c*beta+alpha*mtimes(trans(a), a);
+    blas_syrk('U', 'T', alpha, boost::proto::value(a), beta, boost::proto::value(c));
     NT2_TEST_ULP_EQUAL(triu(c), triu(z), 1);
   }
 
 
 }
-NT2_TEST_CASE_TPL(blas_syr2kc, NT2_REAL_TYPES )
+NT2_TEST_CASE_TPL(blas_syrkc, NT2_REAL_TYPES )
 {
-  using nt2::blas_syr2k;
+  using nt2::blas_syrk;
   using nt2::mtimes;
   using nt2::reshape;
   using nt2::_;
@@ -108,44 +104,40 @@ NT2_TEST_CASE_TPL(blas_syr2kc, NT2_REAL_TYPES )
     nt2::table<cT> c1 = reshape(linspace(cT(1, 1), cT(4, 0),9), 3, 3);
     nt2::table<cT> c =  average(c1, trans(c1));
     nt2::table<cT> a = reshape(linspace(cT(0, 1), cT(0, 2), 6), 3, 2);
-    nt2::table<cT> b = reshape(linspace(cT(0, 1), cT(1, 0), 6), 3, 2);
     cT alpha = cT(2, 2);
     cT beta =  cT(3, 1);
-    nt2::table<cT> z = c*beta+alpha*mtimes(a, trans(b))+alpha*mtimes(b, trans(a));
-    blas_syr2k('L', 'N', alpha, boost::proto::value(a), boost::proto::value(b), beta, boost::proto::value(c));
+    nt2::table<cT> z = c*beta+alpha*mtimes(a, trans(a));
+    blas_syrk('L', 'N', alpha, boost::proto::value(a), beta, boost::proto::value(c));
     NT2_TEST_ULP_EQUAL(tril(c), tril(z), 1);
   }
   {
     nt2::table<cT> c1 = reshape(linspace(cT(1, 1), cT(4, 0),9), 3, 3);
     nt2::table<cT> c =  average(c1, trans(c1));
     nt2::table<cT> a = reshape(linspace(cT(0, 1), cT(0, 2), 6), 3, 2);
-    nt2::table<cT> b = reshape(linspace(cT(0, 1), cT(1, 0), 6), 3, 2);
     cT alpha = cT(2, 2);
     cT beta =  cT(3, 1);
-    nt2::table<cT> z = c*beta+alpha*mtimes(a, trans(b))+alpha*mtimes(b, trans(a));
-    blas_syr2k('U', 'N', alpha, boost::proto::value(a), boost::proto::value(b), beta, boost::proto::value(c));
+    nt2::table<cT> z = c*beta+alpha*mtimes(a, trans(a));
+    blas_syrk('U', 'N', alpha, boost::proto::value(a), beta, boost::proto::value(c));
     NT2_TEST_ULP_EQUAL(triu(c), triu(z), 1);
   }
   {
     nt2::table<cT> c1 = reshape(linspace(cT(1, 1), cT(4, 0), 4), 2, 2);
     nt2::table<cT> c =  average(c1, trans(c1));
     nt2::table<cT> a = reshape(linspace(cT(0, 1), cT(0, 2), 6), 3, 2);
-    nt2::table<cT> b = reshape(linspace(cT(0, 1), cT(1, 0), 6), 3, 2);
     cT alpha = cT(2, 2);
     cT beta =  cT(3, 1);
-    nt2::table<cT> z = c*beta+alpha*mtimes(trans(a), b)+alpha*mtimes(trans(b), a);
-    blas_syr2k('L', 'T', alpha, boost::proto::value(a), boost::proto::value(b), beta, boost::proto::value(c));
+    nt2::table<cT> z = c*beta+alpha*mtimes(trans(a), a);
+    blas_syrk('L', 'T', alpha, boost::proto::value(a), beta, boost::proto::value(c));
     NT2_TEST_ULP_EQUAL(tril(c), tril(z), 1);
   }
   {
     nt2::table<cT> c1 = reshape(linspace(cT(1, 1), cT(4, 0), 4), 2, 2);
     nt2::table<cT> c =  average(c1, trans(c1));
     nt2::table<cT> a = reshape(linspace(cT(0, 1), cT(0, 2), 6), 3, 2);
-    nt2::table<cT> b = reshape(linspace(cT(0, 1), cT(1, 0), 6), 3, 2);
     cT alpha = cT(2, 2);
     cT beta =  cT(3, 1);
-    nt2::table<cT> z = c*beta+alpha*mtimes(trans(a), b)+alpha*mtimes(trans(b), a);
-    blas_syr2k('U', 'T', alpha, boost::proto::value(a), boost::proto::value(b), beta, boost::proto::value(c));
+    nt2::table<cT> z = c*beta+alpha*mtimes(trans(a), a);
+    blas_syrk('U', 'T', alpha, boost::proto::value(a), beta, boost::proto::value(c));
     NT2_TEST_ULP_EQUAL(triu(c), triu(z), 1);
   }
 

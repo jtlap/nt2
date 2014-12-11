@@ -128,6 +128,18 @@ extern "C"
                        const nt2_la_complex *B, const nt2_la_int* ldb,
                        const nt2_la_complex *beta, nt2_la_complex *C,
                        const nt2_la_int* ldc);
+  void NT2_F77NAME(cherk)(const char *uplo, const char *transa, const nt2_la_int* n,
+                      const nt2_la_int* k, const float *alpha,
+                      const nt2_la_complex *A, const nt2_la_int* lda,
+                      const float *beta, nt2_la_complex *C,
+                      const nt2_la_int* ldc);
+
+  void NT2_F77NAME(cher2k)(const char *uplo, const char *transa, const nt2_la_int* n,
+                       const nt2_la_int* k, const nt2_la_complex *alpha,
+                       const nt2_la_complex *A, const nt2_la_int* lda,
+                       const nt2_la_complex *B, const nt2_la_int* ldb,
+                       const float *beta, nt2_la_complex *C,
+                       const nt2_la_int* ldc);
 
 // Complex, double precision
   void NT2_F77NAME(zgemm)(const char *transa, const char *transb, const nt2_la_int* m,
@@ -175,6 +187,17 @@ extern "C"
                        const nt2_la_complex *B, const nt2_la_int* ldb,
                        const nt2_la_complex *beta, nt2_la_complex *C,
                        const nt2_la_int* ldc);
-}
+  void NT2_F77NAME(zherk)(const char *uplo, const char *transa, const nt2_la_int* n,
+                      const nt2_la_int* k, const double *alpha,
+                      const nt2_la_complex *A, const nt2_la_int* lda,
+                      const double *beta, nt2_la_complex *C,
+                      const nt2_la_int* ldc);
+
+  void NT2_F77NAME(zher2k)(const char *uplo, const char *transa, const nt2_la_int* n,
+                       const nt2_la_int* k, const nt2_la_complex *alpha,
+                       const nt2_la_complex *A, const nt2_la_int* lda,
+                       const nt2_la_complex *B, const nt2_la_int* ldb,
+                       const double *beta, nt2_la_complex *C,
+                       const nt2_la_int* ldc);}
 
 #endif

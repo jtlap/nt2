@@ -31,7 +31,10 @@ SET ( SOURCES
   blas_gemm.cpp
   blas_symm.cpp
   blas_hemm.cpp
+  blas_syrk.cpp
   blas_syr2k.cpp
+  blas_herk.cpp
+  blas_her2k.cpp
   )
 
 nt2_module_add_tests(core.linalg.blas.unit ${SOURCES})

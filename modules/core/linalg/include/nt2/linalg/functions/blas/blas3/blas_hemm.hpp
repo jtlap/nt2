@@ -7,10 +7,10 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_LINALG_FUNCTIONS_BLAS_BLAS3_SYR2K_HPP_INCLUDED
-#define NT2_LINALG_FUNCTIONS_BLAS_BLAS3_SYR2K_HPP_INCLUDED
+#ifndef NT2_LINALG_FUNCTIONS_BLAS_BLAS3_HEMM_HPP_INCLUDED
+#define NT2_LINALG_FUNCTIONS_BLAS_BLAS3_HEMM_HPP_INCLUDED
 
-#include <nt2/linalg/functions/blas_syr2k.hpp>
+#include <nt2/linalg/functions/blas_hemm.hpp>
 #include <nt2/linalg/details/blas/blas3.hpp>
 #include <nt2/include/functions/height.hpp>
 #include <nt2/include/functions/width.hpp>
@@ -25,10 +25,10 @@ namespace nt2 { namespace ext
 
 // /---------------------------------------------Real-single------------------------------------------------//
 
-  BOOST_DISPATCH_IMPLEMENT  ( blas_syr2k_, tag::cpu_
-                            , (UPLO)(TRANS)(ALPHA)(A)(SA)(B)(SB)(BETA)(C)(SC)
-                            , (scalar_<int8_<UPLO>>)// uplo
-                              (scalar_<int8_<TRANS>>)// trans
+  BOOST_DISPATCH_IMPLEMENT  ( blas_hemm_, tag::cpu_
+                            , (SIDE)(UPLO)(ALPHA)(A)(SA)(B)(SB)(BETA)(C)(SC)
+                            , (scalar_<int8_<SIDE>>)// side
+                              (scalar_<int8_<UPLO>>)// uplo
                               (scalar_<single_<ALPHA>>)//alpha
                               ((container_<nt2::tag::table_,  single_<A>, SA >)) //a
                               ((container_<nt2::tag::table_,  single_<B>, SB >)) //b
@@ -38,8 +38,8 @@ namespace nt2 { namespace ext
   {
     typedef void result_type;
 
-    BOOST_FORCEINLINE void operator()( const UPLO& uplo
-                                     , const TRANS& trans
+    BOOST_FORCEINLINE void operator()( const SIDE& side
+                                     , const UPLO& uplo
                                      , const ALPHA& alpha
                                      , const A& a
                                      , const B& b
@@ -47,20 +47,20 @@ namespace nt2 { namespace ext
                                      , C& c
                                      ) const
     {
-      nt2_la_int n = height(c);  //((uplo == 'N')||(uplo == 'n')) ? height(b) : width(b);
-      nt2_la_int k = ((trans == 'N')||(trans == 'n')) ?  width(a) : height(a);
+      nt2_la_int m = height(c); //((side == 'N')||(side == 'n')) ? height(a) : width(a);
+      nt2_la_int n = width(c);  //((uplo == 'N')||(uplo == 'n')) ? height(b) : width(b);
       nt2_la_int lda = a.leading_size();
       nt2_la_int ldb = b.leading_size();
       nt2_la_int ldc = c.leading_size();
-      NT2_F77NAME(ssyr2k) (&uplo, &trans, &n, &k, &alpha, a.raw(), &lda, b.raw(), &ldb, &beta, c.raw(), &ldc);
+      NT2_F77NAME(ssymm) (&side, &uplo, &m, &n, &alpha, a.raw(), &lda, b.raw(), &ldb, &beta, c.raw(), &ldc);
     }
   };
 
 // /---------------------------------------------Real-double------------------------------------------------//
-  BOOST_DISPATCH_IMPLEMENT  ( blas_syr2k_, tag::cpu_
-                            , (UPLO)(TRANS)(ALPHA)(A)(SA)(B)(SB)(BETA)(C)(SC)
-                            , (scalar_<int8_<UPLO>>)// uplo
-                              (scalar_<int8_<TRANS>>)// trans
+  BOOST_DISPATCH_IMPLEMENT  ( blas_hemm_, tag::cpu_
+                            , (SIDE)(UPLO)(ALPHA)(A)(SA)(B)(SB)(BETA)(C)(SC)
+                            , (scalar_<int8_<SIDE>>)// side
+                              (scalar_<int8_<UPLO>>)// uplo
                               (scalar_<double_<ALPHA>>)//alpha
                               ((container_<nt2::tag::table_,  double_<A>, SA >)) //a
                               ((container_<nt2::tag::table_,  double_<B>, SB >)) //b
@@ -70,8 +70,8 @@ namespace nt2 { namespace ext
   {
     typedef void result_type;
 
-    BOOST_FORCEINLINE void operator()( const UPLO& uplo
-                                     , const TRANS& trans
+    BOOST_FORCEINLINE void operator()( const SIDE& side
+                                     , const UPLO& uplo
                                      , const ALPHA& alpha
                                      , const A& a
                                      , const B& b
@@ -79,12 +79,12 @@ namespace nt2 { namespace ext
                                      , C& c
                                      ) const
     {
-      nt2_la_int n = height(c);  //((uplo == 'N')||(uplo == 'n')) ? height(b) : width(b);
-      nt2_la_int k = ((trans == 'N')||(trans == 'n')) ?  width(a) : height(a);
+      nt2_la_int m = height(c); //((side == 'N')||(side == 'n')) ? height(a) : width(a);
+      nt2_la_int n = width(c);  //((uplo == 'N')||(uplo == 'n')) ? height(b) : width(b);
       nt2_la_int lda = a.leading_size();
       nt2_la_int ldb = b.leading_size();
       nt2_la_int ldc = c.leading_size();
-      NT2_F77NAME(dsyr2k)  (&uplo, &trans, &n, &k, &alpha, a.raw(), &lda, b.raw(), &ldb, &beta, c.raw(), &ldc);
+      NT2_F77NAME(dsymm)  (&side, &uplo, &m, &n, &alpha, a.raw(), &lda, b.raw(), &ldb, &beta, c.raw(), &ldc);
     }
   };
 
@@ -92,10 +92,10 @@ namespace nt2 { namespace ext
 
 // /---------------------------------------------Complex-single------------------------------------------------//
 
-  BOOST_DISPATCH_IMPLEMENT  ( blas_syr2k_, tag::cpu_
-                            , (UPLO)(TRANS)(ALPHA)(A)(SA)(B)(SB)(BETA)(C)(SC)
-                            , (scalar_<int8_<UPLO>>)// uplo
-                              (scalar_<int8_<TRANS>>)// trans
+  BOOST_DISPATCH_IMPLEMENT  ( blas_hemm_, tag::cpu_
+                            , (SIDE)(UPLO)(ALPHA)(A)(SA)(B)(SB)(BETA)(C)(SC)
+                            , (scalar_<int8_<SIDE>>)// side
+                              (scalar_<int8_<UPLO>>)// uplo
                               (scalar_<complex_<single_<ALPHA>>>)//alpha
                               ((container_<nt2::tag::table_, complex_<single_<A>>, SA >)) //a
                               ((container_<nt2::tag::table_, complex_<single_<B>>, SB >)) //b
@@ -105,8 +105,8 @@ namespace nt2 { namespace ext
   {
     typedef void result_type;
 
-    BOOST_FORCEINLINE void operator()( const UPLO& uplo
-                                     , const TRANS& trans
+    BOOST_FORCEINLINE void operator()( const SIDE& side
+                                     , const UPLO& uplo
                                      , const ALPHA& alpha
                                      , const A& a
                                      , const B& b
@@ -114,20 +114,20 @@ namespace nt2 { namespace ext
                                      , C& c
                                      ) const
     {
-      nt2_la_int n = height(c);  //((uplo == 'N')||(uplo == 'n')) ? height(b) : width(b);
-      nt2_la_int k = ((trans == 'N')||(trans == 'n')) ?  width(a) : height(a);
+      nt2_la_int m = height(c); //((side == 'N')||(side == 'n')) ? height(a) : width(a);
+      nt2_la_int n = width(c);  //((uplo == 'N')||(uplo == 'n')) ? height(b) : width(b);
       nt2_la_int lda = a.leading_size();
       nt2_la_int ldb = b.leading_size();
       nt2_la_int ldc = c.leading_size();
-      NT2_F77NAME(csyr2k) (&uplo, &trans, &n, &k, &alpha, a.raw(), &lda, b.raw(), &ldb, &beta, c.raw(), &ldc);
+      NT2_F77NAME(chemm) (&side, &uplo, &m, &n, &alpha, a.raw(), &lda, b.raw(), &ldb, &beta, c.raw(), &ldc);
     }
   };
 
 // /---------------------------------------------Complex-double------------------------------------------------//
-  BOOST_DISPATCH_IMPLEMENT  ( blas_syr2k_, tag::cpu_
-                            , (UPLO)(TRANS)(ALPHA)(A)(SA)(B)(SB)(BETA)(C)(SC)
-                            , (scalar_<int8_<UPLO>>)// uplo
-                              (scalar_<int8_<TRANS>>)// trans
+  BOOST_DISPATCH_IMPLEMENT  ( blas_hemm_, tag::cpu_
+                            , (SIDE)(UPLO)(ALPHA)(A)(SA)(B)(SB)(BETA)(C)(SC)
+                            , (scalar_<int8_<SIDE>>)// side
+                              (scalar_<int8_<UPLO>>)// uplo
                               (scalar_<complex_<double_<ALPHA>>>)//alpha
                               ((container_<nt2::tag::table_, complex_<double_<A>>, SA >)) //a
                               ((container_<nt2::tag::table_, complex_<double_<B>>, SB >)) //b
@@ -137,8 +137,8 @@ namespace nt2 { namespace ext
   {
     typedef void result_type;
 
-    BOOST_FORCEINLINE void operator()( const UPLO& uplo
-                                     , const TRANS& trans
+    BOOST_FORCEINLINE void operator()( const SIDE& side
+                                     , const UPLO& uplo
                                      , const ALPHA& alpha
                                      , const A& a
                                      , const B& b
@@ -146,12 +146,12 @@ namespace nt2 { namespace ext
                                      , C& c
                                      ) const
     {
-      nt2_la_int n = height(c);  //((uplo == 'N')||(uplo == 'n')) ? height(b) : width(b);
-      nt2_la_int k = ((trans == 'N')||(trans == 'n')) ?  width(a) : height(a);
+      nt2_la_int m = height(c); //((side == 'N')||(side == 'n')) ? height(a) : width(a);
+      nt2_la_int n = width(c);  //((uplo == 'N')||(uplo == 'n')) ? height(b) : width(b);
       nt2_la_int lda = a.leading_size();
       nt2_la_int ldb = b.leading_size();
       nt2_la_int ldc = c.leading_size();
-      NT2_F77NAME(zsyr2k) (&uplo, &trans, &n, &k, &alpha, a.raw(), &lda, b.raw(), &ldb, &beta, c.raw(), &ldc);
+      NT2_F77NAME(zhemm) (&side, &uplo, &m, &n, &alpha, a.raw(), &lda, b.raw(), &ldb, &beta, c.raw(), &ldc);
     }
   };
 

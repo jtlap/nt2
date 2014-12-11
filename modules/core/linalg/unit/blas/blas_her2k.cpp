@@ -6,7 +6,7 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#include <nt2/include/functions/blas_syr2k.hpp>
+#include <nt2/include/functions/blas_her2k.hpp>
 #include <nt2/include/functions/mtimes.hpp>
 #include <nt2/include/functions/cons.hpp>
 #include <nt2/include/functions/colon.hpp>
@@ -24,7 +24,7 @@
 #include <nt2/include/functions/ctranspose.hpp>
 #include <nt2/include/functions/zeros.hpp>
 #include <nt2/include/functions/average.hpp>
-
+#include <nt2/include/functions/conj.hpp>
 #include <nt2/include/functions/tril.hpp>
 #include <nt2/include/functions/triu.hpp>
 
@@ -36,9 +36,9 @@
 #include <nt2/sdk/unit/tests/relation.hpp>
 
 
-NT2_TEST_CASE_TPL(blas_syr2k, NT2_REAL_TYPES )
+NT2_TEST_CASE_TPL(blas_her2k, NT2_REAL_TYPES )
 {
-  using nt2::blas_syr2k;
+  using nt2::blas_her2k;
   using nt2::mtimes;
   using nt2::reshape;
   using nt2::_;
@@ -54,7 +54,7 @@ NT2_TEST_CASE_TPL(blas_syr2k, NT2_REAL_TYPES )
     T alpha = T(2);
     T beta =  T(3);
     nt2::table<T> z = c*beta+alpha*mtimes(a, trans(b))+alpha*mtimes(b, trans(a));
-    blas_syr2k('L', 'N', alpha, boost::proto::value(a), boost::proto::value(b), beta, boost::proto::value(c));
+    blas_her2k('L', 'N', alpha, boost::proto::value(a), boost::proto::value(b), beta, boost::proto::value(c));
     NT2_TEST_ULP_EQUAL(tril(c), tril(z), 1);
   }
   {
@@ -65,7 +65,7 @@ NT2_TEST_CASE_TPL(blas_syr2k, NT2_REAL_TYPES )
     T alpha = T(2);
     T beta =  T(3);
     nt2::table<T> z = c*beta+alpha*mtimes(a, trans(b))+alpha*mtimes(b, trans(a));
-    blas_syr2k('U', 'N', alpha, boost::proto::value(a), boost::proto::value(b), beta, boost::proto::value(c));
+    blas_her2k('U', 'N', alpha, boost::proto::value(a), boost::proto::value(b), beta, boost::proto::value(c));
     NT2_TEST_ULP_EQUAL(triu(c), triu(z), 1);
   }
   {
@@ -76,7 +76,7 @@ NT2_TEST_CASE_TPL(blas_syr2k, NT2_REAL_TYPES )
     T alpha = T(2);
     T beta =  T(3);
     nt2::table<T> z = c*beta+alpha*mtimes(trans(a), b)+alpha*mtimes(trans(b), a);
-    blas_syr2k('L', 'T', alpha, boost::proto::value(a), boost::proto::value(b), beta, boost::proto::value(c));
+    blas_her2k('L', 'T', alpha, boost::proto::value(a), boost::proto::value(b), beta, boost::proto::value(c));
     NT2_TEST_ULP_EQUAL(tril(c), tril(z), 1);
   }
   {
@@ -87,15 +87,15 @@ NT2_TEST_CASE_TPL(blas_syr2k, NT2_REAL_TYPES )
     T alpha = T(2);
     T beta =  T(3);
     nt2::table<T> z = c*beta+alpha*mtimes(trans(a), b)+alpha*mtimes(trans(b), a);
-    blas_syr2k('U', 'T', alpha, boost::proto::value(a), boost::proto::value(b), beta, boost::proto::value(c));
+    blas_her2k('U', 'T', alpha, boost::proto::value(a), boost::proto::value(b), beta, boost::proto::value(c));
     NT2_TEST_ULP_EQUAL(triu(c), triu(z), 1);
   }
 
 
 }
-NT2_TEST_CASE_TPL(blas_syr2kc, NT2_REAL_TYPES )
+NT2_TEST_CASE_TPL(blas_her2kc, NT2_REAL_TYPES )
 {
-  using nt2::blas_syr2k;
+  using nt2::blas_her2k;
   using nt2::mtimes;
   using nt2::reshape;
   using nt2::_;
@@ -103,50 +103,51 @@ NT2_TEST_CASE_TPL(blas_syr2kc, NT2_REAL_TYPES )
   using nt2::height;
   using nt2::zeros;
   using nt2::of_size;
+  using nt2::conj;
   typedef std::complex<T> cT;
   {
     nt2::table<cT> c1 = reshape(linspace(cT(1, 1), cT(4, 0),9), 3, 3);
-    nt2::table<cT> c =  average(c1, trans(c1));
+    nt2::table<cT> c =  average(c1, ctrans(c1));
     nt2::table<cT> a = reshape(linspace(cT(0, 1), cT(0, 2), 6), 3, 2);
     nt2::table<cT> b = reshape(linspace(cT(0, 1), cT(1, 0), 6), 3, 2);
     cT alpha = cT(2, 2);
-    cT beta =  cT(3, 1);
-    nt2::table<cT> z = c*beta+alpha*mtimes(a, trans(b))+alpha*mtimes(b, trans(a));
-    blas_syr2k('L', 'N', alpha, boost::proto::value(a), boost::proto::value(b), beta, boost::proto::value(c));
-    NT2_TEST_ULP_EQUAL(tril(c), tril(z), 1);
+    T beta = T(3);
+    nt2::table<cT> z = c*beta+alpha*mtimes(a, ctrans(b))+conj(alpha)*mtimes(b, ctrans(a));
+    blas_her2k('L', 'N', alpha, boost::proto::value(a), boost::proto::value(b), beta, boost::proto::value(c));
+    NT2_TEST_ULP_EQUAL(tril(c), tril(z), 2);
   }
   {
     nt2::table<cT> c1 = reshape(linspace(cT(1, 1), cT(4, 0),9), 3, 3);
-    nt2::table<cT> c =  average(c1, trans(c1));
+    nt2::table<cT> c =  average(c1, ctrans(c1));
     nt2::table<cT> a = reshape(linspace(cT(0, 1), cT(0, 2), 6), 3, 2);
     nt2::table<cT> b = reshape(linspace(cT(0, 1), cT(1, 0), 6), 3, 2);
     cT alpha = cT(2, 2);
-    cT beta =  cT(3, 1);
-    nt2::table<cT> z = c*beta+alpha*mtimes(a, trans(b))+alpha*mtimes(b, trans(a));
-    blas_syr2k('U', 'N', alpha, boost::proto::value(a), boost::proto::value(b), beta, boost::proto::value(c));
-    NT2_TEST_ULP_EQUAL(triu(c), triu(z), 1);
+    T beta =  T(3);
+    nt2::table<cT> z = c*beta+alpha*mtimes(a, ctrans(b))+conj(alpha)*mtimes(b, ctrans(a));
+    blas_her2k('U', 'N', alpha, boost::proto::value(a), boost::proto::value(b), beta, boost::proto::value(c));
+    NT2_TEST_ULP_EQUAL(triu(c), triu(z), 2);
   }
   {
     nt2::table<cT> c1 = reshape(linspace(cT(1, 1), cT(4, 0), 4), 2, 2);
-    nt2::table<cT> c =  average(c1, trans(c1));
+    nt2::table<cT> c =  average(c1, ctrans(c1));
     nt2::table<cT> a = reshape(linspace(cT(0, 1), cT(0, 2), 6), 3, 2);
     nt2::table<cT> b = reshape(linspace(cT(0, 1), cT(1, 0), 6), 3, 2);
     cT alpha = cT(2, 2);
-    cT beta =  cT(3, 1);
-    nt2::table<cT> z = c*beta+alpha*mtimes(trans(a), b)+alpha*mtimes(trans(b), a);
-    blas_syr2k('L', 'T', alpha, boost::proto::value(a), boost::proto::value(b), beta, boost::proto::value(c));
-    NT2_TEST_ULP_EQUAL(tril(c), tril(z), 1);
+    T beta =  T(3);
+    nt2::table<cT> z = c*beta+alpha*mtimes(ctrans(a), b)+conj(alpha)*mtimes(ctrans(b), a);
+    blas_her2k('L', 'C', alpha, boost::proto::value(a), boost::proto::value(b), beta, boost::proto::value(c));
+    NT2_TEST_ULP_EQUAL(tril(c), tril(z), 2);
   }
   {
     nt2::table<cT> c1 = reshape(linspace(cT(1, 1), cT(4, 0), 4), 2, 2);
-    nt2::table<cT> c =  average(c1, trans(c1));
+    nt2::table<cT> c =  average(c1, ctrans(c1));
     nt2::table<cT> a = reshape(linspace(cT(0, 1), cT(0, 2), 6), 3, 2);
     nt2::table<cT> b = reshape(linspace(cT(0, 1), cT(1, 0), 6), 3, 2);
     cT alpha = cT(2, 2);
-    cT beta =  cT(3, 1);
-    nt2::table<cT> z = c*beta+alpha*mtimes(trans(a), b)+alpha*mtimes(trans(b), a);
-    blas_syr2k('U', 'T', alpha, boost::proto::value(a), boost::proto::value(b), beta, boost::proto::value(c));
-    NT2_TEST_ULP_EQUAL(triu(c), triu(z), 1);
+    T beta =  T(3);
+    nt2::table<cT> z = c*beta+alpha*mtimes(ctrans(a), b)+conj(alpha)*mtimes(ctrans(b), a);
+    blas_her2k('U', 'C', alpha, boost::proto::value(a), boost::proto::value(b), beta, boost::proto::value(c));
+    NT2_TEST_ULP_EQUAL(triu(c), triu(z), 2);
   }
 
 
