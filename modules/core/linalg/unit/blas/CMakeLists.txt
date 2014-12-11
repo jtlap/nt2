@@ -35,6 +35,7 @@ SET ( SOURCES
   blas_syr2k.cpp
   blas_herk.cpp
   blas_her2k.cpp
+  blas_trmm.cpp
   )
 
 nt2_module_add_tests(core.linalg.blas.unit ${SOURCES})

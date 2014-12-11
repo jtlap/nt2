@@ -30,7 +30,7 @@ extern "C"
 
   void NT2_F77NAME(strmm)(const char *side, const char *uplo, const char *transa,
                       const char *diag, const nt2_la_int* m, const nt2_la_int* n,
-                      float *alpha, const float *A, const nt2_la_int* lda,
+                      const float *alpha, const float *A, const nt2_la_int* lda,
                       float *B, const nt2_la_int* ldb);
 
   void NT2_F77NAME(ssymm)(const char *side, const char *uplo, const nt2_la_int* m,
@@ -98,7 +98,7 @@ extern "C"
 
   void NT2_F77NAME(ctrmm)(const char *side, const char *uplo, const char *transa,
                       const char *diag, const nt2_la_int* m, const nt2_la_int* n,
-                      nt2_la_complex *alpha, const nt2_la_complex *A,
+                      const nt2_la_complex *alpha, const nt2_la_complex *A,
                       const nt2_la_int* lda, const nt2_la_complex *B,
                       const nt2_la_int* ldb);
 
