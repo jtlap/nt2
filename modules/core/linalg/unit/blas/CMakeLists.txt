@@ -17,6 +17,7 @@ SET ( SOURCES
   blas_copy.cpp
   blas_axpy.cpp
   blas_dot.cpp
+  blas_dotu.cpp
   blas_nrm2.cpp
   blas_asum.cpp
   blas_i_amax.cpp
