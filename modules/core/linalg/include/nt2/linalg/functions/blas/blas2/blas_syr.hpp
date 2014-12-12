@@ -76,7 +76,7 @@ namespace nt2 { namespace ext
   BOOST_DISPATCH_IMPLEMENT  ( blas_syr_, tag::cpu_
                             , (UPLO)(ALPHA)(X)(SX)(INCX)(A)(SA)
                             , (scalar_<int8_<UPLO>>)// uplo
-                              (scalar_<single_<ALPHA>>)// alpha
+                              (scalar_<complex_<single_<ALPHA>>>)// alpha
                               ((container_<nt2::tag::table_,  complex_<single_<X>>, SX >)) //x
                               (scalar_<integer_<INCX>>)// incx
                               ((container_<nt2::tag::table_,  complex_<single_<A>>, SA >)) //a
@@ -92,7 +92,7 @@ namespace nt2 { namespace ext
       nt2_la_int n = width(a);
       nt2_la_int lda = a.leading_size();
       nt2_la_int ix = incx;
-      NT2_F77NAME(cher)(&uplo, &n, &alpha, x.raw(), &ix, a.raw(), &lda);
+      NT2_F77NAME(csyr)(&uplo, &n, &alpha, x.raw(), &ix, a.raw(), &lda);
     }
   };
 
@@ -101,7 +101,7 @@ namespace nt2 { namespace ext
   BOOST_DISPATCH_IMPLEMENT  ( blas_syr_, tag::cpu_
                             , (UPLO)(ALPHA)(X)(SX)(INCX)(A)(SA)
                             , (scalar_<int8_<UPLO>>)// uplo
-                              (scalar_<double_<ALPHA>>)// alpha
+                              (scalar_<complex_<double_<ALPHA>>>)// alpha
                               ((container_<nt2::tag::table_,  complex_<double_<X>>, SX >)) //x
                               (scalar_<integer_<INCX>>)// incx
                               ((container_<nt2::tag::table_,  complex_<double_<A>>, SA >)) //a
@@ -117,7 +117,7 @@ namespace nt2 { namespace ext
       nt2_la_int n = width(a);
       nt2_la_int lda = a.leading_size();
       nt2_la_int ix = incx;
-      NT2_F77NAME(zher) (&uplo, &n, &alpha, x.raw(), &ix, a.raw(), &lda);
+      NT2_F77NAME(zsyr) (&uplo, &n, &alpha, x.raw(), &ix, a.raw(), &lda);
     }
   };
 

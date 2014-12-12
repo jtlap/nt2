@@ -43,12 +43,31 @@ namespace nt2
   }
 
   /*!
-    @brief
+    @brief geru - perform the rank 1 operation   a += alpha*x*trans(y)
 
-    @param
-    @param
+    @param  alpha  real or complex scalar accordingly
+              on  entry, alpha specifies the scalar alpha.  unchanged on exit.
 
-    @return
+    @param x  container of dimension at least
+              (  1  +  ( m - 1 )*abs( incx ) ).  before entry, the incremented
+              array x must contain the m element vector x.  unchanged on exit.
+
+    @param incx   - integer.
+              on  entry,  incx  specifies the increment for the elements of x.
+              incx must not be zero.  unchanged on exit.
+
+    @param y  container of dimension at least
+              ( 1 + ( n - 1 )*abs( incy ) ).  before  entry,  the  incremented
+              array y must contain the n element vector y.  unchanged on exit.
+
+    @param incy   - integer.
+              on entry, incy specifies the increment for the  elements  of  y.
+              incy must not be zero.  unchanged on exit.
+
+    @param a   container of dimension mxn.
+              before  entry,  the leading m by n part of the array a must con-
+              tain the matrix of coefficients. on exit, a  is  overwritten  by
+              the updated matrix.
   **/
   NT2_FUNCTION_IMPLEMENTATION_TPL (tag::blas_geru_, blas_geru
                                   , (const A0&)(const A1&)(const A2&)(const A3&)(const A4&)(A5&)

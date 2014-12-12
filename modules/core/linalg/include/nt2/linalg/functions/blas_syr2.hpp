@@ -43,12 +43,54 @@ namespace nt2
   }
 
   /*!
-    @brief
+    @brief syr2  -  perform  the  symmetric  rank 2 operation
 
-    @param
-    @param
+    a += alpha*x*trans(y) + alpha*y*trans(x)
 
-    @return
+    @param      uplo   - char
+              on  entry,  uplo specifies whether the upper or lower triangular
+              part of the array a is to be referenced as follows:
+
+              uplo = 'U' or 'u'   only the upper triangular part of a is to be
+              referenced.
+
+              uplo = 'L' or 'l'   only the lower triangular part of a is to be
+              referenced.
+
+              unchanged on exit.
+
+     @param alpha  - real or complex scalar accordingly         .
+              on  entry, alpha specifies the scalar alpha.  unchanged on exit.
+
+     @param  x container of dimension at least
+              ( 1 + ( n - 1 )*abs( incx ) ).  before  entry,  the  incremented
+              array x must contain the n element vector x.  unchanged on exit.
+
+     @param  incx   - integer.
+              on entry, incx specifies the increment for the  elements  of  x.
+              incx must not be zero.  unchanged on exit.
+
+     @param  y  container of dimension at least
+              (  1  +  ( n - 1 )*abs( incy ) ).  before entry, the incremented
+              array y must contain the n element vector y.  unchanged on exit.
+
+     @param  incy   - integer.
+              on  entry,  incy  specifies the increment for the elements of y.
+              incy must not be zero.  unchanged on exit.
+
+     @param  a    - container of dimension nxn
+              before entry with  uplo = 'u' or 'u', the leading n by  n  upper
+              triangular part of the array a must contain the upper triangular
+              part of the symmetric matrix and the strictly  lower  triangular
+              part  of a is not referenced. on exit, the upper triangular part
+              of the array a is overwritten by the upper  triangular  part  of
+              the  updated  matrix.   before entry with uplo = 'l' or 'l', the
+              leading n by n lower triangular part of the array a must contain
+              the  lower  triangular  part  of  the  symmetric  matrix and the
+              strictly upper triangular part of a is not referenced. on  exit,
+              the  lower  triangular part of the array a is overwritten by the
+              lower triangular part of the updated matrix.
+
   **/
   NT2_FUNCTION_IMPLEMENTATION_TPL (tag::blas_syr2_, blas_syr2
                                   , (const A0&)(const A1&)(const A2&)(const A3&)(const A4&)(const A5&)(A6&)

@@ -200,7 +200,11 @@ extern "C"
                      const nt2_la_complex* dx, const nt2_la_int* incx, const nt2_la_complex* dy,
                      const nt2_la_int* incy, nt2_la_complex* A, const nt2_la_int* lda);
 
-  void NT2_F77NAME(zher)(const char* uplo, const nt2_la_int* N, const nt2_la_complex* alpha,
+  void NT2_F77NAME(zher)(const char* uplo, const nt2_la_int* N, const double* alpha,
+                     const nt2_la_complex* dx, const nt2_la_int* incx, nt2_la_complex* A,
+                     const nt2_la_int* lda);
+
+  void NT2_F77NAME(zsyr)(const char* uplo, const nt2_la_int* N, const nt2_la_complex* alpha,
                      const nt2_la_complex* dx, const nt2_la_int* incx, nt2_la_complex* A,
                      const nt2_la_int* lda);
 
@@ -271,7 +275,11 @@ extern "C"
                      const nt2_la_complex* dx, const nt2_la_int* incx, const nt2_la_complex* dy,
                      const nt2_la_int* incy, nt2_la_complex* A, const nt2_la_int* lda);
 
-  void NT2_F77NAME(cher)(const char* uplo, const nt2_la_int* N, const nt2_la_complex* alpha,
+  void NT2_F77NAME(cher)(const char* uplo, const nt2_la_int* N, const float* alpha,
+                     const nt2_la_complex* dx, const nt2_la_int* incx, nt2_la_complex* A,
+                     const nt2_la_int* lda);
+
+  void NT2_F77NAME(csyr)(const char* uplo, const nt2_la_int* N, const nt2_la_complex* alpha,
                      const nt2_la_complex* dx, const nt2_la_int* incx, nt2_la_complex* A,
                      const nt2_la_int* lda);
 

@@ -58,16 +58,16 @@ NT2_TEST_CASE_TPL(blas_syr, NT2_REAL_TYPES )
   {
     typedef std::complex<T> cT;
     nt2::table<cT> b = reshape(linspace(cT(1, 1), cT(4, 0), 4), 2, 2);
-    nt2::table<cT> a = average(b, ctrans(b));
+    nt2::table<cT> a = average(b, trans(b));
     nt2::table<cT> a1 = a;
     nt2::table<cT> x = reshape(linspace(cT(0, 1), cT(2, 2), 2), 2, 1);
-    T alpha = T(2);
-    nt2::table<cT> z = alpha*mtimes(x, ctrans(x))+a;
+    cT alpha = cT(2, 3);
+    nt2::table<cT> z = alpha*mtimes(x, trans(x))+a;
     blas_syr('U', alpha, boost::proto::value(x), 1, boost::proto::value(a));
     NT2_DISPLAY(a);
     NT2_TEST_ULP_EQUAL(triu(a), triu(z), 0.5);
     a = a1;
-    z = alpha*mtimes(x, ctrans(x))+a;
+    z = alpha*mtimes(x, trans(x))+a;
     blas_syr('L', alpha, boost::proto::value(x), 1, boost::proto::value(a));
     NT2_TEST_ULP_EQUAL(tril(a), tril(z), 0.5);
 

@@ -78,63 +78,6 @@ namespace nt2 { namespace ext
     }
   };
 
-//---------------------------------------------Complex-single------------------------------------------------//
-
-  BOOST_DISPATCH_IMPLEMENT  ( blas_syr2_, tag::cpu_
-                            , (UPLO)(ALPHA)(X)(SX)(INCX)(Y)(SY)(INCY)(A)(SA)
-                            , (scalar_<int8_<UPLO>>)// uplo
-                              (scalar_<complex_<single_<ALPHA>>>)// n
-                              ((container_<nt2::tag::table_,  complex_<single_<X>>, SX >)) //x
-                              (scalar_<integer_<INCX>>)// incx
-                              ((container_<nt2::tag::table_,  complex_<single_<Y>>, SY >)) //y
-                              (scalar_<integer_<INCY>>)// incy
-                              ((container_<nt2::tag::table_,  complex_<single_<A>>, SA >)) //a
-                            )
-  {
-    typedef void result_type;
-
-    BOOST_FORCEINLINE void operator()( const UPLO& uplo
-                                     , const ALPHA& alpha
-                                     , const X& x, const INCX & incx
-                                     , const Y& y, const INCY & incy
-                                     , A& a) const
-    {
-      nt2_la_int n = width(a);
-      nt2_la_int lda = a.leading_size();
-      nt2_la_int ix = incx;
-      nt2_la_int iy = incy;
-      NT2_F77NAME(cher2)(&uplo, &n, &alpha, x.raw(), &ix, y.raw(), &iy, a.raw(), &lda);
-    }
-  };
-
-//---------------------------------------------Complex-double------------------------------------------------//
-
-  BOOST_DISPATCH_IMPLEMENT  ( blas_syr2_, tag::cpu_
-                            , (UPLO)(ALPHA)(X)(SX)(INCX)(Y)(SY)(INCY)(A)(SA)
-                            , (scalar_<int8_<UPLO>>)// uplo
-                              (scalar_<complex_<double_<ALPHA>>>)// n
-                              ((container_<nt2::tag::table_,  complex_<double_<X>>, SX >)) //x
-                              (scalar_<integer_<INCX>>)// incx
-                              ((container_<nt2::tag::table_,  complex_<double_<Y>>, SY >)) //y
-                              (scalar_<integer_<INCY>>)// incy
-                              ((container_<nt2::tag::table_,  complex_<double_<A>>, SA >)) //a
-                            )
-  {
-    typedef void result_type;
-
-    BOOST_FORCEINLINE void operator()( const UPLO& uplo
-                                     , const ALPHA& alpha
-                                     , const X& x, const INCX & incx
-                                     , const Y& y, const INCY & incy
-                                     , A& a) const
-    {
-      nt2_la_int n = width(a);
-      nt2_la_int lda = a.leading_size();
-      nt2_la_int ix = incx;
-      nt2_la_int iy = incy;
-      NT2_F77NAME(zher2) (&uplo, &n, &alpha, x.raw(), &ix, y.raw(), &iy, a.raw(), &lda);
-    }
-  };
 
 } }
 
