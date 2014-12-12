@@ -43,12 +43,18 @@ namespace nt2
   }
 
   /*!
-    @brief
+    @brief exchange values from vectors x and y
 
-    @param
-    @param
+    @code
+    swap ( n, x, incx, y, incy )
+    @endcode
 
-    @return
+    @param n number of elements to exchange
+    @param x L-value containing first vector
+    @param incx step through x
+    @param y L-value containing second vector
+    @param incy step through y
+
   **/
   NT2_FUNCTION_IMPLEMENTATION_TPL (tag::blas_swap_, blas_swap
                                   , (const A0&)(A1&)(const A2&)(A3&)(const A4&)

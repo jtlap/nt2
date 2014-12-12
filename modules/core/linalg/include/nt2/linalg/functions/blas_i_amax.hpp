@@ -43,12 +43,20 @@ namespace nt2
   }
 
   /*!
-    @brief
+    @brief blas_i_amax return the  the first position of the maximum
+    of the manhattan moduli of the elements of x
 
-    @param
-    @param
+    @code
+    asum ( n, x, incx)
+    @endcode
 
-    @return
+    @param n number of elements to use
+    @param x input vector
+    @param incx step through x    @brief
+
+    @return the index of the first occurenxe of the maximum of
+    abs(real(x(_(1, incx, (n-1)*incx+1))))+abs(imag(x(_(1, incx, (n-1)*incx+1))))
+    values
   **/
   NT2_FUNCTION_IMPLEMENTATION_TPL (tag::blas_i_amax_, blas_i_amax
                                   , (const A0&)(const A1&)(const A2&)

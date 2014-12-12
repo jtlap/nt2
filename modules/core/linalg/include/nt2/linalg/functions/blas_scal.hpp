@@ -43,12 +43,17 @@ namespace nt2
   }
 
   /*!
-    @brief
+    @brief scale  by alpha values of vector x
 
-    @param
-    @param
+    @code
+    copy ( n, alpha, x, incx)
+    @endcode
 
-    @return
+    @param n number of elements to scale
+    @param alpha scaling factor
+    @param x  L-value to receive the vector to be scaled
+    @param incx step through x
+
   **/
   NT2_FUNCTION_IMPLEMENTATION_TPL (tag::blas_scal_, blas_scal
                                   , (const A0&)(const A1&)(A2&)(const A3&)

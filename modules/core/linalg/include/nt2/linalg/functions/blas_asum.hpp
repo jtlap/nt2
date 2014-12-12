@@ -43,12 +43,21 @@ namespace nt2
   }
 
   /*!
-    @brief
+    @brief asum sum of the manhattan moduli of x
 
-    @param
-    @param
+    @code
+    asum ( n, x, incx)
+    @endcode
 
-    @return
+    @param n number of elements to use
+    @param x input vector
+    @param incx step through x
+    return sum(abs(real(x(_(1, incx, (n-1)*incx+1))))+abs(imag(x(_(1, incx, (n-1)*incx+1)))))
+
+    When working backward (incx < 0), each routine starts at the end of the
+    vector and moves backward, as follows:
+
+            x(1-incx * (n-1)), x(1-incx * (n-2)), ..., x(1)
   **/
   NT2_FUNCTION_IMPLEMENTATION_TPL (tag::blas_asum_, blas_asum
                                   , (const A0&)(const A1&)(const A2&)

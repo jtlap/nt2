@@ -43,12 +43,20 @@ namespace nt2
   }
 
   /*!
-    @brief
+    @brief axpy : y += alpha x
+    y is  incemented of alpha*x
 
-    @param
-    @param
+    @code
+    axpy ( n, alpha, x, incx, y, incy )
+    @endcode
 
-    @return
+    @param n number of elements to copy
+    @param alpha scalar factor for x
+    @param x first vector
+    @param incx step through x
+    @param y L-value to receive the resulting incremented vector
+    @param incy step through y
+
   **/
   NT2_FUNCTION_IMPLEMENTATION_TPL (tag::blas_axpy_, blas_axpy
                                   , (const A0&)(const A1&)(const A2&)(const A3&)(A4&)(const A5&)

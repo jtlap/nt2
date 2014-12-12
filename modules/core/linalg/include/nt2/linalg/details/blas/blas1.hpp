@@ -80,11 +80,11 @@ extern "C"
   long int NT2_F77NAME(isamax)(const nt2_la_int* n, const float *dx, const nt2_la_int* incx);
 
   //complex < float >
-  float NT2_F77NAME(cdotc)(const nt2_la_int* n,
+  float NT2_F77NAME(cdotc)( nt2_la_complex *r, const nt2_la_int* n,
                        const nt2_la_complex *cx, const nt2_la_int* incx,
                        const nt2_la_complex *cy, const nt2_la_int* incy);
 
-  float NT2_F77NAME(cdotu)(const nt2_la_int* n,
+  float NT2_F77NAME(cdotu)( nt2_la_complex *r, const nt2_la_int* n,
                        const nt2_la_complex *cx, const nt2_la_int* incx,
                        const nt2_la_complex *cy, const nt2_la_int* incy);
 
@@ -115,12 +115,12 @@ extern "C"
                       nt2_la_complex *dy, nt2_la_int* incy);
 
   //complex < double >
-  double NT2_F77NAME(zdotc)(const nt2_la_int* n,
+  double NT2_F77NAME(zdotc)( nt2_la_complex *r, const nt2_la_int* n,
                         const nt2_la_complex *cx,
                         const nt2_la_int* incx, const nt2_la_complex *cy,
                         const nt2_la_int* incy);
 
-  double NT2_F77NAME(zdotu)(const nt2_la_int* n,
+  double NT2_F77NAME(zdotu)( nt2_la_complex *r, const nt2_la_int* n,
                         const nt2_la_complex *cx, const nt2_la_int* incx,
                         const nt2_la_complex *cy, const nt2_la_int* incy);
 

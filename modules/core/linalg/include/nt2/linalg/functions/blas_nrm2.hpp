@@ -43,13 +43,18 @@ namespace nt2
   }
 
   /*!
-    @brief
+    @brief nrm2 square of euclidian norm
 
-    @param
-    @param
+    @code
+    nrm2 ( n, x, incx)
+    @endcode
 
-    @return
+    @param n number of elements to use
+    @param x input vector
+    @param incx step through x
+    return norm2(x(_(1, incx, (n-1)*incx+1))
   **/
+
   NT2_FUNCTION_IMPLEMENTATION_TPL (tag::blas_nrm2_, blas_nrm2
                                   , (const A0&)(const A1&)(const A2&)
                                   , 3

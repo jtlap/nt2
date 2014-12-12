@@ -43,12 +43,18 @@ namespace nt2
   }
 
   /*!
-    @brief
+    @brief copy values from vector x to vector y
 
-    @param
-    @param
+    @code
+    copy ( n, x, incx, y, incy )
+    @endcode
 
-    @return
+    @param n number of elements to copy
+    @param x first vector
+    @param incx step through x
+    @param y L-value to receive the result
+    @param incy step through y
+
   **/
   NT2_FUNCTION_IMPLEMENTATION_TPL (tag::blas_copy_, blas_copy
                                   , (const A0&)(A1&)(const A2&)(A3&)(const A4&)
