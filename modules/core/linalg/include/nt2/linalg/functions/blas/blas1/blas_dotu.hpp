@@ -7,10 +7,10 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_LINALG_FUNCTIONS_BLAS_BLAS_DOT_HPP_INCLUDED
-#define NT2_LINALG_FUNCTIONS_BLAS_BLAS_DOT_HPP_INCLUDED
+#ifndef NT2_LINALG_FUNCTIONS_BLAS_BLAS_DOTU_HPP_INCLUDED
+#define NT2_LINALG_FUNCTIONS_BLAS_BLAS_DOTU_HPP_INCLUDED
 
-#include <nt2/linalg/functions/blas_dot.hpp>
+#include <nt2/linalg/functions/blas_dotu.hpp>
 #include <nt2/linalg/details/blas/blas1.hpp>
 #include <nt2/include/functions/numel.hpp>
 #include <nt2/linalg/details/utility/f77_wrapper.hpp>
@@ -19,14 +19,12 @@
 #include <complex>
 #include <iostream>
 
-//These functions interchanges two vectors. Uses unrolled loops for increments equal to 1.
-
 namespace nt2 { namespace ext
 {
 
 //---------------------------------------------Real-single------------------------------------------------//
 
-  BOOST_DISPATCH_IMPLEMENT  ( blas_dot_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( blas_dotu_, tag::cpu_
                             , (N)(A0)(S0)(INCX)(A1)(S1)(INCY)
                             , (scalar_<integer_<N>>)// n
                               ((container_<nt2::tag::table_,  single_<A0>, S0 >)) //x
@@ -50,7 +48,7 @@ namespace nt2 { namespace ext
 
 //---------------------------------------------Real-double------------------------------------------------//
 
-  BOOST_DISPATCH_IMPLEMENT  ( blas_dot_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( blas_dotu_, tag::cpu_
                             , (N)(A0)(S0)(INCX)(A1)(S1)(INCY)
                             , (scalar_<integer_<N>>)// n
                               ((container_<nt2::tag::table_,  double_<A0>, S0 >)) //x
@@ -74,7 +72,7 @@ namespace nt2 { namespace ext
 
 //---------------------------------------------Complex-single------------------------------------------------//
 
-  BOOST_DISPATCH_IMPLEMENT  ( blas_dot_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( blas_dotu_, tag::cpu_
                             , (N)(A0)(S0)(INCX)(A1)(S1)(INCY)
                             , (scalar_<integer_<N>>)// n
                               ((container_<nt2::tag::table_,  complex_<single_<A0>>, S0 >)) //x
@@ -93,14 +91,14 @@ namespace nt2 { namespace ext
        nt2_la_int ix = incx;
        nt2_la_int iy = incy;
        result_type r;
-       NT2_F77NAME(cdotc) (&r, &in, x.raw(), &ix, y.raw(), &iy);
+       NT2_F77NAME(cdotu) (&r, &in, x.raw(), &ix, y.raw(), &iy);
        return r;
      }
   };
 
 //---------------------------------------------Complex-double------------------------------------------------//
 
-  BOOST_DISPATCH_IMPLEMENT  ( blas_dot_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( blas_dotu_, tag::cpu_
                             , (N)(A0)(S0)(INCX)(A1)(S1)(INCY)
                             , (scalar_<integer_<N>>)// n
                               ((container_<nt2::tag::table_,  complex_<double_<A0>>, S0 >)) //x
@@ -119,7 +117,7 @@ namespace nt2 { namespace ext
       nt2_la_int ix = incx;
       nt2_la_int iy = incy;
       result_type r;
-      NT2_F77NAME(zdotc) (&r, &in, x.raw(), &ix, y.raw(), &iy);
+      NT2_F77NAME(zdotu) (&r, &in, x.raw(), &ix, y.raw(), &iy);
       return r;
     }
   };

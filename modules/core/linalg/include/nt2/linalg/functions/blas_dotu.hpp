@@ -45,16 +45,25 @@ namespace nt2
   /*!
     @brief dotu product of vector x and vector y
 
+    computes  sum(mtimes(x, y))
+
     @code
-    dotu ( n, x, incx, y, incy )
+    dotu (result, n, x, incx, y, incy )
     @endcode
 
     @param n number of elements to use
-    @param x first vector
-    @param incx step through x
-    @param y second vector
-    @param incy step through y
+    @param x first vector (dimension at least (n-1) * |incx| + 1.)
+    @param incx step through x (not to be zero)
+    @param y second vector (dimension at least (n-1) * |incy| + 1.)
+    @param incy step through y (not to be zero)
     @return the scalar product of x and y (conjugate of x is not taken in complex cases)
+
+       When  working  backward  (incx < 0 or incy < 0), each routine starts at
+       the end of the vector and moves backward, as follows:
+
+            x(1-incx * (n-1)), x(1-incx * (n-2)), ..., x(1)
+
+            y(1-incy * (n-1)), y(1-incy * (n-2)), ..., y(1)
 
     @alias dotuc
   **/

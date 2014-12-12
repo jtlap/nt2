@@ -16,7 +16,7 @@
 #include <nt2/include/functions/plus.hpp>
 #include <nt2/include/functions/size.hpp>
 #include <nt2/include/functions/resize.hpp>
-#include <nt2/include/functions/dotu.hpp>
+#include <nt2/include/functions/dot.hpp>
 
 #include <nt2/table.hpp>
 #include <nt2/sdk/unit/module.hpp>
@@ -30,9 +30,9 @@ NT2_TEST_CASE_TPL(blas_dotu, NT2_REAL_TYPES )
   {
     nt2::table<T> x = nt2::_(T(0), T(10));
     nt2::table<T> y = nt2::_(T(10), T(-1), T(0));
-    T p = blas_dot(numel(x), boost::proto::value(x), 1,  boost::proto::value(y), 1);
+    T p = blas_dotu(numel(x), boost::proto::value(x), 1,  boost::proto::value(y), 1);
 
-    NT2_TEST_ULP_EQUAL(p, nt2::dotu(x, y), 1);
+    NT2_TEST_ULP_EQUAL(p, nt2::dot(x, y), 1);
   }
   {
     typedef std::complex<T> cT;

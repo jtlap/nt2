@@ -29,7 +29,7 @@ NT2_TEST_CASE_TPL(blas_dot, NT2_REAL_TYPES )
   using nt2::blas_dot;
   {
     nt2::table<T> x = nt2::_(T(0), T(10));
-    nt2::table<T> y = nt2::_(T(10), T(-1), T(0));
+    nt2::table<T> y = nt2::_(T(10), T(-1), T(0))+x;
     T p = blas_dot(numel(x), boost::proto::value(x), 1,  boost::proto::value(y), 1);
 
     NT2_TEST_ULP_EQUAL(p, nt2::dot(x, y), 1);
@@ -37,7 +37,7 @@ NT2_TEST_CASE_TPL(blas_dot, NT2_REAL_TYPES )
   {
     typedef std::complex<T> cT;
     nt2::table<cT> x = nt2::linspace(cT(0, 1), cT(1, 0), 10);
-    nt2::table<cT> y = nt2::linspace(cT(1, 0), cT(0, 1), 10);
+    nt2::table<cT> y = nt2::linspace(cT(1, 0), cT(0, 1), 10)+x;
 
     NT2_DISPLAY(x);
     NT2_DISPLAY(y);
@@ -53,7 +53,7 @@ NT2_TEST_CASE_TPL(blas_dot2, NT2_REAL_TYPES )
   using nt2::end_;
   {
     nt2::table<T> x = nt2::_(T(0), T(11));
-    nt2::table<T> y = nt2::_(T(11), T(-1), T(0));
+    nt2::table<T> y = nt2::_(T(11), T(-1), T(0))+x;
     T p = blas_dot(numel(x)/2, boost::proto::value(x), 2,  boost::proto::value(y), 2);
 
     NT2_TEST_ULP_EQUAL(p, nt2::dot(x(_(1, 2, end_)), y(_(1, 2, end_))), 1);
@@ -61,15 +61,9 @@ NT2_TEST_CASE_TPL(blas_dot2, NT2_REAL_TYPES )
   {
     typedef std::complex<T> cT;
     nt2::table<cT> x = nt2::linspace(cT(0, 1), cT(0, 10), 10);
-    nt2::table<cT> y = nt2::linspace(cT(1, 0), cT(10, 0), 10);
-    NT2_DISPLAY(x);
-    NT2_DISPLAY(y);
-    NT2_DISPLAY(x(_(1, 2, end_)));
-    NT2_DISPLAY(y(_(1, 2, end_)));
-    NT2_DISPLAY(numel(x)/2);
+    nt2::table<cT> y = nt2::linspace(cT(1, 0), cT(10, 0), 10)+x;
     cT p = blas_dot(numel(x)/2, boost::proto::value(x), 2,  boost::proto::value(y), 2);
-    NT2_DISPLAY(p);
-    NT2_TEST_ULP_EQUAL(p, nt2::dot(x(_(1, 2, end_)), y(_(1, 2, end_))), 2);
+    NT2_TEST_ULP_EQUAL(p, nt2::dot(y(_(1, 2, end_)), x(_(1, 2, end_))), 2);
   }
 }
 

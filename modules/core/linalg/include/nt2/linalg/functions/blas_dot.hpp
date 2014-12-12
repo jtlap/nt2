@@ -43,12 +43,30 @@ namespace nt2
   }
 
   /*!
-    @brief
+    @brief dot product of vector x and vector y
 
-    @param
-    @param
+    computes sum(mtimes(conj(x), y))
 
-    @return
+    @code
+    dot ( n, x, incx, y, incy )
+    @endcode
+
+    @param n number of elements to use
+    @param x first vector (dimension at least (n-1) * |incx| + 1.)
+    @param incx step through x (not to be zero)
+    @param y second vector (dimension at least (n-1) * |incy| + 1.)
+    @param incy step through y (not to be zero)
+    @return the scalar product of x and y (with conjugate of x in complex cases)
+
+    @alias dotc
+
+       When  working  backward  (incx < 0 or incy < 0), each routine starts at
+       the end of the vector and moves backward, as follows:
+
+            x(1-incx * (n-1)), x(1-incx * (n-2)), ..., x(1)
+
+            y(1-incy * (n-1)), y(1-incy * (n-2)), ..., y(1)
+
   **/
   NT2_FUNCTION_IMPLEMENTATION_TPL (tag::blas_dot_, blas_dot
                                   , (const A0&)(const A1&)(const A2&)(const A3&)(const A4&)
