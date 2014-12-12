@@ -52,22 +52,22 @@ namespace boost { namespace simd { namespace details
   //============================================================================
   // Auto-generated (de)interleave_* for 2-32 cardinal
   //============================================================================
-#define M_IUFIRST(z,n,t)    n/2
-#define M_IUFIRST00(z,n,t)  (n%2) ? M_IUFIRST(z,n,t) : -1
-#define M_IUFIRST01(z,n,t)  (n%2) ? -1 : M_IUFIRST(z,n,t)
-#define M_IBFIRST(z,n,t)    n/2+(n%2)*t
+#define M_IUFIRST(z,n,t)    (n/2)
+#define M_IUFIRST00(z,n,t)  (n%2 ? M_IUFIRST(z,n,t) : -1)
+#define M_IUFIRST01(z,n,t)  (n%2 ? -1 : M_IUFIRST(z,n,t))
+#define M_IBFIRST(z,n,t)    (n/2+(n%2)*t)
 
-#define M_IUSECOND(z,n,t)   M_IUFIRST(z,n,t)+t/2
-#define M_IUSECOND00(z,n,t) (n%2) ? M_IUSECOND(z,n,t) : -1
-#define M_IUSECOND01(z,n,t) (n%2) ?-1 : M_IUSECOND(z,n,t)
+#define M_IUSECOND(z,n,t)   (M_IUFIRST(z,n,t)+t/2)
+#define M_IUSECOND00(z,n,t) (n%2 ? M_IUSECOND(z,n,t) : -1)
+#define M_IUSECOND01(z,n,t) (n%2 ?-1 : M_IUSECOND(z,n,t))
 
-#define M_IBSECOND(z,n,t) M_IBFIRST(z,n,t)+t/2
+#define M_IBSECOND(z,n,t) (M_IBFIRST(z,n,t)+t/2)
 
-#define M_IEVEN(z,n,t) (n/2)*(t/2)+(n%2)*t
-#define M_IODD(z,n,t)   M_IEVEN(z,n,t)+1
+#define M_IEVEN(z,n,t) (n%2 ? (t+n-1) : n)
+#define M_IODD(z,n,t)  (M_IEVEN(z,n,t)+1)
 
-#define M_DFIRST(z,n,t)  2*n
-#define M_DSECOND(z,n,t)  2*n+1
+#define M_DFIRST(z,n,t)  (2*n)
+#define M_DSECOND(z,n,t)  (2*n+1)
 
 // unary interleaving
 #define M_UINTERLEAVE(z,n,t)                                                   \
