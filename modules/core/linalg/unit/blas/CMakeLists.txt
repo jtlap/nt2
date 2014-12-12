@@ -29,7 +29,9 @@ SET ( SOURCES
   blas_ger.cpp
   blas_geru.cpp
   blas_syr.cpp
+  blas_her.cpp
   blas_syr2.cpp
+  blas_her2.cpp
   blas_gemm.cpp
   blas_symm.cpp
   blas_hemm.cpp
