@@ -61,7 +61,7 @@ namespace nt2
      @param  alpha  real or complex scalar accordingly
               on  entry, alpha specifies the scalar alpha.  unchanged on exit.
 
-     @param  a      - container of dimension nxn
+     @param  a container of dimension nxn
               before entry, with  uplo = 'u' or 'u', the leading n by n  upper
               triangular part of the array a must contain the upper triangular
               part of the symmetric matrix and the strictly  lower  triangular
