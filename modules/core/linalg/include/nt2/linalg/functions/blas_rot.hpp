@@ -43,12 +43,27 @@ namespace nt2
   }
 
   /*!
-    @brief
 
-    @param
-    @param
+  @brief Apply plane rotation
 
-    @return
+  @code
+  rot( n, x, incx, y, incy, c, s )
+  @endcode
+
+  return in overwritten in x and y the result of the first and second line
+  of the product :
+
+    [  c  s ] [ x(_(1, incx, (n-1)*incx+1)]
+    [ -s  c ] [ y(_(1, incy, (n-1)*incy+1)]
+
+    @param n number of elements to take in each vector
+    @param x abcissae and L-value to receive rotated  abscissae
+    @param incx step through x
+    @param y ordinates and L-value to receive rotated ordinates
+    @param incy step through y
+    @param c cosine of the rotation
+    @param s sine of the rotation
+
   **/
   NT2_FUNCTION_IMPLEMENTATION_TPL (tag::blas_rot_, blas_rot
                                   , (const A0&)(A1&)(const A2&)(A3&)(const A4&)(const A5&)(const A6&)

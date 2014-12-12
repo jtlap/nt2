@@ -42,12 +42,34 @@ namespace nt2
   }
 
   /*!
-    @brief
+  @brief Apply plane modified rotation
 
-    @param
-    @param
+  @code
+  rot( n, x, incx, y, incy, dparam )
+  @endcode
 
-    @return
+  return in overwritten in x and y the result of the first and second line
+  of the product :
+
+    [  h11 h12 ] [ x(_(1, incx, (n-1)*incx+1)]
+    [  h21 h22 ] [ y(_(1, incy, (n-1)*incy+1)]
+
+    with dparam(1)=dflag, the matrix has one of the following forms..
+
+      dflag=-1.0      dflag=0.0   dflag=1.0     dflag=-2.0
+
+      (h11  dh12)    (1.0  h12)   (h11  1.0)    (1.0  0.0)
+    h=(         )    (        )   (        )    (        )
+      (h21  dh22),   (h21 1.0 ),  (-1.0 h22),   (0.0  1.0).
+
+    @param n number of elements to take in each vector
+    @param x abcissae and L-value to receive rotated  abscissae
+    @param incx step through x
+    @param y ordinates and L-value to receive rotated ordinates
+    @param incy step through y
+    @param dparam L-value to receive the result
+
+
   **/
   NT2_FUNCTION_IMPLEMENTATION_TPL (tag::blas_rotm_, blas_rotm
                                   , (const A0&)(A1&)(const A2&)(A3&)(const A4&)(const A5&)
