@@ -7,10 +7,10 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_LINALG_FUNCTIONS_BLAS_BLAS2_SYMV_HPP_INCLUDED
-#define NT2_LINALG_FUNCTIONS_BLAS_BLAS2_SYMV_HPP_INCLUDED
+#ifndef NT2_LINALG_FUNCTIONS_BLAS_BLAS2_HEMV_HPP_INCLUDED
+#define NT2_LINALG_FUNCTIONS_BLAS_BLAS2_HEMV_HPP_INCLUDED
 
-#include <nt2/linalg/functions/blas_symv.hpp>
+#include <nt2/linalg/functions/blas_hemv.hpp>
 #include <nt2/linalg/details/blas/blas2.hpp>
 #include <nt2/include/functions/height.hpp>
 #include <nt2/linalg/details/utility/f77_wrapper.hpp>
@@ -19,12 +19,9 @@
 
 namespace nt2 { namespace ext
 {
-// _SYMV (        UPLO,      M,         ALPHA, A, LDA, X, INCX, BETA,  Y, INCY ) S, D
-// _HEMV (        UPLO,      M,         ALPHA, A, LDA, X, INCX, BETA,  Y, INCY ) C, Z
-
 // /---------------------------------------------Real-single------------------------------------------------//
 
-  BOOST_DISPATCH_IMPLEMENT  ( blas_symv_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( blas_hemv_, tag::cpu_
                             , (UPLO)(ALPHA)(A)(SA)(X)(SX)(INCX)(BETA)(Y)(SY)(INCY)
                             , (scalar_<int8_<UPLO>>)// uplo
                               (scalar_<single_<ALPHA>>)//alpha
@@ -55,7 +52,7 @@ namespace nt2 { namespace ext
   };
 
 // /---------------------------------------------Real-double------------------------------------------------//
-  BOOST_DISPATCH_IMPLEMENT  ( blas_symv_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( blas_hemv_, tag::cpu_
                             , (UPLO)(ALPHA)(A)(SA)(X)(SX)(INCX)(BETA)(Y)(SY)(INCY)
                             , (scalar_<int8_<UPLO>>)// uplo
                               (scalar_<double_<ALPHA>>)//alpha
@@ -89,7 +86,7 @@ namespace nt2 { namespace ext
 
 // /---------------------------------------------Complex-single------------------------------------------------//
 
-  BOOST_DISPATCH_IMPLEMENT  ( blas_symv_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( blas_hemv_, tag::cpu_
                             , (UPLO)(ALPHA)(A)(SA)(X)(SX)(INCX)(BETA)(Y)(SY)(INCY)
                             , (scalar_<int8_<UPLO>>)// uplo
                               (scalar_<complex_<single_<ALPHA>>>)//alpha
@@ -115,12 +112,12 @@ namespace nt2 { namespace ext
       nt2_la_int lda = a.leading_size();
       nt2_la_int ix= incx;
       nt2_la_int iy= incy;
-      NT2_F77NAME(csymv) (&uplo, &n, &alpha, a.raw(), &lda, x.raw(), &ix, &beta, y.raw(), &iy);
+      NT2_F77NAME(chemv) (&uplo, &n, &alpha, a.raw(), &lda, x.raw(), &ix, &beta, y.raw(), &iy);
     }
   };
 
 // /---------------------------------------------Complex-double------------------------------------------------//
-  BOOST_DISPATCH_IMPLEMENT  ( blas_symv_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( blas_hemv_, tag::cpu_
                             , (UPLO)(ALPHA)(A)(SA)(X)(SX)(INCX)(BETA)(Y)(SY)(INCY)
                             , (scalar_<int8_<UPLO>>)// uplo
                               (scalar_<complex_<double_<ALPHA>>>)//alpha
@@ -146,7 +143,7 @@ namespace nt2 { namespace ext
       nt2_la_int lda = a.leading_size();
       nt2_la_int ix= incx;
       nt2_la_int iy= incy;
-      NT2_F77NAME(zsymv) (&uplo, &n, &alpha, a.raw(), &lda, x.raw(), &ix, &beta, y.raw(), &iy);
+      NT2_F77NAME(zhemv) (&uplo, &n, &alpha, a.raw(), &lda, x.raw(), &ix, &beta, y.raw(), &iy);
     }
   };
 

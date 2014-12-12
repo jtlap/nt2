@@ -158,6 +158,11 @@ extern "C"
                       const nt2_la_int* incx, const nt2_la_complex* beta, nt2_la_complex* dy,
                       const nt2_la_int* incy);
 
+  void NT2_F77NAME(zsymv)(const char* uplo, const nt2_la_int* N, const nt2_la_complex* alpha,
+                      const nt2_la_complex* A, const nt2_la_int* lda, const nt2_la_complex* dx,
+                      const nt2_la_int* incx, const nt2_la_complex* beta, nt2_la_complex* dy,
+                      const nt2_la_int* incy);
+
   void NT2_F77NAME(zhbmv)(const char* uplo, const nt2_la_int* N, const nt2_la_int* k,
                       const nt2_la_complex* alpha, const nt2_la_complex* A, const nt2_la_int* lda,
                       const nt2_la_complex* dx, const nt2_la_int* incx, const nt2_la_complex* beta,
@@ -222,6 +227,11 @@ extern "C"
                       const nt2_la_int* incy);
 
   void NT2_F77NAME(chemv)(const char* uplo, const nt2_la_int* N, const nt2_la_complex* alpha,
+                      const nt2_la_complex* A, const nt2_la_int* lda, const nt2_la_complex* dx,
+                      const nt2_la_int* incx, const nt2_la_complex* beta, nt2_la_complex* dy,
+                      const nt2_la_int* incy);
+
+  void NT2_F77NAME(csymv)(const char* uplo, const nt2_la_int* N, const nt2_la_complex* alpha,
                       const nt2_la_complex* A, const nt2_la_int* lda, const nt2_la_complex* dx,
                       const nt2_la_int* incx, const nt2_la_complex* beta, nt2_la_complex* dy,
                       const nt2_la_int* incy);

@@ -42,12 +42,62 @@ namespace nt2
   }
 
   /*!
-    @brief
+    @brief trmv  -  perform  one  of the matrix-vector operations
+    x = mtimes(a, x)
+    x = mtimes(trans(a), x)
+    x = mtimes(ctrans(a), x)
 
-    @param
-    @param
+    @param uplo   char
+              On entry, UPLO specifies whether the matrix is an upper or lower
+              triangular matrix as follows:
 
-    @return
+              uplo = 'U' or 'u'   a is an upper triangular matrix.
+
+              uplo = 'L' or 'l'   a is a lower triangular matrix.
+
+              unchanged on exit.
+
+     @param trans  - char
+              On entry, trans specifies the operation to be performed as  follows:
+
+              trans = 'N' or 'n'   x := A*x.
+
+              trans = 'T' or 't'   x := A'*x.
+
+              trans = 'C' or 'c'   x := conjg( A' )*x.
+
+              Unchanged on exit.
+
+     @param diag   - char
+              On  entry, diag specifies whether or not A is unit triangular as
+              follows:
+
+              diag = 'U' or 'u'   a is assumed to be unit triangular.
+
+              diag = 'N' or 'n'   a is not assumed to be unit triangular.
+
+              unchanged on exit.
+
+
+      @param a  container of dimension nxn
+              before  entry  with  uplo = 'u' or 'u', the leading n by n upper
+              triangular part of the array a must contain the upper triangular
+              matrix and the strictly lower triangular part of a is not refer-
+              enced.  before entry with uplo = 'l' or 'l', the leading n by  n
+              lower triangular part of the array a must contain the lower tri-
+              angular matrix and the strictly upper triangular part  of  a  is
+              not referenced.  note that when  diag = 'u' or 'u', the diagonal
+              elements of a are not referenced either, but are assumed  to  be
+              unity.  unchanged on exit.
+
+      @param x  container of dimension at least
+              (  1  +  ( n - 1 )*abs( incx ) ).  before entry, the incremented
+              array x must contain the n element vector x. on exit, x is over-
+              written with the tranformed vector x.
+
+       @param incx   - integer.
+              on  entry,  incx  specifies the increment for the elements of x.
+              incx must not be zero.  unchanged on exit.
   **/
   NT2_FUNCTION_IMPLEMENTATION_TPL (tag::blas_trmv_, blas_trmv
                                   , (const A0&)(const A1&)(const A2&)(const A3&)(A4&)(const A5&)

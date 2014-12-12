@@ -23,6 +23,7 @@ SET ( SOURCES
   blas_i_amax.cpp
   blas_gemv.cpp
   blas_symv.cpp
+  blas_hemv.cpp
   blas_trmv.cpp
   blas_trsv.cpp
   blas_ger.cpp

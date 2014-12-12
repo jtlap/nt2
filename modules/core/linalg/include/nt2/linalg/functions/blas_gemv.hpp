@@ -42,12 +42,61 @@ namespace nt2
   }
 
   /*!
-    @brief
+    @brief gemv  -  perform one of the matrix-vector operations
+    y := alpha*a*x +  beta*y,
+    or
+    y := alpha*a'*x + beta*y,
+    or
+    y := alpha*conj(a')*x + beta*y
 
-    @param
-    @param
+    where  alpha and beta are scalars, x and y are vectors and A is an m by
+    n matrix.
+    ' denotes (conjugate) transposition and  * matrix vector product
 
-    @return
+
+
+    @param   trans  - character*1.
+             on entry, trans specifies the operation to be performed as  follows:
+
+             trans = 'N' or 'n'   y := alpha*a*x + beta*y.
+
+             trans = 'T' or 't'   y := alpha*a'*x + beta*y.
+
+             trans = 'C' or 'c'   y := alpha*conj( a' )*x + beta*y.
+
+             unchanged on exit.
+
+     @param   alpha  real or complex scalar     .
+              on  entry, alpha specifies the scalar alpha.  unchanged on exit.
+
+     @param   a mxn container
+              before entry, the leading m by n part of the array a  must  con-
+              tain the matrix of coefficients.  unchanged on exit.
+
+      @param  x container of dimension at least
+              (  1  +  (  n - 1 )*abs( incx ) ) when trans = 'n' or 'n' and at
+              least ( 1 + ( m - 1 )*abs( incx ) )  otherwise.   before  entry,
+              the incremented array x must contain the vector x.  unchanged on
+              exit.
+
+      @param  incx   - integer.
+              on entry, incx specifies the increment for the  elements  of  x.
+              incx must not be zero.  unchanged on exit.
+
+      @param  beta    real or complex scalar     .
+              on  entry, beta specifies the scalar beta. when beta is supplied
+              as zero then y need not be set on input.  unchanged on exit.
+
+      @param  y   L-value container of dimension at least
+              ( 1 + ( m - 1 )*abs( incy ) ) when trans = 'n'  or  'n'  and  at
+              least  (  1  +  ( n - 1 )*abs( incy ) ) otherwise.  before entry
+              with beta non-zero, the incremented array  y  must  contain  the
+              vector y. on exit, y is overwritten by the updated vector y.
+
+      @param  incy   - integer.
+              on  entry,  incy  specifies the increment for the elements of y.
+              incy must not be zero.  unchanged on exit.
+
   **/
   NT2_FUNCTION_IMPLEMENTATION_TPL (tag::blas_gemv_, blas_gemv
                                   , (const A0&)(const A1&)(const A2&)(const A3&)(const A4&)(const A5&)(A6&)(const A7&)
