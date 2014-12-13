@@ -42,12 +42,68 @@ namespace nt2
   }
 
   /*!
-    @brief
+    @brief gemm - perform the matrix-matrix operation
 
-    @param
-    @param
+    c := alpha*op(a)*op(b) + beta*c
 
-    @return
+       where  op(x) is one of
+
+          op(x) = x   or   op(x) = trans(x)   or   op(x) = ctrans(x),
+
+       alpha  and  beta are scalars, and a, b and c are matrices, with op(a)
+       an m by k matrix, op(b)  a  k by n matrix and  c an m by n matrix.
+
+    @param  transa - char.  on entry, transa specifies the form of op(a)
+       to be used in the matrix multiplication as follows:
+
+       transa = 'N' or 'n',  op(a) = a.
+
+       transa = 'T' or 't',  op(a) = trans(a).
+
+       transa = 'C' or 'c',  op(a) = ctrans(a).
+
+       Unchanged on exit.
+
+      @param  transb  -  char.  On entry, TRANSB specifies the form of op( B )
+       to be used in the matrix multiplication as follows:
+
+       transb = 'N' or 'n',  op(b) = b.
+
+       transb = 'T' or 't',  op(b) = trans(b).
+
+       transb = 'C' or 'c',  op(b) = ctrans(b).
+
+       Unchanged on exit.
+
+      @param  ALPHA  - scalar     .
+              On entry, ALPHA specifies the scalar alpha.  Unchanged on  exit.
+
+      @param a     -  container of dimension haxka, where ka is
+              k   when   transa  =  'n' or 'n',  and is  m  otherwise.  before
+              entry with  transa = 'n' or 'n',  the leading  m by  k  part  of
+              the array a must contain the matrix  a,  otherwise the leading
+              k by m  part of the  array  a  must  contain   the  matrix  a.
+              unchanged on exit.
+
+      @param  b    -  container of dimension hbxkb, ka is, where kb is
+              n  when  transb = 'n' or 'n',  and  is   k   otherwise.   before
+              entry  with   transb  = 'n' or 'n',  the leading  k by n part of
+              the array  b  must contain the matrix  b,  otherwise the leading
+              n  by  k   part  of  the  array   b  must contain  the matrix b.
+              unchanged on exit.
+
+      @param  beta   - scalar
+              on  entry,   beta   specifies  the scalar  beta.  when  beta  is
+              supplied as zero then c need not be set on input.  unchanged  on
+              exit.
+
+      @param   c container of dimension mxn.
+              before  entry,  the  leading   m by n  part of the array  c must
+              contain the matrix  c,  except when  beta   is  zero,  in  which
+              case  c  need  not  be  set on entry.  on exit, the array  c  is
+              overwritten by the  m by n  matrix ( alpha*op(a)*op(b)+ beta*c ).
+
+
   **/
   NT2_FUNCTION_IMPLEMENTATION_TPL (tag::blas_gemm_, blas_gemm
                                   , (const A0&)(const A1&)(const A2&)(const A3&)(const A4&)(const A5&)(A6&)
