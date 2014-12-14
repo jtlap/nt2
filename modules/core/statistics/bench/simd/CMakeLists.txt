@@ -11,6 +11,12 @@ SET( SOURCES
 # List of simd test files for toolbox statistics
    normcdf.cpp
    fastnormcdf.cpp
+   sigmoid.cpp
+   cf_sigmoid.cpp
+   fast_sigmoid.cpp
+   lin_sigmoid.cpp
+   poly_sigmoid.cpp
+   rat_sigmoid.cpp
    )
 
 nt2_module_add_tests(core.statistics.simd.bench ${SOURCES})

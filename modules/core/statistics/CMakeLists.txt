@@ -21,6 +21,7 @@ endif()
 if(DEFINED NT2_ROOT)
   list(APPEND CMAKE_MODULE_PATH ${NT2_ROOT}/cmake)
 endif()
+include_directories(/usr/include/eigen3)
 
 include(NT2Module)
 nt2_module_main(core.statistics)

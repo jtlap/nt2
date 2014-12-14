@@ -35,7 +35,12 @@ SET( SOURCES
   unifinv.cpp
   unifpdf.cpp
   unifrnd.cpp
-
+  expb.cpp
+  sigmoid.cpp
+  cf_sigmoid.cpp
+  fast_sigmoid.cpp
+  poly_sigmoid.cpp
+  rat_sigmoid.cpp
 
 # List of scalar test files for toolbox statistics
    )
