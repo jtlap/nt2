@@ -30,9 +30,7 @@ namespace boost { namespace dispatch { namespace meta
     {
       template<class X> struct apply
       {
-        typedef typename  boost::mpl::
-                          apply<typename model_of<T>::type,X>::type base_t;
-        typedef boost::simd::aligned_array<base_t,N,A>              type;
+        typedef boost::simd::aligned_array<X,N,A>              type;
       };
     };
   };
