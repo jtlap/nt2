@@ -21,11 +21,13 @@ namespace nt2 { namespace meta
   template<typename Expr>
   struct  layout
   {
+    typedef typename Expr::value_type                                vt;
     typedef typename meta::option<Expr,tag::storage_order_   >::type so;
     typedef typename meta::option<Expr,tag::storage_scheme_  >::type ss;
     typedef typename meta::option<Expr,tag::storage_duration_>::type sd;
+    typedef typename sd::storage_duration_type                      sdt;
 
-    typedef boost::mpl::vector3<so,ss,typename sd::storage_duration_type> type;
+    typedef boost::mpl::vector4<vt,so,ss,sdt> type;
   };
 
   template<typename X0, typename X1>
