@@ -55,13 +55,13 @@ namespace nt2 { namespace tag
     uplo indicates which part of the dense matrix is accessed to construct the result
 
     @code
-    unpack ( uplo, shape, srce, dest)
+    dest = unpack ( uplo, shape, srce)
     @endcode
 
     @param uplo 'U' or 'L'
     @param shape can be 'H' hermitian 'S' symmetric and 'T' triangular
     @param srce packed vector of numel nx(n-1)/2
-    @param dest dense matrix of dimension nxn
+    @return  dense matrix of dimension nxn
   **/
 }
 

@@ -51,12 +51,12 @@ namespace nt2 { namespace tag
     uplo indicates which part of the dense matrix is accessed to construct the result
 
     @code
-    pack ( uplo, srce, dest)
+    dest = pack ( uplo, srce)
     @endcode
 
     @param uplo 'U' or 'L'
     @param srce dense matrix nxn
-    @param dest dense vector containing the packed storage of numel nx(n-1)/2
+    @return  dense vector containing the packed storage of numel nx(n-1)/2
   **/
 }
 
