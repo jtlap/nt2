@@ -41,7 +41,7 @@ namespace nt2 { namespace tag
    struct impl_poly_sigmoid_;
   }
   /*!
-    Computes the poly_sigmoid function: \f$1/(1-e^{-x}\f$
+    Computes the poly_sigmoid function: polynomial approximation of the sigmoid
 
     @par Semantic:
 
@@ -51,7 +51,7 @@ namespace nt2 { namespace tag
     T0 r = poly_sigmoid(x);
     @endcode
 
-    @see @funcref{fast_poly_sigmoid},
+    @see @funcref{fast_sigmoid},
     @param a0
 
     @return a value of the same type as the parameter

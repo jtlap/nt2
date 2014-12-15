@@ -41,7 +41,7 @@ namespace nt2 { namespace tag
    struct impl_cf_sigmoid_;
   }
   /*!
-    Computes the cf_sigmoid function: \f$1/(1-e^{-x}\f$ by approximating
+    Computes the cf_sigmoid function: \f$1/(1+e^{-x}\f$ by approximating
     of \f$e^{-x}exp(-x)\f$ by the lambert continuous fraction
 
     The absolute error is always less than 7.0e-3 and the computation

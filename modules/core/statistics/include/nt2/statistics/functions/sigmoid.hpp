@@ -41,7 +41,7 @@ namespace nt2 { namespace tag
    struct impl_sigmoid_;
   }
   /*!
-    Computes the sigmoid function: \f$1/(1-e^{-x}\f$
+    Computes the sigmoid function: \f$1/(1+e^{-x}\f$
 
     @par Semantic:
 

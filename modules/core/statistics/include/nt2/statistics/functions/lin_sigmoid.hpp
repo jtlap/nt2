@@ -41,7 +41,7 @@ namespace nt2 { namespace tag
    struct impl_lin_sigmoid_;
   }
   /*!
-    Computes the lin_sigmoid function: \f$1/(1-e^{-x}\f$
+    Computes the lin_sigmoid function  by 3 linear pieces approximation of the sigmoid (0 then linear 1/4 x + 1/2 then 1)
 
     @par Semantic:
 

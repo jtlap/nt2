@@ -41,8 +41,8 @@ namespace nt2 { namespace tag
    struct impl_fast_sigmoid_;
   }
   /*!
-    Computes the fast_sigmoid function: \f$1/(1-e^{-x}\f$ by approximating
-    of \f$e^{-x}exp(-x)\f$ by \f$1/(1-\fracx{32})^32\f$ if x > 32 else 0.
+    Computes the fast_sigmoid function: \f$1/(1+e^{-x}\f$ by approximating
+    of \f$e^{-x}\f$ by \f$1/(1-\fracx{32})^32\f$ if x > 32 else 0.
 
     The absolute error is always less than 7.0e-3 and the computation
     20% faster.

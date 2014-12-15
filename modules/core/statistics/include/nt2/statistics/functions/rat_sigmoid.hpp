@@ -41,7 +41,7 @@ namespace nt2 { namespace tag
    struct impl_rat_sigmoid_;
   }
   /*!
-    Computes the sigmoid function: \f$1/(1-e^{-x}\f$ by a rationnal approximation
+    Computes the sigmoid function: \f$1/(1+e^{-x}\f$ by a rationnal approximation
 
     @par Semantic:
 
