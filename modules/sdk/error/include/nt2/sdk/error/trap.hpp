@@ -43,7 +43,7 @@ namespace nt2
   *
   * @param cond Conditionnal trigger for the breakpoint trap
   **/
-  BOOST_FORCEINLINE void trap(bool cond) { if(!cond) NT2_DEBUG_TRAP(); }
+  BOOST_FORCEINLINE void trap(bool cond) { if(!cond) { NT2_DEBUG_TRAP(); } }
 
   /**
   * @brief Runtime inconditionnal breakpoint trap
