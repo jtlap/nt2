@@ -41,6 +41,12 @@ SET ( SOURCES
   blas_her2k.cpp
   blas_trmm.cpp
   blas_trsm.cpp
+  blas_pack.cpp
+  blas_unpack.cpp
+  blas_hpmv.cpp
+  blas_spmv.cpp
+  blas_tpmv.cpp
+  blas_tpsv.cpp
   )
 
 nt2_module_add_tests(core.linalg.blas.unit ${SOURCES})
