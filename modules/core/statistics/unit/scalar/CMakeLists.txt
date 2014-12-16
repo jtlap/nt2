@@ -41,6 +41,7 @@ SET( SOURCES
   fast_sigmoid.cpp
   poly_sigmoid.cpp
   rat_sigmoid.cpp
+  sq_sigmoid.cpp
 
 # List of scalar test files for toolbox statistics
    )

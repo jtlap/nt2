@@ -17,6 +17,7 @@ SET( SOURCES
    lin_sigmoid.cpp
    poly_sigmoid.cpp
    rat_sigmoid.cpp
+   sq_sigmoid.cpp
    )
 
 nt2_module_add_tests(core.statistics.simd.bench ${SOURCES})

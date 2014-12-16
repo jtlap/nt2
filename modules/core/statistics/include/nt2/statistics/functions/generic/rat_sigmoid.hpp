@@ -63,7 +63,7 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       typedef typename meta::scalar_of<A0>::type stype;
-      const A0 _289  = double_constant< A0, 0x43908000> ();
+      const A0 _289  = double_constant< A0, 0x4072100000000000ll> ();
       A0 x2 = sqr(a0);
       return average(
         if_else(ge(x2, _289),
