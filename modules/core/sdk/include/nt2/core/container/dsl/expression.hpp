@@ -13,7 +13,7 @@
 #include <nt2/core/container/dsl/domain.hpp>
 #include <nt2/core/container/dsl/grammar.hpp>
 #include <nt2/core/container/dsl/size.hpp>
-#include <nt2/core/container/dsl/details/raw.hpp>
+#include <nt2/sdk/memory/data.hpp>
 #include <nt2/core/container/dsl/details/resize.hpp>
 #include <nt2/core/container/dsl/details/expression.hpp>
 #include <nt2/core/container/dsl/details/expression_size.hpp>
@@ -56,19 +56,20 @@ namespace nt2 { namespace container
   // - used for reductions that return scalars;
   // - used for table-to-scalar conversion.
   //==========================================================================
-  template<class Expr, class Result, bool IsScalar>
+  template<typename Expr, typename Result, bool IsScalar>
   struct expression_scalar
   {
     BOOST_FORCEINLINE operator typename meta::value_type_<Result>::type() const
     {
-      BOOST_ASSERT_MSG( nt2::numel( static_cast<expression<Expr, Result> const*>(this)->extent() ) == 1u
-                      , "Table is not a scalar"
-                      );
-      return nt2::evaluate( static_cast<expression<Expr, Result> const&>(*this) ).raw()[0];
+      typedef expression<Expr,Result> type_t;
+      type_t const& e = static_cast<type_t const&>(*this);
+
+      BOOST_ASSERT_MSG( nt2::numel( e.extent() ) == 1u, "Table is not a scalar");
+      return nt2::evaluate(e).data()[0];
     }
   };
 
-  template<class Expr, class Result>
+  template<typename Expr, typename Result>
   struct expression_scalar<Expr, Result, true>
   {
     BOOST_FORCEINLINE operator Result() const
@@ -305,7 +306,7 @@ namespace nt2 { namespace container
     //==========================================================================
     // Access to raw data
     //==========================================================================
-    pointer       raw()
+    pointer       data()
     {
       //========================================================================
       //       ****NT2_INVALID_ACCESS_TO_RAW_DATA_ON_NON_TERMINAL****
@@ -318,10 +319,10 @@ namespace nt2 { namespace container
                           , (Expr&)
                           );
 
-      return nt2::details::raw(boost::proto::value(*this));
+      return nt2::memory::data(boost::proto::value(*this));
     }
 
-    const_pointer raw() const
+    const_pointer data() const
     {
       //========================================================================
       //          ***NT2_INVALID_ACCESS_TO_RAW_DATA_ON_NON_TERMINAL****
@@ -334,7 +335,7 @@ namespace nt2 { namespace container
                           , (Expr&)
                           );
 
-      return nt2::details::raw(boost::proto::value(*this));
+      return nt2::memory::data(boost::proto::value(*this));
     }
 
     //==========================================================================

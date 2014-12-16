@@ -61,7 +61,7 @@ namespace nt2 { namespace details
 
     ~magma_buffer() { cudaFree(gpu_ptr_); }
 
-    pointer raw() const { return gpu_ptr_; }
+    pointer data() const { return gpu_ptr_; }
 
     void* raw( pointer host ) const
     {

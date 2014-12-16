@@ -64,8 +64,8 @@
        t_t x(nt2::of_size(ldb,nhrs));
        nt2::container::table<float> tau(nt2::of_size(std::min(m,na),1));
 
-       details::magma_buffer<double>      dA(m,na,a.raw() );
-       details::magma_buffer<double>      dB(ldb,nhrs,b.raw() );
+       details::magma_buffer<double>      dA(m,na,a.data() );
+       details::magma_buffer<double>      dB(ldb,nhrs,b.data() );
        details::magma_buffer<double>      dX(ldb,nhrs);
        details::magma_buffer<double>      dE(ldb,nhrs);
        details::magma_buffer<double>      temp(ldb,nhrs);
@@ -74,54 +74,54 @@
        details::magma_buffer<float>       dT(lwkopt,nhrs);
 
        double eps = boost::simd::Eps<double>();
-       double anrm = magmablas_dlange(MagmaInfNorm, m, na, dA.raw(), m, dE.raw() );
+       double anrm = magmablas_dlange(MagmaInfNorm, m, na, dA.data(), m, dE.data() );
        double cte = anrm*eps*nt2::sqrt( type_t(na));
        double xnrm, rnrm;
 
-       magmablas_dlag2s(m,na,dA.raw(),m,dSR.raw(),m, &info);
+       magmablas_dlag2s(m,na,dA.data(),m,dSR.data(),m, &info);
 
-       magmablas_dlag2s(ldb,nhrs,dB.raw(),ldb,dSX.raw(),ldb,&info);
+       magmablas_dlag2s(ldb,nhrs,dB.data(),ldb,dSX.data(),ldb,&info);
 
-       magmablas_sgemv( MagmaTrans, m, na, one, dSR.raw(), m, dSX.raw(), one, 0, dSX.raw(), one );
+       magmablas_sgemv( MagmaTrans, m, na, one, dSR.data(), m, dSX.data(), one, 0, dSX.data(), one );
 
-       magma_sgeqrf2_gpu( m, na, dSR.raw(), m, tau.raw(), &info );
+       magma_sgeqrf2_gpu( m, na, dSR.data(), m, tau.data(), &info );
 
-       magmablas_strsm(MagmaLeft,MagmaUpper,MagmaTrans,MagmaNonUnit,na,nhrs,(float)one,dSR.raw(),m,dSX.raw(), na);
+       magmablas_strsm(MagmaLeft,MagmaUpper,MagmaTrans,MagmaNonUnit,na,nhrs,(float)one,dSR.data(),m,dSX.data(), na);
 
-       magmablas_strsm(MagmaLeft,MagmaUpper,MagmaNoTrans,MagmaNonUnit,na,nhrs,(float)one,dSR.raw(),m,dSX.raw(), na);
+       magmablas_strsm(MagmaLeft,MagmaUpper,MagmaNoTrans,MagmaNonUnit,na,nhrs,(float)one,dSR.data(),m,dSX.data(), na);
 
-       magmablas_slag2d(ldb,nhrs,dSX.raw(),ldb,dX.raw(),ldb,&info);
+       magmablas_slag2d(ldb,nhrs,dSX.data(),ldb,dX.data(),ldb,&info);
 
-       magmablas_dlacpy(MagmaFull, ldb, nhrs, dB.raw(), ldb, dE.raw(), ldb);
+       magmablas_dlacpy(MagmaFull, ldb, nhrs, dB.data(), ldb, dE.data(), ldb);
 
-       magmablas_dgemv( MagmaNoTrans, lda, na, negone, dA.raw(), lda, dX.raw(), one, one, dE.raw(), one );
+       magmablas_dgemv( MagmaNoTrans, lda, na, negone, dA.data(), lda, dX.data(), one, one, dE.data(), one );
 
        for(size_t i = 1; i<=10;++i)
        {
-         magmablas_dgemv( MagmaTrans, lda, na, one, dA.raw(), lda, dE.raw(), one, 0, temp.raw(), one );
-         magmablas_dlag2s(ldb,nhrs,temp.raw(),ldb,dSX.raw(),ldb,&info);
+         magmablas_dgemv( MagmaTrans, lda, na, one, dA.data(), lda, dE.data(), one, 0, temp.data(), one );
+         magmablas_dlag2s(ldb,nhrs,temp.data(),ldb,dSX.data(),ldb,&info);
 
-         magmablas_strsm(MagmaLeft,MagmaUpper,MagmaTrans,MagmaNonUnit,na,nhrs,(float)one,dSR.raw(),m,dSX.raw(), na);
+         magmablas_strsm(MagmaLeft,MagmaUpper,MagmaTrans,MagmaNonUnit,na,nhrs,(float)one,dSR.data(),m,dSX.data(), na);
 
-         magmablas_strsm(MagmaLeft,MagmaUpper,MagmaNoTrans,MagmaNonUnit,na,nhrs,(float)one,dSR.raw(),m,dSX.raw(), na);
+         magmablas_strsm(MagmaLeft,MagmaUpper,MagmaNoTrans,MagmaNonUnit,na,nhrs,(float)one,dSR.data(),m,dSX.data(), na);
 
-         magmablas_slag2d(na,nhrs,dSX.raw(),ldb,dE.raw(),ldb,&info);
+         magmablas_slag2d(na,nhrs,dSX.data(),ldb,dE.data(),ldb,&info);
 
-         dE.raw(x.raw());
+         dE.raw(x.data());
          rnrm = nt2::maximum(nt2::abs(x(_)));
 
-         magmablas_dgeadd(na,nhrs,one,dE.raw(),ldb,dX.raw(),ldb);
+         magmablas_dgeadd(na,nhrs,one,dE.data(),ldb,dX.data(),ldb);
 
-         dX.raw(x.raw());
+         dX.raw(x.data());
          xnrm = nt2::maximum(nt2::abs(x(_)));
 
-         magmablas_dlacpy(MagmaFull, ldb, nhrs, dB.raw(), ldb, dE.raw(), ldb);
-         magmablas_dgemv( MagmaNoTrans, lda, na, negone, dA.raw(), lda, dX.raw(), one, one, dE.raw(), one );
+         magmablas_dlacpy(MagmaFull, ldb, nhrs, dB.data(), ldb, dE.data(), ldb);
+         magmablas_dgemv( MagmaNoTrans, lda, na, negone, dA.data(), lda, dX.data(), one, one, dE.data(), one );
 
          if(rnrm < xnrm*cte) { break; }
        }
 
-        dX.raw(x.raw());
+        dX.raw(x.data());
 
         return x(_(1,na));
      }
@@ -169,7 +169,7 @@
 
 //       for(nt2_la_int i=0; i<na; i++)
 //       {
-//         std::memcpy(sr1.raw()+i*na, sr.raw()+i*lda, size_n);
+//         std::memcpy(sr1.data()+i*na, sr.data()+i*lda, size_n);
 //       }
 
 //       boost::proto::value(sr).swap(boost::proto::value(sr1) );
@@ -207,4 +207,3 @@
 // #endif
 
 // #endif
-

@@ -19,6 +19,17 @@ namespace nt2 {  namespace memory
   // Forward declaration
   //============================================================================
   template<typename Buffer> class composite_buffer;
+
+  //============================================================================
+  // External append
+  //============================================================================
+    template<typename B, typename Iterator>
+    BOOST_FORCEINLINE void append ( composite_buffer<B>& c
+                                  , Iterator b, Iterator e
+                                  )
+    {
+      c.append(b,e);
+    }
 } }
 
 namespace boost { namespace dispatch { namespace meta

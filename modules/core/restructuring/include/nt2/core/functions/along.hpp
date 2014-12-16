@@ -79,6 +79,18 @@ namespace nt2
   NT2_FUNCTION_IMPLEMENTATION_SELF(nt2::tag::along_  , along, 2)
   /// @overload
   NT2_FUNCTION_IMPLEMENTATION_SELF(nt2::tag::along_  , along, 3)
+
+  namespace ext
+  {
+    //============================================================================
+    // resize function expression - do nothing
+    //============================================================================
+    template<class Domain, int N, class Expr>
+    struct resize<nt2::tag::along_, Domain, N, Expr>
+    {
+      template<class Sz> BOOST_FORCEINLINE void operator()(Expr&, Sz const&) {}
+    };
+}
 }
 
 #endif

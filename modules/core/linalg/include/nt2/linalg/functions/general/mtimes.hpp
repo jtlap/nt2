@@ -21,7 +21,7 @@
 #include <nt2/core/container/dsl/size.hpp>
 #include <nt2/core/container/dsl/alias.hpp>
 #include <nt2/core/container/dsl/as_terminal.hpp>
-#include <nt2/core/container/dsl/assign_swap.hpp>
+#include <nt2/core/utility/assign_swap.hpp>
 #include <nt2/sdk/memory/forward/container.hpp>
 #include <nt2/sdk/memory/category.hpp>
 #include <boost/proto/traits.hpp>
@@ -356,10 +356,10 @@ namespace nt2 { namespace ext
       gemm( &transA, &transB
           , &m, &n, &k
           , &alpha
-          , child0.raw(), &lda
-          , child1.raw(), &ldb
+          , child0.data(), &lda
+          , child1.data(), &ldb
           , &beta
-          , result_view.raw(), &ldc
+          , result_view.data(), &ldc
           );
 
       if(swap)

@@ -93,7 +93,7 @@ namespace nt2 { namespace memory
 
     template<typename Kind2, typename U, typename S2>
     container_ref (container_shared_ref<Kind2, U, S2, true> const& other)
-                  : ptr(other.raw()), sz(other.extent())
+                  : ptr(other.data()), sz(other.extent())
                   , base_(other.base_.get())
     {
     }
@@ -104,12 +104,12 @@ namespace nt2 { namespace memory
 
     template<typename Kind2, typename U, typename S2>
     container_ref (container<Kind2, U, S2>& c)
-                  : ptr(c.raw()), sz(c.extent()), base_(&c)
+                  : ptr(c.data()), sz(c.extent()), base_(&c)
     {
     }
     template<typename Kind2, typename U, typename S2>
     container_ref (container<Kind2, U, S2> const& c)
-                  : ptr(c.raw()), sz(c.extent()), base_(&c)
+                  : ptr(c.data()), sz(c.extent()), base_(&c)
     {
     }
 
@@ -233,7 +233,7 @@ namespace nt2 { namespace memory
      * Return the begin of the raw memory
      */
     //==========================================================================
-    BOOST_FORCEINLINE pointer        raw() const { return ptr; }
+    BOOST_FORCEINLINE pointer        data() const { return ptr; }
 
     //==========================================================================
     /*!
@@ -268,11 +268,6 @@ namespace nt2 { namespace memory
      **/
     //==========================================================================
     specific_data_type&  specifics() const { return base_->specifics(); }
-
-    //==========================================================================
-    // Check if a position is safely R/W in the current container
-    //==========================================================================
-    BOOST_FORCEINLINE bool is_safe(size_type p) const { return p == 0u || p < size(); }
 
     cbase_t* base() const { return base_; }
 

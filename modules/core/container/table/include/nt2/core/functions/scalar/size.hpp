@@ -30,7 +30,7 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type operator()(const A0&) const
     {
       result_type that;
-      that.raw()[0] = that.raw()[1] = std::size_t(1);
+      that.data()[0] = that.data()[1] = std::size_t(1);
       return that;
     }
   };

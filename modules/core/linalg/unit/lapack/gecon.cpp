@@ -44,7 +44,6 @@ NT2_TEST_CASE_TPL(con, NT2_REAL_TYPES )
  t_t a1(a);
  t_t b = nt2::cons<T>(nt2::of_size(3,1),1,2,5);
  t_t x(nt2::of_size(3,1));
- t_i ipiv;
  char norm = '1';
 
  nt2_la_int p = nt2::gesvx( boost::proto::value(a),boost::proto::value(b)
@@ -57,7 +56,6 @@ NT2_TEST_CASE_TPL(con, NT2_REAL_TYPES )
  NT2_TEST_ULP_EQUAL(rcond, rcond1, T(10) );
  NT2_TEST_EQUAL(p, 0 );
 }
-
 
 NT2_TEST_CASE_TPL(sycon, NT2_REAL_TYPES )
 {
@@ -75,7 +73,7 @@ NT2_TEST_CASE_TPL(sycon, NT2_REAL_TYPES )
  t_t b = nt2::cons<T>(nt2::of_size(3,1),1,2,5);
  t_t x(b);
 
- t_i piv;
+ t_i piv = nt2::zeros(3,1, nt2::meta::as_<nt2_la_int>());
  char norm = '1';
 
  anorm = nt2::lange(boost::proto::value(a), norm);
@@ -91,9 +89,7 @@ NT2_TEST_CASE_TPL(sycon, NT2_REAL_TYPES )
 
  NT2_TEST_ULP_EQUAL(rcond, rcond1, T(10) );
  NT2_TEST_EQUAL(p, T(0) );
-
 }
-
 
 NT2_TEST_CASE_TPL(pocon, NT2_REAL_TYPES )
 {
@@ -111,7 +107,6 @@ NT2_TEST_CASE_TPL(pocon, NT2_REAL_TYPES )
  t_t b = nt2::cons<T>(nt2::of_size(3,1),1,2,5);
  t_t x(b);
 
- t_i piv;
  char norm = '1';
 
  anorm = nt2::lange(boost::proto::value(a), norm);

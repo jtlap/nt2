@@ -91,8 +91,8 @@ namespace nt2 { namespace ext
         nt2_la_int ldvt= vt.leading_size() > 1 ? vt.leading_size() : 1 ;
         nt2_la_int  wn = w.main_size();
 
-        magma_dgesvd( jobu,jobvt,m, n, a0.raw(), ld, s.raw(), u.raw(), ldu
-                            , vt.raw(), ldvt, w.main()
+        magma_dgesvd( jobu,jobvt,m, n, a0.data(), ld, s.data(), u.data(), ldu
+                            , vt.data(), ldvt, w.main()
                             , wn, &that
                             );
         return that;
@@ -163,8 +163,8 @@ namespace nt2 { namespace ext
         nt2_la_int ldvt= vt.leading_size() > 1 ? vt.leading_size() : 1 ;
         nt2_la_int  wn = w.main_size();
 
-        magma_sgesvd( jobu,jobvt,m, n, a0.raw(), ld, s.raw(), u.raw(), ldu
-                            , vt.raw(), ldvt, w.main()
+        magma_sgesvd( jobu,jobvt,m, n, a0.data(), ld, s.data(), u.data(), ldu
+                            , vt.data(), ldvt, w.main()
                             , wn, &that
                             );
         return that;
@@ -236,10 +236,10 @@ namespace nt2 { namespace ext
 
         nt2::container::table<float> rwork(nt2::of_size(5*std::min(m,n),1));
 
-        magma_cgesvd( jobu,jobvt,m, n, (cuFloatComplex*)a0.raw(), ld, s.raw()
-                            , (cuFloatComplex*)u.raw(), ldu
-                            , (cuFloatComplex*)vt.raw(), ldvt, (cuFloatComplex*)w.main()
-                            , wn, rwork.raw(), &that
+        magma_cgesvd( jobu,jobvt,m, n, (cuFloatComplex*)a0.data(), ld, s.data()
+                            , (cuFloatComplex*)u.data(), ldu
+                            , (cuFloatComplex*)vt.data(), ldvt, (cuFloatComplex*)w.main()
+                            , wn, rwork.data(), &that
                             );
         return that;
      }
@@ -308,10 +308,10 @@ namespace nt2 { namespace ext
 
         nt2::container::table<double> rwork(nt2::of_size(5*std::min(m,n),1));
 
-        magma_zgesvd( jobu,jobvt,m, n, (cuDoubleComplex*)a0.raw(), ld, s.raw()
-                            , (cuDoubleComplex*)u.raw(), ldu
-                            , (cuDoubleComplex*)vt.raw(), ldvt, (cuDoubleComplex*)w.main()
-                            , wn, rwork.raw(), &that
+        magma_zgesvd( jobu,jobvt,m, n, (cuDoubleComplex*)a0.data(), ld, s.data()
+                            , (cuDoubleComplex*)u.data(), ldu
+                            , (cuDoubleComplex*)vt.data(), ldvt, (cuDoubleComplex*)w.main()
+                            , wn, rwork.data(), &that
                             );
         return that;
      }

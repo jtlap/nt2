@@ -170,7 +170,7 @@ NT2_TEST_CASE( automatic_duration_apply )
   using nt2::automatic_;
   using nt2::index_;
   using nt2::memory::container;
-  using nt2::memory::array_buffer;
+  using boost::simd::aligned_array;
 
   NT2_TEST_EXPR_TYPE( automatic_()
                     , (apply_ < _
@@ -181,7 +181,7 @@ NT2_TEST_CASE( automatic_duration_apply )
                                 >
                               >
                       )
-                    , (array_buffer<int, boost::mpl::integral_c<size_t,4> >)
+                    , (aligned_array<int, 4>)
                     );
 
   NT2_TEST_EXPR_TYPE( automatic_()
@@ -193,7 +193,7 @@ NT2_TEST_CASE( automatic_duration_apply )
                                 >
                               >
                       )
-                    , (array_buffer<int, boost::mpl::integral_c<size_t,36> >)
+                    , (aligned_array<int, 36 >)
                     );
 }
 

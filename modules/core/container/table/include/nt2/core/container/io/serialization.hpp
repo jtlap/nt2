@@ -76,7 +76,7 @@ namespace boost { namespace serialization
     typedef typename nt2::meta::strip<e_t>::type size_type;
     size_type size_ = e.extent();
     ar << size_;
-    ar << make_array(e.raw(), nt2::numel(e));
+    ar << make_array(e.data(), nt2::numel(e));
   }
 
   template<class Archive, class E, class R, class D>
@@ -97,7 +97,7 @@ namespace boost { namespace serialization
     size_type size_;
     ar >> size_;
     e.resize(size_);
-    ar >> make_array(e.raw(), nt2::numel(e));
+    ar >> make_array(e.data(), nt2::numel(e));
   }
 
   template<class Archive, class E, class R, class D>

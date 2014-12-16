@@ -12,6 +12,7 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/sdk/unit/tests/exceptions.hpp>
 
 #ifdef BOOST_INTEL
 #pragma warning(disable: 1366) // alignment of 1/2 doesn't do anything
@@ -76,4 +77,26 @@ NT2_TEST_CASE( const_aligned_array )
   const int * ptr = tab.data();
 
   NT2_TEST_EQUAL( ptr, &tab[0] );
+}
+
+NT2_TEST_CASE( empty_aligned_array )
+{
+  boost::simd::aligned_array<int, 0> tab;
+
+  NT2_TEST(tab.empty());
+  NT2_TEST_EQUAL(tab.size(), 0UL);
+  NT2_TEST_EQUAL(tab.max_size(), 0UL);
+
+  NT2_TEST(tab.begin()    == tab.end()   );
+  NT2_TEST(tab.cbegin()   == tab.cend()  );
+  NT2_TEST(tab.rbegin()   == tab.rend()  );
+  NT2_TEST(tab.crbegin()  == tab.crend() );
+
+  NT2_TEST_EQUAL(tab.c_array(), (int*)(0) );
+  NT2_TEST_EQUAL(tab.data()   , (int*)(0) );
+
+  NT2_TEST_ASSERT(tab[0]);
+  NT2_TEST_ASSERT(tab.at(0));
+  NT2_TEST_ASSERT(tab.front());
+  NT2_TEST_ASSERT(tab.back());
 }

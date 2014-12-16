@@ -11,6 +11,8 @@
 
 #include <boost/simd/preprocessor/align_on.hpp>
 #include <boost/simd/forward/aligned_array.hpp>
+#include <boost/simd/memory/details/empty_aligned_array.hpp>
+#include <boost/simd/memory/details/model_aligned_array.hpp>
 #include <boost/simd/sdk/simd/preprocessor/repeat.hpp>
 
 #include <boost/swap.hpp>
@@ -63,13 +65,15 @@ namespace boost { namespace simd
     /// INTERNAL ONLY
     aligned_array_data<T, N, Align> data_;
 
-    typedef T              value_type;
-    typedef T*             iterator;
-    typedef const T*       const_iterator;
-    typedef T&             reference;
-    typedef const T&       const_reference;
-    typedef std::size_t    size_type;
-    typedef std::ptrdiff_t difference_type;
+    typedef T               value_type;
+    typedef T*              pointer;
+    typedef const T*        const_pointer;
+    typedef T*              iterator;
+    typedef const T*        const_iterator;
+    typedef T&              reference;
+    typedef const T&        const_reference;
+    typedef std::size_t     size_type;
+    typedef std::ptrdiff_t  difference_type;
 
     /// Return an iterator to the beginning of the array
     iterator        begin()       { return this->data_.data; }
@@ -163,13 +167,13 @@ namespace boost { namespace simd
     }
 
     /// Return a pointer referencing the array's data
-    T* c_array() { return this->data_.data; }
+    pointer c_array() { return this->data_.data; }
 
     /// Return a pointer referencing the array's data
-    T* data()       { return this->data_.data; }
+    pointer data()       { return this->data_.data; }
 
     /// @overload
-    const T* data() const { return this->data_.data; }
+    const_pointer data() const { return this->data_.data; }
 
     /// Assign the contents of another array to the current array
     template <typename T2, std::size_t A2>

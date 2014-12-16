@@ -41,7 +41,7 @@ namespace nt2 { namespace ext
         double  alpha = 1;
 
         NT2_F77NAME(dtrsm)( &side, &uplo, &transa, &diag, &m, &n, &alpha
-                          , a.raw(),&lda,b.raw(),&m);
+                          , a.data(),&lda,b.data(),&m);
 
      }
   };
@@ -67,7 +67,7 @@ namespace nt2 { namespace ext
         float  alpha = 1;
 
         NT2_F77NAME(strsm)( &side, &uplo, &transa, &diag, &m, &n, &alpha
-                          , a.raw(),&lda,b.raw(),&m);
+                          , a.data(),&lda,b.data(),&m);
 
      }
   };
@@ -93,7 +93,7 @@ namespace nt2 { namespace ext
         std::complex<double> alpha(1.0,0.);
 
         NT2_F77NAME(ztrsm)( &side, &uplo, &transa, &diag, &m, &n, &alpha
-                          , a.raw(),&lda,b.raw(),&m);
+                          , a.data(),&lda,b.data(),&m);
 
      }
   };
@@ -119,7 +119,7 @@ namespace nt2 { namespace ext
         std::complex<float> alpha(1.0,0.);
 
         NT2_F77NAME(ctrsm)( &side, &uplo, &transa, &diag, &m, &n, &alpha
-                          , a.raw(),&lda,b.raw(),&m);
+                          , a.data(),&lda,b.data(),&m);
 
      }
   };
@@ -146,7 +146,7 @@ namespace nt2 { namespace ext
         nt2_la_int  lda = (side=='L'||'l')? m : n ;
 
         NT2_F77NAME(dtrsm)( &side, &uplo, &transa, &diag, &m, &n, &alpha
-                          , a.raw(),&lda,b.raw(),&m);
+                          , a.data(),&lda,b.data(),&m);
 
      }
   };
@@ -172,7 +172,7 @@ namespace nt2 { namespace ext
         nt2_la_int  lda = (side=='L'||'l')? m : n ;
 
         NT2_F77NAME(strsm)( &side, &uplo, &transa, &diag, &m, &n, &alpha
-                          , a.raw(),&lda,b.raw(),&m);
+                          , a.data(),&lda,b.data(),&m);
 
      }
   };
@@ -199,7 +199,7 @@ namespace nt2 { namespace ext
         nt2_la_int  lda = (side=='L'||'l')? m : n ;
 
         NT2_F77NAME(ztrsm)( &side, &uplo, &transa, &diag, &m, &n, &alpha
-                          , a.raw(),&lda,b.raw(),&m);
+                          , a.data(),&lda,b.data(),&m);
 
      }
   };
@@ -226,7 +226,7 @@ namespace nt2 { namespace ext
         nt2_la_int  lda = (side=='L'||'l')? m : n ;
 
         NT2_F77NAME(ctrsm)( &side, &uplo, &transa, &diag, &m, &n, &alpha
-                          , a.raw(),&lda,b.raw(),&m);
+                          , a.data(),&lda,b.data(),&m);
 
      }
   };

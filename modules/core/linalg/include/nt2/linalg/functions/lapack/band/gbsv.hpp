@@ -71,7 +71,7 @@ namespace nt2 { namespace ext
 
       a1.resize(nt2::of_size(n,1));
 
-      NT2_F77NAME(dgbsv)(&n,&kl,&ku,&nhrs,a0.raw(),&ld,a1.raw(),a2.raw(),&ld,&that);
+      NT2_F77NAME(dgbsv)(&n,&kl,&ku,&nhrs,a0.data(),&ld,a1.data(),a2.data(),&ld,&that);
 
       return that;
      }
@@ -103,7 +103,7 @@ namespace nt2 { namespace ext
 
       a1.resize(nt2::of_size(n,1));
 
-      NT2_F77NAME(sgbsv)(&n,&kl,&ku,&nhrs,a0.raw(),&ld,a1.raw(),a2.raw(),&ld,&that);
+      NT2_F77NAME(sgbsv)(&n,&kl,&ku,&nhrs,a0.data(),&ld,a1.data(),a2.data(),&ld,&that);
 
       return that;
      }
@@ -133,7 +133,7 @@ namespace nt2 { namespace ext
 
       a1.resize(nt2::of_size(n,1));
 
-      NT2_F77NAME(cgbsv)(&n,&kl,&ku,&nhrs,a0.raw(),&ld,a1.raw(),a2.raw(),&ld,&that);
+      NT2_F77NAME(cgbsv)(&n,&kl,&ku,&nhrs,a0.data(),&ld,a1.data(),a2.data(),&ld,&that);
 
       return that;
      }
@@ -163,7 +163,7 @@ namespace nt2 { namespace ext
 
       a1.resize(nt2::of_size(n,1));
 
-      NT2_F77NAME(zgbsv)(&n,&kl,&ku,&nhrs,a0.raw(),&ld,a1.raw(),a2.raw(),&ld,&that);
+      NT2_F77NAME(zgbsv)(&n,&kl,&ku,&nhrs,a0.data(),&ld,a1.data(),a2.data(),&ld,&that);
 
       return that;
      }

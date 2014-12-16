@@ -13,6 +13,7 @@
 #include <nt2/sdk/memory/destruct.hpp>
 #include <nt2/sdk/memory/local_ptr.hpp>
 #include <nt2/sdk/memory/construct.hpp>
+#include <nt2/sdk/memory/is_safe.hpp>
 #include <nt2/sdk/memory/adapted/buffer.hpp>
 #include <nt2/sdk/memory/fixed_allocator.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -28,8 +29,6 @@
 
 namespace nt2 { namespace memory
 {
-  template<class T, class Size> class array_buffer;
-
   //============================================================================
   /**!
    * @brief buffer is a dynamically-sized sequence using dynamic storage.
@@ -60,7 +59,7 @@ namespace nt2 { namespace memory
     //==========================================================================
     buffer( allocator_type a = allocator_type())
           : allocator_type(a)
-          , begin_(&dummy_), end_(&dummy_), capacity_(&dummy_)
+          , begin_(0), end_(0), capacity_(0)
     {}
 
   private:
@@ -84,7 +83,7 @@ namespace nt2 { namespace memory
     //==========================================================================
     buffer( size_type n, allocator_type a = allocator_type())
           : allocator_type(a)
-          , begin_(&dummy_), end_(&dummy_), capacity_(&dummy_)
+          , begin_(0), end_(0), capacity_(0)
     {
       if(!n) return;
 
@@ -107,7 +106,7 @@ namespace nt2 { namespace memory
     //==========================================================================
     buffer( buffer const& src, std::size_t capa )
           : allocator_type(src.get_allocator())
-          , begin_(&dummy_), end_(&dummy_), capacity_(&dummy_)
+          , begin_(0), end_(0), capacity_(0)
     {
       if(!capa) return;
 
@@ -130,7 +129,7 @@ namespace nt2 { namespace memory
     //==========================================================================
     buffer( buffer const& src )
           : allocator_type(src.get_allocator())
-          , begin_(&dummy_), end_(&dummy_), capacity_(&dummy_)
+          , begin_(0), end_(0), capacity_(0)
     {
       if(!src.size()) return;
 
@@ -152,7 +151,7 @@ namespace nt2 { namespace memory
     //==========================================================================
     ~buffer()
     {
-      if(is_initialized() && begin_)
+      if(begin_)
       {
         self_destruct ( typename boost::is_same < Allocator
                                                 , fixed_allocator<T>
@@ -216,7 +215,7 @@ namespace nt2 { namespace memory
     //==========================================================================
     // Resizes and add a range of elements at the end
     //==========================================================================
-    template<typename Iterator> void push_back( Iterator b, Iterator e )
+    template<typename Iterator> void append( Iterator b, Iterator e )
     {
       std::ptrdiff_t osz = size();
       std::ptrdiff_t sz = e-b;
@@ -235,45 +234,13 @@ namespace nt2 { namespace memory
 
     //==========================================================================
     // Swap
-    // The is_initailized dance is required so every buffer always points to
-    // its own dummy memory segment if unitialized.
     //==========================================================================
     void swap( buffer& src )
     {
-      if(src.is_initialized() && is_initialized())
-      {
-        boost::swap(begin_          , src.begin_          );
-        boost::swap(end_            , src.end_            );
-        boost::swap(capacity_       , src.capacity_       );
-      }
-      else
-      {
-        pointer tb,te,tc;
-
-        tb = src.is_initialized() ? src.begin_     : &dummy_;
-        te = src.is_initialized() ? src.end_       : &dummy_;
-        tc = src.is_initialized() ? src.capacity_  : &dummy_;
-
-        src.begin_    = is_initialized() ? begin_     : &src.dummy_;
-        src.end_      = is_initialized() ? end_       : &src.dummy_;
-        src.capacity_ = is_initialized() ? capacity_  : &src.dummy_;
-
-        begin_    = tb;
-        end_      = te;
-        capacity_ = tc;
-      }
-
+      boost::swap(begin_          , src.begin_          );
+      boost::swap(end_            , src.end_            );
+      boost::swap(capacity_       , src.capacity_       );
       boost::swap(get_allocator() , src.get_allocator() );
-    }
-
-    template<typename Buffer> void swap(Buffer& that)
-    {
-      BOOST_ASSERT_MSG( size() == that.size()
-                      , "Incompatible size in swap"
-                      );
-
-      for(size_type i=0; i<size(); ++i)
-        boost::swap(begin_[i],that[i]);
     }
 
     //==========================================================================
@@ -313,8 +280,8 @@ namespace nt2 { namespace memory
     //==========================================================================
     // Raw values
     //==========================================================================
-    pointer        raw()       { return begin_;  }
-    const_pointer  raw() const { return begin_;  }
+    pointer        data()       { return begin_;  }
+    const_pointer  data() const { return begin_;  }
 
     //==========================================================================
     // Size related members
@@ -328,7 +295,7 @@ namespace nt2 { namespace memory
     //==========================================================================
     inline reference       operator[](size_type i)
     {
-      BOOST_ASSERT_MSG( is_safe(i)
+      BOOST_ASSERT_MSG( nt2::memory::is_safe(*this,i)
                       , "Out of range acces on buffer"
                       );
       return begin_[i];
@@ -336,15 +303,10 @@ namespace nt2 { namespace memory
 
     inline const_reference operator[](size_type i) const
     {
-      BOOST_ASSERT_MSG(  is_safe(i)
+      BOOST_ASSERT_MSG(  nt2::memory::is_safe(*this,i)
                       , "Out of range acces on buffer"
                       );
       return begin_[i];
-    }
-
-    BOOST_FORCEINLINE bool is_safe(size_type p) const
-    {
-      return !p || p < size();
     }
 
   private:
@@ -362,8 +324,6 @@ namespace nt2 { namespace memory
     {
       return NT2_BUFFER_GROWTH_FACTOR*(osz + extra);
     }
-
-    inline bool is_initialized() const { return begin_ != &dummy_; }
 
     inline void self_destruct(boost::mpl::false_ const&)
     {
@@ -391,7 +351,6 @@ namespace nt2 { namespace memory
 
     private:
     pointer     begin_, end_, capacity_;
-    value_type  dummy_;
   };
 
   //============================================================================

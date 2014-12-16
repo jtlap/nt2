@@ -32,7 +32,7 @@ namespace nt2 { namespace ext
         nt2_la_int n   = nt2::width(a0);
         nt2_la_int lda = a0.leading_size();
 
-        NT2_F77NAME(dpotrf) (&a1,&n,a0.raw(),&lda,&that);
+        NT2_F77NAME(dpotrf) (&a1,&n,a0.data(),&lda,&that);
 
         return that;
      }
@@ -54,7 +54,7 @@ namespace nt2 { namespace ext
         nt2_la_int n   = nt2::width(a0);
         nt2_la_int lda = a0.leading_size();
 
-        NT2_F77NAME(spotrf) (&a1,&n,a0.raw(),&lda,&that);
+        NT2_F77NAME(spotrf) (&a1,&n,a0.data(),&lda,&that);
 
         return that;
      }
@@ -75,7 +75,7 @@ namespace nt2 { namespace ext
         nt2_la_int n   = nt2::width(a0);
         nt2_la_int lda = a0.leading_size();
 
-        NT2_F77NAME(zpotrf) (&a1,&n,a0.raw(),&lda,&that);
+        NT2_F77NAME(zpotrf) (&a1,&n,a0.data(),&lda,&that);
 
         return that;
      }
@@ -97,7 +97,7 @@ namespace nt2 { namespace ext
         nt2_la_int n   = nt2::width(a0);
         nt2_la_int lda = a0.leading_size();
 
-        NT2_F77NAME(cpotrf) (&a1,&n,a0.raw(),&lda,&that);
+        NT2_F77NAME(cpotrf) (&a1,&n,a0.data(),&lda,&that);
 
         return that;
      }

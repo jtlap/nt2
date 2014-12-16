@@ -105,7 +105,7 @@ namespace nt2 { namespace ext
         nt2_la_int  wn = w.main_size();
 
 
-        NT2_F77NAME(dsysv) ( &uplo, &n, &nhrs, a0.raw(), &ld, a1.raw(), a2.raw()
+        NT2_F77NAME(dsysv) ( &uplo, &n, &nhrs, a0.data(), &ld, a1.data(), a2.data()
                            , &ldb, w.main(), &wn, &that
                             );
         return that;
@@ -164,7 +164,7 @@ namespace nt2 { namespace ext
         char uplo = 'L';
         nt2_la_int  wn = w.main_size();
 
-        NT2_F77NAME(ssysv) ( &uplo, &n, &nhrs, a0.raw(), &ld, a1.raw(), a2.raw()
+        NT2_F77NAME(ssysv) ( &uplo, &n, &nhrs, a0.data(), &ld, a1.data(), a2.data()
                            , &ldb, w.main(), &wn, &that
                             );
         return that;
@@ -225,7 +225,7 @@ namespace nt2 { namespace ext
         char uplo = 'L';
         nt2_la_int  wn = a3.main_size();
 
-        NT2_F77NAME(zsysv) ( &uplo, &n, &nhrs, a0.raw(), &ld, a1.raw(), a2.raw()
+        NT2_F77NAME(zsysv) ( &uplo, &n, &nhrs, a0.data(), &ld, a1.data(), a2.data()
                            , &ldb, a3.main(), &wn, &that
                             );
         return that;
@@ -284,7 +284,7 @@ namespace nt2 { namespace ext
         char uplo = 'L';
         nt2_la_int  wn = a3.main_size();
 
-        NT2_F77NAME(csysv) ( &uplo, &n, &nhrs, a0.raw(), &ld, a1.raw(), a2.raw()
+        NT2_F77NAME(csysv) ( &uplo, &n, &nhrs, a0.data(), &ld, a1.data(), a2.data()
                            , &ldb, a3.main(), &wn, &that
                             );
         return that;

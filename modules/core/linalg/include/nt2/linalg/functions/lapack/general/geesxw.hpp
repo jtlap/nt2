@@ -140,9 +140,9 @@ namespace nt2 { namespace ext
       nt2_la_int wint = wk.integers_need();
       NT2_F77NAME(sgeesx) ( &jobu, &sort
                           , nt2::details::selectall2, &sense
-                          , &n, a.raw()
+                          , &n, a.data()
                           , &lda, &sdim_
-                          , wr.raw(),  wi.raw()
+                          , wr.data(),  wi.data()
                           , 0, &ldu
                           , 0, 0
                           , wk.main(), &wn
@@ -180,9 +180,9 @@ namespace nt2 { namespace ext
        nt2_la_int wint = wk.integers_need();
        NT2_F77NAME(dgeesx) ( &jobu, &sort
                            , nt2::details::selectall2, &sense
-                           , &n, a.raw()
+                           , &n, a.data()
                            , &lda, &sdim_
-                           , wr.raw(), wi.raw()
+                           , wr.data(), wi.data()
                            , 0, &ldu
                            , 0, 0
                            , wk.main(), &wn
@@ -260,9 +260,9 @@ namespace nt2 { namespace ext
       w.resize(of_size(n, 1));
       NT2_F77NAME(zgeesx) ( &jobu, &sort
                           , nt2::details::selectall, &sense
-                          , &n, a.raw()
+                          , &n, a.data()
                           , &lda, &sdim_
-                          , w.raw(), 0
+                          , w.data(), 0
                           , &ldu, 0
                           , 0, wk.main()
                           , &wn, wk.reals()
@@ -339,9 +339,9 @@ namespace nt2 { namespace ext
       nt2_la_int wn =  nt2::sqr(n+1);
       NT2_F77NAME(cgeesx) ( &jobu, &sort
                           , nt2::details::selectall, &sense
-                          , &n, a.raw()
+                          , &n, a.data()
                           , &lda, &sdim_
-                          , w.raw(), 0
+                          , w.data(), 0
                           , &ldu, 0
                           , 0, wk.main()
                           , &wn, wk.reals()

@@ -79,12 +79,12 @@ namespace nt2 { namespace ext
         nt2_la_int  nhrs = nt2::width(a1);
         nt2_la_int  ldb = a1.leading_size();
 
-        details::magma_buffer<double>     dA(m,n   ,a0.raw());
-        details::magma_buffer<double>     dX(m,nhrs, a1.raw());
+        details::magma_buffer<double>     dA(m,n   ,a0.data());
+        details::magma_buffer<double>     dX(m,nhrs, a1.data());
 
-        magma_dgels_gpu('N',m,n,nhrs,dA.raw(),m,dX.raw(),ldb,a2.main(),wn,&that);
+        magma_dgels_gpu('N',m,n,nhrs,dA.data(),m,dX.data(),ldb,a2.main(),wn,&that);
 
-        dX.raw( a1.raw() );
+        dX.raw( a1.data() );
 
         return that;
   }
@@ -140,12 +140,12 @@ namespace nt2 { namespace ext
       nt2_la_int  nhrs = nt2::width(a1);
       nt2_la_int  ldb = a1.leading_size();
 
-      details::magma_buffer<float>     dA(m,n   ,a0.raw());
-      details::magma_buffer<float>     dX(m,nhrs, a1.raw());
+      details::magma_buffer<float>     dA(m,n   ,a0.data());
+      details::magma_buffer<float>     dX(m,nhrs, a1.data());
 
-      magma_sgels_gpu('N',m,n,nhrs,dA.raw(),m,dX.raw(),ldb,a2.main(),wn,&that);
+      magma_sgels_gpu('N',m,n,nhrs,dA.data(),m,dX.data(),ldb,a2.main(),wn,&that);
 
-      dX.raw( a1.raw() );
+      dX.raw( a1.data() );
 
       return that;
     }

@@ -92,7 +92,7 @@ namespace nt2 { namespace ext
 
       // FIXME: this static_cast isn't really safe
       nt2_expr c(basic_expr::make(static_cast<base_t&>(*boost::proto::value(a0).base())));
-      std::size_t b = c.raw()-a0.raw();
+      std::size_t b = c.data()-a0.data();
       nt2::erase(c, nt2::aggregate(_(b+1u, b+numel(a0))));
       return a0;
     }

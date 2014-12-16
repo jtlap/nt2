@@ -12,9 +12,10 @@
 #pragma warning(disable: 4996) // std::transform on pointers may be unsafe
 #endif
 
-#include <nt2/sdk/memory/array_buffer.hpp>
+#include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/sdk/memory/composite_buffer.hpp>
 #include <boost/fusion/include/adapt_struct.hpp>
+#include <boost/simd/memory/aligned_array.hpp>
 
 #include <boost/fusion/include/io.hpp>
 #include <boost/fusion/include/make_vector.hpp>
@@ -83,9 +84,9 @@ NT2_TEST_CASE( composite_buffer_typing )
 }
 
 //==============================================================================
-// Checks proper composite internal typedefs based on array_buffer
+// Checks proper composite internal typedefs based on aligned_array
 //==============================================================================
-NT2_TEST_CASE( composite_array_buffer_typing )
+NT2_TEST_CASE( composite_aligned_array_typing )
 {
   using boost::mpl::_;
   using nt2::meta::value_type_;
@@ -95,39 +96,39 @@ NT2_TEST_CASE( composite_array_buffer_typing )
   using nt2::meta::const_pointer_;
   using nt2::memory::composite_buffer;
   using nt2::container::composite_reference;
-  using nt2::memory::array_buffer;
+  using boost::simd::aligned_array;
 
-  NT2_TEST_EXPR_TYPE( (composite_buffer< array_buffer<foo,boost::mpl::int_<1> > >())
+  NT2_TEST_EXPR_TYPE( (composite_buffer< aligned_array<foo,3,16> >())
                     , data_type_
                     , ( boost::fusion::
-                        vector3 < array_buffer<double,boost::mpl::int_<1> >
-                                , array_buffer<float,boost::mpl::int_<1> >
-                                , array_buffer<short,boost::mpl::int_<1> >
+                        vector3 < aligned_array<double,3,16>
+                                , aligned_array<float,3,16>
+                                , aligned_array<short,3,16>
                                 >
                       )
                     );
 
-  NT2_TEST_EXPR_TYPE( (composite_buffer< array_buffer<foo,boost::mpl::int_<1> > >())
+  NT2_TEST_EXPR_TYPE( (composite_buffer< aligned_array<foo,3> >())
                     , value_type_<_>
                     , (foo)
                     );
 
-  NT2_TEST_EXPR_TYPE( (composite_buffer< array_buffer<foo,boost::mpl::int_<1> > >())
+  NT2_TEST_EXPR_TYPE( (composite_buffer< aligned_array<foo,3> >())
                     , reference_<_>
                     , (composite_reference<foo>)
                     );
 
-  NT2_TEST_EXPR_TYPE( (composite_buffer< array_buffer<foo,boost::mpl::int_<1> > >())
+  NT2_TEST_EXPR_TYPE( (composite_buffer< aligned_array<foo,3> >())
                     , const_reference_<_>
                     , (composite_reference<foo const>)
                     );
 
-  NT2_TEST_EXPR_TYPE( (composite_buffer< array_buffer<foo,boost::mpl::int_<1> > >())
+  NT2_TEST_EXPR_TYPE( (composite_buffer< aligned_array<foo,3> >())
                     , pointer_<_>
                     , (boost::fusion::vector3<double*,float*,short*>)
                     );
 
-  NT2_TEST_EXPR_TYPE( (composite_buffer< array_buffer<foo,boost::mpl::int_<1> > >())
+  NT2_TEST_EXPR_TYPE( (composite_buffer< aligned_array<foo,3> >())
                     , const_pointer_<_>
                     , (boost::fusion::vector3<double const*,float const*,short const*>)
                     );
@@ -475,9 +476,9 @@ NT2_TEST_CASE_TPL(buffer_push_back, NT2_TYPES )
 }
 
 //==============================================================================
-// Test for buffer push_back range
+// Test for buffer append range
 //==============================================================================
-NT2_TEST_CASE(buffer_push_back_range)
+NT2_TEST_CASE(buffer_append_range)
 {
   using nt2::memory::buffer;
   using nt2::memory::composite_buffer;
@@ -496,7 +497,7 @@ NT2_TEST_CASE(buffer_push_back_range)
     b[i] = f;
   }
 
-  x.push_back(b.begin(),b.end());
+  x.append(b.begin(),b.end());
 
   NT2_TEST_EQUAL(x.size() , 12u );
   NT2_TEST_GREATER_EQUAL(x.capacity(), 12u );

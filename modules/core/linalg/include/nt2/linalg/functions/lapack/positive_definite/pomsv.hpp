@@ -68,8 +68,8 @@ namespace nt2 { namespace ext
         nt2::memory::container<tag::table_, f_t, nt2::_2D> swork(nt2::of_size(n*(n+nhrs),1));
         w.resize_main(n*nhrs);
 
-        NT2_F77NAME(dsposv)( &uplo, &n, &nhrs, a0.raw(), &lda, a1.raw()
-                           , &ldb, a2.raw(), &ldb , w.main(), swork.raw()
+        NT2_F77NAME(dsposv)( &uplo, &n, &nhrs, a0.data(), &lda, a1.data()
+                           , &ldb, a2.data(), &ldb , w.main(), swork.data()
                            , &iter, &info
                            );
         return iter;
@@ -103,9 +103,9 @@ namespace nt2 { namespace ext
         nt2::memory::container<tag::table_, f_t, nt2::_2D> swork(nt2::of_size(n*(n+nhrs),1));
         w.resize_main(n*nhrs);
 
-        NT2_F77NAME(zcposv)( &uplo, &n, &nhrs, a0.raw(), &lda, a1.raw()
-                           , &ldb, a2.raw(), &ldb , w.main(), swork.raw()
-                           , rwork.raw(), &iter, &info
+        NT2_F77NAME(zcposv)( &uplo, &n, &nhrs, a0.data(), &lda, a1.data()
+                           , &ldb, a2.data(), &ldb , w.main(), swork.data()
+                           , rwork.data(), &iter, &info
                            );
         return iter;
      }

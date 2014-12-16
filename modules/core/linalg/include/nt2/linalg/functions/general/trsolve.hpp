@@ -19,7 +19,7 @@
 #include <nt2/core/container/dsl/size.hpp>
 #include <nt2/core/container/dsl/alias.hpp>
 #include <nt2/core/container/dsl/as_terminal.hpp>
-#include <nt2/core/container/dsl/assign_swap.hpp>
+#include <nt2/core/utility/assign_swap.hpp>
 #include <nt2/sdk/memory/forward/container.hpp>
 #include <boost/dispatch/meta/terminal_of.hpp>
 #include <nt2/sdk/memory/category.hpp>

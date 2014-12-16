@@ -22,6 +22,7 @@
 #include <nt2/sdk/memory/adapted/container.hpp>
 #include <nt2/sdk/memory/composite_buffer.hpp>
 #include <boost/dispatch/meta/ignore_unused.hpp>
+#include <nt2/sdk/meta/container_traits.hpp>
 #include <boost/fusion/include/is_sequence.hpp>
 #include <boost/mpl/at.hpp>
 #include <boost/assert.hpp>
@@ -110,7 +111,7 @@ namespace nt2 { namespace memory
                                   >::type               specific_data_type;
 
     /// @brief Allocator type used by the Container
-    typedef typename buffer_type::allocator_type   allocator_type;
+    typedef typename meta::allocator_type_<buffer_type>::type   allocator_type;
 
     /// @brief Value type stored by the Container
     typedef typename buffer_type::value_type       value_type;
@@ -161,22 +162,21 @@ namespace nt2 { namespace memory
     typedef typename meta::option < Settings
                                   , tag::storage_duration_
                                   , Kind
-                                  >::type                     duration_t;
+                                  >::type::storage_duration_type    duration_t;
 
+    typedef boost::is_same<duration_t,automatic_> is_automatic_t;
     /// INTERNAL ONLY Check if static initialization is required
     /// This is true for non-automatic, non-empty container
     typedef boost::mpl::
             bool_ <   ! ( boost::mpl::at_c<typename extent_type::values_type,0>
                                     ::type::value <= 0
                         )
-                  &&  !boost::is_same<duration_t,automatic_>::value
+                  &&  !is_automatic_t::value
                   >                                         require_static_init;
 
     /// INTERNAL ONLY detects if container size is known at compile time
     typedef boost::mpl::
-            bool_ <   extent_type::static_status
-                  ||  boost::is_same<duration_t,automatic_>::value
-                  >                                         has_static_size;
+            bool_ <extent_type::static_status || is_automatic_t::value> has_static_size;
 
     /*!
       @brief Default constructor
@@ -277,7 +277,10 @@ namespace nt2 { namespace memory
     //==========================================================================
     template<typename Size> void resize( Size const& szs )
     {
-      resize(szs,boost::mpl::bool_<!extent_type::static_status>());
+      resize( szs
+            , boost::mpl::bool_<extent_type::static_status>()
+            , typename is_automatic_t::type()
+            );
     }
 
     //==========================================================================
@@ -310,12 +313,12 @@ namespace nt2 { namespace memory
       else
         sizes_[d] += (d < c.extent().size()) ? c.extent()[d] : 1u;
 
-      data_.push_back(c.begin(), c.end());
+      nt2::memory::append(data_,c.begin(), c.end());
     };
 
     template<typename Container> void push_back(Container const& c)
     {
-      return push_back(c, nt2::ndims(c.extent()));
+      return this->push_back(c, nt2::ndims(c.extent()));
     }
 
     /*!
@@ -356,10 +359,10 @@ namespace nt2 { namespace memory
       @brief Raw memory accessor
       @return Pointer to the raw memory of the container
     **/
-    BOOST_FORCEINLINE pointer       raw()       { return data_.raw(); }
+    BOOST_FORCEINLINE pointer       data()       { return data_.data(); }
 
     /// @overload
-    BOOST_FORCEINLINE const_pointer raw() const { return data_.raw(); }
+    BOOST_FORCEINLINE const_pointer data() const { return data_.data(); }
 
     /*!
       @brief Container's beginning of data
@@ -397,9 +400,6 @@ namespace nt2 { namespace memory
       return data_[i];
     }
 
-    // Check if a position is safely R/W in the current container
-    BOOST_FORCEINLINE bool is_safe(size_type p) const { return data_.is_safe(p); }
-
     protected:
 
     /// INTERNAL ONLY
@@ -418,10 +418,25 @@ namespace nt2 { namespace memory
     template<typename Size> BOOST_FORCEINLINE
     void init(Size const&, boost::mpl::false_ const& ) {}
 
-    /// INTERNAL ONLY
-    /// Handle the resize of statically sized container
+    /// INTERNAL ONLY - Handle the resize of statically sized container
     template<typename Size> BOOST_FORCEINLINE
-    void resize( Size const& szs, boost::mpl::true_ const& )
+    void resize ( Size const& szs
+                , boost::mpl::true_ const&
+                , boost::mpl::true_ const&
+                )
+    {
+      boost::dispatch::ignore_unused(szs);
+      BOOST_ASSERT_MSG( szs == extent_type()
+                      , "Statically sized container can't be resized dynamically"
+                      );
+    }
+
+    /// INTERNAL ONLY - Handle the resize of dynamic container
+    template<typename Size> BOOST_FORCEINLINE
+    void resize ( Size const& szs
+                , boost::mpl::false_ const&
+                , boost::mpl::false_ const&
+                )
     {
       if( szs != sizes_ )
       {
@@ -430,13 +445,21 @@ namespace nt2 { namespace memory
       }
     }
 
+    /// INTERNAL ONLY - Handle the resize of container with static storage_size
     template<typename Size> BOOST_FORCEINLINE
-    void resize( Size const& szs, boost::mpl::false_ const& )
+    void resize ( Size const& szs
+                , boost::mpl::false_ const&
+                , boost::mpl::true_ const&
+                )
     {
-      BOOST_ASSERT_MSG( szs == extent_type()
-                      , "Statically sized container can't be resized dynamically"
-                      );
-      boost::dispatch::ignore_unused(szs);
+      typedef typename meta::option<Settings,tag::storage_size_,Kind>::type ss_t;
+
+      BOOST_ASSERT_MSG
+      (  nt2::numel(szs) <= ss_t::storage_size_type::value
+      , "Resizing over available storage size"
+      );
+
+      sizes_ = extent_type(szs);
     }
 
     private:

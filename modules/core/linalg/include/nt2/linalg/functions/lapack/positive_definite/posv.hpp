@@ -63,7 +63,7 @@ namespace nt2 { namespace ext
         nt2_la_int  nhrs = nt2::width(a1);
         char uplo = 'L';
 
-        NT2_F77NAME(dposv) ( &uplo, &n, &nhrs, a0.raw(), &ld, a1.raw(), &ldb
+        NT2_F77NAME(dposv) ( &uplo, &n, &nhrs, a0.data(), &ld, a1.data(), &ldb
                            , &that
                             );
 
@@ -92,7 +92,7 @@ namespace nt2 { namespace ext
         char uplo = 'L';
 
 
-        NT2_F77NAME(sposv) ( &uplo, &n, &nhrs, a0.raw(), &ld, a1.raw(), &ldb
+        NT2_F77NAME(sposv) ( &uplo, &n, &nhrs, a0.data(), &ld, a1.data(), &ldb
                            , &that
                             );
 
@@ -118,7 +118,7 @@ namespace nt2 { namespace ext
         nt2_la_int  nhrs = nt2::width(a1);
         char uplo = 'L';
 
-        NT2_F77NAME(zposv) ( &uplo, &n, &nhrs, a0.raw(), &ld, a1.raw(), &ldb
+        NT2_F77NAME(zposv) ( &uplo, &n, &nhrs, a0.data(), &ld, a1.data(), &ldb
                            , &that
                             );
 
@@ -144,7 +144,7 @@ namespace nt2 { namespace ext
         nt2_la_int  nhrs = nt2::width(a1);
         char uplo = 'L';
 
-        NT2_F77NAME(cposv) ( &uplo, &n, &nhrs, a0.raw(), &ld, a1.raw(), &ldb
+        NT2_F77NAME(cposv) ( &uplo, &n, &nhrs, a0.data(), &ld, a1.data(), &ldb
                            , &that
                             );
 

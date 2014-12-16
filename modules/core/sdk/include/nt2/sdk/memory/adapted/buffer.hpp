@@ -22,6 +22,15 @@ namespace nt2 { namespace memory
   template< typename T
           , typename Allocator = boost::simd::allocator<T>
           > class buffer;
+
+  //============================================================================
+  // External append
+  //============================================================================
+    template<typename T, typename A, typename Iterator>
+    BOOST_FORCEINLINE void append( buffer<T,A>& c, Iterator b, Iterator e )
+    {
+      c.append(b,e);
+    }
 } }
 
 namespace boost { namespace dispatch { namespace meta

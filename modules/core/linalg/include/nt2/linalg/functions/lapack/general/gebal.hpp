@@ -43,9 +43,9 @@ namespace nt2 { namespace ext
         BOOST_ASSERT_MSG(n == nt2_la_int(nt2::height(a)), "input must be square");
         nt2_la_int  lda = nt2::max(a.leading_size(), One<size_t>());
         NT2_F77NAME(dgebal) (&job, &n
-                            , a.raw(), &lda
+                            , a.data(), &lda
                             , &ilo, &ihi
-                            , scale.raw(), &info);
+                            , scale.data(), &info);
         return info;
      }
   };
@@ -71,9 +71,9 @@ namespace nt2 { namespace ext
         BOOST_ASSERT_MSG(n == nt2_la_int(nt2::height(a)), "input must be square");
         nt2_la_int  lda = nt2::max(a.leading_size(), One<size_t>());
         NT2_F77NAME(sgebal) (&job, &n
-                            , a.raw(), &lda
+                            , a.data(), &lda
                             , &ilo, &ihi
-                            , scale.raw(), &info);
+                            , scale.data(), &info);
         return info;
      }
   };
@@ -99,9 +99,9 @@ namespace nt2 { namespace ext
         BOOST_ASSERT_MSG(n == nt2_la_int(nt2::height(a)), "input must be square");
         nt2_la_int  lda = nt2::max(a.leading_size(), One<size_t>());
         NT2_F77NAME(cgebal) (&job, &n
-                            , a.raw(), &lda
+                            , a.data(), &lda
                             , &ilo, &ihi
-                            , scale.raw(), &info);
+                            , scale.data(), &info);
         return info;
      }
   };
@@ -127,9 +127,9 @@ namespace nt2 { namespace ext
         BOOST_ASSERT_MSG(n == nt2_la_int(nt2::height(a)), "input must be square");
         nt2_la_int  lda = nt2::max(a.leading_size(), One<size_t>());
         NT2_F77NAME(zgebal) (&job, &n
-                            , a.raw(), &lda
+                            , a.data(), &lda
                             , &ilo, &ihi
-                            , scale.raw(), &info);
+                            , scale.data(), &info);
         return info;
      }
   };

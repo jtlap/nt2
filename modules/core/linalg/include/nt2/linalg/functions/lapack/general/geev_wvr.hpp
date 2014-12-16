@@ -200,10 +200,10 @@ namespace nt2 { namespace ext
       nt2_la_int ldvr = rvr.leading_size();
       NT2_F77NAME(dgeev) ( &jobvl, &jobvr
                          , &n
-                         , a.raw() , &lda
-                         , wr.raw(), wi.raw()
+                         , a.data() , &lda
+                         , wr.data(), wi.data()
                          , 0, &ldvl
-                         , rvr.raw(), &ldvr
+                         , rvr.data(), &ldvr
                          , wk.main(), &wn
                          , &info);
       details::combine_eigens(wr, wi, w);
@@ -239,10 +239,10 @@ namespace nt2 { namespace ext
       nt2_la_int ldvr = rvr.leading_size();
       NT2_F77NAME(sgeev) ( &jobvl, &jobvr
                          , &n
-                         , a.raw() , &lda
-                         , wr.raw(), wi.raw()
+                         , a.data() , &lda
+                         , wr.data(), wi.data()
                          , 0, &ldvl
-                         , rvr.raw(), &ldvr
+                         , rvr.data(), &ldvr
                          , wk.main(), &wn
                          , &info);
       details::combine_eigens(wr, wi, w);
@@ -281,10 +281,10 @@ namespace nt2 { namespace ext
        w.resize(of_size(n, 1));
        NT2_F77NAME(cgeev) ( &jobvl, &jobvr
                           , &n
-                          , a.raw() , &lda
-                          , w.raw()
+                          , a.data() , &lda
+                          , w.data()
                           , 0, &ldvl
-                          , vr.raw(), &ldvr
+                          , vr.data(), &ldvr
                           , wk.main(), &wn
                           , wk.reals()
                           , &info);
@@ -320,10 +320,10 @@ namespace nt2 { namespace ext
        w.resize(of_size(n, 1));
        NT2_F77NAME(zgeev) ( &jobvl, &jobvr
                           , &n
-                          , a.raw() , &lda
-                          , w.raw()
+                          , a.data() , &lda
+                          , w.data()
                           , 0, &ldvl
-                          , vr.raw(), &ldvr
+                          , vr.data(), &ldvr
                           , wk.main(), &wn
                           , wk.reals()
                           , &info);

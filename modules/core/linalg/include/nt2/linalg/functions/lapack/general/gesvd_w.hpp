@@ -73,7 +73,7 @@ namespace nt2 { namespace ext
         nt2_la_int ldvt= 1;
         nt2_la_int wn = w.main_size();
         char job =  'N';
-        NT2_F77NAME(dgesvd) ( &job, &job, &m, &n, a0.raw(), &ld, s.raw(), 0, &ldu
+        NT2_F77NAME(dgesvd) ( &job, &job, &m, &n, a0.data(), &ld, s.data(), 0, &ldu
                             , 0, &ldvt, w.main()
                             , &wn, &info
                             );
@@ -136,7 +136,7 @@ namespace nt2 { namespace ext
         nt2_la_int  wn = w.main_size();
         char job =  'N';
 
-        NT2_F77NAME(sgesvd) ( &job, &job, &m, &n, a0.raw(), &ld, s.raw(), 0, &ldu
+        NT2_F77NAME(sgesvd) ( &job, &job, &m, &n, a0.data(), &ld, s.data(), 0, &ldu
                             , 0, &ldvt, w.main()
                             , &wn, &info
                             );
@@ -201,7 +201,7 @@ namespace nt2 { namespace ext
         nt2_la_int  wn = w.main_size();
         char job =  'N';
 
-        NT2_F77NAME(cgesvd) ( &job, &job, &m, &n, a0.raw(), &ld, s.raw(), 0, &ldu
+        NT2_F77NAME(cgesvd) ( &job, &job, &m, &n, a0.data(), &ld, s.data(), 0, &ldu
                             , 0, &ldvt, w.main()
                             , &wn, w.reals(), &info
                             );
@@ -263,7 +263,7 @@ namespace nt2 { namespace ext
         nt2_la_int wn = w.main_size();
         char job =  'N';
 
-        NT2_F77NAME(zgesvd) ( &job,&job,&m, &n, a0.raw(), &ld, s.raw(), 0, &ldu
+        NT2_F77NAME(zgesvd) ( &job,&job,&m, &n, a0.data(), &ld, s.data(), 0, &ldu
                             , 0, &ldvt, w.main()
                             , &wn, w.reals(), &info
                             );

@@ -43,7 +43,7 @@ namespace nt2 { namespace ext
         nt2_la_int n   = nt2::width(a0);
         nt2_la_int lda = a0.leading_size();
 
-        magma_dpotrf(a1,n,a0.raw(),lda,&that);
+        magma_dpotrf(a1,n,a0.data(),lda,&that);
 
         return that;
      }
@@ -65,7 +65,7 @@ namespace nt2 { namespace ext
         nt2_la_int n   = nt2::width(a0);
         nt2_la_int lda = a0.leading_size();
 
-        magma_spotrf(a1,n,a0.raw(),lda,&that);
+        magma_spotrf(a1,n,a0.data(),lda,&that);
 
         return that;
      }
@@ -87,7 +87,7 @@ namespace nt2 { namespace ext
         nt2_la_int n   = nt2::width(a0);
         nt2_la_int lda = a0.leading_size();
 
-        magma_zpotrf(a1,n,(cuDoubleComplex*)a0.raw(),lda,&that);
+        magma_zpotrf(a1,n,(cuDoubleComplex*)a0.data(),lda,&that);
 
         return that;
      }
@@ -109,7 +109,7 @@ namespace nt2 { namespace ext
         nt2_la_int n   = nt2::width(a0);
         nt2_la_int lda = a0.leading_size();
 
-        magma_cpotrf(a1,n,(cuFloatComplex*)a0.raw(),lda,&that);
+        magma_cpotrf(a1,n,(cuFloatComplex*)a0.data(),lda,&that);
 
         return that;
      }

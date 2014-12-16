@@ -67,7 +67,7 @@ namespace nt2 { namespace ext
       nt2_la_int  wn = a2.main_size();
 
       // Perform computation
-      NT2_F77NAME(dgetri) ( &n, a0.raw(), &ld, a1.raw()
+      NT2_F77NAME(dgetri) ( &n, a0.data(), &ld, a1.data()
                           , a2.main(), &wn
                           , &that
                           );
@@ -94,7 +94,7 @@ namespace nt2 { namespace ext
       nt2_la_int  wn = a2.main_size();
 
       // Perform computation
-      NT2_F77NAME(sgetri) ( &n, a0.raw(), &ld, a1.raw()
+      NT2_F77NAME(sgetri) ( &n, a0.data(), &ld, a1.data()
                           , a2.main(), &wn
                           , &that
                           );
@@ -122,7 +122,7 @@ namespace nt2 { namespace ext
       nt2_la_int  wn = a2.main_size();
 
       // Perform computation
-      NT2_F77NAME(cgetri) ( &n, a0.raw(), &ld, a1.raw()
+      NT2_F77NAME(cgetri) ( &n, a0.data(), &ld, a1.data()
                           , a2.main(), &wn
                           , &that
                           );
@@ -150,7 +150,7 @@ namespace nt2 { namespace ext
       nt2_la_int  wn = a2.main_size();
 
       // Perform computation
-      NT2_F77NAME(zgetri) ( &n, a0.raw(), &ld, a1.raw()
+      NT2_F77NAME(zgetri) ( &n, a0.data(), &ld, a1.data()
                           , a2.main(), &wn
                           , &that
                           );
@@ -177,8 +177,8 @@ namespace nt2 { namespace ext
       nt2_la_int  ld = a0.leading_size();
 
       // How much memory do I need ?
-      NT2_F77NAME(dgetri) ( &n, a0.raw(), &ld
-                          , a1.raw(), w.main(), details::query()
+      NT2_F77NAME(dgetri) ( &n, a0.data(), &ld
+                          , a1.data(), w.main(), details::query()
                           , &that
                           );
 
@@ -207,8 +207,8 @@ namespace nt2 { namespace ext
       nt2_la_int  ld = a0.leading_size();
 
       // How much memory do I need ?
-      NT2_F77NAME(sgetri) ( &n, a0.raw(), &ld
-                          , a1.raw(), w.main(), details::query()
+      NT2_F77NAME(sgetri) ( &n, a0.data(), &ld
+                          , a1.data(), w.main(), details::query()
                           , &that
                           );
 
@@ -237,8 +237,8 @@ namespace nt2 { namespace ext
       nt2_la_int  ld = a0.leading_size();
 
       // How much memory do I need ?
-      NT2_F77NAME(zgetri) ( &n, a0.raw(), &ld
-                          , a1.raw(), w.main(), details::query()
+      NT2_F77NAME(zgetri) ( &n, a0.data(), &ld
+                          , a1.data(), w.main(), details::query()
                           , &that
                           );
 
@@ -268,8 +268,8 @@ namespace nt2 { namespace ext
       nt2_la_int  ld = a0.leading_size();
 
       // How much memory do I need ?
-      NT2_F77NAME(cgetri) ( &n, a0.raw(), &ld
-                          , a1.raw(), w.main(), details::query()
+      NT2_F77NAME(cgetri) ( &n, a0.data(), &ld
+                          , a1.data(), w.main(), details::query()
                           , &that
                           );
 

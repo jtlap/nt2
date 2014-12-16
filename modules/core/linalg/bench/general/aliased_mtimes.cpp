@@ -54,10 +54,10 @@ struct gemm_test
     nt2::details::gemm( "N", "N"
                       , &n_, &n_, &n_
                       , &alpha
-                      , a1.raw(), &n_
-                      , a2.raw(), &n_
+                      , a1.data(), &n_
+                      , a2.data(), &n_
                       , &beta
-                      , a3.raw(), &n_
+                      , a3.data(), &n_
                       );
     a1 = a3;
   }

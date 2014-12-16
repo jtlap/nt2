@@ -70,11 +70,11 @@ namespace nt2 { namespace ext
      if(a1 =='I')
      {
         nt2::memory::container<tag::table_, result_type, nt2::_2D> work(nt2::of_size(n,1));
-        norm = NT2_F77NAME(dlangb)( &a1, &n, &kl, &ku, a0.raw(), &ld, work.raw());
+        norm = NT2_F77NAME(dlangb)( &a1, &n, &kl, &ku, a0.data(), &ld, work.data());
       }
       else
       {
-        norm = NT2_F77NAME(dlangb)( &a1, &n, &kl, &ku, a0.raw(), &ld, 0);
+        norm = NT2_F77NAME(dlangb)( &a1, &n, &kl, &ku, a0.data(), &ld, 0);
       }
 
       return norm;
@@ -103,11 +103,11 @@ namespace nt2 { namespace ext
      if(a1 =='I')
      {
         nt2::memory::container<tag::table_, result_type, nt2::_2D> work(nt2::of_size(n,1));
-        norm = NT2_F77NAME(slangb)( &a1, &n, &kl, &ku, a0.raw(), &ld, work.raw());
+        norm = NT2_F77NAME(slangb)( &a1, &n, &kl, &ku, a0.data(), &ld, work.data());
       }
       else
       {
-        norm = NT2_F77NAME(slangb)( &a1, &n, &kl, &ku, a0.raw(), &ld, 0);
+        norm = NT2_F77NAME(slangb)( &a1, &n, &kl, &ku, a0.data(), &ld, 0);
       }
 
       return norm;
@@ -137,11 +137,11 @@ namespace nt2 { namespace ext
      if(a1 =='I')
      {
         nt2::memory::container<tag::table_, result_type, nt2::_2D> work(nt2::of_size(n,1));
-        norm = NT2_F77NAME(clangb)( &a1, &n, &kl, &ku, a0.raw(), &ld, work.raw());
+        norm = NT2_F77NAME(clangb)( &a1, &n, &kl, &ku, a0.data(), &ld, work.data());
       }
       else
       {
-        norm = NT2_F77NAME(clangb)( &a1, &n, &kl, &ku, a0.raw(), &ld, 0);
+        norm = NT2_F77NAME(clangb)( &a1, &n, &kl, &ku, a0.data(), &ld, 0);
       }
 
       return norm;
@@ -171,11 +171,11 @@ namespace nt2 { namespace ext
      if(a1 =='I')
      {
         nt2::memory::container<tag::table_, result_type, nt2::_2D> work(nt2::of_size(n,1));
-        norm = NT2_F77NAME(zlangb)( &a1, &n, &kl, &ku, a0.raw(), &ld, work.raw());
+        norm = NT2_F77NAME(zlangb)( &a1, &n, &kl, &ku, a0.data(), &ld, work.data());
       }
       else
       {
-        norm = NT2_F77NAME(zlangb)( &a1, &n, &kl, &ku, a0.raw(), &ld, 0);
+        norm = NT2_F77NAME(zlangb)( &a1, &n, &kl, &ku, a0.data(), &ld, 0);
       }
 
       return norm;
