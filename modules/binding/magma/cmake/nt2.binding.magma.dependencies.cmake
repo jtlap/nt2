@@ -7,18 +7,18 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
- set(MAGMA_FOUND 0)
- if(DEFINED MAGMA_CXX_FLAGS AND NOT MAGMA_CXX_FLAGS)
-   set(MAGMA_FOUND 0)
- else()
+set(MAGMA_FOUND 0)
+if(DEFINED MAGMA_CXX_FLAGS AND NOT MAGMA_CXX_FLAGS)
+  set(MAGMA_FOUND 0)
+else()
 
- if(NOT DEFINED MAGMA_ROOT AND DEFINED ENV{MAGMA_ROOT})
-   set(MAGMA_ROOT $ENV{MAGMA_ROOT})
- endif()
+  if(NOT DEFINED MAGMA_ROOT AND DEFINED ENV{MAGMA_ROOT})
+    set(MAGMA_ROOT $ENV{MAGMA_ROOT})
+  endif()
 
- if(NOT DEFINED INTEL_ROOT)
-   set(INTEL_ROOT /opt/intel/composerxe)
- endif()
+  if(NOT DEFINED INTEL_ROOT)
+    set(INTEL_ROOT /opt/intel/composerxe)
+  endif()
 
   # try to find libmagma
   find_library( MAGMA_MAGMA_LIBRARY
