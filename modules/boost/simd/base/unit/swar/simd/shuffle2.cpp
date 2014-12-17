@@ -39,7 +39,6 @@ template<typename T, int IA, int IB> void binary_shuffle()
 {
   using boost::simd::shuffle;
   using boost::simd::meta::vector_of;
-  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef typename vector_of<T,2>::type    vT;
 
   vT ref, a, b;
