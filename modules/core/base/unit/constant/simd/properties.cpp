@@ -76,9 +76,6 @@ NT2_TEST_CASE_TPL(ieee, BOOST_SIMD_SIMD_TYPES)
   typedef typename boost::dispatch::meta
                                   ::as_integer<n_t>::type type;
 
-  typedef typename boost::dispatch::meta
-                                  ::as_integer<n_t,signed>::type s_type;
-
   NT2_TEST_EXPR_TYPE( nt2::Nbmantissabits<n_t>()
                     , boost::mpl::_
                     , (type)
