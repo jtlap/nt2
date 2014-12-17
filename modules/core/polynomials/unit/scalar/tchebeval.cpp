@@ -31,7 +31,6 @@ NT2_TEST_CASE_TPL ( tchebeval_real__2_0,  NT2_REAL_TYPES)
 
   using nt2::tchebeval;
   using nt2::tag::tchebeval_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
   typedef boost::array<T, 3 > A_t;
   typedef typename nt2::meta::call<tchebeval_(T,A_t)>::type r_t;
   typedef typename boost::dispatch::meta::as_floating<T>::type wished_r_t;

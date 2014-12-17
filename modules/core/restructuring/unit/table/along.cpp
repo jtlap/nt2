@@ -76,7 +76,6 @@ NT2_TEST_CASE_TPL( along_vect, NT2_REAL_TYPES )
 NT2_TEST_CASE_TPL( along_write, NT2_REAL_TYPES )
 {
   using nt2::_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
 
   nt2::table<T> y   = zeros( nt2::of_size(3, 4, 2, 3), nt2::meta::as_<T>() );
   nt2::table<T> ref = T(3)*ones( nt2::of_size(3, 4, 2, 3), nt2::meta::as_<T>() );

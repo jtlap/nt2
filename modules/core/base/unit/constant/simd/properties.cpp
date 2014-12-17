@@ -24,49 +24,31 @@
 
 NT2_TEST_CASE_TPL(allbits, BOOST_SIMD_SIMD_TYPES)
 {
-  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef boost::simd::native<T,ext_t>  n_t;
-
   NT2_CHECK_CONSTANT(Allbits , nt2::Allbits<T>() , T);
 }
 
 NT2_TEST_CASE_TPL(bitincrement, BOOST_SIMD_SIMD_TYPES)
 {
-  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef boost::simd::native<T,ext_t>  n_t;
-
   NT2_CHECK_CONSTANT(Bitincrement , nt2::Bitincrement<T>() , T);
 }
 
 NT2_TEST_CASE_TPL(signmask, BOOST_SIMD_SIMD_TYPES)
 {
-  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef boost::simd::native<T,ext_t>  n_t;
-
   NT2_CHECK_CONSTANT(Signmask , nt2::Signmask<T>() , T);
 }
 
 NT2_TEST_CASE_TPL(sqrtvalmax, BOOST_SIMD_SIMD_TYPES)
 {
-  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef boost::simd::native<T,ext_t>  n_t;
-
   NT2_CHECK_CONSTANT(Sqrtvalmax , nt2::Sqrtvalmax<T>() , T);
 }
 
 NT2_TEST_CASE_TPL(valmax, BOOST_SIMD_SIMD_TYPES)
 {
-  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef boost::simd::native<T,ext_t>  n_t;
-
   NT2_CHECK_CONSTANT(Valmax , nt2::Valmax<T>() , T);
 }
 
 NT2_TEST_CASE_TPL(valmin, BOOST_SIMD_SIMD_TYPES)
 {
-  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef boost::simd::native<T,ext_t>  n_t;
-
   NT2_CHECK_CONSTANT(Valmin , nt2::Valmin<T>() , T);
 }
 

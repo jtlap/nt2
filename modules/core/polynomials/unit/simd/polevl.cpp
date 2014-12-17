@@ -27,7 +27,6 @@ NT2_TEST_CASE_TPL ( polevl_real__2_0,  NT2_SIMD_REAL_TYPES)
   using nt2::tag::polevl_;
   using boost::simd::native;
 
-  typedef boost::array<T, 4 >         A_t;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef native<T,ext_t>             vT;
 

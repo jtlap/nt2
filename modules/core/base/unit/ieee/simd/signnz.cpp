@@ -32,7 +32,6 @@ NT2_TEST_CASE_TPL ( signnz_real__1_0,  NT2_SIMD_REAL_TYPES)
 
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef native<T,ext_t>                        vT;
-  typedef typename nt2::meta::call<signnz_(vT)>::type r_t;
   typedef typename nt2::meta::call<signnz_(T)>::type sr_t;
 
   // specific values tests

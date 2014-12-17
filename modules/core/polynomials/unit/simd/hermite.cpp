@@ -43,7 +43,6 @@ NT2_TEST_CASE_TPL ( hermite_real__2_0,  NT2_SIMD_REAL_TYPES)
   typedef native<T,ext_t>                        n_t;
   typedef n_t                                     vT;
   typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<hermite_(iT,vT)>::type r_t;
   typedef typename nt2::meta::call<hermite_(iT,T)>::type sr_t;
 
 

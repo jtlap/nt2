@@ -31,9 +31,7 @@ NT2_TEST_CASE_TPL ( predecessor_real__1_0,  NT2_SIMD_REAL_TYPES)
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef native<T,ext_t>                        n_t;
   typedef n_t                                     vT;
-  typedef typename nt2::meta::call<predecessor_(vT)>::type r_t;
   typedef typename nt2::meta::call<predecessor_(T)>::type sr_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
 
   // specific values tests
   NT2_TEST_EQUAL(predecessor(nt2::Inf<vT>())[0], nt2::Valmax<sr_t>());

@@ -32,7 +32,6 @@ NT2_TEST_CASE_TPL ( plevl_real__2_0,  NT2_REAL_TYPES)
   using nt2::plevl;
   using nt2::tag::plevl_;
   typedef boost::array<T, 3 > A_t;
-  typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<plevl_(T,A_t)>::type r_t;
   typedef typename boost::dispatch::meta::as_floating<T>::type wished_r_t;
 
