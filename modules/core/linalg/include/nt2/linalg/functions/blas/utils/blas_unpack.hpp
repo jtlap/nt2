@@ -57,7 +57,6 @@ namespace nt2 { namespace ext
     typedef typename  boost::proto::result_of::child_c<A1&,2>::type         in_type;
     typedef typename  meta::strip<in_type>::type                           sin_type;
     typedef typename  sin_type::value_type                                   type_t;
-    typedef nt2::container::table<type_t>                                     tab_t;
     typedef typename meta::is_complex<type_t>::type                      is_cmplx_t;
     result_type operator()(A0& out, const A1& in) const
     {

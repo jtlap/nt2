@@ -50,6 +50,8 @@ SET ( SOURCES
   blas_band.cpp
   blas_unband.cpp
   blas_gbmv.cpp
+  blas_band_h.cpp
+  blas_unband_h.cpp
   )
 
 nt2_module_add_tests(core.linalg.blas.unit ${SOURCES})
