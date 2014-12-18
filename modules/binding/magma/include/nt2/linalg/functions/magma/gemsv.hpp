@@ -47,7 +47,6 @@ namespace nt2 { namespace ext
         nt2_la_int  nhrs = nt2::width(a1);
         nt2_la_int  ldb = a1.leading_size();
         nt2_la_int iter,info;
-        char trans = 'N';
 
         nt2::container::table<double> copyb(nt2::of_size(ldb,nhrs));
         copyb = a1;
@@ -64,7 +63,7 @@ namespace nt2 { namespace ext
         details::magma_buffer<double>     dB(n,nhrs, copyb.data());
         details::magma_buffer<double>     dX(n,nhrs);
 
-        magma_dsgesv_gpu( trans             , n          , nhrs
+        magma_dsgesv_gpu( MagmaNoTrans       , n          , nhrs
                         , dA.data()          , lda        , ipiv.data()
                         , dipiv.data()       , dB.data()   , ldb
                         , dX.data()          , ldb        , dwork.data()
@@ -95,7 +94,6 @@ namespace nt2 { namespace ext
         nt2_la_int  nhrs = nt2::width(a1);
         nt2_la_int  ldb = a1.leading_size();
         nt2_la_int iter,info;
-        char trans = 'N';
 
         nt2::container::table<nt2_la_int> ipiv(nt2::of_size(n,1));
         A1 copyb(a1);
@@ -108,7 +106,7 @@ namespace nt2 { namespace ext
         details::magma_buffer<dComplex>     dB(n,nhrs, copyb.data());
         details::magma_buffer<dComplex>     dX(n,nhrs);
 
-        magma_zcgesv_gpu( trans                        , n          , nhrs
+        magma_zcgesv_gpu( MagmaNoTrans                  , n          , nhrs
                         , (cuDoubleComplex*)dA.data()   , lda        , ipiv.data()
                         , dipiv.data(), (cuDoubleComplex*)dB.data()   , ldb
                         , (cuDoubleComplex*)dX.data()   , ldb        , (cuDoubleComplex*)dwork.data()

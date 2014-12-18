@@ -25,6 +25,7 @@
 #include <nt2/linalg/details/utility/workspace.hpp>
 
 #include <magma.h>
+#include <cctype>
 
 namespace nt2 { namespace ext
 {
@@ -54,13 +55,18 @@ namespace nt2 { namespace ext
         nt2_la_int ldvt= vt.leading_size() > 1 ? vt.leading_size() : 1 ;
         nt2_la_int lwork_query = -1;
 
-        magma_dgesvd(jobu,jobvt,m, n, 0, ld, 0, 0, ldu
+        char c = std::toupper(jobu);
+        magma_vec_t magma_jobu  = c == 'A' ? MagmaAllVec : c == 'S' ? MagmaSomeVec : c == 'O' ? MagmaOverwriteVec : c == 'N' ? MagmaNoVec : (magma_vec_t)0;
+        c = std::toupper(jobvt);
+        magma_vec_t magma_jobvt = c == 'A' ? MagmaAllVec : c == 'S' ? MagmaSomeVec : c == 'O' ? MagmaOverwriteVec : c == 'N' ? MagmaNoVec : (magma_vec_t)0;
+
+        magma_dgesvd(magma_jobu,magma_jobvt,m, n, 0, ld, 0, 0, ldu
                             , 0, ldvt, w.main()
                             , lwork_query, &that
                             );
 
-          w.prepare_main();
-          nt2::gesvd(a0,s,u,vt,jobu,jobvt,w);
+        w.prepare_main();
+        nt2::gesvd(a0,s,u,vt,jobu,jobvt,w);
 
         return that;
      }
@@ -91,7 +97,12 @@ namespace nt2 { namespace ext
         nt2_la_int ldvt= vt.leading_size() > 1 ? vt.leading_size() : 1 ;
         nt2_la_int  wn = w.main_size();
 
-        magma_dgesvd( jobu,jobvt,m, n, a0.data(), ld, s.data(), u.data(), ldu
+        char c = std::toupper(jobu);
+        magma_vec_t magma_jobu  = c == 'A' ? MagmaAllVec : c == 'S' ? MagmaSomeVec : c == 'O' ? MagmaOverwriteVec : c == 'N' ? MagmaNoVec : (magma_vec_t)0;
+        c = std::toupper(jobvt);
+        magma_vec_t magma_jobvt = c == 'A' ? MagmaAllVec : c == 'S' ? MagmaSomeVec : c == 'O' ? MagmaOverwriteVec : c == 'N' ? MagmaNoVec : (magma_vec_t)0;
+
+        magma_dgesvd( magma_jobu,magma_jobvt,m, n, a0.data(), ld, s.data(), u.data(), ldu
                             , vt.data(), ldvt, w.main()
                             , wn, &that
                             );
@@ -126,13 +137,18 @@ namespace nt2 { namespace ext
         nt2_la_int ldvt= vt.leading_size() > 1 ? vt.leading_size() : 1 ;
         nt2_la_int lwork_query = -1;
 
-        magma_sgesvd(jobu,jobvt,m, n, 0, ld, 0, 0, ldu
+        char c = std::toupper(jobu);
+        magma_vec_t magma_jobu  = c == 'A' ? MagmaAllVec : c == 'S' ? MagmaSomeVec : c == 'O' ? MagmaOverwriteVec : c == 'N' ? MagmaNoVec : (magma_vec_t)0;
+        c = std::toupper(jobvt);
+        magma_vec_t magma_jobvt = c == 'A' ? MagmaAllVec : c == 'S' ? MagmaSomeVec : c == 'O' ? MagmaOverwriteVec : c == 'N' ? MagmaNoVec : (magma_vec_t)0;
+
+        magma_sgesvd(magma_jobu,magma_jobvt,m, n, 0, ld, 0, 0, ldu
                             , 0, ldvt, w.main()
                             , lwork_query, &that
                             );
 
-          w.prepare_main();
-          nt2::gesvd(a0,s,u,vt,jobu,jobvt,w);
+        w.prepare_main();
+        nt2::gesvd(a0,s,u,vt,jobu,jobvt,w);
 
         return that;
      }
@@ -163,7 +179,12 @@ namespace nt2 { namespace ext
         nt2_la_int ldvt= vt.leading_size() > 1 ? vt.leading_size() : 1 ;
         nt2_la_int  wn = w.main_size();
 
-        magma_sgesvd( jobu,jobvt,m, n, a0.data(), ld, s.data(), u.data(), ldu
+        char c = std::toupper(jobu);
+        magma_vec_t magma_jobu  = c == 'A' ? MagmaAllVec : c == 'S' ? MagmaSomeVec : c == 'O' ? MagmaOverwriteVec : c == 'N' ? MagmaNoVec : (magma_vec_t)0;
+        c = std::toupper(jobvt);
+        magma_vec_t magma_jobvt = c == 'A' ? MagmaAllVec : c == 'S' ? MagmaSomeVec : c == 'O' ? MagmaOverwriteVec : c == 'N' ? MagmaNoVec : (magma_vec_t)0;
+
+        magma_sgesvd( magma_jobu,magma_jobvt,m, n, a0.data(), ld, s.data(), u.data(), ldu
                             , vt.data(), ldvt, w.main()
                             , wn, &that
                             );
@@ -198,13 +219,18 @@ namespace nt2 { namespace ext
         nt2_la_int ldvt= vt.leading_size() > 1 ? vt.leading_size() : 1 ;
         nt2_la_int lwork_query = -1;
 
-        magma_cgesvd( jobu,jobvt,m, n, 0, ld, 0, 0, ldu
+        char c = std::toupper(jobu);
+        magma_vec_t magma_jobu  = c == 'A' ? MagmaAllVec : c == 'S' ? MagmaSomeVec : c == 'O' ? MagmaOverwriteVec : c == 'N' ? MagmaNoVec : (magma_vec_t)0;
+        c = std::toupper(jobvt);
+        magma_vec_t magma_jobvt = c == 'A' ? MagmaAllVec : c == 'S' ? MagmaSomeVec : c == 'O' ? MagmaOverwriteVec : c == 'N' ? MagmaNoVec : (magma_vec_t)0;
+
+        magma_cgesvd( magma_jobu,magma_jobvt,m, n, 0, ld, 0, 0, ldu
                             , 0, ldvt, (cuFloatComplex*)w.main()
                             , lwork_query, 0, &that
                             );
 
-          w.prepare_main();
-          nt2::gesvd(a0,s,u,vt,jobu,jobvt,w);
+        w.prepare_main();
+        nt2::gesvd(a0,s,u,vt,jobu,jobvt,w);
 
         return that;
      }
@@ -234,9 +260,14 @@ namespace nt2 { namespace ext
         nt2_la_int ldvt= vt.leading_size() > 1 ? vt.leading_size() : 1 ;
         nt2_la_int  wn = w.main_size();
 
+        char c = std::toupper(jobu);
+        magma_vec_t magma_jobu  = c == 'A' ? MagmaAllVec : c == 'S' ? MagmaSomeVec : c == 'O' ? MagmaOverwriteVec : c == 'N' ? MagmaNoVec : (magma_vec_t)0;
+        c = std::toupper(jobvt);
+        magma_vec_t magma_jobvt = c == 'A' ? MagmaAllVec : c == 'S' ? MagmaSomeVec : c == 'O' ? MagmaOverwriteVec : c == 'N' ? MagmaNoVec : (magma_vec_t)0;
+
         nt2::container::table<float> rwork(nt2::of_size(5*std::min(m,n),1));
 
-        magma_cgesvd( jobu,jobvt,m, n, (cuFloatComplex*)a0.data(), ld, s.data()
+        magma_cgesvd( magma_jobu,magma_jobvt,m, n, (cuFloatComplex*)a0.data(), ld, s.data()
                             , (cuFloatComplex*)u.data(), ldu
                             , (cuFloatComplex*)vt.data(), ldvt, (cuFloatComplex*)w.main()
                             , wn, rwork.data(), &that
@@ -270,13 +301,18 @@ namespace nt2 { namespace ext
         nt2_la_int ldvt= vt.leading_size() > 1 ? vt.leading_size() : 1 ;
         nt2_la_int lwork_query = -1;
 
-        magma_zgesvd(jobu,jobvt,m, n, 0, ld, 0, 0, ldu
+        char c = std::toupper(jobu);
+        magma_vec_t magma_jobu  = c == 'A' ? MagmaAllVec : c == 'S' ? MagmaSomeVec : c == 'O' ? MagmaOverwriteVec : c == 'N' ? MagmaNoVec : (magma_vec_t)0;
+        c = std::toupper(jobvt);
+        magma_vec_t magma_jobvt = c == 'A' ? MagmaAllVec : c == 'S' ? MagmaSomeVec : c == 'O' ? MagmaOverwriteVec : c == 'N' ? MagmaNoVec : (magma_vec_t)0;
+
+        magma_zgesvd(magma_jobu,magma_jobvt,m, n, 0, ld, 0, 0, ldu
                             , 0, ldvt, (cuDoubleComplex*)w.main()
                             , lwork_query, 0, &that
                             );
 
-          w.prepare_main();
-          nt2::gesvd(a0,s,u,vt,jobu,jobvt,w);
+        w.prepare_main();
+        nt2::gesvd(a0,s,u,vt,jobu,jobvt,w);
 
         return that;
      }
@@ -306,9 +342,14 @@ namespace nt2 { namespace ext
         nt2_la_int ldvt= vt.leading_size() > 1 ? vt.leading_size() : 1 ;
         nt2_la_int  wn = w.main_size();
 
+        char c = std::toupper(jobu);
+        magma_vec_t magma_jobu  = c == 'A' ? MagmaAllVec : c == 'S' ? MagmaSomeVec : c == 'O' ? MagmaOverwriteVec : c == 'N' ? MagmaNoVec : (magma_vec_t)0;
+        c = std::toupper(jobvt);
+        magma_vec_t magma_jobvt = c == 'A' ? MagmaAllVec : c == 'S' ? MagmaSomeVec : c == 'O' ? MagmaOverwriteVec : c == 'N' ? MagmaNoVec : (magma_vec_t)0;
+
         nt2::container::table<double> rwork(nt2::of_size(5*std::min(m,n),1));
 
-        magma_zgesvd( jobu,jobvt,m, n, (cuDoubleComplex*)a0.data(), ld, s.data()
+        magma_zgesvd( magma_jobu,magma_jobvt,m, n, (cuDoubleComplex*)a0.data(), ld, s.data()
                             , (cuDoubleComplex*)u.data(), ldu
                             , (cuDoubleComplex*)vt.data(), ldvt, (cuDoubleComplex*)w.main()
                             , wn, rwork.data(), &that
