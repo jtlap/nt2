@@ -21,4 +21,4 @@ SET ( SOURCES
       gels.cpp
    )
 
-nt2_module_add_tests(binding.linalg.magma.unit ${SOURCES})
+nt2_module_add_tests(binding.magma.linalg.unit ${SOURCES})
