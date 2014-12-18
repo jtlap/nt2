@@ -50,7 +50,7 @@ namespace nt2 { namespace ext
       nt2_la_int lda = a.leading_size();
       nt2_la_int ix= incx;
       nt2_la_int iy= incy;
-      NT2_F77NAME(ssymv) (&uplo, &n, &alpha, a.raw(), &lda, x.raw(), &ix, &beta, y.raw(), &iy);
+      NT2_F77NAME(ssymv) (&uplo, &n, &alpha, a.data(), &lda, x.data(), &ix, &beta, y.data(), &iy);
     }
   };
 
@@ -81,7 +81,7 @@ namespace nt2 { namespace ext
       nt2_la_int lda = a.leading_size();
       nt2_la_int ix= incx;
       nt2_la_int iy= incy;
-      NT2_F77NAME(dsymv) (&uplo, &n, &alpha, a.raw(), &lda, x.raw(), &ix, &beta, y.raw(), &iy);
+      NT2_F77NAME(dsymv) (&uplo, &n, &alpha, a.data(), &lda, x.data(), &ix, &beta, y.data(), &iy);
     }
   };
 
@@ -115,7 +115,7 @@ namespace nt2 { namespace ext
       nt2_la_int lda = a.leading_size();
       nt2_la_int ix= incx;
       nt2_la_int iy= incy;
-      NT2_F77NAME(csymv) (&uplo, &n, &alpha, a.raw(), &lda, x.raw(), &ix, &beta, y.raw(), &iy);
+      NT2_F77NAME(csymv) (&uplo, &n, &alpha, a.data(), &lda, x.data(), &ix, &beta, y.data(), &iy);
     }
   };
 
@@ -146,7 +146,7 @@ namespace nt2 { namespace ext
       nt2_la_int lda = a.leading_size();
       nt2_la_int ix= incx;
       nt2_la_int iy= incy;
-      NT2_F77NAME(zsymv) (&uplo, &n, &alpha, a.raw(), &lda, x.raw(), &ix, &beta, y.raw(), &iy);
+      NT2_F77NAME(zsymv) (&uplo, &n, &alpha, a.data(), &lda, x.data(), &ix, &beta, y.data(), &iy);
     }
   };
 

@@ -43,7 +43,7 @@ namespace nt2 { namespace ext
        nt2_la_int in = n;
        nt2_la_int ix= incx;
        nt2_la_int iy= incy;
-       NT2_F77NAME(sswap) (&in, x.raw(), &ix, y.raw(), &iy);
+       NT2_F77NAME(sswap) (&in, x.data(), &ix, y.data(), &iy);
      }
   };
 
@@ -67,7 +67,7 @@ namespace nt2 { namespace ext
       nt2_la_int in = n;
       nt2_la_int ix= incx;
       nt2_la_int iy= incy;
-      NT2_F77NAME(dswap) (&in, x.raw(), &ix, y.raw(), &iy);
+      NT2_F77NAME(dswap) (&in, x.data(), &ix, y.data(), &iy);
     }
   };
 
@@ -91,7 +91,7 @@ namespace nt2 { namespace ext
        nt2_la_int in = n;
        nt2_la_int ix= incx;
        nt2_la_int iy= incy;
-       NT2_F77NAME(cswap) (&in, x.raw(), &ix, y.raw(), &iy);
+       NT2_F77NAME(cswap) (&in, x.data(), &ix, y.data(), &iy);
      }
   };
 
@@ -115,7 +115,7 @@ namespace nt2 { namespace ext
       nt2_la_int in = n;
       nt2_la_int ix= incx;
       nt2_la_int iy= incy;
-      NT2_F77NAME(zswap) (&in, x.raw(), &ix, y.raw(), &iy);
+      NT2_F77NAME(zswap) (&in, x.data(), &ix, y.data(), &iy);
     }
   };
 

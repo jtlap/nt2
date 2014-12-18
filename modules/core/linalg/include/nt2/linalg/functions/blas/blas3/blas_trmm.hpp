@@ -49,7 +49,7 @@ namespace nt2 { namespace ext
       nt2_la_int n = width(b);
       nt2_la_int lda = a.leading_size();
       nt2_la_int ldb = b.leading_size();
-      NT2_F77NAME(strmm) (&side, &uplo, &trans, &diag, &m, &n, &alpha, a.raw(), &lda, b.raw(), &ldb);
+      NT2_F77NAME(strmm) (&side, &uplo, &trans, &diag, &m, &n, &alpha, a.data(), &lda, b.data(), &ldb);
     }
   };
 
@@ -80,7 +80,7 @@ namespace nt2 { namespace ext
       nt2_la_int n = width(b);
       nt2_la_int lda = a.leading_size();
       nt2_la_int ldb = b.leading_size();
-      NT2_F77NAME(dtrmm)  (&side, &uplo, &trans, &diag, &m, &n, &alpha, a.raw(), &lda, b.raw(), &ldb);
+      NT2_F77NAME(dtrmm)  (&side, &uplo, &trans, &diag, &m, &n, &alpha, a.data(), &lda, b.data(), &ldb);
     }
   };
 
@@ -114,7 +114,7 @@ namespace nt2 { namespace ext
       nt2_la_int n = width(b);
       nt2_la_int lda = a.leading_size();
       nt2_la_int ldb = b.leading_size();
-      NT2_F77NAME(ctrmm)  (&side, &uplo, &trans, &diag, &m, &n, &alpha, a.raw(), &lda, b.raw(), &ldb);
+      NT2_F77NAME(ctrmm)  (&side, &uplo, &trans, &diag, &m, &n, &alpha, a.data(), &lda, b.data(), &ldb);
     }
   };
 
@@ -145,7 +145,7 @@ namespace nt2 { namespace ext
       nt2_la_int n = width(b);
       nt2_la_int lda = a.leading_size();
       nt2_la_int ldb = b.leading_size();
-      NT2_F77NAME(ztrmm)  (&side, &uplo, &trans, &diag, &m, &n, &alpha, a.raw(), &lda, b.raw(), &ldb);
+      NT2_F77NAME(ztrmm)  (&side, &uplo, &trans, &diag, &m, &n, &alpha, a.data(), &lda, b.data(), &ldb);
     }
   };
 

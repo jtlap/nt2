@@ -51,7 +51,7 @@ namespace nt2 { namespace ext
       nt2_la_int n = iround(sqrt(oneplus(Eight<size_t>()*nn))) >> 1;
       nt2_la_int ix= incx;
       nt2_la_int iy= incy;
-      NT2_F77NAME(sspmv) (&uplo, &n, &alpha, a.raw(), x.raw(), &ix, &beta, y.raw(), &iy);
+      NT2_F77NAME(sspmv) (&uplo, &n, &alpha, a.data(), x.data(), &ix, &beta, y.data(), &iy);
     }
   };
 
@@ -82,7 +82,7 @@ namespace nt2 { namespace ext
       nt2_la_int n = iround(sqrt(oneplus(Eight<size_t>()*nn))) >> 1;
       nt2_la_int ix= incx;
       nt2_la_int iy= incy;
-      NT2_F77NAME(dspmv) (&uplo, &n, &alpha, a.raw(), x.raw(), &ix, &beta, y.raw(), &iy);
+      NT2_F77NAME(dspmv) (&uplo, &n, &alpha, a.data(), x.data(), &ix, &beta, y.data(), &iy);
     }
   };
 
@@ -116,7 +116,7 @@ namespace nt2 { namespace ext
       nt2_la_int n = iround(sqrt(oneplus(Eight<size_t>()*nn))) >> 1;
       nt2_la_int ix= incx;
       nt2_la_int iy= incy;
-      NT2_F77NAME(cspmv) (&uplo, &n, &alpha, a.raw(), x.raw(), &ix, &beta, y.raw(), &iy);
+      NT2_F77NAME(cspmv) (&uplo, &n, &alpha, a.data(), x.data(), &ix, &beta, y.data(), &iy);
     }
   };
 
@@ -147,7 +147,7 @@ namespace nt2 { namespace ext
       nt2_la_int n = iround(sqrt(oneplus(Eight<size_t>()*nn))) >> 1;
       nt2_la_int ix= incx;
       nt2_la_int iy= incy;
-      NT2_F77NAME(zspmv) (&uplo, &n, &alpha, a.raw(), x.raw(), &ix, &beta, y.raw(), &iy);
+      NT2_F77NAME(zspmv) (&uplo, &n, &alpha, a.data(), x.data(), &ix, &beta, y.data(), &iy);
     }
   };
 

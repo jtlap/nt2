@@ -35,7 +35,7 @@ namespace nt2 { namespace ext
                                      , A2& x1, A3& y1
                                      , A4& dparam) const
      {
-       NT2_F77NAME(srotmg) (&d1, &d2, &x1, &y1, dparam.raw());
+       NT2_F77NAME(srotmg) (&d1, &d2, &x1, &y1, dparam.data());
      }
   };
 
@@ -56,7 +56,7 @@ namespace nt2 { namespace ext
                                      , A2& x1, A3& y1
                                      , A4& dparam) const
      {
-       NT2_F77NAME(drotmg) (&d1, &d2, &x1, &y1, dparam.raw());
+       NT2_F77NAME(drotmg) (&d1, &d2, &x1, &y1, dparam.data());
      }
   };
 

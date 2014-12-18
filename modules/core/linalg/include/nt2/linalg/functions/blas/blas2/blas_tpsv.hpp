@@ -49,7 +49,7 @@ namespace nt2 { namespace ext
     {
       nt2_la_int n = iround(sqrt(oneplus(Eight<size_t>()*numel(a)))) >> 1;
       nt2_la_int ix= incx;
-      NT2_F77NAME(stpsv)  (&uplo, &trans, &diag, &n, a.raw(), x.raw(), &ix);
+      NT2_F77NAME(stpsv)  (&uplo, &trans, &diag, &n, a.data(), x.data(), &ix);
     }
   };
 
@@ -75,7 +75,7 @@ namespace nt2 { namespace ext
     {
       nt2_la_int n = iround(sqrt(oneplus(Eight<size_t>()*numel(a)))) >> 1;
       nt2_la_int ix= incx;
-      NT2_F77NAME(dtpsv) (&uplo, &trans, &diag, &n, a.raw(), x.raw(), &ix);
+      NT2_F77NAME(dtpsv) (&uplo, &trans, &diag, &n, a.data(), x.data(), &ix);
     }
   };
 
@@ -104,7 +104,7 @@ namespace nt2 { namespace ext
     {
       nt2_la_int n = iround(sqrt(oneplus(Eight<size_t>()*numel(a)))) >> 1;
       nt2_la_int ix= incx;
-      NT2_F77NAME(ctpsv) (&uplo, &trans, &diag, &n, a.raw(), x.raw(), &ix);
+      NT2_F77NAME(ctpsv) (&uplo, &trans, &diag, &n, a.data(), x.data(), &ix);
     }
   };
 
@@ -130,7 +130,7 @@ namespace nt2 { namespace ext
     {
       nt2_la_int n = iround(sqrt(oneplus(Eight<size_t>()*numel(a)))) >> 1;
       nt2_la_int ix= incx;
-      NT2_F77NAME(ztpsv) (&uplo, &trans, &diag, &n, a.raw(), x.raw(), &ix);
+      NT2_F77NAME(ztpsv) (&uplo, &trans, &diag, &n, a.data(), x.data(), &ix);
     }
   };
 

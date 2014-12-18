@@ -7,10 +7,10 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_LINALG_FUNCTIONS_BLAS_BLAS2_HPMV_HPP_INCLUDED
-#define NT2_LINALG_FUNCTIONS_BLAS_BLAS2_HPMV_HPP_INCLUDED
+#ifndef NT2_LINALG_FUNCTIONS_BLAS_BLAS2_HBMV_HPP_INCLUDED
+#define NT2_LINALG_FUNCTIONS_BLAS_BLAS2_HBMV_HPP_INCLUDED
 
-#include <nt2/linalg/functions/blas_hpmv.hpp>
+#include <nt2/linalg/functions/blas_hbmv.hpp>
 #include <nt2/linalg/details/blas/blas2.hpp>
 #include <nt2/include/functions/height.hpp>
 #include <nt2/linalg/details/utility/f77_wrapper.hpp>
@@ -25,7 +25,7 @@ namespace nt2 { namespace ext
 {
 // /---------------------------------------------Real-single------------------------------------------------//
 
-  BOOST_DISPATCH_IMPLEMENT  ( blas_hpmv_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( blas_hbmv_, tag::cpu_
                             , (UPLO)(ALPHA)(A)(SA)(X)(SX)(INCX)(BETA)(Y)(SY)(INCY)
                             , (scalar_<int8_<UPLO>>)// uplo
                               (scalar_<single_<ALPHA>>)//alpha
@@ -47,16 +47,17 @@ namespace nt2 { namespace ext
                                      , Y& y, const INCY & incy
                                      ) const
     {
-      size_t nn = numel(a);
-      nt2_la_int n = iround(sqrt(oneplus(Eight<size_t>()*nn))) >> 1;
+      nt2_la_int n = width(a);
+      nt2_la_int k = height(a)-1;
+      nt2_la_int lda = a.leading_size();
       nt2_la_int ix= incx;
       nt2_la_int iy= incy;
-      NT2_F77NAME(sspmv) (&uplo, &n, &alpha, a.data(), x.data(), &ix, &beta, y.data(), &iy);
+      NT2_F77NAME(ssbmv) (&uplo, &n, &k, &alpha, a.data(), &lda, x.data(), &ix, &beta, y.data(), &iy);
     }
   };
 
 // /---------------------------------------------Real-double------------------------------------------------//
-  BOOST_DISPATCH_IMPLEMENT  ( blas_hpmv_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( blas_hbmv_, tag::cpu_
                             , (UPLO)(ALPHA)(A)(SA)(X)(SX)(INCX)(BETA)(Y)(SY)(INCY)
                             , (scalar_<int8_<UPLO>>)// uplo
                               (scalar_<double_<ALPHA>>)//alpha
@@ -78,11 +79,12 @@ namespace nt2 { namespace ext
                                      , Y& y, const INCY & incy
                                      ) const
     {
-      size_t nn = numel(a);
-      nt2_la_int n = iround(sqrt(oneplus(Eight<size_t>()*nn))) >> 1;
+      nt2_la_int n = width(a);
+      nt2_la_int k = height(a)-1;
+      nt2_la_int lda = a.leading_size();
       nt2_la_int ix= incx;
       nt2_la_int iy= incy;
-      NT2_F77NAME(dspmv) (&uplo, &n, &alpha, a.data(), x.data(), &ix, &beta, y.data(), &iy);
+      NT2_F77NAME(dsbmv) (&uplo, &n, &k, &alpha, a.data(), &lda, x.data(), &ix, &beta, y.data(), &iy);
     }
   };
 
@@ -90,7 +92,7 @@ namespace nt2 { namespace ext
 
 // /---------------------------------------------Complex-single------------------------------------------------//
 
-  BOOST_DISPATCH_IMPLEMENT  ( blas_hpmv_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( blas_hbmv_, tag::cpu_
                             , (UPLO)(ALPHA)(A)(SA)(X)(SX)(INCX)(BETA)(Y)(SY)(INCY)
                             , (scalar_<int8_<UPLO>>)// uplo
                               (scalar_<complex_<single_<ALPHA>>>)//alpha
@@ -112,16 +114,17 @@ namespace nt2 { namespace ext
                                      , Y& y, const INCY & incy
                                      ) const
     {
-      size_t nn = numel(a);
-      nt2_la_int n = iround(sqrt(oneplus(Eight<size_t>()*nn))) >> 1;
+      nt2_la_int n = width(a);
+      nt2_la_int k = height(a)-1;
+      nt2_la_int lda = a.leading_size();
       nt2_la_int ix= incx;
       nt2_la_int iy= incy;
-      NT2_F77NAME(chpmv) (&uplo, &n, &alpha, a.data(), x.data(), &ix, &beta, y.data(), &iy);
+      NT2_F77NAME(chbmv) (&uplo, &n, &k, &alpha, a.data(), &lda, x.data(), &ix, &beta, y.data(), &iy);
     }
   };
 
 // /---------------------------------------------Complex-double------------------------------------------------//
-  BOOST_DISPATCH_IMPLEMENT  ( blas_hpmv_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( blas_hbmv_, tag::cpu_
                             , (UPLO)(ALPHA)(A)(SA)(X)(SX)(INCX)(BETA)(Y)(SY)(INCY)
                             , (scalar_<int8_<UPLO>>)// uplo
                               (scalar_<complex_<double_<ALPHA>>>)//alpha
@@ -143,11 +146,12 @@ namespace nt2 { namespace ext
                                      , Y& y, const INCY & incy
                                      ) const
     {
-      size_t nn = numel(a);
-      nt2_la_int n = iround(sqrt(oneplus(Eight<size_t>()*nn))) >> 1;
+      nt2_la_int n = width(a);
+      nt2_la_int k = height(a)-1;
+      nt2_la_int lda = a.leading_size();
       nt2_la_int ix= incx;
       nt2_la_int iy= incy;
-      NT2_F77NAME(zhpmv) (&uplo, &n, &alpha, a.data(), x.data(), &ix, &beta, y.data(), &iy);
+      NT2_F77NAME(zhbmv) (&uplo, &n, &k, &alpha, a.data(), &lda, x.data(), &ix, &beta, y.data(), &iy);
     }
   };
 

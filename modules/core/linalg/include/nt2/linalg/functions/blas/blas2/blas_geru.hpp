@@ -48,7 +48,7 @@ namespace nt2 { namespace ext
       nt2_la_int n = width(a);
       nt2_la_int ix = incx;
       nt2_la_int iy = incy;
-      NT2_F77NAME(sger) (&m, &n, &alpha, x.raw(), &ix, y.raw(), &iy, a.raw(), &lda);
+      NT2_F77NAME(sger) (&m, &n, &alpha, x.data(), &ix, y.data(), &iy, a.data(), &lda);
     }
   };
 
@@ -76,7 +76,7 @@ namespace nt2 { namespace ext
       nt2_la_int n = width(a);
       nt2_la_int ix = incx;
       nt2_la_int iy = incy;
-      NT2_F77NAME(dger) (&m, &n, &alpha, x.raw(), &ix, y.raw(), &iy, a.raw(), &lda);
+      NT2_F77NAME(dger) (&m, &n, &alpha, x.data(), &ix, y.data(), &iy, a.data(), &lda);
     }
   };
 
@@ -104,7 +104,7 @@ namespace nt2 { namespace ext
       nt2_la_int n = width(a);
       nt2_la_int ix = incx;
       nt2_la_int iy = incy;
-      NT2_F77NAME(cgeru)(&m, &n, &alpha, x.raw(), &ix, y.raw(), &iy, a.raw(), &lda);
+      NT2_F77NAME(cgeru)(&m, &n, &alpha, x.data(), &ix, y.data(), &iy, a.data(), &lda);
     }
   };
 
@@ -132,7 +132,7 @@ namespace nt2 { namespace ext
       nt2_la_int n = width(a);
       nt2_la_int ix = incx;
       nt2_la_int iy = incy;
-      NT2_F77NAME(zgeru) (&m, &n, &alpha, x.raw(), &ix, y.raw(), &iy, a.raw(), &lda);
+      NT2_F77NAME(zgeru) (&m, &n, &alpha, x.data(), &ix, y.data(), &iy, a.data(), &lda);
     }
   };
 

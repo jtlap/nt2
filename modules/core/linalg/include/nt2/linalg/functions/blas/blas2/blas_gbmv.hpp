@@ -56,7 +56,7 @@ namespace nt2 { namespace ext
       nt2_la_int lda = a.leading_size();
       nt2_la_int ix= incx;
       nt2_la_int iy= incy;
-      NT2_F77NAME(sgbmv) (&trans, &m, &n, &kl, &ku, &alpha, a.raw(), &lda, x.raw(), &ix, &beta, y.raw(), &iy);
+      NT2_F77NAME(sgbmv) (&trans, &m, &n, &kl, &ku, &alpha, a.data(), &lda, x.data(), &ix, &beta, y.data(), &iy);
     }
   };
 
@@ -95,7 +95,7 @@ namespace nt2 { namespace ext
       nt2_la_int lda = a.leading_size();
       nt2_la_int ix= incx;
       nt2_la_int iy= incy;
-      NT2_F77NAME(dgbmv) (&trans, &m, &n, &kl, &ku, &alpha, a.raw(), &lda, x.raw(), &ix, &beta, y.raw(), &iy);
+      NT2_F77NAME(dgbmv) (&trans, &m, &n, &kl, &ku, &alpha, a.data(), &lda, x.data(), &ix, &beta, y.data(), &iy);
     }
   };
 
@@ -137,7 +137,7 @@ namespace nt2 { namespace ext
       nt2_la_int lda = a.leading_size();
       nt2_la_int ix= incx;
       nt2_la_int iy= incy;
-      NT2_F77NAME(cgbmv) (&trans, &m, &n, &kl, &ku, &alpha, a.raw(), &lda, x.raw(), &ix, &beta, y.raw(), &iy);
+      NT2_F77NAME(cgbmv) (&trans, &m, &n, &kl, &ku, &alpha, a.data(), &lda, x.data(), &ix, &beta, y.data(), &iy);
     }
   };
 
@@ -176,7 +176,7 @@ namespace nt2 { namespace ext
       nt2_la_int lda = a.leading_size();
       nt2_la_int ix= incx;
       nt2_la_int iy= incy;
-      NT2_F77NAME(zgbmv) (&trans, &m, &n, &kl, &ku, &alpha, a.raw(), &lda, x.raw(), &ix, &beta, y.raw(), &iy);
+      NT2_F77NAME(zgbmv) (&trans, &m, &n, &kl, &ku, &alpha, a.data(), &lda, x.data(), &ix, &beta, y.data(), &iy);
     }
   };
 

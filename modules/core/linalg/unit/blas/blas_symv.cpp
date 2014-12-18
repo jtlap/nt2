@@ -126,7 +126,7 @@ NT2_TEST_CASE_TPL(blas_symvu2, NT2_REAL_TYPES )
     cT beta =  cT(1, 3);
     nt2::table<cT> z = y(_(1, 2, end_), _)*beta+alpha*mtimes(a, v(_(1, 2, end_), _));
     blas_symv('U', alpha, boost::proto::value(a), boost::proto::value(v), 2, beta, boost::proto::value(y), 2);
-    NT2_TEST_ULP_EQUAL(y(_(1, 2, end_), _), z, 1);
+    NT2_TEST_ULP_EQUAL(y(_(1, 2, end_), _), z, 2);
   }
 }
 

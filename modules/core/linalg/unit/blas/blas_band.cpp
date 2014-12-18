@@ -32,7 +32,7 @@ NT2_TEST_CASE_TPL(blas_band, NT2_REAL_TYPES )
     nt2::table<T> r = nt2::cons<T>(nt2::of_size(4, 5),
                                    0, 1, 2, 3, 6,
                                    7, 8, 9, 12, 13,
-                                   14, 15, 18, 19, 29,
+                                   14, 15, 18, 19, 20,
                                    0, 24, 25, 0, 0);
     b = blas_band(a, 2, 1);
     NT2_TEST_EQUAL(b, r);

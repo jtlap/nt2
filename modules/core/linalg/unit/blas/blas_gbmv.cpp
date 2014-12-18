@@ -104,7 +104,7 @@ NT2_TEST_CASE_TPL(blas_gbmv2, NT2_REAL_TYPES )
     cT beta =  cT(1, 3);
     nt2::table<cT> z = y(_(1, 2, end_), _)*beta+alpha*mtimes(a, v(_(1, 2, end_), _));
     blas_gbmv('N', 5, 1, alpha, boost::proto::value(ua), boost::proto::value(v), 2, beta, boost::proto::value(y), 2);
-    NT2_TEST_ULP_EQUAL(y(_(1, 2, end_), _), z, 3);
+    NT2_TEST_ULP_EQUAL(y(_(1, 2, end_), _), z, 4);
 
     nt2::table<cT> tz = y(_(1, 2, end_), _)*beta+alpha*mtimes(trans(a), v(_(1, 2, end_), _));
     blas_gbmv('T', 5, 1, alpha, boost::proto::value(ua), boost::proto::value(v), 2, beta, boost::proto::value(y), 2);

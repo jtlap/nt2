@@ -42,7 +42,7 @@ namespace nt2 { namespace ext
        nt2_la_int in = n;
        nt2_la_int ix = incx;
        nt2_la_int iy = incy;
-       return NT2_F77NAME(sdot) (&in, x.raw(), &ix, y.raw(), &iy);
+       return NT2_F77NAME(sdot) (&in, x.data(), &ix, y.data(), &iy);
      }
   };
 
@@ -66,7 +66,7 @@ namespace nt2 { namespace ext
       nt2_la_int in = n;
       nt2_la_int ix = incx;
       nt2_la_int iy = incy;
-      return NT2_F77NAME(ddot) (&in, x.raw(), &ix, y.raw(), &iy);
+      return NT2_F77NAME(ddot) (&in, x.data(), &ix, y.data(), &iy);
     }
   };
 
@@ -91,7 +91,7 @@ namespace nt2 { namespace ext
        nt2_la_int ix = incx;
        nt2_la_int iy = incy;
        result_type r;
-       NT2_F77NAME(cdotu) (&r, &in, x.raw(), &ix, y.raw(), &iy);
+       NT2_F77NAME(cdotu) (&r, &in, x.data(), &ix, y.data(), &iy);
        return r;
      }
   };
@@ -117,7 +117,7 @@ namespace nt2 { namespace ext
       nt2_la_int ix = incx;
       nt2_la_int iy = incy;
       result_type r;
-      NT2_F77NAME(zdotu) (&r, &in, x.raw(), &ix, y.raw(), &iy);
+      NT2_F77NAME(zdotu) (&r, &in, x.data(), &ix, y.data(), &iy);
       return r;
     }
   };

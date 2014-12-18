@@ -46,7 +46,7 @@ namespace nt2 { namespace ext
        nt2_la_int in = n;
        nt2_la_int ix= incx;
        nt2_la_int iy= incy;
-       NT2_F77NAME(srot) (&in, x.raw(), &ix, y.raw(), &iy, &c, &s);
+       NT2_F77NAME(srot) (&in, x.data(), &ix, y.data(), &iy, &c, &s);
      }
   };
 
@@ -73,7 +73,7 @@ namespace nt2 { namespace ext
       nt2_la_int in = n;
       nt2_la_int ix= incx;
       nt2_la_int iy= incy;
-      NT2_F77NAME(drot) (&in, x.raw(), &ix, y.raw(), &iy, &c, &s);
+      NT2_F77NAME(drot) (&in, x.data(), &ix, y.data(), &iy, &c, &s);
     }
   };
 

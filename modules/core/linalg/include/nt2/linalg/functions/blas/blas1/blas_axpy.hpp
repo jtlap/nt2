@@ -42,7 +42,7 @@ namespace nt2 { namespace ext
       nt2_la_int in =n;
       nt2_la_int ix =incx;
       nt2_la_int iy =incy;
-      NT2_F77NAME(saxpy) (&in, &alpha, x.raw(), &ix, y.raw(), &iy);
+      NT2_F77NAME(saxpy) (&in, &alpha, x.data(), &ix, y.data(), &iy);
     }
   };
 
@@ -68,7 +68,7 @@ namespace nt2 { namespace ext
       nt2_la_int in = n;
       nt2_la_int ix =incx;
       nt2_la_int iy =incy;
-      NT2_F77NAME(daxpy) (&in, &alpha, x.raw(), &ix, y.raw(), &iy);
+      NT2_F77NAME(daxpy) (&in, &alpha, x.data(), &ix, y.data(), &iy);
     }
   };
 
@@ -95,7 +95,7 @@ namespace nt2 { namespace ext
       nt2_la_int in =n;
       nt2_la_int ix =incx;
       nt2_la_int iy =incy;
-      NT2_F77NAME(caxpy) (&in, &alpha, x.raw(), &ix, y.raw(), &iy);
+      NT2_F77NAME(caxpy) (&in, &alpha, x.data(), &ix, y.data(), &iy);
     }
   };
 
@@ -120,7 +120,7 @@ namespace nt2 { namespace ext
       nt2_la_int in = n;
       nt2_la_int ix =incx;
       nt2_la_int iy =incy;
-      NT2_F77NAME(zaxpy) (&in, &alpha, x.raw(), &ix, y.raw(), &iy);
+      NT2_F77NAME(zaxpy) (&in, &alpha, x.data(), &ix, y.data(), &iy);
     }
   };
 } }

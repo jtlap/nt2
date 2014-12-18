@@ -40,7 +40,7 @@ namespace nt2 { namespace ext
      {
        nt2_la_int in = n;
        nt2_la_int ix= incx;
-       return NT2_F77NAME(isamax) (&in, x.raw(), &ix);
+       return NT2_F77NAME(isamax) (&in, x.data(), &ix);
      }
   };
 
@@ -60,7 +60,7 @@ namespace nt2 { namespace ext
     {
       nt2_la_int in = n;
       nt2_la_int ix= incx;
-      return NT2_F77NAME(idamax) (&in, x.raw(), &ix);
+      return NT2_F77NAME(idamax) (&in, x.data(), &ix);
     }
   };
 
@@ -80,7 +80,7 @@ namespace nt2 { namespace ext
      {
        nt2_la_int in = n;
        nt2_la_int ix= incx;
-       return NT2_F77NAME(icamax) (&in, x.raw(), &ix);
+       return NT2_F77NAME(icamax) (&in, x.data(), &ix);
      }
   };
 
@@ -100,7 +100,7 @@ namespace nt2 { namespace ext
     {
       nt2_la_int in = n;
       nt2_la_int ix= incx;
-      return NT2_F77NAME(izamax) (&in, x.raw(), &ix);
+      return NT2_F77NAME(izamax) (&in, x.data(), &ix);
     }
   };
 
