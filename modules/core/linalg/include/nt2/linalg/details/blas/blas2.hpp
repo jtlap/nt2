@@ -124,12 +124,9 @@ extern "C"
                       const nt2_la_int* incx);
 
   void NT2_F77NAME(stbsv)(const char* uplo, const char* trans, const char* diag,
-                      const nt2_la_int* N, const float* A, float* dx,
-                      const nt2_la_int* incx);
+                      const nt2_la_int* N, const nt2_la_int* K, const float* A,
+                      const nt2_la_int* lda , float* dx, const nt2_la_int* incx);
 
-  void NT2_F77NAME(stbsv)(const char* uplo, const char* trans, const char* diag,
-                      const nt2_la_int* N, const float* Ap, float* dx,
-                      const nt2_la_int* incx);
 
   void NT2_F77NAME(stpsv)(const char* uplo, const char* trans, const char* diag,
                       const nt2_la_int* N, const float* Ap, float* dx,
