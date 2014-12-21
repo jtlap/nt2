@@ -43,6 +43,8 @@ SET ( SOURCES
   blas_trsm.cpp
   blas_pack.cpp
   blas_unpack.cpp
+  blas_hpr.cpp
+  blas_spr.cpp
   blas_hpmv.cpp
   blas_spmv.cpp
   blas_tpmv.cpp
