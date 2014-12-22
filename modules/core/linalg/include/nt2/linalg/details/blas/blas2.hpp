@@ -235,9 +235,13 @@ extern "C"
                           const nt2_la_complex* dx, const nt2_la_int* incx, const nt2_la_complex* dy,
                           const nt2_la_int* incy, nt2_la_complex* A, const nt2_la_int* lda);
 
-//   void NT2_F77NAME(zspr2)(const char* uplo, const nt2_la_int* N, const nt2_la_complex* alpha,
-//                       const nt2_la_complex* dx, const nt2_la_int* incx, const nt2_la_complex* dy,
-//                       const nt2_la_int* incy, nt2_la_complex* A);
+  void NT2_F77NAME(zspr2)(const char* uplo, const nt2_la_int* N, const nt2_la_complex* alpha,
+                          const nt2_la_complex* dx, const nt2_la_int* incx, const nt2_la_complex* dy,
+                          const nt2_la_int* incy, nt2_la_complex* A);
+
+  void NT2_F77NAME(zhpr2)(const char* uplo, const nt2_la_int* N, const nt2_la_complex* alpha,
+                          const nt2_la_complex* dx, const nt2_la_int* incx, const nt2_la_complex* dy,
+                          const nt2_la_int* incy, nt2_la_complex* A);
   // complex, simple precision
   void NT2_F77NAME(cgemv)(const char* trans, const nt2_la_int* M, const nt2_la_int* N,
                           const nt2_la_complex* alpha, const nt2_la_complex* A, const nt2_la_int* lda,
@@ -322,9 +326,13 @@ extern "C"
                           const nt2_la_complex* dx, const nt2_la_int* incx, const nt2_la_complex* dy,
                           const nt2_la_int* incy, nt2_la_complex* A, const nt2_la_int* lda);
 
-//   void NT2_F77NAME(cspr2)(const char* uplo, const nt2_la_int* N, const nt2_la_complex* alpha,
-//                       const nt2_la_complex* dx, const nt2_la_int* incx, const nt2_la_complex* dy,
-//                       const nt2_la_int* incy, nt2_la_complex* A);
+  void NT2_F77NAME(cspr2)(const char* uplo, const nt2_la_int* N, const nt2_la_complex* alpha,
+                          const nt2_la_complex* dx, const nt2_la_int* incx, const nt2_la_complex* dy,
+                          const nt2_la_int* incy, nt2_la_complex* A);
+
+  void NT2_F77NAME(chpr2)(const char* uplo, const nt2_la_int* N, const nt2_la_complex* alpha,
+                          const nt2_la_complex* dx, const nt2_la_int* incx, const nt2_la_complex* dy,
+                          const nt2_la_int* incy, nt2_la_complex* A);
 }
 
 #endif
