@@ -46,6 +46,7 @@ SET ( SOURCES
   blas_hpr.cpp
   blas_hpr2.cpp
   blas_spr.cpp
+  blas_spr2.cpp
   blas_hpmv.cpp
   blas_spmv.cpp
   blas_tpmv.cpp
