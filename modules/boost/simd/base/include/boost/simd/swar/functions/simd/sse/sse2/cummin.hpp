@@ -13,7 +13,6 @@
 #include <boost/simd/swar/functions/cummin.hpp>
 #include <boost/simd/include/functions/simd/min.hpp>
 #include <boost/simd/swar/include/functions/shuffle.hpp>
-#include <boost/dispatch/meta/as_integer.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

@@ -13,7 +13,6 @@
 #include <boost/simd/swar/functions/cummax.hpp>
 #include <boost/simd/swar/include/functions/shuffle.hpp>
 #include <boost/simd/include/functions/simd/max.hpp>
-#include <nt2/table.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
