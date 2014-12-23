@@ -52,22 +52,22 @@ NT2_TEST_CASE_TPL(blas_tbsv, NT2_REAL_TYPES )
     nt2::table<T> x1 = x;
     nt2::table<T> z = linsolve(triu(a), x1);
     blas_tbsv('U', 'N', 'N', boost::proto::value(ta), boost::proto::value(x), 1);
-    NT2_TEST_ULP_EQUAL(x, z, 2);
+    NT2_TEST_ULP_EQUAL(x, z, 3);
 
     x = x1;
     z = linsolve(tri1u(a), x1);
     blas_tbsv('U', 'N', 'U', boost::proto::value(ta), boost::proto::value(x), 1);
-    NT2_TEST_ULP_EQUAL(x, z, 2);
+    NT2_TEST_ULP_EQUAL(x, z, 3);
 
     x = x1;
     z = linsolve(trans(triu(a)), x1);
     blas_tbsv('U', 'T', 'N', boost::proto::value(ta), boost::proto::value(x), 1);
-    NT2_TEST_ULP_EQUAL(x, z, 2);
+    NT2_TEST_ULP_EQUAL(x, z, 3);
 
     x = x1;
     z = linsolve(trans(tri1u(a)), x1);
     blas_tbsv('U', 'T', 'U', boost::proto::value(ta), boost::proto::value(x), 1);
-    NT2_TEST_ULP_EQUAL(x, z, 2);
+    NT2_TEST_ULP_EQUAL(x, z, 3);
 
     a = band(reshape(_(T(1), T(4)), 2, 2), -1, 0);
     ta= blas_band(a, 1, 0);
@@ -77,22 +77,22 @@ NT2_TEST_CASE_TPL(blas_tbsv, NT2_REAL_TYPES )
     x1 = x;
     z = linsolve(tril(a), x1);
     blas_tbsv('L', 'N', 'N', boost::proto::value(ta), boost::proto::value(x), 1);
-    NT2_TEST_ULP_EQUAL(x, z, 2);
+    NT2_TEST_ULP_EQUAL(x, z, 3);
 
     x = x1;
     z = linsolve(tri1l(a), x1);
     blas_tbsv('L', 'N', 'U', boost::proto::value(ta), boost::proto::value(x), 1);
-    NT2_TEST_ULP_EQUAL(x, z, 2);
+    NT2_TEST_ULP_EQUAL(x, z, 3);
 
     x = x1;
     z = linsolve(trans(tril(a)), x1);
     blas_tbsv('L', 'T', 'N', boost::proto::value(ta), boost::proto::value(x), 1);
-    NT2_TEST_ULP_EQUAL(x, z, 2);
+    NT2_TEST_ULP_EQUAL(x, z, 3);
 
     x = x1;
     z = linsolve(trans(tri1l(a)), x1);
     blas_tbsv('L', 'T', 'U', boost::proto::value(ta), boost::proto::value(x), 1);
-    NT2_TEST_ULP_EQUAL(x, z, 2);
+    NT2_TEST_ULP_EQUAL(x, z, 3);
   }
 
   {
@@ -103,44 +103,44 @@ NT2_TEST_CASE_TPL(blas_tbsv, NT2_REAL_TYPES )
     nt2::table<cT> x1 = x;
     nt2::table<cT> z = linsolve(triu(a), x1);
     blas_tbsv('U', 'N', 'N', boost::proto::value(ta), boost::proto::value(x), 1);
-    NT2_TEST_ULP_EQUAL(x, z, 2);
+    NT2_TEST_ULP_EQUAL(x, z, 3);
 
     x = x1;
     z = linsolve(tri1u(a), x1);
     blas_tbsv('U', 'N', 'U', boost::proto::value(ta), boost::proto::value(x), 1);
-    NT2_TEST_ULP_EQUAL(x, z, 2);
+    NT2_TEST_ULP_EQUAL(x, z, 3);
 
     x = x1;
     z = linsolve(trans(triu(a)), x1);
     blas_tbsv('U', 'T', 'N', boost::proto::value(ta), boost::proto::value(x), 1);
-    NT2_TEST_ULP_EQUAL(x, z, 2);
+    NT2_TEST_ULP_EQUAL(x, z, 3);
 
     x = x1;
     z = linsolve(trans(tri1u(a)), x1);
     blas_tbsv('U', 'T', 'U', boost::proto::value(ta), boost::proto::value(x), 1);
-    NT2_TEST_ULP_EQUAL(x, z, 2);
+    NT2_TEST_ULP_EQUAL(x, z, 3);
 
     a = band(reshape(linspace(cT(1, 1), cT(4, 0), 4), 2, 2), -1, 0);
     ta= blas_band(a, 1, 0);
     x1 = x;
     z = linsolve(tril(a), x1);
     blas_tbsv('L', 'N', 'N', boost::proto::value(ta), boost::proto::value(x), 1);
-    NT2_TEST_ULP_EQUAL(x, z, 2);
+    NT2_TEST_ULP_EQUAL(x, z, 3);
 
     x = x1;
     z = linsolve(tri1l(a), x1);
     blas_tbsv('L', 'N', 'U', boost::proto::value(ta), boost::proto::value(x), 1);
-    NT2_TEST_ULP_EQUAL(x, z, 2);
+    NT2_TEST_ULP_EQUAL(x, z, 3);
 
     x = x1;
     z = linsolve(trans(tril(a)), x1);
     blas_tbsv('L', 'T', 'N', boost::proto::value(ta), boost::proto::value(x), 1);
-    NT2_TEST_ULP_EQUAL(x, z, 2);
+    NT2_TEST_ULP_EQUAL(x, z, 3);
 
     x = x1;
     z = linsolve(trans(tri1l(a)), x1);
     blas_tbsv('L', 'T', 'U', boost::proto::value(ta), boost::proto::value(x), 1);
-    NT2_TEST_ULP_EQUAL(x, z, 2);
+    NT2_TEST_ULP_EQUAL(x, z, 3);
   }
 }
 
