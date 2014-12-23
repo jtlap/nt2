@@ -8,6 +8,8 @@
 ##############################################################################
 
 SET( SOURCES
+  cummax.cpp
+  cummin.cpp
   cumsum.cpp
   cumprod.cpp
   cumtrapz.cpp
