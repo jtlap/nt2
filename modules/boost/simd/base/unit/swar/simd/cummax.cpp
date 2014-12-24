@@ -71,8 +71,10 @@ NT2_TEST_CASE_TPL ( cummax_signed_int__1_0,  (signed char))//BOOST_SIMD_SIMD_INT
   NT2_TEST_EQUAL(cummax(boost::simd::One<vT>()) ,byhands(boost::simd::One<vT>())  );
   NT2_TEST_EQUAL(cummax(boost::simd::Zero<vT>()),byhands(boost::simd::Zero<vT>()) );
   NT2_TEST_EQUAL(cummax(boost::simd::Two<vT>()),byhands(boost::simd::Two<vT>()) );
- NT2_TEST_EQUAL(cummax(boost::simd::enumerate < vT>(0, 1)), byhands(boost::simd::enumerate < vT>(0, 1)));
-   NT2_TEST_EQUAL(cummax(boost::simd::enumerate < vT>(0, -1)), byhands(boost::simd::enumerate < vT>(0, -1)));
+  NT2_TEST_EQUAL(cummax(boost::simd::enumerate < vT>(0, 1)), byhands(boost::simd::enumerate < vT>(0, 1)));
+  NT2_TEST_EQUAL(cummax(boost::simd::enumerate < vT>(0, -1)), byhands(boost::simd::enumerate < vT>(0, -1)));
+  NT2_TEST_EQUAL(cummin(boost::simd::enumerate < vT>(0, 1)), byhands(boost::simd::enumerate < vT>(0, 1)));
+  NT2_TEST_EQUAL(cummin(boost::simd::enumerate < vT>(0, -1)), byhands(boost::simd::enumerate < vT>(0, -1)));
 } // end of test for signed_int_
 
 NT2_TEST_CASE_TPL ( cummax_unsigned_int__1_0,  BOOST_SIMD_SIMD_UNSIGNED_TYPES)
@@ -89,4 +91,6 @@ NT2_TEST_CASE_TPL ( cummax_unsigned_int__1_0,  BOOST_SIMD_SIMD_UNSIGNED_TYPES)
   NT2_TEST_EQUAL(cummax(boost::simd::Two<vT>()),byhands(boost::simd::Two<vT>()) );
   NT2_TEST_EQUAL(cummax(boost::simd::enumerate < vT>(0, 1)), byhands(boost::simd::enumerate < vT>(0, 1)));
   NT2_TEST_EQUAL(cummax(boost::simd::enumerate < vT>(0, -1)), byhands(boost::simd::enumerate < vT>(0, -1)));
+  NT2_TEST_EQUAL(cummin(boost::simd::enumerate < vT>(0, 1)), byhands(boost::simd::enumerate < vT>(0, 1)));
+  NT2_TEST_EQUAL(cummin(boost::simd::enumerate < vT>(0, -1)), byhands(boost::simd::enumerate < vT>(0, -1)));
 } // end of test for unsigned_int_

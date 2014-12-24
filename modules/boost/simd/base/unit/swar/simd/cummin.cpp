@@ -24,6 +24,7 @@
 #include <boost/simd/sdk/config.hpp>
 #include <boost/simd/sdk/simd/io.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
+#include <boost/simd/include/functions/enumerate.hpp>
 
 template < class vT > vT byhands(const vT & a)
 {
@@ -53,6 +54,8 @@ NT2_TEST_CASE_TPL ( cummin_real,  BOOST_SIMD_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(cummin(boost::simd::One<vT>()) , byhands(boost::simd::One<vT>()) );
   NT2_TEST_EQUAL(cummin(boost::simd::Zero<vT>()), byhands(boost::simd::Zero<vT>()));
   NT2_TEST_EQUAL(cummin(boost::simd::Two<vT>()),byhands(boost::simd::Two<vT>()) );
+  NT2_TEST_EQUAL(cummin(boost::simd::enumerate < vT>(0, 1)), byhands(boost::simd::enumerate < vT>(0, 1)));
+  NT2_TEST_EQUAL(cummin(boost::simd::enumerate < vT>(0, -1)), byhands(boost::simd::enumerate < vT>(0, -1)));
 
 } // end of test for floating_
 
@@ -69,6 +72,8 @@ NT2_TEST_CASE_TPL ( cummin_signed_int__1_0,  BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYP
   NT2_TEST_EQUAL(cummin(boost::simd::One<vT>()) ,byhands(boost::simd::One<vT>())  );
   NT2_TEST_EQUAL(cummin(boost::simd::Zero<vT>()),byhands(boost::simd::Zero<vT>()) );
   NT2_TEST_EQUAL(cummin(boost::simd::Two<vT>()),byhands(boost::simd::Two<vT>()) );
+  NT2_TEST_EQUAL(cummin(boost::simd::enumerate < vT>(0, 1)), byhands(boost::simd::enumerate < vT>(0, 1)));
+  NT2_TEST_EQUAL(cummin(boost::simd::enumerate < vT>(0, -1)), byhands(boost::simd::enumerate < vT>(0, -1)));
 } // end of test for signed_int_
 
 NT2_TEST_CASE_TPL ( cummin_unsigned_int__1_0,  BOOST_SIMD_SIMD_UNSIGNED_TYPES)
@@ -83,4 +88,6 @@ NT2_TEST_CASE_TPL ( cummin_unsigned_int__1_0,  BOOST_SIMD_SIMD_UNSIGNED_TYPES)
   NT2_TEST_EQUAL(cummin(boost::simd::One<vT>()) ,byhands(boost::simd::One<vT>())  );
   NT2_TEST_EQUAL(cummin(boost::simd::Zero<vT>()),byhands(boost::simd::Zero<vT>()) );
   NT2_TEST_EQUAL(cummin(boost::simd::Two<vT>()),byhands(boost::simd::Two<vT>()) );
+  NT2_TEST_EQUAL(cummin(boost::simd::enumerate < vT>(0, 1)), byhands(boost::simd::enumerate < vT>(0, 1)));
+  NT2_TEST_EQUAL(cummin(boost::simd::enumerate < vT>(0, -1)), byhands(boost::simd::enumerate < vT>(0, -1)));
 } // end of test for unsigned_int_

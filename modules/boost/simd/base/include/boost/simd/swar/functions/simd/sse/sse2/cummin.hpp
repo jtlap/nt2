@@ -1,6 +1,5 @@
 //==============================================================================
-//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//          Copyright 2014    Jean-Thierry Lapreste
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -16,10 +15,10 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_IMPLEMENT         (cummin_, boost::simd::tag::sse2_,
-                                    (A0),
-                                    ((simd_<type8_<A0>,boost::simd::tag::sse_>))
-                                   )
+  BOOST_DISPATCH_IMPLEMENT (cummin_, boost::simd::tag::sse2_,
+                            (A0),
+                            ((simd_<type8_<A0>,boost::simd::tag::sse_>))
+                           )
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)

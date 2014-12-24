@@ -1,6 +1,5 @@
 //==============================================================================
-//         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//          Copyright 2014    Jean-Thierry Lapreste
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -44,7 +43,7 @@ namespace boost { namespace simd { namespace tag
     struct impl_cummin_;
   }
   /*!
-    compute the cumulate min of the vector elements
+    compute the cumulate minimum of the vector elements
 
     @par Semantic:
 
