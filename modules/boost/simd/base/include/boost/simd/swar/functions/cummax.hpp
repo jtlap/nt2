@@ -44,7 +44,7 @@ namespace boost { namespace simd { namespace tag
     struct impl_cummax_;
   }
   /*!
-    compute the cumulate maximum of the vector elements
+    @brief compute the cumulate maximum of the vector elements
 
     @par Semantic:
 

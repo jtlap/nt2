@@ -43,7 +43,7 @@ namespace boost { namespace simd { namespace tag
     struct impl_cummin_;
   }
   /*!
-    compute the cumulate minimum of the vector elements
+    @brief compute the cumulate minimum of the vector elements
 
     @par Semantic:
 

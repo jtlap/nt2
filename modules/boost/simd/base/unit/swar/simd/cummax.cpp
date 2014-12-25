@@ -45,15 +45,8 @@ NT2_TEST_CASE_TPL ( cummax_real,  BOOST_SIMD_SIMD_REAL_TYPES)
   typedef native<T,ext_t>                  vT;
 
   // specific values tests
-#ifndef BOOST_SIMD_NO_INVALIDS
-  NT2_TEST_EQUAL(cummax(boost::simd::Inf<vT>()) ,  byhands(boost::simd::Inf<vT>()));
-  NT2_TEST_EQUAL(cummax(boost::simd::Minf<vT>()),  byhands(boost::simd::Minf<vT>()));
-  NT2_TEST_EQUAL(cummax(boost::simd::Nan<vT>()) ,  byhands(boost::simd::Nan<vT>()));
-#endif
   NT2_TEST_EQUAL(cummax(boost::simd::Mone<vT>()), byhands(boost::simd::Mone<vT>()));
   NT2_TEST_EQUAL(cummax(boost::simd::One<vT>()) , byhands(boost::simd::One<vT>()) );
-  NT2_TEST_EQUAL(cummax(boost::simd::Zero<vT>()), byhands(boost::simd::Zero<vT>()));
-  NT2_TEST_EQUAL(cummax(boost::simd::Two<vT>()),byhands(boost::simd::Two<vT>()) );
   NT2_TEST_EQUAL(cummax(boost::simd::enumerate < vT>(0, 1)), byhands(boost::simd::enumerate < vT>(0, 1)));
   NT2_TEST_EQUAL(cummax(boost::simd::enumerate < vT>(0, -1)), byhands(boost::simd::enumerate < vT>(0, -1)));
 } // end of test for floating_
@@ -69,12 +62,8 @@ NT2_TEST_CASE_TPL ( cummax_signed_int__1_0,  (signed char))//BOOST_SIMD_SIMD_INT
   // specific values tests
   NT2_TEST_EQUAL(cummax(boost::simd::Mone<vT>()),byhands(boost::simd::Mone<vT>()) );
   NT2_TEST_EQUAL(cummax(boost::simd::One<vT>()) ,byhands(boost::simd::One<vT>())  );
-  NT2_TEST_EQUAL(cummax(boost::simd::Zero<vT>()),byhands(boost::simd::Zero<vT>()) );
-  NT2_TEST_EQUAL(cummax(boost::simd::Two<vT>()),byhands(boost::simd::Two<vT>()) );
   NT2_TEST_EQUAL(cummax(boost::simd::enumerate < vT>(0, 1)), byhands(boost::simd::enumerate < vT>(0, 1)));
   NT2_TEST_EQUAL(cummax(boost::simd::enumerate < vT>(0, -1)), byhands(boost::simd::enumerate < vT>(0, -1)));
-  NT2_TEST_EQUAL(cummin(boost::simd::enumerate < vT>(0, 1)), byhands(boost::simd::enumerate < vT>(0, 1)));
-  NT2_TEST_EQUAL(cummin(boost::simd::enumerate < vT>(0, -1)), byhands(boost::simd::enumerate < vT>(0, -1)));
 } // end of test for signed_int_
 
 NT2_TEST_CASE_TPL ( cummax_unsigned_int__1_0,  BOOST_SIMD_SIMD_UNSIGNED_TYPES)
@@ -87,10 +76,6 @@ NT2_TEST_CASE_TPL ( cummax_unsigned_int__1_0,  BOOST_SIMD_SIMD_UNSIGNED_TYPES)
 
   // specific values tests
   NT2_TEST_EQUAL(cummax(boost::simd::One<vT>()) ,byhands(boost::simd::One<vT>())  );
-  NT2_TEST_EQUAL(cummax(boost::simd::Zero<vT>()),byhands(boost::simd::Zero<vT>()) );
-  NT2_TEST_EQUAL(cummax(boost::simd::Two<vT>()),byhands(boost::simd::Two<vT>()) );
   NT2_TEST_EQUAL(cummax(boost::simd::enumerate < vT>(0, 1)), byhands(boost::simd::enumerate < vT>(0, 1)));
   NT2_TEST_EQUAL(cummax(boost::simd::enumerate < vT>(0, -1)), byhands(boost::simd::enumerate < vT>(0, -1)));
-  NT2_TEST_EQUAL(cummin(boost::simd::enumerate < vT>(0, 1)), byhands(boost::simd::enumerate < vT>(0, 1)));
-  NT2_TEST_EQUAL(cummin(boost::simd::enumerate < vT>(0, -1)), byhands(boost::simd::enumerate < vT>(0, -1)));
 } // end of test for unsigned_int_
