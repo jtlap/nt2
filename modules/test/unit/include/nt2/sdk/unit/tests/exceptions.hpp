@@ -20,6 +20,7 @@
 #include <boost/dispatch/preprocessor/strip.hpp>
 #include <boost/dispatch/preprocessor/once.hpp>
 #include <boost/dispatch/meta/ignore_unused.hpp>
+#include <boost/preprocessor/stringize.hpp>
 #include <iostream>
 
 #ifdef __GNUC__
@@ -46,12 +47,14 @@ do {                                                                           \
   catch( E& ex )                                                               \
   {                                                                            \
     ::boost::dispatch::ignore_unused(ex);                                      \
-    ::nt2::unit::pass(#X " throws " #E);                                       \
+    ::nt2::unit::pass(BOOST_PP_STRINGIZE(X) " throws " BOOST_PP_STRINGIZE(E)); \
     caught = true;                                                             \
   }                                                                            \
   catch(...)      {}                                                           \
-  if(!caught) ::nt2::unit::fail( #X " throws " #E                              \
-                                  , __LINE__, BOOST_CURRENT_FUNCTION);         \
+  if(!caught) ::nt2::unit::fail ( BOOST_PP_STRINGIZE(X) " throws "             \
+                                  BOOST_PP_STRINGIZE(E)                        \
+                                , __LINE__, BOOST_CURRENT_FUNCTION             \
+                                );                                             \
 } BOOST_DISPATCH_ONCE                                                          \
 /**/
 
@@ -99,15 +102,16 @@ do {                                                                           \
   bool caught = false;                                                         \
   try { NT2_UNUSED_EXPR (BOOST_DISPATCH_PP_STRIP(X)); }                        \
   catch( nt2::assert_exception& ex )  {                                        \
-    ::nt2::unit::pass(#X " asserts ");                                         \
+    ::nt2::unit::pass(BOOST_PP_STRINGIZE(X) " asserts ");                      \
     std::cout << "with message:\n\t'" << ex.what() << "'\n";                   \
     caught = true;                                                             \
   }                                                                            \
   catch(...)      {}                                                           \
   if(!caught)                                                                  \
   {                                                                            \
-    ::nt2::unit::fail( #X " asserts "                                          \
-                        , __LINE__, BOOST_CURRENT_FUNCTION);                   \
+    ::nt2::unit::fail ( BOOST_PP_STRINGIZE(X) " asserts "                      \
+                      , __LINE__, BOOST_CURRENT_FUNCTION                       \
+                      );                                                       \
   }                                                                            \
   nt2::assert_mode = old_assert_mode;                                          \
 } BOOST_DISPATCH_ONCE                                                          \
@@ -128,7 +132,7 @@ do {                                                                           \
   try { NT2_UNUSED_EXPR (BOOST_DISPATCH_PP_STRIP(X)); }                        \
   catch(...)                                                                   \
   {                                                                            \
-    ::nt2::unit::fail( #X " should not throw"                                  \
+    ::nt2::unit::fail( BOOST_PP_STRINGIZE(X) " should not throw"               \
                         , __LINE__, BOOST_CURRENT_FUNCTION                     \
                         );                                                     \
     nt2_test_no_throw = false;                                                 \
