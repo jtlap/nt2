@@ -7,7 +7,6 @@
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #include <nt2/table.hpp>
-#include <nt2/options.hpp>
 #include <nt2/include/functions/size.hpp>
 #include <nt2/include/functions/indices.hpp>
 #include <nt2/include/functions/resize.hpp>

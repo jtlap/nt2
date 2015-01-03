@@ -10,7 +10,7 @@
 #define NT2_LINALG_FUNCTIONS_FACTORIZATIONS_RREF_HPP_INCLUDED
 
 #include <nt2/linalg/functions/rref.hpp>
-#include <nt2/options.hpp>
+#include <nt2/linalg/options.hpp>
 #include <nt2/core/container/table/table.hpp>
 #include <nt2/include/functions/ismatrix.hpp>
 #include <nt2/linalg/functions/details/rref.hpp>
