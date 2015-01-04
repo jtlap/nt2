@@ -1,6 +1,7 @@
 //==============================================================================
-//         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 - 2011   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2012 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2012 - 2015 NumScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -21,7 +22,7 @@
 #include <nt2/include/functions/scalar/ndims.hpp>
 #include <nt2/sdk/memory/adapted/container.hpp>
 #include <nt2/sdk/memory/composite_buffer.hpp>
-#include <boost/dispatch/meta/ignore_unused.hpp>
+#include <boost/core/ignore_unused.hpp>
 #include <nt2/sdk/meta/container_traits.hpp>
 #include <boost/fusion/include/is_sequence.hpp>
 #include <boost/mpl/at.hpp>
@@ -425,7 +426,7 @@ namespace nt2 { namespace memory
                 , boost::mpl::true_ const&
                 )
     {
-      boost::dispatch::ignore_unused(szs);
+      boost::ignore_unused(szs);
       BOOST_ASSERT_MSG( szs == extent_type()
                       , "Statically sized container can't be resized dynamically"
                       );

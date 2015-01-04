@@ -22,7 +22,7 @@
 #include <boost/proto/traits.hpp>
 #include <nt2/core/container/table/table.hpp>
 #include <boost/dispatch/meta/terminal_of.hpp>
-#include <boost/dispatch/meta/ignore_unused.hpp>
+#include <boost/core/ignore_unused.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -75,7 +75,7 @@ namespace nt2 { namespace ext
       a2.resize(nt2::of_size(m,nb));
       nt2_la_int iter = nt2::gemsv(boost::proto::value(entry)
                        ,boost::proto::value(b),boost::proto::value(a2) );
-      boost::dispatch::ignore_unused(iter);
+      boost::ignore_unused(iter);
       }
 
     }
@@ -92,7 +92,7 @@ namespace nt2 { namespace ext
       a2.resize(nt2::of_size(m,n));
       nt2_la_int iter = nt2::pomsv( boost::proto::value(entry)
                                   , boost::proto::value(b),a2);
-      boost::dispatch::ignore_unused(iter);
+      boost::ignore_unused(iter);
     }
 
     /// INTERNAL ONLY - Default case

@@ -81,7 +81,7 @@ namespace nt2
         bool * prev( ready_.get() );
 
 // Remove warning because the variable is used in the omp pragma
-        boost::dispatch::ignore_unused(prev);
+        boost::ignore_unused(prev);
 
         bool * next( then_future.ready_.get() );
 

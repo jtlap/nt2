@@ -18,7 +18,7 @@
 #include <boost/dispatch/dsl/category.hpp>
 #include <boost/dispatch/meta/proxy.hpp>
 
-#include <boost/dispatch/meta/ignore_unused.hpp>
+#include <boost/core/ignore_unused.hpp>
 
 namespace boost { namespace simd
 {
@@ -83,10 +83,6 @@ namespace ext
   // Function object
   template<class Sig, class Site, class Enable = void>
   struct implement;
-
-  // Helpers
-  using boost::dispatch::ignore_unused;
-
 } } }
 
 #endif

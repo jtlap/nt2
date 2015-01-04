@@ -12,7 +12,7 @@
 #include <nt2/include/functions/linear.hpp>
 #include <nt2/include/functions/linspace.hpp>
 #include <nt2/include/functions/isequal.hpp>
-#include <boost/dispatch/meta/ignore_unused.hpp>
+#include <boost/core/ignore_unused.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
@@ -94,7 +94,7 @@ NT2_TEST_CASE_TPL( linear3, NT2_REAL_TYPES )
   NT2_DISPLAY(y);
   NT2_DISPLAY(xi);
   nt2::table<T> y0;
-  boost::dispatch::ignore_unused(y0);
+  boost::ignore_unused(y0);
   NT2_TEST_ASSERT(y0=nt2::linear(x, y, xi));
   NT2_TEST_ASSERT(y0=nt2::linear(T(3), y, xi));
   NT2_TEST_ASSERT(y0=nt2::linear(T(3), y, xi, T(32)));

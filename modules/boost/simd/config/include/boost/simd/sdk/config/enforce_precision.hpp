@@ -11,7 +11,7 @@
 #define BOOST_SIMD_SDK_CONFIG_ENFORCE_PRECISION_HPP_INCLUDED
 
 #include <boost/simd/sdk/config/arch.hpp>
-#include <boost/dispatch/meta/ignore_unused.hpp>
+#include <boost/core/ignore_unused.hpp>
 #include <boost/dispatch/attributes.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <boost/type_traits/is_floating_point.hpp>
@@ -74,7 +74,7 @@ namespace boost { namespace simd { namespace config
       }
       #else
       // FIXME: MSVC x64 doesn't support inline ASM
-      boost::dispatch::ignore_unused(cw);
+      boost::ignore_unused(cw);
       #endif
     #elif defined(__GNUC__)
       __asm__ __volatile__ ("fldcw %0" : : "m" (cw));

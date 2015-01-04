@@ -11,7 +11,6 @@
 
 #include <nt2/sdk/option/option_pack.hpp>
 #include <nt2/sdk/option/option_expr.hpp>
-#include <boost/dispatch/meta/ignore_unused.hpp>
 #include <boost/mpl/assert.hpp>
 
 namespace nt2 { namespace details
@@ -32,11 +31,8 @@ namespace nt2 { namespace details
 
 namespace nt2
 {
-  //////////////////////////////////////////////////////////////////////////////
   // options entry-point
-  //////////////////////////////////////////////////////////////////////////////
-    details::options_ const options = {};
-    BOOST_DISPATCH_IGNORE_GLOBAL(options)
+  details::options_ const options = {};
 }
 
 #define NT2_REGISTER_PARAMETERS(NAME)                               \

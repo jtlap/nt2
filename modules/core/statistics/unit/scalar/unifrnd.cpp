@@ -22,8 +22,6 @@
 #include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 
-#include <nt2/constant/constant.hpp>
-#include <nt2/options.hpp>
 #include <nt2/table.hpp>
 
 NT2_TEST_CASE_TPL ( unifrnd_realf,  (float))

@@ -16,7 +16,7 @@
 #include <boost/simd/memory/details/uncheck_iterator.hpp>
 #include <boost/simd/memory/details/output_iterator_base.hpp>
 #include <boost/iterator/iterator_adaptor.hpp>
-#include <boost/dispatch/meta/ignore_unused.hpp>
+#include <boost/core/ignore_unused.hpp>
 #include <boost/assert.hpp>
 
 namespace boost { namespace simd
@@ -71,7 +71,7 @@ namespace boost { namespace simd
       // MSVC SCL_SECURE mode adds extra-check that make aligned end
       // difficult to check with this.
       typename details::unchecker<Iterator>::type lp = details::unchecker<Iterator>::call(p);
-      boost::dispatch::ignore_unused(lp);
+      boost::ignore_unused(lp);
 
       BOOST_ASSERT_MSG
       ( boost::simd::is_aligned(&(*lp) , C*sizeof(*lp) )

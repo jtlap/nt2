@@ -10,13 +10,13 @@
 #define NT2_LINALG_FUNCTIONS_LAPACK_FUNCTIONS_XERBLA_HPP_INCLUDED
 
 #include <boost/assert.hpp>
-#include <boost/dispatch/meta/ignore_unused.hpp>
+#include <boost/core/ignore_unused.hpp>
 
 extern "C"
 {
   inline void xerbla(char* /*srname*/, int* info, int /*len*/)
   {
-    boost::dispatch::ignore_unused(info);
+    boost::ignore_unused(info);
     BOOST_ASSERT_MSG(*info <= 0, "Error in BLAS/LAPACK kernel call parameters");
   }
 }

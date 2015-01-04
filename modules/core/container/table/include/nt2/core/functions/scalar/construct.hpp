@@ -12,7 +12,7 @@
 #include <nt2/core/functions/construct.hpp>
 #include <nt2/include/functions/scalar/numel.hpp>
 #include <boost/simd/memory/iterator_category.hpp>
-#include <boost/dispatch/meta/ignore_unused.hpp>
+#include <boost/core/ignore_unused.hpp>
 #include <boost/dispatch/meta/fusion.hpp>
 
 namespace nt2 { namespace ext
@@ -42,7 +42,7 @@ namespace nt2 { namespace ext
       ( nt2::numel(a1) == 1
       , "Source range is larger than destination container."
       );
-      boost::dispatch::ignore_unused(a1);
+      boost::ignore_unused(a1);
 
       a0 = *a2;
     }
@@ -73,8 +73,8 @@ namespace nt2 { namespace ext
       ( nt2::numel(a1) >= range_size
       , "Source range is larger than destination container."
       );
-      boost::dispatch::ignore_unused(a1);
-      boost::dispatch::ignore_unused(range_size);
+      boost::ignore_unused(a1);
+      boost::ignore_unused(range_size);
 
       a0.clear();
       a0.insert(a0.begin(), a2, a3);

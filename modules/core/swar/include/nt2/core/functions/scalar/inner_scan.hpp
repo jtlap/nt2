@@ -1,6 +1,7 @@
 //==============================================================================
-//         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 - 2011   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2012 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2012 - 2015 NumScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -13,7 +14,7 @@
 #include <nt2/core/functions/details/scan_step.hpp>
 #include <nt2/include/functions/scalar/numel.hpp>
 #include <boost/fusion/include/pop_front.hpp>
-#include <boost/dispatch/meta/ignore_unused.hpp>
+#include <boost/core/ignore_unused.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -50,7 +51,7 @@ namespace nt2 { namespace ext
                           ,k, ibound, 1
                           ,false
                           );
-        boost::dispatch::ignore_unused(res);
+        boost::ignore_unused(res);
       }
     }
   };

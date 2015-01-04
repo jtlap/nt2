@@ -16,7 +16,7 @@
 #include <nt2/include/functions/height.hpp>
 #include <nt2/include/functions/mtimes.hpp>
 #include <nt2/include/functions/cons.hpp>
-#include <boost/dispatch/meta/ignore_unused.hpp>
+#include <boost/core/ignore_unused.hpp>
 
 #include <nt2/table.hpp>
 

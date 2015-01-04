@@ -30,7 +30,7 @@
 #include <nt2/sdk/unit/module.hpp>
 
 #include <nt2/constant/constant.hpp>
-#include <boost/dispatch/meta/ignore_unused.hpp>
+#include <boost/core/ignore_unused.hpp>
 
 
 NT2_TEST_CASE_TPL ( select_real__3_0,  NT2_REAL_TYPES)

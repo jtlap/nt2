@@ -1,6 +1,7 @@
 //==============================================================================
 //         Copyright 2003 - 2012 LASMEA UMR 6602 CNRS/Univ. Clermont II
 //         Copyright 2009 - 2012 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2012 - 2015 NumScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -84,7 +85,7 @@ namespace nt2
 
 #elif defined(BOOST_SIMD_OS_LINUX) && !defined(__ANDROID__)
 #include <nt2/sdk/timing/linux_perf_event.hpp>
-#include <boost/dispatch/meta/ignore_unused.hpp>
+#include <boost/core/ignore_unused.hpp>
 #include <unistd.h>
 
 namespace nt2
@@ -94,7 +95,7 @@ namespace nt2
   {
     cycles_t result = 0;
     ssize_t sz = ::read(linux_::perf_event_hw_cycles, &result, sizeof(result));
-    boost::dispatch::ignore_unused(sz);
+    boost::ignore_unused(sz);
     return result;
   }
 }

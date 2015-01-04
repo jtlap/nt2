@@ -1,7 +1,7 @@
 //==============================================================================
 //         Copyright 2003 - 2012 LASMEA UMR 6602 CNRS/Univ. Clermont II
 //         Copyright 2009 - 2012 LRI    UMR 8623 CNRS/Univ Paris Sud XI
-//         Copyright 2012        MetaScale SAS
+//         Copyright 2012 - 2015 NumScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -19,7 +19,7 @@
 #include <nt2/sdk/error/assert_exception.hpp>
 #include <boost/dispatch/preprocessor/strip.hpp>
 #include <boost/dispatch/preprocessor/once.hpp>
-#include <boost/dispatch/meta/ignore_unused.hpp>
+#include <boost/core/ignore_unused.hpp>
 #include <boost/preprocessor/stringize.hpp>
 #include <iostream>
 
@@ -46,7 +46,7 @@ do {                                                                           \
   try { NT2_UNUSED_EXPR (BOOST_DISPATCH_PP_STRIP(X)); }                        \
   catch( E& ex )                                                               \
   {                                                                            \
-    ::boost::dispatch::ignore_unused(ex);                                      \
+    ::boost::ignore_unused(ex);                                                \
     ::nt2::unit::pass(BOOST_PP_STRINGIZE(X) " throws " BOOST_PP_STRINGIZE(E)); \
     caught = true;                                                             \
   }                                                                            \
