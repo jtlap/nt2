@@ -26,7 +26,6 @@ SET( SOURCES
   is_unspecified.cpp
   make_integer.cpp
   make_floating.cpp
-  pp_remove_typename.cpp
   primitive_of.cpp
   sign_of.cpp
   strip.cpp

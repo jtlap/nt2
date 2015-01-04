@@ -1,6 +1,7 @@
 //==============================================================================
 //         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2009 - 2015   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2012 - 2015   NumScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -9,65 +10,70 @@
 #ifndef BOOST_DISPATCH_META_AS_HPP_INCLUDED
 #define BOOST_DISPATCH_META_AS_HPP_INCLUDED
 
-/*!
- * @file
- * @brief Define the boost::dispatch::meta::as_ type wrapper.
- **/
-
 #include <boost/dispatch/meta/value_of.hpp>
 #include <boost/dispatch/meta/model_of.hpp>
 #include <boost/dispatch/meta/hierarchy_of.hpp>
 
-#if defined(DOXYGEN_ONLY)
 namespace boost { namespace dispatch { namespace meta
 {
-  //============================================================================
   /*!
-   * Type wrapper hierarchy.
-   *
-   * @par Models:
-   *
-   * Hierarchy
-   *
-   * @tparam T Wrapped type hierarchy
-   */
-  //============================================================================
-  template<class T> struct target_{};
-} } }
-#else
-BOOST_DISPATCH_REGISTER_HIERARCHY(target_)
-#endif
+    Type wrapper hierarchy.
 
-namespace boost { namespace dispatch { namespace meta
-{
+    @par Models:
+
+    Hierarchy
+
+    @tparam T Wrapped type hierarchy
+  **/
+  template<class T> struct target_ : target_< typename T::parent >
+  {
+    typedef target_< typename T::parent > parent;
+  };
+
+  /// INTERNAL ONLY
+  template<class T> struct target_< unspecified_<T> > : unspecified_<T>
+  {
+    typedef unspecified_<T> parent;
+  };
+
+  /// INTERNAL ONLY
+  template<class T> struct  target_< unknown_<T> > : unknown_<T>
+  {
+    typedef unknown_<T> parent;
+  };
+
   /*!
-   * @brief Lightweight type wrapper.
-   *
-   * Some implementation details of NT2 require types to be wrapped into an
-   * empty structure so the type can be passed as a "ghostly" instance.
-   * as_ performs such a wrapping.
-   *
-   * To discriminate as_ from the type @c T it wraps, its hierarcy is defined as
-   * @c target_<hierarchy_of<T>::type>
-   *
-   * @par Models:
-   *
-   * @metafunction
-   */
-  template<class T>
-  struct as_
+    @brief Lightweight type wrapper.
+
+    Some implementation details of NT2 require types to be wrapped into an
+    empty structure so the type can be passed as a "ghostly" instance.
+    as_ performs such a wrapping.
+
+    To discriminate as_ from the type @c T it wraps, its hierarcy is defined as
+    @c target_<hierarchy_of<T>::type>
+
+    @par Models:
+
+    @metafunction
+  **/
+  template<class T> struct as_
   {
     typedef T type;
   };
 
-  template<class T>
-  struct target_value
+  /*!
+    @brief Extract a target type
+
+    For any type @c T, if T is a Target, returns the target type.
+    Otherwise, it behaves as the identity meta-function
+  **/
+  template<class T> struct target_value
   {
     typedef T type;
   };
 
-  template<class T>
-  struct target_value< as_<T> >
+  /// INTERNAL ONLY
+  template<class T> struct target_value< as_<T> >
   {
     typedef T type;
   };
@@ -87,15 +93,13 @@ namespace boost { namespace dispatch { namespace meta
 
   /// INTERNAL ONLY
   /// The value of as_<T> is T
-  template<class T>
-  struct value_of< as_<T> >
+  template<class T> struct value_of< as_<T> >
   {
     typedef T type;
   };
 
   /// INTERNAL ONLY
-  template<class T>
-  struct model_of< as_<T> >
+  template<class T> struct model_of< as_<T> >
   {
     struct type
     {

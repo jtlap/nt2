@@ -9,12 +9,6 @@
 #ifndef BOOST_DISPATCH_META_DETAILS_HIERARCHY_BASE_HPP_INCLUDED
 #define BOOST_DISPATCH_META_DETAILS_HIERARCHY_BASE_HPP_INCLUDED
 
-/*!
- * \file
- */
-
-#include <boost/dispatch/meta/details/hierarchy_pp.hpp>
-
 namespace boost { namespace dispatch { namespace details
 {
   struct hierarchy_tag {};
