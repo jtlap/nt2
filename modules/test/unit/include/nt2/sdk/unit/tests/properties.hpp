@@ -10,15 +10,15 @@
 #define NT2_SDK_UNIT_TESTS_PROPERTIES_HPP_INCLUDED
 
 #include <nt2/sdk/unit/tests/exceptions.hpp>
-#include <boost/dispatch/preprocessor/strip.hpp>
+#include <boost/preprocessor/punctuation/remove_parens.hpp>
 #include <memory>
 
 /*!
   @brief Check if constructing some type is impossible at runtime
 **/
 #define NT2_TEST_IS_NOT_CONSTRUCTIBLE(X,...)                                    \
-NT2_TEST_ASSERT (( std::unique_ptr < BOOST_DISPATCH_PP_STRIP(X) >               \
-                                  ( new BOOST_DISPATCH_PP_STRIP(X) __VA_ARGS__) \
+NT2_TEST_ASSERT (( std::unique_ptr < BOOST_PP_REMOVE_PARENS(X) >               \
+                                  ( new BOOST_PP_REMOVE_PARENS(X) __VA_ARGS__) \
                 ))                                                              \
 /**/
 

@@ -12,7 +12,7 @@
 #include <boost/dispatch/functor/meta/hierarchy.hpp>
 #include <boost/dispatch/meta/counter.hpp>
 #include <boost/dispatch/meta/combine.hpp>
-#include <boost/dispatch/preprocessor/strip.hpp>
+#include <boost/preprocessor/punctuation/remove_parens.hpp>
 #include <boost/config.hpp>
 
 BOOST_DISPATCH_COUNTER_INIT(default_site_stack)
@@ -73,7 +73,7 @@ namespace boost { namespace dispatch                                            
    : meta::combine< typename default_site_impl< Tag                                                \
                                               , BOOST_PP_CAT(default_site_stack_value_,  N)        \
                                               >::type                                              \
-                  , BOOST_DISPATCH_PP_STRIP(new_site)                                              \
+                  , BOOST_PP_REMOVE_PARENS(new_site)                                              \
                   >                                                                                \
   {                                                                                                \
   };                                                                                               \
@@ -89,7 +89,7 @@ namespace boost { namespace dispatch                                            
    : meta::combine< typename default_site_impl< Tag                                                \
                                               , BOOST_DISPATCH_COUNTER_VALUE(default_site_stack)   \
                                               >::type                                              \
-                  , BOOST_DISPATCH_PP_STRIP(new_site)                                              \
+                  , BOOST_PP_REMOVE_PARENS(new_site)                                              \
                   >                                                                                \
   {                                                                                                \
   };                                                                                               \
@@ -102,8 +102,8 @@ BOOST_DISPATCH_COUNTER_INCREMENT(default_site_stack)                            
 namespace boost { namespace dispatch                                                               \
 {                                                                                                  \
   template<>                                                                                       \
-  struct default_site<BOOST_DISPATCH_PP_STRIP(Tag)>                                                \
-    : default_site_impl<BOOST_DISPATCH_PP_STRIP(Tag), 0>                                           \
+  struct default_site<BOOST_PP_REMOVE_PARENS(Tag)>                                                \
+    : default_site_impl<BOOST_PP_REMOVE_PARENS(Tag), 0>                                           \
   {                                                                                                \
   };                                                                                               \
 } }                                                                                                \

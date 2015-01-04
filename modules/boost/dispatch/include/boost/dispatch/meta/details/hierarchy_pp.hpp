@@ -9,7 +9,7 @@
 #ifndef BOOST_DISPATCH_META_DETAILS_HIERARCHY_PP_HPP_INCLUDED
 #define BOOST_DISPATCH_META_DETAILS_HIERARCHY_PP_HPP_INCLUDED
 
-#include <boost/dispatch/preprocessor/strip.hpp>
+#include <boost/preprocessor/punctuation/remove_parens.hpp>
 #include <boost/dispatch/preprocessor/remove_typename.hpp>
 
 //==============================================================================
@@ -30,9 +30,9 @@ template<class T> struct Name : Parent { typedef Parent  parent; }  \
 // Build a template based hierarchy element with a template parent
 //==============================================================================
 #define BOOST_DISPATCH_HIERARCHY_CLASS_TPL_META(Name, Parent)         \
-template<class T> struct Name : BOOST_DISPATCH_PP_STRIP(Parent)::type \
+template<class T> struct Name : BOOST_PP_REMOVE_PARENS(Parent)::type \
 {                                                                     \
-  typedef typename BOOST_DISPATCH_PP_STRIP(Parent)::type parent;      \
+  typedef typename BOOST_PP_REMOVE_PARENS(Parent)::type parent;      \
 }                                                                     \
 /**/
 

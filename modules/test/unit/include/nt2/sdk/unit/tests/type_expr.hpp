@@ -14,7 +14,7 @@
 #include <nt2/sdk/unit/stats.hpp>
 #include <nt2/sdk/unit/details/expr_type.hpp>
 #include <nt2/sdk/meta/type_id.hpp>
-#include <boost/dispatch/preprocessor/strip.hpp>
+#include <boost/preprocessor/punctuation/remove_parens.hpp>
 #include <boost/dispatch/preprocessor/once.hpp>
 
 /// INTERNAL ONLY
@@ -41,24 +41,24 @@
 do {                                                                           \
   nt2::unit::test_count()++;                                                   \
   std::cout << " * Test expression `"                                          \
-            << NT2_PP_STRINGIZE(BOOST_DISPATCH_PP_STRIP(Expression)) << "`\n"  \
+            << NT2_PP_STRINGIZE(BOOST_PP_REMOVE_PARENS(Expression)) << "`\n"  \
             << "       with lambda `"                                          \
-            << NT2_PP_STRINGIZE(BOOST_DISPATCH_PP_STRIP(Lambda)) << "`\n"      \
+            << NT2_PP_STRINGIZE(BOOST_PP_REMOVE_PARENS(Lambda)) << "`\n"      \
             << "        is of type `"                                          \
-            << NT2_PP_STRINGIZE(BOOST_DISPATCH_PP_STRIP(Type)) << "`\n"        \
+            << NT2_PP_STRINGIZE(BOOST_PP_REMOVE_PARENS(Type)) << "`\n"        \
             << "               aka `"                                          \
-            << nt2::type_id<BOOST_DISPATCH_PP_STRIP(Type)>() << "`\n";         \
+            << nt2::type_id<BOOST_PP_REMOVE_PARENS(Type)>() << "`\n";         \
                                                                                \
    nt2::details::                                                              \
    check_expr_equality( (nt2::details                                          \
-                            ::expr_type <BOOST_DISPATCH_PP_STRIP(Lambda)>      \
-                                        (BOOST_DISPATCH_PP_STRIP(Expression))  \
+                            ::expr_type <BOOST_PP_REMOVE_PARENS(Lambda)>      \
+                                        (BOOST_PP_REMOVE_PARENS(Expression))  \
                         )                                                      \
                       , nt2::details                                           \
-                        ::is_same_as<BOOST_DISPATCH_PP_STRIP(Type)>            \
+                        ::is_same_as<BOOST_PP_REMOVE_PARENS(Type)>            \
                         (nt2::details                                          \
-                            ::expr_type<BOOST_DISPATCH_PP_STRIP(Lambda)>       \
-                             (BOOST_DISPATCH_PP_STRIP(Expression))             \
+                            ::expr_type<BOOST_PP_REMOVE_PARENS(Lambda)>       \
+                             (BOOST_PP_REMOVE_PARENS(Expression))             \
                         )                                                      \
                       );                                                       \
 } BOOST_DISPATCH_ONCE                                                          \
@@ -76,12 +76,12 @@ do {                                                                           \
 do {                                                                           \
   nt2::unit::test_count()++;                                                   \
   std::cout << " * Test type info `"                                           \
-            << NT2_PP_STRINGIZE(BOOST_DISPATCH_PP_STRIP(Info)) << "`\n"        \
+            << NT2_PP_STRINGIZE(BOOST_PP_REMOVE_PARENS(Info)) << "`\n"        \
             << "       is of type `"                                           \
-            << NT2_PP_STRINGIZE(BOOST_DISPATCH_PP_STRIP(Type)) << "`\n"        \
+            << NT2_PP_STRINGIZE(BOOST_PP_REMOVE_PARENS(Type)) << "`\n"        \
             << "              aka `"                                           \
-            << nt2::type_id<BOOST_DISPATCH_PP_STRIP(Type)>() << "`\n";         \
-  if(typeid(BOOST_DISPATCH_PP_STRIP(Type)) == Info)                            \
+            << nt2::type_id<BOOST_PP_REMOVE_PARENS(Type)>() << "`\n";         \
+  if(typeid(BOOST_PP_REMOVE_PARENS(Type)) == Info)                            \
   {                                                                            \
     std::cout << " **passed**\n\n";                                            \
   }                                                                            \
@@ -107,17 +107,17 @@ do {                                                                           \
 do {                                                                           \
   nt2::unit::test_count()++;                                                   \
   std::cout << " * Test type   `"                                              \
-            << NT2_PP_STRINGIZE(BOOST_DISPATCH_PP_STRIP(T)) << "`\n"           \
+            << NT2_PP_STRINGIZE(BOOST_PP_REMOVE_PARENS(T)) << "`\n"           \
             << "          is   `"                                              \
-            << NT2_PP_STRINGIZE(BOOST_DISPATCH_PP_STRIP(Type)) << "`\n"        \
+            << NT2_PP_STRINGIZE(BOOST_PP_REMOVE_PARENS(Type)) << "`\n"        \
             << "         aka   `"                                              \
-            << nt2::type_id<BOOST_DISPATCH_PP_STRIP(Type)>() << "`\n";         \
+            << nt2::type_id<BOOST_PP_REMOVE_PARENS(Type)>() << "`\n";         \
                                                                                \
    nt2::details::                                                              \
-   check_type_equality< BOOST_DISPATCH_PP_STRIP(T)                             \
+   check_type_equality< BOOST_PP_REMOVE_PARENS(T)                             \
                       >( boost::mpl::bool_                                     \
-                         < boost::is_same< BOOST_DISPATCH_PP_STRIP(Type)       \
-                                         , BOOST_DISPATCH_PP_STRIP(T)          \
+                         < boost::is_same< BOOST_PP_REMOVE_PARENS(Type)       \
+                                         , BOOST_PP_REMOVE_PARENS(T)          \
                                          >::value                              \
                          >()                                                   \
                        );                                                      \

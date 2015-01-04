@@ -14,7 +14,7 @@
 #include <nt2/include/functions/simd/fma.hpp>
 #include <nt2/include/functions/simd/divides.hpp>
 #include <nt2/include/constants/real_splat.hpp>
-#include <boost/dispatch/preprocessor/strip.hpp>
+#include <boost/preprocessor/punctuation/remove_parens.hpp>
 #include <boost/preprocessor/repetition/repeat.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/tuple/elem.hpp>
@@ -67,7 +67,7 @@ namespace nt2
 
 #define NT2_COEFF_GEN(z,n,text)                                               \
 nt2::details::                                                                \
-horner_unroll< BOOST_DISPATCH_PP_STRIP(BOOST_PP_TUPLE_ELEM(3,0,text))         \
+horner_unroll< BOOST_PP_REMOVE_PARENS(BOOST_PP_TUPLE_ELEM(3,0,text))         \
              , BOOST_PP_TUPLE_ELEM( BOOST_PP_TUPLE_ELEM(3,1,text)             \
                                   , n                                         \
                                   , BOOST_PP_TUPLE_ELEM(3,2,text)             \

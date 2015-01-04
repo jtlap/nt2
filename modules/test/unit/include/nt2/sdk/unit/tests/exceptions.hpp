@@ -17,7 +17,7 @@
 
 #include <nt2/sdk/unit/stats.hpp>
 #include <nt2/sdk/error/assert_exception.hpp>
-#include <boost/dispatch/preprocessor/strip.hpp>
+#include <boost/preprocessor/punctuation/remove_parens.hpp>
 #include <boost/dispatch/preprocessor/once.hpp>
 #include <boost/core/ignore_unused.hpp>
 #include <boost/preprocessor/stringize.hpp>
@@ -43,7 +43,7 @@
 do {                                                                           \
   ::nt2::unit::test_count()++;                                                 \
   bool caught = false;                                                         \
-  try { NT2_UNUSED_EXPR (BOOST_DISPATCH_PP_STRIP(X)); }                        \
+  try { NT2_UNUSED_EXPR (BOOST_PP_REMOVE_PARENS(X)); }                        \
   catch( E& ex )                                                               \
   {                                                                            \
     ::boost::ignore_unused(ex);                                                \
@@ -100,7 +100,7 @@ do {                                                                           \
   );                                                                           \
   ::nt2::unit::test_count()++;                                                 \
   bool caught = false;                                                         \
-  try { NT2_UNUSED_EXPR (BOOST_DISPATCH_PP_STRIP(X)); }                        \
+  try { NT2_UNUSED_EXPR (BOOST_PP_REMOVE_PARENS(X)); }                        \
   catch( nt2::assert_exception& ex )  {                                        \
     ::nt2::unit::pass(BOOST_PP_STRINGIZE(X) " asserts ");                      \
     std::cout << "with message:\n\t'" << ex.what() << "'\n";                   \
@@ -129,7 +129,7 @@ do {                                                                           \
 do {                                                                           \
   bool nt2_test_no_throw = true;                                               \
   ::nt2::unit::test_count()++;                                                 \
-  try { NT2_UNUSED_EXPR (BOOST_DISPATCH_PP_STRIP(X)); }                        \
+  try { NT2_UNUSED_EXPR (BOOST_PP_REMOVE_PARENS(X)); }                        \
   catch(...)                                                                   \
   {                                                                            \
     ::nt2::unit::fail( BOOST_PP_STRINGIZE(X) " should not throw"               \
@@ -158,7 +158,7 @@ do {                                                                           \
   );                                                                           \
   bool nt2_test_no_throw = true;                                               \
   ::nt2::unit::test_count()++;                                                 \
-  try { NT2_UNUSED_EXPR (BOOST_DISPATCH_PP_STRIP(X)); }                        \
+  try { NT2_UNUSED_EXPR (BOOST_PP_REMOVE_PARENS(X)); }                        \
   catch(nt2::assert_exception& ex)                                             \
   {                                                                            \
     ::nt2::unit::fail( #X " should not assert "                                \
