@@ -1,6 +1,6 @@
 //==============================================================================
 //         Copyright 2003 - 2012 LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 - 2012 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2009 - 2015 LRI    UMR 8623 CNRS/Univ Paris Sud XI
 //         Copyright 2012 - 2015 NumScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
@@ -10,15 +10,10 @@
 #ifndef NT2_SDK_UNIT_TESTS_EXCEPTIONS_HPP_INCLUDED
 #define NT2_SDK_UNIT_TESTS_EXCEPTIONS_HPP_INCLUDED
 
-/*!
-  @file
-  @brief Exceptions and assertions related testing macros
-**/
-
 #include <nt2/sdk/unit/stats.hpp>
 #include <nt2/sdk/error/assert_exception.hpp>
 #include <boost/preprocessor/punctuation/remove_parens.hpp>
-#include <boost/dispatch/preprocessor/once.hpp>
+#include <nt2/sdk/unit/details/once.hpp>
 #include <boost/core/ignore_unused.hpp>
 #include <boost/preprocessor/stringize.hpp>
 #include <iostream>
@@ -55,7 +50,7 @@ do {                                                                           \
                                   BOOST_PP_STRINGIZE(E)                        \
                                 , __LINE__, BOOST_CURRENT_FUNCTION             \
                                 );                                             \
-} BOOST_DISPATCH_ONCE                                                          \
+} NT2_TEST_ONCE                                                          \
 /**/
 
 #define NT2_TEST_WARNING_NOFATAL_BEGIN()                                       \
@@ -114,7 +109,7 @@ do {                                                                           \
                       );                                                       \
   }                                                                            \
   nt2::assert_mode = old_assert_mode;                                          \
-} BOOST_DISPATCH_ONCE                                                          \
+} NT2_TEST_ONCE                                                          \
 /**/
 
 /*!
@@ -138,7 +133,7 @@ do {                                                                           \
     nt2_test_no_throw = false;                                                 \
   }                                                                            \
   if(nt2_test_no_throw) ::nt2::unit::pass(#X " does not throw");               \
-} BOOST_DISPATCH_ONCE                                                          \
+} NT2_TEST_ONCE                                                          \
 /**/
 
 
@@ -171,7 +166,7 @@ do {                                                                           \
   if(nt2_test_no_throw)                                                        \
     ::nt2::unit::pass(#X " does not assert " );                                \
   nt2::assert_mode = old_assert_mode;                                          \
-} BOOST_DISPATCH_ONCE                                                          \
+} NT2_TEST_ONCE                                                          \
 /**/
 
 #endif

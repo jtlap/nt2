@@ -1,7 +1,7 @@
 //==============================================================================
 //         Copyright 2003 - 2012 LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 - 2012 LRI    UMR 8623 CNRS/Univ Paris Sud XI
-//         Copyright 2012        MetaScale SAS
+//         Copyright 2009 - 2015 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2012 - 2015 NumScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -10,12 +10,12 @@
 #ifndef NT2_SDK_UNIT_TESTS_TYPE_EXPR_HPP_INCLUDED
 #define NT2_SDK_UNIT_TESTS_TYPE_EXPR_HPP_INCLUDED
 
-#include <iostream>
 #include <nt2/sdk/unit/stats.hpp>
 #include <nt2/sdk/unit/details/expr_type.hpp>
+#include <nt2/sdk/unit/details/once.hpp>
 #include <nt2/sdk/meta/type_id.hpp>
 #include <boost/preprocessor/punctuation/remove_parens.hpp>
-#include <boost/dispatch/preprocessor/once.hpp>
+#include <iostream>
 
 /// INTERNAL ONLY
 #define NT2_PP_STRINGIZE__(...) #__VA_ARGS__
@@ -61,7 +61,7 @@ do {                                                                           \
                              (BOOST_PP_REMOVE_PARENS(Expression))             \
                         )                                                      \
                       );                                                       \
-} BOOST_DISPATCH_ONCE                                                          \
+} NT2_TEST_ONCE                                                          \
 /**/
 
 /*!
@@ -92,7 +92,7 @@ do {                                                                           \
               << nt2::details::demangle((Info).name())                         \
               << "`\n\n";                                                      \
   }                                                                            \
-} BOOST_DISPATCH_ONCE                                                          \
+} NT2_TEST_ONCE                                                          \
 /**/
 
 /*!
@@ -121,7 +121,7 @@ do {                                                                           \
                                          >::value                              \
                          >()                                                   \
                        );                                                      \
-} BOOST_DISPATCH_ONCE                                                          \
+} NT2_TEST_ONCE                                                          \
 /**/
 
 #endif

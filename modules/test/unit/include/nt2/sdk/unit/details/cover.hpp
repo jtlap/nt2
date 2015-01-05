@@ -1,6 +1,6 @@
 //==============================================================================
 //         Copyright 2003 - 2012 LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 - 2012 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2009 - 2015 LRI    UMR 8623 CNRS/Univ Paris Sud XI
 //         Copyright 2012 - 2015 NumScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
@@ -14,6 +14,7 @@
 #include <nt2/sdk/unit/stats.hpp>
 #include <nt2/sdk/unit/details/ulp.hpp>
 #include <nt2/sdk/unit/details/prng.hpp>
+#include <nt2/sdk/unit/details/once.hpp>
 #include <nt2/sdk/unit/details/eval.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/sdk/meta/type_id.hpp>
@@ -42,7 +43,7 @@ std::vector<Type,boost::simd::allocator<Type> > Name(Size);                    \
 do                                                                             \
 {                                                                              \
   for(std::size_t i=0;i<Name.size();++i) Name[i] = Type(rand() % 2);           \
-} BOOST_DISPATCH_ONCE                                                          \
+} NT2_TEST_ONCE                                                          \
 /**/
 
 /// INTERNAL ONLY Make typed_value out of inputs
