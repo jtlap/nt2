@@ -8,6 +8,7 @@
 ##############################################################################
 
 SET( SOURCES
+  bandwidth.cpp
   cond.cpp
   det.cpp
   norm.cpp
