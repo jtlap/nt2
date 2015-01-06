@@ -273,7 +273,7 @@ namespace detail
     /// maximally stretched out).
     ///                                       (05.06.2012.) (Domagoj Saric)
     template <typename Vector>
-    BOOST_DISPATCH_NOINLINE
+    BOOST_NOINLINE
     void BOOST_FASTCALL calculate_twiddles
     (
         /// \note Packing these parameters into static const structs (as they

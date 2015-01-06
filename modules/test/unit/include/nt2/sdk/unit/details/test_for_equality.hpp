@@ -24,7 +24,7 @@ namespace nt2 { namespace details
   /// Check if a==b or if a and b are NaNs
   /// This function is meant to be called on scalar values only
   template<class A, class B>
-  BOOST_DISPATCH_NOINLINE bool equaln(A const& va, B const& vb)
+  BOOST_NOINLINE bool equaln(A const& va, B const& vb)
   {
     return (va==vb) || ( (va!=va) && (vb!=vb) );
   }

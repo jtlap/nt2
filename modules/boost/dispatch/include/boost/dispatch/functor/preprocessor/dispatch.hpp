@@ -52,7 +52,7 @@ template< BOOST_PP_ENUM( BOOST_PP_SEQ_SIZE(Types)                              \
                        , Types                                                 \
                        )                                                       \
         >                                                                      \
-BOOST_DISPATCH_FORCE_INLINE                                                    \
+BOOST_FORCEINLINE                                                    \
 BOOST_PP_REMOVE_PARENS(Ret)                                                   \
 BOOST_PP_CAT(dispatching_, Tag)( adl_helper                                    \
            , BOOST_PP_REMOVE_PARENS(Site)                                     \
@@ -87,7 +87,7 @@ template< BOOST_PP_ENUM( BOOST_PP_SEQ_SIZE(Types)                              \
                        , Types                                                 \
                        )                                                       \
         >                                                                      \
-BOOST_DISPATCH_FORCE_INLINE                                                    \
+BOOST_FORCEINLINE                                                    \
 BOOST_PP_REMOVE_PARENS(Ret)                                                   \
 BOOST_PP_CAT(dispatching_, Tag)( adl_helper                                    \
            , BOOST_PP_REMOVE_PARENS(Site)                                     \
@@ -123,7 +123,7 @@ template< BOOST_PP_ENUM( BOOST_PP_SEQ_SIZE(Types)                              \
                        , Types                                                 \
                        )                                                       \
         >                                                                      \
-BOOST_DISPATCH_FORCE_INLINE                                                    \
+BOOST_FORCEINLINE                                                    \
 typename boost::enable_if< BOOST_PP_REMOVE_PARENS(Cond)                       \
                          , BOOST_PP_REMOVE_PARENS(Ret)                        \
                          >::type                                               \
@@ -162,7 +162,7 @@ template< BOOST_PP_ENUM( BOOST_PP_SEQ_SIZE(Types)                              \
                        , Types                                                 \
                        )                                                       \
         >                                                                      \
-BOOST_DISPATCH_FORCE_INLINE                                                    \
+BOOST_FORCEINLINE                                                    \
 typename boost::enable_if< BOOST_PP_REMOVE_PARENS(Cond)                       \
                          , BOOST_PP_REMOVE_PARENS(Ret)                        \
                          >::type                                               \
@@ -243,7 +243,7 @@ template< BOOST_PP_ENUM( BOOST_PP_SEQ_SIZE(Types)                              \
                        , Types                                                 \
                        )                                                       \
         >                                                                      \
-BOOST_DISPATCH_FORCE_INLINE                                                    \
+BOOST_FORCEINLINE                                                    \
 BOOST_PP_REMOVE_PARENS(Ret)                                                   \
 dispatching( adl_helper                                                        \
            , BOOST_PP_REMOVE_PARENS(Tag), BOOST_PP_REMOVE_PARENS(Site)       \
@@ -278,7 +278,7 @@ template< BOOST_PP_ENUM( BOOST_PP_SEQ_SIZE(Types)                              \
                        , Types                                                 \
                        )                                                       \
         >                                                                      \
-BOOST_DISPATCH_FORCE_INLINE                                                    \
+BOOST_FORCEINLINE                                                    \
 BOOST_PP_REMOVE_PARENS(Ret)                                                   \
 dispatching( adl_helper                                                        \
            , BOOST_PP_REMOVE_PARENS(Tag), BOOST_PP_REMOVE_PARENS(Site)       \
@@ -314,7 +314,7 @@ template< BOOST_PP_ENUM( BOOST_PP_SEQ_SIZE(Types)                              \
                        , Types                                                 \
                        )                                                       \
         >                                                                      \
-BOOST_DISPATCH_FORCE_INLINE                                                    \
+BOOST_FORCEINLINE                                                    \
 typename boost::enable_if< BOOST_PP_REMOVE_PARENS(Cond)                       \
                          , BOOST_PP_REMOVE_PARENS(Ret)                        \
                          >::type                                               \
@@ -353,7 +353,7 @@ template< BOOST_PP_ENUM( BOOST_PP_SEQ_SIZE(Types)                              \
                        , Types                                                 \
                        )                                                       \
         >                                                                      \
-BOOST_DISPATCH_FORCE_INLINE                                                    \
+BOOST_FORCEINLINE                                                    \
 typename boost::enable_if< BOOST_PP_REMOVE_PARENS(Cond)                       \
                          , BOOST_PP_REMOVE_PARENS(Ret)                        \
                          >::type                                               \
