@@ -11,6 +11,7 @@ SET( SOURCES
   arecatcompatible.cpp
   arecrosscompatible.cpp
   havesamesize.cpp
+  isband.cpp
   iscolumn.cpp
   isdiagonal.cpp
   isempty.cpp
