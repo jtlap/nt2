@@ -19,26 +19,7 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/exceptions.hpp>
 
-// NT2_TEST_CASE_TPL(bandwidth, NT2_REAL_TYPES)
-// {
-//   using nt2::bandwidth;
-//   using nt2::tag::bandwidth_;
-//   nt2::table<T> n = nt2::eye(6, 10, nt2::meta::as_<T>());
-//   int l, u;
-//   bandwidth(n, l, u);
-//   NT2_TEST_ULP_EQUAL(l, 0, 0);
-//   NT2_TEST_ULP_EQUAL(u, 0, 0);
-//   n = nt2::ones(6, 10, nt2::meta::as_<T>());
-//   bandwidth(n, l, u);
-//   NT2_TEST_ULP_EQUAL(l, nt2::height(n)-1, 0);
-//   NT2_TEST_ULP_EQUAL(u, nt2::width(n)-1, 0);
-//   nt2::table<T> m =  band(n, -3, 4);
-//   bandwidth(m, l, u);
-//   NT2_TEST_ULP_EQUAL(l, 3, 0);
-//   NT2_TEST_ULP_EQUAL(u, 4, 0);
-//  }
-
-NT2_TEST_CASE_TPL(bandwidth, NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL(bandwidth1, NT2_REAL_TYPES)
 {
   using nt2::bandwidth;
   using nt2::tag::bandwidth_;
