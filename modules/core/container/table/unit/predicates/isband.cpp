@@ -39,9 +39,10 @@ NT2_TEST_CASE_TPL(bandwidth1, NT2_REAL_TYPES)
  {
    for(int j=i; j < 6; j++)
    {
-     int l, u;
      nt2::container::table<T> a = band(n, i, j);
-     boost::fusion::vector_tie(l, u) = bandwidth(a);
+     auto r = bandwidth(a);
+     int l = boost::fusion::at_c<0>(r);
+     int u = boost::fusion::at_c<1>(r);
      NT2_TEST(isband(a, l, u));
      NT2_TEST(!isband(a, l+1, u));
      NT2_TEST(!isband(a, l,  u-1));

@@ -11,8 +11,6 @@
 #include <nt2/include/functions/eye.hpp>
 #include <nt2/include/functions/ones.hpp>
 #include <nt2/include/functions/band.hpp>
-#include <nt2/include/constants/one.hpp>
-#include <nt2/include/constants/ten.hpp>
 #include <boost/fusion/include/vector_tie.hpp>
 
 #include <nt2/sdk/unit/tests.hpp>
@@ -24,7 +22,6 @@ NT2_TEST_CASE_TPL(bandwidth1, NT2_REAL_TYPES)
   using nt2::bandwidth;
   using nt2::tag::bandwidth_;
   nt2::table<T> n = nt2::eye(6, 10, nt2::meta::as_<T>());
-  NT2_DISPLAY(n);
   int l, u;
   l =  bandwidth(n, nt2::lower_);
 
@@ -32,12 +29,10 @@ NT2_TEST_CASE_TPL(bandwidth1, NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(l, 0, 0);
   NT2_TEST_ULP_EQUAL(u, 0, 0);
   n = nt2::ones(6, 10, nt2::meta::as_<T>());
-  NT2_DISPLAY(n);
   boost::fusion::vector_tie(l, u) = bandwidth(n);
   NT2_TEST_ULP_EQUAL(l, nt2::height(n)-1, 0);
   NT2_TEST_ULP_EQUAL(u, nt2::width(n)-1, 0);
   nt2::table<T> m =  band(n, -3, 4);
-  NT2_DISPLAY(m);
   boost::fusion::vector_tie(l, u) = bandwidth(m);
   NT2_TEST_ULP_EQUAL(l, 3, 0);
   NT2_TEST_ULP_EQUAL(u, 4, 0);

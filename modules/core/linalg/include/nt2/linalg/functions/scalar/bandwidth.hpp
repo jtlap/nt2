@@ -10,6 +10,7 @@
 #define NT2_LINALG_FUNCTIONS_SCALAR_BANDWIDTH_HPP_INCLUDED
 #include <nt2/linalg/functions/bandwidth.hpp>
 #include <boost/dispatch/attributes.hpp>
+#include <nt2/core/container/colon/colon.hpp>
 #include <nt2/include/functions/colvect.hpp>
 #include <nt2/include/functions/is_eqz.hpp>
 #include <nt2/include/functions/height.hpp>
@@ -21,7 +22,6 @@
 #include <nt2/include/functions/tie.hpp>
 #include <nt2/linalg/options.hpp>
 #include <boost/assert.hpp>
-#include <nt2/table.hpp>
 
 namespace nt2{ namespace ext
 {
@@ -62,7 +62,7 @@ namespace nt2{ namespace ext
                               ((unspecified_<A1>))
                             )
   {
-    typedef size_t result_type;
+    typedef std::size_t result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a0,A1 const &) const
     {
       BOOST_ASSERT_MSG(ismatrix(a0), "input is not a matrix");
@@ -107,9 +107,7 @@ namespace nt2{ namespace ext
                                           , _(1, int(width(a0))))
                                    )
                     );
-      itype_t l = globalmax(t);
-      itype_t u = globalmax(-t);
-      return result_type(l, u);
+      return std::make_pair(globalmax(t),globalmax(-t));
     }
   };
 } }

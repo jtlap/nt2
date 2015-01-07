@@ -11,17 +11,7 @@
 #define NT2_PREDICATES_FUNCTIONS_TABLE_ISBAND_HPP_INCLUDED
 
 #include <nt2/predicates/functions/isband.hpp>
-#include <nt2/include/functions/ismatrix.hpp>
-#include <nt2/include/functions/isequal.hpp>
-#include <nt2/include/functions/from_diag.hpp>
 #include <nt2/include/functions/bandwidth.hpp>
-#include <nt2/include/functions/diag_of.hpp>
-#include <nt2/include/functions/expand.hpp>
-#include <nt2/include/functions/size.hpp>
-#include <nt2/include/functions/is_eqz.hpp>
-#include <nt2/include/functions/abs.hpp>
-#include <nt2/include/functions/max.hpp>
-#include <boost/fusion/include/vector_tie.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -33,11 +23,13 @@ namespace nt2 { namespace ext
                             )
   {
     typedef bool result_type;
-    BOOST_FORCEINLINE result_type operator()(const A0& a0, const A1& l, const A2& u) const
+    BOOST_FORCEINLINE result_type operator()(const A0& a0, A1 l, A2 u) const
     {
       A1 ll;
       A2 uu;
-      boost::fusion::vector_tie(ll, uu) = bandwidth(a0);
+      auto r = bandwidth(a0);
+      ll = boost::fusion::at_c<0>(r);
+      uu = boost::fusion::at_c<1>(r);
       return (l <= ll)&&(uu <= u);
     }
   };
