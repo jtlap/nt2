@@ -8,9 +8,9 @@
 #ifndef NT2_LINALG_FUNCTIONS_BANDWIDTH_HPP_INCLUDED
 #define NT2_LINALG_FUNCTIONS_BANDWIDTH_HPP_INCLUDED
 
-#include <nt2/options.hpp>
 #include <nt2/include/functor.hpp>
 #include <nt2/sdk/meta/size_as.hpp>
+#include <nt2/core/container/dsl/size.hpp>
 #include <nt2/sdk/meta/tieable_hierarchy.hpp>
 
 namespace nt2
