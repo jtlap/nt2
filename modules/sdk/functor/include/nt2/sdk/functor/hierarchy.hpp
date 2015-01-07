@@ -1,6 +1,7 @@
 //==============================================================================
-//         Copyright 2003 & onward LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 & onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2012 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2012 - 2015 NumScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -21,7 +22,7 @@
 #include <nt2/sdk/meta/scalar_of.hpp>
 #include <boost/type_traits/common_type.hpp>
 
-#include <boost/dispatch/meta/ignore_unused.hpp>
+#include <boost/core/ignore_unused.hpp>
 
 namespace nt2
 {
@@ -40,10 +41,6 @@ namespace ext
   // Function object
   template<class Sig, class Site, class Enable = void>
   struct implement;
-
-  // Helpers
-  using boost::dispatch::ignore_unused;
-
 } }
 
 #endif

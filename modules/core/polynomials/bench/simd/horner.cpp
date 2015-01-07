@@ -46,7 +46,7 @@ BOOST_FORCEINLINE vT horner0_case_impl(vT const& x)
 {
   return nt2::horner< NT2_HORNER_COEFF(T, 5, (C0, C1, C2, C3, C4)) >(x);
 }
-BOOST_DISPATCH_NOINLINE nT horner0_case(nT x_)
+BOOST_NOINLINE nT horner0_case(nT x_)
 {
   vT x = x_;
   return horner0_case_impl(x);
@@ -58,7 +58,7 @@ BOOST_FORCEINLINE vT horner1_case_impl(vT const& x)
   using boost::simd::single_constant;
   return fma(x, fma(x, fma(x, fma(x, single_constant<vT, C0>(), single_constant<vT, C1>()), single_constant<vT, C2>()), single_constant<vT, C3>()), single_constant<vT, C4>());
 }
-BOOST_DISPATCH_NOINLINE nT horner1_case(nT x_)
+BOOST_NOINLINE nT horner1_case(nT x_)
 {
   vT x = x_;
   return horner1_case_impl(x);
@@ -82,7 +82,7 @@ BOOST_FORCEINLINE vT horner2_case_impl(vT const& x)
 
   return y;
 }
-BOOST_DISPATCH_NOINLINE nT horner2_case(nT x_)
+BOOST_NOINLINE nT horner2_case(nT x_)
 {
   vT x = x_;
   return horner2_case_impl(x);
@@ -109,7 +109,7 @@ BOOST_FORCEINLINE vT estrin_case_impl(vT const& x)
 
   return fma(sqr(x)*sqr(x), single_constant<vT, C0>(), fma(sqr(x), fma(x, single_constant<vT, C1>(), single_constant<vT, C2>()), fma(x, single_constant<vT, C3>(), single_constant<vT, C4>())));
 }
-BOOST_DISPATCH_NOINLINE nT estrin_case(nT x_)
+BOOST_NOINLINE nT estrin_case(nT x_)
 {
   vT x = x_;
   return estrin_case_impl(x);

@@ -31,14 +31,14 @@
   @par Usage:
 
   @code
-  BOOST_DISPATCH_NOINLINE void foo()
+  BOOST_NOINLINE void foo()
   {
     // ...
   }
   @endcode
 
 **/
-#define BOOST_DISPATCH_NOINLINE
+#define BOOST_NOINLINE
 
 /*!
   @brief Mark a function as deprecated
@@ -135,43 +135,6 @@
 #define BOOST_DISPATCH_NOVTABLE
 
 #else
-
-#ifndef BOOST_FORCEINLINE
-#  if defined(__GNUC__)
-#    define BOOST_FORCEINLINE inline __attribute__((always_inline))
-#  elif defined(_MSC_VER)
-#     define BOOST_FORCEINLINE __forceinline
-#  else
-#    define BOOST_FORCEINLINE inline
-#  endif
-#endif
-
-#ifndef BOOST_LIKELY
-#  if defined(__GNUC__)
-#    define BOOST_LIKELY(x) __builtin_expect(x, 1)
-#  else
-#    define BOOST_LIKELY(x) x
-#  endif
-#endif
-
-#ifndef BOOST_UNLIKELY
-#  if defined(__GNUC__)
-#    define BOOST_UNLIKELY(x) __builtin_expect(x, 0)
-#  else
-#    define BOOST_UNLIKELY(x) x
-#  endif
-#endif
-
-// deprecated name
-#define BOOST_DISPATCH_FORCE_INLINE BOOST_FORCEINLINE
-
-#if defined(__GNUC__)
-#define BOOST_DISPATCH_NOINLINE __attribute__((noinline))
-#elif defined(_MSC_VER)
-#define BOOST_DISPATCH_NOINLINE __declspec(noinline)
-#else
-#define BOOST_DISPATCH_NOINLINE
-#endif
 
 #if defined(__GNUC__)
 #define BOOST_DISPATCH_DEPRECATED __attribute__((deprecated))

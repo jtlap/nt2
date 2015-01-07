@@ -1,7 +1,7 @@
 //==============================================================================
 //         Copyright 2003 - 2012 LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 - 2012 LRI    UMR 8623 CNRS/Univ Paris Sud XI
-//         Copyright 2012        MetaScale SAS
+//         Copyright 2009 - 2015 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2012 - 2015 NumScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -10,16 +10,11 @@
 #ifndef NT2_SDK_UNIT_TESTS_EXCEPTIONS_HPP_INCLUDED
 #define NT2_SDK_UNIT_TESTS_EXCEPTIONS_HPP_INCLUDED
 
-/*!
-  @file
-  @brief Exceptions and assertions related testing macros
-**/
-
 #include <nt2/sdk/unit/stats.hpp>
 #include <nt2/sdk/error/assert_exception.hpp>
-#include <boost/dispatch/preprocessor/strip.hpp>
-#include <boost/dispatch/preprocessor/once.hpp>
-#include <boost/dispatch/meta/ignore_unused.hpp>
+#include <boost/preprocessor/punctuation/remove_parens.hpp>
+#include <nt2/sdk/unit/details/once.hpp>
+#include <boost/core/ignore_unused.hpp>
 #include <boost/preprocessor/stringize.hpp>
 #include <iostream>
 
@@ -43,10 +38,10 @@
 do {                                                                           \
   ::nt2::unit::test_count()++;                                                 \
   bool caught = false;                                                         \
-  try { NT2_UNUSED_EXPR (BOOST_DISPATCH_PP_STRIP(X)); }                        \
+  try { NT2_UNUSED_EXPR (BOOST_PP_REMOVE_PARENS(X)); }                        \
   catch( E& ex )                                                               \
   {                                                                            \
-    ::boost::dispatch::ignore_unused(ex);                                      \
+    ::boost::ignore_unused(ex);                                                \
     ::nt2::unit::pass(BOOST_PP_STRINGIZE(X) " throws " BOOST_PP_STRINGIZE(E)); \
     caught = true;                                                             \
   }                                                                            \
@@ -55,7 +50,7 @@ do {                                                                           \
                                   BOOST_PP_STRINGIZE(E)                        \
                                 , __LINE__, BOOST_CURRENT_FUNCTION             \
                                 );                                             \
-} BOOST_DISPATCH_ONCE                                                          \
+} NT2_TEST_ONCE                                                          \
 /**/
 
 #define NT2_TEST_WARNING_NOFATAL_BEGIN()                                       \
@@ -100,7 +95,7 @@ do {                                                                           \
   );                                                                           \
   ::nt2::unit::test_count()++;                                                 \
   bool caught = false;                                                         \
-  try { NT2_UNUSED_EXPR (BOOST_DISPATCH_PP_STRIP(X)); }                        \
+  try { NT2_UNUSED_EXPR (BOOST_PP_REMOVE_PARENS(X)); }                        \
   catch( nt2::assert_exception& ex )  {                                        \
     ::nt2::unit::pass(BOOST_PP_STRINGIZE(X) " asserts ");                      \
     std::cout << "with message:\n\t'" << ex.what() << "'\n";                   \
@@ -114,7 +109,7 @@ do {                                                                           \
                       );                                                       \
   }                                                                            \
   nt2::assert_mode = old_assert_mode;                                          \
-} BOOST_DISPATCH_ONCE                                                          \
+} NT2_TEST_ONCE                                                          \
 /**/
 
 /*!
@@ -129,7 +124,7 @@ do {                                                                           \
 do {                                                                           \
   bool nt2_test_no_throw = true;                                               \
   ::nt2::unit::test_count()++;                                                 \
-  try { NT2_UNUSED_EXPR (BOOST_DISPATCH_PP_STRIP(X)); }                        \
+  try { NT2_UNUSED_EXPR (BOOST_PP_REMOVE_PARENS(X)); }                        \
   catch(...)                                                                   \
   {                                                                            \
     ::nt2::unit::fail( BOOST_PP_STRINGIZE(X) " should not throw"               \
@@ -138,7 +133,7 @@ do {                                                                           \
     nt2_test_no_throw = false;                                                 \
   }                                                                            \
   if(nt2_test_no_throw) ::nt2::unit::pass(#X " does not throw");               \
-} BOOST_DISPATCH_ONCE                                                          \
+} NT2_TEST_ONCE                                                          \
 /**/
 
 
@@ -158,7 +153,7 @@ do {                                                                           \
   );                                                                           \
   bool nt2_test_no_throw = true;                                               \
   ::nt2::unit::test_count()++;                                                 \
-  try { NT2_UNUSED_EXPR (BOOST_DISPATCH_PP_STRIP(X)); }                        \
+  try { NT2_UNUSED_EXPR (BOOST_PP_REMOVE_PARENS(X)); }                        \
   catch(nt2::assert_exception& ex)                                             \
   {                                                                            \
     ::nt2::unit::fail( #X " should not assert "                                \
@@ -171,7 +166,7 @@ do {                                                                           \
   if(nt2_test_no_throw)                                                        \
     ::nt2::unit::pass(#X " does not assert " );                                \
   nt2::assert_mode = old_assert_mode;                                          \
-} BOOST_DISPATCH_ONCE                                                          \
+} NT2_TEST_ONCE                                                          \
 /**/
 
 #endif

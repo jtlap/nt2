@@ -1,6 +1,7 @@
 //==============================================================================
-//         Copyright 2003 & onward LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 & onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2015 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2012 - 2015 NumScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -9,25 +10,13 @@
 #ifndef BOOST_DISPATCH_META_DETAILS_PROPERTIES_HPP_INCLUDED
 #define BOOST_DISPATCH_META_DETAILS_PROPERTIES_HPP_INCLUDED
 
-/*!
- * \file
- */
-
 #include <boost/mpl/if.hpp>
 #include <boost/type_traits/is_signed.hpp>
 #include <boost/dispatch/meta/adapted_traits.hpp>
 #include <boost/dispatch/meta/details/hierarchy_base.hpp>
 
-namespace boost { namespace dispatch { namespace details
+namespace boost { namespace dispatch
 {
-  struct is_signed_impl
-  {
-    template<class T>
-    struct apply : boost::is_signed<T>
-    {
-    };
-  };
-}
 
 namespace meta
 {
@@ -99,9 +88,9 @@ namespace meta
   //============================================================================
   template<class T>
   struct  signed_ : boost::mpl::if_ < meta::is_integral<T>
-                                  , integer_<T>
-                                  , arithmetic_<T>
-                                  >::type
+                                    , integer_<T>
+                                    , arithmetic_<T>
+                                    >::type
   {
     typedef typename boost::mpl::if_< meta::is_integral<T>
                                     , integer_<T>
@@ -122,72 +111,162 @@ namespace meta
   //////////////////////////////////////////////////////////////////////////////
   // Sign based hierarchy - gather integral types of a given signedness
   //////////////////////////////////////////////////////////////////////////////
-  BOOST_DISPATCH_HIERARCHY_CLASS_TPL(int_        , signed_<T>    );
-  BOOST_DISPATCH_HIERARCHY_CLASS_TPL(uint_       , unsigned_<T>  );
+  template<class T> struct int_  : signed_<T>
+  {
+    typedef signed_<T>  parent;
+  };
 
+  template<class T> struct uint_ : unsigned_<T>
+  {
+    typedef unsigned_<T>  parent;
+  };
+}
+
+namespace details
+{
+  struct lsigned_
+  {
+    template<class T> struct apply : boost::is_signed<T> {};
+  };
+
+  template<typename T>
+  struct  signed_or_not
+        : boost::mpl::if_ < meta::is_floating_point<T>
+                                    , meta::floating_<T>
+                                    , typename  boost::mpl::if_
+                                        < meta::behave_as<details::lsigned_,T>
+                                        , meta::int_<T>
+                                        , meta::uint_<T>
+                                        >::type
+                                    >
+  {};
+}
+
+namespace meta
+{
   //////////////////////////////////////////////////////////////////////////////
   // Sizeof based hierarchy - gather type which sizeof is equal to a given value
   //////////////////////////////////////////////////////////////////////////////
-  BOOST_DISPATCH_HIERARCHY_CLASS_TPL_META (type8_, (boost::mpl::if_< behave_as<details::is_signed_impl,T>
-                                                        , int_<T>
-                                                        , uint_<T>
-                                                        >
-                                    )
-                          );
+  template<class T>
+  struct type8_ : details::signed_or_not<T>::type
+  {
+    typedef typename details::signed_or_not<T>::type  parent;
+  };
 
-  BOOST_DISPATCH_HIERARCHY_CLASS_TPL_META (type16_, (boost::mpl::if_< behave_as<details::is_signed_impl,T>
-                                                         , int_<T>
-                                                         , uint_<T>
-                                                         >
-                                    )
-                          );
+  template<class T>
+  struct type16_ : details::signed_or_not<T>::type
+  {
+    typedef typename details::signed_or_not<T>::type  parent;
+  };
 
-  BOOST_DISPATCH_HIERARCHY_CLASS_TPL_META (floating_sized_
-                               , (boost::mpl::if_<meta::is_floating_point<T>
-                                                 , floating_<T>
-                                                 , typename
-                                                   boost::mpl::if_
-                                                   < behave_as<details::is_signed_impl,T>
-                                                   , int_<T>
-                                                   , uint_<T>
-                                                   >::type
-                                                 >
-                                 )
-                               );
+  template<class T>   struct floating_sized_
+                    : boost::mpl::if_ < meta::is_floating_point<T>
+                                      , floating_<T>
+                                      , typename details::signed_or_not<T>::type
+                                      >::type
+  {
+    typedef typename boost::mpl::if_< meta::is_floating_point<T>
+                                    , floating_<T>
+                                    , typename details::signed_or_not<T>::type
+                                    >::type  parent;
+  };
 
-  BOOST_DISPATCH_HIERARCHY_CLASS_TPL(type32_       , floating_sized_<T>  );
-  BOOST_DISPATCH_HIERARCHY_CLASS_TPL(type64_       , floating_sized_<T>  );
+  template<class T> struct type32_ : floating_sized_<T>
+  {
+    typedef floating_sized_<T> parent;
+  };
+
+  template<class T> struct type64_ : floating_sized_<T>
+  {
+    typedef floating_sized_<T> parent;
+  };
 
   //////////////////////////////////////////////////////////////////////////////
   // Sizeof based hierarchy of integers
   //////////////////////////////////////////////////////////////////////////////
-  BOOST_DISPATCH_HIERARCHY_CLASS_TPL(ints8_        , type8_<T>       );
-  BOOST_DISPATCH_HIERARCHY_CLASS_TPL(ints16_       , type16_<T>      );
-  BOOST_DISPATCH_HIERARCHY_CLASS_TPL(ints32_       , type32_<T>      );
-  BOOST_DISPATCH_HIERARCHY_CLASS_TPL(ints64_       , type64_<T>      );
+  template<class T> struct ints8_  : type8_<T>
+  {
+    typedef type8_<T> parent;
+  };
+
+  template<class T> struct ints16_ : type16_<T>
+  {
+    typedef type16_<T> parent;
+  };
+
+  template<class T> struct ints32_ : type32_<T>
+  {
+    typedef type32_<T> parent;
+  };
+
+  template<class T> struct ints64_ : type64_<T>
+  {
+    typedef type64_<T> parent;
+  };
 
   //////////////////////////////////////////////////////////////////////////////
   // Sizeof based hierarchy of signed integers
   //////////////////////////////////////////////////////////////////////////////
-  BOOST_DISPATCH_HIERARCHY_CLASS_TPL(int8_         , ints8_<T>       );
-  BOOST_DISPATCH_HIERARCHY_CLASS_TPL(int16_        , ints16_<T>      );
-  BOOST_DISPATCH_HIERARCHY_CLASS_TPL(int32_        , ints32_<T>      );
-  BOOST_DISPATCH_HIERARCHY_CLASS_TPL(int64_        , ints64_<T>      );
+  template<class T> struct int8_   : ints8_<T>
+  {
+    typedef ints8_<T> parent;
+  };
+
+  template<class T> struct int16_  : ints16_<T>
+  {
+    typedef ints16_<T> parent;
+  };
+
+  template<class T> struct int32_  : ints32_<T>
+  {
+    typedef ints32_<T> parent;
+  };
+
+  template<class T> struct int64_  : ints64_<T>
+  {
+    typedef ints64_<T> parent;
+  };
 
   //////////////////////////////////////////////////////////////////////////////
   // Sizeof based hierarchy of unsigned integers
   //////////////////////////////////////////////////////////////////////////////
-  BOOST_DISPATCH_HIERARCHY_CLASS_TPL(uint8_        , ints8_<T>       );
-  BOOST_DISPATCH_HIERARCHY_CLASS_TPL(uint16_       , ints16_<T>      );
-  BOOST_DISPATCH_HIERARCHY_CLASS_TPL(uint32_       , ints32_<T>      );
-  BOOST_DISPATCH_HIERARCHY_CLASS_TPL(uint64_       , ints64_<T>      );
+  template<class T> struct uint8_   : ints8_<T>
+  {
+    typedef ints8_<T> parent;
+  };
+
+  template<class T> struct uint16_  : ints16_<T>
+  {
+    typedef ints16_<T> parent;
+  };
+
+  template<class T> struct uint32_  : ints32_<T>
+  {
+    typedef ints32_<T> parent;
+  };
+
+  template<class T> struct uint64_  : ints64_<T>
+  {
+    typedef ints64_<T> parent;
+  };
 
   //////////////////////////////////////////////////////////////////////////////
   // Native real types hierarchy
   //////////////////////////////////////////////////////////////////////////////
-  BOOST_DISPATCH_HIERARCHY_CLASS_TPL(double_       , type64_<T>      );
-  BOOST_DISPATCH_HIERARCHY_CLASS_TPL(single_       , type32_<T>      );
-  BOOST_DISPATCH_HIERARCHY_CLASS_TPL(long_double_  , fundamental_<T> );
+  template<class T> struct double_ : type64_<T>
+  {
+    typedef type64_<T> parent;
+  };
+
+  template<class T> struct single_ : type32_<T>
+  {
+    typedef type32_<T> parent;
+  };
+
+  template<class T> struct long_double_ : fundamental_<T>
+  {
+    typedef fundamental_<T> parent;
+  };
 
 } } }
 

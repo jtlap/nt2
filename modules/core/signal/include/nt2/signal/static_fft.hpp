@@ -1531,7 +1531,7 @@ namespace detail
 
 
     template <typename T>
-    BOOST_DISPATCH_NOINLINE
+    BOOST_NOINLINE
     void BOOST_FASTCALL inplace_separated_context_t<T>::separate_a
     (
         vector_t           * BOOST_DISPATCH_RESTRICT const p_reals          , // N/2 ( + 1 ) scalars
@@ -1664,7 +1664,7 @@ namespace detail
     } // inplace_separated_context_t<T>::separate()
 
     template <typename T>
-    BOOST_DISPATCH_NOINLINE
+    BOOST_NOINLINE
     void BOOST_FASTCALL inplace_separated_context_t<T>::separate_b
     (
         vector_t                    * BOOST_DISPATCH_RESTRICT const p_reals          , // N/2 ( + 1 ) scalars
@@ -1765,7 +1765,7 @@ namespace detail
     ////////////////////////////////////////////////////////////////////////////
 
     template <class Decimation, class Context>
-    BOOST_DISPATCH_NOINLINE
+    BOOST_NOINLINE
     void BOOST_FASTCALL butterfly_loop
     (
         typename Context::parameter0_t                                 const param0,

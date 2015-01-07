@@ -9,19 +9,19 @@
 #ifndef BOOST_DISPATCH_DSL_PROTO_EXTENDS_HPP_INCLUDED
 #define BOOST_DISPATCH_DSL_PROTO_EXTENDS_HPP_INCLUDED
 
-#include <boost/dispatch/preprocessor/strip.hpp>
+#include <boost/preprocessor/punctuation/remove_parens.hpp>
 #include <boost/proto/extends.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // BOOST_PROTO_BASIC_EXTENDS working with template Domain
 ////////////////////////////////////////////////////////////////////////////////
 #define BOOST_PROTO_BASIC_EXTENDS_TPL(Expr, Derived, Domain)      \
-BOOST_PROTO_BASIC_EXTENDS_( BOOST_DISPATCH_PP_STRIP(Expr)         \
-                          , BOOST_DISPATCH_PP_STRIP(Derived)      \
-                          , BOOST_DISPATCH_PP_STRIP(Domain)       \
+BOOST_PROTO_BASIC_EXTENDS_( BOOST_PP_REMOVE_PARENS(Expr)         \
+                          , BOOST_PP_REMOVE_PARENS(Derived)      \
+                          , BOOST_PP_REMOVE_PARENS(Domain)       \
                           )                                       \
 typedef void                          proto_is_aggregate_;        \
-typedef typename BOOST_DISPATCH_PP_STRIP(Domain)::proto_generator \
+typedef typename BOOST_PP_REMOVE_PARENS(Domain)::proto_generator \
         proto_generator;                                          \
 /**/
 

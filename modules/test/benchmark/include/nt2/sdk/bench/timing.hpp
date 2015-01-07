@@ -29,7 +29,7 @@
 
 /// INTERNAL ONLY
 #define NT2_TIMING_TYPES(r,d,i,e)                                              \
-BOOST_PP_COMMA_IF(i) BOOST_DISPATCH_PP_STRIP(BOOST_PP_TUPLE_ELEM(3,0,e))       \
+BOOST_PP_COMMA_IF(i) BOOST_PP_REMOVE_PARENS(BOOST_PP_TUPLE_ELEM(3,0,e))       \
 /**/
 
 /// INTERNAL ONLY

@@ -9,7 +9,7 @@
 #ifndef NT2_SDK_MEMORY_FIXED_ALLOCATOR_HPP_INCLUDED
 #define NT2_SDK_MEMORY_FIXED_ALLOCATOR_HPP_INCLUDED
 
-#include <boost/dispatch/meta/ignore_unused.hpp>
+#include <boost/core/ignore_unused.hpp>
 #include <boost/assert.hpp>
 #include <cstddef>
 
@@ -89,7 +89,7 @@ namespace nt2 {  namespace memory
     ////////////////////////////////////////////////////////////////////////////
     pointer allocate( size_type s, const void* = 0 ) const
     {
-      boost::dispatch::ignore_unused(s);
+      boost::ignore_unused(s);
       BOOST_ASSERT_MSG
       ( (s <= max_size())
       , "Allocation requests more memory than available in fixed_allocator"

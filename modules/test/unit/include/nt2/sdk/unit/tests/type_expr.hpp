@@ -1,7 +1,7 @@
 //==============================================================================
 //         Copyright 2003 - 2012 LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 - 2012 LRI    UMR 8623 CNRS/Univ Paris Sud XI
-//         Copyright 2012        MetaScale SAS
+//         Copyright 2009 - 2015 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2012 - 2015 NumScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -10,12 +10,12 @@
 #ifndef NT2_SDK_UNIT_TESTS_TYPE_EXPR_HPP_INCLUDED
 #define NT2_SDK_UNIT_TESTS_TYPE_EXPR_HPP_INCLUDED
 
-#include <iostream>
 #include <nt2/sdk/unit/stats.hpp>
 #include <nt2/sdk/unit/details/expr_type.hpp>
+#include <nt2/sdk/unit/details/once.hpp>
 #include <nt2/sdk/meta/type_id.hpp>
-#include <boost/dispatch/preprocessor/strip.hpp>
-#include <boost/dispatch/preprocessor/once.hpp>
+#include <boost/preprocessor/punctuation/remove_parens.hpp>
+#include <iostream>
 
 /// INTERNAL ONLY
 #define NT2_PP_STRINGIZE__(...) #__VA_ARGS__
@@ -41,27 +41,27 @@
 do {                                                                           \
   nt2::unit::test_count()++;                                                   \
   std::cout << " * Test expression `"                                          \
-            << NT2_PP_STRINGIZE(BOOST_DISPATCH_PP_STRIP(Expression)) << "`\n"  \
+            << NT2_PP_STRINGIZE(BOOST_PP_REMOVE_PARENS(Expression)) << "`\n"  \
             << "       with lambda `"                                          \
-            << NT2_PP_STRINGIZE(BOOST_DISPATCH_PP_STRIP(Lambda)) << "`\n"      \
+            << NT2_PP_STRINGIZE(BOOST_PP_REMOVE_PARENS(Lambda)) << "`\n"      \
             << "        is of type `"                                          \
-            << NT2_PP_STRINGIZE(BOOST_DISPATCH_PP_STRIP(Type)) << "`\n"        \
+            << NT2_PP_STRINGIZE(BOOST_PP_REMOVE_PARENS(Type)) << "`\n"        \
             << "               aka `"                                          \
-            << nt2::type_id<BOOST_DISPATCH_PP_STRIP(Type)>() << "`\n";         \
+            << nt2::type_id<BOOST_PP_REMOVE_PARENS(Type)>() << "`\n";         \
                                                                                \
    nt2::details::                                                              \
    check_expr_equality( (nt2::details                                          \
-                            ::expr_type <BOOST_DISPATCH_PP_STRIP(Lambda)>      \
-                                        (BOOST_DISPATCH_PP_STRIP(Expression))  \
+                            ::expr_type <BOOST_PP_REMOVE_PARENS(Lambda)>      \
+                                        (BOOST_PP_REMOVE_PARENS(Expression))  \
                         )                                                      \
                       , nt2::details                                           \
-                        ::is_same_as<BOOST_DISPATCH_PP_STRIP(Type)>            \
+                        ::is_same_as<BOOST_PP_REMOVE_PARENS(Type)>            \
                         (nt2::details                                          \
-                            ::expr_type<BOOST_DISPATCH_PP_STRIP(Lambda)>       \
-                             (BOOST_DISPATCH_PP_STRIP(Expression))             \
+                            ::expr_type<BOOST_PP_REMOVE_PARENS(Lambda)>       \
+                             (BOOST_PP_REMOVE_PARENS(Expression))             \
                         )                                                      \
                       );                                                       \
-} BOOST_DISPATCH_ONCE                                                          \
+} NT2_TEST_ONCE                                                          \
 /**/
 
 /*!
@@ -76,12 +76,12 @@ do {                                                                           \
 do {                                                                           \
   nt2::unit::test_count()++;                                                   \
   std::cout << " * Test type info `"                                           \
-            << NT2_PP_STRINGIZE(BOOST_DISPATCH_PP_STRIP(Info)) << "`\n"        \
+            << NT2_PP_STRINGIZE(BOOST_PP_REMOVE_PARENS(Info)) << "`\n"        \
             << "       is of type `"                                           \
-            << NT2_PP_STRINGIZE(BOOST_DISPATCH_PP_STRIP(Type)) << "`\n"        \
+            << NT2_PP_STRINGIZE(BOOST_PP_REMOVE_PARENS(Type)) << "`\n"        \
             << "              aka `"                                           \
-            << nt2::type_id<BOOST_DISPATCH_PP_STRIP(Type)>() << "`\n";         \
-  if(typeid(BOOST_DISPATCH_PP_STRIP(Type)) == Info)                            \
+            << nt2::type_id<BOOST_PP_REMOVE_PARENS(Type)>() << "`\n";         \
+  if(typeid(BOOST_PP_REMOVE_PARENS(Type)) == Info)                            \
   {                                                                            \
     std::cout << " **passed**\n\n";                                            \
   }                                                                            \
@@ -92,7 +92,7 @@ do {                                                                           \
               << nt2::details::demangle((Info).name())                         \
               << "`\n\n";                                                      \
   }                                                                            \
-} BOOST_DISPATCH_ONCE                                                          \
+} NT2_TEST_ONCE                                                          \
 /**/
 
 /*!
@@ -107,21 +107,21 @@ do {                                                                           \
 do {                                                                           \
   nt2::unit::test_count()++;                                                   \
   std::cout << " * Test type   `"                                              \
-            << NT2_PP_STRINGIZE(BOOST_DISPATCH_PP_STRIP(T)) << "`\n"           \
+            << NT2_PP_STRINGIZE(BOOST_PP_REMOVE_PARENS(T)) << "`\n"           \
             << "          is   `"                                              \
-            << NT2_PP_STRINGIZE(BOOST_DISPATCH_PP_STRIP(Type)) << "`\n"        \
+            << NT2_PP_STRINGIZE(BOOST_PP_REMOVE_PARENS(Type)) << "`\n"        \
             << "         aka   `"                                              \
-            << nt2::type_id<BOOST_DISPATCH_PP_STRIP(Type)>() << "`\n";         \
+            << nt2::type_id<BOOST_PP_REMOVE_PARENS(Type)>() << "`\n";         \
                                                                                \
    nt2::details::                                                              \
-   check_type_equality< BOOST_DISPATCH_PP_STRIP(T)                             \
+   check_type_equality< BOOST_PP_REMOVE_PARENS(T)                             \
                       >( boost::mpl::bool_                                     \
-                         < boost::is_same< BOOST_DISPATCH_PP_STRIP(Type)       \
-                                         , BOOST_DISPATCH_PP_STRIP(T)          \
+                         < boost::is_same< BOOST_PP_REMOVE_PARENS(Type)       \
+                                         , BOOST_PP_REMOVE_PARENS(T)          \
                                          >::value                              \
                          >()                                                   \
                        );                                                      \
-} BOOST_DISPATCH_ONCE                                                          \
+} NT2_TEST_ONCE                                                          \
 /**/
 
 #endif

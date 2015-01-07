@@ -1,7 +1,7 @@
 //==============================================================================
 //         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 - 2013 LRI    UMR 8623 CNRS/Univ Paris Sud XI
-//         Copyright 2012 - 2013 MetaScale
+//         Copyright 2009 - 2015 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2012 - 2015 NumScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -17,29 +17,33 @@
 namespace boost { namespace simd { namespace tag
 {
   // Tag hierarchy for SSE extensions
-  BOOST_DISPATCH_HIERARCHY_CLASS(sse_, simd_);
-  BOOST_DISPATCH_HIERARCHY_CLASS(sse2_, sse_);
-  BOOST_DISPATCH_HIERARCHY_CLASS(sse3_, sse2_);
-  BOOST_DISPATCH_HIERARCHY_CLASS(sse4a_, sse3_);
+  struct sse_   : simd_ { typedef simd_   parent; };
+  struct sse2_  : sse_  { typedef sse_    parent; };
+  struct sse3_  : sse2_ { typedef sse2_   parent; };
+  struct sse4a_ : sse3_ { typedef sse3_   parent; };
+
 #ifdef BOOST_SIMD_ARCH_AMD
-  BOOST_DISPATCH_HIERARCHY_CLASS(ssse3_, sse4a_);
+  struct ssse3_ : sse4a_  { typedef sse4a_  parent; };
 #else
-  BOOST_DISPATCH_HIERARCHY_CLASS(ssse3_, sse3_);
+  struct ssse3_ : sse3_   { typedef sse3_   parent; };
 #endif
-  BOOST_DISPATCH_HIERARCHY_CLASS(sse4_1_, ssse3_);
-  BOOST_DISPATCH_HIERARCHY_CLASS(sse4_2_, sse4_1_);
-  BOOST_DISPATCH_HIERARCHY_CLASS(avx_, sse4_2_);
-  BOOST_DISPATCH_HIERARCHY_CLASS(fma4_, avx_);
-  BOOST_DISPATCH_HIERARCHY_CLASS(xop_, fma4_);
+
+  struct sse4_1_  : ssse3_  { typedef ssse3_  parent; };
+  struct sse4_2_  : sse4_1_ { typedef sse4_1_ parent; };
+  struct avx_     : sse4_2_ { typedef sse4_2_ parent; };
+  struct fma4_    : avx_    { typedef avx_    parent; };
+  struct xop_     : fma4_   { typedef fma4_   parent; };
+
 #ifdef BOOST_SIMD_ARCH_AMD
-  BOOST_DISPATCH_HIERARCHY_CLASS(fma3_, xop_);
+  struct fma3_ : xop_ { typedef xop_  parent; };
 #else
-  BOOST_DISPATCH_HIERARCHY_CLASS(fma3_, avx_);
+  struct fma3_ : avx_ { typedef avx_  parent; };
 #endif
-  BOOST_DISPATCH_HIERARCHY_CLASS(avx2_, fma3_);
+
+  struct avx2_ : fma3_ { typedef fma3_  parent; };
 
   // Tag hierarchy for mic extensions
-  BOOST_DISPATCH_HIERARCHY_CLASS(mic_, sse2_);
+  struct mic_ : sse2_ { typedef sse2_  parent; };
 } } }
 
 #endif

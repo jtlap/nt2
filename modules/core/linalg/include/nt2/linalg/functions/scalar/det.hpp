@@ -17,7 +17,7 @@
 #include <nt2/include/functions/issquare.hpp>
 #include <nt2/include/functions/globalprod.hpp>
 #include <nt2/core/container/table/table.hpp>
-#include <boost/dispatch/meta/ignore_unused.hpp>
+#include <boost/core/ignore_unused.hpp>
 
 namespace nt2{ namespace ext
 {
@@ -41,7 +41,7 @@ namespace nt2{ namespace ext
 
       // Factorize A as L/U
       nt2_la_int  info = nt2::getrf(boost::proto::value(lu),boost::proto::value(ip));
-      boost::dispatch::ignore_unused(info);
+      boost::ignore_unused(info);
 
       // DET(A) is the product of LU(A) diagonal by -1 at the power of
       // the number of non-permutations done in LU(A)

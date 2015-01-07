@@ -1,6 +1,7 @@
 //==============================================================================
 //         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2009 - 2015   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2012 - 2015   NumScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -9,21 +10,12 @@
 #include <nt2/include/functions/caurnd.hpp>
 #include <nt2/include/functions/kstest.hpp>
 #include <nt2/include/functions/caucdf.hpp>
-#include <nt2/include/functions/unifrnd.hpp>
 #include <nt2/include/functions/unifcdf.hpp>
-#include <nt2/include/functions/rand.hpp>
-#include <nt2/include/functions/ones.hpp>
-#include <nt2/include/functions/zeros.hpp>
-#include <nt2/include/functions/linspace.hpp>
 #include <nt2/include/functions/sort.hpp>
-#include <nt2/include/functions/reshape.hpp>
+#include <nt2/table.hpp>
+
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-
-#include <nt2/constant/constant.hpp>
-#include <nt2/options.hpp>
-#include <nt2/table.hpp>
-#include <nt2/sdk/meta/type_id.hpp>
 
 template < class S > struct cau_cdf
 {
@@ -34,7 +26,7 @@ template < class S > struct cau_cdf
   {
     return nt2::caucdf(a, med_, scal_);
   }
-private :
+
   S med_, scal_;
 };
 
@@ -47,36 +39,32 @@ template < class S > struct unif_cdf
   {
     return nt2::unifcdf(a, a_, b_);
   }
-private :
+
   S a_, b_;
 };
 
 NT2_TEST_CASE_TPL ( cauks,  NT2_REAL_TYPES)
 {
-
   T med = 0;
   T scal = 1;
   nt2::table<T> a = nt2::sort(caurnd(med, scal, nt2::of_size(1, 1000)), 2);
   cau_cdf<T>  ca(med, scal);
   T d, p;
   nt2:: kstest(a, ca, d, p);
-//Kolmogorov smirnov at 5% must succeed
+
+  // Kolmogorov smirnov at 5% must succeed
   NT2_TEST_GREATER_EQUAL(p, 0.05);
-
-
 }
 
 NT2_TEST_CASE_TPL ( unifks,  NT2_REAL_TYPES)
 {
-
   T a = -1;
   T b = 1;
   nt2::table<T> v = nt2::sort(caurnd(a, b, nt2::of_size(1, 1000)), 2);
   unif_cdf<T>  cu(a, b);
   T d, p;
   nt2:: kstest(v, cu, d, p);
-//Kolmogorov smirnov at 5% must fail
+
+  // Kolmogorov smirnov at 5% must fail
   NT2_TEST_LESSER_EQUAL(p, 0.05);
-
-
 }

@@ -66,7 +66,7 @@ namespace nt2 { namespace ext
 
     // General case
     template<typename X, typename N, typename M,typename Size>
-    BOOST_DISPATCH_FORCE_INLINE void
+    BOOST_FORCEINLINE void
     eval( X const& a0, A1& a1, Size const& sz, value_type bi
         , N const&, M const& m, boost::mpl::false_ const&
         ) const
@@ -85,7 +85,7 @@ namespace nt2 { namespace ext
 
     // 2D ind2sub - remquo + additionnal base index work
     template<typename X,typename N, typename M,typename Size>
-    BOOST_DISPATCH_FORCE_INLINE void
+    BOOST_FORCEINLINE void
     eval( X const& a0, A1& a1, Size const& sz, value_type bi
         , N const&, M const&, boost::mpl::true_ const&
         ) const
@@ -106,7 +106,7 @@ namespace nt2 { namespace ext
 
     // 1D ind2sub - just copy over
     template<typename X,typename Size>
-    BOOST_DISPATCH_FORCE_INLINE void
+    BOOST_FORCEINLINE void
     eval( X const& a0, A1& a1, Size const&, value_type
         , boost::mpl::int_<0> const &, boost::mpl::int_<1> const &
         , boost::mpl::false_ const&

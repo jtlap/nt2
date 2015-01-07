@@ -1,7 +1,7 @@
 //==============================================================================
 //         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 - 2013 LRI    UMR 8623 CNRS/Univ Paris Sud XI
-//         Copyright 2012 - 2013 MetaScale
+//         Copyright 2009 - 2015 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2012 - 2015 NumScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -15,7 +15,10 @@
 
 namespace boost { namespace simd { namespace tag
 {
-  BOOST_DISPATCH_HIERARCHY_CLASS(simd_, boost::dispatch::tag::cpu_);
+  struct simd_ : boost::dispatch::tag::cpu_
+  {
+    typedef boost::dispatch::tag::cpu_  parent;
+  };
 
   // Tag hierarchy for no extension
   template<std::size_t N> struct simd_emulation_

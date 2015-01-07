@@ -130,7 +130,7 @@ namespace nt2
 
   /** \brief elevates \c a0 to the compile-time known power \c N. **/
   template<int N, class A0>
-  BOOST_DISPATCH_FORCE_INLINE // function is force inline because it would
+  BOOST_FORCEINLINE // function is force inline because it would
                               // never make sense not to inline it
   typename meta::call<tag::pow_n_(A0, boost::mpl::int_<N>)>::type
   pow_n(A0 const& a0)

@@ -17,7 +17,25 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Some hierarchies
 ////////////////////////////////////////////////////////////////////////////////
-BOOST_DISPATCH_REGISTER_HIERARCHY(iterator_)
+namespace boost { namespace dispatch { namespace meta
+{
+  template<class T> struct iterator_ : iterator_< typename T::parent >
+  {
+    typedef iterator_< typename T::parent > parent;
+  };
+
+  /// INTERNAL ONLY
+  template<class T> struct iterator_< unspecified_<T> > : unspecified_<T>
+  {
+    typedef unspecified_<T> parent;
+  };
+
+  /// INTERNAL ONLY
+  template<class T> struct iterator_< unknown_<T> > : unknown_<T>
+  {
+    typedef unknown_<T> parent;
+  };
+} } }
 
 namespace boost { namespace simd { namespace ext
 {

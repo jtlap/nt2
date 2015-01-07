@@ -82,7 +82,7 @@ namespace nt2
 #define NT2_FUTURE_FORWARD_ARGS(z,n,t) details::openmp_future<A##n> const & a##n
 #define NT2_FUTURE_FORWARD_ARGS1(z,n,t) bool * r##n = POINT(a##n,ready_).get();
 #define NT2_FUTURE_FORWARD_ARGS2(z,n,t) future_res.attach_previous_future( a##n );
-#define NT2_FUTURE_FORWARD_ARGS3(z,n,t) boost::dispatch::ignore_unused(r##n);
+#define NT2_FUTURE_FORWARD_ARGS3(z,n,t) boost::ignore_unused(r##n);
 
     template< BOOST_PP_ENUM_PARAMS(N, typename A) >
     details::openmp_future<int> call( BOOST_PP_ENUM(N,NT2_FUTURE_FORWARD_ARGS, ~) )

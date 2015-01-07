@@ -15,7 +15,7 @@
  */
 
 #include <boost/dispatch/details/parameters.hpp>
-#include <boost/dispatch/preprocessor/strip.hpp>
+#include <boost/preprocessor/punctuation/remove_parens.hpp>
 #include <boost/dispatch/functor/details/dispatch.hpp>
 #include <boost/dispatch/attributes.hpp>
 #include <boost/preprocessor/seq/size.hpp>
@@ -25,12 +25,12 @@
 #include <boost/preprocessor/cat.hpp>
 
 // Helpers that strips each element of a sequence
-#define BOOST_DISPATCH_TYPE_TPL(z,n,t) BOOST_DISPATCH_PP_STRIP(BOOST_PP_SEQ_ELEM(n,t))
-#define BOOST_DISPATCH_TYPE(z,n,t) class BOOST_DISPATCH_PP_STRIP(BOOST_PP_SEQ_ELEM(n,t))
+#define BOOST_DISPATCH_TYPE_TPL(z,n,t) BOOST_PP_REMOVE_PARENS(BOOST_PP_SEQ_ELEM(n,t))
+#define BOOST_DISPATCH_TYPE(z,n,t) class BOOST_PP_REMOVE_PARENS(BOOST_PP_SEQ_ELEM(n,t))
 
 // XXXMathias: 'const' prevents using TPPs
-#define BOOST_DISPATCH_ARG(z,n,t) , BOOST_DISPATCH_PP_STRIP(BOOST_PP_SEQ_ELEM(n,t)) /*const*/
-#define BOOST_DISPATCH_TAG(z,n,t) BOOST_DISPATCH_PP_STRIP(BOOST_PP_SEQ_ELEM(n,t))
+#define BOOST_DISPATCH_ARG(z,n,t) , BOOST_PP_REMOVE_PARENS(BOOST_PP_SEQ_ELEM(n,t)) /*const*/
+#define BOOST_DISPATCH_TAG(z,n,t) BOOST_PP_REMOVE_PARENS(BOOST_PP_SEQ_ELEM(n,t))
 
 //==============================================================================
 /*!
@@ -52,17 +52,17 @@ template< BOOST_PP_ENUM( BOOST_PP_SEQ_SIZE(Types)                              \
                        , Types                                                 \
                        )                                                       \
         >                                                                      \
-BOOST_DISPATCH_FORCE_INLINE                                                    \
-BOOST_DISPATCH_PP_STRIP(Ret)                                                   \
+BOOST_FORCEINLINE                                                    \
+BOOST_PP_REMOVE_PARENS(Ret)                                                   \
 BOOST_PP_CAT(dispatching_, Tag)( adl_helper                                    \
-           , BOOST_DISPATCH_PP_STRIP(Site)                                     \
+           , BOOST_PP_REMOVE_PARENS(Site)                                     \
              BOOST_PP_REPEAT( BOOST_PP_SEQ_SIZE(Seq)                           \
                             , BOOST_DISPATCH_ARG                               \
                             , Seq                                              \
                           )                                                    \
           )                                                                    \
 {                                                                              \
-  return BOOST_DISPATCH_PP_STRIP(Ret)();                                       \
+  return BOOST_PP_REMOVE_PARENS(Ret)();                                       \
 }                                                                              \
 /**/
 
@@ -87,17 +87,17 @@ template< BOOST_PP_ENUM( BOOST_PP_SEQ_SIZE(Types)                              \
                        , Types                                                 \
                        )                                                       \
         >                                                                      \
-BOOST_DISPATCH_FORCE_INLINE                                                    \
-BOOST_DISPATCH_PP_STRIP(Ret)                                                   \
+BOOST_FORCEINLINE                                                    \
+BOOST_PP_REMOVE_PARENS(Ret)                                                   \
 BOOST_PP_CAT(dispatching_, Tag)( adl_helper                                    \
-           , BOOST_DISPATCH_PP_STRIP(Site)                                     \
+           , BOOST_PP_REMOVE_PARENS(Site)                                     \
              BOOST_PP_REPEAT( BOOST_PP_SEQ_SIZE(Seq)                           \
                             , BOOST_DISPATCH_ARG                               \
                             , Seq                                              \
                             )                                                  \
           )                                                                    \
 {                                                                              \
-  return BOOST_DISPATCH_PP_STRIP(Ret)();                                       \
+  return BOOST_PP_REMOVE_PARENS(Ret)();                                       \
 }                                                                              \
 /**/
 
@@ -123,19 +123,19 @@ template< BOOST_PP_ENUM( BOOST_PP_SEQ_SIZE(Types)                              \
                        , Types                                                 \
                        )                                                       \
         >                                                                      \
-BOOST_DISPATCH_FORCE_INLINE                                                    \
-typename boost::enable_if< BOOST_DISPATCH_PP_STRIP(Cond)                       \
-                         , BOOST_DISPATCH_PP_STRIP(Ret)                        \
+BOOST_FORCEINLINE                                                    \
+typename boost::enable_if< BOOST_PP_REMOVE_PARENS(Cond)                       \
+                         , BOOST_PP_REMOVE_PARENS(Ret)                        \
                          >::type                                               \
 BOOST_PP_CAT(dispatching_, Tag)( adl_helper                                    \
-           , BOOST_DISPATCH_PP_STRIP(Site)                                     \
+           , BOOST_PP_REMOVE_PARENS(Site)                                     \
              BOOST_PP_REPEAT( BOOST_PP_SEQ_SIZE(Seq)                           \
                             , BOOST_DISPATCH_ARG                               \
                             , Seq                                              \
                             )                                                  \
           )                                                                    \
 {                                                                              \
-  return BOOST_DISPATCH_PP_STRIP(Ret)();                                       \
+  return BOOST_PP_REMOVE_PARENS(Ret)();                                       \
 }                                                                              \
 /**/
 
@@ -162,19 +162,19 @@ template< BOOST_PP_ENUM( BOOST_PP_SEQ_SIZE(Types)                              \
                        , Types                                                 \
                        )                                                       \
         >                                                                      \
-BOOST_DISPATCH_FORCE_INLINE                                                    \
-typename boost::enable_if< BOOST_DISPATCH_PP_STRIP(Cond)                       \
-                         , BOOST_DISPATCH_PP_STRIP(Ret)                        \
+BOOST_FORCEINLINE                                                    \
+typename boost::enable_if< BOOST_PP_REMOVE_PARENS(Cond)                       \
+                         , BOOST_PP_REMOVE_PARENS(Ret)                        \
                          >::type                                               \
 BOOST_PP_CAT(dispatching_, Tag)( adl_helper                                    \
-           , BOOST_DISPATCH_PP_STRIP(Site)                                     \
+           , BOOST_PP_REMOVE_PARENS(Site)                                     \
              BOOST_PP_REPEAT( BOOST_PP_SEQ_SIZE(Seq)                           \
                             , BOOST_DISPATCH_ARG                               \
                             , Seq                                              \
                             )                                                  \
           )                                                                    \
 {                                                                              \
-  return BOOST_DISPATCH_PP_STRIP(Ret)();                                       \
+  return BOOST_PP_REMOVE_PARENS(Ret)();                                       \
 }                                                                              \
 /**/
 
@@ -190,7 +190,7 @@ BOOST_PP_CAT(impl_, Tag)                                                       \
                           , Seq                                                \
                           )                                                    \
            )                                                                   \
-         , BOOST_DISPATCH_PP_STRIP(Site)                                       \
+         , BOOST_PP_REMOVE_PARENS(Site)                                       \
          >                                                                     \
 /**/
 
@@ -243,17 +243,17 @@ template< BOOST_PP_ENUM( BOOST_PP_SEQ_SIZE(Types)                              \
                        , Types                                                 \
                        )                                                       \
         >                                                                      \
-BOOST_DISPATCH_FORCE_INLINE                                                    \
-BOOST_DISPATCH_PP_STRIP(Ret)                                                   \
+BOOST_FORCEINLINE                                                    \
+BOOST_PP_REMOVE_PARENS(Ret)                                                   \
 dispatching( adl_helper                                                        \
-           , BOOST_DISPATCH_PP_STRIP(Tag), BOOST_DISPATCH_PP_STRIP(Site)       \
+           , BOOST_PP_REMOVE_PARENS(Tag), BOOST_PP_REMOVE_PARENS(Site)       \
              BOOST_PP_REPEAT( BOOST_PP_SEQ_SIZE(Seq)                           \
                             , BOOST_DISPATCH_ARG                               \
                             , Seq                                              \
                           )                                                    \
           )                                                                    \
 {                                                                              \
-  return BOOST_DISPATCH_PP_STRIP(Ret)();                                       \
+  return BOOST_PP_REMOVE_PARENS(Ret)();                                       \
 }                                                                              \
 /**/
 
@@ -278,17 +278,17 @@ template< BOOST_PP_ENUM( BOOST_PP_SEQ_SIZE(Types)                              \
                        , Types                                                 \
                        )                                                       \
         >                                                                      \
-BOOST_DISPATCH_FORCE_INLINE                                                    \
-BOOST_DISPATCH_PP_STRIP(Ret)                                                   \
+BOOST_FORCEINLINE                                                    \
+BOOST_PP_REMOVE_PARENS(Ret)                                                   \
 dispatching( adl_helper                                                        \
-           , BOOST_DISPATCH_PP_STRIP(Tag), BOOST_DISPATCH_PP_STRIP(Site)       \
+           , BOOST_PP_REMOVE_PARENS(Tag), BOOST_PP_REMOVE_PARENS(Site)       \
              BOOST_PP_REPEAT( BOOST_PP_SEQ_SIZE(Seq)                           \
                             , BOOST_DISPATCH_ARG                               \
                             , Seq                                              \
                             )                                                  \
           )                                                                    \
 {                                                                              \
-  return BOOST_DISPATCH_PP_STRIP(Ret)();                                       \
+  return BOOST_PP_REMOVE_PARENS(Ret)();                                       \
 }                                                                              \
 /**/
 
@@ -314,19 +314,19 @@ template< BOOST_PP_ENUM( BOOST_PP_SEQ_SIZE(Types)                              \
                        , Types                                                 \
                        )                                                       \
         >                                                                      \
-BOOST_DISPATCH_FORCE_INLINE                                                    \
-typename boost::enable_if< BOOST_DISPATCH_PP_STRIP(Cond)                       \
-                         , BOOST_DISPATCH_PP_STRIP(Ret)                        \
+BOOST_FORCEINLINE                                                    \
+typename boost::enable_if< BOOST_PP_REMOVE_PARENS(Cond)                       \
+                         , BOOST_PP_REMOVE_PARENS(Ret)                        \
                          >::type                                               \
 dispatching( adl_helper                                                        \
-           , BOOST_DISPATCH_PP_STRIP(Tag), BOOST_DISPATCH_PP_STRIP(Site)       \
+           , BOOST_PP_REMOVE_PARENS(Tag), BOOST_PP_REMOVE_PARENS(Site)       \
              BOOST_PP_REPEAT( BOOST_PP_SEQ_SIZE(Seq)                           \
                             , BOOST_DISPATCH_ARG                               \
                             , Seq                                              \
                             )                                                  \
           )                                                                    \
 {                                                                              \
-  return BOOST_DISPATCH_PP_STRIP(Ret)();                                       \
+  return BOOST_PP_REMOVE_PARENS(Ret)();                                       \
 }                                                                              \
 /**/
 
@@ -353,19 +353,19 @@ template< BOOST_PP_ENUM( BOOST_PP_SEQ_SIZE(Types)                              \
                        , Types                                                 \
                        )                                                       \
         >                                                                      \
-BOOST_DISPATCH_FORCE_INLINE                                                    \
-typename boost::enable_if< BOOST_DISPATCH_PP_STRIP(Cond)                       \
-                         , BOOST_DISPATCH_PP_STRIP(Ret)                        \
+BOOST_FORCEINLINE                                                    \
+typename boost::enable_if< BOOST_PP_REMOVE_PARENS(Cond)                       \
+                         , BOOST_PP_REMOVE_PARENS(Ret)                        \
                          >::type                                               \
 dispatching( adl_helper                                                        \
-           , BOOST_DISPATCH_PP_STRIP(Tag), BOOST_DISPATCH_PP_STRIP(Site)       \
+           , BOOST_PP_REMOVE_PARENS(Tag), BOOST_PP_REMOVE_PARENS(Site)       \
              BOOST_PP_REPEAT( BOOST_PP_SEQ_SIZE(Seq)                           \
                             , BOOST_DISPATCH_ARG                               \
                             , Seq                                              \
                             )                                                  \
           )                                                                    \
 {                                                                              \
-  return BOOST_DISPATCH_PP_STRIP(Ret)();                                       \
+  return BOOST_PP_REMOVE_PARENS(Ret)();                                       \
 }                                                                              \
 /**/
 
@@ -374,13 +374,13 @@ dispatching( adl_helper                                                        \
 //==============================================================================
 
 #define BOOST_DISPATCH_IMPLEMENT_IMPL_G(Tag, Site, Seq)                        \
-implement< BOOST_DISPATCH_PP_STRIP(Tag)                                        \
+implement< BOOST_PP_REMOVE_PARENS(Tag)                                        \
            ( BOOST_PP_ENUM( BOOST_PP_SEQ_SIZE(Seq)                             \
                           , BOOST_DISPATCH_TAG                                 \
                           , Seq                                                \
                           )                                                    \
            )                                                                   \
-         , BOOST_DISPATCH_PP_STRIP(Site)                                       \
+         , BOOST_PP_REMOVE_PARENS(Site)                                       \
          >                                                                     \
 /**/
 

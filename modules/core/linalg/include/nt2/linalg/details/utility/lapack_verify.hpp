@@ -10,7 +10,7 @@
 #define NT2_LINALG_DETAILS_UTILITY_LAPACK_VERIFY_HPP_INCLUDED
 
 #include <boost/assert.hpp>
-#include <boost/dispatch/meta/ignore_unused.hpp>
+#include <boost/core/ignore_unused.hpp>
 
 namespace nt2
 {
@@ -22,7 +22,7 @@ namespace nt2
   {                                                                 \
     nt2_la_int info_ = info;                                        \
     BOOST_ASSERT_MSG(info_ == 0, "lapack info is not zero");        \
-    boost::dispatch::ignore_unused(info_);                          \
+    boost::ignore_unused(info_);                          \
   }                                                                 \
   /**/
 

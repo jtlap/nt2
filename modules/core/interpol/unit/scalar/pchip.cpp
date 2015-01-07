@@ -10,7 +10,7 @@
 #include <nt2/include/functions/pchip.hpp>
 #include <nt2/include/functions/linspace.hpp>
 #include <nt2/include/functions/sqr.hpp>
-#include <boost/dispatch/meta/ignore_unused.hpp>
+#include <boost/core/ignore_unused.hpp>
 
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
@@ -89,7 +89,7 @@ NT2_TEST_CASE_TPL( pchip3, NT2_REAL_TYPES )
   NT2_DISPLAY(y);
   NT2_DISPLAY(xi);
   nt2::table<T> y0;
-  boost::dispatch::ignore_unused(y0);
+  boost::ignore_unused(y0);
   NT2_TEST_ASSERT(y0=nt2::pchip(x, y, xi));
   NT2_TEST_ASSERT(y0=nt2::pchip(T(3), y, xi));
   NT2_TEST_ASSERT(y0=nt2::pchip(T(3), y, xi, T(32)));
@@ -105,7 +105,7 @@ NT2_TEST_CASE_TPL( pchip4, NT2_REAL_TYPES )
   nt2::table<T> y =  T(2);
   nt2::table<T> xi=  nt2::linspace(T(1),  T(4),4);
   nt2::table<T> y0;
-  boost::dispatch::ignore_unused(y0);
+  boost::ignore_unused(y0);
   NT2_TEST_ASSERT(y0=nt2::pchip(x, y, xi));
   NT2_TEST_ASSERT(y0=nt2::pchip(x, y, xi, T(32)));
   NT2_TEST_ASSERT(y0=nt2::pchip(x, y, xi, true));

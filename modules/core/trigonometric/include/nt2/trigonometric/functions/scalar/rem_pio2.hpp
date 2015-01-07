@@ -20,9 +20,20 @@
 #include <nt2/include/constants/inf.hpp>
 #include <nt2/include/constants/nan.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
-#include <boost/dispatch/preprocessor/once.hpp>
 #include <boost/detail/endian.hpp>
 #include <nt2/trigonometric/functions/scalar/impl/trigo/selection_tags.hpp>
+
+/* Prevent while(0) warning on MSVC */
+#if defined(_MSC_VER)
+#define ONCE0                                                                  \
+__pragma( warning(push) )                                                      \
+__pragma( warning(disable:4127) )                                              \
+while( 0 )                                                                     \
+__pragma( warning(pop) )                                                       \
+/**/
+#else
+#define ONCE0 while( 0 )
+#endif
 
 namespace nt2 { namespace ext
 {
@@ -58,7 +69,7 @@ namespace nt2 { namespace ext
 do {                                                                           \
   A0 f = (d);                                                                  \
   (i) = boost::simd::bitwise_cast<nt2::uint32_t>(f);                           \
-} BOOST_DISPATCH_ONCE                                                          \
+} ONCE0                                                                        \
 /**/
 
   /* Set a float from a 32 bit int.  */
@@ -66,7 +77,7 @@ do {                                                                           \
 do {                                                                           \
   int ii = (i);                                                                \
   (d) = boost::simd::bitwise_cast<A0>(ii);                                     \
-} BOOST_DISPATCH_ONCE                                                          \
+} ONCE0                                                                        \
 /**/
 
   static nt2::int32_t __ieee754_rem_pio2f(A0 x, A0 *y)
@@ -439,7 +450,7 @@ do {                                                                           \
   A0 f = (d);                                                                  \
   std::memcpy(&(i), reinterpret_cast<char*>(&f) +                              \
               HIGH_WORD_IDX, sizeof(nt2::uint32_t));                           \
-} BOOST_DISPATCH_ONCE                                                          \
+} ONCE0                                                                        \
 /**/
 
 #define GET_LOW_WORD(i,d)                                                      \
@@ -447,7 +458,7 @@ do {                                                                           \
   A0 f = (d);                                                                  \
   std::memcpy(&(i), reinterpret_cast<char*>(&f) +                              \
               LOW_WORD_IDX, sizeof(nt2::uint32_t));                            \
-} BOOST_DISPATCH_ONCE                                                          \
+} ONCE0                                                                        \
 /**/
 
 #define SET_HIGH_WORD(d,v)                                                     \
@@ -457,7 +468,7 @@ do {                                                                           \
   std::memcpy(reinterpret_cast<char*>(&f) +                                    \
               HIGH_WORD_IDX, &value, sizeof(nt2::uint32_t));                   \
   (d) = f;                                                                     \
-} BOOST_DISPATCH_ONCE                                                          \
+} ONCE0                                                                        \
 /**/
 
 #define SET_LOW_WORD(d,v)                                                      \
@@ -467,7 +478,7 @@ do {                                                                           \
   std::memcpy(reinterpret_cast<char*>(&f) +                                    \
               LOW_WORD_IDX, &value, sizeof(nt2::uint32_t));                    \
   (d) = f;                                                                     \
-} BOOST_DISPATCH_ONCE                                                          \
+} ONCE0                                                                        \
 /**/
 
   static nt2::int32_t __ieee754_rem_pio2(A0 x, A0 *y)
@@ -895,6 +906,7 @@ do {                                                                           \
 #undef INSERT_WORDS
 #undef SET_HIGH_WORD
 #undef SET_LOW_WORD
+#undef ONCE0
   };
 
 } }

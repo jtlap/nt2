@@ -1,7 +1,7 @@
 //==============================================================================
 //         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 - 2013 LRI    UMR 8623 CNRS/Univ Paris Sud XI
-//         Copyright 2012 - 2013 MetaScale
+//         Copyright 2009 - 2015 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2012 - 2015 NumScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -16,10 +16,11 @@
 namespace boost { namespace simd { namespace tag
 {
   // Tag hierarchy for VMX PPC extensions
-  BOOST_DISPATCH_HIERARCHY_CLASS(vmx_, simd_);
-  BOOST_DISPATCH_HIERARCHY_CLASS(vsx_, vmx_);
+  struct vmx_ : simd_ { typedef simd_   parent; };
+  struct vsx_ : vmx_  { typedef vmx_    parent; };
 
-  BOOST_DISPATCH_HIERARCHY_CLASS(qpx_, simd_);
+  // BlueGene/Q SIMD Extension set
+  struct qpx_ : simd_ { typedef simd_   parent; };
 } } }
 
 #endif

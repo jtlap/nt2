@@ -12,7 +12,7 @@
 
 #include <nt2/sdk/meta/as.hpp>
 #include <nt2/sdk/meta/container_traits.hpp>
-#include <boost/dispatch/meta/ignore_unused.hpp>
+#include <boost/core/ignore_unused.hpp>
 
 namespace nt2
 {
@@ -44,7 +44,7 @@ namespace nt2
   meta::as_<typename meta::value_type_<T>::type>
   class_( T const& t )
   {
-    boost::dispatch::ignore_unused(t);
+    boost::ignore_unused(t);
     return meta::as_< typename meta::value_type_<T>::type >();
   }
 }

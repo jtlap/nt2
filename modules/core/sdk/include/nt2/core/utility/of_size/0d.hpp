@@ -11,7 +11,7 @@
 
 #include <nt2/core/utility/of_size/fusion.hpp>
 #include <nt2/core/settings/size.hpp>
-#include <boost/dispatch/meta/ignore_unused.hpp>
+#include <boost/core/ignore_unused.hpp>
 #include <boost/mpl/vector_c.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <boost/assert.hpp>
@@ -91,8 +91,8 @@ namespace nt2
       BOOST_ASSERT_MSG( full_of_one(b,e)
                       , "Size mismatch at of_size construction"
                       );
-      boost::dispatch::ignore_unused(b);
-      boost::dispatch::ignore_unused(e);
+      boost::ignore_unused(b);
+      boost::ignore_unused(e);
     }
 
     //==========================================================================
@@ -105,7 +105,7 @@ namespace nt2
                       " invalid with respect to of_size_ "  \
                       "numbers of dimensions."              \
                     );                                      \
-    boost::dispatch::ignore_unused(d##n);                   \
+    boost::ignore_unused(d##n);                   \
     /**/
 
     #define M0(z,n,t)                                                           \

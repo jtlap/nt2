@@ -25,7 +25,7 @@
 #include <nt2/include/functions/tie.hpp>
 #include <nt2/core/container/table/table.hpp>
 #include <boost/dispatch/meta/terminal_of.hpp>
-#include <boost/dispatch/meta/ignore_unused.hpp>
+#include <boost/core/ignore_unused.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -102,7 +102,7 @@ namespace nt2 { namespace ext
                                  , boost::proto::value(b)
                                  , boost::proto::value(boost::proto::child_c<0>(a2))
                                  , rcond);
-      boost::dispatch::ignore_unused(iter);
+      boost::ignore_unused(iter);
     }
 
     //==========================================================================
@@ -121,7 +121,7 @@ namespace nt2 { namespace ext
                                  , boost::proto::value(boost::proto::child_c<0>(a2))
                                  , rcond);
 
-      boost::dispatch::ignore_unused(iter);
+      boost::ignore_unused(iter);
       boost::proto::child_c<1>(a2) = rcond;
     }
 
@@ -138,7 +138,7 @@ namespace nt2 { namespace ext
       nt2_la_int iter = nt2::posvx( boost::proto::value(a), boost::proto::value(b)
                                   , boost::proto::value(boost::proto::child_c<0>(a2))
                                   , rcond);
-      boost::dispatch::ignore_unused(iter);
+      boost::ignore_unused(iter);
     }
 
     //==========================================================================
@@ -155,7 +155,7 @@ namespace nt2 { namespace ext
                                   , boost::proto::value(boost::proto::child_c<0>(a2))
                                   , rcond);
 
-      boost::dispatch::ignore_unused(iter);
+      boost::ignore_unused(iter);
       boost::proto::child_c<1>(a2) = rcond;
     }
 

@@ -14,7 +14,7 @@
 #include <nt2/sdk/unit/stats.hpp>
 #include <nt2/include/functor.hpp>
 #include <nt2/sdk/unit/details/cover.hpp>
-#include <boost/dispatch/preprocessor/once.hpp>
+#include <nt2/sdk/unit/details/once.hpp>
 #include <vector>
 #include <string>
 
@@ -47,7 +47,7 @@ do                                                                             \
                                 , FUNC, (REF), N                               \
                                 , NT2_ENUM_REFERENCES(INPUTS)                  \
                                 );                                             \
-} BOOST_DISPATCH_ONCE                                                          \
+} NT2_TEST_ONCE                                                          \
 /**/
 
 /*!
@@ -74,7 +74,7 @@ do                                                                             \
                                 , nt2::functor<TAG>(), (REF), N                \
                                 , NT2_ENUM_REFERENCES(INPUTS)                  \
                                 );                                             \
-} BOOST_DISPATCH_ONCE                                                          \
+} NT2_TEST_ONCE                                                          \
 /**/
 
 #endif

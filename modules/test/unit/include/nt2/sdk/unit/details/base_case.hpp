@@ -20,7 +20,7 @@
 #include <boost/preprocessor/stringize.hpp>
 #include <boost/preprocessor/seq/for_each.hpp>
 #include <boost/preprocessor/seq/enum.hpp>
-#include <boost/dispatch/preprocessor/strip.hpp>
+#include <boost/preprocessor/punctuation/remove_parens.hpp>
 
 #include <boost/mpl/for_each.hpp>
 #include <boost/mpl/not.hpp>
@@ -44,9 +44,9 @@ void BOOST_PP_CAT(NT2_UNIT_PREFIX,Name)()                                      \
 /// Generate one given instanciation of a template test case
 #define NT2_PP_TPL_CASES(r,name,type)                           \
 printf( "With T = [%s]\n"                                       \
-      , nt2::type_id<BOOST_DISPATCH_PP_STRIP(type)>().c_str()); \
+      , nt2::type_id<BOOST_PP_REMOVE_PARENS(type)>().c_str()); \
 BOOST_PP_CAT(tpl_, BOOST_PP_CAT(NT2_UNIT_PREFIX,name))          \
-                  <BOOST_DISPATCH_PP_STRIP(type)>();            \
+                  <BOOST_PP_REMOVE_PARENS(type)>();            \
 /**/
 
 namespace nt2 { namespace details
@@ -108,7 +108,7 @@ void BOOST_PP_CAT(NT2_UNIT_PREFIX,BOOST_PP_CAT(Name,_impl))                    \
                                   (boost::mpl::false_ const&)                  \
 {                                                                              \
   using namespace boost::mpl;                                                  \
-  boost::mpl::for_each<BOOST_DISPATCH_PP_STRIP(TypeList)>                      \
+  boost::mpl::for_each<BOOST_PP_REMOVE_PARENS(TypeList)>                      \
   (BOOST_PP_CAT( tpl_fun_mpl_, BOOST_PP_CAT(NT2_UNIT_PREFIX, Name) )());       \
 }                                                                              \
                                                                                \
@@ -122,7 +122,7 @@ void BOOST_PP_CAT(NT2_UNIT_PREFIX,Name)()                                      \
 {                                                                              \
   using namespace boost::mpl;                                                  \
   static const int sz = boost::mpl                                             \
-                             ::size<BOOST_DISPATCH_PP_STRIP(TypeList)>::value; \
+                             ::size<BOOST_PP_REMOVE_PARENS(TypeList)>::value; \
   BOOST_PP_CAT(NT2_UNIT_PREFIX,BOOST_PP_CAT(Name,_impl))                       \
               ( boost::mpl::bool_<!sz>());                                     \
 }                                                                              \
