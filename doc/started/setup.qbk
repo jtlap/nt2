@@ -12,8 +12,8 @@ knowledge in C++ and usual system related operations.
 
 * *__BOOST__*: __NT2__ depends on the
   [@http://www.boost.org Boost Library] for its internal implementation.
-  Version 1.49 or superior is required. Consult the
-  [@http://www.boost.org/doc/libs/1_49_0/more/getting_started/index.html Boost Getting Started page]
+  Version 1.57 or superior is required. Consult the
+  [@http://www.boost.org/doc/libs/1_57_0/more/getting_started/index.html Boost Getting Started page]
   for information on how to set up and use [@http://www.boost.org Boost].
 
 * *__GIT__*: If you wish to grab latest __NT2__ updates from our
@@ -23,7 +23,7 @@ knowledge in C++ and usual system related operations.
   use __GIT__.
 
 * *__CMAKE__*: __NT2__ is built through the meta-build
-  system __CMAKE__. Version 2.6 or superior is required and
+  system __CMAKE__. Version 2.9 or superior is required and
   can be [@http://www.cmake.org/cmake/resources/software.html downloaded here].
   See the [@http://www.cmake.org/Wiki/CMake CMake Wiki] for information on how
   to set up and use __CMAKE__.
@@ -32,8 +32,7 @@ knowledge in C++ and usual system related operations.
   __DOXYGEN__, the __BOOSTBOOK__ toolchain and __QUICKBOOK__.
 
 * Due to the vast number of tests in __NT2__, the use of the __NINJA__ build system
-  is recommended if you intend to compile tests regularly. Note that __NINJA__ requires a
-  __CMAKE__ version of at least 2.8.8 or 2.8.9 depending on your operating system.
+  is recommended if you intend to compile tests regularly.
 
 Some other modules may have other external dependencies. Those are listed in
 said module documentation and are only required if you plan to use such a module.
@@ -41,12 +40,12 @@ said module documentation and are only required if you plan to use such a module
 [heading Supported Architectures and Compilers]
 __NT2__ currently is supported by the following compilers:
 
-* [@http://gcc.gnu.org/ GCC] version 4.2.1 or greater on any system.
-* ['Microsoft Visual Studio] aka MSVC, version 9 or greater. Professional version is
+* [@http://gcc.gnu.org/ GCC] version 4.7 or greater on any system.
+* ['Microsoft Visual Studio] aka MSVC, version 12 or greater. Professional version is
   required for [@http://openmp.org/wp/ OpenMP] support.
-* [@http://clang.llvm.org/ Clang] version 2.9 or greater.
+* [@http://clang.llvm.org/ Clang] version 3.4 or greater.
 * [@http://software.intel.com/en-us/articles/intel-compilers/ Intel C/C++ Compiler]
-  version 9.0 or greater.
+  version 14.0 or greater.
 
 Other compilers may support __NT2__ code base. Reports and experiments are welcome
 but keep in mind that __NT2__ pushes the compiler significantly.
