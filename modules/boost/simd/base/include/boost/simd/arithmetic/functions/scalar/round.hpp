@@ -1,4 +1,5 @@
 //==============================================================================
+//         Copyright 2015 - J.T. Lapreste
 //         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
 //         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
 //
@@ -14,6 +15,7 @@
 #include <boost/simd/include/functions/scalar/copysign.hpp>
 #include <boost/simd/include/functions/scalar/seldec.hpp>
 #include <boost/simd/include/functions/scalar/ceil.hpp>
+#include <boost/simd/include/functions/scalar/tenpower.hpp>
 #include <boost/simd/include/constants/maxflint.hpp>
 #include <boost/simd/include/constants/half.hpp>
 #include <boost/simd/sdk/math.hpp>
@@ -47,7 +49,7 @@ namespace boost { namespace simd { namespace ext
 #else
       const result_type v = simd::abs(a0);
       if (!(v <=  Maxflint<result_type>()))
-          return a0;
+        return a0;
       result_type c =  boost::simd::ceil(v);
       return copysign(seldec(c-Half<result_type>() > v, c), a0);
 #endif
@@ -66,14 +68,31 @@ namespace boost { namespace simd { namespace ext
 #ifdef BOOST_SIMD_HAS_ROUND
       return ::round(a0);
 #else
-       const result_type v = simd::abs(a0);
-       if (!(v <=  Maxflint<result_type>()))
-           return a0;
+      const result_type v = simd::abs(a0);
+      if (!(v <=  Maxflint<result_type>()))
+        return a0;
       result_type c =  boost::simd::ceil(v);
       return copysign(seldec(c-Half<result_type>() > v, c), a0);
 #endif
-     }
+    }
   };
+
+  BOOST_DISPATCH_IMPLEMENT          ( round_, tag::cpu_
+                                    , (A0)(A1)
+                                    , (scalar_< floating_<A0> >)
+                                      (scalar_< integer_<A1> >)
+                                    )
+  {
+    typedef A0 result_type;
+
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL(2)
+    {
+      typedef typename  dispatch::meta::as_integer<A0>::type itype;
+      A0 fac = tenpower(itype(a1));
+      return round(a0*fac)/fac;
+    }
+  };
+
 } } }
 
 #endif

@@ -1,4 +1,5 @@
 //==============================================================================
+//         Copyright 2015 - J.T. Lapreste
 //         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
 //         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
 //         Copyright 2012 - 2014 MetaScale SAS
@@ -11,6 +12,7 @@
 #define BOOST_SIMD_ARITHMETIC_FUNCTIONS_SIMD_COMMON_ROUND_HPP_INCLUDED
 
 #include <boost/simd/arithmetic/functions/round.hpp>
+#include <boost/simd/include/functions/simd/tenpower.hpp>
 #include <boost/simd/include/functions/simd/copysign.hpp>
 #include <boost/simd/include/functions/simd/seldec.hpp>
 #include <boost/simd/include/functions/simd/is_greater.hpp>
@@ -47,6 +49,23 @@ namespace boost { namespace simd { namespace ext
       return copysign(seldec(gt(c-Half<result_type>(), absa0), c), a0);
     }
   };
+
+  BOOST_DISPATCH_IMPLEMENT          ( round_, boost::simd::tag::simd_
+                                    , (A0)(X)(A1)
+                                    , ((simd_< floating_<A0>,X>))
+                                      ((simd_< integer_<A1>,X>))
+                                    )
+  {
+    typedef A0 result_type;
+
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL(2)
+    {
+      A0 fac = tenpower(a1);
+      return round(a0*fac)/fac;
+    }
+  };
+
+
 } } }
 
 #endif

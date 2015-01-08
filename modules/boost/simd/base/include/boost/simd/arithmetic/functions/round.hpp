@@ -1,4 +1,5 @@
 //==============================================================================
+//         Copyright 2015 - J.T. Lapreste
 //         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
 //         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
 //
@@ -57,12 +58,46 @@ namespace boost { namespace simd { namespace tag
     aways from 0 means that half integer values are rounded to the nearest
     integer of greatest absolute value
 
-    @param  a0
+    @param  x value to be rounded
 
     @return      a value of the same type as the input.
 
   **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::round_, round, 1)
+  /*!
+    round(x,n) rounds aways from 0 to n digits:
+
+    @par semantic:
+    For any given value @c x of type @c T and integer n :
+
+    @code
+    T r = round(x, n);
+    @endcode
+
+    is equivalent to
+
+    @code
+    T r = round(x*exp10(n)*exp10(-n));
+    @endcode
+
+    @par Note:
+
+    n > 0: round to n digits to the right of the decimal point.
+
+    n = 0: round to the nearest integer.
+
+    n < 0: round to n digits to the left of the decimal point.
+
+    aways from 0 means that half integer values are rounded to the nearest
+    integer of greatest absolute value
+
+    @param  x value to be rounded
+    @param  n number of digits
+
+    @return      a value of the same type as the input.
+
+  **/
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::round_, round, 2)
 } }
 
 #endif

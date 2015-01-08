@@ -73,6 +73,7 @@ SET( SOURCES
   sqrs.cpp
   sqrt.cpp
   subs.cpp
+  tenpower.cpp
   tofloat.cpp
   toint.cpp
   toints.cpp
