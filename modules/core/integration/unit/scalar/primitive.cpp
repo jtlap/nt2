@@ -6,42 +6,17 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 integration toolbox - primitive"
 
 #include <nt2/integration/primitive.hpp>
 #include <nt2/include/functions/quad.hpp>
-#include <nt2/integration/output.hpp>
-#include <nt2/integration/options.hpp>
-#include <nt2/include/functions/sqr.hpp>
-#include <nt2/include/functions/rowvect.hpp>
-#include <nt2/include/functions/exp.hpp>
-#include <nt2/include/functions/log.hpp>
-#include <nt2/include/functions/oneminus.hpp>
-#include <nt2/include/functions/expm1.hpp>
-#include <nt2/include/functions/sqr.hpp>
-#include <nt2/include/functions/zeros.hpp>
-#include <nt2/include/functions/globalsum.hpp>
-#include <nt2/include/functions/globalmax.hpp>
-#include <nt2/include/functions/mul_i.hpp>
 #include <nt2/include/functions/linspace.hpp>
-#include <nt2/include/functions/dist.hpp>
-#include <nt2/include/functions/rec.hpp>
-#include <nt2/include/functions/minusone.hpp>
-#include <nt2/include/functions/ones.hpp>
-#include <nt2/include/constants/half.hpp>
-#include <nt2/include/constants/eps.hpp>
-#include <nt2/include/constants/sqrteps.hpp>
-#include <nt2/include/constants/one.hpp>
-#include <nt2/include/constants/two.hpp>
-#include <nt2/include/constants/pi.hpp>
-#include <nt2/include/constants/sqrteps.hpp>
-#include <nt2/include/constants/pio_2.hpp>
+#include <nt2/integration/output.hpp>
 #include <nt2/table.hpp>
+
 #include <boost/dispatch/meta/strip.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/unit/tests.hpp>
-#include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/sdk/unit/tests/ulp.hpp>
 
 struct f
 {
