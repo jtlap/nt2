@@ -11,9 +11,11 @@
 ################################################################################
 # Find and detect Boost libraries
 ################################################################################
+set(Boost_ADDITIONAL_VERSIONS "1.57")
+
 if(NOT Boost_FOUND)
-  find_package( Boost 1.56.0 QUIET )
-  if(Boost_VERSION LESS 105600)
+  find_package( Boost 1.57 QUIET )
+  if(Boost_VERSION LESS 105700)
     message(STATUS "[nt2] Boost version ${Boost_MAJOR_VERSION}.${Boost_MINOR_VERSION}.${Boost_SUBMINOR_VERSION} not recent enough, needs 1.56.0")
     set(Boost_FOUND 0)
   endif()
