@@ -72,6 +72,7 @@ SET( SOURCES
   triw.cpp
   vandermonde.cpp
   sobol.cpp
+  wilkinson.cpp
   )
 
 nt2_module_add_tests(core.gallery.gallery.unit ${SOURCES})
