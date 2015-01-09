@@ -114,6 +114,8 @@ NT2_TEST_CASE_TPL ( round_real2,  BOOST_SIMD_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(round(T(-255), -2), T(-300), 0.5);
 } // end of test for floating_
 
+
+
 NT2_TEST_CASE_TPL ( round_unsigned_int__1_0,  BOOST_SIMD_UNSIGNED_TYPES)
 {
 

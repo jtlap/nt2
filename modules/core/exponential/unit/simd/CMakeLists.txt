@@ -28,6 +28,7 @@ SET( SOURCES
   realpow.cpp
   pow2.cpp
   pow_abs.cpp
+  significants.cpp
 # List of simd test files for toolbox exponential
    )
 

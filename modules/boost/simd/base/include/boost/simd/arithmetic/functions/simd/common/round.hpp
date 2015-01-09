@@ -17,6 +17,8 @@
 #include <boost/simd/include/functions/simd/seldec.hpp>
 #include <boost/simd/include/functions/simd/is_greater.hpp>
 #include <boost/simd/include/functions/simd/abs.hpp>
+#include <boost/simd/include/functions/simd/frexp.hpp>
+#include <boost/simd/include/functions/simd/ldexp.hpp>
 #include <boost/simd/include/functions/simd/minus.hpp>
 #include <boost/simd/include/functions/simd/ceil.hpp>
 #include <boost/simd/include/constants/half.hpp>
@@ -65,6 +67,24 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
+ //  BOOST_DISPATCH_IMPLEMENT          ( round_, boost::simd::tag::simd_
+//                                     , (A0)(X)(A1)(A2)
+//                                     , ((simd_< floating_<A0>,X>))
+//                                       ((simd_< integer_<A1>,X>))
+//                                       ((simd_< unspecified_<A2>,X>))
+//                                     )
+//   {
+//     typedef A0 result_type;
+
+//     BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL(2)
+//     {
+//       A0 a0n;
+//       iA0 n;
+//       frexp(a0, a0n, n);
+//       A0 fac = tenpower(a1);
+//       return ldexp(round(a0*fac)/fac, n);
+//     }
+//   };
 
 } } }
 
