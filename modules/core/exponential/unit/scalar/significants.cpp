@@ -36,6 +36,7 @@ NT2_TEST_CASE_TPL ( significants,  BOOST_SIMD_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(significants(nt2::Minf<T>(), 1), nt2::Minf<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(significants(nt2::Nan<T>(), 1), nt2::Nan<r_t>(), 0.5);
 #endif
+  NT2_TEST_ULP_EQUAL(significants(T(0), 1), T(0), 0.5);
   NT2_TEST_ULP_EQUAL(significants(T(25.34), 1), T(30), 0.5);
   NT2_TEST_ULP_EQUAL(significants(T(25.34), 2), T(25), 0.5);
   NT2_TEST_ULP_EQUAL(significants(T(25.34), 3), T(25.3), 0.5);
