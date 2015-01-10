@@ -16,6 +16,7 @@
 #include <nt2/include/functions/simd/logical_and.hpp>
 #include <nt2/include/functions/simd/is_nltz.hpp>
 #include <boost/assert.hpp>
+#include <boost/simd/operator/functions/details/assert_utils.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -30,7 +31,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL_REPEAT(2)
     {
-      BOOST_ASSERT_MSG(all(logical_and(is_nltz(a0),is_nltz(a1))), "inputs must be positive");
+      BOOST_ASSERT_MSG(boost::simd::assert_all(logical_and(is_nltz(a0),is_nltz(a1))), "inputs must be positive");
       return(gammaln(a0)+gammaln(a1)-gammaln(a0+a1));
     }
   };

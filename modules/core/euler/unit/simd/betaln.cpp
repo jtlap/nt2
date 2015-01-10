@@ -44,7 +44,9 @@ NT2_TEST_CASE_TPL ( betaln_real,  NT2_SIMD_REAL_TYPES)
 
   for(int i = 1; i <= 5 ; i+= 1)
   {
-    v1 =  splat<vT>(i);
-    v2 =  splat<vT>(6-i);
-    NT2_TEST_ULP_EQUAL(betaln(v1, v2), splat<T>(r[i-1]), 0.5);
+    vT v1 =  splat<vT>(i);
+    vT v2 =  splat<vT>(6-i);
+    NT2_TEST_ULP_EQUAL(betaln(v1, v2), splat<vT>(r[i-1]), 0.5);
+  }
+
 }
