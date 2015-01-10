@@ -8,6 +8,7 @@
 ##############################################################################
 
 SET( SOURCES
+  atan2d.cpp
   pio_2lo.cpp
   pio_4lo.cpp
   nbd_atan2.cpp
@@ -23,7 +24,6 @@ SET( SOURCES
   cotangent.cpp
   tangent.cpp
   sine.cpp
-#  more_cosine.cpp
   cosine.cpp
   atanpi.cpp
   asinpi.cpp
