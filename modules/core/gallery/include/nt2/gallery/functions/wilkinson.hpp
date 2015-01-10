@@ -1,6 +1,5 @@
 //==============================================================================
-//         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//          Copyright 2015 J.T. Lapreste
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -19,9 +18,10 @@
  * \defgroup algebra_wilkinson wilkinson
  *
  * \par Description
- *   wilkinson(n) is the inverse of the n by n matrix with elements
- *   1/(i+j-1), which is a famous example of a badly conditioned
- *   matrix.  the result is exact for  n  less than about 15.
+ *   wilkinson(n)  is J. H. Wilkinson's eigenvalue test matrix, Wn+.
+ * It is a symmetric, tridiagonal matrix with pairs of nearly,
+ * but not exactly, equal eigenvalues.
+ * The most frequently used case is wilkinson(21).
  *
  * \par Header file
  *

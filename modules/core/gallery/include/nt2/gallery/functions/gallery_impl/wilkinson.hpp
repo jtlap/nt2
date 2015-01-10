@@ -1,6 +1,5 @@
 //==============================================================================
-//         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//          Copyright 2015 J.T. Lapreste
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -14,50 +13,31 @@
 #include <nt2/include/functions/ones.hpp>
 #include <nt2/include/functions/of_size.hpp>
 #include <nt2/sdk/meta/size_as.hpp>
+#include <nt2/sdk/functor/preprocessor/call.hpp>
 
 namespace nt2{ namespace ext
 {
   BOOST_DISPATCH_IMPLEMENT  ( wilkinson_, tag::cpu_
                             , (A0)(T)
-                            , (scalar_<integer_<A0> >)
-                              (target_< scalar_< unspecified_<T> > >
+                            , (scalar_<integer_<A0>>)
+                              (target_<scalar_< unspecified_<T>>>)
                             )
-    )
   {
-    typedef typename  boost::proto::
-                      result_of::make_expr< nt2::tag::wilkinson_
-                                          , container::domain
-                                          , T, _2D
-                                          >::type             result_type;
-
-    BOOST_FORCEINLINE result_type operator()(A0 a0,T  const& tgt) const
-    {
-      return  boost::proto::
-              make_expr < nt2::tag::wilkinson_
-                        , container::domain
-                        >( tgt, _2D(a0,a0) );
-    }
+    BOOST_DISPATCH_RETURNS(2, (A0 a0, T const& tgt),
+                           (boost::proto::make_expr<nt2::tag::wilkinson_
+                           , container::domain>( tgt, _2D(a0,a0)) )
+      );
   };
 
   BOOST_DISPATCH_IMPLEMENT  ( wilkinson_, tag::cpu_
                             , (A0)
-                            , (scalar_<integer_<A0> >)
+                            , (scalar_<integer_<A0>>)
                             )
   {
-    typedef typename  boost::proto::
-                      result_of::make_expr< nt2::tag::wilkinson_
-                                          , container::domain
-                                          , meta::as_<double>
-                                          , _2D
-                                          >::type             result_type;
-
-    BOOST_FORCEINLINE result_type operator()(A0 a0) const
-    {
-      return  boost::proto::
-              make_expr < nt2::tag::wilkinson_
-                        , container::domain
-                        >( meta::as_<double>(), _2D(a0,a0) );
-    }
+    BOOST_DISPATCH_RETURNS(1, (A0 a0),
+                           (boost::proto::make_expr<nt2::tag::wilkinson_
+                           , container::domain>( meta::as_<double>(), _2D(a0,a0)) )
+      );
   };
 
   BOOST_DISPATCH_IMPLEMENT  ( run_assign_, tag::cpu_
