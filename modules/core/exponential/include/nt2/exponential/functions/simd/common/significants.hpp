@@ -5,41 +5,40 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_GENERIC_SIGNIFICANTS_HPP_INCLUDED
-#define BOOST_SIMD_ARITHMETIC_FUNCTIONS_GENERIC_SIGNIFICANTS_HPP_INCLUDED
+#ifndef BOOST_SIMD_ARITHMETIC_FUNCTIONS_SIMD_COMMON_SIGNIFICANTS_HPP_INCLUDED
+#define BOOST_SIMD_ARITHMETIC_FUNCTIONS_SIMD_COMMON_SIGNIFICANTS_HPP_INCLUDED
 
 #include <nt2/exponential/functions/significants.hpp>
-#include <nt2/include/functions/round.hpp>
-#include <nt2/include/functions/tenpower.hpp>
-#include <nt2/include/functions/abs.hpp>
-#include <nt2/include/functions/all.hpp>
-#include <nt2/include/functions/is_gtz.hpp>
-#include <nt2/include/functions/log10.hpp>
-#include <nt2/include/functions/minus.hpp>
-#include <nt2/include/functions/iceil.hpp>
-#include <nt2/include/functions/if_zero_else.hpp>
-#include <nt2/include/functions/is_eqz.hpp>
-#include <nt2/include/functions/is_invalid.hpp>
+#include <nt2/include/functions/simd/round.hpp>
+#include <nt2/include/functions/simd/tenpower.hpp>
+#include <nt2/include/functions/simd/abs.hpp>
+#include <nt2/include/functions/simd/if_zero_else.hpp>
+#include <nt2/include/functions/simd/is_eqz.hpp>
+#include <nt2/include/functions/simd/log10.hpp>
+#include <nt2/include/functions/simd/minus.hpp>
+#include <nt2/include/functions/simd/iceil.hpp>
 #include <boost/dispatch/attributes.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/assert.hpp>
+#include <boost/simd/operator/functions/details/assert_utils.hpp>
 #ifndef BOOST_SIMD_NO_INVALIDS
-#include <nt2/include/functions/scalar/is_invalid.hpp>
+#include <nt2/include/functions/simd/if_else.hpp>
+#include <nt2/include/functions/simd/is_invalid.hpp>
 #endif
 
 namespace nt2 { namespace ext
 {
   BOOST_DISPATCH_IMPLEMENT( significants_, tag::cpu_
-                          , (A0)(A1)
-                          , ((generic_< floating_<A0>>))
-                            ((generic_< integer_<A1>>))
+                          , (A0)(X)(A1)
+                          , ((simd_< floating_<A0>, X>))
+                            ((simd_< integer_<A1>, X>))
                           )
   {
     typedef A0 result_type;
 
     BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      BOOST_ASSERT_MSG( all(is_gtz(a1))
+      BOOST_ASSERT_MSG( assert_all(is_gtz(a1))
                       , "Number of significant digits must be positive"
                       );
       typedef typename boost::dispatch::meta::as_integer<A0>::type iA0;
