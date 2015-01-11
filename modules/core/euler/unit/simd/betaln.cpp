@@ -19,6 +19,7 @@
 #include <nt2/include/functions/splat.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/nan.hpp>
+#include <nt2/include/constants/inf.hpp>
 
 NT2_TEST_CASE_TPL ( betaln_real,  NT2_SIMD_REAL_TYPES)
 {
