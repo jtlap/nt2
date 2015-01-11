@@ -14,10 +14,10 @@
 #include <boost/simd/include/constants/ten.hpp>
 #include <boost/simd/include/functions/abs.hpp>
 #include <boost/simd/include/functions/sqr.hpp>
-#include <boost/simd/include/functions/is_odd.hpp>
-#include <boost/simd/include/functions/rec.hpp>
+#include <boost/simd/include/functions/scalar/is_odd.hpp>
+#include <boost/simd/include/functions/scalar/rec.hpp>
 #include <boost/dispatch/attributes.hpp>
-#include <nt2/table.hpp>
+
 
 namespace boost { namespace simd { namespace ext
 {

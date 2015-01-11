@@ -41,7 +41,7 @@ namespace boost { namespace simd { namespace tag
   }
 
   /*!
-    Returns \f$10^n\f$ in the floating type  corresponding to A0
+    @brief Returns \f$10^n\f$ in the floating type  corresponding to A0
 
     @par semantic:
     For any given value n  of integral type @c I, and T of type as_floating<I>::type
