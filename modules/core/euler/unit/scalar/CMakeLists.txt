@@ -8,6 +8,7 @@
 ##############################################################################
 
 SET( SOURCES
+  betaln.cpp
   erfinv.cpp
   erfcinv.cpp
   spence.cpp
