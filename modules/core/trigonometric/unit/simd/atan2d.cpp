@@ -5,32 +5,28 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#include <nt2/trigonometric/include/functions/atan2d.hpp>
+#include <nt2/include/functions/atan2d.hpp>
 
 #include <nt2/sdk/functor/meta/call.hpp>
-#include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/unit/tests/relation.hpp>
-#include <nt2/sdk/unit/tests/type_expr.hpp>
-#include <nt2/sdk/unit/tests/ulp.hpp>
-#include <nt2/sdk/unit/tests/basic.hpp>
-#include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/sdk/config.hpp>
-
 #include <nt2/include/constants/half.hpp>
 #include <nt2/include/constants/mhalf.hpp>
 #include <nt2/include/constants/mone.hpp>
 #include <nt2/include/constants/one.hpp>
-#include <nt2/include/constants/pi.hpp>
-#include <nt2/include/constants/pio_2.hpp>
-#include <nt2/include/constants/pio_4.hpp>
-#include <nt2/include/constants/threepio_4.hpp>
-#include <nt2/include/constants/twopio_3.hpp>
 #include <nt2/include/constants/zero.hpp>
+#include <nt2/include/constants/_45.hpp>
+#include <nt2/include/constants/_90.hpp>
+#include <nt2/include/constants/_135.hpp>
+#include <nt2/include/constants/_180.hpp>
 #include <nt2/include/constants/inf.hpp>
 #include <nt2/include/constants/minf.hpp>
 #include <nt2/include/constants/nan.hpp>
 
-NT2_TEST_CASE_TPL ( atan2d_real,  NT2_REAL_TYPES)
+#include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests/ulp.hpp>
+#include <nt2/sdk/unit/tests/type_expr.hpp>
+
+NT2_TEST_CASE_TPL ( atan2d_real,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::atan2d;
   using nt2::tag::atan2d_;
@@ -62,4 +58,3 @@ NT2_TEST_CASE_TPL ( atan2d_real,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(atan2d(nt2::One<vT>(), nt2::One<vT>())    , nt2::_45<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(atan2d(nt2::Zero<vT>(), nt2::Zero<vT>())  , nt2::Zero<r_t>(), 0.5);
 }
-
