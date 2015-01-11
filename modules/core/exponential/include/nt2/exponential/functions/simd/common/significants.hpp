@@ -16,6 +16,8 @@
 #include <nt2/include/functions/simd/is_eqz.hpp>
 #include <nt2/include/functions/simd/log10.hpp>
 #include <nt2/include/functions/simd/minus.hpp>
+#include <nt2/include/functions/simd/divides.hpp<
+#include <nt2/include/functions/simd/multiplies.hpp>
 #include <nt2/include/functions/simd/iceil.hpp>
 #include <boost/dispatch/attributes.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>

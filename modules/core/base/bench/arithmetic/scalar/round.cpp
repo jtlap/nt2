@@ -1,4 +1,5 @@
 //==============================================================================
+//         Copyright 2015          J.T. Lapreste
 //         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
 //         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
 //
