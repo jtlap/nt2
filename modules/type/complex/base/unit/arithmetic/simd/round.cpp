@@ -11,6 +11,7 @@
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/sdk/unit/tests/ulp.hpp>
 #include <nt2/sdk/unit/tests/type_expr.hpp>
 #include <boost/simd/sdk/simd/io.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
@@ -20,6 +21,7 @@
 #include <nt2/sdk/unit/tests/ulp.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/include/functions/splat.hpp>
+#include <nt2/include/functions/minus.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/sdk/config.hpp>
 
@@ -61,3 +63,46 @@ NT2_TEST_CASE_TPL ( abs_cplx,  BOOST_SIMD_SIMD_REAL_TYPES)
     NT2_TEST_ULP_EQUAL(nt2::round(nt2::One<vdT>()), nt2::One<vdT>(),0);
     NT2_TEST_ULP_EQUAL(nt2::round(nt2::Zero<vdT>()), nt2::Zero<vdT>(),0);
 }
+
+NT2_TEST_CASE_TPL ( round_real2,  BOOST_SIMD_REAL_TYPES)
+{
+
+  using boost::simd::round;
+  using boost::simd::tag::round_;
+  typedef typename std::complex<T> cT;
+  using boost::simd::native;
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef native<cT,ext_t>                vcT;
+  typedef typename nt2::dry<T>             dT;
+  typedef native<dT,ext_t>                vdT;
+
+  // specific values tests
+#ifndef BOOST_SIMD_NO_INVALIDS
+  NT2_TEST_EQUAL(round(boost::simd::Inf<vcT>(), 2), boost::simd::Inf<vcT>());
+  NT2_TEST_EQUAL(round(boost::simd::Minf<vcT>(), 2), boost::simd::Minf<vcT>());
+  NT2_TEST_EQUAL(round(boost::simd::Nan<vcT>(), 2), boost::simd::Nan<vcT>());
+#endif
+  NT2_TEST_EQUAL(round(boost::simd::Mhalf<vcT>(), 2), boost::simd::Mhalf<vcT>());
+  NT2_TEST_EQUAL(round(boost::simd::Mone<vcT>(), 2), boost::simd::Mone<vcT>());
+  NT2_TEST_EQUAL(round(boost::simd::One<vcT>(), 2), boost::simd::One<vcT>());
+  NT2_TEST_EQUAL(round(boost::simd::Zero<vcT>(), 2), boost::simd::Zero<vcT>());
+  NT2_TEST_EQUAL(round(boost::simd::Maxflint<vcT>()-boost::simd::Half<vcT>(), 2),boost::simd::Maxflint<vcT>());
+  NT2_TEST_EQUAL(round(boost::simd::Maxflint<vcT>(), 2),boost::simd::Maxflint<vcT>());
+  NT2_TEST_EQUAL(round(nt2::splat<vcT>(cT(1.44, 1.44)), 1), nt2::splat<vcT>(cT(1.4,1.4 )));
+  NT2_TEST_EQUAL(round(nt2::splat<vcT>(cT(1.45, 1.45)), 1), nt2::splat<vcT>(cT(1.5,1.5 )));
+  NT2_TEST_EQUAL(round(nt2::splat<vcT>(cT(1.46, 1.46)), 1), nt2::splat<vcT>(cT(1.5,1.5 )));
+  NT2_TEST_EQUAL(round(nt2::splat<vcT>(cT(2.45, 2.45)), 1), nt2::splat<vcT>(cT(2.5,2.5 )));
+  NT2_TEST_EQUAL(round(nt2::splat<vcT>(cT(-1.44,-1.44)), 1), nt2::splat<vcT>(cT(-1.4,-1.4)));
+  NT2_TEST_EQUAL(round(nt2::splat<vcT>(cT(-1.45,-1.45)), 1), nt2::splat<vcT>(cT(-1.5,-1.5)));
+  NT2_TEST_EQUAL(round(nt2::splat<vcT>(cT(-1.46,-1.46)), 1), nt2::splat<vcT>(cT(-1.5,-1.5)));
+  NT2_TEST_EQUAL(round(nt2::splat<vcT>(cT(-2.45,-2.45)), 1), nt2::splat<vcT>(cT(-2.5,-2.5)));
+  NT2_TEST_ULP_EQUAL(round(nt2::splat<vcT>(cT(145,145)), -2), nt2::splat<vcT>(cT(100,100)), 0.5);
+  NT2_TEST_ULP_EQUAL(round(nt2::splat<vcT>(cT(150,150)), -2), nt2::splat<vcT>(cT(200,200)), 0.5);
+  NT2_TEST_ULP_EQUAL(round(nt2::splat<vcT>(cT(156,156)), -2), nt2::splat<vcT>(cT(200,200)), 0.5);
+  NT2_TEST_ULP_EQUAL(round(nt2::splat<vcT>(cT(250,250)), -2), nt2::splat<vcT>(cT(300,300)), 0.5);
+  NT2_TEST_ULP_EQUAL(round(nt2::splat<vcT>(cT(-145,-145)), -2), nt2::splat<vcT>(cT(-100,-100)), 0.5);
+  NT2_TEST_ULP_EQUAL(round(nt2::splat<vcT>(cT(-155,-155)), -2), nt2::splat<vcT>(cT(-200,-200)), 0.5);
+  NT2_TEST_ULP_EQUAL(round(nt2::splat<vcT>(cT(-156,-156)), -2), nt2::splat<vcT>(cT(-200,-200)), 0.5);
+  NT2_TEST_ULP_EQUAL(round(nt2::splat<vcT>(cT(-255,-255)), -2), nt2::splat<vcT>(cT(-300,-300)), 0.5);
+} // end of test for floating_
+

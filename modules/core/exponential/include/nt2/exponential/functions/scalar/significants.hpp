@@ -14,6 +14,7 @@
 #include <nt2/include/functions/scalar/abs.hpp>
 #include <nt2/include/functions/scalar/if_zero_else.hpp>
 #include <nt2/include/functions/scalar/is_eqz.hpp>
+#include <nt2/include/functions/scalar/is_gtz.hpp>
 #include <nt2/include/functions/scalar/log10.hpp>
 #include <nt2/include/functions/scalar/minus.hpp>
 #include <nt2/include/functions/scalar/iceil.hpp>

@@ -19,7 +19,7 @@
 #include <boost/simd/include/functions/simd/abs.hpp>
 #include <boost/simd/include/functions/simd/minus.hpp>
 #include <boost/simd/include/functions/simd/multiplies.hpp>
-#include <boost/simd/include/functions/simd/mdivides.hpp>
+#include <boost/simd/include/functions/simd/divides.hpp>
 #include <boost/simd/include/functions/simd/ceil.hpp>
 #include <boost/simd/include/constants/half.hpp>
 #include <boost/dispatch/attributes.hpp>
