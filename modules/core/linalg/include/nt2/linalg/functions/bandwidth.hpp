@@ -1,5 +1,5 @@
 //==============================================================================
-//                Copyright 2015 Jean-Thierry Lapreste
+//                Copyright 2015 J.T. Lapreste
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
