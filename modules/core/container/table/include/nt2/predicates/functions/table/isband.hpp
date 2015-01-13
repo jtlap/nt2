@@ -25,12 +25,8 @@ namespace nt2 { namespace ext
     typedef bool result_type;
     BOOST_FORCEINLINE result_type operator()(const A0& a0, A1 l, A2 u) const
     {
-      A1 ll;
-      A2 uu;
       auto r = bandwidth(a0);
-      ll = boost::fusion::at_c<0>(r);
-      uu = boost::fusion::at_c<1>(r);
-      return (l <= ll)&&(uu <= u);
+      return (l <= A1(boost::fusion::at_c<0>(r)))&&(A2(boost::fusion::at_c<1>(r))<= u);
     }
   };
 } }

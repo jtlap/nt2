@@ -65,12 +65,11 @@ namespace nt2{ namespace ext
     BOOST_FORCEINLINE result_type operator()(A0 const& a0,A1 const &) const
     {
       BOOST_ASSERT_MSG(ismatrix(a0), "input is not a matrix");
-      BOOST_AUTO_TPL(t,if_zero_else(is_eqz(a0),
-                                    bsxfun(nt2::functor<tag::minus_>()
-                                          , colvect(_(1, int(height(a0))))
-                                          , _(1, int(width(a0))))
-                                   )
-                    );
+      auto t = if_zero_else(is_eqz(a0),
+                            bsxfun(nt2::functor<tag::minus_>()
+                                  , colvect(_(1, int(height(a0))))
+                                  , _(1, int(width(a0))))
+                           );
       return eval(t, A1());
     }
   private :
@@ -100,12 +99,11 @@ namespace nt2{ namespace ext
     BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
     {
       BOOST_ASSERT_MSG(ismatrix(a0), "input is not a matrix");
-      BOOST_AUTO_TPL(t,if_zero_else(is_eqz(a0),
-                                    bsxfun(nt2::functor<tag::minus_>()
-                                          , colvect(_(1, int(height(a0))))
-                                          , _(1, int(width(a0))))
-                                   )
-                    );
+      auto t = if_zero_else(is_eqz(a0),
+                            bsxfun(nt2::functor<tag::minus_>()
+                                  , colvect(_(1, int(height(a0))))
+                                  , _(1, int(width(a0))))
+                           );
       return std::make_pair(globalmax(t),globalmax(-t));
     }
   };
