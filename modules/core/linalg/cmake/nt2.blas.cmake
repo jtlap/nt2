@@ -9,7 +9,7 @@
 
 ################################################################################
 # Find BLAS and LAPACK
-# - NT2_BLAS_VENDOR can be set to Intel, Goto2, Netlib or be empty
+# - NT2_BLAS_VENDOR can be set to Intel, Goto2, Netlib, OpenBLAS or be empty
 # - NT2_BLAS_ROOT specify a directory where libraries are. If using Intel,
 #                 prefer setting MKLROOT instead.
 # - NT2_BLAS_MULTICORE can be set to 1 or 0 to enable/disable multicore handling
@@ -202,6 +202,43 @@ if(NT2_BLAS_VENDOR STREQUAL "Netlib" OR (NOT DEFINED NT2_BLAS_VENDOR AND NOT NT2
   endif()
 endif()
 
+if(NT2_BLAS_VENDOR STREQUAL "Atlas" OR (NOT DEFINED NT2_BLAS_VENDOR AND NOT NT2_BLAS_FOUND))
+  if(NOT DEFINED NT2_BLAS_VENDOR)
+    message(STATUS "[nt2.blas] trying Atlas...")
+  endif()
+
+  find_library(NT2_ATLAS${STATIC} NAMES atlas
+               PATHS ${NT2_BLAS_ROOT} )
+
+  if(NT2_ATLAS${STATIC})
+    set(NT2_BLAS_FOUND TRUE)
+    set(NT2_BLAS_LIBRARIES ${NT2_ATLAS${STATIC}} -lblas -llapack -lgfortran)
+
+    if(NOT DEFINED NT2_BLAS_VENDOR)
+      set(NT2_BLAS_VENDOR Atlas)
+      message(STATUS "[nt2.blas] Atlas found")
+    endif()
+  endif()
+endif()
+
+if(NT2_BLAS_VENDOR STREQUAL "OpenBLAS" OR (NOT DEFINED NT2_BLAS_VENDOR AND NOT NT2_BLAS_FOUND))
+  if(NOT DEFINED NT2_BLAS_VENDOR)
+    message(STATUS "[nt2.blas] trying OpenBLAS...")
+  endif()
+
+  find_library(NT2_OPENBLAS${STATIC} NAMES openblas
+               PATHS ${NT2_BLAS_ROOT} /opt/OpenBLAS/lib)
+  if(NT2_OPENBLAS${STATIC})
+    set(NT2_BLAS_FOUND TRUE)
+    set(NT2_BLAS_LIBRARIES ${NT2_OPENBLAS${STATIC}})
+
+    if(NOT DEFINED NT2_BLAS_VENDOR)
+      set(NT2_BLAS_VENDOR OpenBLAS)
+      message(STATUS "[nt2.blas] OpenBLAS found")
+    endif()
+  endif()
+endif()
+
 if(NOT NT2_BLAS_FOUND)
 
   if(NOT DEFINED NT2_BLAS_VENDOR)
@@ -248,7 +285,7 @@ if(NOT NT2_LAPACK_FOUND) # Find lapack if not MKL
   endif()
 endif()
 
-set(NT2_BLAS_VENDOR ${NT2_BLAS_VENDOR} CACHE STRING "BLAS vendor (supported: \"Intel\", \"Goto2\", \"Netlib\")")
+set(NT2_BLAS_VENDOR ${NT2_BLAS_VENDOR} CACHE STRING "BLAS vendor (supported: \"Intel\", \"Goto2\", \"Netlib\" , \"Atlas\", \"OpenBLAS\")")
 if(NOT NT2_BLAS_FOUND OR NOT NT2_LAPACK_FOUND)
   message(STATUS "[nt2.linalg] BLAS or LAPACK not found, if available please specify NT2_BLAS_ROOT or NT2_BLAS_VENDOR")
 endif()
