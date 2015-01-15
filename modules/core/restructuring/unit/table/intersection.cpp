@@ -28,8 +28,6 @@ NT2_TEST_CASE_TPL(intersection, NT2_REAL_TYPES)
   nt2::table<T> n = nt2::reshape(nt2::cons<T>(3, 1, 2, 2, 3, 5, 2, 3), 2, 4);
   nt2::table<T> n1 = n+nt2::One<T>();
   nt2::table<T> r = nt2::cons<T>(2, 3); ;
-  NT2_DISPLAY(n);
-  NT2_DISPLAY(n1);
   NT2_DISPLAY(intersection(n, n1));
   nt2::table<T> b = intersection(n, n1);
   NT2_TEST_EQUAL(b, r);

@@ -29,15 +29,7 @@ NT2_TEST_CASE_TPL(unique, NT2_REAL_TYPES)
 
   nt2::table<T> n = nt2::reshape(nt2::cons<T>(3, 1, 2, 2, 3, 5, 2, 3), 2, 4);
   nt2::table<T> r = nt2::cons<T>(1, 2, 3, 5); ;
-  NT2_DISPLAY(n);
-  NT2_DISPLAY(unique(n));
   nt2::table<T> b = unique(n);
   NT2_TEST_EQUAL(b, r);
-  typedef nt2::logical<T> lT;
-  nt2::table<T>  aa =  nt2::cons<T>(1, 2, 2, 4);
-  nt2::table<lT> bb = nt2::catv(nt2::True<lT>(), nt2::is_nez(nt2::diff(aa)));
-  NT2_DISPLAY(aa(bb));
-  auto cc = nt2::catv(nt2::True<lT>(), nt2::is_nez(nt2::diff(aa)));
-  NT2_DISPLAY(aa(cc));
 }
 

@@ -29,10 +29,6 @@ NT2_TEST_CASE_TPL(setdiff_, NT2_REAL_TYPES)
   nt2::table<T> n1 = n+nt2::One<T>();
   nt2::table<T> r = nt2::cons<T>(1, 5);
   nt2::table<T> r1 = nt2::cons<T>(4, 6);
-  NT2_DISPLAY(n);
-  NT2_DISPLAY(n1);
-  NT2_DISPLAY(setdiff(n, n1));
-  NT2_DISPLAY(setdiff(n1, n));
   nt2::table<T> b = setdiff(n, n1);
   nt2::table<T> b1= setdiff(n1, n);
   NT2_TEST_EQUAL(b, r);
