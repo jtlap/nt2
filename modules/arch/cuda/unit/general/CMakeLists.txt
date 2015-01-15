@@ -8,8 +8,7 @@
 ##############################################################################
 
 SET( SOURCES
-# List of test files for toolbox binding.magma
-     site.cpp
+ site.cpp
    )
 
-nt2_module_add_tests(binding.magma.general.unit ${SOURCES})
+nt2_module_add_tests(arch.cuda.general.unit ${SOURCES})

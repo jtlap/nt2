@@ -69,7 +69,7 @@ NT2_TEST_CASE_TPL(msne, (double) )
   typedef nt2::table<T>           t_t;
 
   t_t a,x,r,b;
-  size_t m=2000,n=1000,q=1,nr=1;
+  size_t m=20,n=10,q=1,nr=1;
 
   nt2::tie(a,x,r,b)= nt2::llspgen(m,n,q,nr, nt2::meta::as_<T>());
 
