@@ -31,9 +31,9 @@ SET( SOURCES
   setsymdiff.cpp
   squeeze.cpp
   trans.cpp
-  union.cpp
+  setunion.cpp
   unique.cpp
-  intersection.cpp
+  setinter.cpp
   vertcat.cpp
 # List of simd test files for toolbox generative
    )

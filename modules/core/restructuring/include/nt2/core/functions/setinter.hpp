@@ -5,8 +5,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_CORE_FUNCTIONS_UNION__HPP_INCLUDED
-#define NT2_CORE_FUNCTIONS_UNION__HPP_INCLUDED
+#ifndef NT2_CORE_FUNCTIONS_SETINTER_HPP_INCLUDED
+#define NT2_CORE_FUNCTIONS_SETINTER_HPP_INCLUDED
 
 
 #include <nt2/include/functor.hpp>
@@ -20,46 +20,45 @@ namespace nt2
   namespace tag
   {
     /*!
-      @brief union_ generic tag
+      @brief setinter generic tag
 
-      Represents the union_ function in generic contexts.
+      Represents the setinter function in generic contexts.
 
       @par Models:
       Hierarchy
     **/
-    struct union__ : ext::unspecified_<union__>
+    struct setinter_ : ext::unspecified_<setinter_>
     {
       /// @brief Parent hierarchy
-      typedef ext::unspecified_<union__> parent;
+      typedef ext::unspecified_<setinter_> parent;
       template<class... Args>
       static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
-      BOOST_AUTO_DECLTYPE_BODY( dispatching_union__( ext::adl_helper(), static_cast<Args&&>(args)... ) )
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_setinter_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
   }
   namespace ext
   {
     template<class Site>
-    BOOST_FORCEINLINE generic_dispatcher<tag::union__, Site> dispatching_union__(adl_helper, boost::dispatch::meta::unknown_<Site>, ...)
+    BOOST_FORCEINLINE generic_dispatcher<tag::setinter_, Site> dispatching_setinter_(adl_helper, boost::dispatch::meta::unknown_<Site>, ...)
     {
-      return generic_dispatcher<tag::union__, Site>();
+      return generic_dispatcher<tag::setinter_, Site>();
     }
     template<class... Args>
-    struct impl_union__;
+    struct impl_setinter_;
   }
 
   /*!
-    Computes  elements of 2 tables with no repetitions as a column vector
+    Computes common elements to 2 tables with no repetitions as a column vector
 
     @par Semantic:
 
     For every tables expression
 
     @code
-    auto r = union_(a0, a1);
+    auto r = setinter(a0, a1);
     @endcode
 
-    returns the  datas of a0 and a1 with no repetitions as a column vector.
-    The functor name is union_ and not union for obvious reasons
+    returns the  datas as common to a0 and a1 with no repetitions as a column vector.
 
     @param a0
     éparam a1
@@ -67,20 +66,20 @@ namespace nt2
     @return a column vector of size less or equal to min(numel(a0), numel(a1))
   **/
 
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::union__       , union_, 2)
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::setinter_       , setinter, 2)
 }
 
 namespace nt2 { namespace ext
 {
   /// INTERNAL ONLY
   template<class Domain, int N, class Expr>
-  struct  value_type<nt2::tag::union__,Domain,N,Expr>
+  struct  value_type<nt2::tag::setinter_,Domain,N,Expr>
         : meta::value_as<Expr,0>
   {};
 
   /// INTERNAL ONLY
   template<class Domain, int N, class Expr>
-  struct  size_of<nt2::tag::union__,Domain,N,Expr>
+  struct  size_of<nt2::tag::setinter_,Domain,N,Expr>
     : meta::size_as<Expr,0>
   {};
 

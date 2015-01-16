@@ -7,18 +7,18 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_CORE_FUNCTIONS_SCALAR_UNION__HPP_INCLUDED
-#define NT2_CORE_FUNCTIONS_SCALAR_UNION__HPP_INCLUDED
+#ifndef NT2_CORE_FUNCTIONS_SCALAR_SETINTER_HPP_INCLUDED
+#define NT2_CORE_FUNCTIONS_SCALAR_SETINTER_HPP_INCLUDED
 
-#include <nt2/core/functions/union.hpp>
+#include <nt2/core/functions/setinter.hpp>
 #include <nt2/core/container/table/table.hpp>
-#include <nt2/include/functions/unique.hpp>
+#include <nt2/include/functions/zeros.hpp>
 #include <nt2/include/functions/cons.hpp>
 
 namespace nt2 { namespace ext
 {
   /// INTERNAL ONLY
-  BOOST_DISPATCH_IMPLEMENT  ( union__, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( setinter_, tag::cpu_
                             , (A0)(A1)
                             , (scalar_< arithmetic_<A0> >)
                               (scalar_< arithmetic_<A1> >)
@@ -27,7 +27,7 @@ namespace nt2 { namespace ext
     typedef table<A0> result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& a1) const
     {
-      return unique(cons<A0>(a0, a1));
+      return a0 == a1 ? cons<A0>(a0) : zeros(0, 1, meta::as_<A0>());
     }
   };
 } }

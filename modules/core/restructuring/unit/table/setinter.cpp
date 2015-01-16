@@ -6,7 +6,7 @@
 //                     http://www.boost.org/LICENSE_1_0.txt
 //=============================================================================
 #include <nt2/table.hpp>
-#include <nt2/include/functions/union.hpp>
+#include <nt2/include/functions/setinter.hpp>
 #include <nt2/include/functions/cons.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
@@ -20,15 +20,16 @@
 #include <nt2/include/constants/true.hpp>
 #include <nt2/include/constants/false.hpp>
 
-NT2_TEST_CASE_TPL(union_, NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL(setinter, NT2_REAL_TYPES)
 {
-  using nt2::union_;
-  using nt2::tag::union__;
+  using nt2::setinter;
+  using nt2::tag::setinter_;
 
   nt2::table<T> n = nt2::reshape(nt2::cons<T>(3, 1, 2, 2, 3, 5, 2, 3), 2, 4);
   nt2::table<T> n1 = n+nt2::One<T>();
-  nt2::table<T> r = nt2::cons<T>(1, 2, 3, 4, 5, 6);
-  nt2::table<T> b = union_(n, n1);
+  nt2::table<T> r = nt2::cons<T>(2, 3); ;
+  NT2_DISPLAY(setinter(n, n1));
+  nt2::table<T> b = setinter(n, n1);
   NT2_TEST_EQUAL(b, r);
 }
 

@@ -5,12 +5,13 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_CORE_FUNCTIONS_EXPR_UNION__HPP_INCLUDED
-#define NT2_CORE_FUNCTIONS_EXPR_UNION__HPP_INCLUDED
+#ifndef NT2_CORE_FUNCTIONS_EXPR_SETINTER_HPP_INCLUDED
+#define NT2_CORE_FUNCTIONS_EXPR_SETINTER_HPP_INCLUDED
 
-#include <nt2/core/functions/union.hpp>
+#include <nt2/core/functions/setinter.hpp>
 #include <nt2/core/container/dsl.hpp>
 #include <nt2/core/container/table/table.hpp>
+#include <nt2/include/functions/min.hpp>
 #include <nt2/include/functions/numel.hpp>
 #include <nt2/include/functions/of_size.hpp>
 #include <nt2/include/functions/unique.hpp>
@@ -21,7 +22,7 @@ namespace nt2 { namespace ext
   BOOST_DISPATCH_IMPLEMENT  ( run_assign_, tag::cpu_
                             , (A0)(A1)(N)
                             , ((ast_<A0, nt2::container::domain>))
-                              ((node_<A1,nt2::tag::union__,N,nt2::container::domain>))
+                              ((node_<A1,nt2::tag::setinter_,N,nt2::container::domain>))
                             )
   {
     typedef A0&                                                          result_type;
@@ -33,8 +34,8 @@ namespace nt2 { namespace ext
     {
       table<value_type> a = unique(boost::proto::child_c<0>(in));
       table<value_type> b = unique(boost::proto::child_c<1>(in));
-      table<value_type> r(of_size(numel(a)+numel(b), 1));
-      auto last = std::set_union(a.begin(),a.end(),b.begin(),b.end(),r.begin());
+      table<value_type> r(of_size(min(numel(a), numel(b)), 1));
+      auto last = std::set_intersection(a.begin(),a.end(),b.begin(),b.end(),r.begin());
       r.resize(nt2::of_size(last-r.begin(), 1));
       return out = r;
     }
