@@ -8,7 +8,7 @@
 ##############################################################################
 
 SET( SOURCES
-  trsm.cpp
+  #trsm.cpp
    )
 
 nt2_module_add_tests(arch.cuda.functions.unit ${SOURCES})
