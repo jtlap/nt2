@@ -57,6 +57,7 @@ namespace nt2
    **/
   NT2_FUNCTION_IMPLEMENTATION(tag::linsolve_, linsolve, 1)
   NT2_FUNCTION_IMPLEMENTATION(tag::linsolve_, linsolve, 2)
+  NT2_FUNCTION_IMPLEMENTATION(tag::linsolve_, mldivide, 2)
   NT2_FUNCTION_IMPLEMENTATION(tag::linsolve_, linsolve, 3)
 }
 
