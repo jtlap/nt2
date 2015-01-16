@@ -15,6 +15,7 @@
 #include <omp.h>
 #include <nt2/sdk/shared_memory/spawner.hpp>
 #include <vector>
+#include <nt2/sdk/meta/as.hpp>
 
 #ifndef BOOST_NO_EXCEPTIONS
 #include <boost/exception_ptr.hpp>
