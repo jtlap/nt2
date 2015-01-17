@@ -35,6 +35,8 @@ SET( SOURCES
   bitwise_notor.cpp
   bits.cpp
   swapbytes.cpp
+  bitset.cpp
+  bitget.cpp
 # List of simd test files for toolbox bitwise
    )
 
