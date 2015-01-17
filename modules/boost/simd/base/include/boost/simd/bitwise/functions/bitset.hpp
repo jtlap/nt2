@@ -40,7 +40,7 @@ namespace boost { namespace simd { namespace tag
     struct impl_bitset_;
   }
   /*!
-    Returns the value of th ith bit in x as an unsigned integer
+    Returns x with the ith bit set
 
     @par semantic:
     For any given value @c x of type @c T, i  of type @c I:
@@ -53,7 +53,7 @@ namespace boost { namespace simd { namespace tag
     @param  x
     @param  i
 
-    @return      a value of the unsigned integer type associated to the first input.
+    @return      a value of the type of the first input.
 
   **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::bitset_, bitset, 2)
