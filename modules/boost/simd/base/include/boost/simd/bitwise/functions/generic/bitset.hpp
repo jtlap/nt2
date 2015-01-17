@@ -21,7 +21,7 @@
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/mpl/equal_to.hpp>
 #include <boost/dispatch/attributes.hpp>
-#include <iostream>
+
 namespace boost { namespace simd { namespace ext
 {
   BOOST_DISPATCH_IMPLEMENT_IF( bitset_, tag::cpu_
