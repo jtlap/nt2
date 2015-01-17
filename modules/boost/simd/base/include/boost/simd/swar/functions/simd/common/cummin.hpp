@@ -12,6 +12,8 @@
 #include <boost/simd/include/functions/simd/insert.hpp>
 #include <boost/simd/include/functions/scalar/min.hpp>
 #include <boost/simd/include/functions/simd/extract.hpp>
+#include <boost/simd/swar/include/functions/shuffle.hpp>
+#include <boost/simd/swar/functions/details/cum_helper.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -24,25 +26,28 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      result_type that = a0;
-      do_funroll<0, meta::cardinal_of<A0>::value>()(that);
-      return that;
+      return helper<meta::cardinal_of<A0>::value>::unroll(a0);
     }
   private:
-    template < size_t I, size_t N> struct do_funroll
+    template<std::size_t CARD, std::size_t PASS = CARD>
+    struct helper
     {
-      BOOST_FORCEINLINE void operator()(result_type & r) const
+      static A0 unroll(const A0 & a0)
       {
-        r[I+1] = boost::simd::min(r[I], r[I+1]);
-        do_funroll<I+1, N>()(r);
+        A0 tmp =  helper<CARD, PASS/2>::unroll(a0);
+        return min(tmp,  shuffle<details::cum_helper<CARD, PASS>>(tmp));
       }
     };
-    template <size_t N> struct do_funroll<N, N>
+    template<std::size_t CARD>
+    struct helper<CARD, 0>
     {
-       BOOST_FORCEINLINE void operator()(result_type &) const { }
+      static A0 unroll(const A0 & a0)
+      {
+        return a0;
+      }
     };
-  };
 
+  };
 } } }
 
 #endif
