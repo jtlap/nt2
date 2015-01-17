@@ -34,6 +34,7 @@ SET( SOURCES
   bitwise_ornot.cpp
   bitwise_notor.cpp
   bits.cpp
+  swapbytes.cpp
 # List of scalar test files for toolbox bitwise
    )
 
