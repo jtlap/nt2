@@ -10,7 +10,7 @@
 
 #include <boost/simd/bitwise/functions/bitset.hpp>
 #include <boost/simd/operator/functions/details/assert_utils.hpp>
-#include <boost/simd/include/functions/simd/bitwise_cast.hpp>
+#include <boost/simd/include/functions/simd/bitwise_or.hpp>
 #include <boost/simd/include/functions/simd/dec.hpp>
 #include <boost/simd/include/functions/simd/shift_left.hpp>
 #include <boost/simd/include/functions/simd/shr.hpp>
@@ -42,12 +42,12 @@ namespace boost { namespace simd { namespace ext
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& a1) const
     {
       BOOST_ASSERT_MSG(assert_good_shift<A0>(dec(a1)), "bitset :index is out of range");
-      return bitwise_or(a0, shl(bitwise_cast<i_type>(One<i_type>(), dec(a1))));
+      return bitwise_or(a0, shl(One<i_type>(), dec(a1)));
     }
   };
 
   BOOST_DISPATCH_IMPLEMENT( bitset_, tag::cpu_
-                                       , (A0)(A1)
+                          , (A0)(A1)
                           , (generic_< arithmetic_<A0> >)
                             (scalar_< integer_<A1> >)
                           )
@@ -59,7 +59,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& a1) const
     {
       BOOST_ASSERT_MSG(assert_good_shift<A0>(dec(a1)), "bitset :index is out of range");
-      return bitwise_or(a0, shl(bitwise_cast<i_type>(One<i_type>(), dec(a1))));
+      return bitwise_or(a0, shl(One<i_type>(), dec(a1)));
     }
 
   };
