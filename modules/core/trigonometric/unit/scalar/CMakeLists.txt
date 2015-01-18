@@ -81,6 +81,8 @@ SET( SOURCES
   acos.cpp
   sinc.cpp
   sincpi.cpp
+  pol2cart.cpp
+  cart2pol.cpp
 # List of scalar test files for toolbox trigonometric
    )
 

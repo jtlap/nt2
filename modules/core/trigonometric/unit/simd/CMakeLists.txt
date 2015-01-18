@@ -38,6 +38,8 @@ SET( SOURCES
   secpi.cpp
   secd.cpp
   sec.cpp
+  pol2cart.cpp
+  cart2pol.cpp
   inrad.cpp
   indeg.cpp
   fast_tanpi.cpp
