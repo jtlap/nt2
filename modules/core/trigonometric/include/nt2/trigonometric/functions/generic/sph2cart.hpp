@@ -8,7 +8,6 @@
 #ifndef NT2_TRIGONOMETRIC_FUNCTIONS_GENERIC_SPH2CART_HPP_INCLUDED
 #define NT2_TRIGONOMETRIC_FUNCTIONS_GENERIC_SPH2CART_HPP_INCLUDED
 #include <nt2/trigonometric/functions/sph2cart.hpp>
-#include <boost/fusion/include/std_pair.hpp>
 #include <nt2/include/functions/sincos.hpp>
 #include <nt2/include/functions/multiplies.hpp>
 #include <boost/fusion/tuple.hpp>

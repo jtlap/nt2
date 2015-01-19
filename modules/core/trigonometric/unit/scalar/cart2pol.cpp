@@ -37,7 +37,7 @@ NT2_TEST_CASE_TPL ( cart2pol_real__1_0,  NT2_REAL_TYPES)
     T r, t;
     for(size_t i=0; i < N; ++i)
     {
-      for(size_t j=0; i < N; ++i)
+      for(size_t j=0; j < N; ++j)
       {
         cart2pol(x[i], x[j], r, t);
         NT2_TEST_EQUAL(r, nt2::hypot(x[i], x[j]));
@@ -50,7 +50,7 @@ NT2_TEST_CASE_TPL ( cart2pol_real__1_0,  NT2_REAL_TYPES)
     T r, t;
     for(size_t i=0; i < N; ++i)
     {
-      for(size_t j=0; i < N; ++i)
+      for(size_t j=0; j < N; ++j)
       {
         r = cart2pol(x[i], x[j], t);
         NT2_TEST_EQUAL(r, nt2::hypot(x[i], x[j]));
@@ -63,7 +63,7 @@ NT2_TEST_CASE_TPL ( cart2pol_real__1_0,  NT2_REAL_TYPES)
     T r, t;
     for(size_t i=0; i < N; ++i)
     {
-      for(size_t j=0; i < N; ++i)
+      for(size_t j=0; j < N; ++j)
       {
         boost::fusion::vector_tie(r, t) = cart2pol(x[i], x[j]);
         NT2_TEST_EQUAL(r, nt2::hypot(x[i], x[j]));
@@ -75,7 +75,7 @@ NT2_TEST_CASE_TPL ( cart2pol_real__1_0,  NT2_REAL_TYPES)
   {
     for(size_t i=0; i < N; ++i)
     {
-      for(size_t j=0; i < N; ++i)
+      for(size_t j=0; j < N; ++j)
       {
         std::pair<T,T> p = cart2pol(x[i], x[j]);
         NT2_TEST_EQUAL(p.first,  nt2::hypot(x[i], x[j]));
