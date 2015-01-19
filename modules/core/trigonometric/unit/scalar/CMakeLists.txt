@@ -83,6 +83,8 @@ SET( SOURCES
   sincpi.cpp
   pol2cart.cpp
   cart2pol.cpp
+  sph2cart.cpp
+  cart2sph.cpp
 # List of scalar test files for toolbox trigonometric
    )
 

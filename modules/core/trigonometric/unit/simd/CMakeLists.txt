@@ -39,7 +39,9 @@ SET( SOURCES
   secd.cpp
   sec.cpp
   pol2cart.cpp
+  sph2cart.cpp
   cart2pol.cpp
+  cart2sph.cpp
   inrad.cpp
   indeg.cpp
   fast_tanpi.cpp
