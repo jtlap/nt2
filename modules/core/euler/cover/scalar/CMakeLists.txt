@@ -20,6 +20,7 @@ SET( SOURCES
   beta.cpp
   erf.cpp
   erfc.cpp
+  erfcx.cpp
   erfinv.cpp
   erfcinv.cpp
 # List of scalar test files for toolbox euler

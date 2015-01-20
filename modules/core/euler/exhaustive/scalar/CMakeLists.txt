@@ -13,6 +13,7 @@ SET(SOURCES
     dawson.cpp
     erf.cpp
     erfc.cpp
+    erfcx.cpp
     spence.cpp
     stirling.cpp
     digamma.cpp
