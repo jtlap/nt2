@@ -21,6 +21,7 @@
 #include <nt2/include/functions/scalar/oneplus.hpp>
 #include <nt2/include/functions/scalar/sqr.hpp>
 #include <nt2/include/functions/scalar/sqrt.hpp>
+#include <nt2/include/functions/scalar/rec.hpp>
 
 #include <boost/simd/sdk/config.hpp>
 
@@ -64,6 +65,10 @@ namespace nt2 { namespace ext
       else if(x< A0(6))
       {
         z = nt2::exp(-xx)*details::erf_kernel<A0>::erfc3(x);
+      }
+      else
+      {
+        z = nt2::exp(-xx)*details::erf_kernel<A0>::erfc4(rec(x));
       }
       return (a0 < 0.0) ? 2.0-z : z;
     }
