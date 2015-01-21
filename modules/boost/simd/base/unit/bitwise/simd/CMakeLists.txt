@@ -37,6 +37,7 @@ SET( SOURCES
   swapbytes.cpp
   bitset.cpp
   bitget.cpp
+  swaptest.cpp
 # List of simd test files for toolbox bitwise
    )
 

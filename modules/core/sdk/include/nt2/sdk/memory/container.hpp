@@ -453,10 +453,10 @@ namespace nt2 { namespace memory
                 , boost::mpl::true_ const&
                 )
     {
-      typedef typename meta::option<Settings,tag::storage_size_,Kind>::type ss_t;
+//      typedef typename meta::option<Settings,tag::storage_size_,Kind>::type ss_t;
 
       BOOST_ASSERT_MSG
-      (  nt2::numel(szs) <= ss_t::storage_size_type::value
+        (  (nt2::numel(szs) <= meta::option<Settings,tag::storage_size_,Kind>::storage_size_type::value)
       , "Resizing over available storage size"
       );
 
