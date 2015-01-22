@@ -18,6 +18,7 @@
 #include <nt2/include/functions/scalar/iround.hpp>
 #include <nt2/include/functions/scalar/ilog2.hpp>
 #include <nt2/include/functions/scalar/min.hpp>
+#include <nt2/include/functions/scalar/bitwise_cast.hpp>
 #include <nt2/include/constants/valmin.hpp>
 #include <nt2/include/constants/valmax.hpp>
 #include <nt2/include/constants/nan.hpp>
@@ -98,111 +99,70 @@ namespace nt2
     }
     @endcode
   **/
-
-
   template<typename Type, typename TestF, typename RefF> inline
   void exhaustive_test(float mini, float maxi, TestF test_f, RefF reference_f)
   {
-    union ufloat{
-      float f;
-      unsigned u;
-    };
-
     typedef Type                                                    n_t;
     typedef typename boost::dispatch::meta::as_integer<Type>::type  in_t;
 
-    const nt2::uint32_t M = 128;
-    const nt2::uint32_t N = boost::simd::meta::cardinal_of<n_t>::value;
-    const in_t vN = nt2::splat<in_t>(N);
+    static const nt2::uint32_t M = 128;
+    static const nt2::uint32_t N = boost::simd::meta::cardinal_of<n_t>::value;
+    in_t vN = nt2::splat<in_t>(N);
 
-    float maxin[M+2];
-    float minin[M+2];
-    float minref[M+2];
-    float minval[M+2];
-    bool  hit[M+2];
     nt2::uint32_t histo[M+2];
+    float maxin[M+2], minin[M+2], minref[M+2], minval[M+2];
 
-    for(std::size_t i = 0; i < M+2; i++)
-    {
-      histo[i] = 0;
-      minval[i] = nt2::Nan<float>();
-      minin[i]  = nt2::Valmax<float>();
-      maxin[i]  = nt2::Valmin<float>();
-      hit[i] =  false;
-    }
+    for(auto& e : histo ) e = 0;
+    for(auto& e : minin ) e = nt2::Valmax<float>();
+    for(auto& e : maxin ) e = nt2::Valmin<float>();
+    for(auto& e : minval) e = nt2::Nan<float>();
+    for(auto& e : minref) e = nt2::Valmax<float>();
 
-    ufloat t_min;t_min.f=mini;
-    ufloat t_max;t_max.f=maxi;
+    auto t_min = nt2::bitwise_cast<nt2::uint32_t>(fabs(mini));
+    auto t_max = nt2::bitwise_cast<nt2::uint32_t>(fabs(maxi));
 
-    ufloat diff;
-
-    if (mini*maxi < 0)
-    {
-      t_min.f=fabs(t_min.f);
-      t_max.f=fabs(t_max.f);
-      diff.u = t_max.u+t_min.u;
-    }
-    else
-      diff.f=fabs((maxi)-(mini));
+    auto diff  = (mini*maxi < 0)  ? std::max(t_max,t_min) + std::min(t_max,t_min)
+                                  : std::max(t_max,t_min) - std::min(t_max,t_min);
 
     std::cout << "Exhaustive test for: " << nt2::type_id(test_f)      << "\n"
               << "             versus: " << nt2::type_id(reference_f) << "\n"
               << "             With T: " << nt2::type_id<Type>()      << "\n"
-              << "           in range: [" << mini << ", " << maxi << "]" << "\n";
+              << "           in range: [" << mini << ", " << maxi << "]" << "\n"
+              << "         # of tests: " << diff << "\n";
     std::cout << std::endl;
 
     nt2::uint32_t k = 0;
+
     #ifdef _OPENMP
-    #pragma omp parallel
+    #pragma omp parallel firstprivate(mini,maxi,diff)
     #endif
     {
-      float maxin_loc[M+2];
-      float minin_loc[M+2];
-      float minref_loc[M+2];
-      float minval_loc[M+2];
       bool  hit_loc[M+2];
       nt2::uint32_t histo_loc[M+2];
+      float maxin_loc[M+2] , minin_loc[M+2], minref_loc[M+2], minval_loc[M+2];
 
-      for(std::size_t i = 0; i < M+2; i++)
-      {
-        histo_loc[i] = 0;
-        minval_loc[i] = nt2::Nan<float>();
-        minin_loc[i]  = nt2::Valmax<float>();
-        maxin_loc[i]  = nt2::Valmin<float>();
-        hit_loc[i] =  false;
-      }
+      for(auto& e : hit_loc   ) e = false;
+      for(auto& e : histo_loc ) e = 0;
+      for(auto& e : minin_loc ) e = nt2::Valmax<float>();
+      for(auto& e : maxin_loc ) e = nt2::Valmin<float>();
+      for(auto& e : minval_loc) e = nt2::Nan<float>();
+      for(auto& e : minref_loc) e = nt2::Valmax<float>();
 
-      float my_mini, my_maxi;
+      std::size_t numThreads  = get_num_threads();
+      std::size_t my_id       = get_thread_num();
+      std::size_t num_inc     = diff / numThreads;
+
+      float my_mini = nt2::successor(mini,my_id*num_inc);
+      float my_maxi = nt2::successor(my_mini,num_inc);
+      if (my_id == numThreads -1) my_maxi = maxi;
+
       // Fill up the reference SIMD register data
-      unsigned numThreads = get_num_threads();
       float a[N];
-
-      unsigned num_inc = diff.u / numThreads;
-
-      unsigned my_id = get_thread_num();
-
-      if (my_id==0)
-        my_mini = mini;
-      else
-        my_mini = nt2::successor(mini,num_inc);
-
-      for (unsigned jj=1;jj<my_id;jj++)
-        my_mini = nt2::successor(my_mini,num_inc);
-
-      my_maxi = nt2::successor(my_mini,num_inc-1);
-
-      if (my_id == numThreads -1)
-      {
-        my_maxi = maxi;
-      }
-
       a[0] = my_mini;
-      for(std::size_t i = 1; i < N; i++)
-        a[i] = nt2::successor(a[i-1], 1);
-
+      for(std::size_t i = 1; i < N; i++) a[i] = nt2::successor(a[i-1], 1);
       n_t a0 = nt2::load<n_t>(&a[0],0);
 
-      nt2::uint32_t k_loc = 0, j = 0;
+      nt2::uint32_t k_loc = 0;
 
       while( nt2::extract(a0,1) < my_maxi )
       {
@@ -210,11 +170,10 @@ namespace nt2
 
         for(std::size_t i = 0; i < N; i++)
         {
-          if (nt2::extract(a0,i)> my_maxi)
-            break;
+          if (nt2::extract(a0,i)> my_maxi) break;
           float v = reference_f(nt2::extract(a0,i));
-
           float sz = nt2::extract(z,i);
+
           double u = nt2::ulpdist(v, sz)*2.0+1.0;
 
           if(nt2::is_invalid(u))
@@ -235,6 +194,7 @@ namespace nt2
           else
           {
             int p = nt2::min(int(M), int(nt2::ilog2(nt2::iround(u))));
+
             if (!hit_loc[p])
             {
               maxin_loc [p] = minin_loc [p] = nt2::extract(a0,i);
@@ -258,24 +218,24 @@ namespace nt2
       #pragma omp critical
       #endif
       {
-        for (unsigned kk=0;kk<M+2;kk++)
+        for (std::size_t kk=0;kk<M+2;kk++)
         {
           maxin[kk] = std::max(maxin_loc[kk],maxin[kk]);
+
           if (minin_loc[kk]<minin[kk])
           {
             minin[kk] = std::min(minin_loc[kk],minin[kk]);
             minval[kk] = minval_loc[kk];
           }
+
           minref[kk] = std::min(minref_loc[kk],minref[kk]);
-
-
           histo[kk] += histo_loc[kk];
         }
         k += k_loc;
       }
     } //end omp parallel
 
-    std::cout << k << " values computed.\n";
+    std::cout << k << "/" << diff << " values computed.\n";
 
     double d = 1;
     for(std::size_t i = 0; i < M+1; i++, d*= 2.0)
@@ -296,15 +256,14 @@ namespace nt2
 
     if( histo[M+1])
     {
-        printf("%10u values (%.2f%%)\twith invalid result.\t"
-              , histo[M+1], (histo[M+1]*100.0/k)
-              );
-        std::cout << std::scientific << std::setprecision(9)
-                  << "in range [" << minin[M+1] << ", "<< maxin[M+1] << "]" << "."
-                  << " Example: "<< minin[M+1] << " returns " << minval[M+1]
-                  << " instead of " << minref[M+1]
-                  << std::endl;
-
+      printf("%10u values (%.2f%%)\twith invalid result.\t"
+            , histo[M+1], (histo[M+1]*100.0/k)
+            );
+      std::cout << std::scientific << std::setprecision(9)
+                << "in range [" << minin[M+1] << ", "<< maxin[M+1] << "]" << "."
+                << " Example: "<< minin[M+1] << " returns " << minval[M+1]
+                << " instead of " << minref[M+1]
+                << std::endl;
     }
   }
 }
