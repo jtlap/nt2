@@ -18,6 +18,7 @@
 #include <nt2/include/functions/scalar/iround.hpp>
 #include <nt2/include/functions/scalar/ilog2.hpp>
 #include <nt2/include/functions/scalar/min.hpp>
+#include <nt2/include/functions/scalar/abs.hpp>
 #include <nt2/include/functions/scalar/bitwise_cast.hpp>
 #include <nt2/include/constants/valmin.hpp>
 #include <nt2/include/constants/valmax.hpp>
@@ -118,8 +119,8 @@ namespace nt2
     for(auto& e : minval) e = nt2::Nan<float>();
     for(auto& e : minref) e = nt2::Valmax<float>();
 
-    auto t_min = nt2::bitwise_cast<nt2::uint32_t>(fabs(mini));
-    auto t_max = nt2::bitwise_cast<nt2::uint32_t>(fabs(maxi));
+    auto t_min = nt2::bitwise_cast<nt2::uint32_t>(nt2::abs(mini));
+    auto t_max = nt2::bitwise_cast<nt2::uint32_t>(nt2::abs(maxi));
 
     auto diff  = (mini*maxi < 0)  ? std::max(t_max,t_min) + std::min(t_max,t_min)
                                   : std::max(t_max,t_min) - std::min(t_max,t_min);
