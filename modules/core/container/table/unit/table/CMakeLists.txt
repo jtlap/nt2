@@ -21,6 +21,7 @@ SET( SOURCES
   firstnonsingleton.cpp
   firstoflength.cpp
   globalfind.cpp
+  histc.cpp
   length.cpp
   linesstride.cpp
   multind.cpp
