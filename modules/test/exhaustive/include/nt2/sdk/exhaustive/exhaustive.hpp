@@ -163,7 +163,7 @@ namespace nt2
       for(std::size_t i = 1; i < N; i++) a[i] = nt2::successor(a[i-1], 1);
       n_t a0 = nt2::load<n_t>(&a[0],0);
 
-      nt2::uint32_t k_loc = 0;
+      nt2::uint32_t k_loc = 0, j = 0;
 
       while( nt2::extract(a0,1) < my_maxi )
       {
