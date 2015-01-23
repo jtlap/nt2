@@ -10,7 +10,7 @@
 #define NT2_CORE_FUNCTIONS_ALONG_HPP_INCLUDED
 
 #include <nt2/include/functor.hpp>
-
+#include <nt2/core/container/dsl/details/resize.hpp>
 
 namespace nt2
 {

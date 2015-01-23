@@ -53,6 +53,15 @@ namespace nt2
     @param a1
   **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::histc_, histc, 2)
+
+  /*!
+    @brief
+
+    @param a0
+    @param a1
+    @param a2
+  **/
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::histc_, histc, 3)
 }
 
 #endif
