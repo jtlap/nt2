@@ -13,6 +13,7 @@
 #include <nt2/sdk/meta/size_as.hpp>
 #include <nt2/core/container/dsl/size.hpp>
 #include <nt2/core/container/dsl/value_type.hpp>
+#include <nt2/sdk/meta/as_integer.hpp>
 
 
 namespace nt2 { namespace tag

@@ -12,6 +12,11 @@
 
 #include <nt2/include/functor.hpp>
 #include <nt2/sdk/meta/tieable_hierarchy.hpp>
+#include <nt2/sdk/meta/size_as.hpp>
+#include <nt2/sdk/meta/value_as.hpp>
+#include <nt2/core/container/dsl/size.hpp>
+#include <nt2/sdk/meta/tieable_hierarchy.hpp>
+#include <nt2/core/container/dsl/value_type.hpp>
 
 namespace nt2
 {
@@ -20,9 +25,9 @@ namespace nt2
     /*!
       @brief Tag for the histc functor
     **/
-    struct histc_ : ext::abstract_<histc_>
+    struct histc_ : ext::tieable_<histc_>
     {
-      typedef ext::abstract_<histc_> parent;
+      typedef ext::tieable_<histc_> parent;
       template<class... Args>
       static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
       BOOST_AUTO_DECLTYPE_BODY( dispatching_histc_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
@@ -39,29 +44,63 @@ namespace nt2
     struct impl_histc_;
   }
 
-  /*!
-    @brief
-
-    @param a0
-  **/
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::histc_, histc, 1)
 
   /*!
-    @brief
+    @brief  histogram bin counts
 
-    @param a0
-    @param a1
+
+    @code
+    T0 r = histc(x, bins);
+    @endcode
+
+    bins is the vector of bin edges (if bins is not a vector, the column vector bins(_) is used)
+    Counted in r(i) are those in [bins(i), bins(i+1)[, except for the last bin
+    which only counts elements equal to bins(end_).
+    Values outside of [bins(1), bins(end_)] are not counted. Use appropriate infs to catch all (but nans).
+
+    if x is multidimensionnal the histograms are done along the first not singleton dimension.
+
+    @param  x values to be counted
+    @param  bins vector of edges (if bins is not a vector bins(_) is used)
+
+
   **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::histc_, histc, 2)
 
   /*!
-    @brief
+    @brief historam bin counts
 
-    @param a0
-    @param a1
-    @param a2
+    @code
+    T0 r = histc(x, bins, dim);
+    @endcode
+
+    bins is the vector of bin edges (if bins is not a vector, the column vector bins(_) is used)
+    Counted in r(i) are those in [bins(i), bins(i+1)[, except for the last bin
+    which only counts elements equal to bins(end_).
+    Values outside of [bins(1), bins(end_)] are not counted. Use appropriate infs to catch all (but nans).
+
+    the histograms are done along the dimension dim.
+
+    @param  x values to be counted
+    @param  integer value or bins edges
+    @param  dimension along which to perform the counts
   **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::histc_, histc, 3)
 }
+namespace nt2 { namespace ext
+{
+  template<class Domain, int N, class Expr>
+  struct  size_of<tag::histc_,Domain,N,Expr>
+  {
+    typedef typename  boost::proto::result_of
+                    ::child_c<Expr&,0>::value_type::extent_type result_type;
+    BOOST_FORCEINLINE result_type operator()(Expr& e) const
+    {
+      result_type sizee = boost::proto::child_c<0>(e).extent();
+      sizee[firstnonsingleton(boost::proto::child_c<0>(e))-1] = numel(boost::proto::child_c<1>(e));
+      return sizee;
+    }
+  };
+} }
 
 #endif

@@ -35,6 +35,8 @@
 #include <nt2/include/functions/is_nle.hpp>
 #include <nt2/include/functions/if_else.hpp>
 #include <nt2/include/functions/fma.hpp>
+#include <nt2/include/functions/is_greater.hpp>
+#include <nt2/include/functions/last_index.hpp>
 #include <nt2/include/functions/logical_or.hpp>
 #include <nt2/include/functions/oneminus.hpp>
 #include <nt2/include/functions/oneplus.hpp>
@@ -73,10 +75,10 @@ namespace nt2 { namespace ext
       size_t w =  width(xi);
       ilo.resize(of_size(1u, w));
       ilo = nt2::repnum(index_type(first_index<2>(xx)), 1u, w);
-      nt2::table<index_type> ihi   = nt2::repnum(index_type(last_index<2>(xx)),  1u, w);
-      nt2::table<index_type>  i(of_size(1, w));
-      nt2::table<bindex_type> toiter = nt2::gt(ihi, nt2::oneplus(ilo));
-      nt2::table<bvalue_type> ok;
+      nt2::container::table<index_type> ihi   = nt2::repnum(index_type(last_index<2>(xx)),  1u, w);
+      nt2::container::table<index_type>  i(of_size(1, w));
+      nt2::container::table<bindex_type> toiter = nt2::gt(ihi, nt2::oneplus(ilo));
+      nt2::container::table<bvalue_type> ok;
       bindex_type tmp =  nt2::globalany(toiter);
       while (bool(tmp))
       {

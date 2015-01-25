@@ -12,84 +12,225 @@
 
 #include <nt2/core/functions/histc.hpp>
 #include <nt2/include/functions/along.hpp>
+#include <nt2/include/functions/bsearch.hpp>
+#include <nt2/include/functions/cast.hpp>
+#include <nt2/include/functions/cat.hpp>
+#include <nt2/include/functions/dec.hpp>
 #include <nt2/include/functions/logical_and.hpp>
+#include <nt2/include/functions/firstnonsingleton.hpp>
 #include <nt2/include/functions/globalmin.hpp>
 #include <nt2/include/functions/globalmax.hpp>
+#include <nt2/include/functions/horzcat.hpp>
+#include <nt2/include/functions/issorted.hpp>
+#include <nt2/include/functions/if_one_else_zero.hpp>
 #include <nt2/include/functions/is_finite.hpp>
 #include <nt2/include/functions/is_less_equal.hpp>
 #include <nt2/include/functions/is_greater.hpp>
 #include <nt2/include/functions/linspace.hpp>
 #include <nt2/include/functions/inbtrue.hpp>
+#include <nt2/include/functions/minusone.hpp>
 #include <nt2/include/functions/next.hpp>
+#include <nt2/include/functions/rowvect.hpp>
 #include <nt2/include/functions/size.hpp>
+#include <nt2/include/constants/inf.hpp>
+#include <nt2/include/constants/minf.hpp>
 #include <nt2/core/container/dsl/value_type.hpp>
 #include <nt2/core/container/extremum/extremum.hpp>
+#include <nt2/core/container/colon/colon.hpp>
+
 #include <nt2/core/container/table/table.hpp>
+#include <nt2/sdk/meta/as_integer.hpp>
+#include <boost/assert.hpp>
+#include <boost/dispatch/attributes.hpp>
+#include <nt2/include/functions/tie.hpp>
 #include <iostream>
 #include <nt2/table.hpp>
+#include <nt2/include/functions/cons.hpp>
 
 namespace nt2 { namespace ext
 {
-  BOOST_DISPATCH_IMPLEMENT  ( histc_, tag::cpu_,
-                              (A0),
-                              ((ast_<A0, nt2::container::domain>))
+
+ BOOST_DISPATCH_IMPLEMENT  ( histc_, tag::cpu_
+                            , (A0)(A1)
+                            , (scalar_<unspecified_<A0> >)
+                              (scalar_<unspecified_<A1> >)
                             )
   {
-    typedef typename A0::value_type value_type;
-    typedef container::table<std::size_t> result_type;
-
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
+    typedef A0 value_type;
+    typedef typename meta::as_integer<value_type, unsigned>::type ui_type;
+    typedef container::table<ui_type> result_type;
+    BOOST_FORCEINLINE result_type operator()(A0 const& , A1 const & ) const
     {
-      return histc(a0, 10);
+      BOOST_ASSERT_MSG(false, "at least one bin is required");
+      return result_type();
+    }
+  };
+ BOOST_DISPATCH_IMPLEMENT  ( histc_, tag::cpu_
+                           , (A0)(A1)(A2)
+                            , (scalar_<unspecified_<A0> >)
+                              (scalar_<unspecified_<A1> >)
+                              (scalar_<integer_<A2> >)
+                            )
+  {
+    typedef A0 value_type;
+    typedef typename meta::as_integer<value_type, unsigned>::type ui_type;
+    typedef container::table<ui_type> result_type;
+    BOOST_FORCEINLINE result_type operator()(A0 const& , A1 const & , A2 const & ) const
+    {
+      BOOST_ASSERT_MSG(false, "at least one bin is required");
+      return result_type();
     }
   };
 
-  BOOST_DISPATCH_IMPLEMENT  ( histc_, tag::cpu_,
-                              (A0)(A1),
-                              ((ast_<A0, nt2::container::domain>))
-                              (scalar_<integer_<A1> > )
+  BOOST_DISPATCH_IMPLEMENT  ( histc_, tag::cpu_
+                            , (A0)(A1)
+                            , (scalar_<unspecified_<A0> >)
+                              ((ast_<A1, nt2::container::domain>))
                             )
   {
-    typedef container::table<std::size_t> result_type;
-    BOOST_FORCEINLINE result_type operator()(A0 const& x, A1 const & n) const
+    typedef A0 value_type;
+    typedef typename meta::as_integer<value_type, unsigned>::type ui_type;
+    typedef container::table<ui_type> result_type;
+    BOOST_FORCEINLINE result_type operator()(A0 const& x, A1 const & bins) const
     {
-      typedef typename A0::value_type value_type;
-      result_type h(of_size(1, n));
-      container::table<value_type> xx = x(is_finite(x));
-      value_type mi =  globalmin(xx);
-      value_type ma =  globalmax(xx);
-      container::table<value_type> bins = linspace(mi, ma, n+1);
-      bins(end_) = next(bins(end_));
-      for(A1 i=1; i <= n ; i++)
+      ui_type n = numel(bins);
+      BOOST_ASSERT_MSG(n >= 2, "at least one bin is required");
+      result_type h = zeros(n, 1, meta::as_<ui_type>());
+      table<value_type> b = cath(cath(Minf<value_type>(), rowvect(bins)), Inf<value_type>());
+      for(ui_type i=1; i < ui_type(n) ; i++)
       {
-        h(i) =  nbtrue(logical_and(ge(xx, bins(i)), lt(xx,  bins(i+1))));
+        h(i) = touint(if_one_else_zero(logical_and(ge(x, b(i)), lt(x,  b(i+1)))));
+        if (h(i)) return h;
       }
+      h(n) = touint(if_one_else_zero(eq(x, bins(n))));
       return h;
     }
   };
 
-  BOOST_DISPATCH_IMPLEMENT( histc_, tag::cpu_,
-                            (A0)(A1)(A2),
-                            ((ast_<A0, nt2::container::domain>))
-                            ((ast_<A1, nt2::container::domain>))
-                            (scalar_<integer_<A2> > )
-                          )
+
+  BOOST_DISPATCH_IMPLEMENT ( histc_, tag::cpu_
+                            , (A0)(N0)(A1)(N1)
+                            , ((node_<A0, nt2::tag::histc_
+                                    , N0, nt2::container::domain
+                                      >
+                              ))
+                              ((node_<A1, nt2::tag::tie_
+                                    , N1, nt2::container::domain
+                                     >
+                              ))
+                            )
   {
-    typedef container::table<std::size_t> result_type;
-    BOOST_FORCEINLINE result_type operator()(A0 const& x, A1 const & bins, A2 dim) const
+    typedef void  result_type;
+
+    BOOST_FORCEINLINE result_type operator()( A0& a0, A1& a1 ) const
     {
+      BOOST_ASSERT_MSG(numel(boost::proto::child_c<1>(a0)) >= 2u, "at least one bin (two edges) is required");
+      BOOST_ASSERT_MSG(issorted(boost::proto::child_c<1>(a0), true), "bins edges must be increasingly sorted");
+      eval(a0, a1, N0(), N1());
+    }
+  private:
+    /// INTERNAL ONLY - c = histc(x, bins)
+    BOOST_FORCEINLINE
+    void eval ( A0& a0, A1& a1
+              , boost::mpl::long_<2> const&
+              , boost::mpl::long_<1> const&
+              ) const
+    {
+      compute( boost::proto::child_c<0>(a1),
+               boost::proto::child_c<0>(a0),
+               boost::proto::child_c<1>(a0),
+               nt2::firstnonsingleton(boost::proto::child_c<0>(a0)));
+    }
+
+    /// INTERNAL ONLY - c = histc(x, bins, dim)
+    BOOST_FORCEINLINE
+    void eval ( A0& a0, A1& a1
+              , boost::mpl::long_<3> const&
+              , boost::mpl::long_<1> const&
+              ) const
+    {
+       compute(boost::proto::child_c<0>(a1),
+               boost::proto::child_c<0>(a0),
+               boost::proto::child_c<1>(a0),
+               boost::proto::child_c<2>(a0));
+    }
+
+    /// INTERNAL ONLY - c = histc(x, bins)
+    BOOST_FORCEINLINE
+    void eval ( A0& a0, A1& a1
+              , boost::mpl::long_<2> const&
+              , boost::mpl::long_<2> const&
+              ) const
+    {
+      compute( boost::proto::child_c<0>(a1),
+               boost::proto::child_c<1>(a1),
+               boost::proto::child_c<0>(a0),
+               boost::proto::child_c<1>(a0),
+               nt2::firstnonsingleton(boost::proto::child_c<0>(a0)));
+
+    }
+
+    /// INTERNAL ONLY - c = histc(x, bins, dim)
+    BOOST_FORCEINLINE
+    void eval ( A0& a0, A1& a1
+              , boost::mpl::long_<3> const&
+              , boost::mpl::long_<2> const&
+              ) const
+    {
+      compute( boost::proto::child_c<0>(a1),
+               boost::proto::child_c<1>(a1),
+               boost::proto::child_c<0>(a0),
+               boost::proto::child_c<1>(a0),
+               boost::proto::child_c<2>(a0));
+    }
+
+    template <class H, class X, class B, class E>
+    static BOOST_FORCEINLINE
+    void compute (H& h,  const X& x, const B & bins, const E& dim)
+    {
+      typedef typename X::value_type value_type;
+      typedef typename meta::as_integer<value_type, unsigned>::type ui_type;
+      typedef container::table<ui_type> result_type;
+      ui_type d = dim;
       auto sizee = x.extent();
-      std::size_t n = numel(bins);
-      sizee[dim-1] = n-1;
-      result_type h(sizee);
-      for(A2 i=1; i < A2(n) ; i++)
+
+      table<value_type> b = cath(cath(Minf<value_type>(), rowvect(bins)), Inf<value_type>());
+      ui_type n = numel(b);
+      sizee[dec(dim)] = n;
+      h.resize(sizee);
+      for(ui_type i=2; i < n ; ++i)
       {
-        along(h, i, dim) = inbtrue(logical_and(ge(x, bins(i)), lt(x,  bins(i+1))), dim);
+        along(h, i, d) = inbtrue(logical_and(ge(x, b(i)), lt(x,  b(i+1))), d);
       }
-      return h;
+//      along(h, n, d) = inbtrue(eq(x, bins(n)), d);
+      h = along(h, _(2, n-1), dim);
     }
 
+    template <class H, class P, class X, class B, class E>
+    static BOOST_FORCEINLINE
+    void compute (H& h,  P& p, const X& x, const B & bins, const E& dim)
+    {
+      typedef typename X::value_type value_type;
+      typedef typename meta::as_integer<value_type, unsigned>::type ui_type;
+      typedef container::table<ui_type> result_type;
+      ui_type d = dim;
+      auto sizee = x.extent();
+      table<value_type> b = cath(cath(Minf<value_type>(), rowvect(bins)), Inf<value_type>());
+      ui_type n = numel(b);
+      p.resize(sizee);
+      p(_) = cast<ui_type>(bsearch(rowvect(b), rowvect(x)));
+      sizee[dec(dim)] = n-1;
+      h.resize(sizee);
+      for(ui_type i=2; i < n-1 ; ++i)
+      {
+        along(h, i, d) = inbtrue(eq(p, i), d);
+      }
+      h = along(h, _(2, n-2), dim);
+      p =  minusone(p);
+    }
   };
+
+
 } }
 
 #endif
