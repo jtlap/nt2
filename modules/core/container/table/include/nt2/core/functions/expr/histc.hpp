@@ -14,28 +14,23 @@
 #include <nt2/include/functions/along.hpp>
 #include <nt2/include/functions/bsearch.hpp>
 #include <nt2/include/functions/cast.hpp>
-#include <nt2/include/functions/cat.hpp>
 #include <nt2/include/functions/dec.hpp>
-#include <nt2/include/functions/logical_and.hpp>
 #include <nt2/include/functions/firstnonsingleton.hpp>
 #include <nt2/include/functions/globalmin.hpp>
 #include <nt2/include/functions/globalmax.hpp>
 #include <nt2/include/functions/horzcat.hpp>
-#include <nt2/include/functions/issorted.hpp>
 #include <nt2/include/functions/if_one_else_zero.hpp>
-#include <nt2/include/functions/is_finite.hpp>
+#include <nt2/include/functions/inbtrue.hpp>
 #include <nt2/include/functions/is_less_equal.hpp>
 #include <nt2/include/functions/is_greater.hpp>
-#include <nt2/include/functions/linspace.hpp>
-#include <nt2/include/functions/inbtrue.hpp>
+#include <nt2/include/functions/issorted.hpp>
+#include <nt2/include/functions/logical_and.hpp>
 #include <nt2/include/functions/minusone.hpp>
-#include <nt2/include/functions/next.hpp>
 #include <nt2/include/functions/rowvect.hpp>
 #include <nt2/include/functions/size.hpp>
 #include <nt2/include/constants/inf.hpp>
 #include <nt2/include/constants/minf.hpp>
 #include <nt2/core/container/dsl/value_type.hpp>
-#include <nt2/core/container/extremum/extremum.hpp>
 #include <nt2/core/container/colon/colon.hpp>
 
 #include <nt2/core/container/table/table.hpp>
@@ -43,9 +38,6 @@
 #include <boost/assert.hpp>
 #include <boost/dispatch/attributes.hpp>
 #include <nt2/include/functions/tie.hpp>
-#include <iostream>
-#include <nt2/table.hpp>
-#include <nt2/include/functions/cons.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -96,13 +88,13 @@ namespace nt2 { namespace ext
       ui_type n = numel(bins);
       BOOST_ASSERT_MSG(n >= 2, "at least one bin is required");
       result_type h = zeros(n, 1, meta::as_<ui_type>());
-      table<value_type> b = cath(cath(Minf<value_type>(), rowvect(bins)), Inf<value_type>());
+      container::table<value_type> b = cath(cath(Minf<value_type>(), rowvect(bins)), Inf<value_type>());
       for(ui_type i=1; i < ui_type(n) ; i++)
       {
         h(i) = touint(if_one_else_zero(logical_and(ge(x, b(i)), lt(x,  b(i+1)))));
         if (h(i)) return h;
       }
-      h(n) = touint(if_one_else_zero(eq(x, bins(n))));
+//      h(n) = touint(if_one_else_zero(eq(x, bins(n))));
       return h;
     }
   };
@@ -155,7 +147,7 @@ namespace nt2 { namespace ext
                boost::proto::child_c<2>(a0));
     }
 
-    /// INTERNAL ONLY - c = histc(x, bins)
+    /// INTERNAL ONLY - [c, p] = histc(x, bins)
     BOOST_FORCEINLINE
     void eval ( A0& a0, A1& a1
               , boost::mpl::long_<2> const&
@@ -170,7 +162,7 @@ namespace nt2 { namespace ext
 
     }
 
-    /// INTERNAL ONLY - c = histc(x, bins, dim)
+    /// INTERNAL ONLY - [c, p] = histc(x, bins, dim)
     BOOST_FORCEINLINE
     void eval ( A0& a0, A1& a1
               , boost::mpl::long_<3> const&
@@ -194,7 +186,7 @@ namespace nt2 { namespace ext
       ui_type d = dim;
       auto sizee = x.extent();
 
-      table<value_type> b = cath(cath(Minf<value_type>(), rowvect(bins)), Inf<value_type>());
+      container::table<value_type> b = cath(cath(Minf<value_type>(), rowvect(bins)), Inf<value_type>());
       ui_type n = numel(b);
       sizee[dec(dim)] = n;
       h.resize(sizee);
@@ -202,7 +194,6 @@ namespace nt2 { namespace ext
       {
         along(h, i, d) = inbtrue(logical_and(ge(x, b(i)), lt(x,  b(i+1))), d);
       }
-//      along(h, n, d) = inbtrue(eq(x, bins(n)), d);
       h = along(h, _(2, n-1), dim);
     }
 
@@ -215,10 +206,10 @@ namespace nt2 { namespace ext
       typedef container::table<ui_type> result_type;
       ui_type d = dim;
       auto sizee = x.extent();
-      table<value_type> b = cath(cath(Minf<value_type>(), rowvect(bins)), Inf<value_type>());
+      container::table<value_type> b = cath(cath(Minf<value_type>(), rowvect(bins)), Inf<value_type>());
       ui_type n = numel(b);
       p.resize(sizee);
-      p(_) = cast<ui_type>(bsearch(rowvect(b), rowvect(x)));
+      p(_) = cast<ui_type>(bsearch(b, rowvect(x)));
       sizee[dec(dim)] = n-1;
       h.resize(sizee);
       for(ui_type i=2; i < n-1 ; ++i)

@@ -54,11 +54,10 @@ namespace nt2
     @endcode
 
     bins is the vector of bin edges (if bins is not a vector, the column vector bins(_) is used)
-    Counted in r(i) are those in [bins(i), bins(i+1)[, except for the last bin
-    which only counts elements equal to bins(end_).
-    Values outside of [bins(1), bins(end_)] are not counted. Use appropriate infs to catch all (but nans).
+    Counted in r(i) are those in [bins(i), bins(i+1)[.
+    Values outside of [bins(1), bins(end_)[ are not counted. Use appropriate infs to catch all (but nans).
 
-    if x is multidimensionnal the histograms are done along the first not singleton dimension.
+    if x is multidimensionnal the histograms are done along the first not singleton dimension of x.
 
     @param  x values to be counted
     @param  bins vector of edges (if bins is not a vector bins(_) is used)
@@ -75,9 +74,8 @@ namespace nt2
     @endcode
 
     bins is the vector of bin edges (if bins is not a vector, the column vector bins(_) is used)
-    Counted in r(i) are those in [bins(i), bins(i+1)[, except for the last bin
-    which only counts elements equal to bins(end_).
-    Values outside of [bins(1), bins(end_)] are not counted. Use appropriate infs to catch all (but nans).
+    Counted in r(i) are those in [bins(i), bins(i+1)[.
+    Values outside of [bins(1), bins(end_)[ are not counted. Use appropriate infs to catch all (but nans).
 
     the histograms are done along the dimension dim.
 
