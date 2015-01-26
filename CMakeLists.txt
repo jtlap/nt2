@@ -210,6 +210,7 @@ endif()
 # we want to build those external projects with the same configuration
 set(CMAKE_OPTIONS)
 foreach(var NT2_SIMD_FLAGS NT2_MODULES_BLACKLIST
+            BOOST_ROOT
             CMAKE_C_COMPILER CMAKE_CXX_COMPILER
             CMAKE_C_FLAGS CMAKE_CXX_FLAGS CMAKE_TOOLCHAIN_FILE
             CMAKE_FIND_ROOT_PATH CMAKE_FIND_ROOT_PATH_MODE_PROGRAM
