@@ -19,6 +19,7 @@ SET ( SOURCES
       potrf.cpp
       sne.cpp
       gels.cpp
+      sysv.cpp
    )
 
 nt2_module_add_tests(binding.magma.linalg.unit ${SOURCES})
