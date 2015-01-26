@@ -50,7 +50,7 @@ ELSEIF(NT2_SYSTEM_PROCESSOR MATCHES "mic")
 ################################################################################
 # Power PC processor
 ################################################################################
-ELSEIF(CMAKE_SYSTEM_PROCESSOR MATCHES "ppc|powerpc")
+ELSEIF(NT2_SYSTEM_PROCESSOR MATCHES "ppc|powerpc")
   SET(NT2_ARCH "powerpc")
   SET(NT2_ARCH_POWERPC 1)
   IF(CMAKE_SIZEOF_VOID_P EQUAL 8)
