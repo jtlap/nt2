@@ -9,6 +9,7 @@
 
 SET( SOURCES
      balance.cpp
+     cdf2rdf.cpp
      geneig.cpp
      nseig.cpp
      qr.cpp
