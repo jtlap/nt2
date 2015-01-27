@@ -30,6 +30,8 @@ SET( SOURCES
   eyeminus.cpp
   eyeplus.cpp
   trsolve.cpp
+  sylvester.cpp
+  lyapunov.cpp
   )
 
 nt2_module_add_tests(core.linalg.general.unit ${SOURCES})
