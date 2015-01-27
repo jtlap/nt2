@@ -10,7 +10,7 @@
 #ifndef NT2_CORE_FUNCTIONS_SCALAR_SETUNION_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_SCALAR_SETUNION_HPP_INCLUDED
 
-#include <nt2/core/functions/union.hpp>
+#include <nt2/core/functions/setunion.hpp>
 #include <nt2/core/container/table/table.hpp>
 #include <nt2/include/functions/unique.hpp>
 #include <nt2/include/functions/cons.hpp>
@@ -24,7 +24,7 @@ namespace nt2 { namespace ext
                               (scalar_< arithmetic_<A1> >)
                             )
   {
-    typedef table<A0> result_type;
+    typedef container::table<A0> result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& a1) const
     {
       return unique(cons<A0>(a0, a1));

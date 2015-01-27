@@ -25,13 +25,12 @@ namespace nt2 { namespace ext
     )
   {
     typedef A0&                                                          result_type;
-    typedef typename boost::proto::result_of::child_c<A1&,0>::type            p_type;
-    typedef typename meta::strip<p_type>::type                                t_type;
+    typedef typename boost::proto::result_of::child_c<A1&,0>::value_type      t_type;
     typedef typename t_type::value_type                                   value_type;
 
     result_type operator()(A0& out, const A1& in) const
     {
-      table<value_type> a = sort(colvect(boost::proto::child_c<0>(in)));
+      container::table<value_type> a = sort(colvect(boost::proto::child_c<0>(in)));
       auto last =  std::unique(a.begin(), a.end());
       a.resize(nt2::of_size(last-a.begin(), 1));
       return out = a;

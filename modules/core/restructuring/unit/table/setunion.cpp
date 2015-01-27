@@ -5,8 +5,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //=============================================================================
-#include <nt2/table.hpp>
 #include <nt2/include/functions/setunion.hpp>
+#include <nt2/table.hpp>
 #include <nt2/include/functions/cons.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>

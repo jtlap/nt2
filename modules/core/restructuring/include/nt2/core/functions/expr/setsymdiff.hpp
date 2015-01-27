@@ -26,15 +26,14 @@ namespace nt2 { namespace ext
                             )
   {
     typedef A0&                                                          result_type;
-    typedef typename boost::proto::result_of::child_c<A1&,0>::type            p_type;
-    typedef typename meta::strip<p_type>::type                                t_type;
+    typedef typename boost::proto::result_of::child_c<A1&,0>::value_type      t_type;
     typedef typename t_type::value_type                                   value_type;
 
     result_type operator()(A0& out, const A1& in) const
     {
-      table<value_type> a = unique(boost::proto::child_c<0>(in));
-      table<value_type> b = unique(boost::proto::child_c<1>(in));
-      table<value_type> r(of_size(min(numel(a), numel(b)), 1));
+      container::table<value_type> a = unique(boost::proto::child_c<0>(in));
+      container::table<value_type> b = unique(boost::proto::child_c<1>(in));
+      container::table<value_type> r(of_size(min(numel(a), numel(b)), 1));
       auto last = std::set_symmetric_difference(a.begin(),a.end(),b.begin(),b.end(),r.begin());
       r.resize(nt2::of_size(last-r.begin(), 1));
       return out = r;
