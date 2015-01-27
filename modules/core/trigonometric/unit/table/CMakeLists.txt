@@ -8,9 +8,13 @@
 ##############################################################################
 
 SET( SOURCES
+  cart2pol.cpp
+  cart2sph.cpp
   fast_sincos.cpp
   fast_sincosd.cpp
   fast_sincospi.cpp
+  pol2cart.cpp
+  sph2cart.cpp
   rem_pio2_cephes.cpp
   rem_pio2_straight.cpp
   rem_pio2_medium.cpp

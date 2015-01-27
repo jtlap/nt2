@@ -10,7 +10,7 @@
 #include <nt2/include/functor.hpp>
 
 namespace nt2 { namespace tag
-  {
+{
     /// @brief Hierarchy tag for cart2pol function
     struct cart2pol_ : ext::elementwise_<cart2pol_>
     {
@@ -18,8 +18,8 @@ namespace nt2 { namespace tag
       typedef ext::elementwise_<cart2pol_> parent;
       template<class... Args>
       static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
-      BOOST_AUTO_DECLTYPE_BODY( dispatching_cart2pol_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
-    };
+        BOOST_AUTO_DECLTYPE_BODY( dispatching_cart2pol_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
+        };
   }
   namespace ext
   {
