@@ -14,6 +14,7 @@
 #include <nt2/core/container/table/table.hpp>
 #include <nt2/include/functions/conj.hpp>
 #include <nt2/include/functions/cons.hpp>
+#include <nt2/include/functions/ctranspose.hpp>
 #include <nt2/include/functions/diag_of.hpp>
 #include <nt2/include/functions/eye.hpp>
 #include <nt2/include/functions/find.hpp>
@@ -22,6 +23,7 @@
 #include <nt2/include/functions/imag.hpp>
 #include <nt2/include/functions/isempty.hpp>
 #include <nt2/include/functions/is_not_equal.hpp>
+#include <nt2/include/functions/is_real.hpp>
 #include <nt2/include/functions/length.hpp>
 #include <nt2/include/functions/linsolve.hpp>
 #include <nt2/include/functions/plus.hpp>
@@ -32,6 +34,7 @@
 #include <nt2/linalg/options.hpp>
 #include <nt2/core/container/dsl/as_terminal.hpp>
 #include <nt2/core/container/colon/colon.hpp>
+#include <nt2/core/utility/of_size.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -41,17 +44,15 @@ namespace nt2 { namespace ext
                               (scalar_<unspecified_<A1> >)
                             )
   {
-    typedef A0 result_type;
+    typedef typename meta::as_real<A0>::type result_type;
 
     BOOST_FORCEINLINE result_type operator()(const A0& a0, const A1& ) const
     {
-      return a0;
+      BOOST_ASSERT_MSG(is_real(a0), "diagonal is not valid");
+      return real(a0);
     }
   };
 
-  //============================================================================
-  //Eig computations
-  //============================================================================
   BOOST_DISPATCH_IMPLEMENT  ( cdf2rdf_, tag::cpu_
                             , (A0)(N0)(A1)(N1)
                             , ((node_<A0, nt2::tag::cdf2rdf_
@@ -84,26 +85,27 @@ namespace nt2 { namespace ext
               , boost::mpl::long_<2> const&
               ) const
     {
-      NT2_AS_TERMINAL_OUT  (desired_semantic,  v, boost::proto::child_c<0>(a1));
-      NT2_AS_TERMINAL_OUT  (desired_semantic,  w, boost::proto::child_c<1>(a1));
-      auto i = find(imag(diag_of(cw)));
-      auto index = i(_(1u, 2u, length(i)));
-      if isempty(index)
+       auto& cv = boost::proto::child_c<0>(a0);
+       auto& cw = boost::proto::child_c<1>(a0);
+       auto i = find(imag(diag_of(cw)));
+       container::table<std::size_t> index = cast<std::size_t>(i(_(std::size_t(1), std::size_t(2), length(i))));
+       if (isempty(index))
+       {
+         boost::proto::child_c<0>(a1) = real(cv);
+         boost::proto::child_c<1>(a1) = real(cw);
+         return;
+       }
+//       BOOST_ASSERT_MSG(((globalmax(index)==size(cw,1)) || globalany(neq(conj(cw(index,index), cw(index+1,index+1))))), "diagonal is not valid");
+       container::table<ctype_t> ct = eye(length(cw), meta::as_<ctype_t>());
+       container::table<ctype_t> twobytwo = cons<ctype_t>(of_size(2, 2), One<ctype_t>(), I<ctype_t>(), One<ctype_t>(), -I<ctype_t>());
+       auto i2 = _(std::size_t(0), std::size_t(1));
+       std::cout << "i2 "<< i2 << std::endl;
+      for(auto j : index)
       {
-        boost::proto::child_c<0>(a0) = real(cv);
-        boost::proto::child_c<1>(a0) = real(cw);
-        return;
+        ct(i2+j, i2+j) = twobytwo;
       }
-      BOOST_ASSERT_MSG((globalmax(index)==size(cw,1)) || globalany(neq(conj(cw(index,index), cw(index+1,index+1)))));
-      table<ctype_t> ct = eye(length(d), meta::as_<ctype_t>());
-      table<ctype_t> twobytwo =  cons<ctype_t>(One<ctype_t>, I<ctype_t>(), One<ctype_t>(), -I<ctype_t>());
-      auto i2 = _(0u, 1u);
-      for(i : index)
-      {
-        ct(i2+i, i2+i) = twobytwo;
-      }
-      boost::proto::child_c<0>(a0) = real(linsolve(cv, ct));
-      boost::proto::child_c<1>(a0) = real(linsolve(cw, ct));
+      boost::proto::child_c<0>(a1) = trans(real(linsolve(ctrans(ct), ctrans(cv))));
+      boost::proto::child_c<1>(a1) = real(mtimes(ct, ctrans(linsolve(ctrans(ct), ctrans(cw)))));
     }
 
 
