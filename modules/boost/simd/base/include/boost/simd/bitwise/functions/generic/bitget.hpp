@@ -40,7 +40,8 @@ namespace boost { namespace simd { namespace ext
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& a1) const
     {
       A1 c = splat<A1>(sizeof(sA0)*CHAR_BIT);
-      BOOST_ASSERT_MSG(assert_good_shift<A0>(c-a1)&&assert_good_shift<A0>(dec(c)), "bitget :index is out of range");
+      BOOST_ASSERT_MSG(assert_good_shift<A0>(c-a1)&&assert_good_shift<A0>(dec(c))
+                      , "bitget :index is out of range");
 
       return shr(shl(bitwise_cast<result_type>(a0), c-a1), dec(c));
     }
@@ -58,7 +59,8 @@ namespace boost { namespace simd { namespace ext
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& a1) const
     {
       A1 c = sizeof(sA0)*CHAR_BIT;
-      BOOST_ASSERT_MSG(assert_good_shift<A0>(c-a1)&&assert_good_shift<A0>(dec(c)), "bitget :index is out of range");
+      BOOST_ASSERT_MSG(assert_good_shift<A0>(c-a1)&&assert_good_shift<A0>(dec(c))
+                      , "bitget :index is out of range");
       return shr(shl(bitwise_cast<result_type>(a0), c-a1), dec(c));
     }
 

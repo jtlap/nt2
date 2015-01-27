@@ -49,6 +49,8 @@ namespace boost { namespace simd { namespace tag
     as_integer<T> r = bitget(x, i);
     @endcode
 
+    r contains is 0 or 2^i according to the fact the ith bit of x is 0 or 1
+
     @see  @funcref{bitset}
     @param  x
     @param  i

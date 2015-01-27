@@ -35,11 +35,10 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
     {
-      typedef union { A0 a; int8_t i[2]; } trick;
-      trick t;
-      t.a = a0;
-      std::swap(t.i[0], t.i[1]);
-      return t.a;
+      int8_t i[2];
+      memcpy(&i, &a0, sizeof(a0));
+      std::swap(i[0], i[1]);
+      return bitwise_cast<A0>(i);
     }
   };
   BOOST_DISPATCH_IMPLEMENT( swapbytes_, tag::cpu_
@@ -51,12 +50,11 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
     {
-      typedef union { A0 a; int8_t i[4]; } trick;
-      trick t;
-      t.a = a0;
-      std::swap(t.i[0], t.i[3]);
-      std::swap(t.i[1], t.i[2]);
-      return t.a;
+      int8_t i[4];
+      memcpy(&i, &a0, sizeof(a0));
+      std::swap(i[0], i[3]);
+      std::swap(i[1], i[2]);
+      return bitwise_cast<A0>(i);
     }
   };
   BOOST_DISPATCH_IMPLEMENT( swapbytes_, tag::cpu_
@@ -68,14 +66,13 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
     {
-      typedef union { A0 a; int8_t i[8]; } trick;
-      trick t;
-      t.a = a0;
-      std::swap(t.i[0], t.i[7]);
-      std::swap(t.i[1], t.i[6]);
-      std::swap(t.i[2], t.i[5]);
-      std::swap(t.i[3], t.i[4]);
-      return t.a;
+      int8_t i[8];
+      memcpy(&i, &a0, sizeof(a0));
+      std::swap(i[0], i[7]);
+      std::swap(i[1], i[6]);
+      std::swap(i[2], i[5]);
+      std::swap(i[3], i[4]);
+      return bitwise_cast<A0>(i);
     }
   };
 } } }

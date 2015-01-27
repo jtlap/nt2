@@ -27,7 +27,7 @@ namespace boost { namespace simd { namespace ext
     };
   }
 
-  BOOST_DISPATCH_IMPLEMENT( swapbytes_,  tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT( swapbytes_,  tag::simd_
                           , (A0)(X)
                           , ((simd_<arithmetic_<A0>, X>))
                           )
