@@ -13,6 +13,7 @@
 #include <nt2/include/functions/of_size.hpp>
 #include <nt2/include/functions/tie.hpp>
 #include <nt2/table.hpp>
+#include <boost/fusion/include/at_c.hpp>
 
 
 #include <nt2/sdk/unit/module.hpp>
@@ -43,9 +44,9 @@ NT2_TEST_CASE_TPL(sph2cart_table, NT2_REAL_TYPES)
   }
 
   {
-    nt2::tie(e, f) = sph2cart(a, b, c, g);
-    NT2_TEST_ULP_EQUAL(e, c*nt2::cos(b)*nt2::cos(a),0.5);
-    NT2_TEST_ULP_EQUAL(f, c*nt2::cos(b)*nt2::sin(a),0.5);
+    auto z = sph2cart(a, b, c, g);
+    NT2_TEST_ULP_EQUAL(boost::fusion::at_c<0>(z), c*nt2::cos(b)*nt2::cos(a),0.5);
+    NT2_TEST_ULP_EQUAL(boost::fusion::at_c<1>(z), c*nt2::cos(b)*nt2::sin(a),0.5);
     NT2_TEST_ULP_EQUAL(g, c*nt2::sin(b),0.5);
   }
   {
