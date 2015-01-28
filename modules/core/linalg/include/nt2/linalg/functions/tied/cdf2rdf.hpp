@@ -11,17 +11,13 @@
 #include <nt2/linalg/functions/cdf2rdf.hpp>
 #include <boost/dispatch/attributes.hpp>
 #include <nt2/core/container/table/table.hpp>
-#include <nt2/include/functions/conj.hpp>
 #include <nt2/include/functions/cons.hpp>
 #include <nt2/include/functions/ctranspose.hpp>
 #include <nt2/include/functions/diag_of.hpp>
 #include <nt2/include/functions/eye.hpp>
 #include <nt2/include/functions/find.hpp>
-#include <nt2/include/functions/globalany.hpp>
-#include <nt2/include/functions/globalmax.hpp>
 #include <nt2/include/functions/imag.hpp>
 #include <nt2/include/functions/isempty.hpp>
-#include <nt2/include/functions/is_not_equal.hpp>
 #include <nt2/include/functions/is_real.hpp>
 #include <nt2/include/functions/length.hpp>
 #include <nt2/include/functions/linsolve.hpp>
@@ -94,7 +90,6 @@ namespace nt2 { namespace ext
          boost::proto::child_c<1>(a1) = real(cw);
          return;
        }
-//       BOOST_ASSERT_MSG(((globalmax(index)==size(cw,1)) || globalany(neq(conj(cw(index,index), cw(index+1,index+1))))), "diagonal is not valid");
        container::table<ctype_t> ct = eye(length(cw), meta::as_<ctype_t>());
        container::table<ctype_t> twobytwo = cons<ctype_t>(of_size(2, 2), One<ctype_t>(), I<ctype_t>(), One<ctype_t>(), -I<ctype_t>());
        auto i2 = _(std::size_t(0), std::size_t(1));
