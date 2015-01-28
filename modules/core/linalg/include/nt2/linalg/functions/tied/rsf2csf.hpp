@@ -110,21 +110,3 @@ namespace nt2 { namespace ext
 } }
 
 #endif
-
-//  Find complex unitary similarities to zero subdiagonal elements.
-// n = size(T,2);
-// for m = n:-1:2
-//    % We are honouring the deflation from SCHUR. It may not work correctly if
-//    % the input is not an output of SCHUR.
-//    if T(m,m-1) ~= 0
-//       k = m-1:m;
-//       mu = eig(T(k,k)) - T(m,m);
-//       r = hypot(mu(1), T(m,m-1));
-//       c = mu(1)/r;  s = T(m,m-1)/r;
-//       G = [c' s; -s c];
-//       T(k,m-1:n) = G*T(k,m-1:n);
-//       T(1:m,k) = T(1:m,k)*G';
-//       U(:,k) = U(:,k)*G';
-//       T(m,m-1) = 0;
-//    end
-// end
