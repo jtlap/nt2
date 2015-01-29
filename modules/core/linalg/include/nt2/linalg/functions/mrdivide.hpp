@@ -45,13 +45,13 @@ namespace nt2
    * solve for x the system xa = b ( c = ctrans(linsolve(ctrans(a), ctrans(b));
    *
    * @code
-   *      T x = mrdivide(b, a {, option});
+   *      T x = mrdivide(b, a);
    * @encode
    *
    *    is similar to
    *
    * @code
-   *      T x = ctrans(linsolve(ctrans(a), ctrans(b) {, option});
+   *      T x = ctrans(linsolve(ctrans(a), ctrans(b));
    * @encode
    *
    * Note : @code tie(x, r) = mrdivide(b, a {, option}); @encode
@@ -66,14 +66,13 @@ namespace nt2
    **/
 
   NT2_FUNCTION_IMPLEMENTATION(tag::mrdivide_, mrdivide, 2)
-  NT2_FUNCTION_IMPLEMENTATION(tag::mrdivide_, mrdivide, 3)
 }
 
 namespace nt2 { namespace ext
 {
   template<class Domain, int N, class Expr>
   struct  size_of<tag::mrdivide_,Domain,N,Expr>
-        : meta::size_as<Expr,1>
+        : meta::size_as<Expr,0>
   {};
 
   template<class Domain, int N, class Expr>
