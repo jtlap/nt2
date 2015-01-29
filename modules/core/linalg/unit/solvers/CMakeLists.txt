@@ -9,6 +9,7 @@
 
 SET ( SOURCES
       linsolve.cpp
+      mrdivide.cpp
     )
 
 nt2_module_add_tests(core.linalg.solvers.unit ${SOURCES})
