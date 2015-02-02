@@ -9,7 +9,8 @@
 #define BOOST_SIMD_BITWISE_FUNCTIONS_GENERIC_SWAPBYTES_HPP_INCLUDED
 
 #include <boost/simd/bitwise/functions/swapbytes.hpp>
-#include <boost/simd/include/functions/simd/bitwise_cast.hpp>
+#include <boost/simd/include/functions/simd/shift_left.hpp>
+#include <boost/simd/include/functions/simd/shr.hpp>
 #include <boost/dispatch/attributes.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -35,10 +36,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
     {
-      int8_t i[2];
-      memcpy(&i, &a0, sizeof(a0));
-      std::swap(i[0], i[1]);
-      return bitwise_cast<A0>(i);
+     return shl(a0, 8)|shr(a0, 8);
     }
   };
   BOOST_DISPATCH_IMPLEMENT( swapbytes_, tag::cpu_
@@ -50,11 +48,8 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
     {
-      int8_t i[4];
-      memcpy(&i, &a0, sizeof(a0));
-      std::swap(i[0], i[3]);
-      std::swap(i[1], i[2]);
-      return bitwise_cast<A0>(i);
+      result_type val = ((shl(a0, 8) & 0xFF00FF00 ) | (shr(a0, 8) & 0xFF00FF ));
+      return shl(val, 16) | shr(val,16);
     }
   };
   BOOST_DISPATCH_IMPLEMENT( swapbytes_, tag::cpu_
@@ -66,13 +61,9 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
     {
-      int8_t i[8];
-      memcpy(&i, &a0, sizeof(a0));
-      std::swap(i[0], i[7]);
-      std::swap(i[1], i[6]);
-      std::swap(i[2], i[5]);
-      std::swap(i[3], i[4]);
-      return bitwise_cast<A0>(i);
+      result_type val = (shl(a0, 8) & 0xFF00FF00FF00FF00ULL ) | (shr(a0, 8) & 0x00FF00FF00FF00FFULL );
+      val = (shl(val, 16) & 0xFFFF0000FFFF0000ULL ) | (shr(val, 16) & 0x0000FFFF0000FFFFULL );
+      return shl(val, 32) | shr(val,32);
     }
   };
 } } }
