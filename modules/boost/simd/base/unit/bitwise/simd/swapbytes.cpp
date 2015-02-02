@@ -25,8 +25,6 @@ NT2_TEST_CASE_TPL ( swapbytes,   BOOST_SIMD_INTEGRAL_TYPES)
   using boost::simd::tag::swapbytes_;
   typedef BOOST_SIMD_DEFAULT_EXTENSION                             ext_t;
   typedef boost::simd::native<T,ext_t>                                vT;
-  typedef typename boost::dispatch::meta::call<swapbytes_(vT)>::type r_t;
-  typedef vT wished_r_t;
 
   // specific values tests
   vT a =  boost::simd::enumerate<vT>(0xF0);
