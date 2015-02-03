@@ -9,15 +9,14 @@
 #define BOOST_SIMD_BITWISE_FUNCTIONS_SIMD_SIMD_AVX_SWAPBYTES_HPP_INCLUDED
 
 #include <boost/simd/bitwise/functions/swapbytes.hpp>
-#include <boost/simd/include/functions/simd/bitwise_cast.hpp>
 #include <boost/dispatch/meta/scalar_of.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
   BOOST_DISPATCH_IMPLEMENT( swapbytes_, boost::simd::tag::avx_
-                          , (A0)(X)
-                          , ((simd_<arithmetic_<A0>, X>))
+                          , (A0)
+                          , ((simd_<arithmetic_<A0>, boost::simd::tag::avx_>))
                           )
   {
     typedef A0 result_type;
@@ -28,8 +27,8 @@ namespace boost { namespace simd { namespace ext
 
       svtype a00 = _mm256_extractf128_si256(a0, 0);
       svtype a01 = _mm256_extractf128_si256(a0, 1);
-      A0 that = _mm256_castsi128_si256(boost::simd::swapbytes(a00));
-      return _mm256_insertf128_si256(that, boost::simd::swapbytes(a01), 1);
+      return _mm256_insertf128_si256(_mm256_castsi128_si256(boost::simd::swapbytes(a00))
+                                    , boost::simd::swapbytes(a01), 1);
     }
   };
 } } }
