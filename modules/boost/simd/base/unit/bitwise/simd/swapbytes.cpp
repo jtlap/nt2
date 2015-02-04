@@ -18,7 +18,7 @@
 #include <boost/simd/include/functions/simd/shift_left.hpp>
 
 
-NT2_TEST_CASE_TPL ( swapbytes,   BOOST_SIMD_INTEGRAL_TYPES)
+NT2_TEST_CASE_TPL ( swapbytes,   BOOST_SIMD_SIMD_INTEGRAL_TYPES)
 {
 
   using boost::simd::swapbytes;
