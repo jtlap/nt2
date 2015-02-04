@@ -79,7 +79,7 @@ namespace boost { namespace simd { namespace ext
                                     , (scalar_< bool_<A0> >)
                                     )
   {
-    typedef A0& result_type;
+    typedef A0 result_type;
 
     BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL(1)
     {
