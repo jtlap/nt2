@@ -24,7 +24,8 @@ namespace boost { namespace simd
   template<class Tag> inline bool is_supported()
   {
     Tag tag_;
-    return config::details::detect(tag_);
+    static const bool status = config::details::detect(tag_);
+    return status;
   }
 
   inline int is_supported(const char* name)
