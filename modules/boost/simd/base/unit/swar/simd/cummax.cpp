@@ -51,7 +51,7 @@ NT2_TEST_CASE_TPL ( cummax_real,  BOOST_SIMD_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(cummax(boost::simd::enumerate < vT>(0, -1)), byhands(boost::simd::enumerate < vT>(0, -1)));
 } // end of test for floating_
 
-NT2_TEST_CASE_TPL ( cummax_signed_int__1_0,  (signed char))//BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPES)
+NT2_TEST_CASE_TPL ( cummax_signed_int__1_0,  BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPES)
 {
   using boost::simd::cummax;
   using boost::simd::tag::cummax_;
