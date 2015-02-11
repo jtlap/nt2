@@ -18,7 +18,7 @@
 #include <boost/simd/include/constants/three.hpp>
 
 
-NT2_TEST_CASE_TPL ( bitset_uit,  BOOST_SIMD_UNSIGNED_TYPES)
+NT2_TEST_CASE_TPL ( bitset_uit,  BOOST_SIMD_SIMD_UNSIGNED_TYPES)
 {
 
   using boost::simd::bitset;
@@ -40,7 +40,7 @@ NT2_TEST_CASE_TPL ( bitset_uit,  BOOST_SIMD_UNSIGNED_TYPES)
   NT2_TEST_EQUAL(bitset(boost::simd::splat<vT>(T(3)),3), boost::simd::splat<vT>(T(7)));
 } // end of test for unsigned_int_
 
-NT2_TEST_CASE_TPL ( bitset_si,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
+NT2_TEST_CASE_TPL ( bitset_si,  BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPES)
 {
 
   using boost::simd::bitset;
