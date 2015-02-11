@@ -22,12 +22,18 @@ SET( SOURCES
   from_diag.cpp
   horzcat.cpp
   ifvectvert.cpp
+  ismember.cpp
   putalong.cpp
   reshape.cpp
   resize.cpp
   rowvect.cpp
+  setdiff.cpp
+  setsymdiff.cpp
   squeeze.cpp
   trans.cpp
+  setunion.cpp
+  unique.cpp
+  setinter.cpp
   vertcat.cpp
 # List of simd test files for toolbox generative
    )
