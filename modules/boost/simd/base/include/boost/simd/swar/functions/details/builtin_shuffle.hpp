@@ -1,6 +1,7 @@
 //==============================================================================
 //         Copyright 2003 - 2012 LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 - 2012 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2009 - 2015 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2012 - 2015 NumScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -14,7 +15,7 @@
 #define BOOST_SIMD_NO_HAS_BUILTIN
 #endif
 
-#if (defined(__clang__) && __has_builtin(__builtin_shufflevector))                                 \
+#if (defined(__clang__) && __has_builtin(__builtin_shufflevector))              \
  || (defined(__GNUC__) && (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 9)))
 
   #include <boost/preprocessor/repetition/enum.hpp>
@@ -22,24 +23,35 @@
   #include <boost/preprocessor/seq/for_each.hpp>
 
   #ifdef __clang__
-    #define BUILTIN_SHUFFLE2(a, b, n, m) __builtin_shufflevector(a, b, BOOST_PP_ENUM(n, m, n))
-    #define BUILTIN_SHUFFLE1(a, n, seq) __builtin_shufflevector(a, BOOST_PP_ENUM(n, m, n))
+    #define BOOST_SIMD_BUILTIN_SHUFFLE2(a, b, n, m)                             \
+    __builtin_shufflevector(a, b, BOOST_PP_ENUM(n, m, n))                       \
+    /**/
+
+    #define BOOST_SIMD_BUILTIN_SHUFFLE1(a, n, seq)                              \
+    __builtin_shufflevector(a, BOOST_PP_ENUM(n, m, n))                          \
+    /**/
+
   #else
-    #define BUILTIN_SHUFFLE2(a, b, n, m) __builtin_shuffle(a, b, mask_type{BOOST_PP_ENUM(n, m, n)})
-    #define BUILTIN_SHUFFLE1(a, n, t) __builtin_shuffle(a, mask_type{BOOST_PP_ENUM(n, m, n)})
+    #define BOOST_SIMD_BUILTIN_SHUFFLE2(a, b, n, m)                             \
+    __builtin_shuffle(a, b, mask_type{BOOST_PP_ENUM(n, m, n)})                  \
+    /**/
+
+    #define BOOST_SIMD_BUILTIN_SHUFFLE1(a, n, t)                                \
+    __builtin_shuffle(a, mask_type{BOOST_PP_ENUM(n, m, n)})                     \
+    /**/
   #endif
 
-  #define DEFINE_SHUFFLE2_(z, n, t)                                                                \
+  #define BOOST_SIMD_DEFINE_SHUFFLE2_(z, n, t)                                                     \
   template<class Dummy>                                                                            \
   struct impl<n, Dummy>                                                                            \
   {                                                                                                \
     BOOST_FORCEINLINE static mask_type call(mask_type const a0, mask_type const a1)                \
     {                                                                                              \
-      return BUILTIN_SHUFFLE2(a0, a1, n, t);                                                       \
+      return BOOST_SIMD_BUILTIN_SHUFFLE2(a0, a1, n, t);                                            \
     }                                                                                              \
   };                                                                                               \
 
-  #define DEFINE_SHUFFLE2( Tag, Macro )                                                            \
+  #define BOOST_SIMD_DEFINE_SHUFFLE2( Tag, Macro )                                                 \
   BOOST_DISPATCH_IMPLEMENT( Tag, boost::simd::tag::simd_                                           \
                           , (A0)(A1)(X)                                                            \
                           , ((simd_< unspecified_<A0>, X >))                                       \
@@ -66,17 +78,19 @@
       }                                                                                            \
     };                                                                                             \
                                                                                                    \
-    BOOST_SIMD_PP_REPEAT_POWER_OF_2_FROM_TO(2, 32, DEFINE_SHUFFLE2_, Macro)                        \
+    BOOST_SIMD_PP_REPEAT_POWER_OF_2_FROM_TO(2, 32, BOOST_SIMD_DEFINE_SHUFFLE2_, Macro)             \
                                                                                                    \
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& a1) const                     \
     {                                                                                              \
-      return (typename A0::native_type)impl<A0::static_size>::call((mask_type)a0(), (mask_type)a1());\
+      return (typename A0::native_type)impl<A0::static_size>::call( (mask_type)a0()                \
+                                                                  , (mask_type)a1()                \
+                                                                  );                               \
     }                                                                                              \
   };                                                                                               \
   /**/
 
 #else
-  #define DEFINE_SHUFFLE2(Tag, Seq)
+  #define BOOST_SIMD_DEFINE_SHUFFLE2(Tag, Seq)
 #endif
 
 #ifdef BOOST_SIMD_NO_HAS_BUILTIN
