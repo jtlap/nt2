@@ -28,20 +28,21 @@ namespace boost { namespace simd { namespace ext
     {
       return helper<meta::cardinal_of<A0>::value>::unroll(a0);
     }
-  private:
+
+    private:
     template<std::size_t CARD, std::size_t PASS = CARD>
     struct helper
     {
-      static A0 unroll(const A0 & a0)
+      BOOST_FORCEINLINE static A0 unroll(const A0 & a0)
       {
         A0 tmp =  helper<CARD, PASS/2>::unroll(a0);
         return min(tmp,  shuffle<details::cum_helper<CARD, PASS>>(tmp));
       }
     };
-    template<std::size_t CARD>
-    struct helper<CARD, 0>
+
+    template<std::size_t CARD> struct helper<CARD, 0>
     {
-      static A0 unroll(const A0 & a0)
+      BOOST_FORCEINLINE static A0 unroll(const A0 & a0)
       {
         return a0;
       }
