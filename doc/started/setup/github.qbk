@@ -26,7 +26,6 @@ should looks like:
   |-- cmake/
   |-- doc/
   |-- modules/
-  |-- sandbox/
   |-- script/
   |-- tools/
   |-- CMakeLists.txt

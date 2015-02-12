@@ -231,7 +231,7 @@ if(CMAKE_GENERATOR STREQUAL Ninja)
   set(BUILD BUILD_COMMAND ninja -j2)
 endif()
 
-foreach(project demo sandbox)
+foreach(project demo)
   ExternalProject_Add( ${project} SOURCE_DIR ${CMAKE_SOURCE_DIR}/${project} BINARY_DIR ${CMAKE_BINARY_DIR}/${project}
                        CMAKE_CACHE_ARGS ${CMAKE_OPTIONS} ${BUILD} INSTALL_COMMAND ""
                        STEP_TARGETS configure
