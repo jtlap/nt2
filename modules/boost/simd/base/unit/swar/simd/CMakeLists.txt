@@ -16,6 +16,8 @@ SET( SOURCES
   all_reduce.cpp
   broadcast.cpp
   combine.cpp
+  cummin.cpp
+  cummax.cpp
   cumsum.cpp
   cumprod.cpp
   enumerate.cpp
