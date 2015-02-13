@@ -1,6 +1,5 @@
 //==============================================================================
-//         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 - 2011   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//          Copyright 2015 J.T. Lapreste
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -52,7 +51,7 @@ namespace boost { namespace simd
     is similar to:
 
     @code
-    T r = T(10);
+    T r = T(2)/T(5);
     @endcode
   **/
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Twoofive, Twoofive)

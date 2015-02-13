@@ -188,16 +188,3 @@ namespace nt2 { namespace details
 } }
 
 #endif
-
-
-
-
-
-
-
-
-
-
-
-
-
