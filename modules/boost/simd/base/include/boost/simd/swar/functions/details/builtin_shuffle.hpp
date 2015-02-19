@@ -51,11 +51,11 @@
     }                                                                                              \
   };                                                                                               \
 
-  #define BOOST_SIMD_DEFINE_SHUFFLE2( Tag, Macro )                                                 \
+  #define BOOST_SIMD_DEFINE_SHUFFLE2( Tag, Macro, Hierarchy )                                      \
   BOOST_DISPATCH_IMPLEMENT( Tag, boost::simd::tag::simd_                                           \
-                          , (A0)(A1)(X)                                                            \
-                          , ((simd_< unspecified_<A0>, X >))                                       \
-                            ((simd_< unspecified_<A1>, X >))                                       \
+                          , (A0)(X)                                                                \
+                          , ((simd_< Hierarchy<A0>, X >))                                          \
+                            ((simd_< Hierarchy<A0>, X >))                                          \
                           )                                                                        \
   {                                                                                                \
     typedef A0 result_type;                                                                        \
@@ -80,7 +80,7 @@
                                                                                                    \
     BOOST_SIMD_PP_REPEAT_POWER_OF_2_FROM_TO(2, 32, BOOST_SIMD_DEFINE_SHUFFLE2_, Macro)             \
                                                                                                    \
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& a1) const                     \
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A0 const& a1) const                     \
     {                                                                                              \
       return (typename A0::native_type)impl<A0::static_size>::call( (mask_type)a0()                \
                                                                   , (mask_type)a1()                \
@@ -90,7 +90,7 @@
   /**/
 
 #else
-  #define BOOST_SIMD_DEFINE_SHUFFLE2(Tag, Seq)
+  #define BOOST_SIMD_DEFINE_SHUFFLE2(Tag, Macro, Hierarchy)
 #endif
 
 #ifdef BOOST_SIMD_NO_HAS_BUILTIN

@@ -61,9 +61,9 @@ namespace boost { namespace simd { namespace ext
   };
 
   #define M_IODD(z,n,t) (n%2 ? (t+n) : n+1)
-  BOOST_SIMD_DEFINE_SHUFFLE2(  interleave_odd_,
-                    M_IODD
-                 )
+  BOOST_SIMD_DEFINE_SHUFFLE2(  interleave_odd_, M_IODD, type32_ )
+  BOOST_SIMD_DEFINE_SHUFFLE2(  interleave_odd_, M_IODD, type16_ )
+  BOOST_SIMD_DEFINE_SHUFFLE2(  interleave_odd_, M_IODD, type8_  )
   #undef M_IODD
 
 } } }

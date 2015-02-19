@@ -61,9 +61,9 @@ namespace boost { namespace simd { namespace ext
   };
 
   #define M_IEVEN(z,n,t) (n%2 ? (t+n-1) : n)
-  BOOST_SIMD_DEFINE_SHUFFLE2(  interleave_even_,
-                    M_IEVEN
-                 )
+  BOOST_SIMD_DEFINE_SHUFFLE2(  interleave_even_, M_IEVEN, type32_ )
+  BOOST_SIMD_DEFINE_SHUFFLE2(  interleave_even_, M_IEVEN, type16_ )
+  BOOST_SIMD_DEFINE_SHUFFLE2(  interleave_even_, M_IEVEN, type8_  )
   #undef M_IEVEN
 
 } } }
