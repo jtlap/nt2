@@ -61,3 +61,20 @@ NT2_TEST_CASE_TPL ( logical_or_real,  BOOST_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(logical_or(boost::simd::One<T>(),boost::simd::Zero<T>()), r_t(true));
   NT2_TEST_EQUAL(logical_or(boost::simd::Zero<T>(), boost::simd::Zero<T>()), r_t(false));
 } // end of test for floating_
+
+NT2_TEST_CASE ( logical_or_bool)
+{
+  using boost::simd::logical_or;
+  using boost::simd::tag::logical_or_;
+  typedef typename boost::dispatch::meta::call<logical_or_(bool, bool)>::type r_t;
+  typedef bool wished_r_t;
+
+  // return type conformity test
+  NT2_TEST_TYPE_IS(r_t, wished_r_t);
+
+  // specific values tests
+  NT2_TEST_EQUAL(logical_or(true, false), true);
+  NT2_TEST_EQUAL(logical_or(false, true), true);
+  NT2_TEST_EQUAL(logical_or(true, true), true);
+  NT2_TEST_EQUAL(logical_or(false, false), false);
+}

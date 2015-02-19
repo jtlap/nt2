@@ -17,6 +17,18 @@ namespace boost { namespace simd { namespace ext
 {
   BOOST_DISPATCH_IMPLEMENT          ( logical_and_, tag::cpu_
                                     , (A0)(A1)
+                                    , (scalar_< bool_<A0> >)
+                                      (scalar_< bool_<A1> >)
+                                    )
+  {
+    typedef bool result_type;
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL(2)
+    {
+      return (a0 && a1);
+    }
+  };
+  BOOST_DISPATCH_IMPLEMENT          ( logical_and_, tag::cpu_
+                                    , (A0)(A1)
                                     , (scalar_< fundamental_<A0> >)
                                       (scalar_< fundamental_<A1> >)
                                     )

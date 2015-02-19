@@ -59,3 +59,20 @@ NT2_TEST_CASE_TPL ( is_less_real,  BOOST_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(is_less(boost::simd::One<T>(),boost::simd::Zero<T>()), r_t(false));
   NT2_TEST_EQUAL(is_less(boost::simd::Zero<T>(), boost::simd::Zero<T>()), r_t(false));
 } // end of test for floating_
+
+NT2_TEST_CASE ( is_less_bool)
+{
+  using boost::simd::is_less;
+  using boost::simd::tag::is_less_;
+  typedef typename boost::dispatch::meta::call<is_less_(bool, bool)>::type r_t;
+  typedef bool wished_r_t;
+
+  // return type conformity test
+  NT2_TEST_TYPE_IS(r_t, wished_r_t);
+
+  // specific values tests
+  NT2_TEST_EQUAL(is_less(true, false), false);
+  NT2_TEST_EQUAL(is_less(false, true), true);
+  NT2_TEST_EQUAL(is_less(true, true), false);
+  NT2_TEST_EQUAL(is_less(false, false), false);
+}

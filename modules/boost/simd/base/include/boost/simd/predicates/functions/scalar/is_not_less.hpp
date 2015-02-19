@@ -17,6 +17,17 @@ namespace boost { namespace simd { namespace ext
 {
   BOOST_DISPATCH_IMPLEMENT         ( is_not_less_, tag::cpu_
                             , (A0)
+                            , (scalar_< bool_<A0> >)(scalar_< bool_<A0> >)
+                            )
+  {
+    typedef bool result_type;
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    {
+      return (a0 >= a1);
+    }
+  };
+  BOOST_DISPATCH_IMPLEMENT         ( is_not_less_, tag::cpu_
+                            , (A0)
                             , (scalar_< arithmetic_<A0> >)(scalar_< arithmetic_<A0> >)
                             )
   {

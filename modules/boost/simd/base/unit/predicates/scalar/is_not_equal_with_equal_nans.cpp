@@ -82,3 +82,20 @@ NT2_TEST_CASE_TPL ( is_not_equal_with_equal_nans_unsigned_int__2_0,  BOOST_SIMD_
   NT2_TEST_EQUAL(is_not_equal_with_equal_nans(boost::simd::Two<T>(), boost::simd::Two<T>()), r_t(false));
   NT2_TEST_EQUAL(is_not_equal_with_equal_nans(boost::simd::Zero<T>(), boost::simd::Zero<T>()), r_t(false));
 }
+
+NT2_TEST_CASE ( is_notequal_with_equal_nans_bool)
+{
+  using boost::simd::is_not_equal_with_equal_nans;
+  using boost::simd::tag::is_not_equal_with_equal_nans_;
+  typedef typename boost::dispatch::meta::call<is_not_equal_with_equal_nans_(bool, bool)>::type r_t;
+  typedef bool wished_r_t;
+
+  // return type conformity test
+  NT2_TEST_TYPE_IS(r_t, wished_r_t);
+
+  // specific values tests
+  NT2_TEST_EQUAL(is_not_equal_with_equal_nans(true, false), true);
+  NT2_TEST_EQUAL(is_not_equal_with_equal_nans(false, true), true);
+  NT2_TEST_EQUAL(is_not_equal_with_equal_nans(true, true), false);
+  NT2_TEST_EQUAL(is_not_equal_with_equal_nans(false, false), false);
+}

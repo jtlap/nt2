@@ -82,3 +82,18 @@ NT2_TEST_CASE_TPL ( is_imag_unsigned_int__1_0,  BOOST_SIMD_UNSIGNED_TYPES)
   NT2_TEST_EQUAL(is_imag(boost::simd::Two<T>()), r_t(false));
   NT2_TEST_EQUAL(is_imag(boost::simd::Zero<T>()), r_t(true));
 }
+
+NT2_TEST_CASE ( is_imag_bool)
+{
+  using boost::simd::is_imag;
+  using boost::simd::tag::is_imag_;
+  typedef typename boost::dispatch::meta::call<is_imag_(bool)>::type r_t;
+  typedef bool wished_r_t;
+
+  // return type conformity test
+  NT2_TEST_TYPE_IS(r_t, wished_r_t);
+
+  // specific values tests
+  NT2_TEST_EQUAL(is_imag(true), false);
+  NT2_TEST_EQUAL(is_imag(false), true);
+}

@@ -82,3 +82,18 @@ NT2_TEST_CASE_TPL ( is_nez_unsigned_int__1_0,  BOOST_SIMD_UNSIGNED_TYPES)
   NT2_TEST_EQUAL(is_nez(boost::simd::Two<T>()), r_t(true));
   NT2_TEST_EQUAL(is_nez(boost::simd::Zero<T>()), r_t(false));
 }
+
+NT2_TEST_CASE ( is_nez_bool)
+{
+  using boost::simd::is_nez;
+  using boost::simd::tag::is_nez_;
+  typedef typename boost::dispatch::meta::call<is_nez_(bool)>::type r_t;
+  typedef bool wished_r_t;
+
+  // return type conformity test
+  NT2_TEST_TYPE_IS(r_t, wished_r_t);
+
+  // specific values tests
+  NT2_TEST_EQUAL(is_nez(true), true);
+  NT2_TEST_EQUAL(is_nez(false), false);
+}

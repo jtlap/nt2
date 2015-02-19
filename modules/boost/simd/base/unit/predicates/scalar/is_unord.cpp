@@ -82,3 +82,20 @@ NT2_TEST_CASE_TPL ( is_unord_unsigned_int__2_0,  BOOST_SIMD_UNSIGNED_TYPES)
   NT2_TEST_EQUAL(is_unord(boost::simd::Two<T>(), boost::simd::Two<T>()), r_t(false));
   NT2_TEST_EQUAL(is_unord(boost::simd::Zero<T>(), boost::simd::Zero<T>()), r_t(false));
 }
+
+NT2_TEST_CASE ( is_unord_bool)
+{
+  using boost::simd::is_unord;
+  using boost::simd::tag::is_unord_;
+  typedef typename boost::dispatch::meta::call<is_unord_(bool, bool)>::type r_t;
+  typedef bool wished_r_t;
+
+  // return type conformity test
+  NT2_TEST_TYPE_IS(r_t, wished_r_t);
+
+  // specific values tests
+  NT2_TEST_EQUAL(is_unord(true, false), false);
+  NT2_TEST_EQUAL(is_unord(false, true), false);
+  NT2_TEST_EQUAL(is_unord(true, true), false);
+  NT2_TEST_EQUAL(is_unord(false, false), false);
+}

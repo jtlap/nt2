@@ -82,3 +82,19 @@ NT2_TEST_CASE_TPL ( majority_unsigned_int__3_0,  BOOST_SIMD_UNSIGNED_TYPES)
   NT2_TEST_EQUAL(majority(boost::simd::Two<T>(), boost::simd::Two<T>(), boost::simd::Two<T>()), r_t(true));
   NT2_TEST_EQUAL(majority(boost::simd::Zero<T>(), boost::simd::Zero<T>(), boost::simd::Zero<T>()), r_t(false));
 }
+NT2_TEST_CASE ( majority_bool)
+{
+  using boost::simd::majority;
+  using boost::simd::tag::majority_;
+  typedef typename boost::dispatch::meta::call<majority_(bool, bool, bool)>::type r_t;
+  typedef bool wished_r_t;
+
+  // return type conformity test
+  NT2_TEST_TYPE_IS(r_t, wished_r_t);
+
+  // specific values tests
+  NT2_TEST_EQUAL(majority(true, false, true), true);
+  NT2_TEST_EQUAL(majority(false, true, true), true);
+  NT2_TEST_EQUAL(majority(true, true, false), true);
+  NT2_TEST_EQUAL(majority(false, false, true), false);
+}

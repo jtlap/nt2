@@ -17,6 +17,17 @@ namespace boost { namespace simd { namespace ext
 {
   BOOST_DISPATCH_IMPLEMENT         ( is_not_nan_, tag::cpu_
                             , (A0)
+                            , (scalar_< bool_<A0> >)
+                            )
+  {
+    typedef bool result_type;
+    inline result_type operator()(const A0&) const
+    {
+      return true;
+    }
+  };
+  BOOST_DISPATCH_IMPLEMENT         ( is_not_nan_, tag::cpu_
+                            , (A0)
                             , (scalar_< fundamental_<A0> >)
                             )
   {

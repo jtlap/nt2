@@ -18,6 +18,17 @@ namespace boost { namespace simd { namespace ext
 {
   BOOST_DISPATCH_IMPLEMENT         ( is_ngtz_, tag::cpu_
                             , (A0)
+                            , (scalar_< bool_<A0> >)
+                            )
+  {
+    typedef bool result_type;
+    BOOST_SIMD_FUNCTOR_CALL(1)
+    {
+       return !a0;
+    }
+  };
+  BOOST_DISPATCH_IMPLEMENT         ( is_ngtz_, tag::cpu_
+                            , (A0)
                             , (scalar_< arithmetic_<A0> >)
                             )
   {
