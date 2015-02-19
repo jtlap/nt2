@@ -6,7 +6,7 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#include <nt2/include/functions/qr1up.hpp>
+#include <nt2/include/functions/qrupdate.hpp>
 #include <nt2/include/functions/qr.hpp>
 #include <nt2/include/functions/cons.hpp>
 #include <nt2/include/functions/mtimes.hpp>
@@ -22,7 +22,7 @@
 #include <nt2/core/container/colon/colon.hpp>
 
 
-// NT2_TEST_CASE_TPL(qr1up, (float))//NT2_REAL_TYPES )
+// NT2_TEST_CASE_TPL(qrupdate, NT2_REAL_TYPES )
 // {
 //   using nt2::_;
 //   using nt2::meta::as_;
@@ -30,84 +30,72 @@
 //   typedef nt2::table<T,nt2::rectangular_>    t_t;
 
 //   t_t b = nt2::cons<T>(nt2::of_size(3,3),2,1,1,1,2,2,2,5,7);
-//   t_t q, r;
+//   t_t q, r, q1, r1;
 //   tie(q, r) = nt2::qr(b);
-//   t_t q0 = q, r0 = r;
-//   NT2_DISPLAY(q0);
-//   NT2_DISPLAY(r0);
-//   t_t u = _(T(1), T(3));
-//   t_t v = _(T(-3), T(1), T(-1));
+//   NT2_DISPLAY(q);
+//   NT2_DISPLAY(r);
+//   t_t u =  _(T(1), T(3));
+//   t_t v =  _(T(-3), T(1), T(-1));
 //   NT2_DISPLAY(u);
 //   NT2_DISPLAY(v);
 //   NT2_DISPLAY(b);
 //   NT2_DISPLAY(nt2::mtimes(ctrans(u), v));
 //   NT2_DISPLAY(nt2::mtimes(ctrans(u), v)+b);
-//   nt2::qr1up(boost::proto::value(q), boost::proto::value(r), boost::proto::value(u), boost::proto::value(v));
-//   NT2_DISPLAY(q);
-//   NT2_DISPLAY(r);
-//   NT2_TEST_ULP_EQUAL( b+nt2::mtimes(ctrans(u), v), nt2::mtimes(q, r), 10);
+//   tie(q1, r1) = nt2::qrupdate(q, r, u, v);
+//   NT2_DISPLAY(q1);
+//   NT2_DISPLAY(r1);
+//   NT2_TEST_ULP_EQUAL( b+nt2::mtimes(ctrans(u), v), nt2::mtimes(q1, r1), 10);
 // }
 
-
-// NT2_TEST_CASE_TPL(qr1upc, (float))//NT2_REAL_TYPES )
+// NT2_TEST_CASE_TPL(qrupdatec, (float))//NT2_REAL_TYPES )
 // {
 //   using nt2::_;
 //   using nt2::meta::as_;
 //   typedef std::complex<T> cT;
-
 //   typedef nt2::table<cT,nt2::rectangular_>    t_t;
 
 //   t_t b = nt2::cons<T>(nt2::of_size(3,3),2,1,1,1,2,2,2,5,7);
 //   b =  b+nt2::I<cT>()*b;
-//   t_t q, r;
+//   t_t q, r, q1, r1;
 //   tie(q, r) = nt2::qr(b);
-//   t_t q0 = q, r0 = r;
-//   NT2_DISPLAY(q0);
-//   NT2_DISPLAY(r0);
-//   t_t u = _(T(1), T(3));
-//   t_t v = _(T(-3), T(1), T(-1));
+//   NT2_DISPLAY(q);
+//   NT2_DISPLAY(r);
+//   t_t u =  _(T(1), T(3));
+//   t_t v =  _(T(-3), T(1), T(-1));
 //   NT2_DISPLAY(u);
 //   NT2_DISPLAY(v);
 //   NT2_DISPLAY(b);
 //   NT2_DISPLAY(nt2::mtimes(ctrans(u), v));
 //   NT2_DISPLAY(nt2::mtimes(ctrans(u), v)+b);
-//   nt2::qr1up(boost::proto::value(q), boost::proto::value(r), boost::proto::value(u), boost::proto::value(v));
-//   NT2_DISPLAY(q);
-//   NT2_DISPLAY(r);
-//   NT2_TEST_ULP_EQUAL( b+nt2::mtimes(ctrans(u), v), nt2::mtimes(q, r), 10);
+//   tie(q1, r1) = nt2::qrupdate(q, r, u, v);
+//   NT2_DISPLAY(q1);
+//   NT2_DISPLAY(r1);
+//   NT2_TEST_ULP_EQUAL( b+nt2::mtimes(ctrans(u), v), nt2::mtimes(q1, r1), 10);
 // }
 
 
-NT2_TEST_CASE_TPL(qr1upc, (float))//NT2_REAL_TYPES )
+NT2_TEST_CASE_TPL(qrupdatec, NT2_REAL_TYPES )
 {
   using nt2::_;
   using nt2::meta::as_;
   typedef std::complex<T> cT;
-
   typedef nt2::table<cT,nt2::rectangular_>    t_t;
 
   t_t b = nt2::reshape(_(T(1), T(12)), 4, 3);
-//  b =  b+nt2::I<cT>()*b;
-  t_t q, r;
+  b =  b+nt2::I<cT>()*b;
+  t_t q, r, q1, r1;
   tie(q, r) = nt2::qr(b, 0);
-  t_t q0 = q, r0 = r;
-  NT2_DISPLAY(q0);
-  NT2_DISPLAY(r0);
-  t_t u = _(T(1), T(4));
-  t_t v = _(T(1), T(3));
-  t_t uu = u;
-  t_t vv = v;
+  NT2_DISPLAY(q);
+  NT2_DISPLAY(r);
+  t_t v =  _(T(1), T(3));
+  t_t u =  _(T(1), T(4));
   NT2_DISPLAY(u);
   NT2_DISPLAY(v);
   NT2_DISPLAY(b);
   NT2_DISPLAY(nt2::mtimes(ctrans(u), v));
   NT2_DISPLAY(nt2::mtimes(ctrans(u), v)+b);
-  nt2::qr1up(boost::proto::value(q), boost::proto::value(r), boost::proto::value(u), boost::proto::value(v));
-  NT2_DISPLAY(q);
-  NT2_DISPLAY(r);
-  NT2_DISPLAY(nt2::mtimes(q, r)-b);
-  NT2_DISPLAY(nt2::mtimes(ctrans(uu), vv));
-  NT2_TEST_ULP_EQUAL( b+nt2::mtimes(ctrans(uu), vv), nt2::mtimes(q, r), 10);
+  tie(q1, r1) = nt2::qrupdate(q, r, u, v);
+  NT2_DISPLAY(q1);
+  NT2_DISPLAY(r1);
+  NT2_TEST_ULP_EQUAL( b+nt2::mtimes(ctrans(u), v), nt2::mtimes(q1, r1), 10);
 }
-
-

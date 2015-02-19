@@ -97,7 +97,7 @@ namespace nt2 { namespace ext
        nt2_la_int  ldr = nt2::max(r.leading_size(), One<size_t>());
        container::table<value_t> w(of_size(k));
        container::table<rvalue_t> rw(of_size(k));
-       NT2_F77NAME(sqr1up) (&m, &n, &k, q.data(), &ldq, r.data(), &ldr, u.data(), v.data(), w.data(), rw.data());
+       NT2_F77NAME(cqr1up) (&m, &n, &k, q.data(), &ldq, r.data(), &ldr, u.data(), v.data(), w.data(), rw.data());
      }
   };
 
@@ -124,7 +124,7 @@ namespace nt2 { namespace ext
        nt2_la_int  ldr = nt2::max(r.leading_size(), One<size_t>());
        container::table<value_t> w(of_size(k));
        container::table<rvalue_t> rw(of_size(k));
-       NT2_F77NAME(sqr1up) (&m, &n, &k, q.data(), &ldq, r.data(), &ldr, u.data(), v.data(), w.data(), rw.data());
+       NT2_F77NAME(zqr1up) (&m, &n, &k, q.data(), &ldq, r.data(), &ldr, u.data(), v.data(), w.data(), rw.data());
      }
   };
 } }
