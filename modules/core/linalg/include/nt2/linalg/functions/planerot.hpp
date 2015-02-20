@@ -41,10 +41,42 @@ namespace nt2
   }
 
   /**
-   * @brief Perform Planerot computation
+   * @brief compute Givens plane rotation
+
+    This function where x is a 2-component vector, returns a 2-by-2
+    orthogonal matrix g such that:
+
+    if x is column y =mtimes( g, x)
+
+    if x is row    y =mtimes( x, g)
+
+    has y(2) = 0.
+
+    @code
+    tie(g,y) = planerot(x{, trans_})
+    @endcode
+
+    or
+
+    @code
+    tie(s, c{, y(1)}) =  planerot(x{, sincos_})
+    @endcode
+
+    or
+
+    @code
+    tie(s, c{, y(1)}) =  planerot(x1, x2{, sincos_})
+    @endcode
+
+    in this case planerot only returns the sine and cosine of the plane rotation,
+    and optionnaly  the transformed y(1) (the transformed y(2) is always 0)
+
+    @param x column of row vector with 2 elements.
    *
    **/
   NT2_FUNCTION_IMPLEMENTATION(tag::planerot_, planerot, 1)
+  NT2_FUNCTION_IMPLEMENTATION(tag::planerot_, planerot, 2)
+  NT2_FUNCTION_IMPLEMENTATION(tag::planerot_, planerot, 3)
 }
 
 namespace nt2 { namespace ext

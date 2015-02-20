@@ -44,7 +44,7 @@ NT2_TEST_CASE_TPL(qrupdate, NT2_REAL_TYPES )
   tie(q1, r1) = nt2::qrupdate(q, r, u, v);
   NT2_DISPLAY(q1);
   NT2_DISPLAY(r1);
-  NT2_TEST_ULP_EQUAL( b+nt2::mtimes(ctrans(u), v), nt2::mtimes(q1, r1), 10);
+  NT2_TEST_ULP_EQUAL( b+nt2::mtimes(ctrans(u), v), nt2::mtimes(q1, r1), 16);
 }
 
 NT2_TEST_CASE_TPL(qrupdatec, NT2_REAL_TYPES )
@@ -70,7 +70,7 @@ NT2_TEST_CASE_TPL(qrupdatec, NT2_REAL_TYPES )
   tie(q1, r1) = nt2::qrupdate(q, r, u, v);
   NT2_DISPLAY(q1);
   NT2_DISPLAY(r1);
-  NT2_TEST_ULP_EQUAL( b+nt2::mtimes(ctrans(u), v), nt2::mtimes(q1, r1), 10);
+  NT2_TEST_ULP_EQUAL( b+nt2::mtimes(ctrans(u), v), nt2::mtimes(q1, r1), 16);
 }
 
 NT2_TEST_CASE_TPL(qrupdatensq, NT2_REAL_TYPES )
@@ -94,7 +94,7 @@ NT2_TEST_CASE_TPL(qrupdatensq, NT2_REAL_TYPES )
   tie(q1, r1) = nt2::qrupdate(q, r, u, v);
   NT2_DISPLAY(q1);
   NT2_DISPLAY(r1);
-  NT2_TEST_ULP_EQUAL( b+nt2::mtimes(ctrans(u), v), nt2::mtimes(q1, r1), 10);
+  NT2_TEST_ULP_EQUAL( b+nt2::mtimes(ctrans(u), v), nt2::mtimes(q1, r1), 16);
 }
 
 NT2_TEST_CASE_TPL(qrupdatecnsq, NT2_REAL_TYPES )
@@ -120,7 +120,7 @@ NT2_TEST_CASE_TPL(qrupdatecnsq, NT2_REAL_TYPES )
   tie(q1, r1) = nt2::qrupdate(q, r, u, v);
   NT2_DISPLAY(q1);
   NT2_DISPLAY(r1);
-  NT2_TEST_ULP_EQUAL( b+nt2::mtimes(ctrans(u), v), nt2::mtimes(q1, r1), 10);
+  NT2_TEST_ULP_EQUAL( b+nt2::mtimes(ctrans(u), v), nt2::mtimes(q1, r1), 16);
 }
 
 

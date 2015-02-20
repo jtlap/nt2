@@ -12,16 +12,19 @@
 #include <nt2/linalg/functions/qrupdate.hpp>
 #include <nt2/include/functions/assign.hpp>
 #include <nt2/include/functions/conj.hpp>
+#include <nt2/include/functions/cons.hpp>
 #include <nt2/include/functions/ctranspose.hpp>
-#include <nt2/include/functions/lartg.hpp>
+//#include <nt2/include/functions/lartg.hpp>
 #include <nt2/include/functions/min.hpp>
 #include <nt2/include/functions/rot.hpp>
 #include <nt2/include/functions/mtimes.hpp>
+#include <nt2/include/functions/planerot.hpp>
 #include <nt2/include/functions/fma.hpp>
 #include <nt2/include/functions/fms.hpp>
 #include <nt2/include/functions/dec.hpp>
 #include <nt2/include/functions/inc.hpp>
 #include <nt2/include/functions/norm2.hpp>
+#include <nt2/include/functions/sincos.hpp>
 #include <nt2/include/functions/tie.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/halfeps.hpp>
@@ -145,7 +148,8 @@ namespace nt2 { namespace ext
       value_t rr = u(n), t;
       for(std::size_t i=n-1; i >= 1 ; --i)
       {
-        lartg(u(i), rr, w(i), u(i+1), t);
+        tie(u(i+1), w(i), t) = planerot(cons(of_size(2, 1), u(i), rr), nt2::tag::sincos_());
+//        lartg(u(i), rr, w(i), u(i+1), t);
         rr = t;
       }
       u(1) = rr;
@@ -204,7 +208,8 @@ namespace nt2 { namespace ext
           r(j,i) = t;
         }
         // generate next rotation
-        nt2::lartg(r(i,i),ui,w(i),u(i),rr);
+        tie(u(i), w(i), rr) = planerot(cons(of_size(2, 1), r(i,i),ui), nt2::tag::sincos_());
+//        nt2::lartg(r(i,i),ui,w(i),u(i),rr);
         r(i,i) = rr;
       }
     }
@@ -263,7 +268,8 @@ namespace nt2 { namespace ext
         }
         if (ii < m) //  generate next rotation
         {
-          nt2::lartg(t,r(ii+1,i), c(i),s(i),r(ii,i));
+          tie(s(i), c(i), r(ii,i)) = planerot(cons(of_size(2, 1), t,r(ii+1,i)), nt2::tag::sincos_());
+//        nt2::lartg(t,r(ii+1,i), c(i),s(i),r(ii,i));
           r(ii+1, i) = Zero<value_t>();
         }
         else
