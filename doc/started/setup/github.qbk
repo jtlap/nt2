@@ -17,7 +17,7 @@ retrieve any other branch, the procedure stays the same, just change the branch
 name. To proceed, clone current __NT2__ from Github by typing the following command
 in a terminal (on Linux or Mac OS X) or in Git-Bash (on Windows):
 ``
-git clone https://github.com/MetaScale/nt2.git -b master
+git clone https://github.com/NumScale/nt2.git -b master
 ``
 This will create a =nt2= folder containing the current __NT2__ source tree which
 should looks like:
@@ -88,8 +88,8 @@ include files and finally generate the =Makefile= or =.sln= you want. An abridge
 output of such a successful script call should look like:
 [teletype]
 ``
--- The C compiler identification is GNU 4.6.3
--- The CXX compiler identification is GNU 4.6.3
+-- The C compiler identification is GNU 4.9
+-- The CXX compiler identification is GNU 4.9
 -- Check for working C compiler: /usr/bin/gcc
 -- Check for working C compiler: /usr/bin/gcc -- works
 -- Detecting C compiler ABI info
@@ -183,16 +183,16 @@ at will. This is controlled by two __CMAKE__ options:
 
 [heading Download optional __NT2__ modules]
 Additional __NT2__ modules may be available on other Github repository like the
-main [@https://github.com/MetaScale/nt2-modules __NT2__ Optional Modules repository].
+main [@https://github.com/NumScale/nt2-modules __NT2__ Optional Modules repository].
 The following options specify which additional modules you may want to use and a
 set of Github repositories to look for them. If such modules are found, they'll
 be automatically cloned into the current source folder and configured.
 
 For example, the following command grab the =signal= module from the
-[@https://github.com/MetaScale/nt2-modules __NT2__ Optional Modules repository].
+[@https://github.com/NumScale/nt2-modules __NT2__ Optional Modules repository].
 [teletype]
 ``
-cmake ../nt2 -DNT2_FIND_REPOSITORIES=git://github.com/MetaScale/nt2-modules.git -DNT2_MODULES_EXTRA=signal
+cmake ../nt2 -DNT2_FIND_REPOSITORIES=git://github.com/NumScale/nt2-modules.git -DNT2_MODULES_EXTRA=signal
 ``
 
 [endsect]
