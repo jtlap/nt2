@@ -17,7 +17,7 @@ knowledge in C++ and usual system related operations.
   for information on how to set up and use [@http://www.boost.org Boost].
 
 * *__GIT__*: If you wish to grab latest __NT2__ updates from our
-  [@https://github.com/MetaScale/nt2 Github repository], you will need a copy
+  [@https://github.com/NumScale/nt2 Github repository], you will need a copy
   of __GIT__ installed. Consult the
   [@http://progit.org/book Pro Git book] for information on how to set up and
   use __GIT__.
