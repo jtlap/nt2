@@ -17,6 +17,8 @@
 #include <boost/simd/sdk/meta/as_arithmetic.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 
+#include <boost/simd/swar/functions/details/builtin_shuffle.hpp>
+
 namespace boost { namespace simd { namespace ext
 {
   BOOST_DISPATCH_IMPLEMENT          ( interleave_even_, tag::cpu_
@@ -57,6 +59,13 @@ namespace boost { namespace simd { namespace ext
       );
     }
   };
+
+  #define M_IEVEN(z,n,t) (n%2 ? (t+n-1) : n)
+  BOOST_SIMD_DEFINE_SHUFFLE2(  interleave_even_,
+                    M_IEVEN
+                 )
+  #undef M_IEVEN
+
 } } }
 
 #endif

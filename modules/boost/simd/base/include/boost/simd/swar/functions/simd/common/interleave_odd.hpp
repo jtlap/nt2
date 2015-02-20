@@ -17,6 +17,8 @@
 #include <boost/simd/sdk/meta/as_arithmetic.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 
+#include <boost/simd/swar/functions/details/builtin_shuffle.hpp>
+
 namespace boost { namespace simd { namespace ext
 {
   BOOST_DISPATCH_IMPLEMENT          ( interleave_odd_, tag::cpu_
@@ -57,6 +59,13 @@ namespace boost { namespace simd { namespace ext
       );
     }
   };
+
+  #define M_IODD(z,n,t) (n%2 ? (t+n) : n+1)
+  BOOST_SIMD_DEFINE_SHUFFLE2(  interleave_odd_,
+                    M_IODD
+                 )
+  #undef M_IODD
+
 } } }
 
 #endif
