@@ -14,7 +14,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_IMPLEMENT         ( is_eqz_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT( is_eqz_, tag::cpu_
                             , (A0)
                             , (scalar_< bool_<A0> >)
                             )
@@ -22,7 +22,7 @@ namespace boost { namespace simd { namespace ext
     typedef bool result_type;
     BOOST_SIMD_FUNCTOR_CALL(1) { return (!a0); }
   };
-  BOOST_DISPATCH_IMPLEMENT         ( is_eqz_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT( is_eqz_, tag::cpu_
                             , (A0)
                             , (scalar_< fundamental_<A0> >)
                             )
@@ -30,7 +30,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1) { return result_type(!a0); }
   };
-  BOOST_DISPATCH_IMPLEMENT         ( is_eqz_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT( is_eqz_, tag::cpu_
                             , (A0)
                             , (scalar_< logical_<A0> >)
                             )

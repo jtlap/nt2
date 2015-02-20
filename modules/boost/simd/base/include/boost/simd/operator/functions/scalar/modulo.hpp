@@ -14,7 +14,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_IMPLEMENT          ( modulo_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT ( modulo_, tag::cpu_
                                     , (A0)
                                     , (scalar_< integer_<A0> >)
                                       (scalar_< integer_<A0> >)

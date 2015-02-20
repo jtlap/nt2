@@ -16,7 +16,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_IMPLEMENT         ( is_equal_with_equal_nans_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT( is_equal_with_equal_nans_, tag::cpu_
                             , (A0)
                             , (scalar_< bool_<A0> >)(scalar_< bool_<A0> >)
                             )
@@ -27,7 +27,7 @@ namespace boost { namespace simd { namespace ext
       return (a0 == a1);
     }
   };
-  BOOST_DISPATCH_IMPLEMENT         ( is_equal_with_equal_nans_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT( is_equal_with_equal_nans_, tag::cpu_
                             , (A0)
                             , (scalar_< fundamental_<A0> >)(scalar_< fundamental_<A0> >)
                             )
@@ -39,7 +39,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_DISPATCH_IMPLEMENT         ( is_equal_with_equal_nans_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT( is_equal_with_equal_nans_, tag::cpu_
                             , (A0)
                             , (scalar_< floating_<A0> >)(scalar_< floating_<A0> >)
                             )

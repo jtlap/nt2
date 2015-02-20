@@ -16,7 +16,7 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_IMPLEMENT         ( majority_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT( majority_, tag::cpu_
                             , (A0)(A1)(A2)
                             , (scalar_< bool_<A0> >)(scalar_< bool_<A1> >)(scalar_< bool_<A2> >)
                             )
@@ -30,7 +30,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_DISPATCH_IMPLEMENT         ( majority_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT( majority_, tag::cpu_
                             , (A0)(A1)(A2)
                             , (scalar_< fundamental_<A0> >)(scalar_< fundamental_<A1> >)(scalar_< fundamental_<A2> >)
                             )

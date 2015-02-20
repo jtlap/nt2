@@ -15,7 +15,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_IMPLEMENT          ( is_less_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT ( is_less_, tag::cpu_
                                     , (A0)
                                     , (scalar_< bool_<A0> >)
                                       (scalar_< bool_<A0> >)
@@ -28,7 +28,7 @@ namespace boost { namespace simd { namespace ext
       return (a0 < a1);
     }
   };
-  BOOST_DISPATCH_IMPLEMENT          ( is_less_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT ( is_less_, tag::cpu_
                                     , (A0)
                                     , (scalar_< arithmetic_<A0> >)
                                       (scalar_< arithmetic_<A0> >)
@@ -42,7 +42,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_DISPATCH_IMPLEMENT          ( is_less_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT ( is_less_, tag::cpu_
                                     , (A0)(A1)
                                     , (scalar_< fundamental_<A0> >)
                                       (mpl_integral_< scalar_< fundamental_<A1> > >)
@@ -56,7 +56,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_DISPATCH_IMPLEMENT          ( is_less_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT ( is_less_, tag::cpu_
                                     , (A0)(A1)
                                     , (mpl_integral_< scalar_< fundamental_<A0> > >)
                                       (scalar_< fundamental_<A1> >)
@@ -70,7 +70,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_DISPATCH_IMPLEMENT          ( is_less_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT ( is_less_, tag::cpu_
                                     , (A0)
                                     , (mpl_integral_< scalar_< fundamental_<A0> > >)
                                       (mpl_integral_< scalar_< fundamental_<A0> > >)

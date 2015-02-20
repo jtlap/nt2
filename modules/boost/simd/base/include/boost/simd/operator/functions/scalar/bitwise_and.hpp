@@ -19,16 +19,16 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_IMPLEMENT_IF         ( bitwise_and_ , tag::cpu_
-                                      , (A0)(A1)
-                                      , (boost::mpl::
-                                              equal_to< boost::mpl::sizeof_<A0>
-                                                      , boost::mpl::sizeof_<A1>
-                                                      >
-                                        )
-                                      , (scalar_< arithmetic_<A0> >)
-                                        (scalar_< arithmetic_<A1> >)
-                                      )
+  BOOST_DISPATCH_IMPLEMENT_IF( bitwise_and_ , tag::cpu_
+                             , (A0)(A1)
+                             , (boost::mpl::
+                                equal_to< boost::mpl::sizeof_<A0>
+                               , boost::mpl::sizeof_<A1>
+                                >
+                               )
+                             , (scalar_< arithmetic_<A0> >)
+                               (scalar_< arithmetic_<A1> >)
+                             )
   {
     typedef A0 result_type;
 
