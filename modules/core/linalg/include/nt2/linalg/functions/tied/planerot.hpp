@@ -68,11 +68,6 @@ namespace nt2 { namespace ext
     {
       x = boost::proto::child_c<0>(a0)(1);
       s = boost::proto::child_c<0>(a0)(2);
-//       if(isrow(boost::proto::child_c<0>(a0)))
-//       {
-//         x = conj(x);
-//         s = conj(s);
-//       }
     }
 
     BOOST_FORCEINLINE

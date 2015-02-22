@@ -9,7 +9,9 @@
 
 SET ( SOURCES
       qr1up.cpp
+      qrshc.cpp
       qrupdate.cpp
+      qrshift.cpp
    )
 
 nt2_module_add_tests(core.linalg.qrupdate.unit ${SOURCES})
