@@ -21,7 +21,7 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef bool result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1)
+    inline result_type operator()(A0 const&) const
     {
       return false;
     }
