@@ -16,6 +16,8 @@ SET( SOURCES
      planerot.cpp
      qrdelete.cpp
      qrinsert.cpp
+     qrupdate.cpp
+     qrshift.cpp
      rref.cpp
      rot2.cpp
    )
