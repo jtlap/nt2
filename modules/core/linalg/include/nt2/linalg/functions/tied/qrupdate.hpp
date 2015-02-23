@@ -68,12 +68,11 @@ namespace nt2 { namespace ext
       if (isempty(q)) details::qr_kernel<value_t>::finalize(a1, q, r);
       container::table<value_t> u = colvect(boost::proto::child_c<2>(a0));
       container::table<value_t> v = colvect(boost::proto::child_c<3>(a0));
-      std::size_t m = height(q);
       std::size_t k = width(q);
       std::size_t n = width(r);
       bool square = issquare(q);
-      BOOST_ASSERT_MSG(square || ((k!= m) && (n <= m)), "improper q and r sizes");
-      BOOST_ASSERT_MSG(numel(u) == m, "wrong u length");
+      BOOST_ASSERT_MSG(square || ((k!= height(q)) && (n <= height(q))), "improper q and r sizes");
+      BOOST_ASSERT_MSG(numel(u) == height(q), "wrong u length");
       BOOST_ASSERT_MSG(numel(v) == n, "wrong v length");
       rvalue_t ru = Zero<rvalue_t>();
       if (!square) ru = norm2(u);

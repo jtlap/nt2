@@ -13,7 +13,7 @@
 #include <nt2/include/functions/fms.hpp>
 #include <nt2/include/functions/min.hpp>
 #include <nt2/include/functions/planerot.hpp>
-#include <nt2/include/functions/sincos.hpp>
+#include <nt2/trigonometric/include/functions/sincos.hpp>//just for the tag
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/core/container/extremum/extremum.hpp>
 #include <nt2/core/container/colon/colon.hpp>
@@ -27,7 +27,7 @@ namespace nt2 { namespace details
     typedef typename meta::as_real<value_t>::type                   rvalue_t;
 
     // retriangularize and store cosine and sine
-    template < class R,  class C, class S> //*qhqr
+    template < class R,  class C, class S>
     static BOOST_FORCEINLINE
     void retriangularize(std::size_t m, std::size_t n, R& r, C& c, S& s)
     {
@@ -59,8 +59,8 @@ namespace nt2 { namespace details
       auto cs =  conj(s);
       for(std::size_t i=n-1; i >= 1u; --i)//backward
       {
-        auto ru = q(_(1, end_), i);
-        auto rv = q(_(1, end_), i+1);
+        auto ru = q(_, i);
+        auto rv = q(_, i+1);
         container::table<value_t> temp = fma(c(i), ru, cs(i)*rv);
         rv = fms(c(i), rv, s(i)*ru);
         ru = temp;
@@ -91,8 +91,8 @@ namespace nt2 { namespace details
       value_t rr = u(n), t;
       for(std::size_t i=n-1; i >= 1 ; --i)
       {
-        tie(u(i+1), w(i), t) = planerot(cons(of_size(2, 1), u(i), rr)
-                                       , nt2::tag::sincos_());
+         tie(u(i+1), w(i), t) = planerot(cons(of_size(2, 1), u(i), rr)
+                                        , nt2::tag::sincos_());
         rr = t;
       }
       u(1) = rr;
