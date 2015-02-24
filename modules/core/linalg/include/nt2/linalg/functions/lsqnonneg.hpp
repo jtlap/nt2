@@ -1,5 +1,5 @@
 //==============================================================================
-//         Copyright 2003 - 2015 J.T. Lapreste
+//          Copyright 2015 J.T. Lapreste
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -8,7 +8,6 @@
 #ifndef NT2_LINALG_FUNCTIONS_LSQNONNEG_HPP_INCLUDED
 #define NT2_LINALG_FUNCTIONS_LSQNONNEG_HPP_INCLUDED
 
-#include <nt2/linalg/options.hpp>
 #include <nt2/include/functor.hpp>
 #include <nt2/sdk/meta/size_as.hpp>
 #include <nt2/sdk/meta/value_as.hpp>
