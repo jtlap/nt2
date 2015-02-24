@@ -59,3 +59,20 @@ NT2_TEST_CASE_TPL ( is_greater_equal_real,  BOOST_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(is_greater_equal(boost::simd::One<T>(),boost::simd::Zero<T>()), r_t(true));
   NT2_TEST_EQUAL(is_greater_equal(boost::simd::Zero<T>(), boost::simd::Zero<T>()), r_t(true));
 } // end of test for floating_
+
+NT2_TEST_CASE ( is_greater_equal_bool)
+{
+  using boost::simd::is_greater_equal;
+  using boost::simd::tag::is_greater_equal_;
+  typedef typename boost::dispatch::meta::call<is_greater_equal_(bool, bool)>::type r_t;
+  typedef bool wished_r_t;
+
+  // return type conformity test
+  NT2_TEST_TYPE_IS(r_t, wished_r_t);
+
+  // specific values tests
+  NT2_TEST_EQUAL(is_greater_equal(true, false), true);
+  NT2_TEST_EQUAL(is_greater_equal(false, true), false);
+  NT2_TEST_EQUAL(is_greater_equal(true, true), true);
+  NT2_TEST_EQUAL(is_greater_equal(false, false), true);
+}

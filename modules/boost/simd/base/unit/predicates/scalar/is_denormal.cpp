@@ -89,3 +89,18 @@ NT2_TEST_CASE_TPL ( is_denormal_unsigned_int__1_0,  BOOST_SIMD_UNSIGNED_TYPES)
   NT2_TEST_EQUAL(is_denormal(boost::simd::Two<T>()), r_t(false));
   NT2_TEST_EQUAL(is_denormal(boost::simd::Zero<T>()), r_t(false));
 }
+
+NT2_TEST_CASE ( is_denormal_bool)
+{
+  using boost::simd::is_denormal;
+  using boost::simd::tag::is_denormal_;
+  typedef typename boost::dispatch::meta::call<is_denormal_(bool)>::type r_t;
+  typedef bool wished_r_t;
+
+  // return type conformity test
+  NT2_TEST_TYPE_IS(r_t, wished_r_t);
+
+  // specific values tests
+  NT2_TEST_EQUAL(is_denormal(true), false);
+  NT2_TEST_EQUAL(is_denormal(false), false);
+}

@@ -78,3 +78,20 @@ NT2_TEST_CASE_TPL ( is_equall,  BOOST_SIMD_SIMD_TYPES)
   NT2_TEST_EQUAL(is_equal(boost::simd::True< boost::simd::logical<T> >(), boost::simd::False< boost::simd::logical<T> >()), r_t(false));
   NT2_TEST_EQUAL(is_equal(boost::simd::False< boost::simd::logical<T> >(), boost::simd::True< boost::simd::logical<T> >()), r_t(false));
 }
+
+NT2_TEST_CASE ( is_equal_bool)
+{
+  using boost::simd::is_equal;
+  using boost::simd::tag::is_equal_;
+  typedef typename boost::dispatch::meta::call<is_equal_(bool, bool)>::type r_t;
+  typedef bool wished_r_t;
+
+  // return type conformity test
+  NT2_TEST_TYPE_IS(r_t, wished_r_t);
+
+  // specific values tests
+  NT2_TEST_EQUAL(is_equal(true, false), false);
+  NT2_TEST_EQUAL(is_equal(false, true), false);
+  NT2_TEST_EQUAL(is_equal(true, true), true);
+  NT2_TEST_EQUAL(is_equal(false, false), true);
+}

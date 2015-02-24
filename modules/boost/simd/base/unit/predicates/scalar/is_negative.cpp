@@ -84,3 +84,18 @@ NT2_TEST_CASE_TPL ( is_negative_unsigned_int__1_0,  BOOST_SIMD_UNSIGNED_TYPES)
   NT2_TEST_EQUAL(is_negative(boost::simd::Two<T>()), r_t(false));
   NT2_TEST_EQUAL(is_negative(boost::simd::Zero<T>()), r_t(false));
 }
+
+NT2_TEST_CASE ( is_negative_bool)
+{
+  using boost::simd::is_negative;
+  using boost::simd::tag::is_negative_;
+  typedef typename boost::dispatch::meta::call<is_negative_(bool)>::type r_t;
+  typedef bool wished_r_t;
+
+  // return type conformity test
+  NT2_TEST_TYPE_IS(r_t, wished_r_t);
+
+  // specific values tests
+  NT2_TEST_EQUAL(is_negative(true), false);
+  NT2_TEST_EQUAL(is_negative(false), false);
+}

@@ -82,3 +82,20 @@ NT2_TEST_CASE_TPL ( is_not_less_unsigned_int__2_0,  BOOST_SIMD_UNSIGNED_TYPES)
   NT2_TEST_EQUAL(is_not_less(boost::simd::Two<T>(), boost::simd::Two<T>()), r_t(true));
   NT2_TEST_EQUAL(is_not_less(boost::simd::Zero<T>(), boost::simd::Zero<T>()), r_t(true));
 }
+
+NT2_TEST_CASE ( is_not_less_bool)
+{
+  using boost::simd::is_not_less;
+  using boost::simd::tag::is_not_less_;
+  typedef typename boost::dispatch::meta::call<is_not_less_(bool, bool)>::type r_t;
+  typedef bool wished_r_t;
+
+  // return type conformity test
+  NT2_TEST_TYPE_IS(r_t, wished_r_t);
+
+  // specific values tests
+  NT2_TEST_EQUAL(is_not_less(true, false), true);
+  NT2_TEST_EQUAL(is_not_less(false, true), false);
+  NT2_TEST_EQUAL(is_not_less(true, true), true);
+  NT2_TEST_EQUAL(is_not_less(false, false), true);
+}

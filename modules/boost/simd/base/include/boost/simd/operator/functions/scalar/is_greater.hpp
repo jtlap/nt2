@@ -15,11 +15,24 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_IMPLEMENT          ( is_greater_, tag::cpu_
-                                    , (A0)
-                                    , (scalar_< fundamental_<A0> >)
-                                      (scalar_< fundamental_<A0> >)
-                                    )
+  BOOST_DISPATCH_IMPLEMENT( is_greater_, tag::cpu_
+                          , (A0)
+                          , (scalar_< bool_<A0> >)
+                            (scalar_< bool_<A0> >)
+                          )
+  {
+    typedef bool result_type;
+
+    BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    {
+      return (a0 > a1);
+    }
+  };
+  BOOST_DISPATCH_IMPLEMENT( is_greater_, tag::cpu_
+                          , (A0)
+                          , (scalar_< fundamental_<A0> >)
+                            (scalar_< fundamental_<A0> >)
+                          )
   {
     typedef typename meta::as_logical<A0>::type result_type;
 
@@ -29,11 +42,11 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_DISPATCH_IMPLEMENT          ( is_greater_, tag::cpu_
-                                    , (A0)(A1)
-                                    , (scalar_< fundamental_<A0> >)
-                                      (mpl_integral_< scalar_< fundamental_<A1> > >)
-                                    )
+  BOOST_DISPATCH_IMPLEMENT( is_greater_, tag::cpu_
+                          , (A0)(A1)
+                          , (scalar_< fundamental_<A0> >)
+                            (mpl_integral_< scalar_< fundamental_<A1> > >)
+                          )
   {
     typedef typename meta::as_logical<A0>::type result_type;
 
@@ -43,11 +56,11 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_DISPATCH_IMPLEMENT          ( is_greater_, tag::cpu_
-                                    , (A0)(A1)
-                                    , (mpl_integral_< scalar_< fundamental_<A0> > >)
-                                      (scalar_< fundamental_<A1> >)
-                                    )
+  BOOST_DISPATCH_IMPLEMENT( is_greater_, tag::cpu_
+                          , (A0)(A1)
+                          , (mpl_integral_< scalar_< fundamental_<A0> > >)
+                            (scalar_< fundamental_<A1> >)
+                          )
   {
     typedef typename meta::as_logical<A1>::type result_type;
 
@@ -57,11 +70,11 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_DISPATCH_IMPLEMENT          ( is_greater_, tag::cpu_
-                                    , (A0)
-                                    , (mpl_integral_< scalar_< fundamental_<A0> > >)
-                                      (mpl_integral_< scalar_< fundamental_<A0> > >)
-                                    )
+  BOOST_DISPATCH_IMPLEMENT( is_greater_, tag::cpu_
+                          , (A0)
+                          , (mpl_integral_< scalar_< fundamental_<A0> > >)
+                            (mpl_integral_< scalar_< fundamental_<A0> > >)
+                          )
   {
     typedef typename meta::as_logical<typename A0::value_type>::type result_type;
 
