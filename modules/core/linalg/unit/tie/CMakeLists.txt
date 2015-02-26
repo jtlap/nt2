@@ -10,6 +10,7 @@
 SET( SOURCES
      balance.cpp
      geneig.cpp
+     lscov.cpp
      nseig.cpp
      qr.cpp
      symeig.cpp

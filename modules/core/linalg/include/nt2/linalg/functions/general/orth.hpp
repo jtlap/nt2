@@ -40,9 +40,9 @@ mat orthr(T const epsi, mat const& u, vec const& s)
     typedef typename A0::value_type type_t;
     typedef typename meta::as_real<type_t>::type rtype_t;
     typedef typename meta::option<typename A0::settings_type,nt2::tag::shape_>::type shape;
-    typedef nt2::table<type_t>  result_type;
-    typedef nt2::table<rtype_t>  base_type;
-    typedef nt2::table<type_t,shape>  matrix_type;
+    typedef nt2::container::table<type_t>  result_type;
+    typedef nt2::container::table<rtype_t>  base_type;
+    typedef nt2::container::table<type_t,shape>  matrix_type;
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a) const
     {
@@ -75,9 +75,9 @@ mat orthr(T const epsi, mat const& u, vec const& s)
     typedef typename A0::value_type type_t;
     typedef typename meta::as_real<type_t>::type rtype_t;
     typedef typename meta::option<typename A0::settings_type,nt2::tag::shape_>::type shape;
-    typedef nt2::table<type_t> result_type;
-    typedef nt2::table<rtype_t>  base_type;
-    typedef nt2::table<type_t,shape>  matrix_type;
+    typedef nt2::container::table<type_t> result_type;
+    typedef nt2::container::table<rtype_t>  base_type;
+    typedef nt2::container::table<type_t,shape>  matrix_type;
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a, A1 const epsi) const
     {
