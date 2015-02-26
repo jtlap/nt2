@@ -1,6 +1,7 @@
 //==============================================================================
 //         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 - 2011   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2009 - 2015   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2012 - 2015   NumScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -17,6 +18,7 @@
 #include <boost/simd/memory/align_on.hpp>
 #include <boost/simd/memory/is_aligned.hpp>
 #include <boost/mpl/assert.hpp>
+#include <boost/assert.hpp>
 
 #include <algorithm>
 
@@ -113,8 +115,7 @@ namespace boost { namespace simd
                         );
 
     static const std::size_t N = vT::static_size;
-
-    T const* end2 = simd::align_on(begin, N * sizeof(T));
+    T const* end2 = std::min( simd::align_on(begin, N * sizeof(T)), end );
     T const* end3 = end2 + (end - end2)/N*N;
 
     vU cur = simd::splat<vU>(init);
@@ -132,7 +133,7 @@ namespace boost { namespace simd
 
     // epilogue
     for(; begin!=end; ++begin)
-      init = f(init, *begin);
+     init = f(init, *begin);
 
     return init;
   }

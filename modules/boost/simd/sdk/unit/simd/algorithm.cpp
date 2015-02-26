@@ -1,19 +1,19 @@
 //==============================================================================
 //         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 - 2011   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2009 - 2015   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2012 - 2015   NumScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "boost::simd::algorithm"
-
 #include <boost/config.hpp>
 
 #ifdef BOOST_MSVC
 #pragma warning(disable: 4996) // std::transform on pointers may be unsafe
 #endif
 
+#include <boost/simd/memory/allocator.hpp>
 #include <boost/simd/sdk/simd/algorithm.hpp>
 #include <boost/simd/include/functions/plus.hpp>
 #include <boost/simd/include/constants/one.hpp>
@@ -83,20 +83,30 @@ NT2_TEST_CASE_TPL( transform_binary, BOOST_SIMD_SIMD_TYPES )
   NT2_TEST_EQUAL(data_out1, data_out2);
 }
 
+template<typename T> inline void check_accumulate(T* b, T* e)
+{
+  T res1 = boost::simd::accumulate(b, e, T(0), plus());
+  T res2 =         std::accumulate(b, e, T(0), plus());
+
+  NT2_TEST_EQUAL(res1, res2);
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 // Test boost::simd::accumulate
 ////////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE_TPL( accumulate, BOOST_SIMD_SIMD_TYPES )
 {
-  std::size_t n = 113;
+  using boost::simd::native;
+  using boost::simd::meta::cardinal_of;
 
-  std::vector<T> data_in(n);
-  for(size_t i=0; i<n; ++i)
-    data_in[i] = T(i);
+  auto c = cardinal_of<native<T,BOOST_SIMD_DEFAULT_EXTENSION>>::value;
+  auto n = 3*c;
 
-  T res1 = boost::simd::accumulate(&*data_in.begin(), &*data_in.begin()+data_in.size(), T(0), plus());
-  T res2 = std::accumulate(&*data_in.begin(), &*data_in.begin()+data_in.size(), T(0), plus());
+  std::vector<T,boost::simd::allocator<T>> data(n);
+  auto b = data.data();
 
-  NT2_TEST_EQUAL(res1, res2);
-  NT2_TEST_EQUAL(res1, T((n-1)*n/2));
+  check_accumulate(b,b+n);
+  check_accumulate(b+1,b+n);
+  check_accumulate(b,b+n-1);
+  check_accumulate(b+1,b+n-1);
 }
