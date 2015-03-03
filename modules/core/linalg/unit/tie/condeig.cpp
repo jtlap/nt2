@@ -8,24 +8,11 @@
 #include <nt2/include/functions/condeig.hpp>
 #include <nt2/include/functions/cons.hpp>
 #include <nt2/include/functions/colon.hpp>
-#include <nt2/include/functions/globalmax.hpp>
-#include <nt2/include/functions/average.hpp>
-#include <nt2/include/functions/rand.hpp>
-#include <nt2/include/functions/ones.hpp>
-#include <nt2/include/functions/eye.hpp>
-#include <nt2/include/functions/from_diag.hpp>
-#include <nt2/include/functions/size.hpp>
-#include <nt2/include/constants/eps.hpp>
 #include <nt2/include/functions/tie.hpp>
-#include <nt2/include/functions/inv.hpp>
-#include <nt2/include/functions/horzcat.hpp>
-#include <nt2/include/functions/ones.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/exceptions.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
-#include <nt2/include/functions/colon.hpp>
-#include <nt2/include/functions/rand.hpp>
 #include <nt2/include/functions/reshape.hpp>
 #include <nt2/table.hpp>
 
