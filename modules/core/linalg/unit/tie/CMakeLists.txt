@@ -9,6 +9,7 @@
 
 SET( SOURCES
      balance.cpp
+     condeig.cpp
      geneig.cpp
      nseig.cpp
      qr.cpp
