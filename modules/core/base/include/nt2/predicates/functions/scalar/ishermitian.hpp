@@ -28,6 +28,21 @@ namespace nt2 { namespace ext
       return is_real(a0);
     }
   };
+
+  BOOST_DISPATCH_IMPLEMENT  ( ishermitian_, tag::cpu_
+                            , (A0)(A1)
+                            , (scalar_< unspecified_<A0> >)
+                              (scalar_< unspecified_<A1> >)
+                            )
+  {
+    typedef bool result_type;
+
+    BOOST_FORCEINLINE
+    result_type operator()(const A0&a0, const A1&) const
+    {
+      return is_real(a0);
+    }
+  };
 } }
 
 #endif

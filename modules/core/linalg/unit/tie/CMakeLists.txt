@@ -9,6 +9,9 @@
 
 SET( SOURCES
      balance.cpp
+     cholcov.cpp
+     corrcoef.cpp
+     corrcov.cpp
      geneig.cpp
      nseig.cpp
      qr.cpp

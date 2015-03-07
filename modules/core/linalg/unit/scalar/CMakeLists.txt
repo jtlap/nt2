@@ -10,6 +10,8 @@
 SET( SOURCES
   cond.cpp
   det.cpp
+  ispositive.cpp
+  ispositivedefinite.cpp
   norm.cpp
   mnorm.cpp
   mnorminf.cpp

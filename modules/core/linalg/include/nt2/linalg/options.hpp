@@ -36,6 +36,8 @@ namespace nt2
     struct alphabeta_ : boost::mpl::false_  {}; //used in geneig
     struct lambda_    : boost::mpl::false_  {}; //used in geneig
     struct raw_       : boost::mpl::false_  {}; //used in lu, qr, svd
+    struct definite_  : boost::mpl::false_  {}; //used in cholcov
+    struct semidefinite_  : boost::mpl::false_  {}; //used in cholcov
 
     struct in_place_  {};
   }
@@ -61,6 +63,8 @@ namespace nt2
   nt2::policy<ext::alphabeta_>   const alphabeta_;
   nt2::policy<ext::lambda_>      const lambda_;
   nt2::policy<ext::raw_>         const raw_;
+  nt2::policy<ext::definite_>    const definite_;
+  nt2::policy<ext::semidefinite_>    const semidefinite_;
 
   nt2::policy<ext::in_place_>  const in_place_;
 }

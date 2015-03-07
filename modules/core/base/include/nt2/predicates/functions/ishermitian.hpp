@@ -49,10 +49,12 @@ namespace nt2
     Checks if an expression is an hermitian matrix.
 
     @param a0 Expression to inspect
+    @param a1 absolute tolerance on the conjugate symetry (default is 0 exact conjugate)
 
     @return Boolean value evaluating to the result of the test
   **/
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::ishermitian_, ishermitian, 1)
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::ishermitian_, ishermitian, 2)
 }
 
 #endif
