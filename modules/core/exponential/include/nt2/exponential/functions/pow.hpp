@@ -9,7 +9,7 @@
 #ifndef NT2_EXPONENTIAL_FUNCTIONS_POW_HPP_INCLUDED
 #define NT2_EXPONENTIAL_FUNCTIONS_POW_HPP_INCLUDED
 #include <nt2/include/functor.hpp>
-
+#include <boost/dispatch/meta/mpl.hpp>
 
 namespace nt2 { namespace tag
   {
@@ -64,7 +64,12 @@ namespace nt2 { namespace tag
     @return a value of the same type as the parameter
   **/
   NT2_FUNCTION_IMPLEMENTATION(tag::pow_, pow, 2)
-}
 
+  template<long N, class A> A pow(const A & a)
+  {
+    return pow(a, boost::mpl::long_<N>());
+  }
+
+}
 #endif
 

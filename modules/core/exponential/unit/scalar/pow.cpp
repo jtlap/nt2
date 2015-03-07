@@ -1,5 +1,6 @@
 //==============================================================================
 //         Copyright 2009 - 2013   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2015          J.T. Lapreste
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -95,3 +96,21 @@ NT2_TEST_CASE_TPL(pow_int,  NT2_TYPES)
   NT2_TEST_ULP_EQUAL(pow(nt2::Zero<T>(),0), nt2::One<r_t>(),      0);
   NT2_TEST_ULP_EQUAL(pow(nt2::Zero<T>(),3), nt2::Zero<r_t>(),     0);
 }
+
+
+NT2_TEST_CASE_TPL(pow_static,  NT2_REAL_TYPES)
+{
+  using nt2::pow;
+  using nt2::tag::pow_;
+  using boost::simd::native;
+
+  // specific values tests
+
+  NT2_TEST_ULP_EQUAL(pow<3>(nt2::Mone<T>()), nt2::Mone<T>(),     0);
+  NT2_TEST_ULP_EQUAL(pow<4>(nt2::Mone<T>()), nt2::One<T>(),      0);
+  NT2_TEST_ULP_EQUAL(pow<3>(nt2::One<T>()),  nt2::One<T>(),      0);
+  NT2_TEST_ULP_EQUAL(pow<3>(nt2::Two<T>()),  nt2::Eight<T>(),    0);
+  NT2_TEST_ULP_EQUAL(pow<0>(nt2::Zero<T>()), nt2::One<T>(),      0);
+  NT2_TEST_ULP_EQUAL(pow<3>(nt2::Zero<T>()), nt2::Zero<T>(),     0);
+}
+

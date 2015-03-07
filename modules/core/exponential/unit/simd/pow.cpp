@@ -163,14 +163,14 @@ NT2_TEST_CASE_TPL(pow_int_vector, NT2_SIMD_TYPES)
   NT2_TEST_TYPE_IS(r_t, wished_r_t);
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(pow(nt2::Mone<vT>(),nt2::Three<ivT>()),nt2::Mone<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(pow(nt2::One<vT>(),nt2::Three<ivT>()), nt2::One<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(pow(nt2::Two <vT>(),nt2::Three<ivT>()),nt2::Eight<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(pow(nt2::Zero<vT>(),nt2::Zero<ivT>()), nt2::One<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(pow(nt2::Zero<vT>(),nt2::Three<ivT>()), nt2::Zero<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(pow<3>(nt2::Mone<vT>()), nt2::Mone<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(pow<3>(nt2::One<vT>() ), nt2::One<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(pow<3>(nt2::Two <vT>()), nt2::Eight<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(pow<0>(nt2::Zero<vT>()), nt2::One<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(pow<3>(nt2::Zero<vT>()), nt2::Zero<r_t>(), 0);
 
 
-  NT2_TEST_ULP_EQUAL(pow(nt2::Mone<vT>(),nt2::Four<ivT>()), nt2::One<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(pow(nt2::One<vT>(),nt2::Four<ivT>()), nt2::One<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(pow(nt2::Zero<vT>(),nt2::Four<ivT>()), nt2::Zero<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(pow<4>(nt2::Mone<vT>()), nt2::One<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(pow<4>(nt2::One<vT>() ), nt2::One<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(pow<4>(nt2::Zero<vT>()), nt2::Zero<r_t>(), 0);
 }
