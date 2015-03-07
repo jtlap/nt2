@@ -12,16 +12,15 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Various memory hierarchy stuff
 ////////////////////////////////////////////////////////////////////////////////
-#include <boost/mpl/int.hpp>
-#include <boost/mpl/bool.hpp>
-#include <boost/mpl/size_t.hpp>
-#include <boost/mpl/integral_c_tag.hpp>
-#include <boost/mpl/if.hpp>
 #include <boost/dispatch/meta/hierarchy_of.hpp>
 #include <boost/dispatch/meta/value_of.hpp>
+#include <boost/dispatch/meta/model_of.hpp>
+#include <boost/mpl/integral_c.hpp>
+#include <boost/mpl/integral_c_tag.hpp>
+#include <boost/mpl/if.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/type_traits/remove_const.hpp>
-#include <boost/dispatch/meta/enable_if_type.hpp>
+#include <boost/utility/enable_if.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Specialize hierarchy for mpl integral types
@@ -32,13 +31,6 @@ namespace boost { namespace dispatch { namespace meta
   {
     typedef mpl_integral_< typename T::parent > parent;
   };
-
-  template<class T>
-  struct  mpl_integral_< unspecified_<T> >
-        : hierarchy_of<typename T::value_type,T>::type
-  {
-    typedef typename hierarchy_of<typename T::value_type,T>::type parent;
-  };
 }
 
 namespace details
@@ -46,32 +38,23 @@ namespace details
   ////////////////////////////////////////////////////////////////////////////////
   // Some MPL introspection helpers
   ////////////////////////////////////////////////////////////////////////////////
-  template<class T, class Enable = void>
-  struct  has_mpl_tag
-        : boost::mpl::false_ {};
+  template<class T, class Enable = boost::mpl::integral_c_tag>
+  struct is_mpl_integral
+       : boost::mpl::false_
+  {
+  };
 
   template<class T>
-  struct  has_mpl_tag < T
-                      , typename meta
-                        ::enable_if_type< typename T::tag >::type
-                      >
-        : boost::mpl::true_ {};
-
-  template<class T, bool EnableIf = has_mpl_tag<T>::value>
-  struct  is_mpl_integral : boost::mpl::false_
-  {};
-
-  template<class T>
-  struct  is_mpl_integral<T,true>
-        : boost::is_same<typename T::tag,boost::mpl::integral_c_tag>
-  {};
+  struct is_mpl_integral<T, typename T::tag>
+       : boost::mpl::true_
+  {
+  };
 
   template<class T,class Origin>
-  struct  hierarchy_of< T
-                      , Origin
-                      , typename boost
-                        ::enable_if_c<details::is_mpl_integral<T>::value>::type
-                      >
+  struct hierarchy_of< T
+                     , Origin
+                     , typename boost::enable_if< details::is_mpl_integral<T> >::type
+                     >
   {
     typedef typename remove_const<Origin>::type stripped;
     typedef typename mpl::if_< is_same< T, stripped >, stripped, Origin>::type origin_;
@@ -85,14 +68,45 @@ namespace details
   };
 
   template<class T>
-  struct  value_of< T
-                  , typename boost
-                        ::enable_if_c<details::is_mpl_integral<T>::value>::type
-                  >
+  struct value_of< T, typename boost::enable_if< details::is_mpl_integral<T> >::type >
   {
     typedef typename T::value_type type;
   };
 
+  template<class T>
+  struct model_of< T, typename boost::enable_if< details::is_mpl_integral<T> >::type >
+  {
+    struct type
+    {
+      template<class X>
+      struct apply
+      {
+        typedef boost::mpl::integral_c<X, T::value> type;
+      };
+    };
+  };
+
+  template<class T, bool IsMPL = details::is_mpl_integral<T>::value>
+  struct extract_mpl
+       : extract_mpl<typename meta::value_of<T>::type>
+  {
+  };
+
+  template<class T>
+  struct extract_mpl<T, true>
+  {
+    typedef T type;
+  };
+}
+
+namespace meta
+{
+  template<class T>
+  struct  mpl_integral_< unspecified_<T> >
+        : hierarchy_of<typename details::extract_mpl<T>::type::value_type,T>::type
+  {
+    typedef typename hierarchy_of<typename details::extract_mpl<T>::type::value_type,T>::type parent;
+  };
 } } }
 
 #endif
