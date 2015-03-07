@@ -95,3 +95,13 @@ NT2_TEST_CASE_TPL(pow_int,  NT2_TYPES)
   NT2_TEST_ULP_EQUAL(pow(nt2::Zero<T>(),0), nt2::One<r_t>(),      0);
   NT2_TEST_ULP_EQUAL(pow(nt2::Zero<T>(),3), nt2::Zero<r_t>(),     0);
 }
+
+NT2_TEST_CASE(pow_staticint)
+{
+  using nt2::pow;
+  NT2_TEST_ULP_EQUAL(pow(4.f, boost::mpl::integral_c<unsigned, 3u>()), 64.f, 0);
+  NT2_TEST_ULP_EQUAL(pow<3>(4.f), 64.f, 0);
+  NT2_TEST_ULP_EQUAL(pow<-3>(4.f), 0.015625f, 0);
+  NT2_TEST_ULP_EQUAL(pow<3>(4), 64, 0);
+  NT2_TEST_ULP_EQUAL(pow(7.f, boost::mpl::integral_c<unsigned, 4u>()), 2401.f, 0);
+}

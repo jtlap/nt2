@@ -21,10 +21,92 @@
 #include <nt2/sdk/meta/as_logical.hpp>
 #include <nt2/sdk/meta/as_unsigned.hpp>
 #include <boost/simd/operator/functions/details/assert_utils.hpp>
+#include <boost/mpl/bool.hpp>
 #include <boost/assert.hpp>
 
 namespace nt2 { namespace ext
 {
+  template<unsigned long long Exp, unsigned long long Odd = Exp%2>
+  struct pow_expander;
+
+  template<unsigned long long Exp>
+  struct pow_expander<Exp, 0ULL>
+  {
+    template<class A0>
+    static BOOST_FORCEINLINE A0 call(A0 const& a0)
+    {
+      return pow_expander<Exp/2>::call(sqr(a0));
+    }
+  };
+
+  template<unsigned long long Exp>
+  struct pow_expander<Exp, 1ULL>
+  {
+    template<class A0>
+    static BOOST_FORCEINLINE A0 call(A0 const& a0)
+    {
+      return a0*pow_expander<Exp/2>::call(sqr(a0));
+    }
+  };
+
+  template<>
+  struct pow_expander<0ULL, 0ULL>
+  {
+    template<class A0>
+    static BOOST_FORCEINLINE A0 call(A0 const&)
+    {
+      return One<A0>();
+    }
+  };
+
+  template<>
+  struct pow_expander<0ULL, 1ULL>
+  {
+    template<class A0>
+    static BOOST_FORCEINLINE A0 call(A0 const&)
+    {
+      return One<A0>();
+    }
+  };
+
+  BOOST_DISPATCH_IMPLEMENT  ( pow_, tag::cpu_
+                            , (A0)(A1)
+                            , (generic_< arithmetic_<A0> >)
+                              (mpl_integral_< scalar_< uint_<A1> > >)
+                            )
+  {
+    typedef A0 result_type;
+
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1) const
+    {
+      return pow_expander<A1::value>::call(a0);
+    }
+  };
+
+  BOOST_DISPATCH_IMPLEMENT  ( pow_, tag::cpu_
+                            , (A0)(A1)
+                            , (generic_< floating_<A0> >)
+                              (mpl_integral_< scalar_< int_<A1> > >)
+                            )
+  {
+    typedef A0 result_type;
+
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1) const
+    {
+      return eval(a0, boost::mpl::bool_<(A1::value >= 0)>());
+    }
+
+    BOOST_FORCEINLINE result_type eval(A0 const& a0, boost::mpl::true_) const
+    {
+      return pow_expander<A1::value>::call(a0);
+    }
+
+    BOOST_FORCEINLINE result_type eval(A0 const& a0, boost::mpl::false_) const
+    {
+      return pow_expander<-A1::value>::call(rec(a0));
+    }
+  };
+
   BOOST_DISPATCH_IMPLEMENT  ( pow_, tag::cpu_
                             , (A0)(A1)
                             , (generic_< arithmetic_<A0> >)

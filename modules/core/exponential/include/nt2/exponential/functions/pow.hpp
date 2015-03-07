@@ -64,6 +64,16 @@ namespace nt2 { namespace tag
     @return a value of the same type as the parameter
   **/
   NT2_FUNCTION_IMPLEMENTATION(tag::pow_, pow, 2)
+
+  template<long long Exp, class A0>
+  BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE pow(A0 const& a0)
+  BOOST_AUTO_DECLTYPE_BODY(
+    dispatching_pow_( ext::adl_helper(), boost::dispatch::default_site_t<A0>()
+                    , boost::dispatch::meta::hierarchy_of_t<A0 const&>()
+                    , boost::dispatch::meta::hierarchy_of_t< boost::mpl::integral_c<long long, Exp> >()
+                    )
+    (a0, boost::mpl::integral_c<long long, Exp>())
+  )
 }
 
 #endif
