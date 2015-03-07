@@ -49,10 +49,12 @@ namespace nt2
     Checks if an expression is a symmetric matrix.
 
     @param a0 Expression to inspect
+    @param a1 absolute tolerance on the symetry (default is 0 exact symetry)
 
     @return Boolean value evaluating to the result of the test
   **/
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::issymetric_, issymetric, 1)
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::issymetric_, issymetric, 2)
 }
 
 #endif

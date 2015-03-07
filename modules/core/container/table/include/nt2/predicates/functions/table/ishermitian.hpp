@@ -11,6 +11,7 @@
 #define NT2_PREDICATES_FUNCTIONS_TABLE_ISHERMITIAN_HPP_INCLUDED
 
 #include <nt2/predicates/functions/ishermitian.hpp>
+#include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/issquare.hpp>
 #include <nt2/include/functions/last_index.hpp>
 #include <nt2/include/functions/first_index.hpp>
@@ -37,6 +38,27 @@ namespace nt2 { namespace ext
           if( a0(i, j) != conj(a0(j, i)) ) return false;
         }
       }
+      return true;
+    }
+  };
+
+  BOOST_DISPATCH_IMPLEMENT  ( ishermitian_, tag::cpu_
+                            , (A0)(A1)
+                            , ((ast_<A0, nt2::container::domain>))
+                              (scalar_<unspecified_<A1>>)
+                            )
+  {
+    typedef bool result_type;
+
+    BOOST_FORCEINLINE
+      result_type operator()(const A0& a0, const A1& tol) const
+    {
+      if (!issquare(a0)) return false;
+
+      for(std::ptrdiff_t j=first_index<2>(a0); j <= last_index<2>(a0) ; ++j)
+        for(std::ptrdiff_t i=j+1; i <= last_index<1>(a0) ; ++i)
+          if (nt2::abs(( a0(i, j)- conj(a0(j, i)) )) > tol ) return false;
+
       return true;
     }
   };

@@ -25,6 +25,19 @@ namespace nt2 { namespace ext
       return true;
     }
   };
+  BOOST_DISPATCH_IMPLEMENT  ( issymetric_, tag::cpu_
+                            , (A0)(A1)
+                            , (scalar_< unspecified_<A0> >)
+                              (scalar_< unspecified_<A1> >)
+                            )
+  {
+    typedef bool result_type;
+
+    BOOST_FORCEINLINE result_type operator()(const A0&, const A1&) const
+    {
+      return true;
+    }
+  };
 } }
 
 #endif
