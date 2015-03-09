@@ -7,8 +7,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_SIGNAL_FUNCTIONS_COMMON_DB2POW_HPP_INCLUDED
-#define NT2_SIGNAL_FUNCTIONS_COMMON_DB2POW_HPP_INCLUDED
+#ifndef NT2_SIGNAL_FUNCTIONS_GENERIC_DB2POW_HPP_INCLUDED
+#define NT2_SIGNAL_FUNCTIONS_GENERIC_DB2POW_HPP_INCLUDED
 
 #include <nt2/signal/functions/db2pow.hpp>
 #include <nt2/include/functions/simd/multiplies.hpp>
