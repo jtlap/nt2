@@ -14,6 +14,8 @@ SET( SOURCES
   expx2.cpp
   exp10.cpp
   exp2.cpp
+  exprecneg.cpp
+  exprecnegc.cpp
   log.cpp
   log1p.cpp
   log10.cpp
