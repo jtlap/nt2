@@ -15,23 +15,24 @@
 #include <nt2/sdk/meta/value_as.hpp>
 #include <nt2/core/container/dsl/size.hpp>
 #include <nt2/sdk/meta/tieable_hierarchy.hpp>
+#include <nt2/core/container/dsl/value_type.hpp>
 
-namespace nt2
-{
-  namespace tag
-  {
+
+namespace nt2 {
+  namespace tag {
     struct corrcoef_ : ext::tieable_<corrcoef_>
     {
-      typedef ext::tieable_<corrcoef_>  parent;
+      typedef ext::tieable_<corrcoef_> parent;
       template<class... Args>
       static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
-      BOOST_AUTO_DECLTYPE_BODY( dispatching_corrcoef_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_corrcoef_( ext::adl_helper(),
+                                static_cast<Args&&>(args)... ) )
     };
   }
-  namespace ext
-  {
+  namespace ext {
     template<class Site>
-    BOOST_FORCEINLINE generic_dispatcher<tag::corrcoef_, Site> dispatching_corrcoef_(adl_helper, boost::dispatch::meta::unknown_<Site>, ...)
+    BOOST_FORCEINLINE generic_dispatcher<tag::corrcoef_, Site>
+    dispatching_corrcoef_(adl_helper, boost::dispatch::meta::unknown_<Site>, ...)
     {
       return generic_dispatcher<tag::corrcoef_, Site>();
     }
@@ -40,31 +41,49 @@ namespace nt2
   }
 
   /**
-   *  @brief corrcoef compute correlation matrix
-   *
-   *    r=corrcoef(x) calculates a matrix r of correlation coefficients for
-   *    an array x, in which each row is an observation and each column is a
-   *    variable.
-   *
-   *    r=corrcoef(x,y), where x and y are vectors,
-   *    is equivalent to r=corrcoef(cath(x(_) y(_)))
-   *
-   *    if c is the covariance matrix, c = cov(x), then corrcoef(x) is
-   *    the matrix whose (i,j)'th element is
-   *
-   *           c(i,j)/sqrt(c(i,i)*c(j,j)).
-   **/
+    *  @brief corrcoef compute correlation matrix
+    *
+    *    r=corrcoef(x) calculates a matrix r of correlation coefficients for
+    *    an array x, in which each row is an observation and each column is a
+    *    variable.
+    *
+    *    r=corrcoef(x,y), where x and y are vectors,
+    *    is equivalent to r=corrcoef(cath(x(_) y(_)))
+    *
+    *    if c is the covariance matrix, c = cov(x), then corrcoef(x) is
+    *    the matrix whose (i,j)'th element is
+    *
+    *           c(i,j)/sqrt(c(i,i)*c(j,j)).
+    **/
 
   NT2_FUNCTION_IMPLEMENTATION(tag::corrcoef_, corrcoef, 1)
   NT2_FUNCTION_IMPLEMENTATION(tag::corrcoef_, corrcoef, 2)
+  NT2_FUNCTION_IMPLEMENTATION(tag::corrcoef_, corrcoef, 3)
 }
 
-namespace nt2 { namespace ext
-{
-  template<class Domain, int N, class Expr>
-  struct  size_of<tag::corrcoef_,Domain,N,Expr>
-        : meta::size_as<Expr,0>
-  {};
-} }
+namespace nt2 {
+  namespace ext {
+ //    template<class Domain, int N, class Expr>
+//     struct size_of<tag::corrcoef_,Domain,N,Expr>
+//       : meta::size_as<Expr,0>
+//     {};
+    template<class Domain, int N, class Expr>
+    struct size_of<tag::corrcoef_,Domain,N,Expr>
+    {
+      typedef _2D result_type;
+
+      BOOST_FORCEINLINE result_type operator()(Expr& e) const
+      {
+        return _2D( boost::fusion::at_c<1>(boost::proto::child_c<0>(e).extent())
+                  , boost::fusion::at_c<1>(boost::proto::child_c<0>(e).extent())
+                  );
+      }
+    };
+    template<class Domain, int N, class Expr>
+    struct  value_type<tag::corrcoef_,Domain,N,Expr>
+      : meta::value_as<Expr,0>
+    {};
+  }
+}
 
 #endif

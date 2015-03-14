@@ -14,6 +14,7 @@
 #include <nt2/include/functions/ones.hpp>
 #include <nt2/include/functions/eye.hpp>
 #include <nt2/include/functions/from_diag.hpp>
+#include <nt2/include/functions/all.hpp>
 #include <nt2/include/functions/size.hpp>
 #include <nt2/include/constants/eps.hpp>
 #include <nt2/include/functions/tie.hpp>
@@ -28,7 +29,8 @@
 #include <nt2/include/functions/rand.hpp>
 #include <nt2/include/functions/reshape.hpp>
 #include <nt2/table.hpp>
-
+#include <nt2/include/functions/mean.hpp>
+#include <nt2/include/functions/nanmean.hpp>
 
 
 NT2_TEST_CASE_TPL ( corrcoef1, NT2_REAL_TYPES)
@@ -65,6 +67,26 @@ NT2_TEST_CASE_TPL ( corrcoef1, NT2_REAL_TYPES)
 
   cf =  corrcoef(a(_, 1), a(_, 2));
   NT2_TEST_ULP_EQUAL(cf, rcf2, 20);
+  cf =  corrcoef(a, nt2::all_);
+  NT2_TEST_ULP_EQUAL(cf, rcf, 20);
+  cf =  corrcoef(a, nt2::complete_);
+  NT2_TEST_ULP_EQUAL(cf, rcf, 20);
+
+  cf =  corrcoef(a, nt2::pairwise_);
+  NT2_TEST_ULP_EQUAL(cf, rcf, 20);
+  a(1, 1) = nt2::Nan<T>();
+
+  table_t rcf3 = nt2::cons<T>(nt2::of_size(4, 4),
+                              1.000000000000000e+00,    -1.799895219745339e-02,     5.685763111100622e-01,    -2.412791002693299e-01,
+                             -1.799895219745339e-02,     1.000000000000000e+00,    -9.811801511160850e-02,     2.912062732190031e-01,
+                              5.685763111100622e-01,    -9.811801511160850e-02,     1.000000000000000e+00,    -4.213519725893449e-01,
+                             -2.412791002693299e-01,     2.912062732190031e-01,    -4.213519725893449e-01,     1.000000000000000e+00);
+
+  cf =  corrcoef(a, nt2::pairwise_);
+  NT2_TEST_ULP_EQUAL(cf, rcf3, 20);
+  NT2_DISPLAY(   corrcoef(a(_(2, nt2::end_), 1), a(_(2, nt2::end_), 4)));
+  NT2_DISPLAY(   corrcoef(a(_(2, nt2::end_), 1), a(_(2, nt2::end_), 3)));
+  NT2_DISPLAY(   corrcoef(a(_(2, nt2::end_), 1), a(_(2, nt2::end_), 2)));
 }
 
 
