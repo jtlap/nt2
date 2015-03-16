@@ -49,21 +49,16 @@ NT2_TEST_CASE_TPL ( cholcov1, NT2_REAL_TYPES)
                             5.671444314291980e-01,     1.832152687943607e+01,
                             -3.542746597205766e-01,     2.009662880847131e+01,
                             -1.275693750870463e+00,     2.187173073750658e+01);
-  NT2_DISPLAY(a);
   table_t t;
   int p;
   t =  cholcov(a, nt2::definite_);
   tie(t, p)=  cholcov(a, nt2::definite_);
-  NT2_DISPLAY(p);
-  NT2_DISPLAY(t);
   NT2_TEST(p!=0);
   NT2_TEST(isempty(t));
   t =  cholcov(a, nt2::semidefinite_);
   tie(t, p)=  cholcov(a, nt2::semidefinite_);
-  NT2_DISPLAY(p);
-  NT2_DISPLAY(t);
   NT2_TEST(p == 0);
-  NT2_TEST_ULP_EQUAL(t, rt, 150);
+  NT2_TEST_ULP_EQUAL(t, rt, 500);
 
 
  }

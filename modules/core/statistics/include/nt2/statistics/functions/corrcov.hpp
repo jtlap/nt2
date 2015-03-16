@@ -25,13 +25,15 @@ namespace nt2
       typedef ext::tieable_<corrcov_>  parent;
       template<class... Args>
       static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
-      BOOST_AUTO_DECLTYPE_BODY( dispatching_corrcov_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_corrcov_( ext::adl_helper()
+                                                    , static_cast<Args&&>(args)... ) )
     };
   }
   namespace ext
   {
     template<class Site>
-    BOOST_FORCEINLINE generic_dispatcher<tag::corrcov_, Site> dispatching_corrcov_(adl_helper, boost::dispatch::meta::unknown_<Site>, ...)
+    BOOST_FORCEINLINE generic_dispatcher<tag::corrcov_, Site>
+    dispatching_corrcov_(adl_helper, boost::dispatch::meta::unknown_<Site>, ...)
     {
       return generic_dispatcher<tag::corrcov_, Site>();
     }
@@ -41,17 +43,20 @@ namespace nt2
 
   /**
    *  @brief corrcov compute correlation matrix from covariance matrix.
-   *    r = corrcov(c) computes the correlation matrix r that corresponds to the
+   *    r = corrcov(c{, check_/nocheck_}) computes the correlation matrix r that corresponds to the
    *    covariance matrix c, by standardizing each row and column of c using the
-   *    square roots of the variances (diagonal elements) of c.  c is square,
-   *    symmetric, and positive semi-definite.  the correlation for a constant
+   *    square roots of the variances (diagonal elements) of c. c must be square,
+   *    symmetric, and positive semi-definite. The correlation for a constant
    *    variable (zero diagonal element of c) is undefined.
+   *    The optinal second parameter (default check_) verifies (resp. does not verify )
+   *    that the input is hermitian semi-definite
    *
-   *    tie(r,sigma) = corrcov(c) computes the vector of standard deviations sigma
+   *    tie(r,sigma) = corrcov(c{, check_/nocheck_}) computes the vector of standard deviations sigma
    *    from the diagonal elements of c.
    **/
 
   NT2_FUNCTION_IMPLEMENTATION(tag::corrcov_, corrcov, 1)
+  NT2_FUNCTION_IMPLEMENTATION(tag::corrcov_, corrcov, 2)
 }
 
 namespace nt2 { namespace ext

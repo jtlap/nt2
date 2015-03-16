@@ -26,8 +26,6 @@
 #include <nt2/include/functions/length.hpp>
 #include <nt2/include/functions/max.hpp>
 #include <nt2/include/functions/of_size.hpp>
-//#include <nt2/include/functions/mkhermitian.hpp>
-//#include <nt2/include/functions/nbtrue.hpp>
 #include <nt2/include/functions/sqrt.hpp>
 #include <nt2/include/functions/symeig.hpp>
 #include <nt2/include/functions/tie.hpp>
@@ -41,6 +39,7 @@
 #include <boost/dispatch/attributes.hpp>
 #include <nt2/include/functions/average.hpp>
 #include <nt2/table.hpp>
+
 namespace nt2 { namespace ext
 {
   //============================================================================
@@ -129,11 +128,8 @@ namespace nt2 { namespace ext
       //   is positive semi-definite.
       rtable_t d;
       table_t u;
-      NT2_DISPLAY(average(s, ctrans(s)));
-// //      tie(d, u)= symeig(mkhermitian(sigma), nt2::vector_);
+      // TO DO wtrite even(s) functor -> average(s, ctrans(s))
       tie(d, u)= symeig(average(s, ctrans(s)), nt2::vector_);
-      NT2_DISPLAY(u);
-      NT2_DISPLAY(d);
       rtype_t tol = eps(globalmax(d)) * rtype_t(length(d));
       p = globalsum(if_one_else_zero(lt(d, -tol))); // number of negative eigenvalues
       if (p==0)

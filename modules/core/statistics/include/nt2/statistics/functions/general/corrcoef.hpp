@@ -57,6 +57,7 @@
 #include <nt2/sdk/meta/as_logical.hpp>
 #include <nt2/sdk/meta/is_scalar.hpp>
 #include <nt2/core/container/dsl/as_terminal.hpp>
+#include <nt2/core/utility/assign_swap.hpp>
 #include <boost/dispatch/attributes.hpp>
 #include <boost/dispatch/dsl/semantic_of.hpp>
 

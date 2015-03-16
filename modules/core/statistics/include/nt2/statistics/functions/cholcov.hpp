@@ -51,10 +51,10 @@ namespace nt2
    *    zero (within a small tolerance) are omitted.  if any remaining
    *    eigenvalues are negative, t is empty.
    *
-   *    [t,p] = cholcov(sigma) returns the number of negative eigenvalues of
+   *    tie(t,p) = cholcov(sigma) returns the number of negative eigenvalues of
    *    sigma, and t is empty if p>0.  if p==0, sigma is positive semi-definite.
    *
-   *    [t,p] = cholcov(sigma,definte_) returns p==0 if sigma is positive definite, and
+   *    tie(t,p) = cholcov(sigma,definte_) returns p==0 if sigma is positive definite, and
    *    t is the cholesky factor.  if sigma is not positive definite, p is a
    *    positive integer and t is empty.
    *
