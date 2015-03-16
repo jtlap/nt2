@@ -19,6 +19,7 @@
 #include <nt2/include/functions/scalar/oneminus.hpp>
 #include <nt2/include/functions/scalar/minusone.hpp>
 #include <nt2/include/functions/scalar/oneplus.hpp>
+#include <nt2/include/functions/scalar/rec.hpp>
 #include <nt2/include/functions/scalar/sqr.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/two.hpp>
