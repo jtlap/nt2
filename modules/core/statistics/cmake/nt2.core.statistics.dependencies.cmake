@@ -15,6 +15,7 @@ SET ( NT2_CORE.STATISTICS_DEPENDENCIES_EXTRA
       core.euler
       core.exponential
       core.generative
+      core.linalg
       core.polynomials
       core.random
       core.reduction
