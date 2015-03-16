@@ -6,10 +6,10 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_LINALG_FUNCTIONS_GENERAL_COV_HPP_INCLUDED
-#define NT2_LINALG_FUNCTIONS_GENERAL_COV_HPP_INCLUDED
+#ifndef NT2_STATISTICS_FUNCTIONS_GENERAL_COV_HPP_INCLUDED
+#define NT2_STATISTICS_FUNCTIONS_GENERAL_COV_HPP_INCLUDED
 
-#include <nt2/include/functions/cov.hpp>
+#include <nt2/include/statistics/functions/cov.hpp>
 #include <nt2/core/container/dsl.hpp>
 #include <nt2/include/functions/asum2.hpp>
 #include <nt2/include/functions/center.hpp>

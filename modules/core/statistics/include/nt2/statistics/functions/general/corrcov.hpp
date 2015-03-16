@@ -6,10 +6,10 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_LINALG_FUNCTIONS_TIED_CORRCOV_HPP_INCLUDED
-#define NT2_LINALG_FUNCTIONS_TIED_CORRCOV_HPP_INCLUDED
+#ifndef NT2_STATISTICS_FUNCTIONS_TIED_CORRCOV_HPP_INCLUDED
+#define NT2_STATISTICS_FUNCTIONS_TIED_CORRCOV_HPP_INCLUDED
 
-#include <nt2/linalg/functions/corrcov.hpp>
+#include <nt2/statistics/functions/corrcov.hpp>
 
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/colon.hpp>

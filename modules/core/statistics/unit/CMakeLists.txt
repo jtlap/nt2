@@ -9,4 +9,5 @@
 
 nt2_module_use_modules(test.unit core.container.table)
 ADD_SUBDIRECTORY(scalar)
+ADD_SUBDIRECTORY(general)
 

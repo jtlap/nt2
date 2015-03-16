@@ -8,16 +8,10 @@
 ##############################################################################
 
 SET( SOURCES
-     balance.cpp
-     geneig.cpp
-     nseig.cpp
-     qr.cpp
-     symeig.cpp
-     planerot.cpp
-     qrdelete.cpp
-     qrinsert.cpp
-     rref.cpp
-   )
+  cholcov.cpp
+  corrcoef.cpp
+  corrcov.cpp
+  cov.cpp
+  )
 
-nt2_module_add_tests(core.linalg.tie.unit ${SOURCES})
-
+nt2_module_add_tests(core.statistics.general.unit ${SOURCES})

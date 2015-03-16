@@ -6,8 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2::cov function"
-
 #include <nt2/table.hpp>
 #include <nt2/include/functions/cov.hpp>
 #include <nt2/include/functions/reshape.hpp>

@@ -7,8 +7,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_LINALG_FUNCTIONS_CHOLCOV_HPP_INCLUDED
-#define NT2_LINALG_FUNCTIONS_CHOLCOV_HPP_INCLUDED
+#ifndef NT2_STATISTICS_FUNCTIONS_CHOLCOV_HPP_INCLUDED
+#define NT2_STATISTICS_FUNCTIONS_CHOLCOV_HPP_INCLUDED
 
 #include <nt2/include/functor.hpp>
 #include <nt2/sdk/meta/size_as.hpp>
