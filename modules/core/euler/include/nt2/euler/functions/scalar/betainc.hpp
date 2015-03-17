@@ -103,6 +103,7 @@ namespace nt2 { namespace ext
                   );
       return h;
     }
+  };
 } }
 
 #endif
