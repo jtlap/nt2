@@ -13,22 +13,21 @@
 #include <nt2/core/container/dsl/size.hpp>
 #include <nt2/sdk/meta/tieable_hierarchy.hpp>
 
-namespace nt2
-{
-  namespace tag
-  {
+namespace nt2 {
+  namespace tag {
     struct bandwidth_ : ext::tieable_<bandwidth_>
     {
       typedef ext::tieable_<bandwidth_>  parent;
       template<class... Args>
       static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
-      BOOST_AUTO_DECLTYPE_BODY( dispatching_bandwidth_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_bandwidth_( ext::adl_helper(),
+                                static_cast<Args&&>(args)... ) )
     };
   }
-  namespace ext
-  {
+  namespace ext {
     template<class Site>
-    BOOST_FORCEINLINE generic_dispatcher<tag::bandwidth_, Site> dispatching_bandwidth_(adl_helper, boost::dispatch::meta::unknown_<Site>, ...)
+    BOOST_FORCEINLINE generic_dispatcher<tag::bandwidth_, Site>
+    dispatching_bandwidth_(adl_helper, boost::dispatch::meta::unknown_<Site>, ...)
     {
       return generic_dispatcher<tag::bandwidth_, Site>();
     }
@@ -54,11 +53,12 @@ namespace nt2
   NT2_FUNCTION_IMPLEMENTATION(tag::bandwidth_, bandwidth, 2)
 }
 
-namespace nt2 { namespace ext
-{
-  template<class Domain, int N, class Expr>
-  struct  size_of<tag::bandwidth_,Domain,N,Expr>
-        : meta::size_as<Expr,0>
-  {};
-} }
+namespace nt2 {
+  namespace ext {
+    template<class Domain, int N, class Expr>
+    struct  size_of<tag::bandwidth_,Domain,N,Expr>
+      : meta::size_as<Expr,0>
+    {};
+  }
+}
 #endif
