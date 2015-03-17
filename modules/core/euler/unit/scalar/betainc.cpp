@@ -36,6 +36,8 @@ NT2_TEST_CASE_TPL ( betainc_real, NT2_REAL_TYPES)
 #endif
   NT2_TEST_ULP_EQUAL(betainc( nt2::Half<T>(), nt2::One<T>(), nt2::One<T>()  ), nt2::Half<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(betainc( T(0.2)        , nt2::Half<T>(), nt2::Five<T>()), T(8.55072394595920e-01), 10);
+  NT2_TEST_ULP_EQUAL(betainc( T(0.5), T(4000), T(4000)), nt2::Half<T>(), 10000);
+  NT2_TEST_ULP_EQUAL(betainc( T(0.5), T(4000), T(2000)), T(3.892969349165084e-150), 30000);
 }
 
 

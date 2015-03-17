@@ -11,16 +11,27 @@
 #include <nt2/euler/functions/betainc.hpp>
 #include <nt2/include/functions/scalar/abs.hpp>
 #include <nt2/include/functions/scalar/betaln.hpp>
+#include <nt2/include/functions/scalar/cons.hpp>
 #include <nt2/include/functions/scalar/exp.hpp>
 #include <nt2/include/functions/scalar/fma.hpp>
+#include <nt2/include/functions/scalar/gammaln.hpp>
+#include <nt2/include/functions/scalar/globalsum.hpp>
 #include <nt2/include/functions/scalar/log.hpp>
 #include <nt2/include/functions/scalar/log1p.hpp>
 #include <nt2/include/functions/scalar/maxmag.hpp>
+#include <nt2/include/functions/scalar/multiplies.hpp>
 #include <nt2/include/functions/scalar/oneminus.hpp>
+#include <nt2/include/functions/scalar/max.hpp>
+#include <nt2/include/functions/scalar/min.hpp>
 #include <nt2/include/functions/scalar/minusone.hpp>
 #include <nt2/include/functions/scalar/oneplus.hpp>
 #include <nt2/include/functions/scalar/rec.hpp>
 #include <nt2/include/functions/scalar/sqr.hpp>
+#include <nt2/include/functions/scalar/sqrt.hpp>
+
+#include <nt2/include/constants/ten.hpp>
+#include <nt2/include/constants/five.hpp>
+#include <nt2/include/constants/thousand.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/two.hpp>
 #include <nt2/include/constants/sqrteps.hpp>
@@ -28,6 +39,8 @@
 #include <nt2/include/constants/nan.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/sdk/error/warning.hpp>
+#include <nt2/core/container/table/table.hpp>
+#include <nt2/table.hpp>
 
 
 namespace nt2 { namespace ext
@@ -90,8 +103,6 @@ namespace nt2 { namespace ext
                   );
       return h;
     }
-
-  };
 } }
 
 #endif
