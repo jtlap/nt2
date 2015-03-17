@@ -9,6 +9,7 @@
 
 SET( SOURCES
   betainc.cpp
+  betaincinv.cpp
   betaln.cpp
   erfinv.cpp
   erfcinv.cpp
