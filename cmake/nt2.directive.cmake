@@ -32,7 +32,7 @@ MESSAGE ( STATUS "
  platform/compiler combination.
 
  Build, install and other issues can be reported through our Github Issues
- tracker at http://github.com/MetaScale/nt2/issues
+ tracker at http://github.com/NumScale/nt2/issues
 
 ################################################################################
         ")
