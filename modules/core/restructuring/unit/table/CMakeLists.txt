@@ -23,6 +23,7 @@ SET( SOURCES
   horzcat.cpp
   ifvectvert.cpp
   ismember.cpp
+  kron.cpp
   putalong.cpp
   reshape.cpp
   resize.cpp
