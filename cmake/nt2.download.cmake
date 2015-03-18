@@ -13,7 +13,7 @@ macro(nt2_download_module module)
   if(NOT NT2_FIND_REPOSITORIES AND DEFINED ENV{NT2_FIND_REPOSITORIES})
     set(NT2_FIND_REPOSITORIES $ENV{NT2_FIND_REPOSITORIES})
   elseif(NOT NT2_FIND_REPOSITORIES)
-    set(NT2_FIND_REPOSITORIES git://github.com/MetaScale/nt2-modules.git)
+    set(NT2_FIND_REPOSITORIES git://github.com/NumScale/nt2-modules.git)
   endif()
 
   find_package(Git QUIET)
