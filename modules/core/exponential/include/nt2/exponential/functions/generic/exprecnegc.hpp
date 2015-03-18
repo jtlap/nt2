@@ -9,9 +9,9 @@
 #define NT2_EXPONENTIAL_FUNCTIONS_GENERIC_EXPRECNEGC_HPP_INCLUDED
 
 #include <nt2/exponential/functions/exprecnegc.hpp>
-#include <nt2/include/functions/expm1.hpp>
-#include <nt2/include/functions/rec.hpp>
-#include <nt2/include/functions/unary_minus.hpp>
+#include <nt2/include/functions/simd/expm1.hpp>
+#include <nt2/include/functions/simd/rec.hpp>
+#include <nt2/include/functions/simd/unary_minus.hpp>
 
 namespace nt2 {
   namespace ext {
