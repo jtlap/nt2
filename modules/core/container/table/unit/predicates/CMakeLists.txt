@@ -19,6 +19,7 @@ SET( SOURCES
   isexpandable_to.cpp
   isfloating.cpp
   ishermitian.cpp
+  ishess.cpp
   isinside.cpp
   isinteger.cpp
   ismatrix.cpp
