@@ -9,6 +9,7 @@
 
 SET( SOURCES
   chol.cpp
+  hess.cpp
   lu.cpp
   schur.cpp
   svd.cpp
