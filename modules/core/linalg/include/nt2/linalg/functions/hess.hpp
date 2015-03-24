@@ -17,22 +17,21 @@
 #include <nt2/sdk/meta/tieable_hierarchy.hpp>
 #include <nt2/core/container/dsl/value_type.hpp>
 
-namespace nt2
-{
-  namespace tag
-  {
+namespace nt2 {
+  namespace tag {
     struct hess_ : ext::tieable_<hess_>
     {
       typedef ext::tieable_<hess_>  parent;
       template<class... Args>
       static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
-      BOOST_AUTO_DECLTYPE_BODY( dispatching_hess_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_hess_( ext::adl_helper(),
+                                static_cast<Args&&>(args)... ) )
     };
   }
-  namespace ext
-  {
+  namespace ext {
     template<class Site>
-    BOOST_FORCEINLINE generic_dispatcher<tag::hess_, Site> dispatching_hess_(adl_helper, boost::dispatch::meta::unknown_<Site>, ...)
+    BOOST_FORCEINLINE generic_dispatcher<tag::hess_, Site> dispatching_hess_
+    (adl_helper, boost::dispatch::meta::unknown_<Site>, ...)
     {
       return generic_dispatcher<tag::hess_, Site>();
     }
@@ -68,12 +67,13 @@ namespace nt2
   NT2_FUNCTION_IMPLEMENTATION(tag::hess_, hess, 2)
 }
 
-namespace nt2 { namespace ext
-{
-  template<class Domain, int N, class Expr>
-  struct  size_of<tag::hess_,Domain,N,Expr>
-        : meta::size_as<Expr,0>
-  {};
-} }
+namespace nt2 {
+  namespace ext {
+    template<class Domain, int N, class Expr>
+    struct  size_of<tag::hess_,Domain,N,Expr>
+      : meta::size_as<Expr,0>
+    {};
+  }
+}
 
 #endif

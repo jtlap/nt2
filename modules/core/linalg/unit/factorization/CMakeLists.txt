@@ -12,6 +12,7 @@ SET( SOURCES
   hess.cpp
   lu.cpp
   schur.cpp
+  qz.cpp
   svd.cpp
   )
 
