@@ -69,6 +69,7 @@ namespace nt2 {
    **/
   NT2_FUNCTION_IMPLEMENTATION(tag::qz_, qz, 2)
   NT2_FUNCTION_IMPLEMENTATION(tag::qz_, qz, 3)
+  NT2_FUNCTION_IMPLEMENTATION(tag::qz_, qz, 4)
 }
 
 namespace nt2 {

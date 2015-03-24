@@ -33,7 +33,8 @@ NT2_TEST_CASE_TPL ( qz, NT2_REAL_TYPES)
   using nt2::meta::as_;
   typedef std::complex<T> cT;
   {
-    nt2::table<cT> a, b, h, r, q, z;
+    nt2::table<cT> a, b;
+    nt2::table<T> h, r, q, z;
     a = nt2::cons<T>(nt2::of_size(4, 4),
                      2,     2,     4,     1,
                      4,     2,     2,     1,
@@ -49,11 +50,12 @@ NT2_TEST_CASE_TPL ( qz, NT2_REAL_TYPES)
     NT2_TEST(istriu(r));
     NT2_TEST(ishess(h));
 
-    NT2_TEST_ULP_EQUAL( a,  nt2::mtimes(q, nt2::mtimes(h, trans(z))), T(200));
-    NT2_TEST_ULP_EQUAL( b,  nt2::mtimes(q, nt2::mtimes(r, trans(z))), T(200));
+    NT2_TEST_ULP_EQUAL( a,  nt2::complexify(nt2::mtimes(q, nt2::mtimes(h, trans(z)))), T(200));
+    NT2_TEST_ULP_EQUAL( b,  nt2::complexify(nt2::mtimes(q, nt2::mtimes(r, trans(z)))), T(200));
   }
   {
-    nt2::table<T> a, b, h, r, q, z;
+    nt2::table<T> a, b;
+    nt2::table<cT> h, r, q, z;
     a = nt2::cons<T>(nt2::of_size(4, 4),
                      2,     2,     4,     1,
                      4,     2,     2,     1,
@@ -65,12 +67,11 @@ NT2_TEST_CASE_TPL ( qz, NT2_REAL_TYPES)
                      1,     3,     1,     2,
                      4,     4,     1,     4);
     tie(h, r, q, z) = nt2::qz(a, b, nt2::cmplx_);
-
     NT2_TEST(istriu(r));
     NT2_TEST(istriu(h));
 
-    NT2_TEST_ULP_EQUAL( a,  nt2::mtimes(q, nt2::mtimes(h, trans(z))), T(200));
-    NT2_TEST_ULP_EQUAL( b,  nt2::mtimes(q, nt2::mtimes(r, trans(z))), T(200));
+    NT2_TEST_ULP_EQUAL( nt2::complexify(a),  nt2::mtimes(q, nt2::mtimes(h, trans(z))), T(200));
+    NT2_TEST_ULP_EQUAL( nt2::complexify(b),  nt2::mtimes(q, nt2::mtimes(r, trans(z))), T(200));
   }
 }
 
