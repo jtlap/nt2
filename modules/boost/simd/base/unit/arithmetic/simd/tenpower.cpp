@@ -19,7 +19,7 @@
 #include <boost/simd/include/functions/sqr.hpp>
 
 
-NT2_TEST_CASE_TPL ( tenpower_unsigned_int, BOOST_SIMD_UNSIGNED_TYPES)
+NT2_TEST_CASE_TPL ( tenpower_unsigned_int, BOOST_SIMD_SIMD_UNSIGNED_TYPES)
 {
 
   using boost::simd::tenpower;
@@ -35,7 +35,7 @@ NT2_TEST_CASE_TPL ( tenpower_unsigned_int, BOOST_SIMD_UNSIGNED_TYPES)
   NT2_TEST_ULP_EQUAL(tenpower(boost::simd::Zero<vT>()), boost::simd::One<r_t>(), 0.5);
 } // end of test for unsigned_int_
 
-NT2_TEST_CASE_TPL ( tenpower_signed_int,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
+NT2_TEST_CASE_TPL ( tenpower_signed_int,  BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPES)
 {
 
   using boost::simd::tenpower;
