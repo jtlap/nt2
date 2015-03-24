@@ -50,3 +50,19 @@ NT2_TEST_CASE_TPL ( hess2, NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL( b,  nt2::mtimes(q, nt2::mtimes(r, trans(z))), T(200));
 }
 
+NT2_TEST_CASE_TPL ( hess3, NT2_REAL_TYPES)
+{
+  using nt2::_;
+  using nt2::meta::as_;
+  typedef std::complex<T> cT;
+  nt2::table<cT> a, b, h, r, q, z;
+  a = b =  nt2::eye(4, nt2::meta::as_<T>());
+  b(_, 1) = T(1);
+  tie(h, r, q, z) = nt2::hess(a, b);
+  NT2_TEST(ishess(h));
+  NT2_TEST(istriu(r));
+  NT2_DISPLAY(h);
+  NT2_DISPLAY(r);
+  NT2_TEST_ULP_EQUAL( a,  nt2::mtimes(q, nt2::mtimes(h, trans(z))), T(200));
+  NT2_TEST_ULP_EQUAL( b,  nt2::mtimes(q, nt2::mtimes(r, trans(z))), T(200));
+}
