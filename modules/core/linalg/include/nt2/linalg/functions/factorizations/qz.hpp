@@ -232,35 +232,41 @@ namespace nt2 { namespace ext
 
 
     BOOST_FORCEINLINE
-    void eval3_4 ( A0& a0, A1& a1,  policy<nt2::ext::real_> const &) const
+      void eval3_4 ( A0& a0, A1& a1,  policy<nt2::ext::real_> const &) const
     {
        BOOST_ASSERT_MSG(isreal(boost::proto::child_c<0>(a0)),
                         "all input matrix elements are to be real to support"
                         "'real_' option with complex type input");
-        BOOST_ASSERT_MSG(isreal(boost::proto::child_c<1>(a0)),
+       BOOST_ASSERT_MSG(isreal(boost::proto::child_c<1>(a0)),
                         "all input matrix elements are to be real to support"
-                        "'real_' option with complex type input");
-        tie(boost::proto::child_c<0>(a1),
-            boost::proto::child_c<1>(a1),
-            boost::proto::child_c<2>(a1),
-            boost::proto::child_c<3>(a1)) = qz( real(boost::proto::child_c<0>(a0))
-                                              , real(boost::proto::child_c<1>(a0)));
+                       "'real_' option with complex type input");
+       NT2_AS_TERMINAL_INOUT(r_semantic, a, real(boost::proto::child_c<0>(a0))
+                            , boost::proto::child_c<0>(a1));
+       NT2_AS_TERMINAL_INOUT(r_semantic, b, real(boost::proto::child_c<1>(a0))
+                            , boost::proto::child_c<1>(a1));
+       NT2_AS_TERMINAL_OUT(r_semantic, q, boost::proto::child_c<2>(a1));
+       NT2_AS_TERMINAL_OUT(r_semantic, z, boost::proto::child_c<3>(a1));
+       tie(a, b, q, z) = qz(a, b);
+       assign_swap(boost::proto::child_c<0>(a1), a);
+       assign_swap(boost::proto::child_c<1>(a1), b);
+       assign_swap(boost::proto::child_c<2>(a1), q);
+       assign_swap(boost::proto::child_c<3>(a1), z);
     }
 
     BOOST_FORCEINLINE
     void eval3_4 ( A0& a0, A1& a1,  policy<nt2::ext::cmplx_> const &) const
     {
-      BOOST_ASSERT_MSG(isreal(boost::proto::child_c<0>(a0)),
-                       "all input matrix elements are to be real to support"
-                       "'real_' option with complex type input");
-      BOOST_ASSERT_MSG(isreal(boost::proto::child_c<1>(a0)),
-                       "all input matrix elements are to be real to support"
-                       "'real_' option with complex type input");
-      tie(boost::proto::child_c<0>(a1),
-          boost::proto::child_c<1>(a1),
-          boost::proto::child_c<2>(a1),
-          boost::proto::child_c<3>(a1)) = qz( complexify(boost::proto::child_c<0>(a0))
-                                            , complexify(boost::proto::child_c<1>(a0)));
+      NT2_AS_TERMINAL_INOUT(c_semantic, a, boost::proto::child_c<0>(a0)
+                           , boost::proto::child_c<0>(a1));
+      NT2_AS_TERMINAL_INOUT(c_semantic, b, boost::proto::child_c<1>(a0)
+                           , boost::proto::child_c<1>(a1));
+      NT2_AS_TERMINAL_OUT(c_semantic, q, boost::proto::child_c<2>(a1));
+      NT2_AS_TERMINAL_OUT(c_semantic, z, boost::proto::child_c<3>(a1));
+      tie(a, b, q, z) = qz(a, b);
+      assign_swap(boost::proto::child_c<0>(a1), a);
+      assign_swap(boost::proto::child_c<1>(a1), b);
+      assign_swap(boost::proto::child_c<2>(a1), q);
+      assign_swap(boost::proto::child_c<3>(a1), z);
     }
 
     //==========================================================================
@@ -710,5 +716,3 @@ namespace nt2 { namespace ext
 } }
 
 #endif
-
-
