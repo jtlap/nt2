@@ -53,12 +53,4 @@ namespace nt2 {
   NT2_FUNCTION_IMPLEMENTATION(tag::bandwidth_, bandwidth, 2)
 }
 
-// namespace nt2 {
-//   namespace ext {
-//     template<class Domain, int N, class Expr>
-//     struct  size_of<tag::bandwidth_,Domain,N,Expr>
-//       : meta::size_as<Expr,0>
-//     {};
-//   }
-//}
 #endif
