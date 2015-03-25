@@ -74,7 +74,6 @@ NT2_TEST_CASE_TPL ( round_real2,  BOOST_SIMD_REAL_TYPES)
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef native<cT,ext_t>                vcT;
   typedef typename nt2::dry<T>             dT;
-  typedef native<dT,ext_t>                vdT;
 
   // specific values tests
 #ifndef BOOST_SIMD_NO_INVALIDS
