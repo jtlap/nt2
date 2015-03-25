@@ -177,6 +177,16 @@ namespace nt2 { namespace ext
     }
 
     //==========================================================================
+    /// INTERNAL ONLY - [aa, bb, q, z, lambda] = qz(a, b)
+    BOOST_FORCEINLINE
+    void eval ( A0& a0, A1& a1
+              , boost::mpl::long_<2> const& //2 inputs
+              , boost::mpl::long_<7> const& //7 outputs so option must be lambda_
+              ) const
+    {
+      eval3_7(a0, a1, policy<nt2::ext::lambda_>());
+    }
+    //==========================================================================
     /// INTERNAL ONLY - [aa, bb, q, z, lambda] = qz(a, b, option)
     // returns the qz matrix
     BOOST_FORCEINLINE
@@ -217,6 +227,44 @@ namespace nt2 { namespace ext
       assign_swap(boost::proto::child_c<4>(a1), alpha);
       boost::proto::child_c<4>(a1) /= beta;
     }
+    //==========================================================================
+    /// INTERNAL ONLY - [aa, bb, q, z, lambda] = qz(a, b, option)
+    // returns the qz matrix
+    BOOST_FORCEINLINE
+    void eval ( A0& a0, A1& a1
+              , boost::mpl::long_<3> const& //3 inputs
+              , boost::mpl::long_<7> const& //7 outputs
+              ) const
+    {
+      eval3_7(a0, a1, boost::proto::value(boost::proto::child_c<2>(a0)));
+    }
+
+    BOOST_FORCEINLINE
+    void eval3_7 ( A0& a0, A1& a1,  policy<nt2::ext::lambda_> const &) const
+    {
+      NT2_AS_TERMINAL_INOUT(o_semantic, a, boost::proto::child_c<0>(a0)
+                           , boost::proto::child_c<0>(a1));
+      NT2_AS_TERMINAL_INOUT(o_semantic, b, boost::proto::child_c<1>(a0)
+                           , boost::proto::child_c<1>(a1));
+      NT2_AS_TERMINAL_OUT(o_semantic, q, boost::proto::child_c<2>(a1));
+      NT2_AS_TERMINAL_OUT(o_semantic, z, boost::proto::child_c<3>(a1));
+      NT2_AS_TERMINAL_OUT(c_semantic, v, boost::proto::child_c<4>(a1));
+      NT2_AS_TERMINAL_OUT(c_semantic, w, boost::proto::child_c<5>(a1));
+      NT2_AS_TERMINAL_OUT(c_semantic, alpha, boost::proto::child_c<6>(a1));
+      container::table<type_t> beta(of_size(height(a), 1));
+      tie(a, b, q, z, v, w, alpha, beta) = nt2::qz(a, b);
+      assign_swap(boost::proto::child_c<0>(a1), a);
+      assign_swap(boost::proto::child_c<1>(a1), b);
+      assign_swap(boost::proto::child_c<2>(a1), q);
+      assign_swap(boost::proto::child_c<3>(a1), z);
+      assign_swap(boost::proto::child_c<4>(a1), v);
+      assign_swap(boost::proto::child_c<5>(a1), w);
+      assign_swap(boost::proto::child_c<6>(a1), alpha);
+      boost::proto::child_c<6>(a1) /= beta;
+    }
+
+
+
 
     //==========================================================================
     /// INTERNAL ONLY - [aa, bb, q, z, alpha/v, beta/w] = qz(a, b, option) // option can be real_/cmplx_
@@ -373,7 +421,120 @@ namespace nt2 { namespace ext
     }
 
     //==========================================================================
-    /// INTERNAL ONLY - [aa, bb, q, z, alpha/v, beta/w] = qz(a, b, option)
+    /// INTERNAL ONLY - [aa, bb, q, z, alpha/v, beta/w] = qz(a, b, option1, option2)
+    // option1 can be alphabeta_ or eigs_,  option2 real_, cmplx_
+    BOOST_FORCEINLINE
+    void eval ( A0& a0, A1& a1
+              , boost::mpl::long_<4> const& //4 inputs
+              , boost::mpl::long_<6> const& //6 outputs
+              ) const
+    {
+      eval4_6(a0, a1, boost::proto::value(boost::proto::child_c<2>(a0))
+             , boost::proto::value(boost::proto::child_c<3>(a0)));
+    }
+
+    BOOST_FORCEINLINE
+    void eval4_6( A0& a0, A1& a1
+                , nt2::policy<ext::alphabeta_> const &
+                , nt2::policy<ext::real_> const & ) const
+    {
+       BOOST_ASSERT_MSG(isreal(boost::proto::child_c<0>(a0)),
+                        "all input matrix elements are to be real to support"
+                        "'real_' option with complex type input");
+       BOOST_ASSERT_MSG(isreal(boost::proto::child_c<1>(a0)),
+                        "all input matrix elements are to be real to support"
+                       "'real_' option with complex type input");
+       NT2_AS_TERMINAL_INOUT(r_semantic, a, real(boost::proto::child_c<0>(a0))
+                            , boost::proto::child_c<0>(a1));
+       NT2_AS_TERMINAL_INOUT(r_semantic, b, real(boost::proto::child_c<1>(a0))
+                            , boost::proto::child_c<1>(a1));
+       NT2_AS_TERMINAL_OUT(r_semantic, q, boost::proto::child_c<2>(a1));
+       NT2_AS_TERMINAL_OUT(r_semantic, z, boost::proto::child_c<3>(a1));
+       NT2_AS_TERMINAL_OUT(c_semantic, alpha, boost::proto::child_c<4>(a1));
+       NT2_AS_TERMINAL_OUT(r_semantic, beta, boost::proto::child_c<5>(a1));
+       tie(a, b, q, z, alpha, beta, ) = qz(a, b);
+       assign_swap(boost::proto::child_c<0>(a1), a);
+       assign_swap(boost::proto::child_c<1>(a1), b);
+       assign_swap(boost::proto::child_c<2>(a1), q);
+       assign_swap(boost::proto::child_c<3>(a1), z);
+       assign_swap(boost::proto::child_c<4>(a1), alpha);
+       assign_swap(boost::proto::child_c<5>(a1), beta);
+    }
+
+    BOOST_FORCEINLINE
+    void eval4_6( A0& a0, A1& a1
+                , nt2::policy<ext::eigs_> const &
+                , nt2::policy<ext::real_> const & ) const
+    {
+       BOOST_ASSERT_MSG(isreal(boost::proto::child_c<0>(a0)),
+                        "all input matrix elements are to be real to support"
+                        "'real_' option with complex type input");
+       BOOST_ASSERT_MSG(isreal(boost::proto::child_c<1>(a0)),
+                        "all input matrix elements are to be real to support"
+                       "'real_' option with complex type input");
+       NT2_AS_TERMINAL_INOUT(r_semantic, a, real(boost::proto::child_c<0>(a0))
+                            , boost::proto::child_c<0>(a1));
+       NT2_AS_TERMINAL_INOUT(r_semantic, b, real(boost::proto::child_c<1>(a0))
+                            , boost::proto::child_c<1>(a1));
+       NT2_AS_TERMINAL_OUT(r_semantic, q, boost::proto::child_c<2>(a1));
+       NT2_AS_TERMINAL_OUT(r_semantic, z, boost::proto::child_c<3>(a1));
+       NT2_AS_TERMINAL_OUT(c_semantic, v, boost::proto::child_c<4>(a1));
+       NT2_AS_TERMINAL_OUT(c_semantic, w, boost::proto::child_c<5>(a1));
+       tie(a, b, q, z, v, w, ) = qz(a, b);
+       assign_swap(boost::proto::child_c<0>(a1), a);
+       assign_swap(boost::proto::child_c<1>(a1), b);
+       assign_swap(boost::proto::child_c<2>(a1), q);
+       assign_swap(boost::proto::child_c<3>(a1), z);
+       assign_swap(boost::proto::child_c<4>(a1), v);
+       assign_swap(boost::proto::child_c<5>(a1), w);
+    }
+
+    BOOST_FORCEINLINE
+    void eval4_6( A0& a0, A1& a1
+                , nt2::policy<ext::alphabeta_> const &
+                , nt2::policy<ext::cmplx_> const & ) const
+    {
+       NT2_AS_TERMINAL_INOUT(c_semantic, a, boost::proto::child_c<0>(a0)
+                            , boost::proto::child_c<0>(a1));
+       NT2_AS_TERMINAL_INOUT(c_semantic, b, boost::proto::child_c<1>(a0)
+                            , boost::proto::child_c<1>(a1));
+       NT2_AS_TERMINAL_OUT(c_semantic, q, boost::proto::child_c<2>(a1));
+       NT2_AS_TERMINAL_OUT(c_semantic, z, boost::proto::child_c<3>(a1));
+       NT2_AS_TERMINAL_OUT(c_semantic, alpha, boost::proto::child_c<4>(a1));
+       NT2_AS_TERMINAL_OUT(c_semantic, beta, boost::proto::child_c<5>(a1));
+       tie(a, b, q, z, alpha, beta, ) = qz(a, b);
+       assign_swap(boost::proto::child_c<0>(a1), a);
+       assign_swap(boost::proto::child_c<1>(a1), b);
+       assign_swap(boost::proto::child_c<2>(a1), q);
+       assign_swap(boost::proto::child_c<3>(a1), z);
+       assign_swap(boost::proto::child_c<4>(a1), alpha);
+       assign_swap(boost::proto::child_c<5>(a1), beta);
+    }
+
+    BOOST_FORCEINLINE
+    void eval4_6( A0& a0, A1& a1
+                , nt2::policy<ext::eigs_> const &
+                , nt2::policy<ext::real_> const & ) const
+    {
+       NT2_AS_TERMINAL_INOUT(c_semantic, a, boost::proto::child_c<0>(a0)
+                            , boost::proto::child_c<0>(a1));
+       NT2_AS_TERMINAL_INOUT(c_semantic, b, boost::proto::child_c<1>(a0)
+                            , boost::proto::child_c<1>(a1));
+       NT2_AS_TERMINAL_OUT(c_semantic, q, boost::proto::child_c<2>(a1));
+       NT2_AS_TERMINAL_OUT(c_semantic, z, boost::proto::child_c<3>(a1));
+       NT2_AS_TERMINAL_OUT(c_semantic, v, boost::proto::child_c<4>(a1));
+       NT2_AS_TERMINAL_OUT(c_semantic, w, boost::proto::child_c<5>(a1));
+       tie(a, b, q, z, v, w, ) = qz(a, b);
+       assign_swap(boost::proto::child_c<0>(a1), a);
+       assign_swap(boost::proto::child_c<1>(a1), b);
+       assign_swap(boost::proto::child_c<2>(a1), q);
+       assign_swap(boost::proto::child_c<3>(a1), z);
+       assign_swap(boost::proto::child_c<4>(a1), v);
+       assign_swap(boost::proto::child_c<5>(a1), w);
+    }
+
+    //==========================================================================
+    /// INTERNAL ONLY - [aa, bb, q, z, v, w, alpha, beta] = qz(a, b)
     // option can be alphabeta_ or eigs_
     BOOST_FORCEINLINE
     void eval ( A0& a0, A1& a1
@@ -381,10 +542,10 @@ namespace nt2 { namespace ext
               , boost::mpl::long_<8> const& //8 outputs
               ) const
     {
-      eval3_8(a0, a1);
+      eval2_8(a0, a1);
     }
     BOOST_FORCEINLINE
-    void eval3_8 ( A0& a0, A1& a1) const
+    void eval2_8 ( A0& a0, A1& a1) const
     {
       NT2_AS_TERMINAL_INOUT(o_semantic, a, boost::proto::child_c<0>(a0)
                            , boost::proto::child_c<0>(a1));
@@ -455,262 +616,64 @@ namespace nt2 { namespace ext
       combine_vects(in1, imag(in2), out);
     }
 
+    //==========================================================================
+    /// INTERNAL ONLY - [aa, bb, q, z, v, w, alpha, beta] = qz(a, b, option) //option can be real_ or cmplx_
+    // option can be alphabeta_ or eigs_
+    BOOST_FORCEINLINE
+    void eval ( A0& a0, A1& a1
+              , boost::mpl::long_<3> const& //3 inputs
+              , boost::mpl::long_<8> const& //8 outputs
+              ) const
+    {
+      eval3_8(a0, a1, boost::proto::value(boost::proto::child_c<2>(a0)));
+    }
 
+    BOOST_FORCEINLINE
+    void eval3_8 ( A0& a0, A1& a1, nt2::policy<ext::real_> const &) const
+    {
+       BOOST_ASSERT_MSG(isreal(boost::proto::child_c<0>(a0)),
+                        "all input matrix elements are to be real to support"
+                        "'real_' option with complex type input");
+       BOOST_ASSERT_MSG(isreal(boost::proto::child_c<1>(a0)),
+                        "all input matrix elements are to be real to support"
+                       "'real_' option with complex type input");
+       NT2_AS_TERMINAL_INOUT(r_semantic, a, real(boost::proto::child_c<0>(a0))
+                            , boost::proto::child_c<0>(a1));
+       NT2_AS_TERMINAL_INOUT(r_semantic, b, real(boost::proto::child_c<1>(a0))
+                            , boost::proto::child_c<1>(a1));
+       NT2_AS_TERMINAL_OUT(r_semantic, q, boost::proto::child_c<2>(a1));
+       NT2_AS_TERMINAL_OUT(r_semantic, z, boost::proto::child_c<3>(a1));
+       NT2_AS_TERMINAL_OUT(c_semantic, v, boost::proto::child_c<4>(a1));
+       NT2_AS_TERMINAL_OUT(c_semantic, w, boost::proto::child_c<5>(a1));
+       tie(a, b, q, z, v, w) = qz(a, b);
+       assign_swap(boost::proto::child_c<0>(a1), a);
+       assign_swap(boost::proto::child_c<1>(a1), b);
+       assign_swap(boost::proto::child_c<2>(a1), q);
+       assign_swap(boost::proto::child_c<3>(a1), z);
+       assign_swap(boost::proto::child_c<4>(a1), v);
+       assign_swap(boost::proto::child_c<5>(a1), w);
+    }
 
- //    //==========================================================================
-//     /// INTERNAL ONLY - T = QZ(A, cmplx_/real_)
-//     // returns T in its real or complex form or only the eigenvalues
-//     BOOST_FORCEINLINE
-//     void eval ( A0& a0, A1& a1
-//               , boost::mpl::long_<2> const&
-//               , boost::mpl::long_<1> const&
-//               ) const
-//     {
-//        eval1_2(a0, a1,
-//                boost::proto::value(boost::proto::child_c<1>(a0)));
-//     }
-
-
-//     //==========================================================================
-//     /// INTERNAL ONLY
-//     BOOST_FORCEINLINE
-//     void eval1_2 ( A0& a0, A1& a1
-//                  , nt2::policy<ext::real_>
-//                  ) const
-//     {
-//       BOOST_ASSERT_MSG(isreal(boost::proto::child_c<0>(a0)),
-//                        "all input matrix elements are to be real to support"
-//                        "'real_' option with complex type input");
-//       NT2_AS_TERMINAL_INOUT(r_semantic, t
-//                            , real(boost::proto::child_c<0>(a0))
-//                            , boost::proto::child_c<0>(a1));
-//       // Here one cannot be sure that boost::proto::child_c<0>(a1) is real typed
-//       // as the 'real'qz decomposition can be put in a complex table
-//       // so we cannot pass it to geesx that needs a real table
-//       NT2_LAPACK_VERIFY(nt2::geesx(boost::proto::value(t), rtype_t(0)));
-//       assign_swap(boost::proto::child_c<0>(a1), t);
-//     }
-
-//     //==========================================================================
-//     /// INTERNAL ONLY
-//     BOOST_FORCEINLINE
-//     void eval1_2 ( A0& a0, A1& a1
-//                  , nt2::policy<ext::eigs_>
-//                  ) const
-//     {
-//       nt2::container::table<type_t> work;
-//       NT2_AS_TERMINAL_INOUT(o_semantic, t
-//                            , boost::proto::child_c<0>(a0), work);
-//       NT2_AS_TERMINAL_OUT  (c_semantic, w
-//                            , boost::proto::child_c<0>(a1));
-//       NT2_LAPACK_VERIFY( nt2::geesxw(boost::proto::value(t),
-//                                      boost::proto::value(w)));
-//       w.resize(of_size(height(t), 1));
-//       assign_swap(boost::proto::child_c<0>(a1), w);
-//    }
-
-//     //==========================================================================
-//     /// INTERNAL ONLY
-//     BOOST_FORCEINLINE
-//     void eval1_2 ( A0& a0, A1& a1
-//                  , nt2::policy<ext::cmplx_>
-//                  ) const
-//     {
-//       typedef typename meta::is_complex<type_t>::type is_cmplx_t;
-//       eval1_2c(a0, a1, is_cmplx_t());
-//     }
-
-//     BOOST_FORCEINLINE
-//     void eval1_2c ( A0& a0, A1& a1
-//                  , boost::mpl::false_
-//                  ) const
-//     {
-//       // Here boost::proto::child_c<0>(a0) is real and geesx has to receive a complex table
-//       NT2_AS_TERMINAL_INOUT(c_semantic, t, boost::proto::child_c<0>(a0), boost::proto::child_c<0>(a1));
-//       NT2_LAPACK_VERIFY(nt2::geesx(boost::proto::value(t), ctype_t(0)));
-//       assign_swap(boost::proto::child_c<0>(a1), t);
-//     }
-
-//     BOOST_FORCEINLINE
-//     void eval1_2c ( A0& a0, A1& a1
-//                  , boost::mpl::true_
-//                  ) const
-//     {
-//       // Here  boost::proto::child_c<0>(a0) is complex
-//       NT2_AS_TERMINAL_INOUT(c_semantic, t
-//                            , boost::proto::child_c<0>(a0), boost::proto::child_c<0>(a1));
-//       NT2_LAPACK_VERIFY(nt2::geesx(boost::proto::value(t), ctype_t(0)));
-//       assign_swap(boost::proto::child_c<0>(a1), t);
-//      }
-
-//     //==========================================================================
-//     /// INTERNAL ONLY - [U, T]= QZ(A)
-//     BOOST_FORCEINLINE
-//     void eval ( A0& a0, A1& a1
-//               , boost::mpl::long_<1> const&
-//               , boost::mpl::long_<2> const&
-//               ) const
-//     {
-//       NT2_AS_TERMINAL_INOUT(o_semantic, t
-//                            , boost::proto::child_c<0>(a0), boost::proto::child_c<1>(a1));
-//       NT2_AS_TERMINAL_OUT  (o_semantic, u
-//                            , boost::proto::child_c<0>(a1));
-//       size_t n = height(t);
-//       u.resize(of_size(n, n));
-//       NT2_LAPACK_VERIFY(nt2::geesx_no_w( boost::proto::value(t)
-//                                        , boost::proto::value(u)
-//                                    ));
-//       assign_swap(boost::proto::child_c<0>(a1), u);
-//       assign_swap(boost::proto::child_c<1>(a1), t);
-//     }
-
-//     //==========================================================================
-//     /// INTERNAL ONLY - [T, U]= QZ(A, sort_/cmplx_/real_ )
-//     BOOST_FORCEINLINE
-//     void eval ( A0& a0, A1& a1
-//               , boost::mpl::long_<2> const&
-//               , boost::mpl::long_<2> const&
-//               ) const
-//     {
-//       eval2_2( a0, a1
-//              , boost::proto::value(boost::proto::child_c<1>(a0)));
-
-//     }
-
-//     //==========================================================================
-//     /// INTERNAL ONLY
-//     BOOST_FORCEINLINE
-//     void eval2_2 ( A0& a0, A1& a1
-//                  , nt2::policy<ext::real_>
-//                  ) const
-//     {
-//       BOOST_ASSERT_MSG(isreal(boost::proto::child_c<0>(a0)),
-//                        "all input matrix elements are to be real to support "
-//                        "'real_' option with complex type input");
-//       NT2_AS_TERMINAL_INOUT(r_semantic, t
-//                            , real(boost::proto::child_c<0>(a0)), boost::proto::child_c<1>(a1));
-//       NT2_AS_TERMINAL_OUT  (r_semantic, u
-//                            , boost::proto::child_c<0>(a1));
-//       size_t n = height(t);
-//       u.resize(of_size(n, n));
-//       NT2_LAPACK_VERIFY(nt2::geesx_no_w( boost::proto::value(t)
-//                                        , boost::proto::value(u)
-//                                    ));
-//       assign_swap(boost::proto::child_c<0>(a1), u);
-//       assign_swap(boost::proto::child_c<1>(a1), t);
-//     }
-
-//     //==========================================================================
-//     /// INTERNAL ONLY
-//     BOOST_FORCEINLINE
-//     void eval2_2 ( A0& a0, A1& a1
-//                  , nt2::policy<ext::cmplx_>
-//                  ) const
-//     {
-//       NT2_AS_TERMINAL_INOUT(c_semantic, t
-//                            , boost::proto::child_c<0>(a0), boost::proto::child_c<1>(a1));
-//       NT2_AS_TERMINAL_OUT  (c_semantic, u
-//                            , boost::proto::child_c<0>(a1));
-//       size_t n = nt2::height(t);
-//       u.resize(of_size(n, n));
-//       NT2_LAPACK_VERIFY(nt2::geesx_no_w( boost::proto::value(t)
-//                                        , boost::proto::value(u)
-//                                    ));
-//       assign_swap(boost::proto::child_c<0>(a1), u);
-//       assign_swap(boost::proto::child_c<1>(a1), t);
-//     }
-
-//     //==========================================================================
-//     /// INTERNAL ONLY - [U, T, W]= QZ(A)
-//     BOOST_FORCEINLINE
-//     void eval ( A0& a0, A1& a1
-//               , boost::mpl::long_<1> const&
-//               , boost::mpl::long_<3> const&
-//               ) const
-//     {
-//       NT2_AS_TERMINAL_INOUT(o_semantic, t
-//                            , boost::proto::child_c<0>(a0), boost::proto::child_c<1>(a1));
-//       NT2_AS_TERMINAL_OUT  (o_semantic, u
-//                            , boost::proto::child_c<0>(a1));
-//       NT2_AS_TERMINAL_OUT  (c_semantic, w
-//                            , boost::proto::child_c<2>(a1));
-//       size_t n =   height(t);
-//       u.resize(of_size(n, n));
-//       w.resize(of_size(n, 1));
-//       NT2_LAPACK_VERIFY(nt2::geesx( boost::proto::value(t)
-//                                   , boost::proto::value(w)
-//                                   , boost::proto::value(u)
-//                               ));
-//       assign_swap(boost::proto::child_c<0>(a1), u);
-//       assign_swap(boost::proto::child_c<1>(a1), t);
-//       assign_swap(boost::proto::child_c<2>(a1), w);
-
-//     }
-//     //==========================================================================
-//     /// INTERNAL ONLY - [U, T, W]= QZ(A, real_/complex_)
-//     BOOST_FORCEINLINE
-//     void eval ( A0& a0, A1& a1
-//               , boost::mpl::long_<2> const&
-//               , boost::mpl::long_<3> const&
-//               ) const
-//     {
-//       eval3_2(a0, a1,
-//               boost::proto::value(boost::proto::child_c<1>(a0)));
-//     }
-
-//     //==========================================================================
-//     /// INTERNAL ONLY
-//     BOOST_FORCEINLINE
-//     void eval3_2 ( A0& a0, A1& a1
-//                  , nt2::policy<ext::cmplx_>
-//                  ) const
-//     {
-//       NT2_AS_TERMINAL_INOUT(c_semantic, t
-//                            , boost::proto::child_c<0>(a0), boost::proto::child_c<1>(a1));
-//       NT2_AS_TERMINAL_OUT  (c_semantic, u
-//                            , boost::proto::child_c<0>(a1));
-//       NT2_AS_TERMINAL_OUT  (c_semantic, w
-//                            , boost::proto::child_c<2>(a1));
-//       size_t n = nt2::height(t);
-//       u.resize(of_size(n, n));
-//       w.resize(of_size(n, 1));
-//       NT2_LAPACK_VERIFY(nt2::geesx( boost::proto::value(t)
-//                                   , boost::proto::value(w)
-//                                   , boost::proto::value(u)
-//                                   ));
-//       assign_swap(boost::proto::child_c<0>(a1), u);
-//       assign_swap(boost::proto::child_c<1>(a1), t);
-//       assign_swap(boost::proto::child_c<2>(a1), w);
-//     }
-
-//     //==========================================================================
-//     /// INTERNAL ONLY
-//     BOOST_FORCEINLINE
-//     void eval3_2 ( A0& a0, A1& a1
-//                  , nt2::policy<ext::real_>
-//                  ) const
-//     {
-//       BOOST_ASSERT_MSG(isreal(boost::proto::child_c<0>(a0)),
-//                        "all input matrix elements are to be real to support "
-//                        "'real_' option with complex type input");
-//       NT2_AS_TERMINAL_INOUT(r_semantic, t
-//                            , real(boost::proto::child_c<0>(a0)), boost::proto::child_c<1>(a1));
-//       NT2_AS_TERMINAL_OUT  (r_semantic, u
-//                            , boost::proto::child_c<0>(a1));
-//       NT2_AS_TERMINAL_OUT  (c_semantic, w
-//                            , boost::proto::child_c<2>(a1));
-//       size_t n = nt2::height(t);
-//       u.resize(of_size(n, n));
-//       w.resize(of_size(n, 1));
-//       NT2_LAPACK_VERIFY(nt2::geesx( boost::proto::value(t)
-//                                   , boost::proto::value(w)
-//                                   , boost::proto::value(u)
-//                                   ));
-//       assign_swap(boost::proto::child_c<0>(a1), u);
-//       assign_swap(boost::proto::child_c<1>(a1), t);
-//       assign_swap(boost::proto::child_c<2>(a1), w);
-//     }
-   };
+    BOOST_FORCEINLINE
+    void eval3_8 ( A0& a0, A1& a1, nt2::policy<ext::cmplx_> const &) const
+    {
+       NT2_AS_TERMINAL_INOUT(c_semantic, a, real(boost::proto::child_c<0>(a0))
+                            , boost::proto::child_c<0>(a1));
+       NT2_AS_TERMINAL_INOUT(c_semantic, b, real(boost::proto::child_c<1>(a0))
+                            , boost::proto::child_c<1>(a1));
+       NT2_AS_TERMINAL_OUT(c_semantic, q, boost::proto::child_c<2>(a1));
+       NT2_AS_TERMINAL_OUT(c_semantic, z, boost::proto::child_c<3>(a1));
+       NT2_AS_TERMINAL_OUT(c_semantic, v, boost::proto::child_c<4>(a1));
+       NT2_AS_TERMINAL_OUT(c_semantic, w, boost::proto::child_c<5>(a1));
+       tie(a, b, q, z, v, w) = qz(a, b);
+       assign_swap(boost::proto::child_c<0>(a1), a);
+       assign_swap(boost::proto::child_c<1>(a1), b);
+       assign_swap(boost::proto::child_c<2>(a1), q);
+       assign_swap(boost::proto::child_c<3>(a1), z);
+       assign_swap(boost::proto::child_c<4>(a1), v);
+       assign_swap(boost::proto::child_c<5>(a1), w);
+    }
+  };
 
 
 } }
