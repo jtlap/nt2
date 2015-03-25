@@ -39,33 +39,34 @@ namespace nt2 {
   /**
    * @brief Perform qz generalized factorization
    *
-   * For any given matrix expression, performs a Qz factorization of
-   * said matrix using the specified output layout for the Qz method.
+   * For any given matrix expression a and b, performs a qz factorization of
+   * said matrix using the specified output layout for the qz method.
    *
    *
    * possible calls are
-   * t =  qz(a);
-   *     if a is complex, the complex qz form is returned in matrix t.
-   *     the complex qz form is upper triangular with the eigenvalues
-   *     of a on the diagonal.
+   * tie(aa, bb, {q, z, {vr, vl}, {alpha, beta}}) =  qz(a, b{, option1, {option2}});
+   *     if a or b is complex the complex qz form is returned if option is not present
    *
-   *     if a is real, or has only real elements two different decompositions are available.
-   *     t = qz(a,real_) has the real eigenvalues on the diagonal and the
-   *     complex eigenvalues in 2-by-2 blocks on the diagonal.
-   *     t = qz(a,cmplx_) is triangular and is complex.
-   *     t = qz(a,real_) is the default for real types entry and in this case is equivalent to
-   *     t = qz(a). For complex types entry the complex form is the default and in this case
-   *     t = qz(a,cmplx_) is equivalent to qz(a).
+   *     if a and b are real, or have only real elements two different
+   *     decompositions are available.
    *
-   * t =  qz(a, real_);   // all a coefficients must contain real values
-   * t =  qz(a, cmplx_);  // t must be able to receive complex elts
+   *     tie(aa, bb, ...) = qz(a,b, real_) returns real matrices with hessenberg aa and
+   *     upper triangular bb. The complex eigenvalue can be reached in 2-by-2 blocks on
+   *     the diagonal or directly with alpha and beta.
+   *     tie(aa, bb, ...) = qz(a,b, cmplx_) returns complex matrices with  upper
+   *     triangular aa and bb. The eigenvalues  can be obtained directly on the diagonals
+   *     or with  alpha and beta.
+   *     In any cases v and w and alpha are mandatorily complex arrays,  but beta can
+   *     be real if the inputs are real and/or real_ option is used
    *
-   * tie(u, t) = qz(a, ...) also returns the unitary (orthogonal in the real_ case) matrix u
-   *                        such that u*t*ctrans(u) ==  a
-   * tie(u, t, w) = qz(a, ...) returns also the vector w containing the eigenvalues of a (w
-   *                           is mandatorily complex)
+   *     alpha and beta are returned as vectors (Not diagonal matrices).
    *
-   *
+   *     if required vr and vl are respectively right and left eigenvectors for the problem
+   *     if two options are present the routine must receive 6 ouputs and the
+   *     option alphabeta_/eigs_ allow to choose the two last outputs
+   *     with 5 or 7 outputs:
+   *     tie(aa, bb, q, z{, vr, vl}, lambda}) =  qz(a, b) return lambda =  alpha/beta
+   *     as a complex vector. This is not recommanded as some (alpha and) beta can be zero.
    **/
   NT2_FUNCTION_IMPLEMENTATION(tag::qz_, qz, 2)
   NT2_FUNCTION_IMPLEMENTATION(tag::qz_, qz, 3)
