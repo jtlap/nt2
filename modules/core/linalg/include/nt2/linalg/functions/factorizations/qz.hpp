@@ -23,10 +23,10 @@
 #include <nt2/include/functions/resize.hpp>
 #include <nt2/include/functions/tgevc.hpp>
 #include <nt2/include/functions/tie.hpp>
-#include <nt2/sdk/meta/as_real.hpp>
-#include <nt2/sdk/complex/meta/is_complex.hpp>
 #include <nt2/linalg/options.hpp>
 #include <nt2/linalg/details/utility/lapack_verify.hpp>
+#include <nt2/sdk/meta/as_real.hpp>
+#include <nt2/sdk/complex/meta/is_complex.hpp>
 #include <nt2/core/container/dsl/as_terminal.hpp>
 #include <nt2/core/utility/assign_swap.hpp>
 #include <boost/assert.hpp>
@@ -371,17 +371,10 @@ namespace nt2 { namespace ext
       NT2_AS_TERMINAL_OUT(c_semantic, v, boost::proto::child_c<4>(a1));
       NT2_AS_TERMINAL_OUT(c_semantic, w, boost::proto::child_c<5>(a1));
       std::size_t n = height(a);
-//       NT2_DISPLAY("avant hess");
-//       NT2_DISPLAY(a);
-//       NT2_DISPLAY(b);
-
       tie(a, b, q, z) = nt2::hess(a, b);
       //now a is hessenberg and b triangular, we can use hgeqz
       container::table<ctype_t> alpha(of_size(n, 1));
       container::table<type_t> beta(of_size(n, 1));
-//       NT2_DISPLAY("avant hgeqz");
-//       NT2_DISPLAY(a);
-//       NT2_DISPLAY(b);
       NT2_LAPACK_VERIFY(nt2::hgeqz('S', 'V', 'V'
                                   , 1, n
                                   , boost::proto::value(a)
@@ -395,23 +388,13 @@ namespace nt2 { namespace ext
       container::table<type_t> vr(of_size(n, n));
       vl = q;
       vr = z;
-//       NT2_DISPLAY("avant tgevc");
-//       NT2_DISPLAY(a);
-//       NT2_DISPLAY(b);
       NT2_LAPACK_VERIFY(nt2::tgevc('B', 'B'
                                   , boost::proto::value(a)
                                   , boost::proto::value(b)
                                   , boost::proto::value(vl)
                                   , boost::proto::value(vr)));
-//       NT2_DISPLAY("apres tgevc");
-//       NT2_DISPLAY(a);
-//       NT2_DISPLAY(b);
-//       NT2_DISPLAY(vl);
-//       NT2_DISPLAY(vr);
       combine(vl, alpha, v, iscplx_t());
       combine(vr, alpha, w, iscplx_t());
-//       NT2_DISPLAY(v);
-//       NT2_DISPLAY(w);
       assign_swap(boost::proto::child_c<0>(a1), a);
       assign_swap(boost::proto::child_c<1>(a1), b);
       assign_swap(boost::proto::child_c<2>(a1), q);
@@ -452,7 +435,7 @@ namespace nt2 { namespace ext
        NT2_AS_TERMINAL_OUT(r_semantic, z, boost::proto::child_c<3>(a1));
        NT2_AS_TERMINAL_OUT(c_semantic, alpha, boost::proto::child_c<4>(a1));
        NT2_AS_TERMINAL_OUT(r_semantic, beta, boost::proto::child_c<5>(a1));
-       tie(a, b, q, z, alpha, beta, ) = qz(a, b);
+       tie(a, b, q, z, alpha, beta) = qz(a, b);
        assign_swap(boost::proto::child_c<0>(a1), a);
        assign_swap(boost::proto::child_c<1>(a1), b);
        assign_swap(boost::proto::child_c<2>(a1), q);
@@ -480,7 +463,7 @@ namespace nt2 { namespace ext
        NT2_AS_TERMINAL_OUT(r_semantic, z, boost::proto::child_c<3>(a1));
        NT2_AS_TERMINAL_OUT(c_semantic, v, boost::proto::child_c<4>(a1));
        NT2_AS_TERMINAL_OUT(c_semantic, w, boost::proto::child_c<5>(a1));
-       tie(a, b, q, z, v, w, ) = qz(a, b);
+       tie(a, b, q, z, v, w) = qz(a, b);
        assign_swap(boost::proto::child_c<0>(a1), a);
        assign_swap(boost::proto::child_c<1>(a1), b);
        assign_swap(boost::proto::child_c<2>(a1), q);
@@ -502,35 +485,13 @@ namespace nt2 { namespace ext
        NT2_AS_TERMINAL_OUT(c_semantic, z, boost::proto::child_c<3>(a1));
        NT2_AS_TERMINAL_OUT(c_semantic, alpha, boost::proto::child_c<4>(a1));
        NT2_AS_TERMINAL_OUT(c_semantic, beta, boost::proto::child_c<5>(a1));
-       tie(a, b, q, z, alpha, beta, ) = qz(a, b);
+       tie(a, b, q, z, alpha, beta) = qz(a, b);
        assign_swap(boost::proto::child_c<0>(a1), a);
        assign_swap(boost::proto::child_c<1>(a1), b);
        assign_swap(boost::proto::child_c<2>(a1), q);
        assign_swap(boost::proto::child_c<3>(a1), z);
        assign_swap(boost::proto::child_c<4>(a1), alpha);
        assign_swap(boost::proto::child_c<5>(a1), beta);
-    }
-
-    BOOST_FORCEINLINE
-    void eval4_6( A0& a0, A1& a1
-                , nt2::policy<ext::eigs_> const &
-                , nt2::policy<ext::real_> const & ) const
-    {
-       NT2_AS_TERMINAL_INOUT(c_semantic, a, boost::proto::child_c<0>(a0)
-                            , boost::proto::child_c<0>(a1));
-       NT2_AS_TERMINAL_INOUT(c_semantic, b, boost::proto::child_c<1>(a0)
-                            , boost::proto::child_c<1>(a1));
-       NT2_AS_TERMINAL_OUT(c_semantic, q, boost::proto::child_c<2>(a1));
-       NT2_AS_TERMINAL_OUT(c_semantic, z, boost::proto::child_c<3>(a1));
-       NT2_AS_TERMINAL_OUT(c_semantic, v, boost::proto::child_c<4>(a1));
-       NT2_AS_TERMINAL_OUT(c_semantic, w, boost::proto::child_c<5>(a1));
-       tie(a, b, q, z, v, w, ) = qz(a, b);
-       assign_swap(boost::proto::child_c<0>(a1), a);
-       assign_swap(boost::proto::child_c<1>(a1), b);
-       assign_swap(boost::proto::child_c<2>(a1), q);
-       assign_swap(boost::proto::child_c<3>(a1), z);
-       assign_swap(boost::proto::child_c<4>(a1), v);
-       assign_swap(boost::proto::child_c<5>(a1), w);
     }
 
     //==========================================================================
@@ -557,17 +518,11 @@ namespace nt2 { namespace ext
       NT2_AS_TERMINAL_OUT(c_semantic, w, boost::proto::child_c<5>(a1));
       NT2_AS_TERMINAL_OUT(c_semantic, alpha, boost::proto::child_c<6>(a1));
       NT2_AS_TERMINAL_OUT(o_semantic, beta,  boost::proto::child_c<7>(a1));
-//      NT2_DISPLAY("avant hess");
-//       NT2_DISPLAY(a);
-//       NT2_DISPLAY(b);
       tie(a, b, q, z) = nt2::hess(a, b);
       //now a is hessenberg and b triangular, we can use hgeqz
       std::size_t n = height(a);
       alpha.resize(of_size(n, 1));
       beta.resize(of_size(n, 1));
-//       NT2_DISPLAY("avant hgeqz");
-//       NT2_DISPLAY(a);
-//       NT2_DISPLAY(b);
       NT2_LAPACK_VERIFY(nt2::hgeqz('S', 'V', 'V'
                                   , 1, n
                                   , boost::proto::value(a)
@@ -580,17 +535,11 @@ namespace nt2 { namespace ext
       container::table<type_t> vr(of_size(n, n));
       vl = q;
       vr = z;
-//       NT2_DISPLAY("avant tgevc");
-//       NT2_DISPLAY(a);
-//       NT2_DISPLAY(b);
       NT2_LAPACK_VERIFY(nt2::tgevc('B', 'B'
                                   , boost::proto::value(a)
                                   , boost::proto::value(b)
                                   , boost::proto::value(vl)
                                   , boost::proto::value(vr)));
-//       NT2_DISPLAY("apres tgevc");
-//       NT2_DISPLAY(a);
-//       NT2_DISPLAY(b);
       combine(vl, alpha, v, iscplx_t());
       combine(vr, alpha, w, iscplx_t());
       assign_swap(boost::proto::child_c<0>(a1), a);
