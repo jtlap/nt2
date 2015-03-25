@@ -33,7 +33,7 @@
 #include <boost/simd/include/functions/plus.hpp>
 #include <boost/simd/include/functions/splat.hpp>
 
-NT2_TEST_CASE_TPL ( round_real,  BOOST_SIMD_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( round_real, BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::round;
   using boost::simd::tag::round_;
@@ -107,6 +107,48 @@ NT2_TEST_CASE_TPL ( round_real2,  BOOST_SIMD_SIMD_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(round(boost::simd::splat<vT>(-155), -2), boost::simd::splat<vT>(-200), 0.5);
   NT2_TEST_ULP_EQUAL(round(boost::simd::splat<vT>(-156), -2), boost::simd::splat<vT>(-200), 0.5);
   NT2_TEST_ULP_EQUAL(round(boost::simd::splat<vT>(-255), -2), boost::simd::splat<vT>(-300), 0.5);
+} // end of test for floating_
+
+NT2_TEST_CASE_TPL ( round_real2b,  BOOST_SIMD_SIMD_REAL_TYPES)
+{
+
+  using boost::simd::round;
+  using boost::simd::tag::round_;
+  using boost::simd::native;
+  using boost::simd::splat;
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef native<T,ext_t>                  vT;
+  typedef typename boost::dispatch::meta::as_integer<vT>::type viT;
+  typedef typename boost::dispatch::meta::call<round_(vT)>::type r_t;
+
+  // specific values tests
+#ifndef BOOST_SIMD_NO_INVALIDS
+  NT2_TEST_EQUAL(round(boost::simd::Inf<vT>(), splat<viT>(2)), boost::simd::Inf<r_t>());
+  NT2_TEST_EQUAL(round(boost::simd::Minf<vT>(), splat<viT>(2)), boost::simd::Minf<r_t>());
+  NT2_TEST_EQUAL(round(boost::simd::Nan<vT>(), splat<viT>(2)), boost::simd::Nan<r_t>());
+#endif
+  NT2_TEST_EQUAL(round(boost::simd::Mhalf<vT>(), splat<viT>(2)), boost::simd::Mhalf<r_t>());
+  NT2_TEST_EQUAL(round(boost::simd::Mone<vT>(), splat<viT>(2)), boost::simd::Mone<r_t>());
+  NT2_TEST_EQUAL(round(boost::simd::One<vT>(), splat<viT>(2)), boost::simd::One<r_t>());
+  NT2_TEST_EQUAL(round(boost::simd::Zero<vT>(), splat<viT>(2)), boost::simd::Zero<r_t>());
+  NT2_TEST_EQUAL(round(boost::simd::Maxflint<vT>()-boost::simd::Half<vT>(), splat<viT>(2)),boost::simd::Maxflint<vT>());
+  NT2_TEST_EQUAL(round(boost::simd::Maxflint<vT>(), splat<viT>(2)),boost::simd::Maxflint<vT>());
+  NT2_TEST_EQUAL(round(boost::simd::splat<vT>(1.44), splat<viT>(1)), boost::simd::splat<vT>(1.4));
+  NT2_TEST_EQUAL(round(boost::simd::splat<vT>(1.45), splat<viT>(1)), boost::simd::splat<vT>(1.5));
+  NT2_TEST_EQUAL(round(boost::simd::splat<vT>(1.46), splat<viT>(1)), boost::simd::splat<vT>(1.5));
+  NT2_TEST_EQUAL(round(boost::simd::splat<vT>(2.45), splat<viT>(1)), boost::simd::splat<vT>(2.5));
+  NT2_TEST_EQUAL(round(boost::simd::splat<vT>(-1.44), splat<viT>(1)), boost::simd::splat<vT>(-1.4));
+  NT2_TEST_EQUAL(round(boost::simd::splat<vT>(-1.45), splat<viT>(1)), boost::simd::splat<vT>(-1.5));
+  NT2_TEST_EQUAL(round(boost::simd::splat<vT>(-1.46), splat<viT>(1)), boost::simd::splat<vT>(-1.5));
+  NT2_TEST_EQUAL(round(boost::simd::splat<vT>(-2.45), splat<viT>(1)), boost::simd::splat<vT>(-2.5));
+  NT2_TEST_ULP_EQUAL(round(boost::simd::splat<vT>(145), splat<viT>(-2)), boost::simd::splat<vT>(100), 0.5);
+  NT2_TEST_ULP_EQUAL(round(boost::simd::splat<vT>(150), splat<viT>(-2)), boost::simd::splat<vT>(200), 0.5);
+  NT2_TEST_ULP_EQUAL(round(boost::simd::splat<vT>(156), splat<viT>(-2)), boost::simd::splat<vT>(200), 0.5);
+  NT2_TEST_ULP_EQUAL(round(boost::simd::splat<vT>(250), splat<viT>(-2)), boost::simd::splat<vT>(300), 0.5);
+  NT2_TEST_ULP_EQUAL(round(boost::simd::splat<vT>(-145), splat<viT>(-2)), boost::simd::splat<vT>(-100), 0.5);
+  NT2_TEST_ULP_EQUAL(round(boost::simd::splat<vT>(-155), splat<viT>(-2)), boost::simd::splat<vT>(-200), 0.5);
+  NT2_TEST_ULP_EQUAL(round(boost::simd::splat<vT>(-156), splat<viT>(-2)), boost::simd::splat<vT>(-200), 0.5);
+  NT2_TEST_ULP_EQUAL(round(boost::simd::splat<vT>(-255), splat<viT>(-2)), boost::simd::splat<vT>(-300), 0.5);
 } // end of test for floating_
 
 NT2_TEST_CASE_TPL ( round_unsigned_int,  BOOST_SIMD_SIMD_UNSIGNED_TYPES)

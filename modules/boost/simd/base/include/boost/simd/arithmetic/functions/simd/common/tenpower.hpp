@@ -22,12 +22,16 @@
 #include <boost/simd/include/constants/ten.hpp>
 #include <boost/dispatch/meta/as_floating.hpp>
 #include <boost/dispatch/attributes.hpp>
+#include <boost/mpl/equal_to.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_IMPLEMENT( tenpower_, tag::cpu_
-                          , (A0)(X)
-                          , ((simd_<int_<A0>,X>))
+  BOOST_DISPATCH_IMPLEMENT_IF( tenpower_, tag::cpu_
+                             , (A0)(X)
+                             , (boost::mpl::equal_to < boost::simd::meta::cardinal_of<A0>
+                                , boost::simd::meta::cardinal_of<typename dispatch::meta::as_floating<A0>::type>
+                                >)
+                             , ((simd_<int_<A0>,X>))
                           )
   {
     typedef typename dispatch::meta::as_floating<A0>::type result_type;
@@ -46,9 +50,12 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_DISPATCH_IMPLEMENT( tenpower_, tag::cpu_
-                          , (A0)(X)
-                          , ((simd_<uint_<A0>,X>))
+  BOOST_DISPATCH_IMPLEMENT_IF( tenpower_, tag::cpu_
+                             , (A0)(X)
+                             , (boost::mpl::equal_to < boost::simd::meta::cardinal_of<A0>
+                                , boost::simd::meta::cardinal_of<typename dispatch::meta::as_floating<A0>::type>
+                                >)
+                             , ((simd_<uint_<A0>,X>))
                           )
   {
     typedef typename dispatch::meta::as_floating<A0>::type result_type;
@@ -66,7 +73,6 @@ namespace boost { namespace simd { namespace ext
       return result;
     }
   };
-
 } } }
 
 

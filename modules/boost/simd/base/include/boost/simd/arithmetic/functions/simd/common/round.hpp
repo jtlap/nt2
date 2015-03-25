@@ -21,8 +21,10 @@
 #include <boost/simd/include/functions/simd/multiplies.hpp>
 #include <boost/simd/include/functions/simd/divides.hpp>
 #include <boost/simd/include/functions/simd/ceil.hpp>
+#include <boost/simd/include/functions/splat.hpp>
 #include <boost/simd/include/constants/half.hpp>
 #include <boost/dispatch/attributes.hpp>
+#include <boost/mpl/equal_to.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -52,18 +54,50 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_DISPATCH_IMPLEMENT          ( round_, boost::simd::tag::simd_
-                                    , (A0)(X)(A1)
-                                    , ((simd_< floating_<A0>,X>))
-                                      ((simd_< integer_<A1>,X>))
-                                    )
+  BOOST_DISPATCH_IMPLEMENT_IF( round_, boost::simd::tag::simd_
+                             , (A0)(X)(A1)
+                             , (boost::mpl::equal_to < boost::simd::meta::cardinal_of<A0>
+                                                     , boost::simd::meta::cardinal_of<A1>
+                                >)
+                             , ((simd_< floating_<A0>,X>))
+                               ((simd_< integer_<A1>,X>))
+                             )
   {
     typedef A0 result_type;
 
     BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL(2)
     {
       A0 fac = tenpower(a1);
-      return round(a0*fac)/fac;
+      A0 tmp1 = round(a0*fac)/fac;
+      return if_else(is_ltz(a1), round(tmp1), tmp1);
+    }
+  };
+
+  BOOST_DISPATCH_IMPLEMENT( round_, boost::simd::tag::cpu_
+                          , (A0)(X)(A1)
+                          , ((simd_< floating_<A0>,X>))
+                            (scalar_< unsigned_<A1>>)
+                          )
+  {
+    typedef A0 result_type;
+    typedef typename dispatch::meta::as_integer<A0, unsigned>::type itype_t;
+    BOOST_FORCEINLINE result_type operator()(A0 const & a0,  A1 const & a1) const
+    {
+      return round(a0, splat<itype_t>(a1));
+    }
+  };
+
+  BOOST_DISPATCH_IMPLEMENT( round_, boost::simd::tag::cpu_
+                          , (A0)(X)(A1)
+                          , ((simd_< floating_<A0>,X>))
+                            (scalar_< integer_<A1>>)
+                          )
+  {
+    typedef A0 result_type;
+    typedef typename dispatch::meta::as_integer<A0, signed>::type itype_t;
+    BOOST_FORCEINLINE result_type operator()(A0 const & a0,  A1 const & a1) const
+    {
+      return round(a0, splat<itype_t>(a1));
     }
   };
 

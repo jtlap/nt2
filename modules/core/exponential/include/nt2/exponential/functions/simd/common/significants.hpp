@@ -23,6 +23,7 @@
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/assert.hpp>
 #include <boost/simd/operator/functions/details/assert_utils.hpp>
+#include <boost/mpl/equal_to.hpp>
 #ifndef BOOST_SIMD_NO_INVALIDS
 #include <nt2/include/functions/simd/if_else.hpp>
 #include <nt2/include/functions/simd/is_invalid.hpp>
@@ -30,11 +31,14 @@
 
 namespace nt2 { namespace ext
 {
-  BOOST_DISPATCH_IMPLEMENT( significants_, tag::cpu_
-                          , (A0)(X)(A1)
-                          , ((simd_< floating_<A0>, X>))
-                            ((simd_< integer_<A1>, X>))
-                          )
+  BOOST_DISPATCH_IMPLEMENT_IF( significants_, tag::cpu_
+                             , (A0)(X)(A1)
+                             , (boost::mpl::equal_to < boost::simd::meta::cardinal_of<A0>
+                                                     , boost::simd::meta::cardinal_of<A1>
+                                >)
+                             , ((simd_< floating_<A0>, X>))
+                               ((simd_< integer_<A1>, X>))
+                             )
   {
     typedef A0 result_type;
 

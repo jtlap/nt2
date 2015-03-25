@@ -13,6 +13,7 @@
 #include <boost/simd/arithmetic/functions/round.hpp>
 #include <boost/simd/include/functions/scalar/abs.hpp>
 #include <boost/simd/include/functions/scalar/copysign.hpp>
+#include <boost/simd/include/functions/scalar/is_ltz.hpp>
 #include <boost/simd/include/functions/scalar/seldec.hpp>
 #include <boost/simd/include/functions/scalar/ceil.hpp>
 #include <boost/simd/include/functions/scalar/tenpower.hpp>
@@ -89,7 +90,8 @@ namespace boost { namespace simd { namespace ext
     {
       typedef typename  dispatch::meta::as_integer<A0>::type itype;
       A0 fac = tenpower(itype(a1));
-      return round(a0*fac)/fac;
+      A0 tmp = round(a0*fac)/fac;
+      return is_ltz(a1) ? round(tmp) : tmp;
     }
   };
 
