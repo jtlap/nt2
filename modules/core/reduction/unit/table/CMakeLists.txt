@@ -1,6 +1,7 @@
 ##############################################################################
 ###   Copyright 2003 and onward LASMEA UMR 6602 CNRS/U.B.P Clermont-Ferrand
 ###   Copyright 2009 and onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
+###   Copyright 2015 and onward J.T. Lapreste
 ###
 ###          Distributed under the Boost Software License, Version 1.0
 ###                 See accompanying file LICENSE.txt or copy at
@@ -14,9 +15,12 @@ SET( SOURCES
 #    all.cpp
 #    any.cpp
     dot.cpp
+    geommean.cpp
     global.cpp
 #    globalall.cpp
 #    globalany.cpp
+    globalgeommean.cpp
+    globalharmmean.cpp
     globalmax.cpp
     globalmin.cpp
     globalsum.cpp
@@ -33,6 +37,7 @@ SET( SOURCES
     globalnormp.cpp
     globalvar.cpp
     globalstdev.cpp
+    harmmean.cpp
     maximum.cpp
     medianad.cpp
     median.cpp
@@ -50,6 +55,7 @@ SET( SOURCES
     nanmean.cpp
     nanasum2.cpp
     trapz.cpp
+    trimmean.cpp
 # List of test files for toolbox core.reduction
    )
 
