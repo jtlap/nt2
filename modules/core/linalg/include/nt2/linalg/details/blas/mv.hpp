@@ -101,7 +101,7 @@ inline void BOOST_PP_CAT(Q,mv)( const char *uplo                                
                               , T *y      , const long int *incy                      \
                               )                                                       \
 {                                                                                     \
-  NT2_F77NAME(BOOST_PP_CAT(P,BOOST_PP_CAT(Q,mv)))(ta,n,k,al,a,lda,x,incx,be,y,incy);  \
+  NT2_F77NAME(BOOST_PP_CAT(P,BOOST_PP_CAT(Q,mv)))(uplo,n,k,al,a,lda,x,incx,be,y,incy); \
 }                                                                                     \
 /**/
 
@@ -124,7 +124,7 @@ inline void BOOST_PP_CAT(Q,mv)( const char *uplo, const long int *n             
                               , T *y        , const long int *incy              \
                               )                                                 \
 {                                                                               \
-  NT2_F77NAME(BOOST_PP_CAT(P,BOOST_PP_CAT(Q,mv)))(ta,n,al,ap,x,incx,be,y,incy); \
+  NT2_F77NAME(BOOST_PP_CAT(P,BOOST_PP_CAT(Q,mv)))(uplo,n,al,ap,x,incx,be,y,incy); \
 }                                                                               \
 /**/
 
