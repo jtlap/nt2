@@ -15,6 +15,7 @@
 #include <nt2/sdk/complex/meta/as_complex.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
 #include <nt2/sdk/complex/meta/as_dry.hpp>
+#include <nt2/include/constants/zero.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -59,7 +60,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      return bitwise_cast<result_type>(nt2::round(nt2::real(a0, a1)));
+      return bitwise_cast<result_type>(nt2::round(nt2::real(a0), a1));
     }
   };
 } } }

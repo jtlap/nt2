@@ -26,13 +26,17 @@
 #include <boost/simd/sdk/config.hpp>
 
 #include <nt2/include/constants/mone.hpp>
+#include <nt2/include/constants/mhalf.hpp>
+#include <nt2/include/constants/half.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/inf.hpp>
 #include <nt2/include/constants/minf.hpp>
 #include <nt2/include/constants/nan.hpp>
+#include <nt2/include/constants/maxflint.hpp>
+#include <nt2/table.hpp>
 
-NT2_TEST_CASE_TPL ( abs_cplx,  BOOST_SIMD_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( round_cplx,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using nt2::round;
   using nt2::tag::round_;
@@ -64,29 +68,30 @@ NT2_TEST_CASE_TPL ( abs_cplx,  BOOST_SIMD_SIMD_REAL_TYPES)
     NT2_TEST_ULP_EQUAL(nt2::round(nt2::Zero<vdT>()), nt2::Zero<vdT>(),0);
 }
 
-NT2_TEST_CASE_TPL ( round_real2,  BOOST_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( round_real2,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
 
-  using boost::simd::round;
-  using boost::simd::tag::round_;
+  using nt2::round;
+  using nt2::tag::round_;
   typedef typename std::complex<T> cT;
   using boost::simd::native;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef native<cT,ext_t>                vcT;
-  typedef typename nt2::dry<T>             dT;
+  typedef nt2::dry<T>                      dT;
+  typedef native<dT,ext_t>                vdT;
 
   // specific values tests
 #ifndef BOOST_SIMD_NO_INVALIDS
-  NT2_TEST_EQUAL(round(boost::simd::Inf<vcT>(), 2), boost::simd::Inf<vcT>());
-  NT2_TEST_EQUAL(round(boost::simd::Minf<vcT>(), 2), boost::simd::Minf<vcT>());
-  NT2_TEST_EQUAL(round(boost::simd::Nan<vcT>(), 2), boost::simd::Nan<vcT>());
+  NT2_TEST_EQUAL(round(nt2::Inf<vcT>(), 2), nt2::Inf<vcT>());
+  NT2_TEST_EQUAL(round(nt2::Minf<vcT>(), 2), nt2::Minf<vcT>());
+  NT2_TEST_EQUAL(round(nt2::Nan<vcT>(), 2), nt2::Nan<vcT>());
 #endif
-  NT2_TEST_EQUAL(round(boost::simd::Mhalf<vcT>(), 2), boost::simd::Mhalf<vcT>());
-  NT2_TEST_EQUAL(round(boost::simd::Mone<vcT>(), 2), boost::simd::Mone<vcT>());
-  NT2_TEST_EQUAL(round(boost::simd::One<vcT>(), 2), boost::simd::One<vcT>());
-  NT2_TEST_EQUAL(round(boost::simd::Zero<vcT>(), 2), boost::simd::Zero<vcT>());
-  NT2_TEST_EQUAL(round(boost::simd::Maxflint<vcT>()-boost::simd::Half<vcT>(), 2),boost::simd::Maxflint<vcT>());
-  NT2_TEST_EQUAL(round(boost::simd::Maxflint<vcT>(), 2),boost::simd::Maxflint<vcT>());
+  NT2_TEST_EQUAL(round(nt2::Mhalf<vcT>(), 2), nt2::Mhalf<vcT>());
+  NT2_TEST_EQUAL(round(nt2::Mone<vcT>(), 2), nt2::Mone<vcT>());
+  NT2_TEST_EQUAL(round(nt2::One<vcT>(), 2), nt2::One<vcT>());
+  NT2_TEST_EQUAL(round(nt2::Zero<vcT>(), 2), nt2::Zero<vcT>());
+  NT2_TEST_EQUAL(round(nt2::Maxflint<vcT>()-nt2::Half<vcT>(), 2),nt2::Maxflint<vcT>());
+  NT2_TEST_EQUAL(round(nt2::Maxflint<vcT>(), 2),nt2::Maxflint<vcT>());
   NT2_TEST_EQUAL(round(nt2::splat<vcT>(cT(1.44, 1.44)), 1), nt2::splat<vcT>(cT(1.4,1.4 )));
   NT2_TEST_EQUAL(round(nt2::splat<vcT>(cT(1.45, 1.45)), 1), nt2::splat<vcT>(cT(1.5,1.5 )));
   NT2_TEST_EQUAL(round(nt2::splat<vcT>(cT(1.46, 1.46)), 1), nt2::splat<vcT>(cT(1.5,1.5 )));
@@ -103,5 +108,60 @@ NT2_TEST_CASE_TPL ( round_real2,  BOOST_SIMD_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(round(nt2::splat<vcT>(cT(-155,-155)), -2), nt2::splat<vcT>(cT(-200,-200)), 0.5);
   NT2_TEST_ULP_EQUAL(round(nt2::splat<vcT>(cT(-156,-156)), -2), nt2::splat<vcT>(cT(-200,-200)), 0.5);
   NT2_TEST_ULP_EQUAL(round(nt2::splat<vcT>(cT(-255,-255)), -2), nt2::splat<vcT>(cT(-300,-300)), 0.5);
+  NT2_TEST_ULP_EQUAL(nt2::round(nt2::splat<vdT>(dT(-1.11)), 1),  nt2::splat<vdT>(dT(-1.1)),0);
+} // end of test for floating_
+
+NT2_TEST_CASE_TPL ( round_real2b,  BOOST_SIMD_SIMD_REAL_TYPES)
+{
+
+  using nt2::round;
+  using nt2::tag::round_;
+  typedef typename std::complex<T> cT;
+  using boost::simd::native;
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef native<cT,ext_t>                vcT;
+  typedef native<T ,ext_t>                vT;
+  typedef typename nt2::meta::as_integer<vT>::type viT;
+  typedef nt2::dry<T>                      dT;
+  typedef native<dT ,ext_t>               vdT;
+
+  // specific values tests
+#ifndef BOOST_SIMD_NO_INVALIDS
+  NT2_TEST_EQUAL(nt2::round(nt2::Inf<vcT>(), nt2::splat<viT>(2)), nt2::Inf<vcT>());
+  NT2_TEST_EQUAL(nt2::round(nt2::Minf<vcT>(), nt2::splat<viT>(2)), nt2::Minf<vcT>());
+  NT2_TEST_EQUAL(nt2::round(nt2::Nan<vcT>(), nt2::splat<viT>(2)), nt2::Nan<vcT>());
+#endif
+  NT2_TEST_EQUAL(nt2::round(nt2::Mhalf<vcT>(), nt2::splat<viT>(2)), nt2::Mhalf<vcT>());
+  NT2_TEST_EQUAL(nt2::round(nt2::Mone<vcT>(), nt2::splat<viT>(2)), nt2::Mone<vcT>());
+  NT2_TEST_EQUAL(nt2::round(nt2::One<vcT>(), nt2::splat<viT>(2)), nt2::One<vcT>());
+  NT2_TEST_EQUAL(nt2::round(nt2::Zero<vcT>(), nt2::splat<viT>(2)), nt2::Zero<vcT>());
+  NT2_TEST_EQUAL(nt2::round(nt2::Maxflint<vcT>()-nt2::Half<vcT>(), nt2::splat<viT>(2)),nt2::Maxflint<vcT>());
+  NT2_TEST_EQUAL(nt2::round(nt2::Maxflint<vcT>(), nt2::splat<viT>(2)),nt2::Maxflint<vcT>());
+  NT2_TEST_EQUAL(nt2::round(nt2::splat<vcT>(cT(1.44, 1.44)), nt2::splat<viT>(1)), nt2::splat<vcT>(cT(1.4,1.4 )));
+  NT2_TEST_EQUAL(nt2::round(nt2::splat<vcT>(cT(1.45, 1.45)), nt2::splat<viT>(1)), nt2::splat<vcT>(cT(1.5,1.5 )));
+  NT2_TEST_EQUAL(nt2::round(nt2::splat<vcT>(cT(1.46, 1.46)), nt2::splat<viT>(1)), nt2::splat<vcT>(cT(1.5,1.5 )));
+  NT2_TEST_EQUAL(nt2::round(nt2::splat<vcT>(cT(2.45, 2.45)), nt2::splat<viT>(1)), nt2::splat<vcT>(cT(2.5,2.5 )));
+  NT2_TEST_EQUAL(nt2::round(nt2::splat<vcT>(cT(-1.44,-1.44)), nt2::splat<viT>(1)), nt2::splat<vcT>(cT(-1.4,-1.4)));
+  NT2_TEST_EQUAL(nt2::round(nt2::splat<vcT>(cT(-1.45,-1.45)), nt2::splat<viT>(1)), nt2::splat<vcT>(cT(-1.5,-1.5)));
+  NT2_TEST_EQUAL(nt2::round(nt2::splat<vcT>(cT(-1.46,-1.46)), nt2::splat<viT>(1)), nt2::splat<vcT>(cT(-1.5,-1.5)));
+  NT2_TEST_EQUAL(nt2::round(nt2::splat<vcT>(cT(-2.45,-2.45)), nt2::splat<viT>(1)), nt2::splat<vcT>(cT(-2.5,-2.5)));
+  NT2_TEST_ULP_EQUAL(nt2::round(nt2::splat<vcT>(cT(145,145)), nt2::splat<viT>(-2)), nt2::splat<vcT>(cT(100,100)), 0.5);
+  NT2_TEST_ULP_EQUAL(nt2::round(nt2::splat<vcT>(cT(150,150)), nt2::splat<viT>(-2)), nt2::splat<vcT>(cT(200,200)), 0.5);
+  NT2_TEST_ULP_EQUAL(nt2::round(nt2::splat<vcT>(cT(156,156)), nt2::splat<viT>(-2)), nt2::splat<vcT>(cT(200,200)), 0.5);
+  NT2_TEST_ULP_EQUAL(nt2::round(nt2::splat<vcT>(cT(250,250)), nt2::splat<viT>(-2)), nt2::splat<vcT>(cT(300,300)), 0.5);
+  NT2_TEST_ULP_EQUAL(nt2::round(nt2::splat<vcT>(cT(-145,-145)), nt2::splat<viT>(-2)), nt2::splat<vcT>(cT(-100,-100)), 0.5);
+  NT2_TEST_ULP_EQUAL(nt2::round(nt2::splat<vcT>(cT(-155,-155)), nt2::splat<viT>(-2)), nt2::splat<vcT>(cT(-200,-200)), 0.5);
+  NT2_TEST_ULP_EQUAL(nt2::round(nt2::splat<vcT>(cT(-156,-156)), nt2::splat<viT>(-2)), nt2::splat<vcT>(cT(-200,-200)), 0.5);
+  NT2_TEST_ULP_EQUAL(nt2::round(nt2::splat<vcT>(cT(-255,-255)), nt2::splat<viT>(-2)), nt2::splat<vcT>(cT(-300,-300)), 0.5);
+  NT2_TEST_ULP_EQUAL(nt2::round(nt2::splat<vdT>(dT(-1.11)), nt2::splat<viT>(1)),  nt2::splat<vdT>(dT(-1.1)),0);
+
+//   vdT a = nt2::splat<vdT>(dT(1.44));
+//   viT i = nt2::splat<viT>(1);
+//   vdT b = nt2::splat<vdT>(dT(1.4));
+//   NT2_DISPLAY(a);
+//   NT2_DISPLAY(i);
+//   NT2_DISPLAY(b);
+//  NT2_TEST_ULP_EQUAL(nt2::round(da, i), db, 0.5);
+//  NT2_TEST_ULP_EQUAL(nt2::round(vdT(nt2::splat<vT>(T(1.44))), nt2::splat<viT>(1)), vdT(nt2::splat<vT>(T(1.4))), 0.5);
 } // end of test for floating_
 
