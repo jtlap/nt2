@@ -74,7 +74,7 @@ inline void BOOST_PP_CAT(Q,mv)( const char *uplo, const nt2_la_int *n           
                               , T *y      , const nt2_la_int *incy                  \
                               )                                                     \
 {                                                                                   \
-  NT2_F77NAME(BOOST_PP_CAT(P,BOOST_PP_CAT(Q,mv)))(ta,n,al,a,lda,x,incx,be,y,incy);  \
+  NT2_F77NAME(BOOST_PP_CAT(P,BOOST_PP_CAT(Q,mv)))(uplo,n,al,a,lda,x,incx,be,y,incy);  \
 }                                                                                   \
 /**/
 
@@ -84,8 +84,6 @@ inline void BOOST_PP_CAT(Q,mv)( const char *uplo, const nt2_la_int *n           
   // _SYMV ( UPLO, N, ALPHA, A, LDA, X, INCX, BETA,  Y, INCY )
   NT2_MV(std::complex<double>, z, he)
   NT2_MV(std::complex<float>, c, he)
-  NT2_MV(std::complex<double>, z, sy)
-  NT2_MV(std::complex<float>, c, sy)
   NT2_MV(double, d, sy)
   NT2_MV(float,  s, sy)
 
@@ -109,8 +107,6 @@ inline void BOOST_PP_CAT(Q,mv)( const char *uplo                                
   // _SBMV ( UPLO, N, K, ALPHA, A, LDA, X, INCX, BETA,  Y, INCY )
   NT2_MV(std::complex<double>, z, hb)
   NT2_MV(std::complex<float>, c, hb)
-  NT2_MV(std::complex<double>, z, sb)
-  NT2_MV(std::complex<float>, c, sb)
   NT2_MV(double, d, sb)
   NT2_MV(float,  s, sb)
 
@@ -132,8 +128,6 @@ inline void BOOST_PP_CAT(Q,mv)( const char *uplo, const nt2_la_int *n           
   // _SPMV ( UPLO N, ALPHA, AP, X, INCX, BETA,  Y, INCY )
   NT2_MV(std::complex<double> , z, hp )
   NT2_MV(std::complex<float>  , c, hp )
-  NT2_MV(std::complex<double> , z, sp )
-  NT2_MV(std::complex<float>  , c, sp )
   NT2_MV(double, d, sp)
   NT2_MV(float,  s, sp)
 
