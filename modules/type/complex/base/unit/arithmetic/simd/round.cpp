@@ -153,14 +153,5 @@ NT2_TEST_CASE_TPL ( round_real2b,  BOOST_SIMD_SIMD_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(nt2::round(nt2::splat<vcT>(cT(-156,-156)), nt2::splat<viT>(-2)), nt2::splat<vcT>(cT(-200,-200)), 0.5);
   NT2_TEST_ULP_EQUAL(nt2::round(nt2::splat<vcT>(cT(-255,-255)), nt2::splat<viT>(-2)), nt2::splat<vcT>(cT(-300,-300)), 0.5);
   NT2_TEST_ULP_EQUAL(nt2::round(nt2::splat<vdT>(dT(-1.11)), nt2::splat<viT>(1)),  nt2::splat<vdT>(dT(-1.1)),0);
-
-//   vdT a = nt2::splat<vdT>(dT(1.44));
-//   viT i = nt2::splat<viT>(1);
-//   vdT b = nt2::splat<vdT>(dT(1.4));
-//   NT2_DISPLAY(a);
-//   NT2_DISPLAY(i);
-//   NT2_DISPLAY(b);
-//  NT2_TEST_ULP_EQUAL(nt2::round(da, i), db, 0.5);
-//  NT2_TEST_ULP_EQUAL(nt2::round(vdT(nt2::splat<vT>(T(1.44))), nt2::splat<viT>(1)), vdT(nt2::splat<vT>(T(1.4))), 0.5);
 } // end of test for floating_
 
