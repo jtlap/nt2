@@ -86,7 +86,7 @@ NT2_TEST_CASE ( majority_bool)
 {
   using boost::simd::majority;
   using boost::simd::tag::majority_;
-  typedef typename boost::dispatch::meta::call<majority_(bool, bool, bool)>::type r_t;
+  typedef boost::dispatch::meta::call<majority_(bool, bool, bool)>::type r_t;
   typedef bool wished_r_t;
 
   // return type conformity test

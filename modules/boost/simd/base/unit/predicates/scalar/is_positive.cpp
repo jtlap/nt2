@@ -88,7 +88,7 @@ NT2_TEST_CASE ( is_positive_bool)
 {
   using boost::simd::is_positive;
   using boost::simd::tag::is_positive_;
-  typedef typename boost::dispatch::meta::call<is_positive_(bool)>::type r_t;
+  typedef boost::dispatch::meta::call<is_positive_(bool)>::type r_t;
   typedef bool wished_r_t;
 
   // return type conformity test

@@ -87,7 +87,7 @@ NT2_TEST_CASE ( is_notequal_with_equal_nans_bool)
 {
   using boost::simd::is_not_equal_with_equal_nans;
   using boost::simd::tag::is_not_equal_with_equal_nans_;
-  typedef typename boost::dispatch::meta::call<is_not_equal_with_equal_nans_(bool, bool)>::type r_t;
+  typedef boost::dispatch::meta::call<is_not_equal_with_equal_nans_(bool, bool)>::type r_t;
   typedef bool wished_r_t;
 
   // return type conformity test

@@ -87,7 +87,7 @@ NT2_TEST_CASE ( is_imag_bool)
 {
   using boost::simd::is_imag;
   using boost::simd::tag::is_imag_;
-  typedef typename boost::dispatch::meta::call<is_imag_(bool)>::type r_t;
+  typedef boost::dispatch::meta::call<is_imag_(bool)>::type r_t;
   typedef bool wished_r_t;
 
   // return type conformity test

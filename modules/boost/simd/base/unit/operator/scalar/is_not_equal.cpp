@@ -84,7 +84,7 @@ NT2_TEST_CASE ( is_not_equal_bool)
 {
   using boost::simd::is_not_equal;
   using boost::simd::tag::is_not_equal_;
-  typedef typename boost::dispatch::meta::call<is_not_equal_(bool, bool)>::type r_t;
+  typedef boost::dispatch::meta::call<is_not_equal_(bool, bool)>::type r_t;
   typedef bool wished_r_t;
 
   // return type conformity test

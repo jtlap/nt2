@@ -94,7 +94,7 @@ NT2_TEST_CASE ( is_not_denormal_bool)
 {
   using boost::simd::is_not_denormal;
   using boost::simd::tag::is_not_denormal_;
-  typedef typename boost::dispatch::meta::call<is_not_denormal_(bool)>::type r_t;
+  typedef boost::dispatch::meta::call<is_not_denormal_(bool)>::type r_t;
   typedef bool wished_r_t;
 
   // return type conformity test

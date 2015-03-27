@@ -87,7 +87,7 @@ NT2_TEST_CASE ( is_even_bool)
 {
   using boost::simd::is_even;
   using boost::simd::tag::is_even_;
-  typedef typename boost::dispatch::meta::call<is_even_(bool)>::type r_t;
+  typedef boost::dispatch::meta::call<is_even_(bool)>::type r_t;
   typedef bool wished_r_t;
 
   // return type conformity test

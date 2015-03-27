@@ -66,7 +66,7 @@ NT2_TEST_CASE ( logical_or_bool)
 {
   using boost::simd::logical_or;
   using boost::simd::tag::logical_or_;
-  typedef typename boost::dispatch::meta::call<logical_or_(bool, bool)>::type r_t;
+  typedef boost::dispatch::meta::call<logical_or_(bool, bool)>::type r_t;
   typedef bool wished_r_t;
 
   // return type conformity test

@@ -87,7 +87,7 @@ NT2_TEST_CASE ( is_real_bool)
 {
   using boost::simd::is_real;
   using boost::simd::tag::is_real_;
-  typedef typename boost::dispatch::meta::call<is_real_(bool)>::type r_t;
+  typedef boost::dispatch::meta::call<is_real_(bool)>::type r_t;
   typedef bool wished_r_t;
 
   // return type conformity test

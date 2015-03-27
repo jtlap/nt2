@@ -87,7 +87,7 @@ NT2_TEST_CASE ( is_flint_bool)
 {
   using boost::simd::is_flint;
   using boost::simd::tag::is_flint_;
-  typedef typename boost::dispatch::meta::call<is_flint_(bool)>::type r_t;
+  typedef boost::dispatch::meta::call<is_flint_(bool)>::type r_t;
   typedef bool wished_r_t;
 
   // return type conformity test
