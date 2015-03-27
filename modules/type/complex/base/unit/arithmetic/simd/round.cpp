@@ -34,7 +34,6 @@
 #include <nt2/include/constants/minf.hpp>
 #include <nt2/include/constants/nan.hpp>
 #include <nt2/include/constants/maxflint.hpp>
-#include <nt2/table.hpp>
 
 NT2_TEST_CASE_TPL ( round_cplx,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
