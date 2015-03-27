@@ -10,45 +10,14 @@
 #define NT2_LINALG_FUNCTIONS_GENERAL_SIGNM_HPP_INCLUDED
 
 #include <nt2/linalg/functions/signm.hpp>
-#include <nt2/include/functions/abs.hpp>
-#include <nt2/include/functions/atanh.hpp>
-#include <nt2/include/functions/ceil.hpp>
-#include <nt2/include/functions/cons.hpp>
 #include <nt2/include/functions/ctranspose.hpp>
-#include <nt2/include/functions/colon.hpp>
 #include <nt2/include/functions/diag_of.hpp>
-#include <nt2/include/functions/divides.hpp>
-#include <nt2/include/functions/dot.hpp>
-#include <nt2/include/functions/eye.hpp>
-#include <nt2/include/functions/find.hpp>
 #include <nt2/include/functions/from_diag.hpp>
-#include <nt2/include/functions/globalnone.hpp>
-#include <nt2/include/functions/isdiagonal.hpp>
-#include <nt2/include/functions/is_eqz.hpp>
-#include <nt2/include/functions/is_lez.hpp>
-#include <nt2/include/functions/length.hpp>
-#include <nt2/include/functions/linsolve.hpp>
-#include <nt2/include/functions/log.hpp>
-#include <nt2/include/functions/logical_and.hpp>
-#include <nt2/include/functions/minusone.hpp>
+#include <nt2/include/functions/issquare.hpp>
 #include <nt2/include/functions/mtimes.hpp>
-#include <nt2/include/functions/multiplies.hpp>
-#include <nt2/include/functions/mnorm1.hpp>
-#include <nt2/include/functions/oneplus.hpp>
 #include <nt2/include/functions/schur.hpp>
-#include <nt2/include/functions/size.hpp>
-#include <nt2/include/functions/sqr.hpp>
-#include <nt2/include/functions/sqrt.hpp>
-#include <nt2/include/functions/symeig.hpp>
-#include <nt2/include/functions/transpose.hpp>
-#include <nt2/include/functions/twopower.hpp>
-#include <nt2/include/functions/zeros.hpp>
-#include <nt2/include/functions/isempty.hpp>
-#include <nt2/include/functions/horzcat.hpp>
-#include <nt2/include/constants/two.hpp>
-#include <nt2/include/constants/zero.hpp>
+#include <nt2/include/functions/sign.hpp>
 #include <nt2/core/container/table/table.hpp>
-#include <nt2/sdk/complex/meta/is_complex.hpp>
 #include <boost/assert.hpp>
 
 namespace nt2
@@ -63,7 +32,7 @@ namespace nt2
       typedef A0 result_type;
       NT2_FUNCTOR_CALL(1)
       {
-        returnsign(a0);
+        return sign(a0);
       }
     };
 
@@ -92,11 +61,7 @@ namespace nt2
     typedef typename boost::proto::result_of::child_c<A1&,0>::type         Out0;
     typedef typename meta::as_real<value_type>::type                     r_type;
     typedef typename meta::as_complex<r_type>::type                   cplx_type;
-    typedef typename meta::as_integer<r_type>::type                      i_type;
-    typedef nt2::table<value_type>                                        tab_t;
-    typedef nt2::table<r_type>                                           btab_t;
     typedef table<cplx_type>                                             ctab_t;
-    typedef table<i_type>                                                itab_t;
     typedef typename A0::index_type                                  index_type;
 
     BOOST_FORCEINLINE result_type operator()(A0& a0, const A1& a1) const
@@ -111,7 +76,6 @@ namespace nt2
         ctab_t u, t;
         nt2::tie(u, t) = schur(a0, nt2::cmplx_);
         res =  mtimes(mtimes(u, from_diag(sign(diag_of(t)))), ctrans(u));
-
       }
     };
   }
