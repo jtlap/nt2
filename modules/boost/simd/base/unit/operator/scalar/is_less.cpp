@@ -64,7 +64,7 @@ NT2_TEST_CASE ( is_less_bool)
 {
   using boost::simd::is_less;
   using boost::simd::tag::is_less_;
-  typedef typename boost::dispatch::meta::call<is_less_(bool, bool)>::type r_t;
+  typedef boost::dispatch::meta::call<is_less_(bool, bool)>::type r_t;
   typedef bool wished_r_t;
 
   // return type conformity test

@@ -87,7 +87,7 @@ NT2_TEST_CASE ( is_invalid_bool)
 {
   using boost::simd::is_invalid;
   using boost::simd::tag::is_invalid_;
-  typedef typename boost::dispatch::meta::call<is_invalid_(bool)>::type r_t;
+  typedef boost::dispatch::meta::call<is_invalid_(bool)>::type r_t;
   typedef bool wished_r_t;
 
   // return type conformity test

@@ -87,7 +87,7 @@ NT2_TEST_CASE ( is_lez_bool)
 {
   using boost::simd::is_lez;
   using boost::simd::tag::is_lez_;
-  typedef typename boost::dispatch::meta::call<is_lez_(bool)>::type r_t;
+  typedef boost::dispatch::meta::call<is_lez_(bool)>::type r_t;
   typedef bool wished_r_t;
 
   // return type conformity test

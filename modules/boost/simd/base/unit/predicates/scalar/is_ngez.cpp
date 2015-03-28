@@ -87,7 +87,7 @@ NT2_TEST_CASE ( is_ngez_bool)
 {
   using boost::simd::is_ngez;
   using boost::simd::tag::is_ngez_;
-  typedef typename boost::dispatch::meta::call<is_ngez_(bool)>::type r_t;
+  typedef boost::dispatch::meta::call<is_ngez_(bool)>::type r_t;
   typedef bool wished_r_t;
 
   // return type conformity test

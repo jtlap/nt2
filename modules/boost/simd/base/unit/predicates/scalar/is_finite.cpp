@@ -87,7 +87,7 @@ NT2_TEST_CASE ( is_finite_bool)
 {
   using boost::simd::is_finite;
   using boost::simd::tag::is_finite_;
-  typedef typename boost::dispatch::meta::call<is_finite_(bool)>::type r_t;
+  typedef boost::dispatch::meta::call<is_finite_(bool)>::type r_t;
   typedef bool wished_r_t;
 
   // return type conformity test

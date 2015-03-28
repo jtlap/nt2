@@ -88,7 +88,7 @@ NT2_TEST_CASE ( is_not_nan_bool)
 {
   using boost::simd::is_not_nan;
   using boost::simd::tag::is_not_nan_;
-  typedef typename boost::dispatch::meta::call<is_not_nan_(bool)>::type r_t;
+  typedef boost::dispatch::meta::call<is_not_nan_(bool)>::type r_t;
   typedef bool wished_r_t;
 
   // return type conformity test
