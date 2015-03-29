@@ -15,7 +15,7 @@
 #include <boost/dispatch/meta/factory_of.hpp>
 #include <boost/dispatch/meta/primitive_of.hpp>
 #include <boost/type_traits/is_same.hpp>
-#include <boost/dispatch/meta/is_fundamental.hpp>
+#include <boost/type_traits/is_fundamental.hpp>
 #include <boost/type_traits/is_integral.hpp>
 #include <boost/type_traits/make_signed.hpp>
 
@@ -37,7 +37,7 @@ namespace boost { namespace dispatch { namespace details
 
   template<class T>
   struct  as_signed_impl< T
-                        , typename boost::enable_if < typename meta::
+                        , typename boost::enable_if < typename boost::
                                                       is_fundamental<T>::type
                                                     >::type
                         >
