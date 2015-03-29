@@ -12,7 +12,7 @@
 
 #include <nt2/core/options.hpp>
 #include <nt2/sdk/meta/policy.hpp>
-
+#include <nt2/core/options.hpp>
 namespace nt2
 {
   namespace ext
