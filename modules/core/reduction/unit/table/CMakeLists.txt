@@ -14,6 +14,7 @@ SET( SOURCES
     asump.cpp
 #    all.cpp
 #    any.cpp
+    csum.cpp
     dcsum.cpp
     dot.cpp
     geommean.cpp
