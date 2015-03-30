@@ -29,7 +29,7 @@ namespace nt2
   struct when_all_result < tag::hpx_<Site>, A ... >
   {
     typedef typename hpx::lcos::future<
-      HPX_STD_TUPLE< typename std::decay<A>::type... >
+      hpx::util::tuple< typename std::decay<A>::type... >
     > type;
   };
 }

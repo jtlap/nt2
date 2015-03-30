@@ -39,7 +39,7 @@ namespace nt2
     struct Hpx_Scaner
     {
         typedef typename hpx::lcos::future<result_type> Future;
-        typedef typename HPX_STD_TUPLE< Future , Future  > Two_Futures;
+        typedef typename hpx::util::tuple< Future , Future  > Two_Futures;
         typedef typename std::vector< hpx::lcos::future<result_type> > FutureVector;
 
         Hpx_Scaner(Worker & w, FutureVector & barrier, std::size_t begin = 0, std::size_t size = 0 )

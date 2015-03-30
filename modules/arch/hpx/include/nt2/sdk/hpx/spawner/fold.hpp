@@ -37,7 +37,7 @@ namespace nt2
     struct Hpx_Folder
     {
         typedef typename hpx::lcos::future<result_type> Future;
-        typedef typename HPX_STD_TUPLE< Future , Future  > Two_Futures;
+        typedef typename hpx::util::tuple< Future , Future  > Two_Futures;
 
         Hpx_Folder(Worker & w)
         :w_(w)
