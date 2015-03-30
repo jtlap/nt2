@@ -1,31 +1,21 @@
 //==============================================================================
-//         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//          Copyright 2015 J.T. Lapreste
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #include <nt2/table.hpp>
-#include <nt2/include/functions/zeros.hpp>
-#include <nt2/include/functions/ones.hpp>
-#include <nt2/include/functions/eye.hpp>
-#include <nt2/include/functions/symeig.hpp>
+#include <nt2/include/functions/signm.hpp>
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/cons.hpp>
-#include <nt2/include/functions/tie.hpp>
+#include <nt2/include/functions/ctranspose.hpp>
 #include <nt2/include/functions/diag_of.hpp>
 #include <nt2/include/functions/from_diag.hpp>
-#include <nt2/include/functions/transpose.hpp>
 #include <nt2/include/functions/globalmax.hpp>
 #include <nt2/include/functions/triu.hpp>
-#include <nt2/include/functions/ones.hpp>
 #include <nt2/include/functions/mtimes.hpp>
-#include <nt2/include/functions/transpose.hpp>
-#include <nt2/include/functions/real.hpp>
-#include <nt2/include/functions/sort.hpp>
-#include <nt2/include/functions/schur.hpp>
-#include <nt2/include/functions/signm.hpp>
+#include <nt2/include/functions/tie.hpp>
 #include <nt2/include/constants/ten.hpp>
 #include <nt2/include/constants/eps.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -71,9 +61,6 @@ NT2_TEST_CASE_TPL ( signm2, NT2_REAL_TYPES)
    nt2::table<cT> s, nn;
    nt2::tie(s, nn) = nt2::signm(n);
    nt2::tie(s, nn) = nt2::signm(n, 10*nt2::Eps<T>());
-//    NT2_DISPLAY(s);
-//    NT2_DISPLAY(nn);
-//    NT2_DISPLAY(globalmax(nt2::abs(mtimes(nn, s)-n)));
    NT2_TEST_LESSER(globalmax(nt2::abs(mtimes(nn, s)-n)), height(n)*nt2::Ten<T>()*nt2::Eps<T>());
 
 
@@ -97,9 +84,6 @@ NT2_TEST_CASE_TPL ( signm2r, NT2_REAL_TYPES)
   nt2::table<T> s, nn;
   nt2::tie(s, nn) = nt2::signm(n);
   nt2::tie(s, nn) = nt2::signm(n, 10*nt2::Eps<T>());
-//   NT2_DISPLAY(s);
-//   NT2_DISPLAY(nn);
-//   NT2_DISPLAY(globalmax(nt2::abs(mtimes(nn, s)-n)));
   NT2_TEST_LESSER(globalmax(nt2::abs(mtimes(nn, s)-n)), height(n)*nt2::Ten<T>()*nt2::Eps<T>());
 
 

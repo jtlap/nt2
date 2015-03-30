@@ -1,6 +1,5 @@
 //==============================================================================
-//         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2015 J.T. Lapreste
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -15,6 +14,7 @@
 #include <nt2/include/functions/from_diag.hpp>
 #include <nt2/include/functions/globalsum.hpp>
 #include <nt2/include/functions/isdiagonal.hpp>
+#include <nt2/include/functions/is_nez.hpp>
 #include <nt2/include/functions/issquare.hpp>
 #include <nt2/include/functions/mtimes.hpp>
 #include <nt2/include/functions/real.hpp>
@@ -91,17 +91,17 @@ namespace nt2
         rtype_t epsi;
         gettolerance(a0, epsi, N0());
         compute_s(s, u, t, epsi);
-        choose_type(a1, s, iscplx_t());
+        finalize_s(a1, s, iscplx_t());
         compute_n(a1, a, boost::proto::child_c<0>(a1), N1());
       }
 
       template < class S>
-      BOOST_FORCEINLINE static void choose_type(A1& a1, S &s, const boost::mpl::false_&)
+      BOOST_FORCEINLINE static void finalize_s(A1& a1, S &s, const boost::mpl::false_&)
       {
         boost::proto::child_c<0>(a1) =  real(s);
       }
       template < class S>
-      BOOST_FORCEINLINE static void choose_type(A1& a1, S &s, const boost::mpl::true_&)
+      BOOST_FORCEINLINE static void finalize_s(A1& a1, S &s, const boost::mpl::true_&)
       {
         boost::proto::child_c<0>(a1) = s;
       }
@@ -119,37 +119,26 @@ namespace nt2
       {
         // do nothing
       }
+
       template < class S, class U, class T >
       BOOST_FORCEINLINE static void compute_s(S& s, const U& u, const T& t, rtype_t epsi)
       {
+        // from "Functions of Matrices: Theory and Computation" by Nicholas J. Higham
+        // Algorithm 5.5 p 112
         typedef typename T::value_type t_t;
         std::size_t n = height(t);
         s = from_diag( sign( diag_of(real(t)) ) );
         if (!isdiagonal(t, (n+1)*epsi))
         {
-          for(std::size_t p = 1; p <= n-1; ++p)
+          for(std::size_t j = 2; j <= n; ++j)
           {
-            for(std::size_t i = 1; i <= n-p; ++i)
+            for(std::size_t i = j-1; i >= 1; --i)
             {
-              std::size_t j = i+p;
-              t_t d = t(j,j) - t(i,i);
-              if (s(i,i) != -s(j,j)) // solve via s^2 = i if we can.
-              {
-                // get s(i,j) from s^2 = i.
-                auto k = _(i+1, j-1);
-                s(i,j) = -globalsum(s(i,k)(_)*s(k,j)) / (s(i,i)+s(j,j));
-              }
-              else
-              {
-                // get s(i,j) from s*t = t*s.
-                t_t ss = t(i,j)*(s(j,j)-s(i,i));
-                if (p > 1)
-                {
-                  auto k = _(i+1, j-1);
-                  ss += globalsum(t(i,k)(_)*s(k,j)) - globalsum(s(i,k)(_)*t(k,j));
-                }
-                s(i,j) = ss/d;
-              }
+              t_t d = s(i,i)+s(j,j);
+              auto k = evaluate(_(i+1, j-1));
+              s(i, j) = is_nez(d)
+                ?  s(i,j) = -globalsum(s(i,k)(_)*s(k,j))/d
+                : (t(i,j)*(s(j,j)-s(i,i)) + globalsum(t(i,k)(_)*s(k,j)) - globalsum(s(i,k)(_)*t(k,j)))/(t(j,j)-t(i,i));
             }
           }
         }
