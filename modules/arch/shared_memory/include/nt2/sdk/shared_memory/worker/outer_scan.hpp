@@ -41,7 +41,8 @@ namespace nt2
         std::size_t obound = boost::fusion::at_c<2>(ext);
         std::size_t iboundxmbound =  ibound * mbound;
 
-        std::size_t cache_line_size = nt2::config::top_cache_line_size(2); // in byte
+        std::size_t cache_line_size = nt2::config::top_cache_line_size(2)/sizeof(value_type);
+
         std::size_t grain  = cache_line_size;
 
         // Compute the lower multiple of grain of mbound
