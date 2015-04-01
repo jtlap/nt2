@@ -10,13 +10,14 @@
 
 #include <nt2/core/functions/dcsum.hpp>
 #include <nt2/core/container/dsl.hpp>
+#include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/along.hpp>
 #include <nt2/include/functions/ifloor.hpp>
 #include <nt2/include/functions/max.hpp>
 #include <nt2/include/functions/mean.hpp>
 #include <nt2/include/functions/firstnonsingleton.hpp>
 #include <nt2/include/functions/size.hpp>
-#include <nt2/include/functions/sort.hpp>
+#include <nt2/include/functions/csort.hpp>
 #include <nt2/include/functions/swap.hpp>
 #include <nt2/include/functions/zeros.hpp>
 #include <nt2/include/constants/half.hpp>
@@ -48,7 +49,7 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, const A1& n) const
     {
       if (size(a0, n) <= 1) return a0;
-      container::table<type_t> x =  sort(a0,'d',n);
+      container::table<type_t> x =  csort(a0,n,[](type_t a, type_t b){return nt2::abs(a) < nt2::abs(b); }); //'d',n);
       container::table<type_t> s =  along(x, 1, n);
       container::table<type_t> c =  zeros(s.extent(), meta::as_<type_t>());
       container::table<type_t> y(s.extent());
