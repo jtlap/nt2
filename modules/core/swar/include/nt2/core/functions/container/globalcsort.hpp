@@ -1,6 +1,5 @@
 //==============================================================================
-//         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2015 J.T. Lapreste
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -16,6 +15,7 @@
 #include <nt2/include/functions/of_size.hpp>
 #include <nt2/include/functions/resize.hpp>
 #include <nt2/include/functions/tie.hpp>
+#include <nt2/include/constants/one.hpp>
 #include <nt2/core/container/table/table.hpp>
 #include <nt2/core/container/colon/colon.hpp>
 #include <nt2/core/container/dsl/as_terminal.hpp>
@@ -125,7 +125,7 @@ namespace nt2 { namespace ext
                             , boost::proto::child_c<0>(a1));
       auto cmp = boost::proto::value(boost::proto::child_c<1>(a0));
       auto cmpi = [&cmp, &res](size_t i1, size_t i2) {return cmp(res(i1), res(i2));};
-      itab_t idx = _(1u, numel(res));
+      itab_t idx = _(One<std::size_t>(), numel(res));
       std::sort(idx.begin(), idx.end(), cmpi);
       tab_t tmp = res(idx); //aliasing
       boost::proto::child_c<0>(a1) = reshape(tmp, res.extent());
@@ -143,7 +143,7 @@ namespace nt2 { namespace ext
                             , boost::proto::child_c<0>(a0)
                             , boost::proto::child_c<0>(a1));
       auto cmpi = [&res](size_t i1, size_t i2) {return (res(i1) < res(i2));};
-      itab_t idx = _(1u, numel(res));
+      itab_t idx = _(One<std::size_t>(), numel(res));
       std::sort(idx.begin(), idx.end(), cmpi);
       boost::proto::child_c<0>(a1) = res(idx);
       boost::proto::child_c<1>(a1)  = reshape(idx, res.extent());

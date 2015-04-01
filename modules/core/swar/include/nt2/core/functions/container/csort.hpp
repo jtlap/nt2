@@ -1,6 +1,5 @@
 //==============================================================================
-//         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2015 J.T. Lapreste
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -16,6 +15,7 @@
 #include <nt2/include/functions/of_size.hpp>
 #include <nt2/include/functions/resize.hpp>
 #include <nt2/include/functions/tie.hpp>
+#include <nt2/include/constants/one.hpp>
 #include <nt2/core/container/table/table.hpp>
 #include <nt2/core/container/colon/colon.hpp>
 #include <nt2/core/container/dsl/as_terminal.hpp>
@@ -207,7 +207,7 @@ namespace nt2 { namespace ext
         sub_t pos = nt2::as_subscript(res.extent(), p);
         if (pos[dim-1]!= 0) p += decal;
         tab_t tmp = res(p+range);
-        itab_t idx = _(1u, numel(tmp));
+        itab_t idx = _(One<std::size_t>(), numel(tmp));
         auto cmpi = [&tmp, &cmp](size_t i1, size_t i2) {return cmp(tmp(i1), tmp(i2));};
 
         std::sort(idx.begin(), idx.end(), cmpi);
@@ -241,7 +241,7 @@ namespace nt2 { namespace ext
         sub_t pos = nt2::as_subscript(res.extent(), p);
         if (pos[dim-1]!= 0) p += decal;
         tab_t tmp = res(p+range);
-        itab_t idx = _(1u, numel(tmp));
+        itab_t idx = _(One<std::size_t>(), numel(tmp));
         auto cmpi = [&tmp](size_t i1, size_t i2) {return (tmp(i1) < tmp(i2));};
 
         std::sort(idx.begin(), idx.end(), cmpi);
