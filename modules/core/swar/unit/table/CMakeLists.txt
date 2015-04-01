@@ -8,11 +8,13 @@
 ##############################################################################
 
 SET( SOURCES
+  csort.cpp
   cummax.cpp
   cummin.cpp
   cumsum.cpp
   cumprod.cpp
   cumtrapz.cpp
+  globalcsort.cpp
   sort.cpp
 # List of simd test files for toolbox swar
    )
