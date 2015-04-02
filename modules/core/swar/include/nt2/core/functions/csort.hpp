@@ -42,7 +42,7 @@ namespace nt2
   /**
    * @brief Perform sort using libc++ std::sort from algorithm
    *
-   * tie(sa{, index}) = csort(a, {dim{, comp}})
+   * tie(sa{, index}) = csort(a{, dim }{, comp}})
    *
    * @param a is the table expression to be sorted
    * @param dim is the dimension along with the table is sorted

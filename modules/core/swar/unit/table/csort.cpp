@@ -1,6 +1,5 @@
 //==============================================================================
-//         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2015 J.T. Lapreste
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -51,15 +50,18 @@ NT2_TEST_CASE_TPL( indsort, NT2_TYPES )
   NT2_TEST_EQUAL(sy, nt2::flipud(y));
   sy =  csort(y, 2);
   NT2_TEST_EQUAL(sy, nt2::fliplr(y));
-  sy =  csort(y, 2, [](T a, T b){ return b < a; });
+  sy =  csort(y, [](T a, T b){ return b < a; }, 2);
   NT2_DISPLAY(sy);
   NT2_TEST_EQUAL(sy, y);
   nt2::table<std::size_t> idx;
-  tie(sy, idx) =  csort(y, 2, [](T a, T b){ return a < b; });
+  sy =  csort(y, [](T a, T b){ return a < b; });
+  tie(sy, idx) =  csort(y, [](T a, T b){ return a < b; }, 2);
   NT2_TEST_EQUAL(sy, nt2::fliplr(y));
   NT2_DISPLAY(idx);
 
 }
+
+
 
 
 
