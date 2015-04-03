@@ -19,19 +19,21 @@ namespace nt2
     /*!
       @brief Tag for the dcsum functor
     **/
-    struct dcsum_ : ext::abstract_<dcsum_>
+    struct dcsum_ : ext::unspecified_<dcsum_>
     {
       /// @brief Parent hierarchy
-      typedef ext::abstract_<dcsum_> parent;
+      typedef ext::unspecified_<dcsum_> parent;
       template<class... Args>
       static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
-      BOOST_AUTO_DECLTYPE_BODY( dispatching_dcsum_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
+      BOOST_AUTO_DECLTYPE_BODY( dispatching_dcsum_( ext::adl_helper()
+                                                  , static_cast<Args&&>(args)... ) )
     };
   }
   namespace ext
   {
     template<class Site>
-    BOOST_FORCEINLINE generic_dispatcher<tag::dcsum_, Site> dispatching_dcsum_(adl_helper, boost::dispatch::meta::unknown_<Site>, ...)
+    BOOST_FORCEINLINE generic_dispatcher<tag::dcsum_, Site>
+    dispatching_dcsum_(adl_helper, boost::dispatch::meta::unknown_<Site>, ...)
     {
       return generic_dispatcher<tag::dcsum_, Site>();
     }

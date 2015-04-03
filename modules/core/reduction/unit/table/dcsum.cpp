@@ -70,12 +70,30 @@ NT2_TEST_CASE_TPL( dcsum2, (float) )
   sy = nt2::sum(y);
   sy1= nt2::cast<T>(nt2::sum(y1));
   sy2 = nt2::dcsum(y);
-//  NT2_TEST_ULP_EQUAL(sy2, sy, 0.5);
   NT2_TEST_ULP_EQUAL(sy2, sy1, 0.5);
 
   sy = nt2::sum(y, 2);
   sy1= nt2::cast<T>(nt2::sum(y1, 2));
   sy2 = nt2::dcsum(y, 2);
-//  NT2_TEST_ULP_EQUAL(sy2, sy, 0.5);
   NT2_TEST_ULP_EQUAL(sy2, sy1, 0.5);
+}
+
+NT2_TEST_CASE_TPL( dcsumc, NT2_REAL_TYPES )
+{
+  typedef std::complex<T> cT;
+  nt2::table<cT> y( nt2::of_size(5,3) );
+  nt2::table<cT> sy;
+  nt2::table<cT> sy2;
+
+  for(int j=1;j<=3;j++)
+    for(int i=1;i<=5;i++)
+      y(i,j) = cT(T((6-i) + 10*(4-j)), T(j-i));
+
+  sy = nt2::sum(y);
+  sy2 = nt2::dcsum(y);
+  NT2_TEST_EQUAL(sy, sy2);
+
+  sy = nt2::sum(y, 2);
+  sy2 = nt2::dcsum(y, 2);
+  NT2_TEST_EQUAL(sy, sy2);
 }
