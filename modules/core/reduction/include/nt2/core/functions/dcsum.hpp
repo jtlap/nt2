@@ -53,19 +53,32 @@ namespace nt2
     For any table  expression @c t and any integer @c n:
 
     @code
-    auto r = dcsum(t{, n});
+    auto r = dcsum(t{, sort_}{, n});
     @endcode
 
+    @par Note:
+    This function has only interest for the most precise available floating type
+    (curently double) as for float for instance it can be cheaper in most cases
+    to perform the computations in double with the ordinary sum functor and then
+    cast the result for quite the same benefit.
+    The sort_ option is advised, but can be omitted (and is useless as soon as the
+    inputs are sorted by decreasing magnitude. In complex input case the
+    sorting is made independantly on real and imaginary parts which does not
+    change the expected sum result.
 
     @par Note:
     n default to firstnonsingleton(t)
     @see @funcref{firstnonsingleton}, @funcref{sum}, @funcref{size},
 
     @param t Table to process
+    @param sort_ optionnal sorting parameter
     @param n Dimension along which to process t
+
 
     @return An expression eventually evaluated to the result
    */
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::dcsum_       , dcsum, 3)
+  /// @overload
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::dcsum_       , dcsum, 2)
   /// @overload
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::dcsum_       , dcsum, 1)
