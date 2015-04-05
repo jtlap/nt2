@@ -42,6 +42,21 @@ namespace nt2 { namespace ext
     }
   };
 
+
+  BOOST_DISPATCH_IMPLEMENT  ( dcsum_, tag::cpu_
+                            , (A0)(A1)(A2)
+                            , (scalar_< unspecified_<A0>>)
+                              (unspecified_<A1>)
+                              (scalar_< integer_<A2>  > )
+                            )
+  {
+    typedef A0 result_type;
+
+    BOOST_FORCEINLINE result_type operator()(A0 const& a, A1 const &, A2 const &) const
+    {
+      return a;
+    }
+  };
 } }
 
 #endif

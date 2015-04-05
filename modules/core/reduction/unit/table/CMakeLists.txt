@@ -17,6 +17,7 @@ SET( SOURCES
     csum.cpp
     dcsum.cpp
     dot.cpp
+    incsum.cpp
     geommean.cpp
     global.cpp
 #    globalall.cpp

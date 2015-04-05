@@ -5,15 +5,14 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_CORE_FUNCTIONS_SCALAR_CSUM_HPP_INCLUDED
-#define NT2_CORE_FUNCTIONS_SCALAR_CSUM_HPP_INCLUDED
+#ifndef NT2_CORE_FUNCTIONS_SCALAR_INCSUM_HPP_INCLUDED
+#define NT2_CORE_FUNCTIONS_SCALAR_INCSUM_HPP_INCLUDED
 
-#include <nt2/core/functions/csum.hpp>
-#include <nt2/sdk/meta/as_floating.hpp>
+#include <nt2/core/functions/incsum.hpp>
 
 namespace nt2 { namespace ext
 {
-  BOOST_DISPATCH_IMPLEMENT  ( csum_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( incsum_, tag::cpu_
                             , (A0)
                             , (scalar_< unspecified_<A0> >)
                             )
@@ -26,30 +25,16 @@ namespace nt2 { namespace ext
     }
   };
 
-  BOOST_DISPATCH_IMPLEMENT  ( csum_, tag::cpu_
+
+  BOOST_DISPATCH_IMPLEMENT  ( incsum_, tag::cpu_
                             , (A0)(A1)
-                            , (scalar_< unspecified_<A0> > )
+                            , (scalar_< unspecified_<A0>>)
                               (scalar_< integer_<A1>  > )
                             )
   {
     typedef A0 result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a, A1 const &) const
-    {
-      return a;
-    }
-  };
-
-  BOOST_DISPATCH_IMPLEMENT  ( csum_, tag::cpu_
-                            , (A0)(A1)(A2)
-                            , (scalar_< unspecified_<A0>>)
-                              (unspecified_<A1>)
-                              (scalar_< integer_<A2>  > )
-                            )
-  {
-    typedef A0 result_type;
-
-    BOOST_FORCEINLINE result_type operator()(A0 const& a, A1 const &, A2 const &) const
     {
       return a;
     }
