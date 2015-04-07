@@ -9,6 +9,7 @@
 
 SET( SOURCES
   compan.cpp
+  contfrac.cpp
   conv.cpp
   deconv.cpp
   degree.cpp
