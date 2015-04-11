@@ -9,6 +9,7 @@
 
 SET( SOURCES
   cov.cpp
+  cplxpair.cpp
   cross.cpp
   expm.cpp
   funm.cpp
