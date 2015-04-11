@@ -10,6 +10,7 @@
 
 #include <nt2/include/functions/csort.hpp>
 #include <nt2/include/functions/firstnonsingleton.hpp>
+#include <nt2/include/functions/is_less.hpp>
 #include <nt2/include/functions/linspace.hpp>
 #include <nt2/include/functions/linesstride.hpp>
 #include <nt2/include/functions/of_size.hpp>
@@ -109,7 +110,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_real<type_t>::type                        rtype_t;
     typedef typename container::table<std::size_t>                       itab_t;
     typedef typename child0::extent_type                                  ext_t;
-    typedef typename nt2::result_of::as_subscript<ext_t,size_t>::type     sub_t;
+//    typedef typename nt2::result_of::as_subscript<ext_t,size_t>::type     sub_t;
 
     typedef nt2::memory::container<tag::table_,  type_t, nt2::_2D>    o_semantic;
     typedef nt2::memory::container<tag::table_,std::size_t, nt2::_2D> i_semantic;
@@ -183,7 +184,7 @@ namespace nt2 { namespace ext
       NT2_AS_TERMINAL_INOUT (o_semantic, res
                             , boost::proto::child_c<0>(a0)
                             , boost::proto::child_c<0>(a1));
-      auto cmp = [](type_t a, type_t b){ return a < b; };
+      auto cmp = [](type_t a, type_t b)->bool{ return le(a, b); };
       do_sort1(res, dim, cmp);
     }
 
@@ -208,7 +209,7 @@ namespace nt2 { namespace ext
       NT2_AS_TERMINAL_INOUT (o_semantic, res
                             , boost::proto::child_c<0>(a0)
                             , boost::proto::child_c<0>(a1));
-      auto cmp = [](type_t a, type_t b){ return a < b; };
+      auto cmp = [](type_t a, type_t b)->bool{ return le(a, b); };
       do_sort1(res, dim, cmp);
     }
 
@@ -236,7 +237,7 @@ namespace nt2 { namespace ext
       auto range = evaluate(oneplus(_(0u, h-1)*stride));
       for(size_t i=0; i < nbslice; ++i)
       {
-        sub_t pos = nt2::as_subscript(res.extent(), p);
+        auto pos = nt2::as_subscript(res.extent(), p);
         if (pos[dim-1]!= 0) p += decal;
         tab_t tmp = res(p+range);
         std::sort(tmp.begin(), tmp.end(), cmp);
@@ -286,7 +287,7 @@ namespace nt2 { namespace ext
       NT2_AS_TERMINAL_INOUT (o_semantic, res
                             , boost::proto::child_c<0>(a0)
                             , boost::proto::child_c<0>(a1));
-      auto cmp = [](type_t a, type_t b){ return a < b; };
+      auto cmp = [](type_t a, type_t b)->bool{ return le(a, b); };
       do_sort2(inds, res, dim, cmp);
     }
 
@@ -318,7 +319,7 @@ namespace nt2 { namespace ext
       auto range = evaluate(oneplus(_(0u, h-1)*stride));
       for(size_t i=0; i < nbslice; ++i)
       {
-        sub_t pos = nt2::as_subscript(res.extent(), p);
+        auto pos = nt2::as_subscript(res.extent(), p);
         if (pos[dim-1]!= 0) p += decal;
         tab_t tmp = res(p+range);
         itab_t idx = _(One<std::size_t>(), numel(tmp));

@@ -40,7 +40,8 @@ namespace nt2
   }
 
   /**
-   * @brief Perform sort using libc++ std::sort from algorithm
+   * @brief Perform table sorting along chosen dimension,
+   * using libc++ std::sort from algorithm
    *
    * tie(sa{, index}) = csort(a{, dim }{, comp}})
    *
@@ -55,7 +56,9 @@ namespace nt2
    **/
 
   NT2_FUNCTION_IMPLEMENTATION(tag::csort_, csort, 1)
+  /// @overload
   NT2_FUNCTION_IMPLEMENTATION(tag::csort_, csort, 2)
+  /// @overload
   NT2_FUNCTION_IMPLEMENTATION(tag::csort_, csort, 3)
 
 }

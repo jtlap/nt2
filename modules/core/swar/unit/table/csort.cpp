@@ -11,6 +11,7 @@
 #include <nt2/include/functions/colon.hpp>
 #include <nt2/include/functions/reshape.hpp>
 #include <nt2/include/functions/flipud.hpp>
+#include <nt2/include/functions/is_less.hpp>
 #include <nt2/include/functions/rif.hpp>
 #include <nt2/include/functions/cif.hpp>
 #include <nt2/include/functions/ric.hpp>
@@ -56,6 +57,28 @@ NT2_TEST_CASE_TPL( indsort, NT2_TYPES )
   nt2::table<std::size_t> idx;
   sy =  csort(y, [](T a, T b){ return a < b; });
   tie(sy, idx) =  csort(y, [](T a, T b){ return a < b; }, 2);
+  NT2_TEST_EQUAL(sy, nt2::fliplr(y));
+  NT2_DISPLAY(idx);
+
+}
+
+
+NT2_TEST_CASE_TPL( indsort2, NT2_REAL_TYPES )
+{
+  typedef typename std::complex<T> cT;
+  nt2::table<cT> y = nt2::reshape(nt2::fliplr(nt2::colon(T(1), T(1), T(12))), 3, 4);
+  nt2::table<cT> sy;
+  NT2_DISPLAY(y);
+  sy =  csort(y);
+  NT2_TEST_EQUAL(sy, nt2::flipud(y));
+  sy =  csort(y, 2);
+  NT2_TEST_EQUAL(sy, nt2::fliplr(y));
+  sy =  csort(y, [](cT a, cT b)->bool{ return nt2::le(b, a); }, 2);
+  NT2_DISPLAY(sy);
+  NT2_TEST_EQUAL(sy, y);
+  nt2::table<std::size_t> idx;
+  sy =  csort(y, [](cT a, cT b)->bool{ return nt2::le(a, b); });
+  tie(sy, idx) =  csort(y, [](cT a, cT b)->bool{ return nt2::le(a, b); }, 2);
   NT2_TEST_EQUAL(sy, nt2::fliplr(y));
   NT2_DISPLAY(idx);
 
