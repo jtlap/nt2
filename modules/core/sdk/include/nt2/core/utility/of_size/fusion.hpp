@@ -138,4 +138,12 @@ namespace boost { namespace fusion { namespace extension
   };
 } } }
 
+namespace boost { namespace fusion { namespace detail
+{
+  template <typename Sequence, typename N>
+  struct  at_impl<Sequence,N,nt2::tag::of_size_>
+        : extension::at_impl<nt2::tag::of_size_>::template apply<Sequence, N>
+  {};
+} } }
+
 #endif
