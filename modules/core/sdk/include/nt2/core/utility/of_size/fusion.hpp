@@ -15,6 +15,7 @@
 #include <boost/fusion/sequence/intrinsic.hpp>
 #include <boost/fusion/support.hpp>
 #include <boost/mpl/at.hpp>
+#include <boost/version.hpp>
 #include <boost/mpl/size_t.hpp>
 #include <boost/type_traits/remove_reference.hpp>
 #include <boost/type_traits/is_const.hpp>
@@ -138,6 +139,7 @@ namespace boost { namespace fusion { namespace extension
   };
 } } }
 
+#if (BOOST_VERSION > 105700 )
 namespace boost { namespace fusion { namespace detail
 {
   template <typename Sequence, typename N>
@@ -145,5 +147,7 @@ namespace boost { namespace fusion { namespace detail
         : extension::at_impl<nt2::tag::of_size_>::template apply<Sequence, N>
   {};
 } } }
+
+#endif
 
 #endif
