@@ -270,7 +270,7 @@ if(NOT NT2_LAPACK_FOUND) # Find lapack if not MKL
   message(STATUS "[nt2.linalg] looking for LAPACK...")
 
   find_library(LAPACK_LIBRARY${STATIC} NAMES lapack liblapack PATHS ${NT2_BLAS_ROOT})
-  if(LAPACK_LIBRARY)
+  if(LAPACK_LIBRARY${STATIC})
     set(NT2_LAPACK_FOUND 1)
     set(NT2_LAPACK_LIBRARIES ${LAPACK_LIBRARY${STATIC}})
   endif()
