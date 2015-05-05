@@ -1,3 +1,4 @@
+
 //==============================================================================
 //         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
 //         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
@@ -34,7 +35,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      if (a0>nt2::One<A0>()||(nt2::is_ltz(a0))) return nt2::Nan<A0>();
+      if (!(a0 <= nt2::One<A0>())||(nt2::is_ltz(a0))) return nt2::Nan<A0>();
       if (nt2::is_eqz(a0))  return nt2::One<A0>();
       if (a0 == nt2::One<A0>()) return nt2::Pio_2<A0>();
       return nt2::ellint_2(nt2::sqrt(nt2::oneminus(A0(a0))));
@@ -49,7 +50,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      if (a0>nt2::One<A0>()||(is_ltz(a0))) return nt2::Nan<A0>();
+      if (!(a0 <= nt2::One<A0>())||(is_ltz(a0))) return nt2::Nan<A0>();
       if (nt2::is_eqz(a0))  return nt2::One<A0>();
       if (a0 == nt2::One<A0>()) return nt2::Pio_2<A0>();
       A0 tmp1 = nt2::horner< NT2_HORNER_COEFF(float, 11,
@@ -82,3 +83,4 @@ namespace nt2 { namespace ext
 } }
 
 #endif
+
