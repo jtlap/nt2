@@ -24,13 +24,15 @@ namespace nt2
       typedef ext::abstract_<isband_> parent;
       template<class... Args>
       static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
-      BOOST_AUTO_DECLTYPE_BODY( dispatching_isband_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
+      BOOST_AUTO_DECLTYPE_BODY(
+        dispatching_isband_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
   }
   namespace ext
   {
     template<class Site>
-    BOOST_FORCEINLINE generic_dispatcher<tag::isband_, Site> dispatching_isband_(adl_helper, boost::dispatch::meta::unknown_<Site>, ...)
+    BOOST_FORCEINLINE generic_dispatcher<tag::isband_, Site>
+    dispatching_isband_(adl_helper, boost::dispatch::meta::unknown_<Site>, ...)
     {
       return generic_dispatcher<tag::isband_, Site>();
     }
@@ -39,18 +41,19 @@ namespace nt2
   }
 
   /*!
-    @brief Test for band status with precision
+    @brief Test for band status with bounds
 
     isband(a0, lower,  upper)
 
     Returns @c true iff a0 is a band matrix between lower and upper, which
-    means every elements outside this band all elements of a0 are 0
-    a1.
+    means every elements outside this band a0 are 0.
 
     @param  a0 The expression to test
     @param  lower  lower band value
     @param  upper  upper band value
     @return a boolean value indicating the  status of a0
+
+    @see @funcref{bandidth}, @funcref{band}
   **/
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::isband_, isband, 3)
 }

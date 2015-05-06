@@ -37,7 +37,9 @@ namespace nt2 {
 
   /**
 
-    @brief bandwidth computes the lower and upper bandwidth of a matrix
+    @brief bandwidth computes the lower and upper bandwidth of a matrix.
+
+    Note that it is the Matlab like bandwidth, not the LAPACK like one.
 
     @par Semantic:
 
@@ -48,6 +50,8 @@ namespace nt2 {
     tie(l, u) =  bandwidth(a);
 
     where l and u are integral values
+
+    @see @funcref{band}, @funcref{isband}
    **/
   NT2_FUNCTION_IMPLEMENTATION(tag::bandwidth_, bandwidth, 1)
   NT2_FUNCTION_IMPLEMENTATION(tag::bandwidth_, bandwidth, 2)

@@ -54,6 +54,8 @@ namespace nt2
 
     @par Alias:
     diagonal
+
+    @see @funcref{bandidth}, @funcref{isband}
   **/
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::band_ , band    , 1 )
 
@@ -68,6 +70,8 @@ namespace nt2
 
     @param a0 Expression to mask
     @param a1 Width of the centered band.
+
+    @see @funcref{bandidth}, @funcref{isband}
   **/
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::band_ , band  , 2 )
 
@@ -80,6 +84,8 @@ namespace nt2
     @param a0 Expression to mask
     @param a1 Index of the lowest diagonal to include in the mask.
     @param a2 Index of the highest diagonal to include in the mask.
+
+    @see @funcref{bandidth}, @funcref{isband}
   **/
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::band_ , band  , 3 )
 }
