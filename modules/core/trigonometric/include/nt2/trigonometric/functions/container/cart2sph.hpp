@@ -26,7 +26,8 @@ namespace nt2 { namespace ext
                             )
   {
     typedef void result_type;
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& a1, A2 const& a2
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& a1
+                                            , A2 const& a2
                                             ,A3 & r0,A4& r1,A5& r2) const
     {
       nt2::tie(r0,r1,r2) = nt2::cart2sph(a0, a1, a2);
@@ -43,8 +44,9 @@ namespace nt2 { namespace ext
                             )
   {
     typedef typename boost::dispatch::meta::terminal_of<A0>::type result_type;
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& a1, A2 const& a2
-                                            ,A3 & r1,A4& r2) const
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& a1
+                                            , A2 const& a2
+                                            , A3 & r1,A4& r2) const
     {
       result_type r0;
       nt2::tie(r0,r1,r2) = nt2::cart2sph(a0, a1, a2);
@@ -62,8 +64,9 @@ namespace nt2 { namespace ext
   {
     typedef typename boost::dispatch::meta::terminal_of<A0>::type type1;
     typedef boost::fusion::tuple<type1, type1>              result_type;
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& a1, A2 const& a2
-                                            ,A3& r2) const
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& a1
+                                            , A2 const& a2
+                                            , A3& r2) const
     {
       type1 r0, r1;
       nt2::tie(r0, r1, r2) = nt2::cart2sph(a0, a1, a2);

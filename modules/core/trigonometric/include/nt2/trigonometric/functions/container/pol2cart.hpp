@@ -23,7 +23,8 @@ namespace nt2 { namespace ext
                             )
   {
     typedef void result_type;
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& a1,A2 & r0,A3& r1) const
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& a1
+                                            , A2 & r0,A3& r1) const
     {
       nt2::tie(r0,r1) = nt2::pol2cart(a0, a1);
     }
@@ -37,7 +38,8 @@ namespace nt2 { namespace ext
                             )
   {
     typedef typename boost::dispatch::meta::terminal_of<A0>::type result_type;
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& a1,A2& r1) const
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& a1
+                                            , A2& r1) const
     {
       result_type r0;
       nt2::tie(r0,r1) = nt2::pol2cart(a0, a1);

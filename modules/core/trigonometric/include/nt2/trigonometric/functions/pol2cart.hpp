@@ -18,13 +18,15 @@ namespace nt2 { namespace tag
       typedef ext::elementwise_<pol2cart_> parent;
       template<class... Args>
       static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
-      BOOST_AUTO_DECLTYPE_BODY( dispatching_pol2cart_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
+      BOOST_AUTO_DECLTYPE_BODY(
+        dispatching_pol2cart_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
   }
   namespace ext
   {
     template<class Site>
-    BOOST_FORCEINLINE generic_dispatcher<tag::pol2cart_, Site> dispatching_pol2cart_(adl_helper, boost::dispatch::meta::unknown_<Site>, ...)
+    BOOST_FORCEINLINE generic_dispatcher<tag::pol2cart_, Site>
+    dispatching_pol2cart_(adl_helper, boost::dispatch::meta::unknown_<Site>, ...)
     {
       return generic_dispatcher<tag::pol2cart_, Site>();
     }
@@ -86,7 +88,8 @@ namespace nt2 { namespace tag
   **/
 
 
-   NT2_FUNCTION_IMPLEMENTATION_TPL(tag::pol2cart_, pol2cart,(A0 const&)(A1 const&)(A2&),3)
+   NT2_FUNCTION_IMPLEMENTATION_TPL(tag::pol2cart_, pol2cart
+                                  , (A0 const&)(A1 const&)(A2&),3)
 
   /*!
     transforms two-dimensional polar coordinates in Cartesian coordinates
@@ -113,7 +116,8 @@ namespace nt2 { namespace tag
     @param y L-Value that will receive the ordinate
 
   **/
-   NT2_FUNCTION_IMPLEMENTATION_TPL(tag::pol2cart_, pol2cart,(A0 const&)(A1 const&)(A2&)(A3&),4)
+   NT2_FUNCTION_IMPLEMENTATION_TPL(tag::pol2cart_, pol2cart
+                                  , (A0 const&)(A1 const&)(A2&)(A3&),4)
 
     }
 

@@ -18,13 +18,15 @@ namespace nt2 { namespace tag
       typedef ext::elementwise_<cart2pol_> parent;
       template<class... Args>
       static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
-        BOOST_AUTO_DECLTYPE_BODY( dispatching_cart2pol_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
+        BOOST_AUTO_DECLTYPE_BODY(
+          dispatching_cart2pol_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
         };
   }
   namespace ext
   {
     template<class Site>
-    BOOST_FORCEINLINE generic_dispatcher<tag::cart2pol_, Site> dispatching_cart2pol_(adl_helper, boost::dispatch::meta::unknown_<Site>, ...)
+    BOOST_FORCEINLINE generic_dispatcher<tag::cart2pol_, Site>
+    dispatching_cart2pol_(adl_helper, boost::dispatch::meta::unknown_<Site>, ...)
     {
       return generic_dispatcher<tag::cart2pol_, Site>();
     }
@@ -32,7 +34,8 @@ namespace nt2 { namespace tag
     struct impl_cart2pol_;
   }
   /*!
-    transforms two-dimensional Cartesian coordinates stored in corresponding elements of arrays x and y into polar coordinates.
+    transforms two-dimensional Cartesian coordinates stored in corresponding
+    elements of arrays x and y into polar coordinates.
 
     @par Semantic:
 
@@ -60,7 +63,8 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::cart2pol_, cart2pol, 2)
 
   /*!
-    transforms two-dimensional Cartesian coordinates stored in corresponding elements of arrays x and y into polar coordinates.
+    transforms two-dimensional Cartesian coordinates stored in corresponding
+    elements of arrays x and y into polar coordinates.
 
     @par Semantic:
 
@@ -86,10 +90,12 @@ namespace nt2 { namespace tag
   **/
 
 
-   NT2_FUNCTION_IMPLEMENTATION_TPL(tag::cart2pol_, cart2pol,(A0 const&)(A1 const&)(A2&),3)
+   NT2_FUNCTION_IMPLEMENTATION_TPL(tag::cart2pol_, cart2pol
+                                  , (A0 const&)(A1 const&)(A2&),3)
 
   /*!
-    transforms two-dimensional Cartesian coordinates stored in corresponding elements of arrays x and y into polar coordinates.
+    transforms two-dimensional Cartesian coordinates stored in corresponding
+    elements of arrays x and y into polar coordinates.
 
     For every parameters of floating type T0:
 
@@ -113,7 +119,8 @@ namespace nt2 { namespace tag
     @param theta L-Value that will receive the angle
 
   **/
-   NT2_FUNCTION_IMPLEMENTATION_TPL(tag::cart2pol_, cart2pol,(A0 const&)(A1 const&)(A2&)(A3&),4)
+   NT2_FUNCTION_IMPLEMENTATION_TPL(tag::cart2pol_, cart2pol
+                                  , (A0 const&)(A1 const&)(A2&)(A3&),4)
 
     }
 

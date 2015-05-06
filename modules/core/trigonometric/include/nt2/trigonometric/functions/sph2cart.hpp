@@ -18,13 +18,15 @@ namespace nt2 { namespace tag
       typedef ext::elementwise_<sph2cart_> parent;
       template<class... Args>
       static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
-      BOOST_AUTO_DECLTYPE_BODY( dispatching_sph2cart_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
+      BOOST_AUTO_DECLTYPE_BODY(
+        dispatching_sph2cart_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
   }
   namespace ext
   {
     template<class Site>
-    BOOST_FORCEINLINE generic_dispatcher<tag::sph2cart_, Site> dispatching_sph2cart_(adl_helper, boost::dispatch::meta::unknown_<Site>, ...)
+    BOOST_FORCEINLINE generic_dispatcher<tag::sph2cart_, Site>
+    dispatching_sph2cart_(adl_helper, boost::dispatch::meta::unknown_<Site>, ...)
     {
       return generic_dispatcher<tag::sph2cart_, Site>();
     }
@@ -32,7 +34,8 @@ namespace nt2 { namespace tag
     struct impl_sph2cart_;
   }
   /*!
-    transforms three-dimensional spherical coordinates in Cartesian coordinates
+    transforms three-dimensional spherical coordinates
+    in Cartesian coordinates
 
     @par Semantic:
 
@@ -62,7 +65,8 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::sph2cart_, sph2cart, 3)
 
   /*!
-    transforms three-dimensional spherical coordinates in Cartesian coordinates
+    transforms three-dimensional spherical coordinates
+    in Cartesian coordinates
 
     @par Semantic:
 
@@ -91,10 +95,12 @@ namespace nt2 { namespace tag
   **/
 
 
-   NT2_FUNCTION_IMPLEMENTATION_TPL(tag::sph2cart_, sph2cart,(A0 const&)(A1 const&)(A2 const&)(A3&),4)
+   NT2_FUNCTION_IMPLEMENTATION_TPL(tag::sph2cart_, sph2cart
+                                  , (A0 const&)(A1 const&)(A2 const&)(A3&),4)
 
   /*!
-    transforms three-dimensional spherical coordinates in Cartesian coordinates
+    transforms three-dimensional spherical coordinates
+    in Cartesian coordinates
 
     @par Semantic:
 
@@ -123,10 +129,12 @@ namespace nt2 { namespace tag
     @return the x coordinate
   **/
 
-   NT2_FUNCTION_IMPLEMENTATION_TPL(tag::sph2cart_, sph2cart,(A0 const&)(A1 const&)(A2 const &)(A3&)(A4&),5)
+   NT2_FUNCTION_IMPLEMENTATION_TPL(tag::sph2cart_, sph2cart
+                                  , (A0 const&)(A1 const&)(A2 const &)(A3&)(A4&),5)
 
   /*!
-    transforms three-dimensional spherical coordinates in Cartesian coordinates
+    transforms three-dimensional spherical coordinates
+    in Cartesian coordinates
 
     @par Semantic:
 
@@ -155,7 +163,8 @@ namespace nt2 { namespace tag
 
   **/
 
-   NT2_FUNCTION_IMPLEMENTATION_TPL(tag::sph2cart_, sph2cart,(A0 const&)(A1 const&)(A2 const &)(A3&)(A4&)(A5&),6)
+   NT2_FUNCTION_IMPLEMENTATION_TPL(tag::sph2cart_, sph2cart
+                                  , (A0 const&)(A1 const&)(A2 const &)(A3&)(A4&)(A5&),6)
     }
 
 #endif

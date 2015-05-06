@@ -18,13 +18,15 @@ namespace nt2 { namespace tag
       typedef ext::elementwise_<cart2sph_> parent;
       template<class... Args>
       static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
-      BOOST_AUTO_DECLTYPE_BODY( dispatching_cart2sph_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
+      BOOST_AUTO_DECLTYPE_BODY(
+        dispatching_cart2sph_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
   }
   namespace ext
   {
     template<class Site>
-    BOOST_FORCEINLINE generic_dispatcher<tag::cart2sph_, Site> dispatching_cart2sph_(adl_helper, boost::dispatch::meta::unknown_<Site>, ...)
+    BOOST_FORCEINLINE generic_dispatcher<tag::cart2sph_, Site>
+    dispatching_cart2sph_(adl_helper, boost::dispatch::meta::unknown_<Site>, ...)
     {
       return generic_dispatcher<tag::cart2sph_, Site>();
     }
@@ -32,7 +34,8 @@ namespace nt2 { namespace tag
     struct impl_cart2sph_;
   }
   /*!
-    transforms three-dimensional Cartesian coordinates stored in corresponding elements of arrays x y and z into spherical coordinates.
+    transforms three-dimensional Cartesian coordinates stored in corresponding
+    elements of arrays x y and z into spherical coordinates.
 
     @par Semantic:
 
@@ -62,7 +65,8 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::cart2sph_, cart2sph, 3)
 
   /*!
-    transforms three-dimensional Cartesian coordinates stored in corresponding elements of arrays x y and z into spherical coordinates.
+    transforms three-dimensional Cartesian coordinates stored in corresponding
+    elements of arrays x y and z into spherical coordinates.
 
     @par Semantic:
 
@@ -90,10 +94,12 @@ namespace nt2 { namespace tag
   **/
 
 
-   NT2_FUNCTION_IMPLEMENTATION_TPL(tag::cart2sph_, cart2sph,(A0 const&)(A1 const&)(A2 const&)(A3&),4)
+   NT2_FUNCTION_IMPLEMENTATION_TPL(tag::cart2sph_, cart2sph
+                                  , (A0 const&)(A1 const&)(A2 const&)(A3&),4)
 
   /*!
-    transforms three-dimensional Cartesian coordinates stored in corresponding elements of arrays x y and z into spherical coordinates.
+    transforms three-dimensional Cartesian coordinates stored in corresponding
+    elements of arrays x y and z into spherical coordinates.
 
     @par Semantic:
 
@@ -122,9 +128,11 @@ namespace nt2 { namespace tag
   **/
 
 
-   NT2_FUNCTION_IMPLEMENTATION_TPL(tag::cart2sph_, cart2sph,(A0 const&)(A1 const&)(A2 const&)(A3&)(A4&),5)
+   NT2_FUNCTION_IMPLEMENTATION_TPL(tag::cart2sph_, cart2sph
+                                  , (A0 const&)(A1 const&)(A2 const&)(A3&)(A4&),5)
   /*!
-    transforms three-dimensional Cartesian coordinates stored in corresponding elements of arrays x y and z into spherical coordinates.
+    transforms three-dimensional Cartesian coordinates stored in corresponding
+    elements of arrays x y and z into spherical coordinates.
 
     For every parameters of floating type T0:
 
@@ -153,7 +161,8 @@ namespace nt2 { namespace tag
   **/
 
 
-   NT2_FUNCTION_IMPLEMENTATION_TPL(tag::cart2sph_, cart2sph,(A0 const&)(A1 const&)(A2 const&)(A3&)(A4&)(A5&),6)
+   NT2_FUNCTION_IMPLEMENTATION_TPL(tag::cart2sph_, cart2sph
+                                  , (A0 const&)(A1 const&)(A2 const&)(A3&)(A4&)(A5&),6)
 
     }
 
