@@ -43,5 +43,5 @@ NT2_TEST_CASE_TPL ( ellpe_real__1_0,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(ellpe(nt2::One<T>()), nt2::Pio_2<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(ellpe(nt2::Zero<T>()), nt2::One<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(ellpe(nt2::Half<T>()),  T(1.350643881047675), 1);
-  NT2_TEST_ULP_EQUAL(ellpe(nt2::Quarter<T>()),  T(1.21105602756846), 1);
+  NT2_TEST_ULP_EQUAL(ellpe(nt2::Quarter<T>()),  T(1.21105602756846), 1.5);
 }
