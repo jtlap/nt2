@@ -1,5 +1,6 @@
 //==============================================================================
 //          Copyright 2015 J.T. Lapreste
+//
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
@@ -25,13 +26,15 @@ namespace nt2 { namespace tag
       typedef ext::elementwise_<erfcx_> parent;
       template<class... Args>
       static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
-      BOOST_AUTO_DECLTYPE_BODY( dispatching_erfcx_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
+      BOOST_AUTO_DECLTYPE_BODY(
+        dispatching_erfcx_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
   }
   namespace ext
   {
    template<class Site>
-   BOOST_FORCEINLINE generic_dispatcher<tag::erfcx_, Site> dispatching_erfcx_(adl_helper, boost::dispatch::meta::unknown_<Site>, ...)
+   BOOST_FORCEINLINE generic_dispatcher<tag::erfcx_, Site>
+   dispatching_erfcx_(adl_helper, boost::dispatch::meta::unknown_<Site>, ...)
    {
      return generic_dispatcher<tag::erfcx_, Site>();
    }
