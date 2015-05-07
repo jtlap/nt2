@@ -27,13 +27,15 @@ namespace nt2 { namespace tag
       typedef ext::elementwise_<erfc_> parent;
       template<class... Args>
       static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
-      BOOST_AUTO_DECLTYPE_BODY( dispatching_erfc_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
+      BOOST_AUTO_DECLTYPE_BODY(
+        dispatching_erfc_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
   }
   namespace ext
   {
    template<class Site>
-   BOOST_FORCEINLINE generic_dispatcher<tag::erfc_, Site> dispatching_erfc_(adl_helper, boost::dispatch::meta::unknown_<Site>, ...)
+   BOOST_FORCEINLINE generic_dispatcher<tag::erfc_, Site>
+   dispatching_erfc_(adl_helper, boost::dispatch::meta::unknown_<Site>, ...)
    {
      return generic_dispatcher<tag::erfc_, Site>();
    }
@@ -57,8 +59,8 @@ namespace nt2 { namespace tag
     T0 r = one-erf(x);
     @endcode
 
-  @see @funcref{erf}, @funcref{erfinv}, @funcref{erfcinv}
-  @param a0
+    @see @funcref{erf}, @funcref{erfinv}, @funcref{erfcinv}
+    @param a0
 
     @return a value of the same type as the parameter
   **/
