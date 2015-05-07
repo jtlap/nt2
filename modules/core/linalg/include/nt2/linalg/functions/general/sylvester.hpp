@@ -1,6 +1,5 @@
 //==============================================================================
-//         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2015 J.T. Lapreste
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -92,9 +91,12 @@ namespace nt2
 
     private:
       template < class T >
-      BOOST_FORCEINLINE static void compute_sylvester(const T& a1, A0& res, boost::mpl::long_<3> const&)
+      BOOST_FORCEINLINE static void compute_sylvester(const T& a1
+                                                     , A0& res
+                                                     , boost::mpl::long_<3> const&)
       {
-        //ua, ta, ub, tb and r are complex arrays to achieve triangular schur decomposition
+        // ua, ta, ub, tb and r are complex arrays to achieve
+        // triangular schur decomposition
         res.resize(extent(a1));
         ctab_t ua, ta, ub, tb;
         ctab_t r;
@@ -116,7 +118,10 @@ namespace nt2
       }
 
       template < class T >
-      BOOST_FORCEINLINE static void compute_sylvester(const T& a1, A0& res, boost::mpl::long_<2> const&)// this is sylvester  a*x+x*a = c
+      BOOST_FORCEINLINE static void compute_sylvester(const T& a1
+                                                     , A0& res
+                                                     , boost::mpl::long_<2> const&)
+        // this is sylvester  a*x+x*a = c
       {
         //ua, ta and r are complex arrays to achieve triangular schur decomposition
         res.resize(extent(a1));
@@ -168,13 +173,15 @@ namespace nt2
       }
 
       template < class T1, class T2 >
-      BOOST_FORCEINLINE static void transtype(T1& r, T2& z, boost::mpl::false_ const &)
+      BOOST_FORCEINLINE static void transtype(T1& r, T2& z
+                                             , boost::mpl::false_ const &)
       {
         r =  real(z);
       }
 
       template < class T1, class T2 >
-      BOOST_FORCEINLINE static void transtype(T1& r, T2& z, boost::mpl::true_ const &)
+      BOOST_FORCEINLINE static void transtype(T1& r, T2& z
+                                             , boost::mpl::true_ const &)
       {
         r =  z;
       }
