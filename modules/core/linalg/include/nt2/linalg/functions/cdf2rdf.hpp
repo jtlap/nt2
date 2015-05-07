@@ -32,7 +32,8 @@ namespace nt2
   namespace ext
   {
     template<class Site>
-    BOOST_FORCEINLINE generic_dispatcher<tag::cdf2rdf_, Site> dispatching_cdf2rdf_(adl_helper, boost::dispatch::meta::unknown_<Site>, ...)
+    BOOST_FORCEINLINE generic_dispatcher<tag::cdf2rdf_, Site>
+    dispatching_cdf2rdf_(adl_helper, boost::dispatch::meta::unknown_<Site>, ...)
     {
       return generic_dispatcher<tag::cdf2rdf_, Site>();
     }
@@ -61,6 +62,8 @@ namespace nt2
    * @param cv eigenvectors complex eigenvectors from nseig
    * @param ct eigenvalues  complex eigenvalues from nseig
    * @return a fusion sequence of two real matrices
+   *
+   * @see @funcref{cplxpair}
    **/
 
   NT2_FUNCTION_IMPLEMENTATION(tag::cdf2rdf_, cdf2rdf, 2)

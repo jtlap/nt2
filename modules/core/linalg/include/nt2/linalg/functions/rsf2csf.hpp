@@ -26,13 +26,15 @@ namespace nt2
       typedef ext::tieable_<rsf2csf_>  parent;
       template<class... Args>
       static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
-      BOOST_AUTO_DECLTYPE_BODY( dispatching_rsf2csf_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
+      BOOST_AUTO_DECLTYPE_BODY(
+        dispatching_rsf2csf_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
     };
   }
   namespace ext
   {
     template<class Site>
-    BOOST_FORCEINLINE generic_dispatcher<tag::rsf2csf_, Site> dispatching_rsf2csf_(adl_helper, boost::dispatch::meta::unknown_<Site>, ...)
+    BOOST_FORCEINLINE generic_dispatcher<tag::rsf2csf_, Site>
+    dispatching_rsf2csf_(adl_helper, boost::dispatch::meta::unknown_<Site>, ...)
     {
       return generic_dispatcher<tag::rsf2csf_, Site>();
     }
@@ -60,7 +62,7 @@ namespace nt2
    * @param t hessenbeg matrix from real schur decomposition
    * @return a fusion sequence of two complex matrices
    *
-   * @see @funcref{schur}
+   * @see @funcref{schur},  @funcref{cplxpair}
    **/
 
   NT2_FUNCTION_IMPLEMENTATION(tag::rsf2csf_, rsf2csf, 2)

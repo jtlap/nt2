@@ -83,7 +83,8 @@ namespace nt2 { namespace ext
        auto& cv = boost::proto::child_c<0>(a0);
        auto& cw = boost::proto::child_c<1>(a0);
        auto i = find(imag(diag_of(cw)));
-       container::table<std::size_t> index = cast<std::size_t>(i(_(std::size_t(1), std::size_t(2), length(i))));
+       container::table<std::size_t> index =
+         cast<std::size_t>(i(_(std::size_t(1), std::size_t(2), length(i))));
        if (isempty(index))
        {
          boost::proto::child_c<0>(a1) = real(cv);
@@ -91,7 +92,9 @@ namespace nt2 { namespace ext
          return;
        }
        container::table<ctype_t> ct = eye(length(cw), meta::as_<ctype_t>());
-       container::table<ctype_t> twobytwo = cons<ctype_t>(of_size(2, 2), One<ctype_t>(), I<ctype_t>(), One<ctype_t>(), -I<ctype_t>());
+       container::table<ctype_t> twobytwo = cons<ctype_t>(of_size(2, 2), One<ctype_t>()
+                                                         , I<ctype_t>(), One<ctype_t>()
+                                                         , -I<ctype_t>());
        auto i2 = _(std::size_t(0), std::size_t(1));
        std::cout << "i2 "<< i2 << std::endl;
       for(auto j : index)
