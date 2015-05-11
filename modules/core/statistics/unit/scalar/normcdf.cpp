@@ -11,6 +11,7 @@
 #include <nt2/include/functions/eye.hpp>
 #include <nt2/include/functions/ones.hpp>
 #include <nt2/include/functions/abs.hpp>
+#include <nt2/include/functions/globalmax.hpp>
 #include <nt2/include/functions/repnum.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
@@ -18,7 +19,7 @@
 #include <nt2/constant/constant.hpp>
 #include <nt2/table.hpp>
 
-NT2_TEST_CASE_TPL ( normcdf_1,  (float)(double))//NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( normcdf_1,  NT2_REAL_TYPES)
 {
 
   using nt2::normcdf;
@@ -78,7 +79,8 @@ NT2_TEST_CASE_TPL ( normcdf_2,  NT2_REAL_TYPES)
                                    0.99140486544314787576, 0.96178675376250588602, 0.9749999999999999778, 0.99991896541289493339,
                                    0.99999999991295407398, 1.0, 1.0);
   NT2_TEST_ULP_EQUAL(r, rr, 10);
-  NT2_TEST_ULP_EQUAL(plo, pplo, 600);
+
+  NT2_TEST_LESSER(nt2::globalmax(nt2::abs(plo(nt2::_)-pplo(nt2::_))), 100*nt2::Eps<T>());
   NT2_TEST_ULP_EQUAL(pup, ppup, 1);
   rr = nt2::cons<T>(1.349898031630096e-03,     6.209665325776139e-03,     2.275013194817922e-02,     6.680720126885809e-02,
                     1.586552539314571e-01,     3.085375387259869e-01,     5.000000000000000e-01,     6.914624612740131e-01,
@@ -98,7 +100,7 @@ NT2_TEST_CASE_TPL ( normcdf_2,  NT2_REAL_TYPES)
                      );
   nt2::tie(r, plo, pup) = nt2::normcdf(a, nt2::ones(size(a), nt2::meta::as_<T>()), T(2), cov, T(0.05));
   NT2_TEST_ULP_EQUAL(r, rr, 10);
-  NT2_TEST_ULP_EQUAL(plo, pplo, 9000);
+  NT2_TEST_LESSER(nt2::globalmax(nt2::abs(plo(nt2::_)-pplo(nt2::_))), 100*nt2::Eps<T>());
   NT2_TEST_ULP_EQUAL(pup, ppup, 10);
   nt2::tie(r, plo, pup) = nt2::normcdf(a, T(0), T(1), cov, T(0.05));
   rr = nt2::cons<T>(2.8665157187948740877e-07, 3.1671241833184224292e-05, 0.0013498980316300926256, 0.022750131948179170421,
@@ -114,7 +116,7 @@ NT2_TEST_CASE_TPL ( normcdf_2,  NT2_REAL_TYPES)
                                    1.0, 1.0, 1.0
                                   );
   NT2_TEST_ULP_EQUAL(r, rr, 5);
-  NT2_TEST_ULP_EQUAL(plo, pplo, 600);
+  NT2_TEST_LESSER(nt2::globalmax(nt2::abs(plo(nt2::_)-pplo(nt2::_))), 100*nt2::Eps<T>());
   NT2_TEST_ULP_EQUAL(pup, ppup, 1);
 } // end of test for floating_
 
