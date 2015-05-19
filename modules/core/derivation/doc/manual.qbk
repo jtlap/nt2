@@ -1,0 +1,10 @@
+[library numerical derivatives
+  [quickbook 1.5]
+]
+
+[section Overview]
+This module provides implementation of functions allowing computation of numerical
+derivatives, gradients or jacobians.
+[endsect]
+
+[xinclude reference.xml]
