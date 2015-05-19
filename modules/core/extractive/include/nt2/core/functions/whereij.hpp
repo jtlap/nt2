@@ -29,13 +29,16 @@ namespace nt2
       typedef ext::elementwise_<whereij_> parent;
       template<class... Args>
       static BOOST_FORCEINLINE BOOST_AUTO_DECLTYPE dispatch(Args&&... args)
-      BOOST_AUTO_DECLTYPE_BODY( dispatching_whereij_( ext::adl_helper(), static_cast<Args&&>(args)... ) )
+      BOOST_AUTO_DECLTYPE_BODY(
+        dispatching_whereij_( ext::adl_helper(), static_cast<Args&&>(args)... )
+      )
     };
   }
   namespace ext
   {
     template<class Site>
-    BOOST_FORCEINLINE generic_dispatcher<tag::whereij_, Site> dispatching_whereij_(adl_helper, boost::dispatch::meta::unknown_<Site>, ...)
+    BOOST_FORCEINLINE generic_dispatcher<tag::whereij_, Site>
+    dispatching_whereij_(adl_helper, boost::dispatch::meta::unknown_<Site>, ...)
     {
       return generic_dispatcher<tag::whereij_, Site>();
     }
