@@ -8,6 +8,7 @@
 
 SET( SOURCES
   backward.cpp
+  d2f.cpp
   forward.cpp
   centered.cpp
   vand.cpp
