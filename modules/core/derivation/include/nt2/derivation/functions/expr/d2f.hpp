@@ -5,21 +5,24 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_DERIVATION_FUNCTIONS_EXPR_FORWARD_HPP_INCLUDED
-#define NT2_DERIVATION_FUNCTIONS_EXPR_FORWARD_HPP_INCLUDED
+#ifndef NT2_DERIVATION_FUNCTIONS_EXPR_D2F_HPP_INCLUDED
+#define NT2_DERIVATION_FUNCTIONS_EXPR_D2F_HPP_INCLUDED
 
-#include <nt2/derivation/functions/forward.hpp>
+#include <nt2/derivation/functions/d2f.hpp>
 #include <nt2/include/functions/depth.hpp>
 #include <nt2/include/functions/divides.hpp>
+#include <nt2/include/functions/fma.hpp>
 #include <nt2/include/functions/height.hpp>
 #include <nt2/include/functions/minus.hpp>
 #include <nt2/include/functions/multiplies.hpp>
 #include <nt2/include/functions/plus.hpp>
 #include <nt2/include/functions/reshape.hpp>
+#include <nt2/include/functions/sqr.hpp>
 #include <nt2/include/functions/sx.hpp>
 #include <nt2/include/functions/width.hpp>
 #include <nt2/include/functions/whereijk.hpp>
 #include <nt2/include/constants/zero.hpp>
+#include <nt2/include/constants/mtwo.hpp>
 #include <nt2/derivation/options.hpp>
 #include <nt2/derivation/details/choosediags.hpp>
 #include <nt2/derivation/details/compute_h.hpp>
@@ -32,7 +35,7 @@ namespace nt2 { namespace ext
  BOOST_DISPATCH_IMPLEMENT  ( run_assign_, tag::cpu_
                             , (A0)(A1)(N)
                             , ((ast_<A0, nt2::container::domain>))
-                              ((node_ < A1, nt2::tag::forward_, N
+                              ((node_ < A1, nt2::tag::d2f_, N
                                       , nt2::container::domain
                                       >
                               ))
@@ -51,17 +54,22 @@ namespace nt2 { namespace ext
       std::size_t nbcoefs = height(x0); // number of coefficients in an input vector
       std::size_t nbvec = width(x0);    // number of f input vectors
       auto x =  reshape(x0, nbcoefs, 1, nbvec);
-      rtype_t epsi =  details::get<A1, rtype_t>::epsi(in, N());
+      rtype_t epsi =  details::get<A1, rtype_t>::epsi2(in, N());
       auto h = details::compute<rtype_t>::h(x, epsi, N(), choice_t());
       auto hh = expand_to(h, nbcoefs, nbcoefs,  nbvec);
       auto dx = whereijk(details::choosediags(), hh, Zero<type_t>());
-      auto xx =  sx(nt2::tag::plus_(),x, dx);
+      auto xxp =  sx(nt2::tag::plus_(),x, dx);
+      auto xxm =  sx(nt2::tag::minus_(),x, dx);
       out = sx(nt2::tag::divides_()
-                 , sx(nt2::tag::minus_()
-                     , reshape(f(xx), _(), nbcoefs, nbvec)
-                     , reshape(f(x), _(), 1, nbvec)
+                 , sx(nt2::tag::fma_()
+                     , reshape(f(x),  _(), 1, nbvec)
+                     , Mtwo<rtype_t>()
+                     , sx(nt2::tag::plus_()
+                         , reshape(f(xxp), _(), nbcoefs, nbvec)
+                         , reshape(f(xxm), _(), nbcoefs, nbvec)
+                         )
                      )
-              , reshape(h, 1, height(h), depth(h)));
+              , reshape(sqr(h), 1, height(h), depth(h)));
       return out;
     }
   };
