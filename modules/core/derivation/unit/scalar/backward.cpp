@@ -16,6 +16,7 @@
 #include <boost/simd/sdk/config.hpp>
 
 #include <nt2/include/functions/rec.hpp>
+#include <nt2/include/functions/complexify.hpp>
 #include <nt2/include/constants/invpi.hpp>
 #include <nt2/include/constants/pi.hpp>
 #include <nt2/include/constants/sqrteps.hpp>
@@ -45,6 +46,42 @@ NT2_TEST_CASE_TPL ( backward, NT2_REAL_TYPES)
 
   x = nt2::Invpi<T>();
   r = 2*x;
+  dfdx =  backward(f, x,  nt2::Derivinc<T>());
+  NT2_TEST_ULP_EQUAL(dfdx, r,  nt2::rec(nt2::Sqrteps<T>()));
+
+  dfdx =  backward(f, x,  nt2::Derivinc<T>(), nt2::pow2den_);
+  NT2_TEST_ULP_EQUAL(dfdx, r, nt2::rec(nt2::Sqrteps<T>()));
+
+  dfdx =  backward(f, x, nt2::pow2den_);
+  NT2_TEST_ULP_EQUAL(dfdx, r, nt2::rec(nt2::Sqrteps<T>()));
+
+  dfdx =  backward(f, x);
+  NT2_TEST_ULP_EQUAL(dfdx, r, nt2::rec(nt2::Sqrteps<T>()));
+ }
+
+NT2_TEST_CASE_TPL ( backwardrc, NT2_REAL_TYPES)
+{
+  using nt2::backward;
+  using nt2::tag::backward_;
+  typedef typename std::complex<T> cT;
+  auto f =  [](T t)->cT{return cT(t*t, T(1));};
+  T x =  T(nt2::Pi<T>());
+  cT r = T(2)*nt2::Pi<T>();
+
+  cT dfdx =  backward(f, x,  nt2::Derivinc<T>());
+  NT2_TEST_ULP_EQUAL(dfdx, r,  nt2::rec(nt2::Sqrteps<T>()));
+
+  dfdx =  backward(f, x,  nt2::Derivinc<T>(), nt2::pow2den_);
+  NT2_TEST_ULP_EQUAL(dfdx, r, nt2::rec(nt2::Sqrteps<T>()));
+
+  dfdx =  backward(f, x, nt2::pow2den_);
+  NT2_TEST_ULP_EQUAL(dfdx, r, nt2::rec(nt2::Sqrteps<T>()));
+
+  dfdx =  backward(f, x);
+  NT2_TEST_ULP_EQUAL(dfdx, r, nt2::rec(nt2::Sqrteps<T>()));
+
+  x = nt2::Invpi<T>();
+  r = T(2)*x;
   dfdx =  backward(f, x,  nt2::Derivinc<T>());
   NT2_TEST_ULP_EQUAL(dfdx, r,  nt2::rec(nt2::Sqrteps<T>()));
 

@@ -28,7 +28,7 @@ namespace nt2 { namespace ext
                               (scalar_<floating_<X> >)
                             )
   {
-    typedef X result_type;
+    typedef X result_type; // f must C->C but f|R R -> R
 
     BOOST_FORCEINLINE
     result_type operator()(F f, const X& x) const
