@@ -26,7 +26,7 @@
 #include <nt2/include/constants/inf.hpp>
 #include <nt2/include/constants/nan.hpp>
 
-NT2_TEST_CASE_TPL ( erfcx_real,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( erfcx_real,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::erfcx;
   using nt2::tag::erfcx_;
