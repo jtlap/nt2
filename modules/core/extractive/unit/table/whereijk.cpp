@@ -30,9 +30,8 @@ struct dd
 
   template < class A0, class A1, class A2>
   typename nt2::meta::as_logical<A0>::type
-  operator()(const A0&i, const A1&j  , const A2& k) const
+  operator()(const A0&, const A1&j  , const A2& k) const
   {
-    std::cout << "i " << i <<  "  j " << j << " k " << k << std::endl;
     return nt2::eq(k, j);
   }
 };
@@ -48,9 +47,6 @@ NT2_TEST_CASE_TPL( whereijk, NT2_TYPES)
   nt2::table<T>  a = nt2::zeros( nt2::of_size(1, 3, 3), nt2::meta::as_<T>());
   nt2::table<T>  e = nt2::whereijk(dd(), nt2::Eps<T>(), a);
   nt2::table<T>  f =  nt2::Eps<T>()*reshape(nt2::eye(3, nt2::meta::as_<T>()), 1, 3, 3);
-
-
-  NT2_DISPLAY(f);
   NT2_TEST_EQUAL(e, f);
 
 }

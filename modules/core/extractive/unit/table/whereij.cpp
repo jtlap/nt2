@@ -50,18 +50,11 @@ NT2_TEST_CASE_TPL( whereij_callable, NT2_TYPES)
 
   ref = a;
   for(int i=1;i<=3;++i) ref(i,i) = T(99);
-  NT2_DISPLAY(ref);
-
   res = whereij(made_up_diagonal(), T(99), a);
-  NT2_DISPLAY(res);
   NT2_TEST_EQUAL(res, ref);
-
   ref = diagonal(a);
   res = whereij(made_up_diagonal(), a, b);
-  NT2_DISPLAY(res);
   NT2_TEST_EQUAL(res, ref);
-
   res = whereij(made_up_diagonal(), a, T(0));
-  NT2_DISPLAY(res);
   NT2_TEST_EQUAL(res, ref);
 }
