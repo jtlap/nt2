@@ -50,7 +50,7 @@ namespace nt2
     @param a First expression to process
     @param b Second expression to process
 
-    see @funcref{if_else}
+    see @funcref{if_else}, @funcref{whereij}
   **/
   template<class Functor, class A0, class A1> BOOST_FORCEINLINE
   typename meta::call<tag::whereijk_(Functor const&, A0 const&, A1 const&)>::type
