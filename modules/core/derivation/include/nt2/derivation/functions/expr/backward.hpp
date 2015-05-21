@@ -54,7 +54,7 @@ namespace nt2 { namespace ext
       rtype_t epsi =  details::get<A1, rtype_t>::epsi(in, N());
       auto h = details::compute<rtype_t>::h(x, epsi, N(), choice_t());
       auto hh = expand_to(h, nbcoefs, nbcoefs,  nbvec);
-      auto dx = whereijk(details::choosediags(), hh, Zero<type_t>());
+       auto dx = whereijk(details::choosediags(), hh, Zero<rtype_t>());
       auto xx =  sx(nt2::tag::minus_(),x, dx);
       out = sx(nt2::tag::divides_()
                  , sx(nt2::tag::minus_()
@@ -62,7 +62,7 @@ namespace nt2 { namespace ext
                      , reshape(f(xx), _(), nbcoefs, nbvec)
                      )
                  , reshape(h, 1, height(h), depth(h)));
-      return out;
+       return out;
     }
   };
 

@@ -20,6 +20,7 @@
 #include <nt2/include/constants/derivinc.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <nt2/derivation/options.hpp>
+#include <utility>
 
 namespace nt2 { namespace ext
 {
@@ -30,12 +31,13 @@ namespace nt2 { namespace ext
                               (scalar_<floating_<EPSI> >)
                             )
   {
-    typedef X result_type;
+    typedef decltype(std::declval<F>()(std::declval<X>())) result_type;
+    typedef typename meta::as_real<X>::type                    rtype_t;
 
     BOOST_FORCEINLINE
     result_type operator()(F f, const X& x, const EPSI& epsi) const
     {
-      result_type  h = max(epsi*abs(x), epsi);
+      rtype_t h = max(epsi*abs(x), epsi);
       return (f(x+h)-f(x))/h;
     }
   };
@@ -47,12 +49,13 @@ namespace nt2 { namespace ext
                               (scalar_<floating_<X> >)
                             )
   {
-    typedef X result_type;
+    typedef decltype(std::declval<F>()(std::declval<X>())) result_type;
+    typedef typename meta::as_real<X>::type                    rtype_t;
 
     BOOST_FORCEINLINE
     result_type operator()(const F& f, const X& x) const
     {
-      return forward(f, x, Derivinc<result_type>());
+      return forward(f, x, Derivinc<rtype_t>());
     }
   };
 
@@ -64,14 +67,15 @@ namespace nt2 { namespace ext
                               (unspecified_<POW2DEN>)
                             )
   {
-    typedef X result_type;
+    typedef decltype(std::declval<F>()(std::declval<X>())) result_type;
+    typedef typename meta::as_real<X>::type                    rtype_t;
 
     BOOST_FORCEINLINE
     result_type operator()(const F& f, const X& x, const EPSI& epsi
                           , const POW2DEN&) const
     {
-      result_type  e = fast_ldexp(One<result_type>(), exponent(epsi));
-      result_type  h = max(e*fast_ldexp(One<result_type>(), exponent(x)), e);
+      rtype_t e = fast_ldexp(One<rtype_t>(), exponent(epsi));
+      rtype_t h = max(e*fast_ldexp(One<rtype_t>(), exponent(x)), e);
       return  (f(x+h)-f(x))/h;
     }
   };
@@ -83,14 +87,15 @@ namespace nt2 { namespace ext
                               (unspecified_<POW2DEN>)
                             )
   {
-    typedef X result_type;
+    typedef decltype(std::declval<F>()(std::declval<X>())) result_type;
+    typedef typename meta::as_real<X>::type                    rtype_t;
 
     BOOST_FORCEINLINE
     result_type operator()(const F& f, const X& x
                           ,  const POW2DEN&) const
     {
-      result_type  h = max(Derivinc<result_type>()*fast_ldexp(One<result_type>(), exponent(x))
-                          , Derivinc<result_type>());
+      rtype_t h = max(Derivinc<rtype_t>()*fast_ldexp(One<rtype_t>(), exponent(x))
+                          , Derivinc<rtype_t>());
       return  (f(x+h)-f(x))/h;
 
     }
