@@ -162,6 +162,28 @@ namespace nt2 { namespace details
                              )
                             );
     }
+    // computes erfc(rx)*exp(rx*rx) for double or double vectors
+    // x >=  6 rx = 1/x
+    static BOOST_FORCEINLINE A0 erfc4(const A0& rx)
+    {
+      return  horner<NT2_HORNER_COEFF_T(sA0, 14,
+                             (0xc0505fce04ec4ec5ll,// -6.549694941594051e+01
+                              0x4055803d26c4ec4fll,// 8.600373238783617e+01
+                              0xc0457e03041e9d8bll,// -4.298446704382794e+01
+                              0x4015ac7631f7ac4fll,// 5.418419628850713e+00
+                              0x40074fbabc514212ll,// 2.913930388669777e+00
+                              0x3fb505a857e9ccc8ll,// 8.211757799454056e-02
+                              0xbff105e6b8ef1a63ll,// -1.063940737150596e+00
+                              0x3f34a451701654f1ll,// 3.149699042180451e-04
+                              0x3fdb1494cac06d39ll,// 4.231311779019112e-01
+                              0x3e907e71e046a820ll,// 2.457786367990903e-07
+                              0xbfd20dd753ae5dfdll,// -2.820947949598745e-01
+                              0x3db60000e984b501ll,// 2.000889609806154e-11
+                              0x3fe20dd750429a16ll,// 5.641895835477182e-01
+                              0xbc7e4ad1ec7d0000ll // -2.627435221016534e-17
+                             )
+                            )> (rx);
+    }
   };
 } }
 
