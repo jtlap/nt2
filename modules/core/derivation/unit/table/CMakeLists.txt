@@ -11,6 +11,7 @@ SET( SOURCES
   df.cpp
   d2f.cpp
   forward.cpp
+  gradient.cpp
   centered.cpp
   vand.cpp
 # List of table test files for toolbox derivation

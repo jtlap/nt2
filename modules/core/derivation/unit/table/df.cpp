@@ -34,7 +34,6 @@ NT2_TEST_CASE_TPL ( df, NT2_REAL_TYPES)
   using nt2::tag::df_;
 
   nt2::table<T> x =  nt2::reshape(nt2::linspace(T(3), T(14), 12), 3, 4);
-  NT2_DISPLAY(x);
   auto f =  [](nt2::table<T> xx)
     {
       return nt2::cat(1

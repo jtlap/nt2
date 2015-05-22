@@ -36,7 +36,6 @@ NT2_TEST_CASE_TPL ( vand, NT2_REAL_TYPES)
 
   typedef typename nt2::meta::as_complex<T>::type cT;
   nt2::table<T> x =  nt2::reshape(nt2::linspace(T(3), T(14), 12), 3, 4);
-  NT2_DISPLAY(x);
   auto f =  [](nt2::table<cT> xx)
     {
       return nt2::cat(1
@@ -60,7 +59,6 @@ NT2_TEST_CASE_TPL ( vand, NT2_REAL_TYPES)
                                        ),
                                df(x(nt2::_, 4))
                               );
-  NT2_DISPLAY(r);
   nt2::table<T> dfdx =  vand(f, x);
   NT2_TEST_ULP_EQUAL(dfdx, r, 0.5);
  }
