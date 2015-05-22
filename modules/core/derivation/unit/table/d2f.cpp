@@ -34,7 +34,6 @@ NT2_TEST_CASE_TPL ( d2f, NT2_REAL_TYPES)
   using nt2::tag::d2f_;
 
   nt2::table<T> x =  nt2::reshape(nt2::linspace(T(3), T(14), 12), 3, 4);
-  NT2_DISPLAY(x);
   auto f =  [](nt2::table<T> xx)
     {
       return nt2::cat(1
@@ -62,16 +61,10 @@ NT2_TEST_CASE_TPL ( d2f, NT2_REAL_TYPES)
                               );
   nt2::table<T> dfdx =  d2f(f, x);
   NT2_TEST_ULP_EQUAL(dfdx, r, nt2::rec(nt2::Sqrteps<T>()));
-  NT2_DISPLAY(r);
-  NT2_DISPLAY(dfdx);
   dfdx =  d2f(f, x, T(0.0001));
   NT2_TEST_ULP_EQUAL(dfdx, r, nt2::rec(nt2::Sqrteps<T>()));
-  NT2_DISPLAY(r);
-  NT2_DISPLAY(dfdx);
   dfdx =  d2f(f, x, nt2::pow2den_);
   NT2_TEST_ULP_EQUAL(dfdx, r, nt2::rec(nt2::Sqrteps<T>()));
-  NT2_DISPLAY(r);
-  NT2_DISPLAY(dfdx);
  }
 
 

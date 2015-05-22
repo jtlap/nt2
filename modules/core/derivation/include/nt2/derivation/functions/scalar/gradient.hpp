@@ -5,10 +5,10 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_DERIVATION_FUNCTIONS_SCALAR_DF_HPP_INCLUDED
-#define NT2_DERIVATION_FUNCTIONS_SCALAR_DF_HPP_INCLUDED
+#ifndef NT2_DERIVATION_FUNCTIONS_SCALAR_GRADIENT_HPP_INCLUDED
+#define NT2_DERIVATION_FUNCTIONS_SCALAR_GRADIENT_HPP_INCLUDED
 
-#include <nt2/derivation/functions/df.hpp>
+#include <nt2/derivation/functions/gradient.hpp>
 #include <nt2/include/functions/backward.hpp>
 #include <nt2/include/functions/centered.hpp>
 #include <nt2/include/functions/forward.hpp>
@@ -22,7 +22,7 @@
 
 namespace nt2 { namespace ext
 {
-  BOOST_DISPATCH_IMPLEMENT  ( df_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( gradient_, tag::cpu_
                             , (F)(X)(M)
                             , (unspecified_<F>)
                               (scalar_<floating_<X> >)
@@ -34,14 +34,13 @@ namespace nt2 { namespace ext
     typedef typename boost::mpl::if_<boost::is_same<M, tag::vand_>
                                      , r_type
                                      , v_type>::type result_type;
-
     BOOST_FORCEINLINE
     result_type operator()(const F &f, const X& x, const M& ) const
     {
       return functor<M>()(f, x);
     }
   };
-  BOOST_DISPATCH_IMPLEMENT  ( df_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( gradient_, tag::cpu_
                             , (F)(X)(M)(P)
                             , (unspecified_<F>)
                               (scalar_<floating_<X> >)
