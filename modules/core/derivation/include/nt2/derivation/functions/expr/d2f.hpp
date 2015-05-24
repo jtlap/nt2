@@ -54,7 +54,7 @@ namespace nt2 { namespace ext
       std::size_t nbcoefs = height(x0); // number of coefficients in an input vector
       std::size_t nbvec = width(x0);    // number of f input vectors
       auto x =  reshape(x0, nbcoefs, 1, nbvec);
-      rtype_t epsi =  details::get<A1, rtype_t>::epsi2(in, N());
+      rtype_t epsi =  details::get<A1, rtype_t>::epsi(in, Derivinc2<rtype_t>(), N());
       auto h = details::compute<rtype_t>::h(x, epsi, N(), choice_t());
       auto hh = expand_to(h, nbcoefs, nbcoefs,  nbvec);
       auto dx = whereijk(details::choosediags(), hh, Zero<rtype_t>());

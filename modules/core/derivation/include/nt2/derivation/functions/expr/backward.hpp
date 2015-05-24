@@ -20,6 +20,7 @@
 #include <nt2/include/functions/width.hpp>
 #include <nt2/include/functions/whereijk.hpp>
 #include <nt2/include/constants/zero.hpp>
+#include <nt2/include/constants/derivinc.hpp>
 #include <nt2/derivation/options.hpp>
 #include <nt2/derivation/details/choosediags.hpp>
 #include <nt2/derivation/details/compute_h.hpp>
@@ -51,7 +52,7 @@ namespace nt2 { namespace ext
       std::size_t nbcoefs = height(x0); // number of coefficients in an input vector
       std::size_t nbvec = width(x0);    // number of f input vectors
       auto x =  reshape(x0, nbcoefs, 1, nbvec);
-      rtype_t epsi =  details::get<A1, rtype_t>::epsi(in, N());
+      rtype_t epsi =  details::get<A1, rtype_t>::epsi(in, Derivinc<rtype_t>(), N());
       auto h = details::compute<rtype_t>::h(x, epsi, N(), choice_t());
       auto hh = expand_to(h, nbcoefs, nbcoefs,  nbvec);
        auto dx = whereijk(details::choosediags(), hh, Zero<rtype_t>());

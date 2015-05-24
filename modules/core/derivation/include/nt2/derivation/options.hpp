@@ -19,12 +19,16 @@ namespace nt2
     struct backward_   : boost::mpl::true_  {}; //used in deriv, jac
     struct centered_   : boost::mpl::true_  {}; //used in deriv, jac
     struct pow2den_    : boost::mpl::true_  {}; //used in forward,  bacward, centered, deriv, jac
+    struct absolute_   : boost::mpl::true_  {}; //used in forward,  bacward, centered, deriv, jac
+    struct relative_   : boost::mpl::true_  {}; //used in forward,  bacward, centered, deriv, jac
   }
 
   nt2::policy<ext::forward_>      const forward_;
   nt2::policy<ext::backward_>     const backward_;
   nt2::policy<ext::centered_>     const centered_;
-  nt2::policy<ext::pow2den_>       const pow2den_;
+  nt2::policy<ext::pow2den_>      const pow2den_;
+  nt2::policy<ext::absolute_>     const absolute_;
+  nt2::policy<ext::relative_>     const relative_;
  }
 
 #endif
