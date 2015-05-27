@@ -22,36 +22,38 @@ namespace nt2 { namespace details
   {
     template < class X, class C>
     static BOOST_FORCEINLINE auto h(const X & x, R epsi
-                                           , const boost::mpl::long_<2> &
-                                           , const C&)
+                                   , const boost::mpl::long_<2> &
+                                   , const C&)
       -> decltype(max(epsi*abs(x), epsi))
     {
-      return max(epsi*abs(x), epsi);
-    }
-    template < class X >
-      static BOOST_FORCEINLINE auto h(const X & x, R epsi
-                                             , const boost::mpl::long_<3> &
-                                             ,  const boost::mpl::true_&)
-      -> decltype(max(epsi*abs(x), epsi))
-    {
-      return max(epsi*abs(x), epsi);
+      return max(epsi*nt2::abs(x), epsi);
     }
     template < class X >
     static BOOST_FORCEINLINE auto h(const X & x, R epsi
-                                             , const boost::mpl::long_<3> &
-                                             ,  const boost::mpl::false_&)
+                                   , const boost::mpl::long_<3> &
+                                   ,  const boost::mpl::true_&)
+      -> decltype(max(epsi*abs(x), epsi))
+    {
+      return max(epsi*nt2::abs(x), epsi);
+    }
+    template < class X >
+    static BOOST_FORCEINLINE auto h(const X & x, R epsi
+                                   , const boost::mpl::long_<3> &
+                                   ,  const boost::mpl::false_&)
       ->  decltype(max(epsi*fast_ldexp(One<R>(), exponent(x)), epsi))
     {
-      return max(epsi*fast_ldexp(One<R>(), exponent(x)), epsi);
+      R e = fast_ldexp(One<R>(), exponent(epsi));
+      return max(e*fast_ldexp(One<R>(), exponent(x)), e);
     }
 
     template < class X, class C>
-    static BOOST_FORCEINLINE auto _h(const X & x, R epsi
-                                           , const boost::mpl::long_<4> &
-                                           , const C&)
+    static BOOST_FORCEINLINE auto h(const X & x, R epsi
+                                    , const boost::mpl::long_<4> &
+                                    , const C&)
       -> decltype(max(epsi*fast_ldexp(One<R>(), exponent(x)), epsi))
     {
-      return max(epsi*fast_ldexp(One<R>(), exponent(x)), epsi);
+      R e = fast_ldexp(One<R>(), exponent(epsi));
+      return max(e*fast_ldexp(One<R>(), exponent(x)), e);
     }
   };
 

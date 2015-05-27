@@ -14,7 +14,7 @@
 #include <nt2/sdk/unit/tests/ulp.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/sdk/config.hpp>
-
+#include <nt2/derivation/options.hpp>
 #include <nt2/include/functions/cat.hpp>
 #include <nt2/include/functions/cons.hpp>
 #include <nt2/include/functions/linspace.hpp>
@@ -60,6 +60,10 @@ NT2_TEST_CASE_TPL ( vand, NT2_REAL_TYPES)
                                df(x(nt2::_, 4))
                               );
   nt2::table<T> dfdx =  vand(f, x);
+  NT2_TEST_ULP_EQUAL(dfdx, r, 0.5);
+  dfdx =  vand(f, x, T(1));
+  NT2_TEST_ULP_EQUAL(dfdx, r, 0.5);
+  dfdx =  vand(f, x, T(1), nt2::pow2den_);
   NT2_TEST_ULP_EQUAL(dfdx, r, 0.5);
  }
 

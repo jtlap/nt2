@@ -25,6 +25,7 @@
 #include <nt2/include/functions/tocomplex.hpp>
 #include <nt2/include/constants/pi.hpp>
 #include <nt2/include/constants/invpi.hpp>
+#include <nt2/include/constants/derivinc.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
 #include <nt2/include/constants/sqrteps.hpp>
 #include <nt2/table.hpp>
@@ -64,7 +65,7 @@ NT2_TEST_CASE_TPL ( forward, (double))//NT2_REAL_TYPES)
                               );
   nt2::table<T> dfdx =  forward(f, x);
   NT2_TEST_ULP_EQUAL(dfdx, r, nt2::rec(nt2::Sqrteps<T>()));
-  dfdx =  forward(f, x, T(0.0001));
+  dfdx =  forward(f, x,  nt2::Derivinc<T>());
   NT2_TEST_ULP_EQUAL(dfdx, r, nt2::rec(nt2::Sqrteps<T>()));
   dfdx =  forward(f, x, nt2::pow2den_);
   NT2_TEST_ULP_EQUAL(dfdx, r, nt2::rec(nt2::Sqrteps<T>()));
@@ -105,7 +106,7 @@ NT2_TEST_CASE_TPL ( forwardrc, NT2_REAL_TYPES)
                               );
   nt2::table<cT> dfdx =  forward(f, x);
   NT2_TEST_ULP_EQUAL(dfdx, r, nt2::rec(nt2::Sqrteps<T>()));
-  dfdx =  forward(f, x, T(0.0001));
+  dfdx =  forward(f, x,  nt2::Derivinc<T>());
   NT2_TEST_ULP_EQUAL(dfdx, r, nt2::rec(nt2::Sqrteps<T>()));
   dfdx =  forward(f, x, nt2::pow2den_);
   NT2_TEST_ULP_EQUAL(dfdx, r, nt2::rec(nt2::Sqrteps<T>()));

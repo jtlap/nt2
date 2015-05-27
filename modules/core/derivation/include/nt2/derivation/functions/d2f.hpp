@@ -47,6 +47,7 @@ namespace nt2 { namespace tag
   }
   /*!
     Computes the divided d2f difference to evaluate a second order derivative.
+    If f is from \f$K^n\f to K this is the hessian diagonal.
 
 
     @par Semantic:

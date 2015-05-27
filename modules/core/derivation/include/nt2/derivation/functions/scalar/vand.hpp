@@ -18,6 +18,7 @@
 #include <nt2/include/functions/tocomplex.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/eps.hpp>
+#include <nt2/include/constants/inveps.hpp>
 #include <nt2/derivation/options.hpp>
 
 namespace nt2 { namespace ext
@@ -28,7 +29,9 @@ namespace nt2 { namespace ext
                               (scalar_<floating_<X> >)
                             )
   {
-    typedef X result_type; // f must C->C but f|R R -> R
+    typedef decltype(std::declval<F>()(std::declval<X>()))         v_type;
+    typedef typename meta::as_real<v_type>::type              result_type;
+    // f must C->C but f|R R -> R
 
     BOOST_FORCEINLINE
     result_type operator()(F f, const X& x) const
@@ -37,6 +40,42 @@ namespace nt2 { namespace ext
     }
   };
 
+  BOOST_DISPATCH_IMPLEMENT  ( vand_, tag::cpu_
+                            , (F)(X)(EPSI)(DUMMY)
+                            , (unspecified_<F>)
+                              (scalar_<floating_<X> >)
+                              (scalar_<floating_<EPSI>>)
+                              (unspecified_<DUMMY>)
+                            )
+  {
+    typedef decltype(std::declval<F>()(std::declval<X>()))         v_type;
+    typedef typename meta::as_real<v_type>::type              result_type;
+    // f must C->C but f|R R -> R
+
+    BOOST_FORCEINLINE
+    result_type operator()(F f, const X& x, const EPSI& ,  const DUMMY &) const
+    {
+      return imag(f(tocomplex(x, Eps<result_type>())))*Inveps<result_type>();
+    }
+  };
+
+  BOOST_DISPATCH_IMPLEMENT  ( vand_, tag::cpu_
+                            , (F)(X)(DUMMY)
+                            , (unspecified_<F>)
+                              (scalar_<floating_<X> >)
+                              (unspecified_<DUMMY>)
+                            )
+  {
+    typedef decltype(std::declval<F>()(std::declval<X>()))         v_type;
+    typedef typename meta::as_real<v_type>::type              result_type;
+    // f must C->C but f|R R -> R
+
+    BOOST_FORCEINLINE
+    result_type operator()(F f, const X& x,  const DUMMY &) const
+    {
+      return imag(f(tocomplex(x, Eps<result_type>())))*Inveps<result_type>();
+    }
+  };
 } }
 
 #endif

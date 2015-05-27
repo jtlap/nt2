@@ -26,11 +26,49 @@ namespace nt2 { namespace details
 
     template < class A0, class A1, class A2>
     typename nt2::meta::as_logical<A0>::type
-    operator()(const A0&i, const A1&j  , const A2& ) const
+    operator()(const A0&i, const A1&j, const A2& ) const
     {
       return nt2::eq(i, j);
     }
   };
+ struct choosediag
+  {
+    template<class Sig> struct result;
+
+    template<class This, class A0, class A1>
+    struct result<This(A0,A1)>
+    {
+      typedef typename nt2::meta::strip<A0>::type a0_t;
+      typedef typename nt2::meta::as_logical<a0_t>::type type;
+    };
+
+    template < class A0, class A1>
+    typename nt2::meta::as_logical<A0>::type
+    operator()(const A0&i, const A1&j) const
+    {
+      return nt2::eq(i, j);
+    }
+  };
+   struct chooserows
+  {
+    template<class Sig> struct result;
+
+    template<class This, class A0, class A1, class A2>
+    struct result<This(A0,A1,A2)>
+    {
+      typedef typename nt2::meta::strip<A0>::type a0_t;
+      typedef typename nt2::meta::as_logical<a0_t>::type type;
+    };
+
+    template < class A0, class A1, class A2>
+    typename nt2::meta::as_logical<A0>::type
+    operator()(const A0&i, const A1&, const A2&k ) const
+    {
+      return nt2::eq(i, k);
+    }
+  };
+
+
 } }
 
 

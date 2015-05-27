@@ -24,6 +24,7 @@
 #include <nt2/include/functions/rec.hpp>
 #include <nt2/include/constants/pi.hpp>
 #include <nt2/include/constants/invpi.hpp>
+#include <nt2/include/constants/derivinc.hpp>
 #include <nt2/include/constants/sqrteps.hpp>
 #include <nt2/table.hpp>
 
@@ -62,7 +63,7 @@ NT2_TEST_CASE_TPL ( backward, NT2_REAL_TYPES)
                               );
   nt2::table<T> dfdx =  backward(f, x);
   NT2_TEST_ULP_EQUAL(dfdx, r, nt2::rec(nt2::Sqrteps<T>()));
-  dfdx =  backward(f, x, T(0.0001));
+  dfdx =  backward(f, x, nt2::Derivinc<T>());
   NT2_TEST_ULP_EQUAL(dfdx, r, nt2::rec(nt2::Sqrteps<T>()));
   dfdx =  backward(f, x, nt2::pow2den_);
   NT2_TEST_ULP_EQUAL(dfdx, r, nt2::rec(nt2::Sqrteps<T>()));
@@ -102,7 +103,7 @@ NT2_TEST_CASE_TPL ( backwardrc, NT2_REAL_TYPES)
                               );
   nt2::table<cT> dfdx =  backward(f, x);
   NT2_TEST_ULP_EQUAL(dfdx, r, nt2::rec(nt2::Sqrteps<T>()));
-  dfdx =  backward(f, x, T(0.0001));
+  dfdx =  backward(f, x, nt2::Derivinc<T>());
   NT2_TEST_ULP_EQUAL(dfdx, r, nt2::rec(nt2::Sqrteps<T>()));
   dfdx =  backward(f, x, nt2::pow2den_);
   NT2_TEST_ULP_EQUAL(dfdx, r, nt2::rec(nt2::Sqrteps<T>()));

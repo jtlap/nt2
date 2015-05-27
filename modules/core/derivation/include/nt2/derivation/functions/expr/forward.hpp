@@ -43,7 +43,8 @@ namespace nt2 { namespace ext
     typedef typename A0::value_type                    type_t;
     typedef typename meta::as_real<type_t>::type      rtype_t;
     typedef typename boost::proto::result_of::child_c<A1&, N::value-1>::value_type vtype_t;
-    typedef typename meta::is_scalar< vtype_t>::type choice_t;
+    typedef typename meta::is_scalar<vtype_t>::type                   semantic_t;
+    typedef typename meta::is_scalar< semantic_t>::type                 choice_t;
 
     result_type operator()(A0& out, const A1& in ) const
     {

@@ -61,7 +61,7 @@ NT2_TEST_CASE_TPL ( d2f, NT2_REAL_TYPES)
                               );
   nt2::table<T> dfdx =  d2f(f, x);
   NT2_TEST_ULP_EQUAL(dfdx, r, nt2::rec(nt2::Sqrteps<T>()));
-  dfdx =  d2f(f, x, T(0.0001));
+  dfdx =  d2f(f, x, nt2::Derivinc2<T>());
   NT2_TEST_ULP_EQUAL(dfdx, r, nt2::rec(nt2::Sqrteps<T>()));
   dfdx =  d2f(f, x, nt2::pow2den_);
   NT2_TEST_ULP_EQUAL(dfdx, r, nt2::rec(nt2::Sqrteps<T>()));

@@ -7,10 +7,9 @@
 //==============================================================================
 #ifndef NT2_MODULES_CORE_DERIVATION_UNIT_DETAILS_GET_EPSI_HPP_INCLUDED
 #define NT2_MODULES_CORE_DERIVATION_UNIT_DETAILS_GET_EPSI_HPP_INCLUDED
-#include <nt2/include/constants/derivinc.hpp>
-#include <nt2/include/constants/derivinc2.hpp>
 #include <boost/mpl/int.hpp>
 #include <nt2/sdk/meta/is_scalar.hpp>
+#include <boost/dispatch/dsl/semantic_of.hpp>
 
 namespace nt2 { namespace details
 {
@@ -27,7 +26,8 @@ namespace nt2 { namespace details
                                    , const boost::mpl::long_<3> & )
     {
       typedef typename boost::proto::result_of::child_c<A1&, 2>::value_type child2_t;
-      typedef typename meta::is_scalar<child2_t>::type                      choose_t;
+      typedef typename boost::dispatch::meta::semantic_of<child2_t>::type semantic_t;
+      typedef typename meta::is_scalar<semantic_t>::type                    choose_t;
       return epsi(in, fallback, choose_t(), boost::mpl::long_<3>());
     }
     static BOOST_FORCEINLINE R epsi(const A1&, const R & fallback

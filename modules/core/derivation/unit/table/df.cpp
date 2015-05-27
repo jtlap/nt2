@@ -21,6 +21,7 @@
 #include <nt2/include/functions/colvect.hpp>
 #include <nt2/include/functions/globalsum.hpp>
 #include <nt2/include/functions/rec.hpp>
+#include <nt2/include/functions/tocomplex.hpp>
 #include <nt2/include/constants/pi.hpp>
 #include <nt2/include/constants/invpi.hpp>
 #include <nt2/include/constants/sqrteps.hpp>
@@ -68,11 +69,12 @@ NT2_TEST_CASE_TPL ( df, NT2_REAL_TYPES)
                                        ),
                                ddf(x(nt2::_, 4))
                               );
-  nt2::table<T> dfdx =  df(f, x, nt2::tag::forward_());
+  nt2::table<T> dfdx =  df(f, x, nt2::forward_);
   NT2_TEST_ULP_EQUAL(dfdx, r, nt2::rec(nt2::Sqrteps<T>()));
-  dfdx =  df(f, x, nt2::tag::centered_(), nt2::pow2den_);
+  dfdx =  df(f, x, nt2::centered_, nt2::pow2den_);
   NT2_TEST_ULP_EQUAL(dfdx, r, nt2::rec(nt2::Sqrteps<T>()));
-  dfdx =  df(cf, x, nt2::tag::vand_());
+  NT2_DISPLAY(nt2::type_id(nt2::vand_));
+   dfdx = df(cf, x, nt2::vand_);
   NT2_TEST_ULP_EQUAL(dfdx, r, nt2::rec(nt2::Sqrteps<T>()));
  }
 

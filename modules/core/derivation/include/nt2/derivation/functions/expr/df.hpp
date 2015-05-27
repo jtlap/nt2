@@ -14,6 +14,7 @@
 #include <nt2/include/functions/forward.hpp>
 #include <nt2/include/functions/vand.hpp>
 #include <nt2/derivation/options.hpp>
+#include <nt2/table.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -29,30 +30,27 @@ namespace nt2 { namespace ext
     typedef A0&                                   result_type;
     typedef typename A0::value_type                    type_t;
     typedef typename meta::as_real<type_t>::type      rtype_t;
+    typedef typename boost::proto::result_of::child_c<A1&, 2>::value_type tag_t;
+    typedef typename tag_t::value_type::option_type  method_t;
 
     result_type operator()(A0& out, const A1& in ) const
     {
       auto x0 = boost::proto::child_c<1>(in);
       auto f =  boost::proto::value(boost::proto::child_c<0>(in));
-      auto method = boost::proto::value(boost::proto::child_c<2>(in));
-      compute(out, f, x0, method, N());
+      compute(out, f, x0, N());
       return out;
     }
   private :
-    template < class F, class X,  class M>
-    static void compute(A0& out, const F & f,  const X& x,  const M & , const boost::mpl::long_<3> &)
+    template < class A, class F, class X>
+    static void compute(A& out, const F & f,  const X& x, const boost::mpl::long_<3> &)
     {
-      out = functor<M>()(f, x);
+      out = functor<method_t>()(f, x);
     }
-    template < class F, class X,  class M>
-    static void compute(A0& out, const F & f,  const  X& x,  const M & , const boost::mpl::long_<4> &)
+    template <class A, class F, class X>
+    static void compute(A& out, const F & f,  const  X& x, const boost::mpl::long_<4> &)
     {
-      out = functor<M>()(f, x, nt2::pow2den_);
-    }
-    template < class F, class X>
-    static void compute(A0& out, const F & f,  const X& x,  const tag::vand_ &, const boost::mpl::long_<4> &)
-    {
-      out = vand(f, x);
+      typedef typename boost::proto::result_of::child_c<A1&, 3>::value_type opt_t;
+      out = functor<method_t>()(f, x, opt_t());
     }
   };
 

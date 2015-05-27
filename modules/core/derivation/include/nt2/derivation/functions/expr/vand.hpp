@@ -19,8 +19,8 @@
 #include <nt2/include/functions/tocomplex.hpp>
 #include <nt2/include/functions/eye.hpp>
 #include <nt2/include/constants/eps.hpp>
+#include <nt2/include/constants/inveps.hpp>
 #include <nt2/derivation/options.hpp>
-#include <nt2/table.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -36,18 +36,18 @@ namespace nt2 { namespace ext
     typedef A0&                                 result_type;
     typedef typename A0::value_type                  type_t;
     typedef typename meta::as_complex<type_t>::type ctype_t;
+    typedef typename meta::as_real<type_t>::type    rtype_t;
 
     result_type operator()(A0& out, const A1& in ) const
     {
       auto x = boost::proto::child_c<1>(in);
-      table<ctype_t> xc = complexify(x);
       auto f =  boost::proto::value(boost::proto::child_c<0>(in));
-      std::size_t nbcoefs = height(xc); // number of coefficients in an input f vector
-      std::size_t nbvec = width(xc);    // number of f input vectors
-      auto xc1 = reshape(x, nbcoefs, 1, nbvec);
-      auto e = nt2::Eps<type_t>()*nt2::eye(nbcoefs, nbcoefs, 1, nt2::meta::as_<type_t>());
-      auto xxc =  sx(nt2::tag::tocomplex_(),xc1, e);
-      out = reshape(imag(f(xxc)/Eps<type_t>()), _(), nbcoefs, nbvec);
+      std::size_t nbcoefs = height(x); // number of coefficients in an input f vector
+      std::size_t nbvec = width(x);    // number of f input vectors
+      auto x1 = reshape(x, nbcoefs, 1, nbvec);
+      auto e = nt2::Eps<rtype_t>()*nt2::eye(nbcoefs, nbcoefs, 1, nt2::meta::as_<rtype_t>());
+      auto xc =  sx(nt2::tag::tocomplex_(),x1, e);
+      out = reshape(imag(f(xc)*Inveps<rtype_t>()), _(), nbcoefs, nbvec);
       return out;
     }
   };

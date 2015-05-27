@@ -11,6 +11,7 @@ SET( SOURCES
   df.cpp
   d2f.cpp
   forward.cpp
+  gillmurray.cpp
   centered.cpp
   vand.cpp
 # List of scalar test files for toolbox derivation

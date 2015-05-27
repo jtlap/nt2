@@ -22,6 +22,7 @@
 #include <nt2/include/functions/width.hpp>
 #include <nt2/include/functions/whereijk.hpp>
 #include <nt2/include/constants/zero.hpp>
+#include <nt2/include/constants/derivinc2.hpp>
 #include <nt2/include/constants/mtwo.hpp>
 #include <nt2/derivation/options.hpp>
 #include <nt2/derivation/details/choosediags.hpp>
