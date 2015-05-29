@@ -12,6 +12,7 @@ SET( SOURCES
   d2f.cpp
   forward.cpp
   gillmurray.cpp
+  gillmurray2.cpp
   gradient.cpp
   centered.cpp
   vand.cpp
