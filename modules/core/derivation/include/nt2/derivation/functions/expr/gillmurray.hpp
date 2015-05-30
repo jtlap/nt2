@@ -81,7 +81,7 @@ namespace nt2 { namespace ext
 //      NT2_DISPLAY(xxj);
         auto xxij =  sx(nt2::tag::plus_(), xxi, dx);
 //      NT2_DISPLAY(xxij);
-        table<type_t> fh1h2  = reshape(f(xxij), nbcoefs, nbcoefs);
+        auto fh1h2  = reshape(f(xxij), nbcoefs, nbcoefs);
 //      NT2_DISPLAY(fh1h2);
         table<type_t> fh1    = reshape(f(xxi), nbcoefs, nbcoefs);
 //      NT2_DISPLAY(fh1);
