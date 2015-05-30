@@ -57,11 +57,12 @@ namespace nt2 { namespace ext
       A0 xx =  nt2::sqr(x);
       A0 lim1 = nt2::splat<A0>(0.65);
       A0 lim2 = nt2::splat<A0>(2.2);
+      A0 lim3 = nt2::splat<A0>(6);
       bA0 test0 = nt2::is_ltz(a0);
       bA0 test1 = nt2::lt(x, lim1);
       A0 r1 = nt2::Zero<A0>();
       std::size_t nb = nt2::inbtrue(test1);
-      if(nb > 0)
+      if(nb > 0)// x <  1
       {
         r1 = nt2::oneminus(x*details::erf_kernel<A0>::erf1(xx));
         if (nb >= meta::cardinal_of<A0>::value)
@@ -72,7 +73,7 @@ namespace nt2 { namespace ext
       A0 ex = nt2::exp(-xx);
 
       std::size_t nb1 = nt2::inbtrue(test3);
-      if(nb1 > 0)
+      if(nb1 > 0) // x >= 1 && x <  2.2
       {
         A0 z = ex*details::erf_kernel<A0>::erfc2(x);
         r1 = nt2::if_else(test1, r1, z);
@@ -80,13 +81,26 @@ namespace nt2 { namespace ext
         if (nb >= meta::cardinal_of<A0>::value)
           return nt2::if_else(test0, Two<A0>()-r1, r1);
       }
-      A0 z =  ex*details::erf_kernel<A0>::erfc3(x);
-      r1 = nt2::if_else(test2, r1, z);
+
+      bA0 test4 = nt2::lt(x, lim3);
+      bA0 test5 = nt2::logical_andnot(test4, test2);
+
+      std::size_t nb2 = nt2::inbtrue(test5);
+      if(nb2 > 0) // x < 6 && x >= 2.2
+      {
+        A0 z =  ex*details::erf_kernel<A0>::erfc3(x);
+        r1 = nt2::if_else(test5, r1, z);
+        nb += nb2;
+        if (nb >= meta::cardinal_of<A0>::value)
+          return nt2::if_else(test0, Two<A0>()-r1, r1);
+      }
+      A0 z = ex*details::erf_kernel<A0>::erfc4(x);
+      r1 = nt2::if_else(test4, r1, z);
       #ifndef BOOST_SIMD_NO_INFINITIES
       r1 = if_zero_else( eq(x, Inf<A0>()), r1);
       #endif
       return  nt2::if_else(test0, nt2::Two<A0>()-r1, r1);
-      }
+    }
   };
 
   BOOST_DISPATCH_IMPLEMENT  ( erfc_, tag::cpu_
