@@ -60,7 +60,7 @@ namespace boost { namespace simd { namespace ext
 #else
       if(nt2::any(is_invalid(res)))
       {
-        result_type z = nt2::multiplies(a0, a1);
+        result_type z = multiplies(a0, a1);
         z+=a2;
         return if_else(is_invalid(res), z, res);
       }

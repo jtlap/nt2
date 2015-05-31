@@ -49,11 +49,11 @@ namespace boost { namespace simd { namespace ext
       itype e =  -if_else(lt(rr, ii), exponent(ii), exponent(rr));
       A0 aa1 =  nt2::ldexp(a1, e);
       rtype denom =  sqr_abs(aa1);
-      A0 num = nt2::multiplies(a0, conj(aa1));
+      A0 num = multiplies(a0, conj(aa1));
       A0 r =  ldexp(nt2::divides(num, denom), e);
       if (nt2::all(is_finite(r))) return r;
-      r = if_else(is_eqz(denom), nt2::multiplies(a0, copysign(Inf<rtype>(), nt2::real(a1))), r);
-      r = if_else(is_inf(a1),    nt2::multiplies(a0, rec(copysign(denom, nt2::real(a1)))), r);
+      r = if_else(is_eqz(denom), multiplies(a0, copysign(Inf<rtype>(), nt2::real(a1))), r);
+      r = if_else(is_inf(a1),    multiplies(a0, rec(copysign(denom, nt2::real(a1)))), r);
       return r;
     }
   };
@@ -80,7 +80,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      return nt2::multiplies(a0, rec(a1));
+      return multiplies(a0, rec(a1));
     }
   };
 
