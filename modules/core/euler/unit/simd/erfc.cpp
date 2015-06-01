@@ -30,6 +30,7 @@
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/inf.hpp>
 #include <nt2/include/constants/nan.hpp>
+#include <nt2/include/constants/two.hpp>
 
 NT2_TEST_CASE_TPL ( erfc_real,  NT2_SIMD_REAL_TYPES)
 {
@@ -57,4 +58,5 @@ NT2_TEST_CASE_TPL ( erfc_real,  NT2_SIMD_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(erfc(nt2::Zero<vT>()), nt2::One<r_t>(), 200);
   NT2_TEST(nt2::all(nt2::is_less(erfc((nt2::Ten<vT>())- nt2::splat<vT>(2.088487583762545e-45)), nt2::Eps<T>())));
   NT2_TEST(nt2::all(nt2::is_less(erfc(nt2::splat<vT>(15))- nt2::splat<vT>(7.212994172451206e-100), nt2::Eps<T>())));
+  NT2_TEST_ULP_EQUAL(erfc(nt2::splat<vT>(-6)), nt2::Two<r_t>(), 4);
 }

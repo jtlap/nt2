@@ -51,6 +51,8 @@ NT2_TEST_CASE_TPL ( erfcx_real,  NT2_SIMD_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(erfcx(nt2::Zero<vT>()), nt2::One<r_t>(), 2);
   NT2_TEST_ULP_EQUAL(erfcx(nt2::splat<vT>(6)), nt2::splat<vT>(9.277656780053835e-02), 4);
   NT2_TEST_ULP_EQUAL(erfcx(nt2::splat<vT>(-6)), nt2::splat<vT>(8.622463094230390e+15), 4);
+  NT2_TEST_ULP_EQUAL(erfcx(nt2::splat<vT>(-5)), nt2::splat<vT>(144009798674.661), 4);
+
   NT2_TEST_ULP_EQUAL(erfcx(nt2::splat<vT>(7)), nt2::splat<vT>(7.980005432915294e-02), 4);
   NT2_TEST_ULP_EQUAL(erfcx(nt2::splat<vT>(15)), nt2::splat<vT>( 3.752960638850577e-02), 4);
 }
