@@ -42,7 +42,6 @@
 #include <nt2/include/functions/simd/if_zero_else.hpp>
 #include <nt2/include/functions/simd/is_equal.hpp>
 #endif
-#include <nt2/table.hpp>
 
 namespace nt2 { namespace ext
 {
