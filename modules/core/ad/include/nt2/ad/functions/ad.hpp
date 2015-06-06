@@ -10,6 +10,7 @@
 
 #include <nt2/include/functions/ad.hpp>
 #include <nt2/include/functions/ones.hpp>
+#include <nt2/include/functions/repnum.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <iostream>
@@ -60,6 +61,12 @@ namespace nt2
       {};
       valder(const value_t & a)
         : value(a), derivative(ones(size(a), meta::as_<elem_t>()))
+      {};
+      valder(const value_t & v, const elem_t & d)
+        : value(v), derivative(repnum(d, size(v)))
+      {};
+      valder(const elem_t & v, const elem_t & d)
+        : value(repnum(v, size(d)), derivative(d))
       {};
       valder(const value_t & v, const value_t & d)
         : value(v), derivative(d)

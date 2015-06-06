@@ -9,7 +9,7 @@
 #include <nt2/include/functions/ad.hpp>
 #include <nt2/include/functions/ad_io.hpp>
 #include <nt2/include/functions/linspace.hpp>
-#include <nt2/include/functions/df_ad.hpp>
+//#include <nt2/include/functions/ad_df.hpp>
 #include <nt2/ad/arithmetic.hpp>
 #include <nt2/ad/trigonometric.hpp>
 #include <nt2/ad/operator.hpp>
@@ -22,44 +22,6 @@
 #include <boost/simd/sdk/config.hpp>
 #include <nt2/table.hpp>
 
-NT2_TEST_CASE_TPL ( backward, NT2_REAL_TYPES)
-{
-  using nt2::backward;
-  using nt2::tag::backward_;
-
-  nt2::table<T> x =  nt2::reshape(nt2::linspace(T(3), T(14), 12), 3, 4);
-  auto f =  [](nt2::table<T> xx)
-    {
-      return nt2::cat(1
-                     , xx(1, nt2::_)*xx(1, nt2::_)+xx(2, nt2::_)
-                     , xx(2, nt2::_)*xx(2, nt2::_)*xx(3, nt2::_)
-                     );
-    };
-  auto df =  [](nt2::table<T> xx)
-    {
-      return nt2::cons<T>(nt2::of_size(2, 3),
-                          2*xx(1),              0,
-                          1        , 2*xx(2)*xx(3),
-                          0        , xx(2)*xx(2) );
-   };
-
-  nt2::table<T> r =   nt2::cat(3,
-                               nt2::cat(3,
-                                        nt2::cat(3,
-                                                 df(x(nt2::_, 1)),
-                                                 df(x(nt2::_, 2))
-                                                ),
-                                        df(x(nt2::_, 3))
-                                       ),
-                               df(x(nt2::_, 4))
-                              );
-  nt2::table<T> dfdx =  backward(f, x);
-  NT2_TEST_ULP_EQUAL(dfdx, r, nt2::rec(nt2::Sqrteps<T>()));
-  dfdx =  backward(f, x, nt2::Derivinc<T>());
-  NT2_TEST_ULP_EQUAL(dfdx, r, nt2::rec(nt2::Sqrteps<T>()));
-  dfdx =  backward(f, x, nt2::pow2den_);
-  NT2_TEST_ULP_EQUAL(dfdx, r, nt2::rec(nt2::Sqrteps<T>()));
- }
 
   template < class T > T test(const T & x)
   {
