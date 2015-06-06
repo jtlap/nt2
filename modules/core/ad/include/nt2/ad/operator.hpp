@@ -5,20 +5,12 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_AD_FUNCTIONS_GENERIC_COS_HPP_INCLUDED
-#define NT2_AD_FUNCTIONS_GENERIC_COS_HPP_INCLUDED
+#ifndef NT2_AD_OPERATOR_HPP_INCLUDED
+#define NT2_AD_OPERATOR_HPP_INCLUDED
 
-#include <nt2/include/functions/cos.hpp>
-#include <nt2/ad/functions/ad.hpp>
-
-namespace nt2 { namespace ad
-{
-  template < class T>
-  valder<T> cos(const valder<T>&u)
-  {
-    return valder<T>(cos(u.val()), -sin(u.val())*u.der());
-  };
-
-} }
+#include <nt2/include/functions/ad.hpp>
+#include <nt2/ad/operator/functions/generic/plus.hpp>
+#include <nt2/ad/operator/functions/generic/minus.hpp>
+#include <nt2/ad/operator/functions/generic/multiplies.hpp>
 
 #endif

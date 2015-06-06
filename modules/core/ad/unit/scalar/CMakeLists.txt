@@ -8,6 +8,7 @@
 
 SET( SOURCES
    essai.cpp
+   essai1.cpp
 # List of scalar test files for toolbox derivation
    )
 
