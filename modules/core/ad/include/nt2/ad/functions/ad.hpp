@@ -10,24 +10,29 @@
 
 #include <nt2/include/functions/ad.hpp>
 #include <nt2/include/functions/ones.hpp>
-#include <nt2/include/functions/repnum.hpp>
+#include <nt2/include/functions/expand_to.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <iostream>
 #include <nt2/core/container/table/table.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>
+#include <boost/mpl/bool.hpp>
 
 namespace nt2
 {
   namespace ad
   {
-    template<typename T>
-    class valder
+    template<class T, class S = typename meta::is_scalar<T>::type>
+    class valder;
+
+    template<class T>
+    class valder<T, boost::mpl::true_>
     {
     public:
       typedef T                                  value_t;
       typedef typename meta::scalar_of<T>::type   elem_t;
-      typedef valder<T>                           type_t;
+      typedef valder<T,boost::mpl::true_ >        type_t;
+      typedef valder<T>                              v_t;
       valder()
         : value(Zero<T>()), derivative(One<value_t>())
       {};
@@ -49,27 +54,22 @@ namespace nt2
       T value,  derivative;
     };
 
-    template<typename T>
-    class valder <typename container::table<T>>
+    template<class T>
+    class valder <T, boost::mpl::false_>
     {
     public:
-      typedef typename container::table<T>                  value_t;
-      typedef T                                              elem_t;
-      typedef valder<typename nt2::container::table<T>>      type_t;
+      typedef typename meta::scalar_of<T>::type              elem_t;
+      typedef typename container::table<elem_t>             value_t;
+      typedef valder<T, boost::mpl::false_>                  type_t;
+      typedef valder<value_t, boost::mpl::false_>               v_t;
       valder()
-        : value(), derivative()
+      : value(), derivative()
       {};
       valder(const value_t & a)
         : value(a), derivative(ones(size(a), meta::as_<elem_t>()))
       {};
-      valder(const value_t & v, const elem_t & d)
-        : value(v), derivative(repnum(d, size(v)))
-      {};
-      valder(const elem_t & v, const elem_t & d)
-        : value(repnum(v, size(d)), derivative(d))
-      {};
       valder(const value_t & v, const value_t & d)
-        : value(v), derivative(d)
+        : value(v), derivative(expand_to(d, size(v)))
       {};
       valder(const type_t& a)
         : value(a.val()), derivative(a.der())
@@ -79,14 +79,14 @@ namespace nt2
       value_t & val(const value_t & v) { return value = v; }
       value_t & der(const value_t & d) { return derivative = d; }
       template < class I1,  class I2>
-      type_t operator()(const I1 & i1,  const I2 & i2) const
+      v_t operator()(const I1 & i1,  const I2 & i2) const
       {
-        return type_t(value(i1, i2), derivative(i1, i2));
+        return v_t(value(i1, i2), derivative(i1, i2));
       }
       template < class I1,  class I2>
-      type_t operator()(const I1 & i1,  const I2 & i2)
+      v_t operator()(const I1 & i1,  const I2 & i2)
       {
-        return type_t(value(i1, i2), derivative(i1, i2));
+        return v_t(value(i1, i2), derivative(i1, i2));
       }
 
     private:

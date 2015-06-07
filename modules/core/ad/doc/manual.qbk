@@ -4,7 +4,108 @@
 
 [section Overview]
 This module provides implementation of functions allowing computation of numerical
-derivatives, gradients or jacobians with full precision as an alternative to derivation.
+derivatives, gradients or jacobians of functions with full precision as an
+alternative to derivation.
+
+
+To use the process of simultaneously evaluate a function f of prototype
+
+T f(const T& x);
+
+where x is a floating point value and its derivative at the point x0 (of type T)
+you simply have to do :
+
+auto r = f(make_ad(x0));
+
+Then :
+
+r.val() is the value of f at x (i.e r.val == f(x0)) and r.der() is the derivative of
+f at x0.
+
+In fact your function can any function from K1 to K2 where K1 and K2 can be float, double,
+complex<float> or complex<double> and if you pass a matrix expression to such a function
+the nt2 vectorisation process will compute values and derivatives of the function at each
+matricial entry.
+
+We can also compute partial derivative:
+
+1) For functions of several variables like f(x,y) if you want simply df/dx(x0,y0)  do:
+
+auto r = f(make_ad(x0), y0);
+
+2)If  your function is from \f$K_1^m\f$ to \f$K_2^n\f$ and the entry x is a vector of m elements.
+If you need to compute the partial derivative df/dxi(x0)
+
+you do:
+
+auto r =f(make_ad(x0,i)
+
+where i is the size_t wanted index
+
+If your f function is capable of issuing a 3D matricial expression
+(one page by column of the input) for a matricial input of column vectors
+the computation is once again vectorized.
+
+If you want the complete set of derivatives use ad_df of ad_gradient (n=1)
+for jacobian matrix or gradient vector.
+
+If you desire the directionnal derivative along a vector v replace i by
+the colon floating vector of coordinates (i being a shortcut for all 0 except 1 at the ith index).
+
+auto r =f(make_ad(x0,v)
+
+will compute \f$\lim_{h->0} \frac{f(x+hv)-f(v)}h$\f
+
+Of course there are some restrictions...
+
+f must be writen in terms of nt2 functions or operators in the following list,
+with any switch or branch allowed.
+
+Operators :
++-*/
+divides.cpp
+if_else.cpp
+is_equal.cpp
+is_greater.cpp
+is_greater_equal.cpp
+is_less.cpp
+is_less_equal.cpp
+is_not_equal.cpp
+minus.cpp
+multiplies.cpp
+plus.cpp
+unary_minus.cpp
+unary_plus.cpp
+
+Functions
+
+Arithmetic
+
+abs.cpp
+arg.cpp
+average.cpp
+conj.cpp
+dec.cpp
+dist.cpp
+fma.cpp
+fms.cpp
+fnma.cpp
+fnms.cpp
+hypot.cpp
+inc.cpp
+max.cpp
+min.cpp
+minmod.cpp
+oneminus.cpp
+oneplus.cpp
+rec.cpp
+sqr_abs.cpp
+sqr.cpp
+sqrt.cpp
+
+abs, arg and conj are not working for complex numbers.
+
+
 [endsect]
 
 [xinclude reference.xml]

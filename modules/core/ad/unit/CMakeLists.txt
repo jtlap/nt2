@@ -11,4 +11,5 @@ nt2_module_use_modules(test.unit)
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(table)
 ADD_SUBDIRECTORY(operator)
+ADD_SUBDIRECTORY(arithmetic)
 
