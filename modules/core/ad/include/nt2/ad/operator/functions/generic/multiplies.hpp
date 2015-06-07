@@ -18,7 +18,7 @@ namespace nt2 {
     template < class T1, class T2> BOOST_FORCEINLINE
     valder<T1> operator*(const valder<T1>&u, const valder<T2>&v)
     {
-      return valder<T1>(u.val()*v.val(), fma(u.der(), v.val(), u.val()*v.der()));
+      return valder<T1>(u.val()*v.val(), nt2::fma(u.der(), v.val(), u.val()*v.der()));
     };
     template < class T1, class T2 > BOOST_FORCEINLINE
     valder<T2> operator*(const T1&u, const valder<T2>&v)
@@ -45,7 +45,8 @@ namespace nt2 {
     valder<T1> multiplies(const valder<T1>&u, const T2&v)
     {
       return valder<T1>(u.val()*v, u.der()*v);
-    };  }
+    };
+  }
 }
 
 #endif

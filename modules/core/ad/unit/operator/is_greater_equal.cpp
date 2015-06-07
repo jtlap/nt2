@@ -26,7 +26,7 @@ using nt2::ad::valder;
 
 NT2_TEST_CASE_TPL ( is_greater_equal,  NT2_REAL_TYPES)
 {
-  T x = 2, y = 3;
+  T x = 2, y;
   valder<T> vx(2, 1), vy(3, 0);
   NT2_TEST(!is_greater_equal(vx, vy));
   NT2_TEST(!is_greater_equal(x, vy));
