@@ -11,7 +11,6 @@
 #include <nt2/include/functions/ifnotadd.hpp>
 #include <nt2/include/functions/if_zero_else.hpp>
 #include <nt2/ad/functions/ad.hpp>
-#include <nt2/ad/details/booleangen.hpp>
 
 namespace nt2
 {

@@ -10,7 +10,6 @@
 
 #include <nt2/include/functions/if_zero_else_one.hpp>
 #include <nt2/ad/functions/ad.hpp>
-#include <nt2/ad/details/booleangen.hpp>
 
 namespace nt2
 {
@@ -20,7 +19,8 @@ namespace nt2
     valder<L> if_zero_else_one(const valder<L> & l)
     {
       typedef typename valder<L>::elem_t elem_t;
-      return valder<L>(nt2::if_zero_else_one(l.val()), Zero<elem_t>());
+      return valder<L>(nt2::if_zero_else_one(l.val())
+                      , Zero<elem_t>());
     }
   }
 }

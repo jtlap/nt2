@@ -11,7 +11,6 @@
 #include <nt2/include/functions/if_allbits_else.hpp>
 #include <nt2/include/constants/nan.hpp>
 #include <nt2/ad/functions/ad.hpp>
-#include <nt2/ad/details/booleangen.hpp>
 
 namespace nt2
 {
