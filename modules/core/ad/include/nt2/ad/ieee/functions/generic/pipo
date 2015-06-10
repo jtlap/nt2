@@ -1,0 +1,11 @@
+cp copysign.hpp ldexp.hpp
+cp copysign.hpp maxmag.hpp
+cp copysign.hpp maxnum.hpp
+cp copysign.hpp maxnummag.hpp
+cp copysign.hpp minmag.hpp
+cp copysign.hpp minnum.hpp
+cp copysign.hpp minnummag.hpp
+cp copysign.hpp negate.hpp
+cp copysign.hpp negatenz.hpp
+cp frac.hpp sign.hpp
+cp frac.hpp signnz.hpp
