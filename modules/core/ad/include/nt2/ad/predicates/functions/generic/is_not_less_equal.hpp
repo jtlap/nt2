@@ -16,11 +16,23 @@ namespace nt2
 {
   namespace ad
   {
-    template < class L1, class L2> BOOST_FORCEINLINE
-    typename meta::as_logical<L1>::type
-    is_not_less_equal(const valder<L1> & l1, const valder<L2> & l2)
+    template < class A1, class A2> BOOST_FORCEINLINE
+    typename meta::as_logical<A1>::type
+    is_not_less_equal(const valder<A1> & a1, const valder<A2> & a2)
     {
-      return nt2::is_not_less_equal(l1.val(), l2.val());
+      return nt2::is_not_less_equal(a1.val(), a2.val());
+    }
+    template < class A1, class A2> BOOST_FORCEINLINE
+    typename meta::as_logical<A1>::type
+    is_not_less_equal(const A1 & a1, const valder<A2> & a2)
+    {
+      return nt2::is_not_less_equal(a1, a2.val());
+    }
+    template < class A1, class A2> BOOST_FORCEINLINE
+    typename meta::as_logical<A1>::type
+    is_not_less_equal(const valder<A1> & a1, const A2 & a2)
+    {
+      return nt2::is_not_less_equal(a1.val(), a2);
     }
   }
 }

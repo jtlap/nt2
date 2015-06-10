@@ -22,6 +22,18 @@ namespace nt2
     {
       return nt2::is_equal_with_equal_nans(l1.val(), l2.val());
     }
+    template < class A1, class A2> BOOST_FORCEINLINE
+    typename meta::as_logical<A1>::type
+    is_equal_with_equal_nans(const A1 & l1, const valder<A2> & l2)
+    {
+      return nt2::is_equal_with_equal_nans(l1, l2.val());
+    }
+    template < class A1, class A2> BOOST_FORCEINLINE
+    typename meta::as_logical<A1>::type
+    is_equal_with_equal_nans(const valder<A1> & l1, const A2 & l2)
+    {
+      return nt2::is_equal_with_equal_nans(l1.val(), l2);
+    }
   }
 }
 

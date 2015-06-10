@@ -22,6 +22,45 @@ namespace nt2
     {
       return nt2::majority(l1.val(), l2.val(), l3.val());
     }
+
+    template < class L1, class L2, class L3> BOOST_FORCEINLINE
+    typename meta::as_logical<L1>::type
+    majority(const L1 & l1, const valder<L2> & l2, const valder<L3> & l3)
+    {
+      return nt2::majority(l1, l2.val(), l3.val());
+    }
+    template < class L1, class L2, class L3> BOOST_FORCEINLINE
+    typename meta::as_logical<L1>::type
+    majority(const valder<L1> & l1, const L2 & l2, const valder<L3> & l3)
+    {
+      return nt2::majority(l1.val(), l2, l3.val());
+    }
+    template < class L1, class L2, class L3> BOOST_FORCEINLINE
+    typename meta::as_logical<L1>::type
+    majority(const valder<L1> & l1, const valder<L2> & l2, const L3 & l3)
+    {
+      return nt2::majority(l1.val(), l2.val(), l3);
+    }
+
+    template < class L1, class L2, class L3> BOOST_FORCEINLINE
+    typename meta::as_logical<L1>::type
+    majority(const L1 & l1, const L2 & l2, const valder<L3> & l3)
+    {
+      return nt2::majority(l1, l2, l3.val());
+    }
+    template < class L1, class L2, class L3> BOOST_FORCEINLINE
+    typename meta::as_logical<L1>::type
+    majority(const L1 & l1, const valder<L2> & l2, const L3 & l3)
+    {
+      return nt2::majority(l1, l2.val(), l3);
+    }
+    template < class L1, class L2, class L3> BOOST_FORCEINLINE
+    typename meta::as_logical<L1>::type
+    majority(const valder<L1> & l1, const L2 & l2, const L3 & l3)
+    {
+      return nt2::majority(l1.val(), l2, l3);
+    }
+
   }
 }
 
