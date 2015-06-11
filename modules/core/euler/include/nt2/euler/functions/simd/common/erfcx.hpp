@@ -44,41 +44,46 @@ namespace nt2 { namespace ext
       A0 lim1 = nt2::splat<A0>(0.65);
       A0 lim2 = nt2::splat<A0>(2.2);
       A0 lim3 = Six<A0> ();
-      bA0 test1 = nt2::lt(a0, lim1);
+      bA0 less_l1 = nt2::lt(a0, lim1);
       A0 r1 = nt2::Zero<A0>();
-      std::size_t nb = nt2::inbtrue(test1);
+      std::size_t nb = nt2::inbtrue(less_l1);
       if(nb > 0)
       {
         r1 = expx2(a0)*erfc(a0);
         if (nb >= meta::cardinal_of<A0>::value)
           return r1;
       }
-      bA0 test2 = nt2::lt(a0, lim2);
-      bA0 test3 = nt2::logical_andnot(test2, test1);
-      std::size_t nb1 = nt2::inbtrue(test3);
+
+      bA0 less_l2 = nt2::lt(a0, lim2);
+      bA0 in_l1_l2 = nt2::logical_andnot(less_l2, less_l1);
+      std::size_t nb1 = nt2::inbtrue(in_l1_l2);
       if(nb1 > 0)
       {
         nb += nb1;
-        r1 = nt2::if_else(test1, r1, details::erf_kernel<A0>::erfc2(a0));
-        if (nb >= meta::cardinal_of<A0>::value)
-          return r1;
-       }
-      bA0 test4 = nt2::lt(a0, lim3);
-      bA0 test5 = nt2::logical_andnot(test4, test2);
-      nb1 = nt2::inbtrue(test5);
-      if(nb1 > 0)
-      {
-        nb += nb1;
-        r1 = nt2::if_else(test4, r1, details::erf_kernel<A0>::erfc3(a0));
+        r1 = nt2::if_else(in_l1_l2, details::erf_kernel<A0>::erfc2(a0), r1);
         if (nb >= meta::cardinal_of<A0>::value)
           return r1;
       }
-      r1 = nt2::if_else(test3, r1, details::erf_kernel<A0>::erfc4(rec(a0)));
-#ifndef BOOST_SIMD_NO_INFINITIES
+
+      bA0 less_l3 = nt2::lt(a0, lim3);
+      bA0 in_l2_l3 = nt2::logical_andnot(less_l3, less_l2);
+      nb1 = nt2::inbtrue(in_l2_l3);
+      if(nb1 > 0)
+      {
+        nb += nb1;
+        r1 = nt2::if_else(in_l2_l3, details::erf_kernel<A0>::erfc3(a0), r1);
+        if (nb >= meta::cardinal_of<A0>::value)
+          return r1;
+      }
+
+      bA0 in_l3_inf = nt2::logical_not(less_l3);
+
+      r1 = nt2::if_else(in_l3_inf, details::erf_kernel<A0>::erfc4(rec(a0)), r1);
+      #ifndef BOOST_SIMD_NO_INFINITIES
       return if_zero_else(eq(a0, Inf<A0>()), r1);
-#else
+      #else
       return r1;
-#endif
+      #endif
     }
   };
 
@@ -94,11 +99,11 @@ namespace nt2 { namespace ext
                     , expx2(a0)*erfc(a0)
                     , details::erf_kernel<A0>::erfc2(a0/oneplus(a0)-Twoofive<A0>())
                     );
-#ifndef BOOST_SIMD_NO_INFINITIES
+      #ifndef BOOST_SIMD_NO_INFINITIES
       return if_zero_else(eq(a0, Inf<A0>()), r);
-#else
+      #else
       return r;
-#endif
+      #endif
     }
   };
 

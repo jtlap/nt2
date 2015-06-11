@@ -46,4 +46,5 @@ NT2_TEST_CASE_TPL ( erfcx_real,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(erfcx(nt2::Zero<T>()), nt2::One<r_t>(), 2);
   NT2_TEST_ULP_EQUAL(erfcx(T(6)), 9.277656780053835e-02, 4);
   NT2_TEST_ULP_EQUAL(erfcx(T(-6)), 8.622463094230390e+15, 4);
+  NT2_TEST_ULP_EQUAL(erfcx(T(-5)), 144009798674.661, 4);
 }
