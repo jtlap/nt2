@@ -10,7 +10,7 @@
 #ifndef BOOST_SIMD_SDK_SIMD_ALGORITHM_HPP_INCLUDED
 #define BOOST_SIMD_SDK_SIMD_ALGORITHM_HPP_INCLUDED
 
-#include <boost/simd/sdk/simd/native.hpp>
+#include <boost/simd/include/pack.hpp>
 #include <boost/simd/include/functions/aligned_load.hpp>
 #include <boost/simd/include/functions/aligned_store.hpp>
 #include <boost/simd/include/functions/load.hpp>
@@ -27,8 +27,8 @@ namespace boost { namespace simd
   template<class T, class U, class UnOp>
   U* transform(T const* begin, T const* end, U* out, UnOp f)
   {
-    typedef boost::simd::native<T, BOOST_SIMD_DEFAULT_EXTENSION> vT;
-    typedef boost::simd::native<U, BOOST_SIMD_DEFAULT_EXTENSION> vU;
+    typedef boost::simd::pack<T> vT;
+    typedef boost::simd::pack<U> vU;
 
     BOOST_MPL_ASSERT_MSG( vT::static_size == vU::static_size
                         , BOOST_SIMD_TRANSFORM_INPUT_OUTPUT_NOT_SAME_SIZE
@@ -66,9 +66,9 @@ namespace boost { namespace simd
   template<class T1, class T2, class U, class BinOp>
   U* transform(T1 const* begin1, T1 const* end, T2 const* begin2, U* out, BinOp f)
   {
-    typedef boost::simd::native<T1, BOOST_SIMD_DEFAULT_EXTENSION> vT1;
-    typedef boost::simd::native<T2, BOOST_SIMD_DEFAULT_EXTENSION> vT2;
-    typedef boost::simd::native<U, BOOST_SIMD_DEFAULT_EXTENSION> vU;
+    typedef boost::simd::pack<T1> vT1;
+    typedef boost::simd::pack<T2> vT2;
+    typedef boost::simd::pack<U> vU;
 
     BOOST_MPL_ASSERT_MSG( vT1::static_size == vT2::static_size && vT1::static_size == vU::static_size
                         , BOOST_SIMD_TRANSFORM_INPUT_OUTPUT_NOT_SAME_SIZE
@@ -106,8 +106,8 @@ namespace boost { namespace simd
   template<class T, class U, class F>
   U accumulate(T const* begin, T const* end, U init, F f)
   {
-    typedef boost::simd::native<T, BOOST_SIMD_DEFAULT_EXTENSION> vT;
-    typedef boost::simd::native<U, BOOST_SIMD_DEFAULT_EXTENSION> vU;
+    typedef boost::simd::pack<T> vT;
+    typedef boost::simd::pack<U> vU;
 
     BOOST_MPL_ASSERT_MSG( vT::static_size == vU::static_size
                         , BOOST_SIMD_ACCUMULATE_INPUT_OUTPUT_NOT_SAME_SIZE
