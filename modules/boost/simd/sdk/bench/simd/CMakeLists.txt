@@ -9,6 +9,7 @@
 
 SET(  SOURCES
       bandwidth.cpp
+      algorithm.cpp
    )
 
 nt2_module_add_tests(boost.simd.sdk.memory.simd.bench ${SOURCES})
