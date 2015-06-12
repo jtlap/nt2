@@ -1,0 +1,4 @@
+
+sed -i "s|include/functions/|include/functions/simd/|g" d_*.hpp
+sed -i "s|include/functions/simd/simd/|include/functions/simd/|g" d_*.hpp
+sed -i "s|include/functions/simd/d|include/functions/d|g" d_*.hpp
