@@ -43,45 +43,119 @@ struct plus_one
   }
 };
 
-////////////////////////////////////////////////////////////////////////////////
-// Test boost::simd::transform behavior with unary operation
-////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL( transform_unary, BOOST_SIMD_SIMD_TYPES )
+static const std::size_t vsize = 113;
+
+template <typename T>
+using aligned_vector = std::vector<T, boost::simd::allocator<T> >;
+
+template <typename T>
+struct unaligned_vector : public std::vector<T, boost::simd::allocator<T, 8> > {
+    typedef std::vector<T, boost::simd::allocator<T, 8> > super;
+
+    unaligned_vector(std::size_t the_size) : std::vector<T, boost::simd::allocator<T, 8> >(the_size + 1) {
+    }
+
+    std::size_t size() const {
+        return super::size() - 1;
+    }
+
+    T* data() {
+        T* the_data = super::data();
+        return boost::simd::is_aligned(the_data)
+            ? the_data + 1
+            : the_data + 0;
+    }
+
+    const T* data() const {
+        const T* the_data = super::data();
+        return boost::simd::is_aligned(the_data)
+            ? the_data + 1
+            : the_data + 0;
+    }
+};
+
+template <typename T, typename I, typename O>
+void transform_unary_test()
 {
-  std::vector<T> data_in(113);
-  for(size_t i=0; i<113; ++i)
+  I data_in(vsize);
+  for(size_t i=0; i<vsize; ++i)
     data_in[i] = T(i);
 
-  std::vector<T> data_out1(113);
-  boost::simd::transform(&*data_in.begin(), &*data_in.begin()+data_in.size(), &*data_out1.begin(), plus_one());
-
-  std::vector<T> data_out2(113);
-  std::transform(&*data_in.begin(), &*data_in.begin()+data_in.size(), &*data_out2.begin(), plus_one());
+  O data_out1(vsize);
+  boost::simd::transform(data_in.data(), data_in.data()+data_in.size(), data_out1.data(), plus_one());
+  O data_out2(vsize);
+  std::transform(data_in.data(), data_in.data()+data_in.size(), data_out2.data(), plus_one());
 
   NT2_TEST_EQUAL(data_out1, data_out2);
 }
 
-////////////////////////////////////////////////////////////////////////////////
-// Test boost::simd::transform behavior with binary operation
-////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL( transform_binary, BOOST_SIMD_SIMD_TYPES )
+template <typename T, typename I1, typename I2, typename O>
+void transform_binary_test()
 {
-  std::vector<T> data_in1(113);
-  std::vector<T> data_in2(113);
-  for(size_t i=0; i<113; ++i)
+  I1 data_in1(vsize);
+  I2 data_in2(vsize);
+  for(size_t i=0; i<vsize; ++i)
   {
     data_in1[i] = T(i);
     data_in2[i] = T(10 + i);
   }
 
-  std::vector<T> data_out1(113);
+  O data_out1(vsize);
   boost::simd::transform(&*data_in1.begin(), &*data_in1.begin()+data_in1.size(), &*data_in2.begin(), &*data_out1.begin(), plus());
 
-  std::vector<T> data_out2(113);
+  O data_out2(vsize);
   std::transform(&*data_in1.begin(), &*data_in1.begin()+data_in1.size(), &*data_in2.begin(), &*data_out2.begin(), plus());
 
   NT2_TEST_EQUAL(data_out1, data_out2);
 }
+
+#define TRANSFORM_UNARY_TEST(I, O)                                             \
+NT2_TEST_CASE_TPL( transform_unary_##I##_##O, BOOST_SIMD_SIMD_TYPES )          \
+{                                                                              \
+    typedef   aligned_vector<T> AI;                                            \
+    typedef unaligned_vector<T> UI;                                            \
+                                                                               \
+    typedef   aligned_vector<T> AO;                                            \
+    typedef unaligned_vector<T> UO;                                            \
+                                                                               \
+    transform_unary_test<T, I, O>();                                           \
+}
+
+#define TRANSFORM_BINARY_TEST(I1, I2, O)                                       \
+NT2_TEST_CASE_TPL( transform_binary_##I1##_##I2##_##O, BOOST_SIMD_SIMD_TYPES ) \
+{                                                                              \
+    typedef   aligned_vector<T> AI;                                            \
+    typedef unaligned_vector<T> UI;                                            \
+                                                                               \
+    typedef   aligned_vector<T> AO;                                            \
+    typedef unaligned_vector<T> UO;                                            \
+                                                                               \
+    transform_binary_test<T, I1, I2, O>();                                     \
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// Test boost::simd::transform behavior with unary operation
+////////////////////////////////////////////////////////////////////////////////
+TRANSFORM_UNARY_TEST(AI, AO)
+TRANSFORM_UNARY_TEST(UI, AO)
+TRANSFORM_UNARY_TEST(AI, UO)
+TRANSFORM_UNARY_TEST(UI, UO)
+
+////////////////////////////////////////////////////////////////////////////////
+// Test boost::simd::transform behavior with binary operation
+////////////////////////////////////////////////////////////////////////////////
+TRANSFORM_BINARY_TEST(AI, AI, AO)
+TRANSFORM_BINARY_TEST(UI, UI, UO)
+
+TRANSFORM_BINARY_TEST(AI, AI, UO)
+TRANSFORM_BINARY_TEST(UI, UI, AO)
+
+TRANSFORM_BINARY_TEST(AI, UI, UO)
+TRANSFORM_BINARY_TEST(UI, AI, AO)
+
+TRANSFORM_BINARY_TEST(AI, UI, AO)
+TRANSFORM_BINARY_TEST(UI, AI, UO)
+
 
 template<typename T> inline void check_accumulate(T* b, T* e)
 {
