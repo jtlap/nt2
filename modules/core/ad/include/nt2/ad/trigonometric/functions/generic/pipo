@@ -1,0 +1,7 @@
+cp acscd.hpp $1.hpp
+sed -i "s/acscd/$1/g" $1.hpp
+v=$1
+u=${v^^}
+sed -i "s/ACSCD/$u/g" $1.hpp
+#echo $u
+#echo $v

@@ -5,11 +5,11 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_AD_TRIGONOMETRIC_FUNCTIONS_GENERIC_COS_HPP_INCLUDED
-#define NT2_AD_TRIGONOMETRIC_FUNCTIONS_GENERIC_COS_HPP_INCLUDED
+#ifndef NT2_AD_TRIGONOMETRIC_FUNCTIONS_GENERIC_COTANGENT_HPP_INCLUDED
+#define NT2_AD_TRIGONOMETRIC_FUNCTIONS_GENERIC_COTANGENT_HPP_INCLUDED
 
-#include <nt2/trigonometric/include/functions/simd/sincos.hpp>
-#include <nt2/include/functions/unary_minus.hpp>
+#include <nt2/trigonometric/include/functions/simd/cotangent.hpp>
+#include <nt2/include/functions/simd/d_cotangent.hpp>
 #include <nt2/include/functions/multiplies.hpp>
 #include <nt2/ad/functions/ad.hpp>
 
@@ -17,12 +17,11 @@ namespace nt2
 {
   namespace ad
   {
-    template < class T>
-    valder<T> cos(const valder<T>&u)
+    template < class Mode, class T>
+    valder<T> cotangent(const valder<T>&u)
     {
-      T s, c;
-      nt2::sincos(u.val(), s, c);
-      return valder<T>(c, -s*u.der());
+      return valder<T>(nt2::cotangent<Mode>(u.val())
+                      , d_cotangent<Mode>(u.val())*u.der());
     };
   }
 }

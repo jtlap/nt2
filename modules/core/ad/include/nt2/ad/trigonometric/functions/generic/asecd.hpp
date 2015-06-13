@@ -5,11 +5,11 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_AD_TRIGONOMETRIC_FUNCTIONS_GENERIC_SIN_HPP_INCLUDED
-#define NT2_AD_TRIGONOMETRIC_FUNCTIONS_GENERIC_SIN_HPP_INCLUDED
+#ifndef NT2_AD_TRIGONOMETRIC_FUNCTIONS_GENERIC_ASECD_HPP_INCLUDED
+#define NT2_AD_TRIGONOMETRIC_FUNCTIONS_GENERIC_ASECD_HPP_INCLUDED
 
-#include <nt2/include/functions/simd/sin.hpp>
-#include <nt2/trigonometric/include/functions/simd/sincos.hpp>
+#include <nt2/trigonometric/include/functions/simd/asecd.hpp>
+#include <nt2/include/functions/simd/d_asecd.hpp>
 #include <nt2/include/functions/simd/multiplies.hpp>
 #include <nt2/ad/functions/ad.hpp>
 
@@ -18,13 +18,13 @@ namespace nt2
   namespace ad
   {
     template < class T>
-    valder<T> sin(const valder<T>&u)
+    valder<T> asecd(const valder<T>&u)
     {
-      T s, c;
-      nt2::sincos(u.val(), s, c);
-      return valder<T>(s, c*u.der());
+      return valder<T>(nt2::asecd(u.val()), d_asecd
+                       (u.val())*u.der());
     };
   }
 }
+
 
 #endif

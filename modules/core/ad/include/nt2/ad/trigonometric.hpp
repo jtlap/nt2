@@ -11,5 +11,7 @@
 #include <nt2/include/functions/ad.hpp>
 #include <nt2/ad/trigonometric/functions/generic/cos.hpp>
 #include <nt2/ad/trigonometric/functions/generic/sin.hpp>
+#include <nt2/ad/trigonometric/functions/generic/acos.hpp>
+#include <nt2/ad/trigonometric/functions/generic/acosd.hpp>
 
 #endif

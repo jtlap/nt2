@@ -12,8 +12,8 @@ SET ( NT2_CORE.AD_DEPENDENCIES_EXTRA
       boost.simd.base
       boost.simd.sdk
       core.base
-      core.linalg
       core.trigonometric
+      core.trig_derivatives
       core.hyperbolic
       core.sdk
       sdk.error
