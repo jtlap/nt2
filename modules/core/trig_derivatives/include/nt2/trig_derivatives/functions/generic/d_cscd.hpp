@@ -8,8 +8,10 @@
 #ifndef NT2_TRIG_DERIVATIVES_FUNCTIONS_GENERIC_D_CSCD_HPP_INCLUDED
 #define NT2_TRIG_DERIVATIVES_FUNCTIONS_GENERIC_D_CSCD_HPP_INCLUDED
 #include <nt2/trig_derivatives/functions/d_cscd.hpp>
+#include <nt2/include/functions/simd/multiplies.hpp>
+#include <nt2/include/functions/simd/unary_minus.hpp>
 #include <nt2/include/functions/d_csc.hpp>
-#include <nt2/include/functions/simd/inrad.hpp>
+#include <nt2/include/constants/deginrad.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -22,7 +24,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     BOOST_FORCEINLINE result_type operator()(const A0& u) const
     {
-      return inrad(d_csc(inrad(u)));
+      return  -cscd(u)*Deginrad<A0>()*cotd(u);
     }
   };
 } }
