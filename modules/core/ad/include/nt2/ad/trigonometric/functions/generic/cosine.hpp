@@ -19,7 +19,7 @@ namespace nt2
 {
   namespace ad
   {
-    template < class Mode, class T>
+    template < class Mode, class T> BOOST_FORCEINLINE
     valder<T> cosine(const valder<T>&u)
     {
       T s, c;

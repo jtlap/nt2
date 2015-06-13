@@ -17,7 +17,7 @@ namespace nt2
 {
   namespace ad
   {
-    template < class Mode, class T>
+    template < class Mode, class T> BOOST_FORCEINLINE
     valder<T> cotangent(const valder<T>&u)
     {
       return valder<T>(nt2::cotangent<Mode>(u.val())

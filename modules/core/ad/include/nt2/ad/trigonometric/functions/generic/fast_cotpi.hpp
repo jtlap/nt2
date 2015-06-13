@@ -16,7 +16,7 @@ namespace nt2
 {
   namespace ad
   {
-    template < class T>
+    template < class T> BOOST_FORCEINLINE
     valder<T> fast_cotpi(const valder<T>&u)
     {
       return valder<T>(nt2::fast_cotpi(u.val()), d_fast_cotpi(u.val())*u.der());

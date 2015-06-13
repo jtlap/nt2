@@ -16,7 +16,7 @@ namespace nt2
 {
   namespace ad
   {
-    template < class T>
+    template < class T> BOOST_FORCEINLINE
     valder<T> secpi(const valder<T>&u)
     {
       return valder<T>(nt2::secpi(u.val()), d_secpi(u.val()));

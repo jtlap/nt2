@@ -17,7 +17,7 @@ namespace nt2
 {
   namespace ad
   {
-    template < class T>
+    template < class T> BOOST_FORCEINLINE
     valder<T> secd(const valder<T>&u)
     {
       return valder<T>(nt2::secd(u.val()), d_secd(u.val()));

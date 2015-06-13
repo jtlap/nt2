@@ -17,7 +17,7 @@ namespace nt2
 {
   namespace ad
   {
-    template < class T>
+    template < class T> BOOST_FORCEINLINE
     valder<T> asinpi(const valder<T>&u)
     {
       return valder<T>(nt2::asinpi(u.val()), d_asinpi(u.val())*u.der());

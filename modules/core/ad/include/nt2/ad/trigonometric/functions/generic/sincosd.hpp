@@ -18,7 +18,7 @@ namespace nt2
 {
   namespace ad
   {
-    template < class T>
+    template < class T> BOOST_FORCEINLINE
     void sincosd(const valder<T>&u,  valder<T>&vs,  valder<T>&vc)
     {
       typedef typename valder<T>::elem_t elem_t;
@@ -30,7 +30,7 @@ namespace nt2
     };
 
 
-    template < class T>
+    template < class T> BOOST_FORCEINLINE
     valder<T> sincosd(const valder<T>&u,  valder<T>&vc)
     {
       typedef typename valder<T>::elem_t elem_t;
@@ -41,7 +41,7 @@ namespace nt2
       return valder<T>(s, c*tmp);
     }
 
-    template < class T>
+    template < class T> BOOST_FORCEINLINE
     std::pair<valder<T>, valder<T>>
     sincosd(const valder<T>&u)
     {

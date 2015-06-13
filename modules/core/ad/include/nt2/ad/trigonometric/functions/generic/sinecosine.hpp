@@ -17,7 +17,7 @@ namespace nt2
 {
   namespace ad
   {
-    template < class Mode, class T>
+    template < class Mode, class T> BOOST_FORCEINLINE
     void sinecosine(const valder<T>&u,  valder<T>&vs,  valder<T>&vc)
     {
       T s, c;
@@ -25,7 +25,7 @@ namespace nt2
       vs = valder<T>(s, c*u.der());
       vc = valder<T>(c, -s*u.der());
     }
-    template < class Mode,  class T>
+    template < class Mode,  class T> BOOST_FORCEINLINE
     valder<T> sinecosine(const valder<T>&u,  valder<T>&vc)
     {
       T s, c;
@@ -34,7 +34,7 @@ namespace nt2
       return valder<T>(s, c*u.der());
     }
 
-    template < class Mode,  class T>
+    template < class Mode,  class T> BOOST_FORCEINLINE
     std::pair<valder<T>, valder<T>>
     sinecosine(const valder<T>&u)
     {

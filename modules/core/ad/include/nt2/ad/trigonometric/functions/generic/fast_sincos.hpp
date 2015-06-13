@@ -17,7 +17,7 @@ namespace nt2
 {
   namespace ad
   {
-    template < class T>
+    template < class T> BOOST_FORCEINLINE
     void fast_sincos(const valder<T>&u,  valder<T>&vs,  valder<T>&vc)
     {
       T s, c;
@@ -27,7 +27,7 @@ namespace nt2
     };
 
 
-    template < class T>
+    template < class T> BOOST_FORCEINLINE
     valder<T> fast_sincos(const valder<T>&u,  valder<T>&vc)
     {
       T s, c;
@@ -36,7 +36,7 @@ namespace nt2
       return valder<T>(s, c*u.der());
     }
 
-    template < class T>
+    template < class T> BOOST_FORCEINLINE
     std::pair<valder<T>, valder<T>>
     fast_sincos(const valder<T>&u)
     {

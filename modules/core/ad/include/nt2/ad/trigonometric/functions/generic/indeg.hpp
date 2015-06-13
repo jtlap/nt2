@@ -15,7 +15,7 @@ namespace nt2
 {
   namespace ad
   {
-    template < class T>
+    template < class T> BOOST_FORCEINLINE
     valder<T> indeg(const valder<T>&u)
     {
       typedef typename valder<T>::elem_t elem_t;

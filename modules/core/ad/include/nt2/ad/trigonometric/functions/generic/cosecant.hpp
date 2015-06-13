@@ -18,7 +18,7 @@ namespace nt2
 {
   namespace ad
   {
-    template < class Mode, class T>
+    template < class Mode, class T> BOOST_FORCEINLINE
     valder<T> cosecant(const valder<T>&u)
     {
       auto tmp = nt2::cosecant<Mode>(u.val());

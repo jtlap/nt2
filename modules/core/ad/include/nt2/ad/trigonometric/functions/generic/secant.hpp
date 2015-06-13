@@ -18,7 +18,7 @@ namespace nt2
 {
   namespace ad
   {
-    template < class Mode, class T>
+    template < class Mode, class T> BOOST_FORCEINLINE
     valder<T> secant(const valder<T>&u)
     {
       typedef typename valder<T>::elem_t elem_t;

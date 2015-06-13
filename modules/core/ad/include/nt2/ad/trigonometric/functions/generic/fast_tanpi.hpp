@@ -17,7 +17,7 @@ namespace nt2
 {
   namespace ad
   {
-    template < class T>
+    template < class T> BOOST_FORCEINLINE
     valder<T> fast_tanpi(const valder<T>&u)
     {
       return valder<T>(nt2::fast_tanpi(u.val()), d_fast_tanpi(u.val())*u.der());
