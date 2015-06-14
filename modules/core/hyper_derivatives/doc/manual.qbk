@@ -1,0 +1,18 @@
+[library Hyperbolic Derivatives Functions
+  [quickbook 1.5]
+]
+
+[section Overview]
+This module provides implementation of derivatives of functions
+present in the hyperbolic toolbox
+
+This mean for each functor of the hyperbolic toolbox ??? of one floting variable
+a functor d_???
+
+The derivative is only valid at ordinary points, meaning point where the original
+function is actually derivable. It works for real and complex arguments
+
+
+[endsect]
+
+[xinclude reference.xml]

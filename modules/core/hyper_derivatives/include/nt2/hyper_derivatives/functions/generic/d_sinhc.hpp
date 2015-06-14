@@ -5,16 +5,20 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_TRIG_DERIVATIVES_FUNCTIONS_GENERIC_D_CSCPI_HPP_INCLUDED
-#define NT2_TRIG_DERIVATIVES_FUNCTIONS_GENERIC_D_CSCPI_HPP_INCLUDED
-#include <nt2/trig_derivatives/functions/d_cscpi.hpp>
-#include <nt2/include/functions/d_csc.hpp>
-#include <nt2/include/constants/pi.hpp>
+#ifndef NT2_HYPER_DERIVATIVES_FUNCTIONS_GENERIC_D_SINHC_HPP_INCLUDED
+#define NT2_HYPER_DERIVATIVES_FUNCTIONS_GENERIC_D_SINHC_HPP_INCLUDED
+#include <nt2/hyper_derivatives/functions/d_sinhc.hpp>
+#include <nt2/include/functions/simd/divides.hpp>
+#include <nt2/include/functions/simd/if_zero_else.hpp>
+#include <nt2/include/functions/simd/is_eqz.hpp>
+#include <nt2/include/functions/simd/fms.hpp>
+#include <nt2/include/functions/simd/sinhcosh.hpp>
+#include <nt2/include/functions/simd/sqr.hpp>
 
 namespace nt2 { namespace ext
 {
 
-  BOOST_DISPATCH_IMPLEMENT  ( d_cscpi_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( d_sinhc_, tag::cpu_
                             , (A0)
                             , (generic_<unspecified_<A0>>)
                             )
@@ -22,8 +26,10 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     BOOST_FORCEINLINE result_type operator()(const A0& u) const
     {
-      return -cscpi(u)*Pi<A0>()*cotpi(u);
-    };
+      A0 s, c;
+      sinhcosh(u, s, c);
+      return if_zero_else(is_eqz(u), fms(c, u, s)/sqr(u));
+    }
   };
 } }
 

@@ -1,0 +1,2 @@
+#cp d_exp.cpp d_$1.cpp
+sed -i "s/exp/$1/g" d_$1.cpp

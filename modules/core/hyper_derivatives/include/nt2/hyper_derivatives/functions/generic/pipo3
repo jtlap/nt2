@@ -1,0 +1,43 @@
+#sed -i 's|D\_|D\_FAST\_|g' d_fast*.hpp
+
+
+
+sed -i 's|D\_|D\_FAST\_|g' d_fast_cot.hpp
+sed -i 's|D\_|D\_FAST\_|g' d_fast_cotpi.hpp
+sed -i 's|D\_|D\_FAST\_|g' d_fast_sincosd.hpp
+sed -i 's|D\_|D\_FAST\_|g' d_fast_sincos.hpp
+sed -i 's|D\_|D\_FAST\_|g' d_fast_sincospi.hpp
+sed -i 's|D\_|D\_FAST\_|g' d_fast_sind.hpp
+sed -i 's|D\_|D\_FAST\_|g' d_fast_sin.hpp
+sed -i 's|D\_|D\_FAST\_|g' d_fast_sinpi.hpp
+sed -i 's|D\_|D\_FAST\_|g' d_fast_tand.hpp
+sed -i 's|D\_|D\_FAST\_|g' d_fast_tan.hpp
+sed -i 's|D\_|D\_FAST\_|g' d_fast_tanpi.hpp
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

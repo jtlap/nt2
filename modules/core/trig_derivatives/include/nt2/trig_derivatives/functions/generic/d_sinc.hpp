@@ -10,6 +10,7 @@
 #include <nt2/trig_derivatives/functions/d_sinc.hpp>
 #include <nt2/include/functions/simd/divides.hpp>
 #include <nt2/include/functions/simd/if_zero_else.hpp>
+#include <nt2/include/functions/simd/is_eqz.hpp>
 #include <nt2/include/functions/simd/fms.hpp>
 #include <nt2/include/functions/simd/sincos.hpp>
 #include <nt2/include/functions/simd/sqr.hpp>

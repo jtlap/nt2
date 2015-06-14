@@ -5,16 +5,18 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_TRIG_DERIVATIVES_FUNCTIONS_GENERIC_D_CSCPI_HPP_INCLUDED
-#define NT2_TRIG_DERIVATIVES_FUNCTIONS_GENERIC_D_CSCPI_HPP_INCLUDED
-#include <nt2/trig_derivatives/functions/d_cscpi.hpp>
-#include <nt2/include/functions/d_csc.hpp>
-#include <nt2/include/constants/pi.hpp>
+#ifndef NT2_HYPER_DERIVATIVES_FUNCTIONS_GENERIC_D_ACOSH_HPP_INCLUDED
+#define NT2_HYPER_DERIVATIVES_FUNCTIONS_GENERIC_D_ACOSH_HPP_INCLUDED
+#include <nt2/hyper_derivatives/functions/d_acosh.hpp>
+#include <nt2/include/functions/minusone.hpp>
+#include <nt2/include/functions/rec.hpp>
+#include <nt2/include/functions/sqr.hpp>
+#include <nt2/include/functions/sqrt.hpp>
 
 namespace nt2 { namespace ext
 {
 
-  BOOST_DISPATCH_IMPLEMENT  ( d_cscpi_, tag::cpu_
+  BOOST_DISPATCH_IMPLEMENT  ( d_acosh_, tag::cpu_
                             , (A0)
                             , (generic_<unspecified_<A0>>)
                             )
@@ -22,8 +24,8 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     BOOST_FORCEINLINE result_type operator()(const A0& u) const
     {
-      return -cscpi(u)*Pi<A0>()*cotpi(u);
-    };
+      return rec(sqrt(minusone(sqr(u))));
+    }
   };
 } }
 
