@@ -14,6 +14,7 @@ SET ( NT2_CORE.AD_DEPENDENCIES_EXTRA
       core.base
       core.trigonometric
       core.trig_derivatives
+      core.exp_derivatives
       core.hyperbolic
       core.sdk
       sdk.error

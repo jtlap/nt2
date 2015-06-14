@@ -1,0 +1,50 @@
+./pipo cbrt
+./pipo exp10
+./pipo exp2
+./pipo exp
+./pipo expm1
+./pipo exprecnegc
+./pipo exprecneg
+./pipo expx2
+./pipo log10
+./pipo log1p
+./pipo log2
+./pipo log
+./pipo logspace_add
+./pipo logspace_sub
+./pipo nthroot
+./pipo pow2
+./pipo pow_abs
+./pipo pow
+./pipo reallog
+./pipo realpow
+./pipo realsqrt
+./pipo sqrt1pm1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

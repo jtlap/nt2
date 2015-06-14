@@ -16,5 +16,6 @@ ADD_SUBDIRECTORY(boolean)
 ADD_SUBDIRECTORY(predicates)
 ADD_SUBDIRECTORY(ieee)
 ADD_SUBDIRECTORY(trigonometric)
+ADD_SUBDIRECTORY(exponential)
 
 

@@ -1,0 +1,2 @@
+cp acos.cpp $1.cpp
+sed -i "s/acos/$1/g" $1.cpp
