@@ -1,0 +1,22 @@
+[library Exponential Derivatives Functions
+  [quickbook 1.5]
+]
+
+[section Overview]
+This module provides implementation of derivatives of functions
+present in the exponential toolbox
+
+This mean for each functor of the exponential toolbox ??? of one floting variable
+a functor d_???, and for each functor of the exponential toolbox ??? of two floating variables
+two functors d1_??? and d2_??? which are respectively the 2 partial derivatives.
+
+Obviouly functions for which a parameter is integer (as nthroot) do not provide derivatives along
+this parameter.
+
+The derivative is only valid at ordinary points, meaning point where the original
+function is actually derivable.
+
+
+[endsect]
+
+[xinclude reference.xml]
