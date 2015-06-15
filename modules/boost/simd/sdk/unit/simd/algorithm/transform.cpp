@@ -49,10 +49,17 @@ template <typename T>
 using aligned_vector = std::vector<T, boost::simd::allocator<T> >;
 
 template <typename T>
-struct unaligned_vector : public std::vector<T, boost::simd::allocator<T, 8> > {
+class unaligned_vector : public std::vector<T, boost::simd::allocator<T, 8> > {
     typedef std::vector<T, boost::simd::allocator<T, 8> > super;
 
-    unaligned_vector(std::size_t the_size) : std::vector<T, boost::simd::allocator<T, 8> >(the_size + 1) {
+    private:
+    bool is_aligned() const {
+        return boost::simd::is_aligned(super::data());
+    }
+
+    public:
+    unaligned_vector(std::size_t the_size)
+        : std::vector<T, boost::simd::allocator<T, 8> >(the_size + 1) {
     }
 
     std::size_t size() const {
@@ -72,6 +79,19 @@ struct unaligned_vector : public std::vector<T, boost::simd::allocator<T, 8> > {
             ? the_data + 1
             : the_data + 0;
     }
+
+    typename super::const_iterator begin() const {
+        return is_aligned()
+            ? super::begin() + 1
+            : super::begin() + 0;
+    }
+
+    typename super::const_iterator end() const {
+        return is_aligned()
+            ? super::end() - 0
+            : super::end() - 1;
+    }
+
 };
 
 template <typename T, typename I, typename O>
@@ -101,10 +121,10 @@ void transform_binary_test()
   }
 
   O data_out1(vsize);
-  boost::simd::transform(&*data_in1.begin(), &*data_in1.begin()+data_in1.size(), &*data_in2.begin(), &*data_out1.begin(), plus());
+  boost::simd::transform(data_in1.data(), data_in1.data()+data_in1.size(), data_in2.data(), data_out1.data(), plus());
 
   O data_out2(vsize);
-  std::transform(&*data_in1.begin(), &*data_in1.begin()+data_in1.size(), &*data_in2.begin(), &*data_out2.begin(), plus());
+  std::transform(data_in1.data(), data_in1.data()+data_in1.size(), data_in2.data(), data_out2.data(), plus());
 
   NT2_TEST_EQUAL(data_out1, data_out2);
 }

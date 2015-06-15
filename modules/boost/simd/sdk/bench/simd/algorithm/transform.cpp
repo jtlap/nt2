@@ -45,7 +45,6 @@ struct transform_base
   std::size_t extra_size_ = force_unaligned ? 1 : 0;
 
   public:
-  public:
   transform_base( std::size_t s = 0 )
                 : size_(s) // Do not add `extra_size_` here
                 , out(size_ + extra_size_), in(size_ + extra_size_)
@@ -137,17 +136,21 @@ NT2_REGISTER_BENCHMARK_TPL( std_transform, BOOST_SIMD_FLOAT_DOUBLE )
 template<typename T>
 struct unaligned_simd_transform : public transform_base<T, std::allocator<T>, true /* force unaligned */ >
 {
-  using transform_base<T, std::allocator<T>, true>::transform_base;
+  unaligned_simd_transform(std::size_t sz)
+      : transform_base<T, std::allocator<T>, true>(sz), ptr_in_(this->in.data())
+  {
+      if (boost::simd::is_aligned(ptr_in_, 16)) {
+        ptr_in_ += 1;
+      }
+  }
 
   void operator()()
   {
-      T* ptr_in = this->in.data();
-
-      if (boost::simd::is_aligned(ptr_in, 16)) {
-        ptr_in += 1;
-      }
-      boost::simd::transform(ptr_in, ptr_in + this->size(), this->out.data(), op_functor());
+      boost::simd::transform(ptr_in_, ptr_in_ + this->size(), this->out.data(), op_functor());
   }
+
+  private:
+  T* ptr_in_;
 };
 
 template<typename T>
