@@ -155,32 +155,3 @@ TRANSFORM_BINARY_TEST(UI, AI, AO)
 
 TRANSFORM_BINARY_TEST(AI, UI, AO)
 TRANSFORM_BINARY_TEST(UI, AI, UO)
-
-
-template<typename T> inline void check_accumulate(T* b, T* e)
-{
-  T res1 = boost::simd::accumulate(b, e, T(0), plus());
-  T res2 =         std::accumulate(b, e, T(0), plus());
-
-  NT2_TEST_EQUAL(res1, res2);
-}
-
-////////////////////////////////////////////////////////////////////////////////
-// Test boost::simd::accumulate
-////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL( accumulate, BOOST_SIMD_SIMD_TYPES )
-{
-  using boost::simd::native;
-  using boost::simd::meta::cardinal_of;
-
-  auto c = cardinal_of<native<T,BOOST_SIMD_DEFAULT_EXTENSION>>::value;
-  auto n = 3*c;
-
-  std::vector<T,boost::simd::allocator<T>> data(n);
-  auto b = data.data();
-
-  check_accumulate(b,b+n);
-  check_accumulate(b+1,b+n);
-  check_accumulate(b,b+n-1);
-  check_accumulate(b+1,b+n-1);
-}

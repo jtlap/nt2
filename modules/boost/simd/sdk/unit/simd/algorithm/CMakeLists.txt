@@ -8,29 +8,9 @@
 ################################################################################
 
 SET( SOURCES
-    as.cpp
-    as_floating.cpp
-    as_integer.cpp
-    as_pack.cpp
-    as_signed.cpp
-    as_unsigned.cpp
-    bitwise_cast.cpp
-    cardinal_of.cpp
-    downgrade.cpp
-    hierarchy_of.cpp
-    is_signed.cpp
-    is_simd_specific.cpp
-    logical.cpp
-    make_floating.cpp
-    make_integer.cpp
-    pack.cpp
-    register_of.cpp
-    scalar_of.cpp
-    sign_of.cpp
-    upgrade.cpp
+    transform.cpp
+    accumulate.cpp
    )
 
-ADD_SUBDIRECTORY(algorithm)
-
-nt2_module_add_tests(boost.simd.sdk.simd.unit ${SOURCES})
+nt2_module_add_tests(boost.simd.sdk.simd.algorithm.unit ${SOURCES})
 
