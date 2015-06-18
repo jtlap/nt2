@@ -7,10 +7,28 @@
 ##############################################################################
 
 SET( SOURCES
-# List of table test files for toolbox derivation
-   ad_df.cpp
-   ad_gradient.cpp
-   polevl.cpp
+
+# List of scalar test files for toolbox ad
+   acosh.cpp
+   acoth.cpp
+   acsch.cpp
+   asech.cpp
+   asinh.cpp
+   atanh.cpp
+   cosh.cpp
+   coth.cpp
+   csch.cpp
+   sech.cpp
+   sinhc.cpp
+   sinhcosh.cpp
+   sinh.cpp
+   tanh.cpp
    )
 
-nt2_module_add_tests(core.ad.table.unit ${SOURCES})
+nt2_module_add_tests(core.ad.hyperbolic.unit ${SOURCES})
+
+
+
+
+
+

@@ -16,6 +16,8 @@ SET ( NT2_CORE.AD_DEPENDENCIES_EXTRA
       core.trig_derivatives
       core.exp_derivatives
       core.hyperbolic
+      core.polynomials
+      core.polynom
       core.sdk
       sdk.error
       sdk.functor

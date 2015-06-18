@@ -9,7 +9,7 @@
 #define NT2_AD_IO_HPP_INCLUDED
 
 #include <nt2/include/functions/ad.hpp>
-#include <nt2/include/functions/ones.hpp>
+#include <nt2/include/functions/zeros.hpp>
 #include <nt2/include/functions/expand_to.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/one.hpp>
@@ -34,10 +34,10 @@ namespace nt2
       typedef valder<T,boost::mpl::true_ >        type_t;
       typedef valder<T>                              v_t;
       valder()
-        : value(Zero<T>()), derivative(One<value_t>())
+        : value(Zero<T>()), derivative(Zero<value_t>())
       {};
       valder(const T& a)
-        : value(a), derivative(One<value_t>())
+        : value(a), derivative(Zero<value_t>())
       {};
       valder(const T& v, const T& d)
         : value(v), derivative(d)
@@ -66,7 +66,7 @@ namespace nt2
       : value(), derivative()
       {};
       valder(const value_t & a)
-        : value(a), derivative(ones(size(a), meta::as_<elem_t>()))
+        : value(a), derivative(zeros(size(a), meta::as_<elem_t>()))
       {};
       valder(const value_t & v, const value_t & d)
         : value(v), derivative(expand_to(d, size(v)))

@@ -17,5 +17,6 @@ ADD_SUBDIRECTORY(predicates)
 ADD_SUBDIRECTORY(ieee)
 ADD_SUBDIRECTORY(trigonometric)
 ADD_SUBDIRECTORY(exponential)
+ADD_SUBDIRECTORY(hyperbolic)
 
 
