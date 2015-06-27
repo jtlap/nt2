@@ -1,0 +1,17 @@
+[library numerical derivatives
+  [quickbook 1.5]
+]
+
+[section Overview]
+This module provides implementation of functions allowing computation of numerical
+derivatives, gradients or jacobians by finite difference or complex-step if available.
+
+Precision is poor first derivatives are computed loosing half of the significant digits
+and second-order 3/4. You can use modules derivatives to compute the nth-derivative of most of the
+nt2 functors, and module automatic_derivative to compute first order derivatives of your own
+nt2-written functions with floating point accuracy.
+
+
+[endsect]
+
+[xinclude reference.xml]

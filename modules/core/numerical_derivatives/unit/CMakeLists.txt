@@ -1,0 +1,13 @@
+##############################################################################
+###   Copyright 2015  J.T. Lapreste
+###
+###
+###          Distributed under the Boost Software License, Version 1.0
+###                 See accompanying file LICENSE.txt or copy at
+###                     http://www.boost.org/LICENSE_1_0.txt
+##############################################################################
+
+nt2_module_use_modules(test.unit)
+ADD_SUBDIRECTORY(scalar)
+ADD_SUBDIRECTORY(table)
+
