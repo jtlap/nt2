@@ -8,6 +8,7 @@
 ##############################################################################
 
 SET( SOURCES
+  acotpi.cpp
   atan2d.cpp
   nbd_atan2.cpp
   proper_tanpi.cpp
