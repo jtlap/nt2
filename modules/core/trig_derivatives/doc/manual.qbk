@@ -1,0 +1,24 @@
+[library Trigonometric Functions Derivatives
+  [quickbook 1.5]
+]
+
+[section Overview]
+This module provides implementation of nth derivatives of trigonometric functions of one variable.
+
+The nth derivative of all one parameter functions present in trigonometric module are provided.
+
+For the "x -> toto(x)" functor the call providing the Nth derivative is toto<N>(x)
+(N is a static integer giving the derivation order).
+All derivatives up to and including order 2 are provided using straight formulas. Higher order derivatives
+generally use recursion formulas (be aware that floating point computation will so imply increasing
+rouding errors).
+
+First and Second order derivatives of the two remaining functions atan2 and atan2d which have two parameters
+are also provided, calling atan2{d}<I,J>(x,y).
+
+Admissible values of <I, J> currently are <0, P>, <P, 0> and <1,1> where P is any positive integer.
+
+
+[endsect]
+
+[xinclude reference.xml]
