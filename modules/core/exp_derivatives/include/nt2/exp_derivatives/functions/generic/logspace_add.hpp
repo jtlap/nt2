@@ -9,13 +9,14 @@
 #define NT2_EXP_DERIVATIVES_FUNCTIONS_GENERIC_LOGSPACE_ADD_HPP_INCLUDED
 #include <nt2/exponential/functions/logspace_add.hpp>
 #include <nt2/exp_derivatives/functions/logspace_add.hpp>
-#include <nt2/include/functions/simd/exp.hpp>
-#include <nt2/include/functions/simd/rec.hpp>
-#include <nt2/include/functions/simd/multiplies.hpp>
 #include <nt2/include/functions/simd/divides.hpp>
-#include <nt2/include/functions/simd/sqr.hpp>
+#include <nt2/include/functions/simd/exp.hpp>
+#include <nt2/include/functions/simd/multiplies.hpp>
 #include <nt2/include/functions/simd/oneminus.hpp>
+#include <nt2/include/functions/simd/rec.hpp>
+#include <nt2/include/functions/simd/sqr.hpp>
 #include <nt2/include/functions/simd/unary_minus.hpp>
+#include <nt2/include/constants/two.hpp>
 
 namespace nt2 { namespace ext
 {

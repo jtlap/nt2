@@ -5,8 +5,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_LOG_DERIVATIVES_FUNCTIONS_GENERIC_LOG2_HPP_INCLUDED
-#define NT2_LOG_DERIVATIVES_FUNCTIONS_GENERIC_LOG2_HPP_INCLUDED
+#ifndef NT2_EXP_DERIVATIVES_FUNCTIONS_GENERIC_LOG2_HPP_INCLUDED
+#define NT2_EXP_DERIVATIVES_FUNCTIONS_GENERIC_LOG2_HPP_INCLUDED
 #include <nt2/exp_derivatives/functions/log2.hpp>
 #include <nt2/include/functions/simd/log.hpp>
 #include <nt2/include/functions/simd/multiplies.hpp>

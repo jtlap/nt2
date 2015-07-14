@@ -23,7 +23,7 @@ namespace nt2 { namespace ext
     {
       typedef A0 result_type;
       typedef typename meta::scalar_of<A0>::type                    sA0;
-      BOOST_FORCEINLINE result_type operator()(const order&
+      BOOST_FORCEINLINE result_type operator()(const order
                                               , const A0& u) const
       {
         return  compute(order(), u, boost::mpl::long_<order::value%2>());
@@ -36,10 +36,10 @@ namespace nt2 { namespace ext
         return log(u);
       }
 
-      template < long P>
+      template < long P, long Q>
        BOOST_FORCEINLINE result_type compute(const boost::mpl::long_<P>&
                                              , const A0& u
-                                             , const boost::mpl::long_<1>&) const
+                                             , const boost::mpl::long_<Q>&) const
       {
         return compensated_fact(boost::mpl::long_<P>(), rec(u));
       }

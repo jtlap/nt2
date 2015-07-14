@@ -12,6 +12,7 @@
 #include <nt2/include/functions/simd/multiplies.hpp>
 #include <nt2/include/functions/simd/fma.hpp>
 #include <nt2/include/functions/simd/oneplus.hpp>
+#include <nt2/include/functions/simd/sqr.hpp>
 #include <nt2/include/constants/two.hpp>
 
 

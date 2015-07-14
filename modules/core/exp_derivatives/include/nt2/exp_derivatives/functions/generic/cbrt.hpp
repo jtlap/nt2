@@ -8,13 +8,13 @@
 #ifndef NT2_EXP_DERIVATIVES_FUNCTIONS_GENERIC_CBRT_HPP_INCLUDED
 #define NT2_EXP_DERIVATIVES_FUNCTIONS_GENERIC_CBRT_HPP_INCLUDED
 #include <nt2/include/functions/simd/cbrt.hpp>
-#include <nt2/exponential/include/functions/pow.hpp>
-#include <nt2/include/functor.hpp>
 #include <nt2/include/functions/simd/multiplies.hpp>
 #include <nt2/include/functions/simd/rec.hpp>
 #include <nt2/include/functions/simd/sqr.hpp>
 #include <nt2/include/constants/third.hpp>
 #include <nt2/include/constants/three.hpp>
+#include <nt2/include/functor.hpp>
+#include <nt2/include/functions/pow.hpp>
 
 namespace nt2
 {

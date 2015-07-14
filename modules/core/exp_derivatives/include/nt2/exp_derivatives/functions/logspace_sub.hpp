@@ -17,7 +17,7 @@ namespace nt2
 {
   /*!
     Compute the Ith derivative  at x, Jth at yy of logspace_sub
-    by pow<I, J>(x, y)
+    by pow<I, J>(x, y) with I+J less or equal to 2
     @see @funcref{logspace_sub}
   **/
   NT2_FUNCTION_IMPLEMENTATION(tag::logspace_sub_, logspace_sub, 4)

@@ -13,6 +13,7 @@
 #include <nt2/include/functions/simd/log.hpp>
 #include <nt2/include/functions/simd/minusone.hpp>
 #include <nt2/include/functions/simd/multiplies.hpp>
+#include <nt2/include/functions/pow.hpp>
 
 namespace nt2 { namespace ext
 {

@@ -9,13 +9,15 @@
 #define NT2_EXP_DERIVATIVES_FUNCTIONS_GENERIC_EXPRECNEG_HPP_INCLUDED
 #include <nt2/exponential/functions/exprecneg.hpp>
 #include <nt2/include/functions/simd/exp.hpp>
-#include <nt2/include/functor.hpp>
+#include <nt2/include/functions/simd/divides.hpp>
+#include <nt2/include/functions/simd/fma.hpp>
 #include <nt2/include/functions/simd/minus.hpp>
 #include <nt2/include/functions/simd/multiplies.hpp>
 #include <nt2/include/functions/simd/oneminus.hpp>
 #include <nt2/include/functions/simd/plus.hpp>
 #include <nt2/include/functions/simd/rec.hpp>
 #include <nt2/include/functions/simd/sqr.hpp>
+#include <nt2/include/functor.hpp>
 
 namespace nt2
 {
@@ -73,7 +75,7 @@ namespace nt2
       template < long P>
       BOOST_FORCEINLINE sA0 pl(const boost::mpl::long_<P>&, const result_type ru) const
       {
-        return ru*(sA0(2*P-2)-ru)*pl(boost::mpl::long_<P-1>(), ru)+sA0((P-1)*P)*ru*pl(boost::mpl::long_<P-2>(), ru);
+        return ru*fma((sA0(2*P-2)-ru), pl(boost::mpl::long_<P-1>(), ru), sA0((P-1)*P)*pl(boost::mpl::long_<P-2>(), ru));
       }
     };
   }

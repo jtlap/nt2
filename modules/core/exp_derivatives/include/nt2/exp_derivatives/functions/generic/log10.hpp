@@ -10,6 +10,7 @@
 #include <nt2/exponential/functions/log10.hpp>
 #include <nt2/exp_derivatives/functions/log10.hpp>
 #include <nt2/include/functions/simd/log.hpp>
+#include <nt2/include/functions/simd/multiplies.hpp>
 #include <nt2/include/constants/invlog_10.hpp>
 
 namespace nt2 { namespace ext

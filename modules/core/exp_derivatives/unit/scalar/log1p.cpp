@@ -7,6 +7,7 @@
 //==============================================================================
 #include <nt2/exp_derivatives/include/functions/log1p.hpp>
 #include <nt2/include/functions/log1p.hpp>
+#include <nt2/include/functions/log.hpp>
 #include <nt2/include/functions/oneplus.hpp>
 #include <nt2/include/functor.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
@@ -36,6 +37,9 @@ NT2_TEST_CASE_TPL ( log1p,  NT2_REAL_TYPES)
                     , 0.5);
   NT2_TEST_ULP_EQUAL(nt2::log<2>(nt2::oneplus(nt2::Half<T>())),
                      nt2::log1p<2>(nt2::Half<T>())
+                    , 0.5);
+  NT2_TEST_ULP_EQUAL(nt2::log<3>(nt2::oneplus(nt2::Half<T>())),
+                     nt2::log1p<3>(nt2::Half<T>())
                     , 0.5);
 
 
