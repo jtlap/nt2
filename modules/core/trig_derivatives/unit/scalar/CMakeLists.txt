@@ -36,6 +36,7 @@ SET( SOURCES
    cotpi.cpp
    csc.cpp
    cscd.cpp
+   cscpi.cpp
    sec.cpp
    fast_cos.cpp
    fast_cosd.cpp
@@ -66,6 +67,7 @@ SET( SOURCES
    sincospi.cpp
    sind.cpp
    sine.cpp
+   sinecosine.cpp
    sinpi.cpp
    tan.cpp
    tand.cpp

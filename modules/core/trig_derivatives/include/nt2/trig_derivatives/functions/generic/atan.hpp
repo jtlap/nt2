@@ -53,8 +53,8 @@ namespace nt2
         return -sqr(rec(oneplus(sqr(u))))*Two<result_type>()*u;
       }
       template<long P>
-        BOOST_FORCEINLINE result_type compute(const boost::mpl::long_<P>
-                                             , const A0& u) const
+      BOOST_FORCEINLINE result_type compute(const boost::mpl::long_<P>
+                                           , const A0& u) const
       {
         return cospi(P-1)*factorial(sA0(P-1))*rec(pow<P>(sqrt(oneplus(sqr(u)))))*sin(sA0(P)*atan(rec(u)));
       }

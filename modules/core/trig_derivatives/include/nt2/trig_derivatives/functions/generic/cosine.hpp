@@ -10,6 +10,7 @@
 #include <nt2/trigonometric/include/functions/cosine.hpp>
 #include <nt2/include/functions/simd/cosine.hpp>
 #include <nt2/include/functions/simd/sine.hpp>
+#include <nt2/include/functions/simd/unary_minus.hpp>
 #include <nt2/include/functor.hpp>
 
 namespace nt2

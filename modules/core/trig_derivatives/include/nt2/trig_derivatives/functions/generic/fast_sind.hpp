@@ -11,6 +11,7 @@
 #include <nt2/include/functions/simd/fast_sind.hpp>
 #include <nt2/include/functions/simd/fast_cosd.hpp>
 #include <nt2/include/functions/simd/pow.hpp>
+#include <nt2/include/functions/simd/unary_minus.hpp>
 #include <nt2/include/constants/deginrad.hpp>
 #include <nt2/include/functor.hpp>
 

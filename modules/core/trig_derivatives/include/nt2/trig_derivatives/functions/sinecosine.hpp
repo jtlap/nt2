@@ -20,14 +20,27 @@ namespace nt2
     by sinecosine<N>(x)
     @see @funcref{sinecosine}
   **/
-  NT2_FUNCTION_IMPLEMENTATION(tag::sinecosine_, sinecosine, 2)
+    NT2_FUNCTION_IMPLEMENTATION_TPL(tag::sinecosine_<A0>, sinecosine,(A1 const&)(A2 const&)(A3&)(A4&),5)
+    NT2_FUNCTION_IMPLEMENTATION_TPL(tag::sinecosine_<A0>, sinecosine,(A1 const&)(A2 const&)(A3&),4)
+    NT2_FUNCTION_IMPLEMENTATION_TPL(tag::sinecosine_<A0>, sinecosine,(A1 const&)(A2 const&),3)
 
-
-  template < long N, class T> BOOST_FORCEINLINE T sinecosine(const T & x)
+  template <class mode, long N, class T> BOOST_FORCEINLINE void sinecosine(const T & x, T & a1, T& a2)
   {
-    return sinecosine(boost::mpl::long_<N>(), x);
+    sinecosine<mode>(boost::mpl::long_<N>(), x, a1, a2);
   }
-
+  template <class mode, long N, class T> BOOST_FORCEINLINE T sinecosine(const T & x, T& a2)
+  {
+    T a1;
+    sinecosine<mode>(boost::mpl::long_<N>(), x, a1, a2);
+    return a1;
+  }
+  template <class mode, long N, class T> BOOST_FORCEINLINE std::pair<T, T>  sinecosine(const T & x)
+  {
+    typedef std::pair<T, T>       result_type;
+    T a1, a2;
+    sinecosine<mode>(boost::mpl::long_<N>(), x, a1, a2);
+    return result_type(a1, a2);
+  }
 }
 
 #endif

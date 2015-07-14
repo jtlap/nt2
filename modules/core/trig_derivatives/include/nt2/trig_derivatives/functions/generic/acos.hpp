@@ -10,13 +10,16 @@
 #include <nt2/trigonometric/include/functions/acos.hpp>
 #include <nt2/include/functions/simd/acos.hpp>
 #include <nt2/include/functor.hpp>
+#include <nt2/include/functions/simd/fma.hpp>
 #include <nt2/include/functions/simd/multiplies.hpp>
+#include <nt2/include/functions/simd/oneminus.hpp>
 #include <nt2/include/functions/simd/plus.hpp>
 #include <nt2/include/functions/simd/pow.hpp>
-#include <nt2/include/functions/simd/oneminus.hpp>
 #include <nt2/include/functions/simd/rec.hpp>
 #include <nt2/include/functions/simd/sqr.hpp>
 #include <nt2/include/functions/simd/sqrt.hpp>
+#include <nt2/include/constants/three.hpp>
+#include <nt2/include/constants/two.hpp>
 
 namespace nt2
 {
@@ -50,33 +53,52 @@ namespace nt2
       BOOST_FORCEINLINE result_type compute(const boost::mpl::long_<2>
                                            , const A0& u) const
       {
-        result_type tmp = rec(sqrt(oneminus(sqr(u))));
-        return -u*tmp*sqr(tmp);
+        result_type tmp0 = rec(oneminus(sqr(u)));
+        result_type tmp = sqrt(tmp0);
+        return -u*tmp*tmp0;
+      }
+      BOOST_FORCEINLINE result_type compute(const boost::mpl::long_<3>
+                                           , const A0& u) const
+      {
+        result_type u2 = sqr(u);
+        result_type tmp0 = rec(oneminus(u2));
+        result_type tmp = sqrt(tmp0);
+        return -oneplus(Two<sA0>()*u2)*tmp*sqr(tmp0);
+      }
+      BOOST_FORCEINLINE result_type compute(const boost::mpl::long_<4>
+                                           , const A0& u) const
+      {
+        result_type u2 = sqr(u);
+        result_type tmp0 = oneminus(u2);
+        return -rec(sqrt(tmp0)*pow<3>(tmp0))*Three<sA0>()*u*fma(Two<sA0>(), u2, Three<sA0>());
       }
       template<long P>
       BOOST_FORCEINLINE result_type compute(const boost::mpl::long_<P>
                                            , const A0& u) const
       {
-        A0 tmp0 = oneminus(sqr(u));
-        A0 tmp = sqrt(tmp0);
-        return -rec(tmp*pow<P-1>(tmp0))*K( boost::mpl::long_<P>(), tmp0);
+        A0 omu2 = oneminus(sqr(u));
+        A0 sqomu2 = sqrt(omu2);
+        return -rec(sqomu2*pow<P-1>(omu2))*K( boost::mpl::long_<P>(), u, omu2);
       }
 
       BOOST_FORCEINLINE result_type K(const boost::mpl::long_<0>
-                                           , const A0& ) const
+                                           , const A0&
+                                           , const A0&) const
       {
         return Zero<result_type>(); ;
       }
       BOOST_FORCEINLINE result_type K(const boost::mpl::long_<1>
-                                           , const A0& x) const
+                                           , const A0&
+                                           , const A0&) const
       {
-        return x;
+        return One<result_type>();
       }
       template<long P>
       BOOST_FORCEINLINE result_type K(const boost::mpl::long_<P>
-                                           , const A0& x) const
+                                           , const A0& x
+                                           , const A0& omx2) const
       {
-        return sA0(2*P-3)*K(boost::mpl::long_<P-1>(), x)-sqr(sA0(P-2))*K(boost::mpl::long_<P-2>(), x);
+        return fma(sA0(2*P-3)*x, K(boost::mpl::long_<P-1>(), x, omx2), omx2*sqr(sA0(P-2))*K(boost::mpl::long_<P-2>(), x, omx2));
     }
 
 

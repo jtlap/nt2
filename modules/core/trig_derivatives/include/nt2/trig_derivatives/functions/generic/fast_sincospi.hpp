@@ -8,13 +8,14 @@
 #ifndef NT2_TRIG_DERIVATIVES_FUNCTIONS_GENERIC_FAST_SINCOSPI_HPP_INCLUDED
 #define NT2_TRIG_DERIVATIVES_FUNCTIONS_GENERIC_FAST_SINCOSPI_HPP_INCLUDED
 #include <nt2/include/functions/simd/fast_sincospi.hpp>
-#include <nt2/include/functor.hpp>
 #include <boost/fusion/include/std_pair.hpp>
 #include <nt2/include/functions/simd/fast_sincospi.hpp>
+#include <nt2/include/functions/simd/multiplies.hpp>
 #include <nt2/include/functions/simd/pow.hpp>
 #include <nt2/include/constants/invpi.hpp>
 #include <nt2/include/functions/swap.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>
+#include <nt2/include/functor.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -96,7 +97,7 @@ namespace nt2 { namespace ext
                                             , A0 const& a0) const
     {
       A0 a1, a2;
-      fast_sincospic(order(), a0, a1, a2);
+      fast_sincospi(order(), a0, a1, a2);
       return result_type(a1, a2);
     }
   };

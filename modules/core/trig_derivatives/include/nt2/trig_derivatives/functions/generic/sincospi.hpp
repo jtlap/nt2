@@ -14,6 +14,7 @@
 #include <nt2/include/functions/simd/pow.hpp>
 #include <nt2/include/constants/invpi.hpp>
 #include <nt2/include/functions/swap.hpp>
+#include <nt2/include/functions/simd/unary_minus.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>
 
 namespace nt2 { namespace ext

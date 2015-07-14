@@ -11,6 +11,7 @@
 #include <nt2/include/functor.hpp>
 #include <boost/fusion/include/std_pair.hpp>
 #include <nt2/include/functions/simd/fast_sincos.hpp>
+#include <nt2/include/functions/simd/unary_minus.hpp>
 #include <nt2/include/functions/swap.hpp>
 
 namespace nt2 { namespace ext

@@ -8,13 +8,15 @@
 #ifndef NT2_TRIG_DERIVATIVES_FUNCTIONS_GENERIC_FAST_SINCOSD_HPP_INCLUDED
 #define NT2_TRIG_DERIVATIVES_FUNCTIONS_GENERIC_FAST_SINCOSD_HPP_INCLUDED
 #include <nt2/include/functions/simd/fast_sincosd.hpp>
-#include <nt2/include/functor.hpp>
 #include <boost/fusion/include/std_pair.hpp>
 #include <nt2/include/functions/simd/fast_sincosd.hpp>
+#include <nt2/include/functions/simd/multiplies.hpp>
 #include <nt2/include/functions/simd/pow.hpp>
-#include <nt2/include/constants/deginrad.hpp>
+#include <nt2/include/functions/simd/unary_minus.hpp>
 #include <nt2/include/functions/swap.hpp>
+#include <nt2/include/constants/deginrad.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>
+#include <nt2/include/functor.hpp>
 
 namespace nt2 { namespace ext
 {

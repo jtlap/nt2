@@ -11,7 +11,6 @@
 #include <nt2/include/functions/simd/indeg.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/functor.hpp>
-#include <nt2/include/functions/simd/multiplies.hpp>
 #include <nt2/include/constants/radindeg.hpp>
 
 namespace nt2

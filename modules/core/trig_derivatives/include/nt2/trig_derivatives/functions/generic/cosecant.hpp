@@ -11,12 +11,11 @@
 #include <nt2/trigonometric/include/functions/cosecant.hpp>
 #include <nt2/trig_derivatives/functions/details/sec_kernel.hpp>
 #include <nt2/include/functions/simd/cosecant.hpp>
-#include <nt2/include/functions/simd/pow.hpp>
 #include <nt2/include/functions/simd/cotangent.hpp>
 #include <nt2/include/functions/simd/oneplus.hpp>
 #include <nt2/include/functions/polyval.hpp>
+#include <nt2/include/functions/simd/pow.hpp>
 #include <nt2/include/functions/simd/sqr.hpp>
-#include <nt2/include/functor.hpp>
 #include <nt2/core/container/table/table.hpp>
 #include <nt2/include/functor.hpp>
 

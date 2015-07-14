@@ -9,8 +9,8 @@
 #define NT2_TRIG_DERIVATIVES_FUNCTIONS_GENERIC_COSPI_HPP_INCLUDED
 #include <nt2/trigonometric/include/functions/cospi.hpp>
 #include <nt2/include/functions/simd/cospi.hpp>
-#include <nt2/include/functions/simd/sinpi.hpp>
 #include <nt2/include/functions/simd/pow.hpp>
+#include <nt2/include/functions/simd/sinpi.hpp>
 #include <nt2/include/constants/invpi.hpp>
 #include <nt2/include/functor.hpp>
 

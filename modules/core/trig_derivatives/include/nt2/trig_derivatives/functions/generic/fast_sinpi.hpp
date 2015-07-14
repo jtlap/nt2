@@ -11,6 +11,7 @@
 #include <nt2/include/functions/simd/fast_sinpi.hpp>
 #include <nt2/include/functions/simd/fast_cospi.hpp>
 #include <nt2/include/functions/simd/pow.hpp>
+#include <nt2/include/functions/simd/unary_minus.hpp>
 #include <nt2/include/constants/invpi.hpp>
 #include <nt2/include/functor.hpp>
 

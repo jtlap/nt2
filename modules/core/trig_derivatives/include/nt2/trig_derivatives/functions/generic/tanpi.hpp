@@ -10,6 +10,13 @@
 #include <nt2/include/functions/simd/tanpi.hpp>
 #include <nt2/include/functions/simd/tan.hpp>
 #include <nt2/include/functions/simd/pow.hpp>
+#include <nt2/include/functions/simd/pow.hpp>
+#include <nt2/include/functions/simd/multiplies.hpp>
+#include <nt2/include/functions/simd/oneplus.hpp>
+#include <nt2/include/functions/polyval.hpp>
+#include <nt2/include/functions/simd/sqr.hpp>
+#include <nt2/core/container/table/table.hpp>
+#include <nt2/include/constants/two.hpp>
 #include <nt2/include/constants/invpi.hpp>
 #include <nt2/include/functor.hpp>
 

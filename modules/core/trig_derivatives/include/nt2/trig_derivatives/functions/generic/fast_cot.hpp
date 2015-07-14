@@ -10,10 +10,12 @@
 #include <nt2/trigonometric/include/functions/fast_cot.hpp>
 #include <nt2/trig_derivatives/functions/details/tan_kernel.hpp>
 #include <nt2/include/functions/simd/fast_cot.hpp>
-#include <nt2/include/functions/simd/pow.hpp>
+#include <nt2/include/functions/simd/multiplies.hpp>
 #include <nt2/include/functions/simd/oneplus.hpp>
 #include <nt2/include/functions/polyval.hpp>
+#include <nt2/include/functions/simd/pow.hpp>
 #include <nt2/include/functions/simd/sqr.hpp>
+#include <nt2/include/constants/two.hpp>
 #include <nt2/include/functor.hpp>
 #include <nt2/core/container/table/table.hpp>
 

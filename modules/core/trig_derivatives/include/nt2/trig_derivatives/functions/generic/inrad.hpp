@@ -10,7 +10,6 @@
 #include <nt2/trigonometric/include/functions/inrad.hpp>
 #include <nt2/include/functions/simd/inrad.hpp>
 #include <nt2/include/functor.hpp>
-#include <nt2/include/functions/simd/multiplies.hpp>
 #include <nt2/include/constants/deginrad.hpp>
 #include <nt2/include/constants/zero.hpp>
 

@@ -27,5 +27,12 @@ NT2_TEST_CASE_TPL ( acos,  NT2_REAL_TYPES)
                      T(-0.769800358919501019345531707336), 1.5);
   NT2_TEST_ULP_EQUAL(acos<3>(nt2::Half<T>()),
                      T(-3.07920143567800407738212682934), 1.5);
+  NT2_TEST_ULP_EQUAL(acos<4>(nt2::Half<T>()),
+                     T(-14.369606699830685), 5.5);
+  NT2_TEST_ULP_EQUAL(acos<5>(nt2::Half<T>()),
+                     T(-1.040085818273459e+02), 5.5);
 
 }
+
+
+

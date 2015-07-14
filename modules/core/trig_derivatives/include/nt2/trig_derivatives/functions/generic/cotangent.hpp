@@ -10,9 +10,9 @@
 #include <nt2/trigonometric/include/functions/cotangent.hpp>
 #include <nt2/trig_derivatives/functions/details/tan_kernel.hpp>
 #include <nt2/include/functions/simd/cotangent.hpp>
-#include <nt2/include/functions/simd/pow.hpp>
 #include <nt2/include/functions/simd/oneplus.hpp>
 #include <nt2/include/functions/polyval.hpp>
+#include <nt2/include/functions/simd/pow.hpp>
 #include <nt2/include/functions/simd/sqr.hpp>
 #include <nt2/include/functor.hpp>
 #include <nt2/core/container/table/table.hpp>

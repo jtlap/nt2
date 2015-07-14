@@ -17,7 +17,7 @@
 #include <nt2/sdk/unit/tests/ulp.hpp>
 #include <boost/simd/sdk/config.hpp>
 
-#include <nt2/include/constants/third.hpp>
+#include <nt2/include/constants/oneo_6.hpp>
 #include <nt2/include/constants/invpi.hpp>
 #include <iostream>
 
@@ -25,12 +25,12 @@ NT2_TEST_CASE_TPL ( fast_cospi,  NT2_REAL_TYPES)
 {
   using nt2::fast_cospi;
   using nt2::sinpi;
-  NT2_TEST_ULP_EQUAL(fast_cospi<1>(nt2::Third<T>()),
-                     (-sinpi(nt2::Third<T>())*nt2::pow<1>(nt2::Invpi<T>())), 1.5);
-  NT2_TEST_ULP_EQUAL(fast_cospi<2>(nt2::Third<T>()),
-                     (-fast_cospi(nt2::Third<T>())*nt2::pow<2>(nt2::Invpi<T>())), 1.5);
-  NT2_TEST_ULP_EQUAL(fast_cospi<3>(nt2::Third<T>()),
-                     (sinpi(nt2::Third<T>())*nt2::pow<3>(nt2::Invpi<T>())), 1.5);
+  NT2_TEST_ULP_EQUAL(fast_cospi<1>(nt2::Oneo_6<T>()),
+                     (-sinpi(nt2::Oneo_6<T>())*nt2::pow<1>(nt2::Invpi<T>())), 1.5);
+  NT2_TEST_ULP_EQUAL(fast_cospi<2>(nt2::Oneo_6<T>()),
+                     (-fast_cospi(nt2::Oneo_6<T>())*nt2::pow<2>(nt2::Invpi<T>())), 1.5);
+  NT2_TEST_ULP_EQUAL(fast_cospi<3>(nt2::Oneo_6<T>()),
+                     (sinpi(nt2::Oneo_6<T>())*nt2::pow<3>(nt2::Invpi<T>())), 1.5);
 }
 
 

@@ -10,10 +10,12 @@
 #include <nt2/trigonometric/include/functions/sinc.hpp>
 #include <nt2/trig_derivatives/functions/details/sinc_kernel.hpp>
 #include <nt2/include/functions/simd/cospi.hpp>
+#include <nt2/include/functions/simd/divides.hpp>
 #include <nt2/include/functions/if_else.hpp>
 #include <nt2/include/functions/if_else_zero.hpp>
 #include <nt2/include/functions/simd/is_odd.hpp>
 #include <nt2/include/functions/simd/is_eqz.hpp>
+#include <nt2/include/functions/simd/multiplies.hpp>
 #include <nt2/include/functions/simd/rec.hpp>
 #include <nt2/include/functions/simd/sinc.hpp>
 #include <nt2/include/functions/simd/sincos.hpp>
@@ -76,8 +78,7 @@ namespace nt2
         sincos(u, s, c);
         A0 ru = rec(u);
         A0 r = polyval(p, ru)*s+polyval(q, ru)*c;
-        auto r0 = if_zero_else(is_odd(P), cospi(P/2)*rec(sA0(P+1))
-                               );
+        auto r0 = if_zero_else(is_odd(P), cospi(P/2)*rec(sA0(P+1)));
         return  if_else(is_eqz(u), A0(r0), r);
       }
     };

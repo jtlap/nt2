@@ -10,12 +10,12 @@
 #include <nt2/trigonometric/functions/atan2.hpp>
 #include <nt2/trig_derivatives/functions/atan2.hpp>
 #include <nt2/include/functions/simd/atan.hpp>
-#include <nt2/include/functions/simd/rec.hpp>
-#include <nt2/include/functions/simd/sqr.hpp>
 #include <nt2/include/functions/simd/minus.hpp>
+#include <nt2/include/functions/simd/multiplies.hpp>
 #include <nt2/include/functions/simd/plus.hpp>
 #include <nt2/include/functions/simd/pow.hpp>
-#include <nt2/include/functions/simd/multiplies.hpp>
+#include <nt2/include/functions/simd/rec.hpp>
+#include <nt2/include/functions/simd/sqr.hpp>
 
 namespace nt2 { namespace ext
 {

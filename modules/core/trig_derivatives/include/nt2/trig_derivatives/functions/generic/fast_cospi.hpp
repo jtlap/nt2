@@ -9,8 +9,9 @@
 #define NT2_TRIG_DERIVATIVES_FUNCTIONS_GENERIC_FAST_COSPI_HPP_INCLUDED
 #include <nt2/trigonometric/include/functions/fast_cospi.hpp>
 #include <nt2/include/functions/simd/fast_cospi.hpp>
-#include <nt2/include/functions/simd/sinpi.hpp>
+#include <nt2/include/functions/simd/fast_sinpi.hpp>
 #include <nt2/include/functions/simd/pow.hpp>
+#include <nt2/include/functions/simd/unary_minus.hpp>
 #include <nt2/include/constants/invpi.hpp>
 #include <nt2/include/functor.hpp>
 
@@ -42,7 +43,7 @@ namespace nt2
       BOOST_FORCEINLINE result_type compute(const boost::mpl::long_<1>
                                            , const A0& u) const
       {
-        return -sinpi(u);
+        return -fast_sinpi(u);
       }
       BOOST_FORCEINLINE result_type compute(const boost::mpl::long_<2>
                                            , const A0& u) const
@@ -52,7 +53,7 @@ namespace nt2
       BOOST_FORCEINLINE result_type compute(const boost::mpl::long_<3>
                                            , const A0& u) const
       {
-        return sinpi(u);
+        return fast_sinpi(u);
       }
    };
   }

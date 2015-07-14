@@ -8,46 +8,94 @@
 #ifndef NT2_TRIG_DERIVATIVES_FUNCTIONS_GENERIC_SINECOSINE_HPP_INCLUDED
 #define NT2_TRIG_DERIVATIVES_FUNCTIONS_GENERIC_SINECOSINE_HPP_INCLUDED
 #include <nt2/include/functions/simd/sinecosine.hpp>
+#include <boost/fusion/include/std_pair.hpp>
+#include <nt2/include/functions/simd/sinecosine.hpp>
+#include <nt2/include/functions/swap.hpp>
+#include <nt2/include/functions/simd/unary_minus.hpp>
 #include <nt2/include/functor.hpp>
 
-namespace nt2
+namespace nt2 { namespace ext
 {
-  namespace ext
-  {
-
-    BOOST_DISPATCH_IMPLEMENT  ( sinecosine_, tag::cpu_
-                              , (order)(A0)
+  BOOST_DISPATCH_IMPLEMENT_G  ( tag::sinecosine_<mode>, tag::cpu_
+                              , (mode)(order)(A0)
                               , (unspecified_<order>)
-                                (generic_<unspecified_<A0>>)
+                                ((generic_< floating_<A0> >))
+                                ((generic_< floating_<A0> >))
+                                ((generic_< floating_<A0> >))
                               )
+  {
+    typedef void result_type;
+    typedef typename boost::mpl::long_<order::value % 4>     ordermod4;
+    BOOST_FORCEINLINE result_type operator()(const order&,
+                                             A0 const& a0, A0 & a1, A0 & a2) const
     {
-      typedef A0                                            result_type;
-      typedef typename meta::scalar_of<A0>::type                    sA0;
-      BOOST_FORCEINLINE result_type operator()(const order&
-                                              , const A0& u) const
-      {
-        return compute(order(), u);
-      }
+      sinecosine<mode>(a0, a1, a2);
+      compute(order(), a1, a2);
+    }
     private:
-      BOOST_FORCEINLINE result_type compute(const boost::mpl::long_<0>
-                                           , const A0& u) const
+      BOOST_FORCEINLINE void compute(const boost::mpl::long_<0>
+                                           , A0&
+                                           , A0& ) const
+      { }
+      BOOST_FORCEINLINE void compute(const boost::mpl::long_<1>
+                                           ,A0& u
+                                           ,A0& v) const
       {
-        return sinecosine(u);
+        nt2::swap(u, v);
+        v = -v;
       }
-      BOOST_FORCEINLINE result_type compute(const boost::mpl::long_<1>
-                                           , const A0& u) const
+      BOOST_FORCEINLINE void compute(const boost::mpl::long_<2>
+                                           ,  A0& u
+                                           ,  A0& v) const
       {
-        return ;
+        u = -u;
+        v = -v;
       }
-      template<long P>
-      BOOST_FORCEINLINE result_type compute(const boost::mpl::long_<P>
-                                           , const A0& u) const
+      BOOST_FORCEINLINE void compute(const boost::mpl::long_<3>
+                                           , A0& u
+                                           , A0& v) const
       {
-        return sinecosine(u);
+        nt2::swap(u, v);
+        u = -u;
       }
-   };
-  }
-}
+  };
 
+  BOOST_DISPATCH_IMPLEMENT_G  ( tag::sinecosine_<mode>
+                              , tag::cpu_
+                              , (mode)(order)(A0)
+                              , (unspecified_<order>)
+                                ((generic_< floating_<A0> >))
+                                ((generic_< floating_<A0> >))
+                              )
+  {
+    typedef A0 result_type;
+    BOOST_FORCEINLINE result_type operator()(const order&
+                                            ,A0 const& a0,A0 & a2) const
+    {
+      A0 a1;
+      sinecosine<mode>(order(), a0, a1, a2);
+      return a1;
+    }
+  };
+
+  BOOST_DISPATCH_IMPLEMENT_G  ( tag::sinecosine_<mode>, tag::cpu_
+                              , (mode)(order)(A0)
+                              , (unspecified_<order>)
+                                (unspecified_<order>)
+                                (generic_< floating_<A0> >)
+                              )
+  {
+    typedef std::pair<A0, A0>                      result_type;
+    BOOST_FORCEINLINE result_type operator()(const order&
+                                            , A0 const& a0) const
+    {
+      A0 a1, a2;
+      sinecosine<mode>(order(), a0, a1, a2);
+      return result_type(a1, a2);
+    }
+  };
+
+
+} }
 
 #endif

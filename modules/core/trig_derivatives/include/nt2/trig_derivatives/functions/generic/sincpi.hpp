@@ -10,6 +10,8 @@
 #include <nt2/trigonometric/include/functions/sincpi.hpp>
 #include <nt2/include/functions/simd/sincpi.hpp>
 #include <nt2/include/functions/simd/sinc.hpp>
+#include <nt2/include/functions/simd/multiplies.hpp>
+#include <nt2/include/constants/invpi.hpp>
 #include <nt2/include/functor.hpp>
 
 namespace nt2

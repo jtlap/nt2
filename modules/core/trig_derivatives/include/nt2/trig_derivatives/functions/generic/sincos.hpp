@@ -12,6 +12,7 @@
 #include <boost/fusion/include/std_pair.hpp>
 #include <nt2/include/functions/simd/sincos.hpp>
 #include <nt2/include/functions/swap.hpp>
+#include <nt2/include/functions/simd/unary_minus.hpp>
 
 namespace nt2 { namespace ext
 {

@@ -12,6 +12,7 @@
 #include <nt2/include/functions/simd/cosd.hpp>
 #include <nt2/include/functions/simd/pow.hpp>
 #include <nt2/include/constants/deginrad.hpp>
+#include <nt2/include/functions/simd/unary_minus.hpp>
 #include <nt2/include/functor.hpp>
 
 namespace nt2

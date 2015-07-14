@@ -11,6 +11,7 @@
 #include <nt2/trig_derivatives/functions/details/sec_kernel.hpp>
 #include <nt2/include/functions/simd/sec.hpp>
 #include <nt2/include/functions/simd/tan.hpp>
+#include <nt2/include/functions/simd/multiplies.hpp>
 #include <nt2/include/functions/simd/pow.hpp>
 #include <nt2/include/functions/simd/oneplus.hpp>
 #include <nt2/include/functions/polyval.hpp>

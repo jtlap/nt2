@@ -9,6 +9,7 @@
 #define NT2_TRIG_DERIVATIVES_FUNCTIONS_GENERIC_ACOT_HPP_INCLUDED
 #include <nt2/trigonometric/include/functions/atan.hpp>
 #include <nt2/include/functions/simd/acot.hpp>
+#include <nt2/include/functions/simd/unary_minus.hpp>
 #include <nt2/include/functor.hpp>
 
 namespace nt2
