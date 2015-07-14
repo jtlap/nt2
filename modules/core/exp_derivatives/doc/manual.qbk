@@ -3,18 +3,22 @@
 ]
 
 [section Overview]
-This module provides implementation of derivatives of functions
+This module provides implementation of the nth derivatives of functions
 present in the exponential toolbox
 
-This mean for each functor of the exponential toolbox ??? of one floting variable
-a functor d_???, and for each functor of the exponential toolbox ??? of two floating variables
-two functors d1_??? and d2_??? which are respectively the 2 partial derivatives.
+The nth derivative of all one parameter functions present in exponential module are provided.
+
+For the "x -> toto(x)" functor the call providing the Nth derivative is toto<N>(x)
+(N is a static integer giving the derivation order).
+All derivatives up to and including order 2 are provided using straight formulas. Higher order derivatives
+generally use recursion formulas (be aware that floating point computation will so imply increasing
+rounding errors).
 
 Obviouly functions for which a parameter is integer (as nthroot) do not provide derivatives along
 this parameter.
 
-The derivative is only valid at ordinary points, meaning point where the original
-function is actually derivable.
+The derivatives are only valid at ordinary points, meaning points where the original
+function is actually derivable. It works for real and complex arguments
 
 
 [endsect]
