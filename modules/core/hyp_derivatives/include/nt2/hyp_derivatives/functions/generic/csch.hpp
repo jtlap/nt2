@@ -10,11 +10,13 @@
 #include <nt2/hyperbolic/include/functions/csch.hpp>
 #include <nt2/hyp_derivatives/functions/details/sech_kernel.hpp>
 #include <nt2/include/functions/simd/csch.hpp>
-#include <nt2/include/functions/simd/pow.hpp>
 #include <nt2/include/functions/simd/coth.hpp>
+#include <nt2/include/functions/simd/multiplies.hpp>
 #include <nt2/include/functions/simd/oneplus.hpp>
 #include <nt2/include/functions/polyval.hpp>
+#include <nt2/include/functions/pow.hpp>
 #include <nt2/include/functions/simd/sqr.hpp>
+#include <nt2/include/functions/simd/unary_minus.hpp>
 #include <nt2/include/functor.hpp>
 #include <nt2/core/container/table/table.hpp>
 

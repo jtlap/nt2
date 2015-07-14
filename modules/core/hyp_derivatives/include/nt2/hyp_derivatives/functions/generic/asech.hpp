@@ -15,6 +15,7 @@
 #include <nt2/include/functions/simd/minusone.hpp>
 #include <nt2/include/functions/simd/rec.hpp>
 #include <nt2/include/functions/simd/sqr.hpp>
+#include <nt2/include/functions/simd/unary_minus.hpp>
 #include <nt2/include/functor.hpp>
 
 namespace nt2

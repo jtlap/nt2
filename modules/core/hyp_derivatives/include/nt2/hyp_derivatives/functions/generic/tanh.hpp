@@ -14,6 +14,7 @@
 #include <nt2/include/functions/simd/oneminus.hpp>
 #include <nt2/include/functions/polyval.hpp>
 #include <nt2/include/functions/simd/sqr.hpp>
+#include <nt2/include/functions/simd/unary_minus.hpp>
 #include <nt2/include/functor.hpp>
 #include <nt2/core/container/table/table.hpp>
 

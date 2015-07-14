@@ -10,12 +10,12 @@
 #include <nt2/hyperbolic/include/functions/acsch.hpp>
 #include <nt2/include/functions/simd/acsch.hpp>
 #include <nt2/include/functions/simd/asech.hpp>
-#include <nt2/include/functions/simd/unary_minus.hpp>
 #include <nt2/include/functions/simd/divides.hpp>
 #include <nt2/include/functions/simd/multiplies.hpp>
 #include <nt2/include/functions/simd/oneminus.hpp>
 #include <nt2/include/functions/simd/rec.hpp>
 #include <nt2/include/functions/simd/sqr.hpp>
+#include <nt2/include/functions/simd/unary_minus.hpp>
 #include <nt2/include/constants/two.hpp>
 #include <nt2/include/functor.hpp>
 

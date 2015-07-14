@@ -5,10 +5,10 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_HYP_DERIVATIVES_FUNCTIONS_GENERIC_ATAN_HPP_INCLUDED
-#define NT2_HYP_DERIVATIVES_FUNCTIONS_GENERIC_ATAN_HPP_INCLUDED
+#ifndef NT2_HYP_DERIVATIVES_FUNCTIONS_GENERIC_ATANH_HPP_INCLUDED
+#define NT2_HYP_DERIVATIVES_FUNCTIONS_GENERIC_ATANH_HPP_INCLUDED
 #include <nt2/include/functions/simd/atanh.hpp>
-#include <nt2/include/functions/simd/sinh.hpp>
+#include <nt2/include/functions/simd/cosh.hpp>
 #include <nt2/include/functions/simd/factorial.hpp>
 #include <nt2/include/functions/simd/multiplies.hpp>
 #include <nt2/include/functions/simd/oneminus.hpp>
@@ -16,7 +16,6 @@
 #include <nt2/include/functions/simd/minusone.hpp>
 #include <nt2/include/functions/simd/rec.hpp>
 #include <nt2/include/functions/simd/sinh.hpp>
-#include <nt2/include/functions/simd/cosh.hpp>
 #include <nt2/include/functions/simd/sqr.hpp>
 #include <nt2/include/functions/simd/unary_minus.hpp>
 #include <nt2/include/constants/two.hpp>

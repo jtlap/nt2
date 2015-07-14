@@ -9,18 +9,18 @@
 #define NT2_HYP_DERIVATIVES_FUNCTIONS_GENERIC_ASINH_HPP_INCLUDED
 #include <nt2/include/functions/simd/asinh.hpp>
 #include <nt2/include/functions/simd/acosh.hpp>
-#include <nt2/include/functions/simd/unary_minus.hpp>
-#include <nt2/include/functor.hpp>
-#include <nt2/include/functions/simd/multiplies.hpp>
 #include <nt2/include/functions/simd/fms.hpp>
 #include <nt2/include/functions/simd/fnma.hpp>
+#include <nt2/include/functions/simd/minusone.hpp>
+#include <nt2/include/functions/simd/multiplies.hpp>
+#include <nt2/include/functions/simd/oneplus.hpp>
 #include <nt2/include/functions/simd/plus.hpp>
 #include <nt2/include/functions/simd/pow.hpp>
-#include <nt2/include/functions/simd/oneplus.hpp>
-#include <nt2/include/functions/simd/minusone.hpp>
 #include <nt2/include/functions/simd/rec.hpp>
 #include <nt2/include/functions/simd/sqr.hpp>
 #include <nt2/include/functions/simd/sqrt.hpp>
+#include <nt2/include/functions/simd/unary_minus.hpp>
+#include <nt2/include/functor.hpp>
 
 
 namespace nt2

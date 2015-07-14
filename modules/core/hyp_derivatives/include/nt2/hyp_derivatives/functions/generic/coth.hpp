@@ -10,11 +10,12 @@
 #include <nt2/hyperbolic/include/functions/coth.hpp>
 #include <nt2/hyp_derivatives/functions/details/dtanh_kernel.hpp>
 #include <nt2/include/functions/simd/coth.hpp>
-#include <nt2/include/functions/simd/pow.hpp>
 #include <nt2/include/functions/simd/minusone.hpp>
+#include <nt2/include/functions/simd/multiplies.hpp>
 #include <nt2/include/functions/simd/oneminus.hpp>
-#include <nt2/include/functions/polyval.hpp>
 #include <nt2/include/functions/simd/sqr.hpp>
+#include <nt2/include/functions/polyval.hpp>
+#include <nt2/include/functions/pow.hpp>
 #include <nt2/include/functor.hpp>
 #include <nt2/core/container/table/table.hpp>
 
