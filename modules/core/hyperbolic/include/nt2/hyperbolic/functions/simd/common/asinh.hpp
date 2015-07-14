@@ -26,6 +26,7 @@
 #include <nt2/include/functions/simd/is_greater.hpp>
 #include <nt2/include/functions/simd/is_less.hpp>
 #include <nt2/include/functions/simd/log.hpp>
+#include <nt2/include/functions/simd/log1p.hpp>
 #include <nt2/include/functions/simd/minusone.hpp>
 #include <nt2/include/functions/simd/multiplies.hpp>
 #include <nt2/include/functions/simd/oneplus.hpp>
