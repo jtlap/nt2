@@ -18,7 +18,7 @@
 #include <boost/simd/sdk/config.hpp>
 
 #include <nt2/include/constants/oneo_7.hpp>
-#include <nt2/include/constants/invpi.hpp>
+#include <nt2/include/constants/pi.hpp>
 #include <iostream>
 
 NT2_TEST_CASE_TPL ( fast_sinpi,  NT2_REAL_TYPES)
@@ -26,11 +26,11 @@ NT2_TEST_CASE_TPL ( fast_sinpi,  NT2_REAL_TYPES)
   using nt2::cospi;
   using nt2::fast_sinpi;
   NT2_TEST_ULP_EQUAL(fast_sinpi<1>(nt2::Oneo_7<T>()),
-                     (cospi(nt2::Oneo_7<T>())*nt2::pow<1>(nt2::Invpi<T>())), 1.5);
+                     (cospi(nt2::Oneo_7<T>())*nt2::pow<1>(nt2::Pi<T>())), 1.5);
   NT2_TEST_ULP_EQUAL(fast_sinpi<2>(nt2::Oneo_7<T>()),
-                     (-fast_sinpi(nt2::Oneo_7<T>())*nt2::pow<2>(nt2::Invpi<T>())), 1.5);
+                     (-fast_sinpi(nt2::Oneo_7<T>())*nt2::pow<2>(nt2::Pi<T>())), 1.5);
   NT2_TEST_ULP_EQUAL(fast_sinpi<3>(nt2::Oneo_7<T>()),
-                     (-cospi(nt2::Oneo_7<T>())*nt2::pow<3>(nt2::Invpi<T>())), 1.5);
+                     (-cospi(nt2::Oneo_7<T>())*nt2::pow<3>(nt2::Pi<T>())), 1.5);
 }
 
 

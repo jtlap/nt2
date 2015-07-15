@@ -12,7 +12,7 @@
 #include <nt2/include/functions/polyder.hpp>
 #include <nt2/include/functions/cons.hpp>
 #include <nt2/include/constants/deginrad.hpp>
-#include <nt2/include/constants/invpi.hpp>
+#include <nt2/include/constants/pi.hpp>
 #include <nt2/core/container/table/table.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>
 #include <nt2/table.hpp>
@@ -53,13 +53,13 @@ namespace nt2 { namespace details
     {
       pol_t p1 = cons<sA0>(of_size(1, 3), -1, 0, -1);
       pol_t p0 = cons<sA0>(of_size(1, 2), -1, 0);
-      compute(pol, p0, p1, Invpi<sA0>());
+      compute(pol, p0, p1, Pi<sA0>());
     }
     static BOOST_FORCEINLINE  void secpi_pl(pol_t& pol)
     {
       pol_t p1 = cons<sA0>(of_size(1, 3), 1, 0, 1);
       pol_t p0 = cons<sA0>(of_size(1, 2), 1, 0);
-      compute(pol, p0, p1, Invpi<sA0>());
+      compute(pol, p0, p1, Pi<sA0>());
     }
   private:
     static BOOST_FORCEINLINE  void compute(pol_t& pol

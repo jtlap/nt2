@@ -18,7 +18,7 @@
 #include <boost/simd/sdk/config.hpp>
 
 #include <nt2/include/constants/oneo_6.hpp>
-#include <nt2/include/constants/invpi.hpp>
+#include <nt2/include/constants/pi.hpp>
 #include <nt2/include/constants/pio_6.hpp>
 #include <iostream>
 
@@ -27,11 +27,11 @@ NT2_TEST_CASE_TPL ( fast_tanpi,  NT2_REAL_TYPES)
   using nt2::fast_tanpi;
   using nt2::fast_tan;
   NT2_TEST_ULP_EQUAL(fast_tanpi<1>(nt2::Oneo_6<T>()),
-                     (fast_tan<1>(nt2::Pio_6<T>())*nt2::pow<1>(nt2::Invpi<T>())), 1.5);
+                     (fast_tan<1>(nt2::Pio_6<T>())*nt2::pow<1>(nt2::Pi<T>())), 1.5);
   NT2_TEST_ULP_EQUAL(fast_tanpi<2>(nt2::Oneo_6<T>()),
-                     (fast_tan<2>(nt2::Pio_6<T>())*nt2::pow<2>(nt2::Invpi<T>())), 2.5);
+                     (fast_tan<2>(nt2::Pio_6<T>())*nt2::pow<2>(nt2::Pi<T>())), 2.5);
   NT2_TEST_ULP_EQUAL(fast_tanpi<3>(nt2::Oneo_6<T>()),
-                     (fast_tan<3>(nt2::Pio_6<T>())*nt2::pow<3>(nt2::Invpi<T>())), 2.5);
+                     (fast_tan<3>(nt2::Pio_6<T>())*nt2::pow<3>(nt2::Pi<T>())), 2.5);
 }
 
 

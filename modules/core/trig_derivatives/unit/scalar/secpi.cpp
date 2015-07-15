@@ -18,7 +18,7 @@
 #include <boost/simd/sdk/config.hpp>
 
 #include <nt2/include/constants/third.hpp>
-#include <nt2/include/constants/invpi.hpp>
+#include <nt2/include/constants/pi.hpp>
 #include <nt2/include/constants/pio_3.hpp>
 
 NT2_TEST_CASE_TPL ( secpi,  NT2_REAL_TYPES)
@@ -28,11 +28,11 @@ NT2_TEST_CASE_TPL ( secpi,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(secpi<0>(nt2::Third<T>()),
                      (sec<0>(nt2::Pio_3<T>())), 1.5);
   NT2_TEST_ULP_EQUAL(secpi<1>(nt2::Third<T>()),
-                     (sec<1>(nt2::Pio_3<T>())*nt2::pow<1>(nt2::Invpi<T>())), 1.5);
+                     (sec<1>(nt2::Pio_3<T>())*nt2::pow<1>(nt2::Pi<T>())), 1.5);
   NT2_TEST_ULP_EQUAL(secpi<2>(nt2::Third<T>()),
-                     (sec<2>(nt2::Pio_3<T>())*nt2::pow<2>(nt2::Invpi<T>())), 2.5);
+                     (sec<2>(nt2::Pio_3<T>())*nt2::pow<2>(nt2::Pi<T>())), 2.5);
   NT2_TEST_ULP_EQUAL(secpi<3>(nt2::Third<T>()),
-                     (sec<3>(nt2::Pio_3<T>())*nt2::pow<3>(nt2::Invpi<T>())), 2.5);
+                     (sec<3>(nt2::Pio_3<T>())*nt2::pow<3>(nt2::Pi<T>())), 2.5);
 }
 
 

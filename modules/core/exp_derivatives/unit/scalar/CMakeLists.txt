@@ -24,7 +24,7 @@ SET( SOURCES
   logspace_sub.cpp
   nthroot.cpp
   pow.cpp
-  powabs.cpp
+  pow_abs.cpp
   reallog.cpp
   realpow.cpp
   realsqrt.cpp

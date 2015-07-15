@@ -18,7 +18,7 @@
 #include <boost/simd/sdk/config.hpp>
 
 #include <nt2/include/constants/third.hpp>
-#include <nt2/include/constants/invpi.hpp>
+#include <nt2/include/constants/pi.hpp>
 #include <nt2/include/constants/pio_3.hpp>
 #include <iostream>
 
@@ -27,11 +27,11 @@ NT2_TEST_CASE_TPL ( cotpi,  NT2_REAL_TYPES)
   using nt2::cotpi;
   using nt2::cot;
   NT2_TEST_ULP_EQUAL(cotpi<1>(nt2::Third<T>()),
-                     (cot<1>(nt2::Pio_3<T>())*nt2::pow<1>(nt2::Invpi<T>())), 1.5);
+                     (cot<1>(nt2::Pio_3<T>())*nt2::pow<1>(nt2::Pi<T>())), 1.5);
   NT2_TEST_ULP_EQUAL(cotpi<2>(nt2::Third<T>()),
-                     (cot<2>(nt2::Pio_3<T>())*nt2::pow<2>(nt2::Invpi<T>())), 1.5);
+                     (cot<2>(nt2::Pio_3<T>())*nt2::pow<2>(nt2::Pi<T>())), 1.5);
   NT2_TEST_ULP_EQUAL(cotpi<3>(nt2::Third<T>()),
-                     (cot<3>(nt2::Pio_3<T>())*nt2::pow<3>(nt2::Invpi<T>())), 2.5);
+                     (cot<3>(nt2::Pio_3<T>())*nt2::pow<3>(nt2::Pi<T>())), 2.5);
 }
 
 

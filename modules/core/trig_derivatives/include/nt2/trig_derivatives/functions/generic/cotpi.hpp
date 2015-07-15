@@ -14,7 +14,7 @@
 #include <nt2/include/functions/simd/polyval.hpp>
 #include <nt2/include/functions/simd/pow.hpp>
 #include <nt2/include/functions/simd/sqr.hpp>
-#include <nt2/include/constants/invpi.hpp>
+#include <nt2/include/constants/pi.hpp>
 #include <nt2/include/constants/two.hpp>
 #include <nt2/include/functor.hpp>
 
@@ -45,14 +45,14 @@ namespace nt2
       BOOST_FORCEINLINE result_type compute(const boost::mpl::long_<1>
                                            , const A0& u) const
       {
-        return -oneplus(sqr(cotpi(u)))*Invpi<result_type>();
+        return -oneplus(sqr(cotpi(u)))*Pi<result_type>();
       }
 
       BOOST_FORCEINLINE result_type compute(const boost::mpl::long_<2>
                                            , const A0& u) const
       {
         result_type x = cotpi(u);
-        return  oneplus(sqr(x))*x*Two<result_type>()*sqr(Invpi<result_type>());
+        return  oneplus(sqr(x))*x*Two<result_type>()*sqr(Pi<result_type>());
       }
 
       template<long P>

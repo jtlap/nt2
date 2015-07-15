@@ -12,7 +12,7 @@
 #include <nt2/include/functions/simd/fast_sincospi.hpp>
 #include <nt2/include/functions/simd/multiplies.hpp>
 #include <nt2/include/functions/simd/pow.hpp>
-#include <nt2/include/constants/invpi.hpp>
+#include <nt2/include/constants/pi.hpp>
 #include <nt2/include/functions/swap.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>
 #include <nt2/include/functor.hpp>
@@ -35,7 +35,7 @@ namespace nt2 { namespace ext
     {
       fast_sincospi(a0, a1, a2);
       compute(order(), a1, a2);
-      sA0 p = pow<order::value>(Invpi<sA0>());
+      sA0 p = pow<order::value>(Pi<sA0>());
       a1 *= p;
       a2 *= p;
     }

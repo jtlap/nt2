@@ -12,7 +12,7 @@
 #include <nt2/include/functions/simd/fast_sinpi.hpp>
 #include <nt2/include/functions/simd/pow.hpp>
 #include <nt2/include/functions/simd/unary_minus.hpp>
-#include <nt2/include/constants/invpi.hpp>
+#include <nt2/include/constants/pi.hpp>
 #include <nt2/include/functor.hpp>
 
 namespace nt2
@@ -32,7 +32,7 @@ namespace nt2
       BOOST_FORCEINLINE result_type operator()(const order&
                                               , const A0& u) const
       {
-        return compute(order(), u)*pow<order::value>(Invpi<sA0>());
+        return compute(order(), u)*pow<order::value>(Pi<sA0>());
       }
     private:
       BOOST_FORCEINLINE result_type compute(const boost::mpl::long_<0>

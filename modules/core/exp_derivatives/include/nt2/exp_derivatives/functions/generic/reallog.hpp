@@ -26,7 +26,7 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type operator()(const order&
                                             , const A0& u) const
     {
-      return if_allbits_else(is_negative(u), log(order(), u));
+      return if_allbits_else(is_negative(u), nt2::log(order(), u));
     }
   };
 } }

@@ -11,7 +11,7 @@
 #include <nt2/include/functions/simd/sincpi.hpp>
 #include <nt2/include/functions/simd/sinc.hpp>
 #include <nt2/include/functions/simd/multiplies.hpp>
-#include <nt2/include/constants/invpi.hpp>
+#include <nt2/include/constants/pi.hpp>
 #include <nt2/include/functor.hpp>
 
 namespace nt2
@@ -30,7 +30,7 @@ namespace nt2
       BOOST_FORCEINLINE result_type operator()(const order&
                                               , const A0& u) const
       {
-        return sinc(order(), u)*pow<order::value>(Invpi<A0>());
+        return sinc(order(), u)*pow<order::value>(Pi<A0>());
       }
    };
   }
