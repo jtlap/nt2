@@ -89,7 +89,8 @@ namespace nt2
 
       node_type * c = new node_type( *(future_res.getWork()),
         details::tbb_task_wrapper<details::empty_functor,whenall_future>
-        (details::empty_functor(), future_res)
+        (details::empty_functor()
+        ,whenall_future(future_res)
         );
 
       future_res.getTaskQueue()->push_back(c);
@@ -112,8 +113,8 @@ namespace nt2
       node_type * c = new node_type( *future_res.getWork(),
         details::tbb_task_wrapper<details::empty_functor,whenall_future>
         ( details::empty_functor()
-          , whenall_future(future_res)
-          )
+        , whenall_future(future_res)
+        )
         );
 
       future_res.getTaskQueue()->push_back(c);
