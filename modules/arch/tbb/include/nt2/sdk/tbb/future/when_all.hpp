@@ -91,6 +91,7 @@ namespace nt2
         details::tbb_task_wrapper<details::empty_functor,whenall_future>
         (details::empty_functor()
         ,whenall_future(future_res)
+        )
         );
 
       future_res.getTaskQueue()->push_back(c);
