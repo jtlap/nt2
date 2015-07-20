@@ -48,7 +48,7 @@ if(NOT DEFINED HPX_LIBRARY_DIR)
   endif()
 endif()
 
-foreach(lib hpx hpx_init hpx_serialization)
+foreach(lib hpx hpx_init)
   string(TOUPPER ${lib} lib_U)
   find_library(${lib_U}_LIBRARY_RELEASE ${lib} PATHS ${HPX_LIBRARY_DIR} PATH_SUFFIXES hpx NO_DEFAULT_PATH)
   find_library(${lib_U}_LIBRARY_RELEASE ${lib} PATH_SUFFIXES hpx)
