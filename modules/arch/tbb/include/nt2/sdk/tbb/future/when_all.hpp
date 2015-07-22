@@ -21,7 +21,7 @@
 #include <nt2/sdk/tbb/future/details/empty_body.hpp>
 
 #include <cstdio>
-#include <tuple>
+#include <initializer_list>
 
 namespace nt2
 {
@@ -38,39 +38,15 @@ namespace nt2
       }
     };
 
-    template<std::size_t N>
-    struct link_nodes
-    {
-      template <class Future, typename Node_raw, typename Tuple>
-      static void call( Future & f
-                      , Node_raw c
-                      , Tuple && a
-                      )
-      {
 
-        tbb::flow::make_edge( *( std::get<N-1>(a).node_ )
-                            , *c
-                            );
-        f.attach_previous_future( std::get<N-1>(a) );
-        link_nodes<N-1>().call(f,c,a);
-      }
-    };
-
-    template<>
-    struct link_nodes<1ul>
+    template <class Future, typename Node_raw, typename A>
+    static void link_node(Future & f, Node_raw & c, A & a)
     {
-      template <class Future, typename Node_raw, typename Tuple>
-      static void call( Future & f
-                      , Node_raw c
-                      , Tuple && a
-                      )
-      {
-        tbb::flow::make_edge( *( std::get<0>(a).node_ )
-                            , *c
-                            );
-        f.attach_previous_future( std::get<0>(a) );
-      }
-    };
+      tbb::flow::make_edge( *(a.node_)
+                          , *c
+                          );
+      f.attach_previous_future( a );
+    }
   }
 
   template<class Site>
@@ -121,10 +97,13 @@ namespace nt2
       future_res.getTaskQueue()->push_back(c);
       future_res.attach_task(c);
 
-      details::link_nodes< sizeof...(A) >()
-      .call(future_res,c,std::tie(a...));
-
-      return future_res;
+      // Some trick to call link_node multiple times
+      return (void)std::initializer_list<int>
+      { ( static_cast<void>( details::link_node(future_res, c, a) )
+        , 0
+        )...
+      }
+      , future_res;
     }
   };
 }
