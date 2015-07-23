@@ -233,6 +233,15 @@ if(NT2_BLAS_VENDOR STREQUAL "OpenBLAS" OR (NOT DEFINED NT2_BLAS_VENDOR AND NOT N
     set(NT2_LAPACK_FOUND FALSE)
     set(NT2_BLAS_LIBRARIES ${NT2_OPENBLAS${STATIC}})
 
+  if(UNIX)
+      set(NT2_BLAS_LIBRARIES -Wl,--start-group ${NT2_BLAS_LIBRARIES} -Wl,--end-group)
+      if(NT2_BLAS_STATIC)
+        set(NT2_BLAS_LIBRARIES ${NT2_BLAS_LIBRARIES} -ldl)
+      endif()
+      set(NT2_BLAS_LIBRARIES ${NT2_BLAS_LIBRARIES} -lpthread)
+  endif()
+
+
     if(NOT DEFINED NT2_BLAS_VENDOR)
       set(NT2_BLAS_VENDOR OpenBLAS)
       message(STATUS "[nt2.blas] OpenBLAS found")
