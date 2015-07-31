@@ -82,10 +82,12 @@ namespace boost { namespace simd { namespace ext
       typedef typename A0::value_type scalar_type;
       typedef typename A0::template rebind<unsigned char>::type u8type;
 
+      typedef boost::mpl::int_<N::value * sizeof(scalar_type)> bitcount;
+
       return bitwise_cast <result_type>
                           ( u8type( _mm_alignr_epi8 ( bitwise_cast<u8type>(a1)
                                                     , bitwise_cast<u8type>(a0)
-                                                    , N::value * sizeof(scalar_type)
+                                                    , bitcount::value
                                                     )
                                   )
                           );
