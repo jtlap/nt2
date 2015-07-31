@@ -132,26 +132,22 @@ void transform_binary_test()
 #define TRANSFORM_UNARY_TEST(I, O)                                             \
 NT2_TEST_CASE_TPL( transform_unary_##I##_##O, BOOST_SIMD_SIMD_TYPES )          \
 {                                                                              \
-    typedef   aligned_vector<T> AI;                                            \
-    typedef unaligned_vector<T> UI;                                            \
-                                                                               \
-    typedef   aligned_vector<T> AO;                                            \
-    typedef unaligned_vector<T> UO;                                            \
-                                                                               \
-    transform_unary_test<T, I, O>();                                           \
+    transform_unary_test<T, I<T>, O<T>>();                                     \
 }
 
 #define TRANSFORM_BINARY_TEST(I1, I2, O)                                       \
 NT2_TEST_CASE_TPL( transform_binary_##I1##_##I2##_##O, BOOST_SIMD_SIMD_TYPES ) \
 {                                                                              \
-    typedef   aligned_vector<T> AI;                                            \
-    typedef unaligned_vector<T> UI;                                            \
-                                                                               \
-    typedef   aligned_vector<T> AO;                                            \
-    typedef unaligned_vector<T> UO;                                            \
-                                                                               \
-    transform_binary_test<T, I1, I2, O>();                                     \
+    transform_binary_test<T, I1<T>, I2<T>, O<T>>();                            \
 }
+
+////////////////////////////////////////////////////////////////////////////////
+// Typedef(s) used by the above macros
+////////////////////////////////////////////////////////////////////////////////
+template <typename T> using AI = aligned_vector<T>;
+template <typename T> using AO = aligned_vector<T>;
+template <typename T> using UI = unaligned_vector<T>;
+template <typename T> using UO = unaligned_vector<T>;
 
 ////////////////////////////////////////////////////////////////////////////////
 // Test boost::simd::transform behavior with unary operation

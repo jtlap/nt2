@@ -37,17 +37,20 @@ struct op_functor {
   }
 };
 
-template<typename T, typename Alloc = boost::simd::allocator<T>, bool force_unaligned = false>
+template< typename T
+        , typename Alloc = boost::simd::allocator<T>
+        , bool ForceUnaligned = false>
 struct transform_base
 {
   typedef void experiment_is_immutable;
 
-  std::size_t extra_size_ = force_unaligned ? 1 : 0;
+  std::size_t extra_size_ = ForceUnaligned ? 1 : 0;
 
   public:
-  transform_base( std::size_t s = 0 )
+  transform_base( std::size_t s )
                 : size_(s) // Do not add `extra_size_` here
-                , out(size_ + extra_size_), in(size_ + extra_size_)
+                , out(size_ + extra_size_)
+                , in(size_ + extra_size_)
   {
     // Just populate with random values
     std::srand(10);
@@ -57,7 +60,7 @@ struct transform_base
   std::size_t size() const { return size_; } // Do not add `extra_size_` here
 
   protected:
-  std::size_t                                 size_;
+  std::size_t            size_;
   std::vector<T, Alloc>  out,in;
 };
 
@@ -73,7 +76,9 @@ std::ostream& operator<<(std::ostream& os, transform_base<T> const& p)
 template<typename T>
 struct C_transform : public transform_base<T>
 {
-  using transform_base<T>::transform_base;
+  C_transform( std::size_t s = 0 )
+      : transform_base<T>(s) {
+  }
 
   void operator()()
   {
@@ -110,7 +115,9 @@ NT2_REGISTER_BENCHMARK_TPL( C_transform, BOOST_SIMD_FLOAT_DOUBLE )
 template<typename T>
 struct std_transform : public transform_base<T>
 {
-  using transform_base<T>::transform_base;
+  std_transform( std::size_t s = 0 )
+      : transform_base<T>(s) {
+  }
 
   void operator()()
   {
@@ -177,7 +184,9 @@ NT2_REGISTER_BENCHMARK_TPL( unaligned_simd_transform, BOOST_SIMD_FLOAT_DOUBLE )
 template<typename T>
 struct aligned_simd_transform : public transform_base<T>
 {
-  using transform_base<T>::transform_base;
+  aligned_simd_transform( std::size_t s = 0 )
+      : transform_base<T>(s) {
+  }
 
   void operator()()
   {
