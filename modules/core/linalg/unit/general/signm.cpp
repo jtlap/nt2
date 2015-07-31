@@ -45,7 +45,6 @@ NT2_TEST_CASE_TPL(signm1, NT2_REAL_TYPES)
 
 NT2_TEST_CASE_TPL ( signm2, NT2_REAL_TYPES)
 {
-  typedef nt2::table<T> table_t;
   typedef std::complex<T> cT;
   nt2::table<cT> n =  nt2::cons<T>(nt2::of_size(4, 4),
                                    0.76781,    0.76816,    0.31533,    0.02304,
@@ -68,8 +67,6 @@ NT2_TEST_CASE_TPL ( signm2, NT2_REAL_TYPES)
 
 NT2_TEST_CASE_TPL ( signm2r, NT2_REAL_TYPES)
 {
-  typedef nt2::table<T> table_t;
-  typedef std::complex<T> cT;
   nt2::table<T> n =  nt2::cons<T>(nt2::of_size(4, 4),
                                    0.76781,    0.76816,    0.31533,    0.02304,
                                    0.00000,    0.64811,    0.10059,    0.93646,
