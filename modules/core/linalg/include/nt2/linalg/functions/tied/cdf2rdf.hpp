@@ -96,13 +96,12 @@ namespace nt2 { namespace ext
                                                          , I<ctype_t>(), One<ctype_t>()
                                                          , -I<ctype_t>());
        auto i2 = _(std::size_t(0), std::size_t(1));
-       std::cout << "i2 "<< i2 << std::endl;
-      for(auto j : index)
-      {
-        ct(i2+j, i2+j) = twobytwo;
-      }
-      boost::proto::child_c<0>(a1) = trans(real(linsolve(ctrans(ct), ctrans(cv))));
-      boost::proto::child_c<1>(a1) = real(mtimes(ct, ctrans(linsolve(ctrans(ct), ctrans(cw)))));
+       for(auto j : index)
+       {
+         ct(i2+j, i2+j) = twobytwo;
+       }
+       boost::proto::child_c<0>(a1) = trans(real(linsolve(ctrans(ct), ctrans(cv))));
+       boost::proto::child_c<1>(a1) = real(mtimes(ct, ctrans(linsolve(ctrans(ct), ctrans(cw)))));
     }
 
 
