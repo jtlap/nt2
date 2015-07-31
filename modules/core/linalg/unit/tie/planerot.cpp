@@ -26,7 +26,7 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/exceptions.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
-#include <nt2/include/functions/lartg.hpp>
+//#include <nt2/include/functions/lartg.hpp>
 
 NT2_TEST_CASE_TPL ( planerot, NT2_REAL_TYPES)
 {
@@ -68,28 +68,6 @@ NT2_TEST_CASE_TPL ( planerot3, NT2_REAL_TYPES)
 
 }
 
-NT2_TEST_CASE_TPL ( planerot4, NT2_REAL_TYPES)
-{
-  typedef nt2::table<T> table_t;
-  table_t x = nt2::rif(2, 1, nt2::meta::as_<T>());
-  T c, s, r;
-  nt2::tie(s, c, r) = nt2::planerot(x, nt2::tag::sincos_());
-  table_t g = nt2::cons(nt2::of_size(2, 2), c, -s, s, c);
-  table_t y = nt2::cons(nt2::of_size(2, 1), r, nt2::Zero<T>());
-  NT2_TEST(nt2::isulpequal(nt2::mtimes(g, x), y));
-  T ff = x(1), gg = x(2);
-  T ss, rr;
-  T cc;
-  nt2::lartg(ff, gg, cc, ss, rr);
-  NT2_DISPLAY(c);
-  NT2_DISPLAY(cc);
-  NT2_DISPLAY(s);
-  NT2_DISPLAY(ss);
-  NT2_DISPLAY(r);
-  NT2_DISPLAY(rr);
-
-
-}
 NT2_TEST_CASE_TPL ( planerotc4, NT2_REAL_TYPES)
 {
   typedef typename std::complex<T> cT;
