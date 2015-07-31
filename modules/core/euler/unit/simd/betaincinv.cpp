@@ -54,7 +54,6 @@ NT2_TEST_CASE_TPL ( betaincinv_2, NT2_REAL_TYPES)
   using boost::simd::native;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef native<T,ext_t>                  vT;
-  typedef typename nt2::meta::call<betaincinv_(vT,vT,vT)>::type r_t;
 
   // specific values tests
   T x[] = {
