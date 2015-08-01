@@ -29,19 +29,19 @@ NT2_TEST_CASE_TPL(pol2cart_table, NT2_REAL_TYPES)
   tab_t r = nt2::linspace(T(1), T(5), nb);
   tab_t  s(nt2::of_size(1, nb)), c(nt2::of_size(1, nb));
   {
-    pol2cart(r, a, s, c);
+    pol2cart(r, a, c, s);
     NT2_TEST_ULP_EQUAL(s, r*nt2::sin(a),0.5);
     NT2_TEST_ULP_EQUAL(c, r*nt2::cos(a),0.5);
   }
 
   {
-    s = pol2cart(r, a, c);
+    c = pol2cart(r, a, s);
     NT2_TEST_ULP_EQUAL(s, r*nt2::sin(a),0.5);
     NT2_TEST_ULP_EQUAL(c, r*nt2::cos(a),0.5);
   }
 
   {
-    nt2::tie(s, c) = pol2cart(r, a);
+    nt2::tie(c, s) = pol2cart(r, a);
     NT2_TEST_ULP_EQUAL(s, r*nt2::sin(a),0.5);
     NT2_TEST_ULP_EQUAL(c, r*nt2::cos(a),0.5);
   }
