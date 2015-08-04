@@ -33,56 +33,6 @@ struct plus
   }
 };
 
-struct plus_one
-{
-  template<class T>
-  T operator()(T const& t0) const
-  {
-    using boost::simd::One;
-    return t0 + One<T>();
-  }
-};
-
-////////////////////////////////////////////////////////////////////////////////
-// Test boost::simd::transform behavior with unary operation
-////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL( transform_unary, BOOST_SIMD_SIMD_TYPES )
-{
-  std::vector<T> data_in(113);
-  for(size_t i=0; i<113; ++i)
-    data_in[i] = T(i);
-
-  std::vector<T> data_out1(113);
-  boost::simd::transform(&*data_in.begin(), &*data_in.begin()+data_in.size(), &*data_out1.begin(), plus_one());
-
-  std::vector<T> data_out2(113);
-  std::transform(&*data_in.begin(), &*data_in.begin()+data_in.size(), &*data_out2.begin(), plus_one());
-
-  NT2_TEST_EQUAL(data_out1, data_out2);
-}
-
-////////////////////////////////////////////////////////////////////////////////
-// Test boost::simd::transform behavior with binary operation
-////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL( transform_binary, BOOST_SIMD_SIMD_TYPES )
-{
-  std::vector<T> data_in1(113);
-  std::vector<T> data_in2(113);
-  for(size_t i=0; i<113; ++i)
-  {
-    data_in1[i] = T(i);
-    data_in2[i] = T(10 + i);
-  }
-
-  std::vector<T> data_out1(113);
-  boost::simd::transform(&*data_in1.begin(), &*data_in1.begin()+data_in1.size(), &*data_in2.begin(), &*data_out1.begin(), plus());
-
-  std::vector<T> data_out2(113);
-  std::transform(&*data_in1.begin(), &*data_in1.begin()+data_in1.size(), &*data_in2.begin(), &*data_out2.begin(), plus());
-
-  NT2_TEST_EQUAL(data_out1, data_out2);
-}
-
 template<typename T> inline void check_accumulate(T* b, T* e)
 {
   T res1 = boost::simd::accumulate(b, e, T(0), plus());

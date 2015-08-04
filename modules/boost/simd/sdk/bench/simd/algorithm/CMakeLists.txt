@@ -8,9 +8,7 @@
 ##############################################################################
 
 SET(  SOURCES
-      bandwidth.cpp
+      transform.cpp
    )
 
-ADD_SUBDIRECTORY(algorithm)
-
-nt2_module_add_tests(boost.simd.sdk.memory.simd.bench ${SOURCES})
+nt2_module_add_tests(boost.simd.sdk.memory.simd.algorithm.bench ${SOURCES})
