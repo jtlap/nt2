@@ -50,6 +50,10 @@ SET( SOURCES
     nanmean.cpp
     nanasum2.cpp
     trapz.cpp
+    trimmean.cpp
+    csum.cpp
+    dcsum.cpp
+    incsum.cpp
 # List of test files for toolbox core.reduction
    )
 
