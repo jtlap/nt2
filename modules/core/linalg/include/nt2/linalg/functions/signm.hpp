@@ -46,7 +46,7 @@ namespace nt2 { namespace tag
    * s = signnm(a) is a matrix such that:
    *
    * (a) mtimes(s, s)= I (s is involutory);
-   * (b) s is diagonalizable with eigenvalues ±1;
+   * (b) s is diagonalizable with eigenvalues +1 or -1;
    * (c) sa = as;
    * (d) if a is real then s is real;
    * (e) (I + s)/2 and (I $B!](B s)/2 are projectors onto the invariant subspaces associated
