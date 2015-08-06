@@ -28,7 +28,7 @@
 #include <nt2/sdk/unit/tests/type_expr.hpp>
 #include <boost/mpl/at.hpp>
 
-NT2_TEST_CASE_TPL ( sph2cart_real__1_0,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( sph2cart_real__1_0,  NT2_SIMD_REAL_TYPES)
 {
 
   using nt2::sph2cart;
