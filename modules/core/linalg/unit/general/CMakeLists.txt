@@ -24,6 +24,7 @@ SET( SOURCES
   rot90.cpp
   rref.cpp
   rref_result.cpp
+  signm.cpp
   sqrtm.cpp
   logm.cpp
   eyeminus.cpp
