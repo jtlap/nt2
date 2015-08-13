@@ -27,7 +27,8 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1) const
     {
-      return result_type(_mm_extract_epi8(a0, A1::value));
+      enum { value = A1::value };
+      return result_type(_mm_extract_epi8(a0, value));
     }
   };
 
@@ -42,7 +43,8 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1) const
     {
-      return result_type(_mm_extract_epi32(a0, A1::value));
+      enum { value = A1::value };
+      return result_type(_mm_extract_epi32(a0, value));
     }
   };
 
@@ -58,7 +60,8 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1) const
     {
-      return result_type(_mm_extract_epi64(a0, A1::value));
+      enum { value = A1::value };
+      return result_type(_mm_extract_epi64(a0, value));
     }
   };
 #endif
@@ -75,7 +78,8 @@ namespace boost { namespace simd { namespace ext
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1) const
     {
       float f;
-      _MM_EXTRACT_FLOAT(f, a0, A1::value);
+      enum { value = A1::value };
+      _MM_EXTRACT_FLOAT(f, a0, value);
       return f;
     }
   };
