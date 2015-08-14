@@ -102,3 +102,16 @@ NT2_TEST_CASE( horzcat_alias )
 
   NT2_TEST_EQUAL(c1, ref);
 }
+
+NT2_TEST_CASE( multi_horzcat )
+{
+  nt2::table<double> c1  = nt2::ones(3, 3);
+  nt2::table<double> c2  = nt2::ones(3, 3)*2.0;
+  nt2::table<double> ref = nt2::ones(3, 9);
+  nt2::table<double> r;
+  r = horzcat(c1, c1, c1, c2);
+
+  NT2_TEST_EQUAL(r, horzcat(ref, c2));
+  NT2_DISPLAY(r);
+}
+

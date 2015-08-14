@@ -15,8 +15,8 @@
  * \ingroup core
  * \defgroup core_is_equal is_equal
  *
- * \par Description
- * Returns true or false according a0 and a1 have same width.
+ * \par Description ... an
+ * Returns true or false according a0 and a1 ... an have all the same width.
  *
  * \par Header file
  *
@@ -30,12 +30,12 @@
  * \code
  * namespace boost::simd
  * {
- *   template <class A0>
- *     bool ofsamewidth(const A0 & a0);
+ *   template <class ...A0>
+ *     bool ofsamewidth(const A0... & a0);
  * }
  * \endcode
  *
- * \param a0 the first parameter of ofsamewidth
+ * \param a0 the pack parameter of ofsamewidth
  *
  * \return a bool value
  *
@@ -65,6 +65,13 @@ namespace nt2
   }
 
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::ofsamewidth_, ofsamewidth, 2)
+
+  template <class T1, class T2, class... Args > bool
+  ofsamewidth(const T1 & f, const T2 & s, const Args&... args)
+  {
+    if (!ofsamewidth(f, s)) return false;
+    return ofsamewidth(s, args...);
+  }
 }
 
 #endif

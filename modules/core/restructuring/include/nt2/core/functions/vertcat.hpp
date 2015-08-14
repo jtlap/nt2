@@ -46,16 +46,16 @@ namespace nt2
 
     @par Semantic:
 
-    For every parameter of type T0
+    For every  table expressions:
 
     @code
-    T0 r = vertcat(a0);
+    auto r = vertcat(a0, a1, ... an);
     @endcode
 
     is similar to:
 
     @code
-    auto r = cat(1, a0, a1);
+    auto r = cat(2, a0, a1, ... an);
     @endcode
 
     @see @funcref{horzcat}, @funcref{cat}
@@ -63,6 +63,8 @@ namespace nt2
     @par alias: @c catv
     @param a0
     @param a1
+    ...
+    @param an
 
     @return an expression which eventually will evaluate to the result
   **/
@@ -73,6 +75,21 @@ namespace nt2
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::vertcat_, catv, 1)
   /// INTERNAL ONLY
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::vertcat_, catv, 2)
+
+  template <class T, class... Args >
+  auto horzcat(const T & f, const Args&... args)
+    -> decltype(cat(1, f, cat(1, args...)))
+  {
+    return cat(1, f, cat(1, args...));
+  }
+
+
+  template <class T, class... Args > auto catv(const T & f, const Args&... args)
+    -> nt2::table <typename T::value_type>
+  {
+    return vertcat(f, args...);
+  }
+
 }
 
 #endif

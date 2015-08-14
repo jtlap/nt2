@@ -51,13 +51,13 @@ namespace nt2
     For every table expressions:
 
     @code
-    auto r = horzcat(a0,a1);
+    auto r = horzcat(a0,a1,..., an);
     @endcode
 
     is similar to:
 
     @code
-    auto r = cat(2, a0, a1);
+    auto r = cat(2, a0, a1, ... an);
     @endcode
 
     @see @funcref{vertcat}, @funcref{cat}
@@ -76,6 +76,21 @@ namespace nt2
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::horzcat_, cath, 1)
   /// INTERNAL ONLY
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::horzcat_, cath, 2)
+
+  template <class T, class... Args >
+  auto horzcat(const T & f, const Args&... args)
+    -> decltype(cat(2, f, cat(2, args...)))
+  {
+    return cat(2, f, cat(2, args...));
+  }
+
+  template <class T, class... Args > auto cath(const T & f, const Args&... args)
+    -> nt2::table <typename T::value_type>
+  {
+    return horzcat(f, args...);
+  }
+
+
 }
 
 #endif

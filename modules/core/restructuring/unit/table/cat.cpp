@@ -106,3 +106,31 @@ NT2_TEST_CASE( cat_empty )
   NT2_TEST_EQUAL(nt2::cat(4,c0, 1.), 1.);
   NT2_TEST_EQUAL(nt2::cat(4,1., c0), 1.);
 }
+
+  template <class I, class R, class T> void cat0(const I & n, R & r, const T & first)
+  {
+    r = cat(n, r, first);
+  }
+  template <class I, class R, class T, class... Args > void cat0(const I & n,
+                                                                     R & r,
+                                                                     const T & first,
+                                                                     const Args&... rest)
+  {
+    r = cat(n, r, first);
+    cat0(n, r, rest...);
+  }
+
+
+NT2_TEST_CASE( multi_cat )
+{
+  nt2::table<double> c1  = nt2::ones(3, 3);
+  nt2::table<double> c2  = nt2::ones(3, 3)*2.0;
+  nt2::table<double> ref = nt2::ones(9, 3);
+  nt2::table<double> r;
+  r = nt2::cat(1, c1, c1, c1);
+  NT2_TEST_EQUAL(r, ref);
+  r = nt2::cat(1, c1, c1, c1, c2);
+  NT2_TEST_EQUAL(r, nt2::cat(1, ref, c2));
+  NT2_DISPLAY(r);
+}
+

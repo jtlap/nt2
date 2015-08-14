@@ -86,3 +86,17 @@ NT2_TEST_CASE( vertcat_empty )
   NT2_TEST_EQUAL(nt2::vertcat(c0, 1.), 1.);
   NT2_TEST_EQUAL(nt2::vertcat(1., c0), 1.);
 }
+
+
+NT2_TEST_CASE( multi_vertcat )
+{
+  nt2::table<double> c1  = nt2::ones(3, 3);
+  nt2::table<double> c2  = nt2::ones(3, 3)*2.0;
+  nt2::table<double> ref = nt2::ones(9, 3);
+  nt2::table<double> r;
+  r = vertcat(c1, c1, c1, c2);
+
+  NT2_TEST_EQUAL(r, vertcat(ref, c2));
+  NT2_DISPLAY(r);
+}
+
