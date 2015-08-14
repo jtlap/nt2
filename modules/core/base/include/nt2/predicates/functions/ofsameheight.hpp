@@ -16,7 +16,7 @@
  * \defgroup core_is_equal is_equal
  *
  * \par Description
- * Returns true or false according a0 and a1 have same height.
+ * Returns true or false according a0 and a1  ... an have all the same height.
  *
  * \par Header file
  *
@@ -32,12 +32,12 @@
  * \code
  * namespace boost::simd
  * {
- *   template <class A0>
- *     bool ofsameheight(const A0 & a0);
+ *   template <class ...A0>
+ *     bool ofsameheight(const A0... & a0);
  * }
  * \endcode
  *
- * \param a0 the first parameter of ofsameheight
+ * \param a0 the pack parameter of ofsameheight
  *
  * \return a bool value
  *
@@ -67,6 +67,14 @@ namespace nt2
   }
 
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::ofsameheight_, ofsameheight, 2)
+
+
+  template <class T1, class T2, class... Args > bool
+  ofsameheight(const T1 & f, const T2 & s, const Args&... args)
+  {
+    if (!ofsameheight(f, s)) return false;
+    return ofsameheight(s, args...);
+  }
 }
 
 #endif

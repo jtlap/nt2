@@ -29,6 +29,34 @@ namespace nt2 { namespace ext
       return width(a0) == width(a1);
     }
   };
+  BOOST_DISPATCH_IMPLEMENT  ( ofsamewidth_, tag::cpu_
+                            , (A0)(A1)
+                            , ((ast_<A0, nt2::container::domain>))
+                              (scalar_<unspecified_<A1>>)
+                            )
+  {
+    typedef bool result_type;
+
+    BOOST_FORCEINLINE
+    result_type operator()(const A0& a0, const A1&) const
+    {
+      return width(a0) == 1;
+    }
+  };
+  BOOST_DISPATCH_IMPLEMENT  ( ofsamewidth_, tag::cpu_
+                            , (A0)(A1)
+                            , (scalar_<unspecified_<A0>>)
+                              ((ast_<A1, nt2::container::domain>))
+                            )
+  {
+    typedef bool result_type;
+
+    BOOST_FORCEINLINE
+    result_type operator()(const A0&, const A1& a1) const
+    {
+      return width(a1) == 1;
+    }
+  };
 } }
 
 #endif

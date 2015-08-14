@@ -73,6 +73,22 @@ namespace nt2
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::vertcat_, catv, 1)
   /// INTERNAL ONLY
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::vertcat_, catv, 2)
+
+  template <class T, class... Args >
+  auto vertcat(const T & f, const Args&... args)
+    -> decltype(cat(1, f, cat(1, args...)))
+  {
+    return cat(1, f, cat(1, args...));
+  }
+
+  template <class T, class... Args >
+  auto cath(const T & f, const Args&... args)
+    ->  decltype(cat(1, f, cat(1, args...)))
+  {
+    return vertcat(f, args...);
+  }
+
+
 }
 
 #endif
