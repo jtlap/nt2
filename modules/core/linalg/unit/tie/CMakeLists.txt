@@ -17,6 +17,7 @@ SET( SOURCES
      qrdelete.cpp
      qrinsert.cpp
      rref.cpp
+     cholupdate.cpp
    )
 
 nt2_module_add_tests(core.linalg.tie.unit ${SOURCES})
