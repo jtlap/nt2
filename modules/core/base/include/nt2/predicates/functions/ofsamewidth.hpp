@@ -35,7 +35,7 @@
  * }
  * \endcode
  *
- * \param a0 the pack parameter of ofsamewidth
+ * \param a0... Pack of paramters to check'
  *
  * \return a bool value
  *

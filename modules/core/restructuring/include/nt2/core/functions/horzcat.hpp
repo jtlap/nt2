@@ -79,20 +79,27 @@ namespace nt2
   /// INTERNAL ONLY
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::horzcat_, cath, 2)
 
-  template <class T, class... Args >
-  auto horzcat(const T & f, const Args&... args)
-    -> decltype(cat(2, f, cat(2, args...)))
+//   template <class F, class S, class... Args >
+//   BOOST_FORCEINLINE
+//   auto horzcat(const F & f, const S & s, const Args&... args)
+//     -> decltype(horzcat(f, horzcat(s, args...)))
+//   {
+//     return horzcat(f, horzcat(s, args...));
+//   }
+  template <class F, class... Args >
+  BOOST_FORCEINLINE
+  auto horzcat(const F & f, const Args&... args)
+    -> decltype(cat(2, f, args...))
   {
-    return cat(2, f, cat(2, args...));
+    return cat(2, f, args...);
   }
-
-  template <class T, class... Args > auto cath(const T & f, const Args&... args)
-    ->  decltype(cat(2, f, cat(2, args...)))
+  template <class F, class... Args >
+  BOOST_FORCEINLINE
+  auto cath(const F & f, const Args&... args)
+    -> decltype(cat(2, f, args...))
   {
-    return horzcat(f, args...);
+    return cat(2, f, args...);
   }
-
-
 }
 
 #endif

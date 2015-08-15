@@ -76,16 +76,16 @@ namespace nt2
 
   template <class T, class... Args >
   auto vertcat(const T & f, const Args&... args)
-    -> decltype(cat(1, f, cat(1, args...)))
+    -> decltype(cat(1, f, args...))
   {
-    return cat(1, f, cat(1, args...));
+    return cat(1, f, args...);
   }
 
   template <class T, class... Args >
-  auto cath(const T & f, const Args&... args)
+  auto catv(const T & f, const Args&... args)
     ->  decltype(cat(1, f, cat(1, args...)))
   {
-    return vertcat(f, args...);
+    return cat(1, f, args...);
   }
 
 

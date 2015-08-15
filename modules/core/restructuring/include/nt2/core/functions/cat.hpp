@@ -48,8 +48,9 @@ namespace nt2
     @param dim Dimension along which to concatenate
     @param a0  First table to concatenate
     @param a1  Second table to concatenate
-
-    @return A lazy expression that will evaluate as the concatenation of a0 and a1
+    ...
+    @param an  nth table to concatenate
+    @return A lazy expression that will evaluate as the concatenation of a0,  a1, ...,  an
 
   **/
   template<class Dimension, class A0, class A1>
@@ -59,6 +60,15 @@ namespace nt2
   {
     return typename make_functor<tag::cat_, A0>::type()(dim,a0,a1);
   }
+
+  template <class I, class F, class S, class... Args >
+  BOOST_FORCEINLINE
+  auto cat(const I & n, const F & f, const S & s, const Args&... args)
+    -> decltype(cat(n, f, cat(n, s, args...)))
+  {
+    return cat(n, f, cat(n, s, args...));
+  }
+
 }
 
 namespace nt2 { namespace ext

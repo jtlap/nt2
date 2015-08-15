@@ -37,7 +37,7 @@
  * }
  * \endcode
  *
- * \param a0 the pack parameter of ofsameheight
+ * \param a0... Pack of paramters to check
  *
  * \return a bool value
  *
