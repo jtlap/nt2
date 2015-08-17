@@ -66,6 +66,17 @@ namespace nt2
     internal_typed_sized_mk(const SIZE& siz, std::size_t j, R& r, const  F& f
                            , const Args& ...args)
     {
+      // this code transposes the lines/colons of each page
+      // so that for example
+      // the call sized_mk(of_size(2, 2),  1, 2,
+      //                                   3, 4);
+      // will produce the same result as matlab syntax
+      //   [1, 2
+      //    3,  4];
+      // not the result of cons(of_size(2, 2),  1, 2,
+      //                                        3, 4);
+      // which produces the same as matlab [ 1, 3
+      //                                     2, 4]
       std::size_t h = boost::fusion::at_c<0>(siz);
       std::size_t w = boost::fusion::at_c<1>(siz);
       std::size_t hw = h*w;
@@ -84,7 +95,7 @@ namespace nt2
     table<F> r(siz);
     r(1) = f;
     details::internal_typed_sized_mk<F>(siz, 1, r, args...);
-    return std::move(r);
+    return r;
   }
 
   template < class T, class SIZE, class F, class S, class ...Args>
@@ -97,7 +108,7 @@ namespace nt2
     r(1) = T(f);
     r(1+height(r)) = T(s);
     details::internal_typed_sized_mk<T>(siz, 2, r, args...);
-    return std::move(r);
+    return r;
   }
 
   template < class T, class SIZE, class F, class S>
@@ -108,7 +119,7 @@ namespace nt2
     BOOST_ASSERT_MSG(numel(r) <= 2u, "not enough initializers");
     r(1) = T(f);
     r(2) = T(s);
-    return std::move(r);
+    return r;
   }
 
   template < class T, class SIZE, class F>
@@ -118,7 +129,7 @@ namespace nt2
     table<T> r(siz);
     BOOST_ASSERT_MSG(numel(r) <= 1u, "not enough initializers");
     r(1) = T(f);
-    return std::move(r);
+    return r;
   }
 
   template < class T, class SIZE>
@@ -126,7 +137,7 @@ namespace nt2
   table<T> sized_mk(const SIZE& siz)
   {
     table<T> r(siz);
-    return std::move(r);
+    return r;
   }
 
 

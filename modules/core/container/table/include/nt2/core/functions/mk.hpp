@@ -70,7 +70,7 @@ namespace nt2
     table<F> r(of_size(1, oneplus(sizeof...(args))));
     r(1) = f;
     details::internal_typed_mk<F>(2, r, args...);
-    return std::move(r);
+    return r;
   }
 
   template < class T, class F, class S, class ...Args>
@@ -81,7 +81,7 @@ namespace nt2
     r(1) = T(f);
     r(2) = T(s);
     details::internal_typed_mk<T>(3, r, args...);
-    return std::move(r);
+    return r;
   }
   template < class T, class F, class S>
   BOOST_FORCEINLINE
@@ -90,7 +90,7 @@ namespace nt2
     table<T> r(of_size(1, 2));
     r(1) = T(f);
     r(2) = T(s);
-    return std::move(r);
+    return r;
   }
 
   template < class T, class F>
@@ -99,7 +99,7 @@ namespace nt2
   {
     table<T> r(of_size(1, 1));
     r(1) = T(f);
-    return std::move(r);
+    return r;
   }
 
 
