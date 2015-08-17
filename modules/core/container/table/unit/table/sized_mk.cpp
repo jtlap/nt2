@@ -11,9 +11,11 @@
 #include <nt2/include/functions/of_size.hpp>
 #include <nt2/include/functions/cons.hpp>
 #include <nt2/include/functions/cat.hpp>
+#include <nt2/include/functions/isempty.hpp>
 #include <boost/array.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/tests/exceptions.hpp>
 #include <nt2/sdk/unit/tests/type_expr.hpp>
@@ -68,4 +70,5 @@ NT2_TEST_CASE_TPL( sized_mk, NT2_TYPES )
 
   NT2_TEST_ASSERT(sized_mk<T>( nt2::of_size(2, 1), 1, 2, 3));
   NT2_TEST_ASSERT(sized_mk<T>( nt2::of_size(2, 1), 1));
+  NT2_TEST(nt2::isempty(sized_mk<T>( nt2::of_size(2, 0))));
 }

@@ -42,10 +42,6 @@ NT2_TEST_CASE_TPL( mk, NT2_TYPES )
                 );
   NT2_TEST_EQUAL( T(1), mk<T>( 1 ));
 
-//   check_properties( mk( T(1.), T(2.), T(3.), T(4.)
-//                         , T(5.), T(6.), T(7.), T(8.)
-//                         )
-//                  );
 }
 NT2_TEST_CASE( mk_int)
 {
@@ -53,50 +49,8 @@ NT2_TEST_CASE( mk_int)
   using nt2::mk;
 
   using T = int;
-  boost::array<T, 8> ref  = {{  T(1.), T(2.), T(3.), T(4.)
-                              , T(5.), T(6.), T(7.), T(8.)
-                            }};
-
-  NT2_TEST_EQUAL( ref, mk ( T(1.), T(2.), T(3.), T(4.)
-                            , T(5.), T(6.), T(7.), T(8.)
-                            )
-                );
-  NT2_TEST_EQUAL( ref, mk( 1, 2, 3, 4
-                            , 5, 6, 7, 8
-                            )
-                );
-
-//   check_properties( mk( T(1.), T(2.), T(3.), T(4.)
-//                         , T(5.), T(6.), T(7.), T(8.)
-//                         )
-//                  );
+  boost::array<T, 8> ref  = {{T(1.), T(2.), T(3.), T(4.), T(5.), T(6.), T(7.), T(8.)}};
+  NT2_TEST_EQUAL( ref, mk(T(1.), T(2.), T(3.), T(4.), T(5.), T(6.), T(7.), T(8.)));
+  NT2_TEST_EQUAL( ref, mk( 1, 2, 3, 4, 5, 6, 7, 8));
 }
 
-// NT2_TEST_CASE_TPL( sized_mk, NT2_TYPES )
-// {
-//   using nt2::table;
-//   using nt2::mk;
-//   using nt2::of_size;
-
-//   boost::array<T, 8> ref  = {{  T(1.), T(2.), T(3.), T(4.)
-//                               , T(5.), T(6.), T(7.), T(8.)
-//                             }};
-
-//   NT2_TEST_EQUAL( ref, mk ( of_size(4,2)
-//                             , T(1.), T(2.), T(3.), T(4.)
-//                             , T(5.), T(6.), T(7.), T(8.)
-//                             )
-//                 );
-
-//   check_properties( mk( of_size(4,2)
-//                         , T(1.), T(2.), T(3.), T(4.)
-//                         , T(5.), T(6.), T(7.), T(8.)
-//                         )
-//                   );
-
-//   NT2_TEST_ASSERT ( mk ( of_size(5,3)
-//                         , T(1.), T(2.), T(3.), T(4.)
-//                         , T(5.), T(6.), T(7.), T(8.)
-//                         )
-//                   );
-// }
