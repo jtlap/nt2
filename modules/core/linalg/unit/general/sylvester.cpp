@@ -36,8 +36,6 @@ NT2_TEST_CASE_TPL(sylvester1, NT2_REAL_TYPES)//distinct eigenvalues
   nt2::table<T> x =  nt2::tril(nt2::reshape(nt2::_(T(1), T(9)), 3, 3));
   nt2::table<T> c =  nt2::mtimes(a, x)+nt2::mtimes(x, b);
   nt2::table<T> r =  sylvester(a, b, c);
-  NT2_DISPLAY(x);
-  NT2_DISPLAY(r);
   std::cout << nt2::globalmax(nt2::abs(r-x)) << std::endl;
   NT2_TEST_EQUAL(r, x);
 
@@ -52,8 +50,6 @@ NT2_TEST_CASE_TPL(sylvester2, NT2_REAL_TYPES)
   nt2::table<T> x =  nt2::reshape(nt2::_(T(1), T(9)), 3, 3);
   nt2::table<T> c =  nt2::mtimes(a, x)+nt2::mtimes(x, b);
   nt2::table<T> r =  sylvester(a, b, c);
-  NT2_DISPLAY(x);
-  NT2_DISPLAY(r);
   std::cout << nt2::globalmax(nt2::abs(r-x)) << std::endl;
   NT2_TEST_EQUAL(r, x);
 

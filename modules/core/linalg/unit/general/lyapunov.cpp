@@ -34,8 +34,6 @@ NT2_TEST_CASE_TPL(lyapunov1, NT2_REAL_TYPES)
   nt2::table<T> x =  nt2::tril(nt2::reshape(nt2::_(T(1), T(9)), 3, 3));
   nt2::table<T> c =  nt2::mtimes(ctrans(a), x)+nt2::mtimes(x, a);
   nt2::table<T> r =  lyapunov(a, c);
-  NT2_DISPLAY(x);
-  NT2_DISPLAY(r);
   std::cout << nt2::globalmax(nt2::abs(r-x)) << std::endl;
   NT2_TEST_LESSER(nt2::globalmax(nt2::abs(r-x)), nt2::Eps<T>()*numel(x));
 
