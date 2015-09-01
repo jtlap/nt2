@@ -36,7 +36,7 @@
 #include <nt2/linalg/options.hpp>
 
 
-NT2_TEST_CASE_TPL(rsf2csf, (double)) //NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL(rsf2csf, NT2_REAL_TYPES)
 {
   using nt2::rsf2csf;
   using nt2::mtimes;
@@ -50,12 +50,9 @@ NT2_TEST_CASE_TPL(rsf2csf, (double)) //NT2_REAL_TYPES)
   t_t t;
   nt2::tie(u, t) = schur(b);
   NT2_TEST_LESSER(nt2::globalmax(nt2::abs(mtimes( u, t)-mtimes(b, u))), 8*nt2::Eps<T>());
-  NT2_DISPLAY(u);
-  NT2_DISPLAY(t);
   ct_t cu, ct;
   nt2::tie(cu, ct) = rsf2csf(u, t);
   NT2_TEST_LESSER(nt2::globalmax(nt2::abs(mtimes( cu, ct)-mtimes(b, cu))), 8*nt2::Eps<T>());
-  NT2_DISPLAY(cu);
-  NT2_DISPLAY(ct);
+
 }
 

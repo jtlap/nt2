@@ -45,7 +45,6 @@ NT2_TEST_CASE_TPL(cdf2rdf, NT2_REAL_TYPES)
   typedef nt2::table<T> t_t;
   typedef nt2::table<cT> ct_t;
   t_t b =      nt2::cons<T>(nt2::of_size(3, 3), 0, 1, 0, -1, 0, 0, 0, 0, 1);
-  NT2_DISPLAY(b);
   ct_t cw;
   ct_t cv;
   nt2::tie(cv, cw) = nseig(b);
