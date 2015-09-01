@@ -9,6 +9,7 @@
 
 SET( SOURCES
      balance.cpp
+     cdf2rdf.cpp
      geneig.cpp
      nseig.cpp
      qr.cpp
@@ -17,6 +18,7 @@ SET( SOURCES
      qrdelete.cpp
      qrinsert.cpp
      rref.cpp
+     rsf2csf.cpp
    )
 
 nt2_module_add_tests(core.linalg.tie.unit ${SOURCES})
