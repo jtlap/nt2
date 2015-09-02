@@ -15,6 +15,7 @@ SET ( NT2_CORE.INTERPOL_DEPENDENCIES_EXTRA
       core.generative
       core.reduction
       core.restructuring
+      core.linalg
       core.sdk
       sdk.functor
       sdk.meta

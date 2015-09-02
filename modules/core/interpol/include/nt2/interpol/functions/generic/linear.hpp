@@ -1,6 +1,7 @@
 //==============================================================================
 //         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
 //         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2015          J.T. Lapreste
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -10,24 +11,23 @@
 #define NT2_INTERPOL_FUNCTIONS_GENERIC_LINEAR_HPP_INCLUDED
 
 #include <nt2/interpol/functions/linear.hpp>
-#include <nt2/include/functions/is_nge.hpp>
-#include <nt2/include/functions/is_nle.hpp>
-#include <nt2/include/functions/bsearch.hpp>
-#include <nt2/include/functions/if_else.hpp>
+#include <nt2/include/functions/average.hpp>
+#include <nt2/include/functions/colvect.hpp>
+#include <nt2/include/functions/expand_to.hpp>
 #include <nt2/include/functions/fma.hpp>
-#include <nt2/include/functions/logical_or.hpp>
+#include <nt2/include/functions/height.hpp>
+#include <nt2/include/functions/issorted.hpp>
+#include <nt2/include/functions/if_else.hpp>
+#include <nt2/include/functions/isvector.hpp>
 #include <nt2/include/functions/oneminus.hpp>
 #include <nt2/include/functions/oneplus.hpp>
-#include <nt2/include/functions/repnum.hpp>
-#include <nt2/include/functions/first_index.hpp>
 #include <nt2/include/functions/width.hpp>
-#include <nt2/include/functions/average.hpp>
-#include <nt2/include/functions/issorted.hpp>
 #include <nt2/include/constants/nan.hpp>
 #include <nt2/core/container/table/table.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
-#include <nt2/sdk/meta/as_logical.hpp>
 #include <boost/assert.hpp>
+#include <nt2/interpol/functions/details/bsearch.hpp>
+#include <nt2/interpol/functions/details/extrapol.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -81,28 +81,41 @@ namespace nt2 { namespace ext
 
     result_type operator()(A0& yi, A1& inputs) const
     {
-      yi.resize(inputs.extent());
-      const child0 & x   =  boost::proto::child_c<0>(inputs);
-      if (numel(x) <=  1)
-        BOOST_ASSERT_MSG(numel(x) >  1, "Interpolation requires at least two sample points in each dimension.");
+      const child0 & x0   =  boost::proto::child_c<0>(inputs);
+      if (numel(x0) <=  1)
+        BOOST_ASSERT_MSG(numel(x0) >  1, "Interpolation requires at least two sample points in each dimension.");
       else
       {
+        BOOST_ASSERT_MSG(isvector(x0), "x parameter must be a vector");
+        table<value_type> x =  colvect(x0); // make sure x is column vector
         BOOST_ASSERT_MSG(issorted(x, 'a'), "for 'linear' interpolation x values must be sorted in ascending order");
         const child1 & y   =  boost::proto::child_c<1>(inputs);
-        BOOST_ASSERT_MSG(numel(x) == numel(y), "The grid vectors do not define a grid of points that match the given values.");
-        const child2 & xi  =  boost::proto::child_c<2>(inputs);
+        BOOST_ASSERT_MSG((numel(x) == height(y) || (isvector(y) && (numel(x) == numel(y))))
+                        , "The grid vectors do not define a grid of points that match the given values.");
+        const child2 & xi0  =  boost::proto::child_c<2>(inputs);
+        auto xi =  colvect(xi0);
         bool extrap = false;
         value_type extrapval = Nan<value_type>();
         choices(inputs, extrap, extrapval, N1());
-        table<index_type>   index = bsearch (x, xi);
+        table<index_type>   index;
+        details::bsearch (index, x, xi);
         table<value_type>  dx    =  xi-x(index);
-        yi =  fma(oneminus(dx), y(index), dx*y(oneplus(index)));
-        value_type  b =  value_type(x(begin_));
-        value_type  e =  value_type(x(end_));
-        if (!extrap) yi = nt2::if_else(nt2::logical_or(boost::simd::is_nge(xi, b),
-                                                       boost::simd::is_nle(xi, e)), extrapval, yi);
+        if(isvector(y))
+        {
+          yi =  fma(oneminus(dx), colvect(y)(index), dx*colvect(y)(oneplus(index)));
+        }
+        else
+        {
+          auto dx1 = expand_to(dx, size( y(index,nt2::_)));
+          yi =  fma(oneminus(dx1), y(index,nt2::_), dx1*y(oneplus(index), nt2::_));
+        }
+        if (!extrap)
+        {
+          auto sizee = of_size(height(xi0), width(xi0), width(y)); // this is incorrect if xi0 is properly _3D
+          details::extrapol(yi, x, xi, extrapval, sizee);
+        }
       }
-      return yi;
+     return yi;
     }
   private :
     static void choices(const A1&, bool &,  value_type&, boost::mpl::long_<3> const &)

@@ -12,10 +12,11 @@
 #include <nt2/interpol/functions/interp1.hpp>
 #include <nt2/include/functions/is_nge.hpp>
 #include <nt2/include/functions/is_nle.hpp>
-#include <nt2/include/functions/bsearch.hpp>
 #include <nt2/include/functions/if_else.hpp>
 #include <nt2/include/functions/nearest.hpp>
 #include <nt2/include/functions/linear.hpp>
+#include <nt2/include/functions/pchip.hpp>
+#include <nt2/include/functions/spline.hpp>
 #include <nt2/include/constants/nan.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/core/container/table/table.hpp>
@@ -74,11 +75,11 @@ namespace nt2 { namespace ext
       const child2 & xi  =  boost::proto::child_c<2>(inputs);
       switch (method)
       {
-        case 'n' : yi = nearest(x, y, xi);  return yi;
-          //          case 's' : yi = spline(x, y, xi);return yi;
-          //           case 'c' : yi = cubic(x, y, xi);return yi;
-          //           case 'p' : yi = pship(x, y, xi);return yi;
-        default  : yi = linear(x, y, xi); return yi;
+      case 'n' : yi = nearest(x, y, xi);  return yi;
+      case 's' : yi = spline(x, y, xi);return yi;
+      case 'c' :
+      case 'p' : yi = pchip(x, y, xi);return yi;
+      default  : yi = linear(x, y, xi); return yi;
       }
       return yi;
     }
@@ -92,11 +93,11 @@ namespace nt2 { namespace ext
       const child4 & ext =  boost::proto::child_c<4>(inputs);
       switch (method)
       {
-        case 'n' : yi = nearest(x, y, xi, ext); return yi;
-          //           case 's' : yi = spline(x, y, xi, ext);return yi;
-          //           case 'c' : yi = cubic(x, y, xi, ext);return yi;
-          //           case 'p' : yi = pship(x, y, xi, ext);return yi;
-        default  : yi = linear(x, y, xi, ext); return yi;
+      case 'n' : yi = nearest(x, y, xi, ext); return yi;
+      case 's' : yi = spline(x, y, xi, ext);return yi;
+      case 'c' :
+      case 'p' : yi = pchip(x, y, xi, ext);return yi;
+      default  : yi = linear(x, y, xi, ext); return yi;
       }
     }
   };

@@ -10,11 +10,25 @@
 #define NT2_INTERPOL_FUNCTIONS_GENERIC_PCHIP_HPP_INCLUDED
 
 #include <nt2/interpol/functions/pchip.hpp>
+#include <nt2/include/functions/expand_to.hpp>
+#include <nt2/include/functions/globalnone.hpp>
+#include <nt2/include/functions/imag.hpp>
+#include <nt2/include/functions/iscolumn.hpp>
+#include <nt2/include/functions/is_nan.hpp>
+#include <nt2/include/functions/lastnonsingleton.hpp>
+#include <nt2/include/functions/numel.hpp>
+#include <nt2/include/functions/real.hpp>
+#include <nt2/include/functions/rowvect.hpp>
+#include <nt2/include/functions/tocomplex.hpp>
+#include <nt2/include/functions/zeros.hpp>
+
+#include <nt2/interpol/functions/details/extrapol.hpp>
+
 #include <nt2/include/functions/ppval.hpp>
+#include <nt2/include/functions/pwch.hpp>
 #include <nt2/include/functions/is_nge.hpp>
 #include <nt2/include/functions/is_nle.hpp>
 #include <nt2/include/functions/issorted.hpp>
-#include <nt2/include/functions/bsearch.hpp>
 #include <nt2/include/functions/diff.hpp>
 #include <nt2/include/functions/conj.hpp>
 #include <nt2/include/functions/abs.hpp>
@@ -32,7 +46,6 @@
 #include <nt2/include/functions/first_index.hpp>
 #include <nt2/include/functions/isreal.hpp>
 #include <nt2/include/functions/colvect.hpp>
-#include <nt2/include/functions/rowvect.hpp>
 #include <nt2/include/functions/transpose.hpp>
 #include <nt2/include/functions/reshape.hpp>
 #include <nt2/include/functions/vertcat.hpp>
@@ -46,7 +59,8 @@
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/sdk/meta/as_logical.hpp>
 #include <boost/assert.hpp>
-
+#include <nt2/sdk/complex/meta/is_complex.hpp>
+#include <boost/mpl/bool.hpp>
 namespace nt2 { namespace ext
 {
   BOOST_DISPATCH_IMPLEMENT  ( pchip_, tag::cpu_
@@ -92,48 +106,53 @@ namespace nt2 { namespace ext
     typedef typename boost::proto::result_of::child_c<A1&,0>::value_type  child0;
     typedef typename boost::proto::result_of::child_c<A1&,1>::value_type  child1;
     typedef typename boost::proto::result_of::child_c<A1&,2>::value_type  child2;
-    typedef typename child0::value_type                               value_type;
-    typedef typename meta::as_integer<value_type>::type               index_type;
+    typedef typename child0::value_type                                   x_type;
+    typedef typename child1::value_type                               value_type;
+    typedef typename meta::as_integer<x_type>::type                   index_type;
+    typedef table<x_type>                                                 xtab_t;
     typedef table<value_type>                                             vtab_t;
     typedef table<index_type>                                             itab_t;
     typedef A0&                                                      result_type;
-
+    typedef typename meta::is_complex<value_type>::type               is_cmplx_t;
 
     result_type operator()(A0& yi, A1& inputs) const
     {
-      yi.resize(inputs.extent());
-      const child0 & x   =  boost::proto::child_c<0>(inputs);
-      if (numel(x) <=  1)
-        BOOST_ASSERT_MSG(numel(x) >  1, "Interpolation requires at least two sample points in each dimension.");
-      else
-      {
-        BOOST_ASSERT_MSG(issorted(x, 'a'), "for 'pchip' interpolation x values must be sorted in ascending order");
-        const child1 & y   =  boost::proto::child_c<1>(inputs);
-        BOOST_ASSERT_MSG(numel(x) == numel(y), "The grid vectors do not define a grid of points that match the given values.");
-        const child2 & xi  =  boost::proto::child_c<2>(inputs);
-        bool extrap = false;
-        value_type extrapval = Nan<value_type>();
-        choices(inputs, extrap, extrapval, N1());
-        vtab_t h  =  nt2::diff(x,1,2);
-        vtab_t del = nt2::diff(y,1,2)/h;
-        pchipslopes(x,y,del, yi);
-        ppval <value_type> pp(x,y,yi,h,del);
-        yi =pp.eval(xi);
-        if (!extrap)
-        {
-          value_type  b =  value_type(x(begin_));
-          value_type  e =  value_type(x(end_));
-          yi = nt2::if_else(nt2::logical_or(boost::simd::is_nge(xi, b),
-                                            boost::simd::is_nle(xi, e)), extrapval, yi);
-        }
-      }
+      BOOST_ASSERT_MSG(!is_cmplx_t::value, "Interpolation requires real abscissae.");
+      const child0 & xx   =  boost::proto::child_c<0>(inputs);
+      const child1 & yy   =  boost::proto::child_c<1>(inputs);
+//      auto sizey = size(yy);
+      table<x_type> x = xx;
+      table<value_type> y = yy;
+      check(x, y);
+      const child2 & xi  =  boost::proto::child_c<2>(inputs);
+      bool extrap = false;
+      value_type extrapval = Nan<value_type>();
+      choices(inputs, extrap, extrapval, N1());
 
-       return yi;
+      xtab_t h  =  nt2::diff(x);
+
+      vtab_t del = nt2::diff(y,1,2);
+      del /= expand_to(h, size(del));
+      yi = zeros(of_size(height(y), numel(x)), meta::as_< value_type>());
+      for(size_t r=1; r <= size(y, 1); ++r)
+      {
+        yi(r, _) = pchipslopes(x,y(r, _),del(r, _), is_cmplx_t());
+      }
+      ppval <value_type> pp = pwch(x,y,yi,h,del);
+      yi =pp.eval(xi);
+      if (!extrap)
+      {
+        auto sizee = of_size(height(xi), width(xi), width(y)); // this is incorrect if xi0 is properly _3D
+        details::extrapol(yi, x, xi, extrapval, sizee);
+      }
+      return yi;
     }
   private :
-    static void choices(const A1&, bool &,  value_type&, boost::mpl::long_<3> const &)
+    static void choices(const A1&, bool &,  value_type&
+                       , boost::mpl::long_<3> const &)
     { }
-    static void choices(const A1& inputs, bool & extrap,  value_type& extrapval, boost::mpl::long_<4> const &)
+    static void choices(const A1& inputs, bool & extrap
+                       , value_type& extrapval, boost::mpl::long_<4> const &)
     {
       typedef typename boost::proto::result_of::child_c<A1&,3>::type             child3;
       typedef typename meta::scalar_of<child3>::type                    cref_param_type;
@@ -148,64 +167,154 @@ namespace nt2 { namespace ext
     {
       extrapval =  boost::proto::child_c<3>(inputs);
     }
-
-    static void pchipslopes(const child0 & x, const child1 & y, const vtab_t &del, A0& d)
+    template <class D>
+    static table<x_type> pchipslopes(const xtab_t & x, const vtab_t & y
+                                    , const D &del, const  boost::mpl::false_ &)
     {
       itab_t k;
       size_t n =  length(x);
+      table<value_type> d;
       if (nt2::numel(x) == 2)
       {
-        d =  nt2::repnum(value_type(del(begin_)), 1, width(y)); // del(begin_) is not of value_type !
+        d =  nt2::repnum(del(1), size(y));
       }
       else
       {
-        d =  nt2::zeros(1, width(y), nt2::meta::as_<value_type>());
-        //if (/* nt2::isreal(del)*/ true) //to do proper version for real types
-        { // is k 1 based or 0,  I hope 1 here ?
-          k = nt2::globalfind(nt2::is_gtz(nt2::multiplies(nt2::sign(del(nt2::_(begin_, begin_+n-3))), nt2::sign(del(nt2::_(begin_+1, begin_+n-2))))), nt2::meta::as_<index_type>());
-        }
-/*
-        else
+        d =  nt2::zeros(size(y), nt2::meta::as_<value_type>());
+        k = nt2::globalfind(nt2::is_gtz(nt2::multiplies(nt2::sign(del(nt2::_(begin_, begin_+n-3)))
+                                                       , nt2::sign(del(nt2::_(begin_+1, begin_+n-2)))))
+                           , nt2::meta::as_<index_type>());
+        itab_t kp1 = oneplus(k);
+        itab_t kp2 = oneplus(kp1);
+        vtab_t h = nt2::diff(x, 1, 2);
+        vtab_t hs = h(1, k)+h(1, kp1);
+        vtab_t w1 = (h(1, k)+hs)/(Three<value_type>()*hs);
+        vtab_t w2 = (hs+h(1, kp1))/(Three<value_type>()*hs);
+        vtab_t dmax = nt2::max(nt2::abs(del(1, k)), nt2::abs(del(1, kp1)));
+        vtab_t dmin = nt2::min(nt2::abs(del(1, k)), nt2::abs(del(1, kp1)));
+        d(kp1) = dmin/nt2::conj(nt2::multiplies(w1,(del(1, k)/dmax))
+                                + nt2::multiplies(w2, (del(1, kp1)/dmax)));
+        //   Slopes at end points.
+        //   Set d(0) and d(n-1) via non-centered, shape-preserving three-point formulae.
+        d(1) = ((2*h(1)+h(2))*del(1) - h(1)*del(2))/(h(1)+h(2));
+        if ((nt2::sign(d(nt2::first_index<1>(d))) != nt2::sign(del(1))))
         {
-          k = nt2::globalfind(nt2::logical_and(is_eqz(del(nt2::_(begin_, begin_+n-3))), is_eqz(del(nt2::_(begin_+1,begin_+n-2)))), nt2::meta::as_<index_type>());
+          d(nt2::first_index<2>(d)) = Zero<value_type>();
         }
-*/      }
-      itab_t kp1 = oneplus(k);
-      itab_t kp2 = oneplus(kp1);
-      vtab_t h = nt2::diff(x, 1, 2);
-      vtab_t hs = h(1, k)+h(1, kp1);
-      vtab_t w1 = (h(1, k)+hs)/(Three<value_type>()*hs);
-      vtab_t w2 = (hs+h(1, kp1))/(Three<value_type>()*hs);
-      vtab_t dmax = nt2::max(nt2::abs(del(1, k)), nt2::abs(del(1, kp1)));
-      vtab_t dmin = nt2::min(nt2::abs(del(1, k)), nt2::abs(del(1, kp1)));
-      d(kp1) = dmin/nt2::conj(nt2::multiplies(w1,(del(1, k)/dmax)) + nt2::multiplies(w2, (del(1, kp1)/dmax)));
-      //   Slopes at end points.
-      //   Set d(0) and d(n-1) via non-centered, shape-preserving three-point formulae.
-      d(1) = ((2*h(1)+h(2))*del(1) - h(1)*del(2))/(h(1)+h(2));
-      if (/*nt2::isreal(d) && */(nt2::sign(d(nt2::first_index<1>(d))) != nt2::sign(del(1))))
-      {
-        d(nt2::first_index<2>(d)) = Zero<value_type>();
+        else if ((nt2::sign(del(1)) != nt2::sign(del(1))) &&
+                 (nt2::abs(d(nt2::first_index<1>(d))) > nt2::abs(Three<value_type>()*del(1))))
+        {
+          d(nt2::first_index<2>(d)) = Three<value_type>()*del(1);
+        }
+        d(nt2::last_index<2>(d)) = ((Two<value_type>()*h(n-1)+h(n-2))*del(n-1)
+                                    - h(n-1)*del(n-2))/(h(n-1)+h(n-2));
+        if ((nt2::sign(d(nt2::last_index<1>(d))) != nt2::sign(del(n-1))))
+        {
+          d(nt2::last_index<2>(d)) = Zero<value_type>();
+        }
+        else if ((nt2::sign(del(n-1)) != nt2::sign(del(n-2))) &&
+                 (nt2::abs(d(nt2::last_index<1>(d))) > nt2::abs(Three<value_type>()*del(n-1))))
+        {
+          d(nt2::last_index<2>(d)) = 3*del(n-1);
+        }
       }
-      else if ((nt2::sign(del(1)) != nt2::sign(del(1))) &&
-               (nt2::abs(d(nt2::first_index<1>(d))) > nt2::abs(Three<value_type>()*del(1))))
-      {
-        d(nt2::first_index<2>(d)) = Three<value_type>()*del(1);
-      }
-      //      index_type end = n;
-      //     NT2_DISPLAY(h);
-      d(nt2::last_index<2>(d)) = ((Two<value_type>()*h(n-1)+h(n-2))*del(n-1) - h(n-1)*del(n-2))/(h(n-1)+h(n-2));
-      if (/*isreal(d) &&*/ (nt2::sign(d(nt2::last_index<1>(d))) != nt2::sign(del(n-1))))
-      {
-        d(nt2::last_index<2>(d)) = Zero<value_type>();
-      }
-      else if ((nt2::sign(del(n-1)) != nt2::sign(del(n-2))) &&
-               (nt2::abs(d(nt2::last_index<1>(d))) > nt2::abs(Three<value_type>()*del(n-1))))
-      {
-        d(nt2::last_index<2>(d)) = 3*del(n-1);
-      }
+      return d;
     }
+    template <class D>
+    static table<value_type> pchipslopes(const xtab_t & x, const vtab_t & y
+                                        , const D &del, const  boost::mpl::true_ &)
+    {
+      auto dr = pchipslopes(x, real(y), real(del), boost::mpl::false_());
+      auto di = pchipslopes(x, imag(y), imag(del), boost::mpl::false_());
+      return tocomplex(dr, di);
+    }
+
+    //   [x,y,sizey] = chckxy(xin,yin, sizey, x, y) checks the data sites x and corresponding data
+    //   values y, making certain that there are exactly as many sites as values,
+    //   that no two data sites are the same, removing any data points that involve
+    //   nans, reordering the sites if necessary to ensure that x is a strictly
+    //   increasing row vector and reordering the data values correspondingly,
+    //   and reshaping y if necessary to make sure that it is a matrix, with y(:,j)
+    //   the data value corresponding to the data site x(j), and with sizey the
+    //   actual dimensions of the given values.
+    //   this call to chckxy is suitable for pchip.
+    //
+    //   [x,y,sizey,endslopes] = chckxy(x,y) also considers the possibility that
+
+    //   if there are, then the first and the last data value are removed from y
+    //   and returned separately as endslopes. otherwise, an empty endslopes is
+    //   returned.  this call to chckxy is suitable for spline.
+    //    template < class Xin, class Yin,  class Xout, class Yout>
+
+    BOOST_FORCEINLINE
+    static void check(xtab_t & x, vtab_t& y)
+    {
+      BOOST_ASSERT_MSG(globalnone(is_nan(x)), "x contains Nans");
+      BOOST_ASSERT_MSG(numel(x) >  1, "Interpolation requires at least two sample points in each dimension.");
+      BOOST_ASSERT_MSG(issorted(x, 'a'), "for 'pchip' interpolation x values must be sorted in ascending order");
+      x =  rowvect(x);
+      BOOST_ASSERT_MSG(globalnone(is_nan(y)), "y contains Nans");
+      size_t yn = size(y, lastnonsingleton(y));
+      size_t yd =  numel(y)/yn;
+      if (!iscolumn(y))
+      {
+        y =  reshape(y, yd, yn);
+      }
+      else
+      {
+        y =  rowvect(y);
+
+      }
+      BOOST_ASSERT_MSG(numel(x) == width(y), "The grid vectors do not define a grid of points that match the given values.");
+    }
+
+
   };
 } }
 
 
 #endif
+//   //function d = pchipslopes(x,y,del)
+//   //PCHIPSLOPES  Derivative values for shape-preserving Piecewise Cubic Hermite
+//   // Interpolation.
+//   // d = pchipslopes(x,y,del) computes the first derivatives, d(k) = P'(x(k)).
+
+//   //  Special case n=2, use linear interpolation.
+
+//    n = length(x);
+//    if n==2
+//       d = repmat(del(1),size(y));
+//       return
+//    end
+
+//   //  Slopes at interior points.
+//   //  d(k) = weighted average of del(k-1) and del(k) when they have the same sign.
+//   //  d(k) = 0 when del(k-1) and del(k) have opposites signs or either is zero.
+
+//    d = zeros(size(y));
+
+//    k = find(sign(del(1:n-2)).*sign(del(2:n-1)) > 0);
+
+//    h = diff(x);
+//    hs = h(k)+h(k+1);
+//    w1 = (h(k)+hs)./(3*hs);
+//    w2 = (hs+h(k+1))./(3*hs);
+//    dmax = max(abs(del(k)), abs(del(k+1)));
+//    dmin = min(abs(del(k)), abs(del(k+1)));
+//    d(k+1) = dmin./conj(w1.*(del(k)./dmax) + w2.*(del(k+1)./dmax));
+
+//   //  Slopes at end points.
+//   //  Set d(1) and d(n) via non-centered, shape-preserving three-point formulae.
+
+//    d(1) = ((2*h(1)+h(2))*del(1) - h(1)*del(2))/(h(1)+h(2));
+//    if sign(d(1)) ~= sign(del(1))
+//       d(1) = 0;
+//    elseif (sign(del(1)) ~= sign(del(2))) && (abs(d(1)) > abs(3*del(1)))
+//       d(1) = 3*del(1);
+//    end
+//    d(n) = ((2*h(n-1)+h(n-2))*del(n-1) - h(n-1)*del(n-2))/(h(n-1)+h(n-2));
+//    if sign(d(n)) ~= sign(del(n-1))
+//       d(n) = 0;
+//    elseif (sign(del(n-1)) ~= sign(del(n-2))) && (abs(d(n)) > abs(3*del(n-1)))
+//       d(n) = 3*del(n-1);
+//    end

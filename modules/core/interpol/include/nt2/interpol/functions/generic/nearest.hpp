@@ -1,6 +1,7 @@
 //==============================================================================
 //         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
 //         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2015          J.T. Lapreste
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -10,25 +11,22 @@
 #define NT2_INTERPOL_FUNCTIONS_GENERIC_NEAREST_HPP_INCLUDED
 
 #include <nt2/interpol/functions/nearest.hpp>
-#include <nt2/include/functions/is_nge.hpp>
-#include <nt2/include/functions/is_nle.hpp>
+#include <nt2/include/functions/height.hpp>
 #include <nt2/include/functions/is_equal.hpp>
 #include <nt2/include/functions/issorted.hpp>
-#include <nt2/include/functions/bsearch.hpp>
+#include <nt2/include/functions/isvector.hpp>
 #include <nt2/include/functions/if_else.hpp>
-#include <nt2/include/functions/fma.hpp>
-#include <nt2/include/functions/logical_or.hpp>
-#include <nt2/include/functions/oneminus.hpp>
 #include <nt2/include/functions/oneplus.hpp>
-#include <nt2/include/functions/repnum.hpp>
 #include <nt2/include/functions/width.hpp>
-#include <nt2/include/functions/average.hpp>
 #include <nt2/include/functions/numel.hpp>
 #include <nt2/include/constants/nan.hpp>
 #include <nt2/core/container/table/table.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
-#include <nt2/sdk/meta/as_logical.hpp>
 #include <boost/assert.hpp>
+#include <nt2/core/container/colon/colon.hpp>
+#include <nt2/interpol/functions/details/bsearch.hpp>
+#include <nt2/interpol/functions/details/extrapol.hpp>
+
 
 namespace nt2 { namespace ext
 {
@@ -82,36 +80,46 @@ namespace nt2 { namespace ext
 
     result_type operator()(A0& yi, A1& inputs) const
     {
-      yi.resize(inputs.extent());
-      const child0 & x   =  boost::proto::child_c<0>(inputs);
+      const child0 & x  =  boost::proto::child_c<0>(inputs);
       if (numel(x) <=  1)
         BOOST_ASSERT_MSG(numel(x) >  1, "Interpolation requires at least two sample points in each dimension.");
       else
       {
         BOOST_ASSERT_MSG(issorted(x, 'a'), "for 'nearest' interpolation x values must be sorted in ascending order");
         const child1 & y   =  boost::proto::child_c<1>(inputs);
-        BOOST_ASSERT_MSG(numel(x) == numel(y), "The grid vectors do not define a grid of points that match the given values.");
-        const child2 & xi  =  boost::proto::child_c<2>(inputs);
+        BOOST_ASSERT_MSG((numel(x) == height(y) || (isvector(y) && (numel(x) == numel(y))))
+                        , "The grid vectors do not define a grid of points that match the given values.");
+        const child2 & xi0  =  boost::proto::child_c<2>(inputs);
+        auto xi =  rowvect(xi0);
         bool extrap = false;
         value_type extrapval = Nan<value_type>();
         choices(inputs, extrap, extrapval, N1());
-        table<index_type>   index = bsearch (x, xi);
+        table<index_type> index;
+        details::bsearch (index, x, xi);
         table<value_type>  dx    =  xi-x(index);
         table<index_type> indexp1 =  oneplus(index);
-        yi = y(nt2::if_else(lt(nt2::abs(xi-x(index)), nt2::abs(xi-x(indexp1))), index,  indexp1));
-        value_type  b =  value_type(x(begin_));
-        value_type  e =  value_type(x(end_));
-        if (!extrap) yi = nt2::if_else(nt2::logical_or(boost::simd::is_nge(xi, b),
-                                                       boost::simd::is_nle(xi, e)), extrapval, yi);
+        auto test = nt2::if_else(lt(nt2::abs(xi-x(index)), nt2::abs(xi-x(indexp1))), index,  indexp1);
+        if(isvector(y))
+        {
+          yi = y(test);
+        }
+        else
+        {
+          yi = y(test, nt2::_);
+        }
+        if (!extrap)
+        {
+          auto sizee = of_size(height(xi0), width(xi0), width(y)); // this is incorrect if xi0 is properly _3D
+          details::extrapol(yi, x, xi, extrapval, sizee);
+        }
       }
-
       return yi;
     }
   private :
     static void choices(const A1&, bool &,  value_type&, boost::mpl::long_<3> const &)
-      { }
+    { }
     static void choices(const A1& inputs, bool & extrap,  value_type& extrapval, boost::mpl::long_<4> const &)
-      {
+    {
         typedef typename boost::proto::result_of::child_c<A1&,3>::type             child3;
         typedef typename meta::scalar_of<child3>::type                    cref_param_type;
         typedef typename meta::strip<cref_param_type>::type                    param_type;
@@ -127,20 +135,6 @@ namespace nt2 { namespace ext
       }
   };
 } }
-
-// template < class XPR1, class XPR2,  class XPRi>
-// nc::array < typename ttt::float_promotion <typename XPRi::type_t >::type_t >
-// itp_nearest(const XPR1 & x, const XPR2 & y, const XPRi & xi, bool extrap = false) {
-//   typedef ne::Matricial_Checks < check_on_t > mc_t;
-//   mc_t::DimensionsTest(__FILE__, __LINE__, "itp_nearest", x, y);
-//   mc_t::RowTest  (__FILE__, __LINE__, x);
-//   mc_t::SortedTest(__FILE__, __LINE__, x);
-//   typedef typename  ttt::float_promotion <typename XPRi::type_t >::type_t  float_t;
-//   nc::array < ptrdiff_t > index = bsearch (x, xi);
-//   nc::array < float_t > yi =  where(abs(xi-x(index)) <  abs(xi-x(index+1)), y(index),  y(index+1));
-//   if(!extrap) yi(xi < float_t(x(Begin())) || xi >  float_t(x(End()))) = NaN < float_t > ();
-//   return yi;
-// }
 
 
 #endif
