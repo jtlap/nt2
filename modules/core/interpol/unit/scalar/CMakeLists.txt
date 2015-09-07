@@ -16,6 +16,9 @@ SET( SOURCES
   interp1.cpp
   pchip.cpp
   spline.cpp
+  binearest.cpp
+  bilinear.cpp
+  bipchip.cpp
   # List of scalar test files for toolbox interpol
    )
 
