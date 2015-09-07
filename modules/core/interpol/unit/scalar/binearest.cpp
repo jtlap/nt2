@@ -44,7 +44,6 @@ NT2_TEST_CASE_TPL( binearest, NT2_REAL_TYPES )
   xi =  nt2::linspace(T(1),  T(4), 12);
   yi =  nt2::linspace(T(0),  T(3), 12);
   zi = nt2::binearest(x, y, z, xi, yi);
-  NT2_DISPLAY(zi);
   ri =  nt2::cons<T>( nt2::Nan<T>(), nt2::Nan<T>(), nt2::Nan<T>(), nt2::Nan<T>(), 5, 5, 10, 10
                     , nt2::Nan<T>(), nt2::Nan<T>(), nt2::Nan<T>(), nt2::Nan<T>());
   NT2_TEST_EQUAL(ri, zi);
@@ -63,10 +62,7 @@ NT2_TEST_CASE_TPL( binearest2, NT2_REAL_TYPES )
 
   nt2::table<T> xxi, yyi;
   nt2::tie(xxi, yyi) = nt2::meshgrid(xi, yi);
-  NT2_DISPLAY(xxi);
-  NT2_DISPLAY(yyi);
   nt2::table<T> zi = nt2::binearest(x, y, z, xxi, yyi);
-  NT2_DISPLAY(zi);
   nt2::table<T> ri =  nt2::trans(nt2::cons<T>(nt2::of_size(5, 5),
                                               1,    5,    5,    9,    9,
                                               2,    6,    6,   10,   10,
@@ -90,10 +86,7 @@ NT2_TEST_CASE_TPL( binearestc, NT2_REAL_TYPES )
 
   nt2::table<T> xxi, yyi;
   nt2::tie(xxi, yyi) = nt2::meshgrid(xi, yi);
-  NT2_DISPLAY(xxi);
-  NT2_DISPLAY(yyi);
   nt2::table<cT> zi = nt2::binearest(x, y, z, xxi, yyi);
-  NT2_DISPLAY(zi);
   nt2::table<T> ri =  nt2::trans(nt2::cons<T>(nt2::of_size(5, 5),
                                               1,    5,    5,    9,    9,
                                               2,    6,    6,   10,   10,

@@ -49,11 +49,6 @@ NT2_TEST_CASE_TPL( bipchip, (double))//NT2_REAL_TYPES )
   nt2::table<T> xxi, yyi;
   tie(xxi, yyi) = meshgrid(xi, yi);
   zi = nt2::bipchip(x, y, z, xxi, yyi);
-  NT2_DISPLAY(x);
-  NT2_DISPLAY(y);
-  NT2_DISPLAY(xxi);
-  NT2_DISPLAY(yyi);
-  NT2_DISPLAY(zi);
   nt2::table<T> r2i =  nt2::trans(
     nt2::cons<T>(nt2::of_size(4, 3),
                  1, 4.333333333333333, 7.66666666666666, 11,
@@ -79,10 +74,7 @@ NT2_TEST_CASE_TPL( bipchip2, NT2_REAL_TYPES )
 
   nt2::table<T> xxi, yyi;
   nt2::tie(xxi, yyi) = nt2::meshgrid(xi, yi);
-  NT2_DISPLAY(xxi);
-  NT2_DISPLAY(yyi);
   nt2::table<T> zi = nt2::bipchip(x, y, z, xxi, yyi);
-  NT2_DISPLAY(zi);
   nt2::table<T> ri =  nt2::trans(nt2::cons<T>(nt2::of_size(5, 5),
                                               1.00000000000000,    3.00000000000000,    5.00000000000000,    7.00000000000000,    9.00000000000000,
                                               1.75000000000000,    3.75000000000000,    5.75000000000000,    7.75000000000000,    9.75000000000000,

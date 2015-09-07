@@ -49,7 +49,6 @@ NT2_TEST_CASE_TPL( bilinear, NT2_REAL_TYPES )
   xi =  nt2::linspace(T(1),  T(4), 12);
   yi =  nt2::linspace(T(0),  T(3), 12);
   zi = nt2::bilinear(x, y, z, xi, yi);
-  NT2_DISPLAY(zi);
   ri =  nt2::cons<T>( nt2::Nan<T>(), nt2::Nan<T>(), nt2::Nan<T>(), nt2::Nan<T>(),
                       5.45454545454545,   6.81818181818182,   8.18181818181818,   9.54545454545454,
                      nt2::Nan<T>(), nt2::Nan<T>(), nt2::Nan<T>(), nt2::Nan<T>());
@@ -70,10 +69,7 @@ NT2_TEST_CASE_TPL( bilinear, NT2_REAL_TYPES )
 
   nt2::table<T> xxi, yyi;
   nt2::tie(xxi, yyi) = nt2::meshgrid(xi, yi);
-  NT2_DISPLAY(xxi);
-  NT2_DISPLAY(yyi);
   nt2::table<T> zi = nt2::bilinear(x, y, z, xxi, yyi);
-  NT2_DISPLAY(zi);
   nt2::table<T> ri =  nt2::trans(
     nt2::cons<T>(nt2::of_size(5, 5),
                  1.00000000000000,    3.00000000000000,    5.00000000000000,    7.00000000000000,    9.00000000000000,
@@ -98,10 +94,7 @@ NT2_TEST_CASE_TPL( bilinearc, NT2_REAL_TYPES )
 
   nt2::table<T> xxi, yyi;
   nt2::tie(xxi, yyi) = nt2::meshgrid(xi, yi);
-  NT2_DISPLAY(xxi);
-  NT2_DISPLAY(yyi);
   nt2::table<cT> zi = nt2::bilinear(x, y, z, xxi, yyi);
-  NT2_DISPLAY(zi);
   nt2::table<T> ri =  nt2::trans(
     nt2::cons<T>(nt2::of_size(5, 5),
                  1.00000000000000,    3.00000000000000,    5.00000000000000,    7.00000000000000,    9.00000000000000,
