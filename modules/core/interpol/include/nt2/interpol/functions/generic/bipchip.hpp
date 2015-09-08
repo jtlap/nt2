@@ -10,21 +10,15 @@
 
 #include <nt2/interpol/functions/bipchip.hpp>
 #include <nt2/include/functions/average.hpp>
-#include <nt2/include/functions/bsearch.hpp>
+#include <nt2/include/functions/dec.hpp>
 #include <nt2/include/functions/fms.hpp>
+#include <nt2/include/functions/fma.hpp>
+#include <nt2/include/functions/fnms.hpp>
 #include <nt2/include/functions/height.hpp>
-#include <nt2/include/functions/inc.hpp>
-#include <nt2/include/functions/is_equal.hpp>
-#include <nt2/include/functions/issorted.hpp>
-#include <nt2/include/functions/isvector.hpp>
-#include <nt2/include/functions/if_else.hpp>
 #include <nt2/include/functions/multiplies.hpp>
 #include <nt2/include/functions/numel.hpp>
-#include <nt2/include/functions/oneplus.hpp>
-#include <nt2/include/functions/selinc.hpp>
 #include <nt2/include/functions/sqr.hpp>
 #include <nt2/include/functions/sub2ind.hpp>
-#include <nt2/include/functions/transpose.hpp>
 #include <nt2/include/functions/width.hpp>
 #include <nt2/include/functions/zeros.hpp>
 #include <nt2/include/constants/nan.hpp>
@@ -298,20 +292,10 @@ namespace nt2 { namespace ext
          auto tx = (xi - rowvect(x(indx))) / hx;
          auto ty = (yi - rowvect(y(indy))) / hy;
          //        construct the cubic hermite base functions in x, y
-//  TO DO use fma inc and an auxilliary function to half the code
-         xtab_t xb(of_size(2, numel(xi), 2));
-         auto tx2 = sqr(tx);
-         xb(1, _, 1)= (Two<x_type>()*tx-Three<x_type>())*tx2+One<x_type>(); //11 ( 2*t.^3 - 3*t.^2     + 1);
-         xb(2, _, 1)= hx*((tx +Mtwo<x_type>())*tx)*tx + tx;                 //21   h.*(   t.^3 - 2*t.^2 + t    );
-         xb(1, _, 2)= (Mtwo<x_type>()*tx + Three<x_type>())*tx2;            //12 (-2*t.^3 + 3*t.^2        );
-         xb(2, _, 2)= hx*(tx2-tx)*tx;                                       //22 h.*(t.^3 -   t.^2        );
 
+         cub(tx, hx, xb);
          xtab_t yb(of_size(2, numel(xi), 2));
-         auto ty2 = sqr(ty);
-         yb(1, _, 1)= (Two<x_type>()*ty-Three<x_type>())*ty2+One<x_type>(); //11 ( 2*t.^3 - 3*t.^2     + 1);
-         yb(2, _, 1)= hy*((ty +Mtwo<x_type>())*ty)*ty + ty;                 //21   h.*(   t.^3 - 2*t.^2 + t    );
-         yb(1, _, 2)= (Mtwo<x_type>()*ty + Three<x_type>())*ty2;            //12 (-2*t.^3 + 3*t.^2        );
-         yb(2, _, 2)= hy*(ty2-ty)*ty;                                       //22 h.*(t.^3 -   t.^2        );
+         cub(ty, hy, yb);
          zi = zeros(size(xi), meta::as_<x_type>());
          for (size_t i = 1;  i <= 2; ++i)
          {
@@ -346,6 +330,18 @@ namespace nt2 { namespace ext
     {
       extrapval =  boost::proto::child_c<3>(inputs);
     }
+    //        construct the cubic hermite base functions
+    template < class T, class H, class B>
+    static BOOST_FORCEINLINE void  cub( const T& t, const H & h, B& b)
+    {
+      auto t2 = sqr(t);
+      auto t3mt2 = fms(t2, t, t2);
+      b(1, _, 1)= fms(t3mt2, Two<x_type>(), dec(t2)); //11 ( 2*t.^3 - 3*t.^2     + 1);
+      b(2, _, 1)= h*fma(t+Mtwo<x_type>(), t2, t);     //21   h.*(   t.^3 - 2*t.^2 + t    );
+      b(1, _, 2)= fnms(Two<x_type>(), t3mt2, t2);     //12 (-2*t.^3 + 3*t.^2        );
+      b(2, _, 2)= h*t3mt2;                            //22 h.*(t.^3 -   t.^2        );
+    }
+
   };
 } }
 
