@@ -109,25 +109,8 @@ namespace nt2 { namespace ext
       for(size_t i=2; i <= order; ++i){
         val = fma(xi(_), val, coefs(index,i));
       }
-//       auto sizee = of_size(height(xxi), width(xxi), depth(coefs)); // this is incorrect if xi0 is properly _3D
-//       val = nt2::reshape(val, sizee);
       return val;
     }
-
-//     template <class XPR> vtab_t eval(const XPR & xxi)
-//     {
-//       xtab_t xi =  xxi;
-//       itab_t index;
-//       details::bsearch (index, breaks, xi);
-//       xi -= breaks(index);
-//       vtab_t val   = coefs(index, 1);
-//       for(size_t i=2; i <= order; ++i){
-//         val = fma(xi(_), val, coefs(index,i));
-//       }
-// //       auto sizee = of_size(height(xxi), width(xxi), depth(coefs)); // this is incorrect if xi0 is properly _3D
-// //       val = nt2::reshape(val, sizee);
-//       return val;
-//     }
 
   private :
     std::string form;

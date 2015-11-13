@@ -90,15 +90,3 @@ NT2_TEST_CASE_TPL( nearest5, NT2_REAL_TYPES )
   nt2::table<T> yi = nt2::spline(x, y3, xi);
   NT2_TEST_ULP_EQUAL(r3(_), yi, 1);
 }
-
-
-
-
-
-
-
-
-
-
-
-
